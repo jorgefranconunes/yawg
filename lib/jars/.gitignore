@@ -1,0 +1,4 @@
+#
+# JAR files are never to be included in the Git repo.
+#
+*.jar

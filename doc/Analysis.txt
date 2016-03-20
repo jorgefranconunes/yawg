@@ -1,0 +1,10 @@
+YAWG - Yet Another Wiki Generator
+
+
+Products in the same area as Yawg:
+
+* Awestruct - http://awestruct.org/
+
+* JBake - http://jbake.org/
+
+* Jekyll - http://jekyllrb.com/

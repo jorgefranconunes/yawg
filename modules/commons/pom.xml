@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+
+Copyright (c) 2015 Jorge Nunes, All Rights Reserved.
+
+-->
+
+<project
+   xmlns="http://maven.apache.org/POM/4.0.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <packaging>jar</packaging>
+
+  <groupId>com.varmateo.yawg</groupId>
+  <artifactId>yawg-commons</artifactId>
+
+  <parent>
+    <groupId>com.varmateo.yawg</groupId>
+    <artifactId>yawg-main</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>..</relativePath>
+  </parent>
+
+
+
+
+
+
+  <!--  -->
+
+    <dependencies>
+
+      <dependency>
+        <groupId>commons-cli</groupId>
+        <artifactId>commons-cli</artifactId>
+        <version>${commons-cli.version}</version>
+      </dependency>
+        
+      <!-- JUnit -->
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+    </dependencies>
+
+
+
+
+
+  <!-- More project information. -->
+
+  <name>Yawg Commons Library</name>
+
+  <description>Common utility classes used in multiple
+  modules.</description>
+
+
+</project>
+
