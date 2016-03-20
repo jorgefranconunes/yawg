@@ -1,0 +1,5 @@
+Yawg is copyrighted software by Jorge Nunes
+<jorgefranconunes@gmail.com>.
+
+You can use it free of charge, redistribute it and/or modify it under
+the terms of the GPL v3 (see COPYING.txt file).
