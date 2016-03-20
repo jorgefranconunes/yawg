@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2015 Jorge Nunes, All Rights Reserved.
+ * Copyright (c) 2015-2016 Jorge Nunes, All Rights Reserved.
  *
  **************************************************************************/
 
@@ -221,7 +221,7 @@ public final class CliOption
  *
  **************************************************************************/
 
-    Option apacheOption() {
+    /* package private */ Option apacheOption() {
 
         return _apacheOption;
     }
