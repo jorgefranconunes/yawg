@@ -31,6 +31,7 @@ Copyright (c) 2015-2016 Jorge Nunes, All Rights Reserved.
     <skipTests>true</skipTests>
 
     <!-- Versions of dependencies and Maven plugins. -->
+    <jacoco-maven-plugin.version>0.7.6.201602180812</jacoco-maven-plugin.version>
     <junit.version>4.11</junit.version>
     <commons-cli.version>1.2</commons-cli.version>
     <maven-clean-plugin.version>2.6.1</maven-clean-plugin.version>
@@ -167,6 +168,51 @@ Copyright (c) 2015-2016 Jorge Nunes, All Rights Reserved.
     </profile>
 
 
+    <profile>
+      <id>yawg-jacoco</id>
+      <activation>
+        <property>
+          <name>skipTests</name>
+          <value>false</value>
+        </property>
+      </activation>
+
+      <build>
+        <plugins>
+
+          <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>${jacoco-maven-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>default-prepare-agent</id>
+                <goals>
+                  <goal>prepare-agent</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>default-report</id>
+                <phase>prepare-package</phase>
+                <goals>
+                  <goal>report</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>default-check</id>
+                <goals>
+                  <goal>check</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+        </plugins>
+      </build>
+
+    </profile>
+
+
   </profiles>
 
 
@@ -238,6 +284,12 @@ Copyright (c) 2015-2016 Jorge Nunes, All Rights Reserved.
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-report-plugin</artifactId>
         <version>${maven-surefire-report-plugin.version}</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${jacoco-maven-plugin.version}</version>
       </plugin>
 
     </plugins>

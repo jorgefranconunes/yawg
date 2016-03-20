@@ -29,12 +29,12 @@ public final class CliOption
     private String  _shortName   = null;
     private String  _longName    = null;
     private String  _description = null;
-    private boolean _isWithArg   = false;
     private String  _argName     = null;
 
     // Derived from the other attributes.
-    private String  _name    = null;
+    private String  _name = null;
     private String  _literal = null;
+    private boolean _isWithArg = false;
 
     private Option  _apacheOption = null;
 
@@ -53,11 +53,11 @@ public final class CliOption
         _shortName   = builder._shortName;
         _longName    = builder._longName;
         _description = builder._description;
-        _isWithArg   = builder._isWithArg;
         _argName     = builder._argName;
 
-        _name    = (_longName!=null) ? _longName : _shortName;
+        _name = (_longName!=null) ? _longName : _shortName;
         _literal = (_longName!=null) ? ("--"+_longName) : ("-"+_shortName);
+        _isWithArg = (_argName!=null);
         
         _apacheOption = buildApacheOption(this);
     }
@@ -246,7 +246,6 @@ public final class CliOption
         private String  _shortName   = null;
         private String  _longName    = null;
         private String  _description = null;
-        private boolean _isWithArg   = false;
         private String  _argName     = null;
 
 
@@ -311,23 +310,6 @@ public final class CliOption
         public Builder setDescription(final String description) {
 
             _description = description;
-
-            return this;
-        }
-
-
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-
-        public Builder setWithArg(final boolean isWithArg) {
-
-            _isWithArg = isWithArg;
 
             return this;
         }
