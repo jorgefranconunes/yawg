@@ -60,7 +60,7 @@ public final class YawgCliOptions
  *
  **************************************************************************/
 
-    private static Collection<CliOption> _options = null;
+    private static final Collection<CliOption> _options;
 
     static {
         CliOption[] allOptions = {

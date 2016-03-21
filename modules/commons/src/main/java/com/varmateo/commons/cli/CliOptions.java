@@ -91,14 +91,14 @@ public final class CliOptions
         try {
             cmdLine = cliParser.parse(apacheOptions, args, false);
         } catch ( ParseException e ) {
-            raiseCliError(apacheOptions, e);
+            raiseCliException(apacheOptions, e);
         }
 
         if ( cmdLine.getArgList().size() > 0 ) {
             // There were arguments that were not options. We require
             // all arguments to be options, thus this is an invalid
             // command line.
-            String   msg     = "invalid option {0}";
+            String   msg     = "unknown option {0}";
             Object[] fmtArgs = { cmdLine.getArgList().get(0) };
             CliException.raise(msg, fmtArgs);
         }
@@ -140,8 +140,8 @@ public final class CliOptions
  *
  **************************************************************************/
 
-    private static void raiseCliError(final Options  options,
-                                      final ParseException e)
+    private static void raiseCliException(final Options  options,
+                                          final ParseException e)
         throws CliException {
 
         String   msg     = null;
