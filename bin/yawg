@@ -12,6 +12,7 @@ _scriptDir=$(dirname $0)
 _scriptName=$(basename $0)
 _yawgHome=$(cd $_scriptDir/..; pwd)
 
+source ${_yawgHome}/lib/bash/yawg-utils.sh
 source ${_yawgHome}/conf/yawg-defaults.conf
 
 
