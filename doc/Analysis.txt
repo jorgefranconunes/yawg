@@ -8,3 +8,24 @@ Products in the same area as Yawg:
 * JBake - http://jbake.org/
 
 * Jekyll - http://jekyllrb.com/
+
+
+
+
+
+YawgBaker
+
+Performs the generation of the site from the input source.
+
+Configuration:
+
+* Source directory - Each file from the input directory will be copied
+  to the target directory. The directory structure will be preserved
+  on the target directory. Each file can also potentially be
+  transformed.
+
+* Target directory - Root directory where all files originating from
+  the source and resources directories will be copied to.
+
+* Resources directory - Directory whose contents will be copied as is
+  to the target directory.

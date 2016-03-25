@@ -171,10 +171,12 @@ Copyright (c) 2015-2016 Jorge Nunes, All Rights Reserved.
 
     <profile>
       <id>yawg-jacoco</id>
+
+      <!-- Activate JaCoCo code coverage analysis only when generating
+           the Maven site with all the code quality reports. -->
       <activation>
         <property>
-          <name>skipTests</name>
-          <value>false</value>
+          <name>yawg.mavensite</name>
         </property>
       </activation>
 

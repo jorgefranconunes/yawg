@@ -1,0 +1,114 @@
+#!/bin/bash
+###########################################################################
+#
+# Copyright (c) 2016 Jorge Nunes, All Rights Reserved.
+#
+#
+# Launches the yawg CLI application.
+#
+###########################################################################
+
+_scriptDir=$(dirname $0)
+_scriptName=$(basename $0)
+_yawgHome=$(cd $_scriptDir/..; pwd)
+
+source ${_yawgHome}/conf/yawg-defaults.conf
+
+
+
+
+
+_yawgJre=
+
+
+
+
+
+###########################################################################
+#
+# The main program.
+#
+###########################################################################
+
+function main () {
+
+    findJre
+
+    local mainJar=${_yawgHome}/lib/jars/yawg-cli-${YAWG_VERSION}.jar
+
+    exec "${_yawgJre}" \
+        -jar "${mainJar}" \
+        "$@"
+}
+
+
+
+
+
+###########################################################################
+#
+# Attempts to locate a JRE from YAWG_JAVA_HOME, JAVA_HOME, and "java".
+#
+###########################################################################
+
+function findJre () {
+
+    local candidateJre=
+
+    if [ -z "${candidateJre}" ] ; then
+        if [ ! -z "${YAWG_JAVA_HOME}" ] ; then
+            candidateJre=${YAWG_JAVA_HOME}/bin/java
+        fi
+    fi
+
+    if [ -z "${candidateJre}" ] ; then
+        if [ ! -z "${JAVA_HOME}" ] ; then
+            candidateJre=${JAVA_HOME}/bin/java
+        fi
+    fi
+
+    if [ -z "${candidateJre}" ] ; then
+        if type java > /dev/null 2>&1 ; then
+            candidateJre="java"
+        fi
+    fi
+
+    if [ -z "${candidateJre}" ] ; then
+        yawgError "Unable to find suitable JRE."
+    fi
+
+    _yawgJre=${candidateJre}
+}
+
+
+
+
+
+###########################################################################
+#
+# Displays a message to stderr and exits the process.
+#
+# Arguments: 
+#
+# 1. The message to be displayed.
+#
+###########################################################################
+
+function yawgError () {
+
+    echo "ERROR:" "$@" >&2
+    exit 1
+}
+
+
+
+
+
+###########################################################################
+#
+# The main script.
+#
+###########################################################################
+
+main "$@"
+
