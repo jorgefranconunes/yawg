@@ -29,7 +29,13 @@ public final class YawgInfo
 
     private static final String PROP_VERSION = "version";
 
-    private static Properties _props = new Properties();
+
+    public static final String VERSION;
+
+    public static final String PRODUCT_NAME = "Yawg";
+
+    public static final String COPYRIGHT_HEADER =
+        "Copyright (c) 2016 Jorge Nunes";
 
 
 /**
@@ -37,12 +43,13 @@ public final class YawgInfo
  */
     static {
         String resourcePath = RESOURCE;
+        Properties props = new Properties();
 
         try ( InputStream input =
               YawgInfo.class.getResourceAsStream(resourcePath) ) {
 
             if ( input != null ) {
-                _props.load(input);
+                props.load(input);
             } else {
                 Exceptions.raise(IllegalStateException.class,
                                  "Missing resource \"{0}\"",
@@ -54,6 +61,8 @@ public final class YawgInfo
                              "Failed to read resource \"{0}\"",
                              resourcePath);
         }
+
+        VERSION = props.getProperty(PROP_VERSION);
     }
 
 
@@ -69,23 +78,6 @@ public final class YawgInfo
     private YawgInfo() {
 
         // Nothing to do.
-    }
-
-
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-
-    public static String version() {
-
-        String result = _props.getProperty(PROP_VERSION);
-
-        return result;
     }
 
 

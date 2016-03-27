@@ -31,7 +31,7 @@ public final class YawgInfoTest
     public void checkVersion() {
 
         String expectedVersion = getYawgVersion();
-        String actualVersion   = YawgInfo.version();
+        String actualVersion   = YawgInfo.VERSION;
 
         assertEquals(expectedVersion, actualVersion);
     }

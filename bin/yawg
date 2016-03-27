@@ -20,7 +20,7 @@ source ${_yawgHome}/conf/yawg-defaults.conf
 
 
 _yawgJre=
-
+_logConf=${_yawgHome}/conf/logging.properties
 
 
 
@@ -38,6 +38,7 @@ function main () {
     local mainJar=${_yawgHome}/lib/jars/yawg-cli-${YAWG_VERSION}.jar
 
     exec "${_yawgJre}" \
+        -Djava.util.logging.config.file=${_logConf} \
         -jar "${mainJar}" \
         "$@"
 }

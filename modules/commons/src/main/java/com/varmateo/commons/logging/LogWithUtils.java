@@ -1,50 +1,100 @@
 /**************************************************************************
  *
- * Copyright (c) 2015 Jorge Nunes, All Rights Reserved.
+ * Copyright (c) 2016 Jorge Nunes, All Rights Reserved.
  *
  **************************************************************************/
 
 package com.varmateo.commons.logging;
 
-import com.varmateo.commons.logging.Log;
+import java.util.function.Supplier;
 
 
-
-
-
-/***************************************************************************
- *
- * A wrapper for an existing <code>Log</code>, intended to be
- * augmented by derived classes.
- *
- ***************************************************************************/
-
-public abstract class LogWrapper
+/**
+ * Extends the logger interface with additional utility methods.
+ */
+public final class LogWithUtils
     extends Object
     implements Log {
 
 
+    private final Log _myLog;
 
 
 
-    private Log _logger = null;
+    /**
+     *
+     */
+    private LogWithUtils(final Log myLog) {
+
+        _myLog = myLog;
+    }
 
 
 
 
 
-/***************************************************************************
- *
- * Specifies the wrapper logger to be used.
- *
- * @param logger The <code>Log</code> instance to whom all methods
- * delegate to.
- *
- ***************************************************************************/
+    /**
+     *
+     */
+    public static LogWithUtils from(final Log myLog) {
 
-    protected LogWrapper(final Log logger) {
+        LogWithUtils result = new LogWithUtils(myLog);
 
-        _logger = logger;
+        return result;
+    }
+
+
+
+
+
+    /**
+     *
+     */
+    public static LogWithUtils createFor(final Object owner) {
+
+        Log          myLog  = LogFactory.createFor(owner);
+        LogWithUtils result = LogWithUtils.from(myLog);
+
+        return result;
+    }
+
+
+
+
+
+    /**
+     *
+     */
+    public void logDelay(
+            final String   subject,
+            final Runnable runnable) {
+
+        Supplier<Void> supplier = () -> {
+            runnable.run();
+            return null;
+        };
+        logDelay(subject, supplier);
+    }
+
+
+
+
+
+    /**
+     *
+     */
+    public <T> T logDelay(final String      subject,
+                          final Supplier<T> action) {
+
+        _myLog.info("Starting {0}...", subject);
+
+        long startTime = System.currentTimeMillis();
+        T result = action.get();
+        long delay = System.currentTimeMillis() - startTime;
+
+        _myLog.info("Done {0} (delay {1}ms)", subject, delay);
+
+        return result;
     }
 
 
@@ -60,7 +110,7 @@ public abstract class LogWrapper
     @Override
     public void warning(final String msg) {
 
-        _logger.warning(msg);
+        _myLog.warning(msg);
     }
 
 
@@ -69,12 +119,7 @@ public abstract class LogWrapper
 
 /***************************************************************************
  *
- * Log a WARNING message.
- *
- * @param msg The log message format.
- *
- * @param fmtArgs Formating arguments used when generating the actual
- * message that is logged.
+ * {@inheritDoc}
  *
  ***************************************************************************/
 
@@ -82,7 +127,7 @@ public abstract class LogWrapper
     public void warning(final String    msg,
                         final Object... fmtArgs) {
 
-        _logger.warning(msg, fmtArgs);
+        _myLog.warning(msg, fmtArgs);
     }
 
 
@@ -91,14 +136,7 @@ public abstract class LogWrapper
 
 /***************************************************************************
  *
- * Log a WARNING message.
- *
- * @param error The exception associated with the log message.
- *
- * @param msg The log message format.
- *
- * @param fmtArgs Formating arguments used when generating the actual
- * message that is logged.
+ * {@inheritDoc}
  *
  ***************************************************************************/
 
@@ -107,7 +145,7 @@ public abstract class LogWrapper
                         final String    msg,
                         final Object... fmtArgs) {
 
-        _logger.warning(error, msg, fmtArgs);
+        _myLog.warning(error, msg, fmtArgs);
     }
 
 
@@ -116,16 +154,14 @@ public abstract class LogWrapper
 
 /***************************************************************************
  *
- * Log a INFO message.
- *
- * @param msg The message to be logged.
+ * {@inheritDoc}
  *
  ***************************************************************************/
 
     @Override
     public void info(final String msg) {
 
-        _logger.info(msg);
+        _myLog.info(msg);
     }
 
 
@@ -134,12 +170,7 @@ public abstract class LogWrapper
 
 /***************************************************************************
  *
- * Log a INFO message.
- *
- * @param msg The log message format.
- *
- * @param fmtArgs Formating arguments used when generating the actual
- * message that is logged.
+ * {@inheritDoc}
  *
  ***************************************************************************/
 
@@ -147,7 +178,7 @@ public abstract class LogWrapper
     public void info(final String    msg,
                      final Object... fmtArgs) {
 
-        _logger.info(msg, fmtArgs);
+        _myLog.info(msg, fmtArgs);
     }
 
 
@@ -156,16 +187,14 @@ public abstract class LogWrapper
 
 /***************************************************************************
  *
- * Log a DEBUG message.
- *
- * @param msg The message to be logged.
+ * {@inheritDoc}
  *
  ***************************************************************************/
 
     @Override
     public void debug(final String msg) {
 
-        _logger.debug(msg);
+        _myLog.debug(msg);
     }
 
 
@@ -174,12 +203,7 @@ public abstract class LogWrapper
 
 /***************************************************************************
  *
- * Log a DEBUG message.
- *
- * @param msg The log message format.
- *
- * @param fmtArgs Formating arguments used when generating the actual
- * message that is logged.
+ * {@inheritDoc}
  *
  ***************************************************************************/
 
@@ -187,7 +211,7 @@ public abstract class LogWrapper
     public void debug(final String    msg,
                       final Object... fmtArgs) {
 
-        _logger.debug(msg, fmtArgs);
+        _myLog.debug(msg, fmtArgs);
     }
 
 

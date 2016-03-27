@@ -17,60 +17,41 @@ import com.varmateo.commons.cli.CliOptions;
 import com.varmateo.commons.logging.Log;
 import com.varmateo.commons.logging.LogFactory;
 
+import com.varmateo.yawg.YawgBakeConf;
+import com.varmateo.yawg.YawgBaker;
+import com.varmateo.yawg.YawgInfo;
+
 import com.varmateo.yawgcli.CliOptionsLogger;
 import com.varmateo.yawgcli.InfoPrinter;
 import com.varmateo.yawgcli.YawgCliOptions;
 
 
-
-
-
-/**************************************************************************
+/**
  *
- * 
- *
- **************************************************************************/
-
+ */
 public final class YawgCli
     extends Object {
-
-
-
 
 
     private static final int EXIT_STATUS_OK      = 0;
     private static final int EXIT_STATUS_FAILURE = 1;
 
-    private static final Log _log = LogFactory.createFor(YawgCli.class);
-
     private String      _argv0       = null;
     private InfoPrinter _infoPrinter = null;
 
 
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-
+    /**
+     *
+     */
     public YawgCli() {
 
         // Nothing to do.
     }
 
 
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-
+    /**
+     *
+     */
     public int main(final String   argv0,
                     final String[] args) {
 
@@ -96,18 +77,13 @@ public final class YawgCli
     }
 
 
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-
+    /**
+     *
+     */
     private InfoPrinter buildInfoPrinter(final String argv0) {
 
-        PrintWriter stdout = new PrintWriter(System.out, true);
+        boolean autoFlush = true;
+        PrintWriter stdout = new PrintWriter(System.out, autoFlush);
 
         InfoPrinter infoPrinter =
             new InfoPrinter.Builder()
@@ -119,15 +95,9 @@ public final class YawgCli
     }
 
 
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-
+    /**
+     *
+     */
     public void doEverything(final String[] args)
         throws CliException {
 
@@ -141,21 +111,33 @@ public final class YawgCli
             } else if ( cliOptions.hasOption(YawgCliOptions.VERSION) ) {
                 _infoPrinter.printVersion();
             } else {
-                // Nothing yet...
+                doBake(cliOptions);
             }
         }
     }
 
 
+    /**
+     *
+     */
+    private void doBake(final CliOptions cliOptions)
+        throws CliException {
+
+        Log log = LogFactory.createFor(YawgBaker.class);
+
+        log.info("{0} {1}", YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);
+
+        YawgBaker baker = new YawgBaker(log);
+        YawgBakeConf conf =
+            new YawgBakeConf.Builder()
+            .setSourceDir(cliOptions.getPath(YawgCliOptions.SOURCE_DIR))
+            .setTargetDir(cliOptions.getPath(YawgCliOptions.TARGET_DIR))
+            .build();
+
+        baker.bake(conf);
+    }
+
+
 }
 
-
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
 

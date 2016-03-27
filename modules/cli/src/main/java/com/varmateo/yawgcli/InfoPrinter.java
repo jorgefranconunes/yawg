@@ -35,23 +35,18 @@ final class InfoPrinter
 
 
 
-    private static final String PRODUCT_NAME = "Yawg";
-
     private static final String TOOL_NAME = "CLI Baker";
         
-    private static final String COPYRIGHT_HEADER =
-        "Copyright (c) 2016 Jorge Nunes";
-
     private static final String PRODUCT_HEADER_FMT = ""
         + "\n"
         + "{0} {1} - {2}\n"
         + "{3}\n";
     private static final String PRODUCT_HEADER =
         MessageFormat.format(PRODUCT_HEADER_FMT,
-                             PRODUCT_NAME,
-                             YawgInfo.version(),
+                             YawgInfo.PRODUCT_NAME,
+                             YawgInfo.VERSION,
                              TOOL_NAME,
-                             COPYRIGHT_HEADER);
+                             YawgInfo.COPYRIGHT_HEADER);
 
     private static final String USAGE_HEADER_FMT = ""
         + PRODUCT_HEADER

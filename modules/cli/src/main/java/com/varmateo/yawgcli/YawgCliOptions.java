@@ -17,17 +17,11 @@ import com.varmateo.commons.cli.CliOptions;
 
 
 
-/**************************************************************************
- *
+/**
  * Represents the set of supported command line options.
- *
- **************************************************************************/
-
+ */
 public final class YawgCliOptions
     extends Object {
-
-
-
 
 
     public static final CliOption HELP =
@@ -35,6 +29,20 @@ public final class YawgCliOptions
         .setLongName("help")
         .setDescription("show this help text and exit")
         .setShortName("h")
+        .build();
+ 
+    public static final CliOption SOURCE_DIR =
+        new CliOption.Builder()
+        .setLongName("source")
+        .setArgName("PATH")
+        .setDescription("path of source directory")
+        .build();
+
+    public static final CliOption TARGET_DIR =
+        new CliOption.Builder()
+        .setLongName("target")
+        .setArgName("PATH")
+        .setDescription("path of target directory")
         .build();
 
     public static final CliOption VERBOSE =
@@ -65,6 +73,8 @@ public final class YawgCliOptions
     static {
         CliOption[] allOptions = {
             HELP,
+            SOURCE_DIR,
+            TARGET_DIR,
             VERBOSE,
             VERSION,
         };

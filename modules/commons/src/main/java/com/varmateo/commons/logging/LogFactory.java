@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2015 Jorge Nunes, All Rights Reserved.
+ * Copyright (c) 2015-2016 Jorge Nunes, All Rights Reserved.
  *
  **************************************************************************/
 
@@ -18,12 +18,9 @@ import com.varmateo.commons.logging.LoggerLog;
 
 
 
-/***************************************************************************
- *
+/**
  * Provides utility methods for creating <code>Log</code> instances.
- *
- ***************************************************************************/
-
+ */
 public final class LogFactory
     extends Object {
 
@@ -31,12 +28,9 @@ public final class LogFactory
 
 
 
-/***************************************************************************
- *
- * No instances of this class are to be created.
- *
- ***************************************************************************/
-
+    /**
+     * No instances of this class are to be created.
+     */
     private LogFactory() {
 
         // Nothing to do.
@@ -46,19 +40,17 @@ public final class LogFactory
 
 
 
-/***************************************************************************
- *
- * Creates a <code>Log</code> that will use as output the given
- * <code>Logger</code> instance.
- *
- * <p>If the given logger is null then no logging will take place.</p>
- *
- * @param logger Will be used as output.
- *
- * @return A newly created <code>Log</code>.
- *
- ***************************************************************************/
-
+    /**
+     * Creates a <code>Log</code> that will use as output the given
+     * <code>Logger</code> instance.
+     *
+     * <p>If the given logger is null then no logging will take
+     * place.</p>
+     *
+     * @param logger Will be used as output.
+     *
+     * @return A newly created <code>Log</code>.
+     */
     public static Log create(final Logger logger) {
 
         LoggerLog result = new LoggerLog(logger);
@@ -70,20 +62,17 @@ public final class LogFactory
 
 
 
-/***************************************************************************
- *
- * Creates a <code>Log</code> assigning it as subsystem name the class
- * name of the given object.
- *
- * @param obj Object whose class name will be used as subsystem name
- * for the logger.
- *
- * @return A newly created <code>Log</code> with an underlying Java
- * <code>Logger</code> using the given object class name as sybsystem
- * name.
- *
- ***************************************************************************/
-
+    /**
+     * Creates a <code>Log</code> assigning it as subsystem name the class
+     * name of the given object.
+     *
+     * @param obj Object whose class name will be used as subsystem name
+     * for the logger.
+     *
+     * @return A newly created <code>Log</code> with an underlying Java
+     * <code>Logger</code> using the given object class name as sybsystem
+     * name.
+     */
     public static Log createFor(final Object obj) {
 
         String className  = obj.getClass().getName();
@@ -97,20 +86,17 @@ public final class LogFactory
 
 
 
-/***************************************************************************
- *
- * Creates a <code>Log</code> assigning it as subsystem name the name
- * of the given class.
- *
- * @param klass The class whose name will be used as subsystem name
- * for the logger.
- *
- * @return A newly created <code>Log</code> with an underlying Java
- * <code>Logger</code> using the name of the given class as sybsystem
- * name.
- *
- ***************************************************************************/
-
+    /**
+     * Creates a <code>Log</code> assigning it as subsystem name the name
+     * of the given class.
+     *
+     * @param klass The class whose name will be used as subsystem name
+     * for the logger.
+     *
+     * @return A newly created <code>Log</code> with an underlying Java
+     * <code>Logger</code> using the name of the given class as sybsystem
+     * name.
+     */
     public static Log createFor(final Class<?> klass) {
 
         String className  = klass.getName();
