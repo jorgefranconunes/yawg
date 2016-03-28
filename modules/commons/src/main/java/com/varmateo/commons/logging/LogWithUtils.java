@@ -20,7 +20,6 @@ public final class LogWithUtils
     private final Log _myLog;
 
 
-
     /**
      *
      */
@@ -28,9 +27,6 @@ public final class LogWithUtils
 
         _myLog = myLog;
     }
-
-
-
 
 
     /**
@@ -44,9 +40,6 @@ public final class LogWithUtils
     }
 
 
-
-
-
     /**
      *
      */
@@ -57,9 +50,6 @@ public final class LogWithUtils
 
         return result;
     }
-
-
-
 
 
     /**
@@ -77,9 +67,6 @@ public final class LogWithUtils
     }
 
 
-
-
-
     /**
      *
      */
@@ -89,7 +76,7 @@ public final class LogWithUtils
         _myLog.info("Starting {0}...", subject);
 
         long startTime = System.currentTimeMillis();
-        T result = action.get();
+        T result = performAction(subject, action);
         long delay = System.currentTimeMillis() - startTime;
 
         _myLog.info("Done {0} (delay {1}ms)", subject, delay);
@@ -98,15 +85,36 @@ public final class LogWithUtils
     }
 
 
+    /**
+     *
+     */
+    private <T> T performAction(final String subject,
+                                final Supplier<T> action) {
+
+        T result = null;
+        RuntimeException error = null;
+
+        try {
+            result = action.get();              
+        } catch ( RuntimeException e ) {
+            _myLog.warning("Failed {0} - {1} - {2}",
+                           subject,
+                           e.getClass().getSimpleName(),
+                           e.getMessage());
+            error = e;
+        }
+
+        if ( error != null ) {
+            throw error;
+        }
+
+        return result;
+    }
 
 
-
-/***************************************************************************
- *
- * {@inheritDoc}
- *
- ***************************************************************************/
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void warning(final String msg) {
 
@@ -114,15 +122,9 @@ public final class LogWithUtils
     }
 
 
-
-
-
-/***************************************************************************
- *
- * {@inheritDoc}
- *
- ***************************************************************************/
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void warning(final String    msg,
                         final Object... fmtArgs) {
@@ -131,15 +133,9 @@ public final class LogWithUtils
     }
 
 
-
-
-
-/***************************************************************************
- *
- * {@inheritDoc}
- *
- ***************************************************************************/
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void warning(final Throwable error,
                         final String    msg,
@@ -149,15 +145,9 @@ public final class LogWithUtils
     }
 
 
-
-
-
-/***************************************************************************
- *
- * {@inheritDoc}
- *
- ***************************************************************************/
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void info(final String msg) {
 
@@ -165,15 +155,9 @@ public final class LogWithUtils
     }
 
 
-
-
-
-/***************************************************************************
- *
- * {@inheritDoc}
- *
- ***************************************************************************/
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void info(final String    msg,
                      final Object... fmtArgs) {
@@ -182,15 +166,9 @@ public final class LogWithUtils
     }
 
 
-
-
-
-/***************************************************************************
- *
- * {@inheritDoc}
- *
- ***************************************************************************/
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void debug(final String msg) {
 
@@ -198,15 +176,9 @@ public final class LogWithUtils
     }
 
 
-
-
-
-/***************************************************************************
- *
- * {@inheritDoc}
- *
- ***************************************************************************/
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void debug(final String    msg,
                       final Object... fmtArgs) {

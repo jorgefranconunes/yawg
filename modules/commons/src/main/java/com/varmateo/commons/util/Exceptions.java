@@ -83,15 +83,75 @@ public final class Exceptions
               final String    msgFmt,
               final Object... fmtArgs) {
 
-        String msg = null;
+        RuntimeException exception =
+            newException(exceptionClass, cause, msgFmt, fmtArgs);
 
-        if ( (fmtArgs==null) || (fmtArgs.length==0) ) {
-            msg = msgFmt;
-        } else {
-            msg = MessageFormat.format(msgFmt, fmtArgs);
-        }
+        throw exception;
+    }
 
-        RuntimeException exception = newException(exceptionClass, msg, cause);
+
+
+
+
+    /**
+     *
+     * Throws a checked exception of the given type and with the given
+     * cause. The exception message is constructed according to
+     * <code>java.text.MessageFormat</code> rules.
+     *
+     * @param <T> The type of the checked exception to be thrown.
+     *
+     * @param exceptionClass The Java class of the exception to the
+     * thrown.
+     *
+     * @param msgFmt Format for the error message, with
+     * <code>java.text.MessageForma</code> conventions.
+     *
+     * @param fmtArgs Formating arguments used to create the error message
+     * according to <code>java.text.MessageForma</code> conventions.
+     *
+     * @throws T The checked exception thrown by this method.
+     */
+    public static <T extends Exception> void
+        raiseChecked(final Class<T>  exceptionClass,
+                     final String    msgFmt,
+                     final Object... fmtArgs)
+        throws T {
+
+        Throwable cause = null;
+
+        raiseChecked(exceptionClass, cause, msgFmt, fmtArgs);
+    }
+
+
+    /**
+     * Throws a checked exception of the given type and with the given
+     * cause. The exception message is constructed according to
+     * <code>java.text.MessageFormat</code> rules.
+     *
+     * @param <T> The type of the exception to be thrown.
+     *
+     * @param exceptionClass The Java class of the exception to the
+     * thrown.
+     *
+     * @param cause The cause to be assigned to the exception that
+     * will be thrown.
+     *
+     * @param msgFmt Format for the error message, with
+     * <code>java.text.MessageForma</code> conventions.
+     *
+     * @param fmtArgs Formating arguments used to create the error
+     * message according to <code>java.text.MessageForma</code>
+     * conventions.
+     */
+    public static <T extends Exception> void
+        raiseChecked(final Class<T>  exceptionClass,
+                     final Throwable cause,
+                     final String    msgFmt,
+                     final Object... fmtArgs)
+        throws T {
+
+        T exception = newException(exceptionClass, cause, msgFmt, fmtArgs);
 
         throw exception;
     }
@@ -108,8 +168,9 @@ public final class Exceptions
 
     private static <T extends Exception> T
         newException(final Class<T>  exceptionClass,
-                     final String    msg,
-                     final Throwable cause) {
+                     final Throwable cause,
+                     final String msgFmt,
+                     final Object... fmtArgs) {
 
         Constructor<T> constructor = null;
 
@@ -122,13 +183,20 @@ public final class Exceptions
                     exceptionClass.getConstructor(String.class,Throwable.class);
             }
         } catch ( NoSuchMethodException e ) {
-            String msgFmt   = "No appropriate constructor on class {0}";
+            String fmt   = "No appropriate constructor on class {0}";
             String errorMsg =
-                MessageFormat.format(msgFmt, exceptionClass.getName());
+                MessageFormat.format(fmt, exceptionClass.getName());
             throw new IllegalArgumentException(errorMsg, e);
         }
 
         T result = null;
+        String msg = null;
+
+        if ( (fmtArgs==null) || (fmtArgs.length==0) ) {
+            msg = msgFmt;
+        } else {
+            msg = MessageFormat.format(msgFmt, fmtArgs);
+        }
 
         try {
             if ( cause == null ) {
@@ -137,9 +205,9 @@ public final class Exceptions
                 result = constructor.newInstance(msg, cause);
             }
         } catch ( Exception e ) {
-            String msgFmt   = "Failed to create instance of class {0}";
+            String fmt   = "Failed to create instance of class {0}";
             String errorMsg =
-                MessageFormat.format(msgFmt, exceptionClass.getName());
+                MessageFormat.format(fmt, exceptionClass.getName());
             throw new IllegalArgumentException(errorMsg, e);
         }
 

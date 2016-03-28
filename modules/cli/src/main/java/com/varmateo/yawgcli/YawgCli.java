@@ -19,6 +19,7 @@ import com.varmateo.commons.logging.LogFactory;
 
 import com.varmateo.yawg.YawgBakeConf;
 import com.varmateo.yawg.YawgBaker;
+import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.YawgInfo;
 
 import com.varmateo.yawgcli.CliOptionsLogger;
@@ -134,7 +135,11 @@ public final class YawgCli
             .setTargetDir(cliOptions.getPath(YawgCliOptions.TARGET_DIR))
             .build();
 
-        baker.bake(conf);
+        try {
+            baker.bake(conf);
+        } catch ( YawgException e ) {
+            CliException.raise(e, "Baking failed - {0}", e.getMessage());
+        }
     }
 
 
