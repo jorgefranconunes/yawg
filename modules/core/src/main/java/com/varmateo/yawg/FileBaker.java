@@ -6,13 +6,12 @@
 
 package com.varmateo.yawg;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
+import java.util.Collection;
 
 import com.varmateo.commons.logging.Log;
 
+import com.varmateo.yawg.ItemBaker;
 import com.varmateo.yawg.YawgException;
 
 
@@ -25,6 +24,8 @@ import com.varmateo.yawg.YawgException;
 
     private final Log _log;
     private final Path _sourceRootDir;
+    private final Collection<ItemBaker> _bakers;
+    private final ItemBaker _defaultBaker;
 
 
     /**
@@ -35,10 +36,14 @@ import com.varmateo.yawg.YawgException;
      */
     public FileBaker(
             final Log log,
-            final Path sourceRootDir) {
+            final Path sourceRootDir,
+            final Collection<ItemBaker> bakers,
+            ItemBaker defaultBaker) {
 
         _log = log;
         _sourceRootDir = sourceRootDir;
+        _bakers = bakers;
+        _defaultBaker = defaultBaker;
     }
 
 
@@ -61,36 +66,37 @@ import com.varmateo.yawg.YawgException;
             final Path targetDir)
             throws YawgException {
 
-        try {
-            doBake(sourcePath, targetDir);
-        } catch ( IOException e ) {
-            YawgException.raise(e,
-                                "Failed baking {0} - {1} - {2}",
-                                sourcePath,
-                                e.getClass().getSimpleName(),
-                                e.getMessage());
-        }
+        ItemBaker baker = findBaker(sourcePath);
+
+        Path sourceRelPath = _sourceRootDir.relativize(sourcePath);
+        _log.debug("Baking {0} with {1}", sourceRelPath, baker.getShortName());
+
+        Path sourceBasename = sourcePath.getFileName();
+        Path targetPath = targetDir.resolve(sourceBasename);
+
+        baker.bake(sourcePath, targetDir);
     }
 
 
     /**
      *
      */
-    private void doBake(
-            final Path sourcePath,
-            final Path targetDir)
-            throws IOException {
+    private ItemBaker findBaker(final Path sourcePath) {
 
-        Path sourceRelPath = _sourceRootDir.relativize(sourcePath);
-        _log.debug("Baking {0}", sourceRelPath);
+        ItemBaker baker = null;
 
-        Path sourceBasename = sourcePath.getFileName();
-        Path targetPath = targetDir.resolve(sourceBasename);
+        for ( ItemBaker candidateBaker : _bakers ) {
+            if ( candidateBaker.isBakeable(sourcePath) ) {
+                baker = candidateBaker;
+                break;
+            }
+        }
 
-        Files.copy(sourcePath,
-                   targetPath,
-                   StandardCopyOption.REPLACE_EXISTING,
-                   StandardCopyOption.COPY_ATTRIBUTES);
+        if ( baker == null ) {
+            baker = _defaultBaker;
+        }
+
+        return baker;
     }
 
 

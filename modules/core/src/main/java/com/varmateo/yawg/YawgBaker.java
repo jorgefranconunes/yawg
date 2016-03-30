@@ -9,6 +9,8 @@ package com.varmateo.yawg;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -65,7 +67,7 @@ public final class YawgBaker
         _log.debug("    Source dir : {0}", conf.sourceDir);
         _log.debug("    Target dir : {0}", conf.targetDir);
 
-        FileBaker fileBaker = new FileBaker(_log, conf.sourceDir);
+        FileBaker fileBaker = buildBaker(conf.sourceDir);
 
         try {
             bakeDirectory(fileBaker, conf.sourceDir, conf.targetDir);
@@ -76,6 +78,22 @@ public final class YawgBaker
                                 e.getClass().getSimpleName(),
                                 e.getMessage());
         }
+    }
+
+
+    /**
+     *
+     */
+    private FileBaker buildBaker(final Path sourceDir) {
+
+        ItemBaker defaultBaker = new CopyBaker();
+        Collection<ItemBaker> bakers =
+                Arrays.asList(
+                        new AsciidocBaker()
+                              );
+        FileBaker baker = new FileBaker(_log, sourceDir, bakers, defaultBaker);
+
+        return baker;
     }
 
 
