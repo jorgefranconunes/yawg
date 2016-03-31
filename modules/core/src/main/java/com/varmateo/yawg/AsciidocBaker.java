@@ -6,11 +6,15 @@
 
 package com.varmateo.yawg;
 
-import java.io.IOException;
-import java.nio.file.Files;
+import java.io.File;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.regex.Pattern;
+
+import org.asciidoctor.Asciidoctor;
+import org.asciidoctor.AttributesBuilder;
+import org.asciidoctor.OptionsBuilder;
+import org.asciidoctor.SafeMode;
+import org.asciidoctor.internal.AsciidoctorCoreException;
 
 import com.varmateo.yawg.ItemBaker;
 import com.varmateo.yawg.YawgException;
@@ -29,13 +33,15 @@ import com.varmateo.yawg.YawgException;
 
     private static Pattern RE_ADOC = Pattern.compile(".*\\.adoc$");
 
+    private final Asciidoctor _converter;
+
 
     /**
      * 
      */
     public AsciidocBaker() {
 
-        // Nothing to do.
+        _converter = Asciidoctor.Factory.create();
     }
 
 
@@ -93,9 +99,10 @@ import com.varmateo.yawg.YawgException;
 
         try {
             doBake(sourcePath, targetDir);
-        } catch ( IOException e ) {
+        } catch ( AsciidoctorCoreException e ) {
             YawgException.raise(e,
-                                "Failed copying {0} - {1} - {2}",
+                                "Failed {0} on {1} - {2} - {3}",
+                                NAME,
                                 sourcePath,
                                 e.getClass().getSimpleName(),
                                 e.getMessage());
@@ -109,20 +116,45 @@ import com.varmateo.yawg.YawgException;
     private void doBake(
             final Path sourcePath,
             final Path targetDir)
-            throws IOException {
-
-        // THIS IS A DUMMY IMPLEMENTATION. It just copies the file to
-        // the target directory.
-
-        // TBD
+            throws AsciidoctorCoreException {
 
         Path sourceBasename = sourcePath.getFileName();
-        Path targetPath = targetDir.resolve(sourceBasename);
+        Path targetPath = getTargetPath(sourcePath, targetDir);
 
-        Files.copy(sourcePath,
-                   targetPath,
-                   StandardCopyOption.REPLACE_EXISTING,
-                   StandardCopyOption.COPY_ATTRIBUTES);
+        File sourceFile = sourcePath.toFile();
+        File targetFile = targetPath.toFile();
+
+        AttributesBuilder attributes =
+                AttributesBuilder.attributes()
+                .noFooter(true);
+        OptionsBuilder options =
+                OptionsBuilder.options()
+                .attributes(attributes)
+                .inPlace(false)
+                .safe(SafeMode.UNSAFE)
+                .toFile(targetFile);
+
+        _converter.convertFile(sourceFile, options);
+    }
+
+
+    /**
+     *
+     */
+    private Path getTargetPath(
+            final Path sourcePath,
+            final Path targetDir) {
+
+        String sourceBasename = sourcePath.getFileName().toString();
+        int extensionIndex = sourceBasename.lastIndexOf(".");
+        String sourceBasenameNoExtension =
+                (extensionIndex>-1)
+                ? sourceBasename.substring(0, extensionIndex)
+                : sourceBasename;
+        String targetBasename = sourceBasenameNoExtension + ".html";
+        Path targetPath = targetDir.resolve(targetBasename);
+
+        return targetPath;
     }
 
 

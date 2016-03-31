@@ -46,6 +46,12 @@ Copyright (c) 2016 Jorge Nunes, All Rights Reserved.
       <version>${project.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.asciidoctor</groupId>
+      <artifactId>asciidoctorj</artifactId>
+      <version>${asciidoctorj.version}</version>
+    </dependency>
+
   </dependencies>
 
 

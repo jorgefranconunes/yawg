@@ -1,4 +1,4 @@
-YAWG - Yet Another Wiki Generator
+= YAWG - Yet Another Wiki Generator
 
 
 Products in the same area as Yawg:
@@ -13,7 +13,7 @@ Products in the same area as Yawg:
 
 
 
-YawgBaker
+== YawgBaker
 
 Performs the generation of the site from the input source.
 
