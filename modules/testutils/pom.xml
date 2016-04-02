@@ -20,25 +20,21 @@ Copyright (c) 2016 Jorge Nunes, All Rights Reserved.
   </parent>
 
 
+  <properties>
+    <yawg.projectRootDir>${basedir}/..</yawg.projectRootDir>
+  </properties>
 
 
-
-
-  <!--  -->
-
-    <dependencies>
+  <dependencies>
         
-      <!-- JUnit -->
-      <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>${junit.version}</version>
-      </dependency>
+    <!-- JUnit -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+    </dependency>
 
-    </dependencies>
-
-
-
+  </dependencies>
 
 
   <!-- More project information. -->

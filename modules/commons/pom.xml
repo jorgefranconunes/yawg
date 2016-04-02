@@ -20,7 +20,9 @@ Copyright (c) 2015 Jorge Nunes, All Rights Reserved.
   </parent>
 
 
-
+  <properties>
+    <yawg.projectRootDir>${basedir}/..</yawg.projectRootDir>
+  </properties>
 
 
   <dependencies>
@@ -87,9 +89,6 @@ Copyright (c) 2015 Jorge Nunes, All Rights Reserved.
     </plugins>
 
   </build>
-
-
-
 
 
   <!-- More project information. -->

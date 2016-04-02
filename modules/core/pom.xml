@@ -20,7 +20,9 @@ Copyright (c) 2016 Jorge Nunes, All Rights Reserved.
   </parent>
 
 
-
+  <properties>
+    <yawg.projectRootDir>${basedir}/..</yawg.projectRootDir>
+  </properties>
 
 
   <dependencies>
@@ -56,18 +58,15 @@ Copyright (c) 2016 Jorge Nunes, All Rights Reserved.
       <groupId>org.freemarker</groupId>
       <artifactId>freemarker</artifactId>
       <version>${freemaker.version}</version>
-</dependency>
+    </dependency>
 
     <dependency>
       <groupId>org.jsoup</groupId>
       <artifactId>jsoup</artifactId>
       <version>${jsoup.version}</version>
-</dependency>
+    </dependency>
 
   </dependencies>
-
-
-
 
 
   <!-- More project information. -->
