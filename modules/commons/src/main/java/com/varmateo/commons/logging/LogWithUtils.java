@@ -95,7 +95,7 @@ public final class LogWithUtils
         RuntimeException error = null;
 
         try {
-            result = action.get();              
+            result = action.get();
         } catch ( RuntimeException e ) {
             _myLog.warning("Failed {0} - {1} - {2}",
                            subject,

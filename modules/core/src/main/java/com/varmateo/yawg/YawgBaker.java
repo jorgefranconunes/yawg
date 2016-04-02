@@ -18,9 +18,11 @@ import java.util.stream.Stream;
 import com.varmateo.commons.logging.Log;
 import com.varmateo.commons.logging.LogWithUtils;
 
-import com.varmateo.yawg.FileBaker;
-import com.varmateo.yawg.YawgBakeConf;
+import com.varmateo.yawg.ItemBaker;
+import com.varmateo.yawg.YawgBakerConf;
+import com.varmateo.yawg.YawgDomain;
 import com.varmateo.yawg.YawgException;
+import com.varmateo.yawg.YawgInfo;
 
 
 /**
@@ -31,52 +33,60 @@ public final class YawgBaker
     extends Object {
 
 
-    private final LogWithUtils _log;
+    private final YawgBakerConf _conf;
+    private final YawgDomain _domain;
 
 
     /**
      * @param log The logger that will be used for logging.
      */
-    public YawgBaker(final Log log) {
+    public YawgBaker(final YawgBakerConf conf) {
 
-        _log = LogWithUtils.from(log);
+        _conf = conf;
+        _domain = new YawgDomain(conf);
     }
 
 
     /**
      * Performs the baking of one directory tree into another.
      *
-     * @param conf Data for performing the baking.
-     *
      * @exception YawgException Thrown if the baking could not be
      * completed for whatever reason.
      */
-    public void bake(final YawgBakeConf conf)
-        throws YawgException {
+    public void bake()
+            throws YawgException {
 
-        _log.logDelay("bake", () -> doBake(conf));
+        LogWithUtils log = LogWithUtils.from(_domain.getLog());
+        Path sourceDir = _conf.sourceDir;
+        Path targetDir = _conf.targetDir;
+
+        log.info("{0} {1}", YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);
+        log.info("    Source dir : {0}", sourceDir);
+        log.info("    Target dir : {0}", targetDir);
+
+        log.logDelay("bake", this::doBake);
     }
 
 
     /**
      *
      */
-    private void doBake(final YawgBakeConf conf)
-        throws YawgException {
+    private void doBake()
+            throws YawgException {
 
-        _log.debug("    Source dir : {0}", conf.sourceDir);
-        _log.debug("    Target dir : {0}", conf.targetDir);
-
-        FileBaker fileBaker = buildBaker(conf.sourceDir);
+        ItemBaker fileBaker = _domain.getFileBaker();
+        Path sourceDir = _conf.sourceDir;
+        Path targetDir = _conf.targetDir;
 
         try {
-            bakeDirectory(fileBaker, conf.sourceDir, conf.targetDir);
+            bakeDirectory(fileBaker, sourceDir, targetDir);
         } catch ( IOException e ) {
-            YawgException.raise(e,
-                                "Failed baking {0} - {1} - {2}",
-                                conf.sourceDir,
-                                e.getClass().getSimpleName(),
-                                e.getMessage());
+            YawgException.raise(
+                    e,
+                    "Failed baking {0} - {1} - {2}",
+                    sourceDir,
+                    e.getClass().getSimpleName(),
+                    e.getMessage());
         }
     }
 
@@ -84,24 +94,8 @@ public final class YawgBaker
     /**
      *
      */
-    private FileBaker buildBaker(final Path sourceDir) {
-
-        ItemBaker defaultBaker = new CopyBaker();
-        Collection<ItemBaker> bakers =
-                Arrays.asList(
-                        new AsciidocBaker()
-                              );
-        FileBaker baker = new FileBaker(_log, sourceDir, bakers, defaultBaker);
-
-        return baker;
-    }
-
-
-    /**
-     *
-     */
     private void bakeDirectory(
-            final FileBaker fileBaker,
+            final ItemBaker fileBaker,
             final Path sourceDir,
             final Path targetDir)
             throws IOException, YawgException {

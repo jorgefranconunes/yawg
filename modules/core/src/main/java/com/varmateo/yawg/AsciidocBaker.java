@@ -67,6 +67,7 @@ import com.varmateo.yawg.YawgException;
      * @return True if the given file name has one of the allowed
      * extensions.
      */
+    @Override
     public boolean isBakeable(final Path path) {
 
         String basename = path.getFileName().toString();

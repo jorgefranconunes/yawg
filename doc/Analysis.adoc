@@ -3,11 +3,11 @@
 
 Products in the same area as Yawg:
 
-* Awestruct - http://awestruct.org/
+* http://awestruct.org/[Awestruct]
 
-* JBake - http://jbake.org/
+* http://jbake.org/[JBake]
 
-* Jekyll - http://jekyllrb.com/
+* http://jekyllrb.com/[Jekyll]
 
 
 
@@ -29,3 +29,23 @@ Configuration:
 
 * Resources directory - Directory whose contents will be copied as is
   to the target directory.
+
+
+
+
+
+== Third-party libraries
+
+The implementation makes use of the libraries enumerated below.
+
+* https://github.com/asciidoctor/asciidoctorj[AsciidoctorJ] - Java
+  bindings for http://asciidoctor.org/[Asciidoctor]. Used for
+  converting Asciidoc documents to HTML.
+
+* http://freemarker.org/[Apache Freemaker] - Template engine. Used for
+  generating the final HTML pages from the intermediate HTML output by
+  AsccidoctorJ.
+
+* http://jsoup.org/[jsoup] - Java HTML parser. Used for kneading the
+  HTML output from AsciidoctorJ into Freemaker for the final bake.
+

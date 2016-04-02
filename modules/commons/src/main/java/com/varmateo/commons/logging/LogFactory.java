@@ -15,17 +15,11 @@ import java.util.logging.LogRecord;
 import com.varmateo.commons.logging.LoggerLog;
 
 
-
-
-
 /**
  * Provides utility methods for creating <code>Log</code> instances.
  */
 public final class LogFactory
     extends Object {
-
-
-
 
 
     /**
@@ -35,9 +29,6 @@ public final class LogFactory
 
         // Nothing to do.
     }
-
-
-
 
 
     /**
@@ -83,9 +74,6 @@ public final class LogFactory
     }
 
 
-
-
-
     /**
      * Creates a <code>Log</code> assigning it as subsystem name the name
      * of the given class.
@@ -107,15 +95,24 @@ public final class LogFactory
     }
 
 
+    /**
+     * Creates a <code>Log</code> assigning it as subsystem name the
+     * given string.
+     *
+     * @param name The name that will be used as subsystem name for
+     * the logger.
+     *
+     * @return A newly created <code>Log</code> with an underlying
+     * Java <code>Logger</code> using the given name as sybsystem
+     * name.
+     */
+    public static Log createFor(final String name) {
+
+        Logger javaLogger = Logger.getLogger(name);
+        Log    logger     = create(javaLogger);
+
+        return logger;
+    }
+
+
 }
-
-
-
-
-
-/***************************************************************************
- *
- *
- *
- ***************************************************************************/
-

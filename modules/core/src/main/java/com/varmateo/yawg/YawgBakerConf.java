@@ -12,7 +12,7 @@ import java.nio.file.Path;
 /**
  *
  */
-public final class YawgBakeConf
+public final class YawgBakerConf
     extends Object {
 
 
@@ -23,7 +23,7 @@ public final class YawgBakeConf
     /**
      *
      */
-    private YawgBakeConf(final Builder builder) {
+    private YawgBakerConf(final Builder builder) {
 
         this.sourceDir = builder._sourceDir;
         this.targetDir = builder._targetDir;
@@ -73,9 +73,9 @@ public final class YawgBakeConf
         /**
          *
          */
-        public YawgBakeConf build() {
+        public YawgBakerConf build() {
 
-            YawgBakeConf result = new YawgBakeConf(this);
+            YawgBakerConf result = new YawgBakerConf(this);
             return result;
         }
 

@@ -14,13 +14,10 @@ import java.util.stream.Collectors;
 
 import com.varmateo.commons.cli.CliException;
 import com.varmateo.commons.cli.CliOptions;
-import com.varmateo.commons.logging.Log;
-import com.varmateo.commons.logging.LogFactory;
 
-import com.varmateo.yawg.YawgBakeConf;
 import com.varmateo.yawg.YawgBaker;
+import com.varmateo.yawg.YawgBakerConf;
 import com.varmateo.yawg.YawgException;
-import com.varmateo.yawg.YawgInfo;
 
 import com.varmateo.yawgcli.CliOptionsLogger;
 import com.varmateo.yawgcli.InfoPrinter;
@@ -124,19 +121,15 @@ public final class YawgCli
     private void doBake(final CliOptions cliOptions)
         throws CliException {
 
-        Log log = LogFactory.createFor(YawgBaker.class);
-
-        log.info("{0} {1}", YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);
-
-        YawgBaker baker = new YawgBaker(log);
-        YawgBakeConf conf =
-            new YawgBakeConf.Builder()
+        YawgBakerConf conf =
+            new YawgBakerConf.Builder()
             .setSourceDir(cliOptions.getPath(YawgCliOptions.SOURCE_DIR))
             .setTargetDir(cliOptions.getPath(YawgCliOptions.TARGET_DIR))
             .build();
+        YawgBaker baker = new YawgBaker(conf);
 
         try {
-            baker.bake(conf);
+            baker.bake();
         } catch ( YawgException e ) {
             CliException.raise(e, "Baking failed - {0}", e.getMessage());
         }
@@ -144,5 +137,3 @@ public final class YawgCli
 
 
 }
-
-
