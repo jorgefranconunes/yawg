@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2015 Jorge Nunes, All Rights Reserved.
+ * Copyright (c) 2015-2016 Jorge Nunes, All Rights Reserved.
  *
  **************************************************************************/
 
@@ -19,7 +19,6 @@ import org.apache.commons.cli.GnuParser;
 import org.apache.commons.cli.MissingArgumentException;
 import org.apache.commons.cli.MissingOptionException;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.UnrecognizedOptionException;
@@ -28,20 +27,11 @@ import com.varmateo.commons.cli.CliException;
 import com.varmateo.commons.cli.CliOption;
 
 
-
-
-
-/**************************************************************************
- *
+/**
  * Represents the set of options provided in a command line.
- *
- **************************************************************************/
-
+ */
 public final class CliOptions
-    extends Object {
-
-
-
+        extends Object {
 
 
     private static final String FLAG_TRUE  = "true";
@@ -51,38 +41,28 @@ public final class CliOptions
     private CommandLine           _cmdLine    = null;
 
 
-
-
-
-/**************************************************************************
- *
- * Only used internally.
- *
- **************************************************************************/
-
-    private CliOptions(final Collection<CliOption> allOptions,
-                       final CommandLine           cmdLine) {
+    /**
+     * Only used internally.
+     */
+    private CliOptions(
+            final Collection<CliOption> allOptions,
+            final CommandLine cmdLine) {
 
         Collection<CliOption> allOptionsCopy =
-            new HashSet<CliOption>(allOptions);
+                new HashSet<CliOption>(allOptions);
 
         _allOptions = Collections.unmodifiableCollection(allOptionsCopy);
         _cmdLine    = cmdLine;
     }
 
 
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-
-    public static CliOptions parse(final Collection<CliOption> options,
-                                   final String[]              args)
-        throws CliException {
+    /**
+     *
+     */
+    public static CliOptions parse(
+            final Collection<CliOption> options,
+            final String[] args)
+            throws CliException {
 
         Options           apacheOptions = buildApacheOptions(options);
         CommandLineParser cliParser     = new GnuParser();
@@ -109,40 +89,29 @@ public final class CliOptions
     }
 
 
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-
-    private static Options
-        buildApacheOptions(final Collection<CliOption> options) {
+    /**
+     *
+     */
+    private static Options buildApacheOptions(
+            final Collection<CliOption> options) {
 
         Options apacheOptions = new Options();
 
         options.stream()
-            .map( CliOption::apacheOption )
-            .forEach( o -> apacheOptions.addOption(o) );
+            .map(CliOption::apacheOption)
+            .forEach(o -> apacheOptions.addOption(o));
 
         return apacheOptions;
     }
 
 
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-
-    private static void raiseCliException(final Options  options,
-                                          final ParseException e)
-        throws CliException {
+    /**
+     *
+     */
+    private static void raiseCliException(
+            final Options options,
+            final ParseException e)
+            throws CliException {
 
         String   msg     = null;
         Object[] fmtArgs = null;
@@ -171,30 +140,18 @@ public final class CliOptions
     }
 
 
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-
+    /**
+     *
+     */
     public Collection<CliOption> supportedOptions() {
 
         return _allOptions;
     }
 
 
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-
+    /**
+     *
+     */
     public boolean hasOption(final CliOption option) {
 
         String  optionName = option.getName();
@@ -204,25 +161,17 @@ public final class CliOptions
     }
 
 
-
-
-
-/**************************************************************************
- *
- * Retrieves the value of a mandatory option.
- *
- * @param cmdLine The command line object with the options values.
- *
- * @param option The name (short or long) of the option whose value is
- * to be retrieved.
- *
- * @exception CliException Thrown if the given command line does not
- * contain the option.
- *
- **************************************************************************/
-
+    /**
+     * Retrieves the value of a mandatory option.
+     *
+     * @param option The name (short or long) of the option whose
+     * value is to be retrieved.
+     *
+     * @exception CliException Thrown if the given command line does
+     * not contain the option.
+     */
     public String get(final CliOption option)
-        throws CliException {
+            throws CliException {
 
         String   result       = null;
         String   optionName   = option.getName();
@@ -241,25 +190,18 @@ public final class CliOptions
     }
 
 
-
-
-
-/**************************************************************************
- *
- * Retrieves the value of a conditional option.
- *
- * @param cmdLine The command line object with the options values.
- *
- * @param option The name (short or long) of the option whose value is
- * to be retrieved.
- *
- * @param defaultValue The value to be returned if the option is not
- * present.
- *
- **************************************************************************/
-
-    public String get(final CliOption option,
-                      final String    defaultValue) {
+    /**
+     * Retrieves the value of a conditional option.
+     *
+     * @param option The name (short or long) of the option whose
+     * value is to be retrieved.
+     *
+     * @param defaultValue The value to be returned if the option is
+     * not present.
+     */
+    public String get(
+            final CliOption option,
+            final String defaultValue) {
 
         String   result       = null;
         String   optionName   = option.getName();
@@ -276,20 +218,49 @@ public final class CliOptions
     }
 
 
-
-
-
-/**************************************************************************
- *
- * Retrieves the value of a mandatory option as a path.
- *
- **************************************************************************/
-
+    /**
+     * Retrieves the value of a mandatory option as a path.
+     */
     public Path getPath(final CliOption option)
-        throws CliException {
+            throws CliException {
 
         String pathStr = get(option);
-        Path   result  = null;
+        Path   result  = stringToPath(option, pathStr);
+
+        return result;
+    }
+
+
+    /**
+     *
+     */
+    public Path getPath(
+            final CliOption option,
+            final Path defaultValue)
+            throws CliException {
+
+        String pathStr = get(option, null);
+        Path result = null;
+
+        if ( pathStr == null ) {
+            result = defaultValue;
+        } else {
+            result = stringToPath(option, pathStr);
+        }
+
+        return result;
+    }
+
+
+    /**
+     *
+     */
+    private Path stringToPath(
+            final CliOption option,
+            final String pathStr)
+            throws CliException {
+
+        Path result = null;
 
         try {
             result = Paths.get(pathStr);
@@ -303,15 +274,9 @@ public final class CliOptions
     }
 
 
-
-
-
-/**************************************************************************
- *
- * Checks the given option represents a "true" valued flag.
- *
- **************************************************************************/
-
+    /**
+     * Checks the given option represents a "true" valued flag.
+     */
     public boolean isTrue(final CliOption option) {
 
         boolean result = false;

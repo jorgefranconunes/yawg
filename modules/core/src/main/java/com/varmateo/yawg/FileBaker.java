@@ -9,11 +9,13 @@ package com.varmateo.yawg;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
+import java.util.Optional;
 
 import com.varmateo.commons.logging.Log;
 
 import com.varmateo.yawg.ItemBaker;
 import com.varmateo.yawg.YawgException;
+import com.varmateo.yawg.YawgTemplate;
 
 
 /**
@@ -52,7 +54,7 @@ import com.varmateo.yawg.YawgException;
 
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public String getShortName() {
@@ -62,7 +64,7 @@ import com.varmateo.yawg.YawgException;
 
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public boolean isBakeable(final Path path) {
@@ -74,22 +76,12 @@ import com.varmateo.yawg.YawgException;
 
 
     /**
-     * Bakes the given file into the specified target directory.
-     *
-     * <p>The target directory must already exist. Otherwise an
-     * exception will be thrown.</p>
-     *
-     * @param sourcePath The file to be baked.
-     *
-     * @param targetDir The directory where the result of the bake
-     * will be created.
-     *
-     * @exception YawgException Thrown if the baking could not be
-     * completed for whatever reason.
+     * {@inheritDoc}
      */
     @Override
     public void bake(
             final Path sourcePath,
+            final Optional<YawgTemplate> template,
             final Path targetDir)
             throws YawgException {
 
@@ -101,7 +93,7 @@ import com.varmateo.yawg.YawgException;
         Path sourceBasename = sourcePath.getFileName();
         Path targetPath = targetDir.resolve(sourceBasename);
 
-        baker.bake(sourcePath, targetDir);
+        baker.bake(sourcePath, template, targetDir);
     }
 
 

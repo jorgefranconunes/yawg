@@ -9,13 +9,11 @@ package com.varmateo.yawg;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.varmateo.commons.logging.Log;
 import com.varmateo.commons.logging.LogWithUtils;
 
 import com.varmateo.yawg.ItemBaker;
@@ -23,6 +21,7 @@ import com.varmateo.yawg.YawgBakerConf;
 import com.varmateo.yawg.YawgDomain;
 import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.YawgInfo;
+import com.varmateo.yawg.YawgTemplate;
 
 
 /**
@@ -38,7 +37,7 @@ public final class YawgBaker
 
 
     /**
-     * @param log The logger that will be used for logging.
+     * @param conf All the parameters needed for performing a bake.
      */
     public YawgBaker(final YawgBakerConf conf) {
 
@@ -59,10 +58,14 @@ public final class YawgBaker
         LogWithUtils log = LogWithUtils.from(_domain.getLog());
         Path sourceDir = _conf.sourceDir;
         Path targetDir = _conf.targetDir;
+        Path templatesDir = _conf.templatesDir;
 
         log.info("{0} {1}", YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);
-        log.info("    Source dir : {0}", sourceDir);
-        log.info("    Target dir : {0}", targetDir);
+        log.info("    Source    : {0}", sourceDir);
+        log.info("    Target    : {0}", targetDir);
+        log.info(
+                "    Templates : {0}",
+                (templatesDir==null) ? "NONE" : templatesDir.toString());
 
         log.logDelay("bake", this::doBake);
     }
@@ -104,11 +107,12 @@ public final class YawgBaker
             Files.createDirectory(targetDir);
         }
 
+        Optional<YawgTemplate> template = Optional.empty(); // TBD
         List<Path> entries = getDirEntries(sourceDir);
 
         for ( Path path : entries ) {
             if ( Files.isRegularFile(path) ) {
-                fileBaker.bake(path,targetDir);
+                fileBaker.bake(path, template, targetDir);
             }
         }
 

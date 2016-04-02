@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-
-Copyright (c) 2015 Jorge Nunes, All Rights Reserved.
-
+Copyright (c) 2015-2016 Jorge Nunes, All Rights Reserved.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                        http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
@@ -49,46 +47,6 @@ Copyright (c) 2015 Jorge Nunes, All Rights Reserved.
     </dependency>
 
   </dependencies>
-
-
-  <build>
-
-
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>true</filtering>
-      </resource>
-    </resources>
-
-
-    <plugins>
-
-      <!-- JUnit tests configuration -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>${maven-surefire-plugin.version}</version>
-        <configuration>
-
-          <!-- Some tests expect config parameters in the form of Java
-               system properties. -->
-          <systemProperties>
-
-            <!-- Required by com.intel.hcloud.domain HcloudConfTest -->
-            <property>
-              <name>YawgInfoTest.version</name>
-              <value>${project.version}</value>
-            </property>
-
-          </systemProperties>
-
-        </configuration>
-      </plugin>
-
-    </plugins>
-
-  </build>
 
 
   <!-- More project information. -->

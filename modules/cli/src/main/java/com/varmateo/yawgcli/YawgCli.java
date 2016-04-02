@@ -7,10 +7,7 @@
 package com.varmateo.yawgcli;
 
 import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
+import java.nio.file.Path;
 
 import com.varmateo.commons.cli.CliException;
 import com.varmateo.commons.cli.CliOptions;
@@ -19,7 +16,6 @@ import com.varmateo.yawg.YawgBaker;
 import com.varmateo.yawg.YawgBakerConf;
 import com.varmateo.yawg.YawgException;
 
-import com.varmateo.yawgcli.CliOptionsLogger;
 import com.varmateo.yawgcli.InfoPrinter;
 import com.varmateo.yawgcli.YawgCliOptions;
 
@@ -121,11 +117,17 @@ public final class YawgCli
     private void doBake(final CliOptions cliOptions)
         throws CliException {
 
+        Path sourceDir = cliOptions.getPath(YawgCliOptions.SOURCE_DIR);
+        Path targetDir = cliOptions.getPath(YawgCliOptions.TARGET_DIR);
+        Path templatesDir =
+                cliOptions.getPath(YawgCliOptions.TEMPLATES_DIR, null);
+
         YawgBakerConf conf =
-            new YawgBakerConf.Builder()
-            .setSourceDir(cliOptions.getPath(YawgCliOptions.SOURCE_DIR))
-            .setTargetDir(cliOptions.getPath(YawgCliOptions.TARGET_DIR))
-            .build();
+                new YawgBakerConf.Builder()
+                .setSourceDir(sourceDir)
+                .setTargetDir(targetDir)
+                .setTemplatesDir(templatesDir)
+                .build();
         YawgBaker baker = new YawgBaker(conf);
 
         try {

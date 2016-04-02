@@ -68,10 +68,22 @@ public final class LogWithUtils
 
 
     /**
+     * Performs the given action and logs how long it took to
+     * complete.
      *
+     * @param subject Short action description used when logging just
+     * before the action is started and immediatly after the action
+     * completes.
+     *
+     * @param action The action to be executed.
+     *
+     * @return The same value returned by the given action.
+     *
+     * @param <T> The return type of the given action.
      */
-    public <T> T logDelay(final String      subject,
-                          final Supplier<T> action) {
+    public <T> T logDelay(
+            final String      subject,
+            final Supplier<T> action) {
 
         _myLog.info("Starting {0}...", subject);
 

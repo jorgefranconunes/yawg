@@ -30,17 +30,20 @@ public final class YawgInfo
     private static final String PROP_VERSION = "version";
 
 
+    /** Version of the Yawg software. */
     public static final String VERSION;
 
+    /** The Yawg product name as it should be displayed to end users. */
     public static final String PRODUCT_NAME = "Yawg";
 
+    /** Copyright string to be displayed to end users. */
     public static final String COPYRIGHT_HEADER =
         "Copyright (c) 2016 Jorge Nunes";
 
 
-/**
- * Static initialization
- */
+    /**
+     * Initialization of some static constants.
+     */
     static {
         String resourcePath = RESOURCE;
         Properties props = new Properties();
@@ -51,30 +54,26 @@ public final class YawgInfo
             if ( input != null ) {
                 props.load(input);
             } else {
-                Exceptions.raise(IllegalStateException.class,
-                                 "Missing resource \"{0}\"",
-                                 resourcePath);
+                Exceptions.raise(
+                        IllegalStateException.class,
+                        "Missing resource \"{0}\"",
+                        resourcePath);
             }
         } catch ( IOException e ) {
-            Exceptions.raise(IllegalStateException.class,
-                             e,
-                             "Failed to read resource \"{0}\"",
-                             resourcePath);
+            Exceptions.raise(
+                    IllegalStateException.class,
+                    e,
+                    "Failed to read resource \"{0}\"",
+                    resourcePath);
         }
 
         VERSION = props.getProperty(PROP_VERSION);
     }
 
 
-
-
-
-/**************************************************************************
- *
- * No instances of this class are to be created.
- *
- **************************************************************************/
-
+    /**
+     * No instances of this class are to be created.
+     */
     private YawgInfo() {
 
         // Nothing to do.
@@ -82,14 +81,3 @@ public final class YawgInfo
 
 
 }
-
-
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-

@@ -143,6 +143,8 @@ public final class Exceptions
      * @param fmtArgs Formating arguments used to create the error
      * message according to <code>java.text.MessageForma</code>
      * conventions.
+     *
+     * @throws T A checked exception type.
      */
     public static <T extends Exception> void
         raiseChecked(final Class<T>  exceptionClass,

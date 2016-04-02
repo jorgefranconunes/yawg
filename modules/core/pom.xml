@@ -69,6 +69,46 @@ Copyright (c) 2016 Jorge Nunes, All Rights Reserved.
   </dependencies>
 
 
+  <build>
+
+
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+
+
+    <plugins>
+
+      <!-- JUnit tests configuration -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven-surefire-plugin.version}</version>
+        <configuration>
+
+          <!-- Some tests expect config parameters in the form of Java
+               system properties. -->
+          <systemProperties>
+
+            <!-- Required by com.intel.hcloud.domain HcloudConfTest -->
+            <property>
+              <name>YawgInfoTest.version</name>
+              <value>${project.version}</value>
+            </property>
+
+          </systemProperties>
+
+        </configuration>
+      </plugin>
+
+    </plugins>
+
+  </build>
+
+
   <!-- More project information. -->
 
   <name>Yawg Core Library</name>

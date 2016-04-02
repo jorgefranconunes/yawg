@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2015 Jorge Nunes, All Rights Reserved.
+ * Copyright (c) 2015-2016 Jorge Nunes, All Rights Reserved.
  *
  **************************************************************************/
 
@@ -45,6 +45,13 @@ public final class YawgCliOptions
         .setDescription("path of target directory")
         .build();
 
+    public static final CliOption TEMPLATES_DIR =
+        new CliOption.Builder()
+        .setLongName("templates")
+        .setArgName("PATH")
+        .setDescription("path of templates directory")
+        .build();
+
     public static final CliOption VERBOSE =
         new CliOption.Builder()
         .setLongName("verbose")
@@ -68,18 +75,19 @@ public final class YawgCliOptions
  *
  **************************************************************************/
 
-    private static final Collection<CliOption> _options;
+    private static final Collection<CliOption> OPTIONS;
 
     static {
         CliOption[] allOptions = {
             HELP,
             SOURCE_DIR,
             TARGET_DIR,
+            TEMPLATES_DIR,
             VERBOSE,
             VERSION,
         };
 
-        _options = Arrays.asList(allOptions);
+        OPTIONS = Arrays.asList(allOptions);
     }
 
 
@@ -94,7 +102,7 @@ public final class YawgCliOptions
 
     public static Collection<CliOption> options() {
 
-        return _options;
+        return OPTIONS;
     }
 
 
@@ -123,7 +131,7 @@ public final class YawgCliOptions
     public static CliOptions parse(final String[] args)
         throws CliException {
 
-        CliOptions options = CliOptions.parse(_options, args);
+        CliOptions options = CliOptions.parse(OPTIONS, args);
 
         return options;
     }

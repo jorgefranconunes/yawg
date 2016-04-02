@@ -115,8 +115,8 @@ public final class CliInfoPrinter
         Options apacheOptions = new Options();
 
         options.stream()
-            .map( CliOption::apacheOption )
-            .forEach( o -> apacheOptions.addOption(o) );
+            .map(CliOption::apacheOption)
+            .forEach(o -> apacheOptions.addOption(o));
 
         return apacheOptions;
     }

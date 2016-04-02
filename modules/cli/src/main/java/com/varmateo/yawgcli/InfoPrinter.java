@@ -8,8 +8,6 @@ package com.varmateo.yawgcli;
 
 import java.io.PrintWriter;
 import java.text.MessageFormat;
-import java.util.Collection;
-import java.util.function.Supplier;
 
 import com.varmateo.commons.cli.CliException;
 import com.varmateo.commons.cli.CliInfoPrinter;
@@ -36,7 +34,7 @@ final class InfoPrinter
 
 
     private static final String TOOL_NAME = "CLI Baker";
-        
+
     private static final String PRODUCT_HEADER_FMT = ""
         + "\n"
         + "{0} {1} - {2}\n"

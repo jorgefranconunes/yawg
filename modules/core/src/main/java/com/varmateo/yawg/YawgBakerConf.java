@@ -18,6 +18,7 @@ public final class YawgBakerConf
 
     public final Path sourceDir;
     public final Path targetDir;
+    public final Path templatesDir;
 
 
     /**
@@ -27,6 +28,7 @@ public final class YawgBakerConf
 
         this.sourceDir = builder._sourceDir;
         this.targetDir = builder._targetDir;
+        this.templatesDir = builder._templatesDir;
     }
 
 
@@ -39,10 +41,11 @@ public final class YawgBakerConf
 
         private Path _sourceDir = null;
         private Path _targetDir = null;
+        private Path _templatesDir = null;
 
 
         /**
-         *
+         * A builder of <code>YawgBakerConf</code> instances.
          */
         public Builder() {
 
@@ -66,6 +69,16 @@ public final class YawgBakerConf
         public Builder setTargetDir(final Path targetDir) {
 
             _targetDir = targetDir;
+            return this;
+        }
+
+
+        /**
+         *
+         */
+        public Builder setTemplatesDir(final Path templatesDir) {
+
+            _templatesDir = templatesDir;
             return this;
         }
 

@@ -37,7 +37,7 @@ public final class CliException
 
 
     /**
-     * Throws a newly created <code>CliException</code>
+     * Throws a newly created <code>CliException</code>.
      */
     public static void raise(final String    msgFmt,
                              final Object... fmtArgs)
@@ -48,7 +48,7 @@ public final class CliException
 
 
     /**
-     * Throws a newly created <code>CliException</code>
+     * Throws a newly created <code>CliException</code>.
      */
     public static void raise(final Throwable cause,
                              final String    msgFmt,

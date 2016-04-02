@@ -48,7 +48,7 @@ public final class CliOption
  *
  **************************************************************************/
 
-    private CliOption(Builder builder) {
+    private CliOption(final Builder builder) {
 
         _shortName   = builder._shortName;
         _longName    = builder._longName;
@@ -58,7 +58,7 @@ public final class CliOption
         _name = (_longName!=null) ? _longName : _shortName;
         _literal = (_longName!=null) ? ("--"+_longName) : ("-"+_shortName);
         _isWithArg = (_argName!=null);
-        
+
         _apacheOption = buildApacheOption(this);
     }
 

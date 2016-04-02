@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2015 Jorge Nunes, All Rights Reserved.
+ * Copyright (c) 2015-2016 Jorge Nunes, All Rights Reserved.
  *
  **************************************************************************/
 
@@ -12,7 +12,6 @@ import java.text.MessageFormat;
 import java.util.Date;
 import java.util.logging.Formatter;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.logging.LogRecord;
 
 

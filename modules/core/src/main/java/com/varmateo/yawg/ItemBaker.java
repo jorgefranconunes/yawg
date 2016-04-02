@@ -7,8 +7,10 @@
 package com.varmateo.yawg;
 
 import java.nio.file.Path;
+import java.util.Optional;
 
 import com.varmateo.yawg.YawgException;
+import com.varmateo.yawg.YawgTemplate;
 
 
 /**
@@ -30,10 +32,25 @@ import com.varmateo.yawg.YawgException;
 
 
     /**
+     * Bakes the given file into the specified target directory.
+     *
+     * <p>The target directory must already exist. Otherwise an
+     * exception will be thrown.</p>
+     *
+     * @param sourcePath The file to be baked.
+     *
+     * @param template Used for generating the target document.
+     *
+     * @param targetDir The directory where the result of the bake
+     * will be created.
+     *
+     * @exception YawgException Thrown if the baking could not be
+     * completed for whatever reason.
      *
      */
     void bake(
             Path sourcePath,
+            Optional<YawgTemplate> template,
             Path targetDir)
             throws YawgException;
 }

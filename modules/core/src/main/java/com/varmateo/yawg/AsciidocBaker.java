@@ -7,7 +7,12 @@
 package com.varmateo.yawg;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 import org.asciidoctor.Asciidoctor;
@@ -18,6 +23,7 @@ import org.asciidoctor.internal.AsciidoctorCoreException;
 
 import com.varmateo.yawg.ItemBaker;
 import com.varmateo.yawg.YawgException;
+import com.varmateo.yawg.YawgTemplate;
 
 
 /**
@@ -31,7 +37,11 @@ import com.varmateo.yawg.YawgException;
 
     private static final String NAME = "asciidoc";
 
-    private static Pattern RE_ADOC = Pattern.compile(".*\\.adoc$");
+    private static final Pattern RE_ADOC = Pattern.compile(".*\\.adoc$");
+
+    private static final String TARGET_EXTENSION = ".html";
+
+    private static final Charset UTF8 = Charset.forName("UTF-8");
 
     private final Asciidoctor _converter;
 
@@ -86,6 +96,10 @@ import com.varmateo.yawg.YawgException;
      *
      * @param sourcePath The file to be baked.
      *
+     * @param template Used for generating the target document. If no
+     * template is provided, then the default AsciidoctorJ document
+     * generator will be used.
+     *
      * @param targetDir The directory where the source file will be
      * copied to.
      *
@@ -95,18 +109,20 @@ import com.varmateo.yawg.YawgException;
     @Override
     public void bake(
             final Path sourcePath,
+            final Optional<YawgTemplate> template,
             final Path targetDir)
             throws YawgException {
 
         try {
-            doBake(sourcePath, targetDir);
-        } catch ( AsciidoctorCoreException e ) {
-            YawgException.raise(e,
-                                "Failed {0} on {1} - {2} - {3}",
-                                NAME,
-                                sourcePath,
-                                e.getClass().getSimpleName(),
-                                e.getMessage());
+            doBake(sourcePath, template, targetDir);
+        } catch ( AsciidoctorCoreException | IOException e ) {
+            YawgException.raise(
+                    e,
+                    "Failed {0} on {1} - {2} - {3}",
+                    NAME,
+                    sourcePath,
+                    e.getClass().getSimpleName(),
+                    e.getMessage());
         }
     }
 
@@ -116,26 +132,18 @@ import com.varmateo.yawg.YawgException;
      */
     private void doBake(
             final Path sourcePath,
+            final Optional<YawgTemplate> template,
             final Path targetDir)
-            throws AsciidoctorCoreException {
+            throws AsciidoctorCoreException, IOException {
 
         Path sourceBasename = sourcePath.getFileName();
         Path targetPath = getTargetPath(sourcePath, targetDir);
 
-        File sourceFile = sourcePath.toFile();
-        File targetFile = targetPath.toFile();
-
-        AttributesBuilder attributes =
-                AttributesBuilder.attributes()
-                .noFooter(true);
-        OptionsBuilder options =
-                OptionsBuilder.options()
-                .attributes(attributes)
-                .inPlace(false)
-                .safe(SafeMode.UNSAFE)
-                .toFile(targetFile);
-
-        _converter.convertFile(sourceFile, options);
+        if ( template.isPresent() ) {
+            doBakeWithTemplate(sourcePath, template.get(), targetPath);
+        } else {
+            doBakeWithoutTemplate(sourcePath, targetPath);
+        }
     }
 
 
@@ -152,10 +160,83 @@ import com.varmateo.yawg.YawgException;
                 (extensionIndex>-1)
                 ? sourceBasename.substring(0, extensionIndex)
                 : sourceBasename;
-        String targetBasename = sourceBasenameNoExtension + ".html";
+        String targetBasename = sourceBasenameNoExtension + TARGET_EXTENSION;
         Path targetPath = targetDir.resolve(targetBasename);
 
         return targetPath;
+    }
+
+
+    /**
+     *
+     */
+    private void doBakeWithoutTemplate(
+            final Path sourcePath,
+            final Path targetPath)
+            throws AsciidoctorCoreException {
+
+        File sourceFile = sourcePath.toFile();
+        File targetFile = targetPath.toFile();
+        AttributesBuilder attributes =
+                AttributesBuilder.attributes()
+                .noFooter(false);
+        OptionsBuilder options =
+                OptionsBuilder.options()
+                .attributes(attributes)
+                .toFile(targetFile)
+                .safe(SafeMode.UNSAFE);
+
+        _converter.convertFile(sourceFile, options);
+    }
+
+
+    /**
+     *
+     */
+    private void doBakeWithTemplate(
+            final Path sourcePath,
+            final YawgTemplate template,
+            final Path targetPath)
+            throws AsciidoctorCoreException, IOException {
+
+        OptionsBuilder options =
+                OptionsBuilder.options()
+                .headerFooter(false)
+                .toFile(targetPath.toFile())
+                .safe(SafeMode.UNSAFE);
+        String sourceContent = readContent(sourcePath);
+
+        // TBD
+        String targetContent = _converter.render(sourceContent, options);
+
+        saveContent(targetContent, targetPath);
+    }
+
+
+    /**
+     *
+     */
+    private String readContent(final Path sourcePath)
+            throws IOException {
+
+        byte[] contentBytes = Files.readAllBytes(sourcePath);
+        String content = new String(contentBytes, UTF8);
+
+        return content;
+    }
+
+
+    /**
+     *
+     */
+    private void saveContent(
+            final String content,
+            final Path targetPath)
+            throws IOException {
+
+        try ( Writer writer = Files.newBufferedWriter(targetPath, UTF8) ) {
+            writer.write(content);
+        }
     }
 
 

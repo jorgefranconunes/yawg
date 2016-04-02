@@ -10,9 +10,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.Optional;
 
 import com.varmateo.yawg.ItemBaker;
 import com.varmateo.yawg.YawgException;
+import com.varmateo.yawg.YawgTemplate;
 
 
 /**
@@ -66,6 +68,8 @@ import com.varmateo.yawg.YawgException;
      *
      * @param sourcePath The file to be baked.
      *
+     * @param template Not used.
+     *
      * @param targetDir The directory where the source file will be
      * copied to.
      *
@@ -75,6 +79,7 @@ import com.varmateo.yawg.YawgException;
     @Override
     public void bake(
             final Path sourcePath,
+            final Optional<YawgTemplate> template,
             final Path targetDir)
             throws YawgException {
 

@@ -6,8 +6,6 @@
 
 package com.varmateo.testutils;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.MessageFormat;
 
 import org.junit.Assert;
@@ -122,7 +120,7 @@ public final class TestUtils
  **************************************************************************/
 
     @FunctionalInterface
-    public static interface TestTask {
+    public interface TestTask {
 
 
 
@@ -130,7 +128,7 @@ public final class TestUtils
 
 /**************************************************************************
  *
- * 
+ * @throws Exception Checked exception.
  *
  **************************************************************************/
 
