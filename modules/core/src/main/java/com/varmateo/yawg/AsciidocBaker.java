@@ -8,6 +8,7 @@ package com.varmateo.yawg;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -24,6 +25,7 @@ import org.asciidoctor.internal.AsciidoctorCoreException;
 import com.varmateo.yawg.ItemBaker;
 import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.YawgTemplate;
+import com.varmateo.yawg.YawgTemplateDataModel;
 
 
 /**
@@ -199,17 +201,37 @@ import com.varmateo.yawg.YawgTemplate;
             final Path targetPath)
             throws AsciidoctorCoreException, IOException {
 
+        String sourceContent = readContent(sourcePath);
+        YawgTemplateDataModel dataModel = buildDataModel(sourceContent);
+        StringWriter buffer = new StringWriter();
+
+        template.process(dataModel, buffer);
+
+        String targetContent = buffer.toString();
+
+        saveContent(targetContent, targetPath);
+    }
+
+
+    /**
+     *
+     */
+    private YawgTemplateDataModel buildDataModel(final String sourceContent)
+            throws AsciidoctorCoreException {
+
         OptionsBuilder options =
                 OptionsBuilder.options()
                 .headerFooter(false)
-                .toFile(targetPath.toFile())
                 .safe(SafeMode.UNSAFE);
-        String sourceContent = readContent(sourcePath);
+        String body = _converter.render(sourceContent, options);
+        String title = "Title not yet implemented...";
+        YawgTemplateDataModel result =
+                new YawgTemplateDataModel.Builder()
+                .setTitle(title)
+                .setBody(body)
+                .build();
 
-        // TBD
-        String targetContent = _converter.render(sourceContent, options);
-
-        saveContent(targetContent, targetPath);
+        return result;
     }
 
 

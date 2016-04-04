@@ -16,6 +16,7 @@ import com.varmateo.commons.util.Holder;
 
 import com.varmateo.yawg.AsciidocBaker;
 import com.varmateo.yawg.CopyBaker;
+import com.varmateo.yawg.YawgTemplateService;
 import com.varmateo.yawg.ItemBaker;
 import com.varmateo.yawg.YawgBakerConf;
 
@@ -40,6 +41,9 @@ import com.varmateo.yawg.YawgBakerConf;
 
     private final Holder<Log> _log =
             Holder.of(this::newLog);
+
+    private final Holder<YawgTemplateService> _fmTemplateService =
+            Holder.of(this::newFreemarkerTemplateService);
 
 
     /**
@@ -66,6 +70,15 @@ import com.varmateo.yawg.YawgBakerConf;
     public Log getLog() {
 
         return _log.get();
+    }
+
+
+    /**
+     *
+     */
+    public YawgTemplateService getTemplateService() {
+
+        return _fmTemplateService.get();
     }
 
 
@@ -102,6 +115,19 @@ import com.varmateo.yawg.YawgBakerConf;
         ItemBaker defaultBaker = _copyBaker.get();
         ItemBaker result =
                 new FileBaker(log, sourceRootDir, bakers, defaultBaker);
+
+        return result;
+    }
+
+
+    /**
+     *
+     */
+    private YawgTemplateService newFreemarkerTemplateService() {
+
+        Path templatesDir = _conf.templatesDir;
+        YawgTemplateService result =
+                new FreemarkerTemplateService(templatesDir);
 
         return result;
     }

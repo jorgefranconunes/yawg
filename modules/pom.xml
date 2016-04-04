@@ -30,7 +30,6 @@ Copyright (c) 2015-2016 Jorge Nunes, All Rights Reserved.
     <junit.version>4.11</junit.version>
     <commons-cli.version>1.2</commons-cli.version>
     <freemaker.version>2.3.24-incubating</freemaker.version>
-    <jsoup.version>1.8.3</jsoup.version>
     <maven-assembly-plugin.version>2.5.3</maven-assembly-plugin.version>
     <maven-checkstyle-plugin.version>2.16</maven-checkstyle-plugin.version>
     <maven-clean-plugin.version>2.6.1</maven-clean-plugin.version>

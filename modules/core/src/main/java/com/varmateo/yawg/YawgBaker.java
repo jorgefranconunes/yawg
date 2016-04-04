@@ -22,6 +22,7 @@ import com.varmateo.yawg.YawgDomain;
 import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.YawgInfo;
 import com.varmateo.yawg.YawgTemplate;
+import com.varmateo.yawg.YawgTemplateService;
 
 
 /**
@@ -107,7 +108,8 @@ public final class YawgBaker
             Files.createDirectory(targetDir);
         }
 
-        Optional<YawgTemplate> template = Optional.empty(); // TBD
+        YawgTemplateService templateService = _domain.getTemplateService();
+        Optional<YawgTemplate> template = templateService.getDefaultTemplate();
         List<Path> entries = getDirEntries(sourceDir);
 
         for ( Path path : entries ) {
