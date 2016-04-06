@@ -52,7 +52,6 @@ Copyright (c) 2015-2016 Jorge Nunes, All Rights Reserved.
   <modules>
     <module>cli</module>
     <module>core</module>
-    <module>commons</module>
     <module>release</module>
     <module>testutils</module>
   </modules>
@@ -266,6 +265,7 @@ Copyright (c) 2015-2016 Jorge Nunes, All Rights Reserved.
           <use>true</use>
           <quiet>true</quiet>
           <failOnError>false</failOnError>
+          <aggregate>true</aggregate>
         </configuration>
         <reportSets>
           <reportSet>

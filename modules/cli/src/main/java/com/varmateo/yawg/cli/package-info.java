@@ -5,6 +5,6 @@
  **************************************************************************/
 
 /**
- * Utility classes and functions intended for use in unit tests.
+ * Classes for the "yawg" command line tool.
  */
-package com.varmateo.testutils;
+package com.varmateo.yawg.cli;

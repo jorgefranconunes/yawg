@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import com.varmateo.yawg.YawgInfo;
 
-import com.varmateo.commons.util.Exceptions;
+import com.varmateo.yawg.util.Exceptions;
 
 
 

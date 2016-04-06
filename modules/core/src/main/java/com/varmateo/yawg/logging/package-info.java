@@ -5,6 +5,6 @@
  **************************************************************************/
 
 /**
- * Utility classes and functions intended for use in unit tests.
+ * Utility classes for logging.
  */
-package com.varmateo.testutils;
+package com.varmateo.yawg.logging;

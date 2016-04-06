@@ -10,13 +10,13 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import com.varmateo.yawg.YawgException;
-import com.varmateo.yawg.YawgTemplate;
+import com.varmateo.yawg.PageTemplate;
 
 
 /**
- *
+ * A baker.
  */
-/* package private */ interface ItemBaker {
+public interface ItemBaker {
 
 
     /**
@@ -26,7 +26,7 @@ import com.varmateo.yawg.YawgTemplate;
 
 
     /**
-     * Checks if it is able to bake the given path.
+     * Checks if this baker is able to bake the given path.
      */
     boolean isBakeable(Path path);
 
@@ -50,7 +50,7 @@ import com.varmateo.yawg.YawgTemplate;
      */
     void bake(
             Path sourcePath,
-            Optional<YawgTemplate> template,
+            Optional<PageTemplate> template,
             Path targetDir)
             throws YawgException;
 }

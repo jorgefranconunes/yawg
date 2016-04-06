@@ -10,15 +10,15 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collection;
 
-import com.varmateo.commons.logging.Log;
-import com.varmateo.commons.logging.LogFactory;
-import com.varmateo.commons.util.Holder;
-
-import com.varmateo.yawg.AsciidocBaker;
 import com.varmateo.yawg.CopyBaker;
-import com.varmateo.yawg.YawgTemplateService;
+import com.varmateo.yawg.PageTemplateService;
 import com.varmateo.yawg.ItemBaker;
-import com.varmateo.yawg.YawgBakerConf;
+import com.varmateo.yawg.BakerConf;
+import com.varmateo.yawg.asciidoctor.AsciidoctorBaker;
+import com.varmateo.yawg.freemarker.FreemarkerTemplateService;
+import com.varmateo.yawg.logging.Log;
+import com.varmateo.yawg.logging.LogFactory;
+import com.varmateo.yawg.util.Holder;
 
 
 /**
@@ -28,10 +28,10 @@ import com.varmateo.yawg.YawgBakerConf;
         extends Object {
 
 
-    private final YawgBakerConf _conf;
+    private final BakerConf _conf;
 
     private final Holder<ItemBaker> _asciidocBaker =
-            Holder.of(this::newAsciidocBaker);
+            Holder.of(this::newAsciidoctorBaker);
 
     private final Holder<ItemBaker> _copyBaker =
             Holder.of(this::newCopyBaker);
@@ -42,14 +42,14 @@ import com.varmateo.yawg.YawgBakerConf;
     private final Holder<Log> _log =
             Holder.of(this::newLog);
 
-    private final Holder<YawgTemplateService> _fmTemplateService =
+    private final Holder<PageTemplateService> _fmTemplateService =
             Holder.of(this::newFreemarkerTemplateService);
 
 
     /**
      *
      */
-    public YawgDomain(final YawgBakerConf conf) {
+    public YawgDomain(final BakerConf conf) {
 
         _conf = conf;
     }
@@ -76,7 +76,7 @@ import com.varmateo.yawg.YawgBakerConf;
     /**
      *
      */
-    public YawgTemplateService getTemplateService() {
+    public PageTemplateService getTemplateService() {
 
         return _fmTemplateService.get();
     }
@@ -85,9 +85,9 @@ import com.varmateo.yawg.YawgBakerConf;
     /**
      *
      */
-    private ItemBaker newAsciidocBaker() {
+    private ItemBaker newAsciidoctorBaker() {
 
-        ItemBaker result = new AsciidocBaker();
+        ItemBaker result = new AsciidoctorBaker();
 
         return result;
     }
@@ -123,10 +123,10 @@ import com.varmateo.yawg.YawgBakerConf;
     /**
      *
      */
-    private YawgTemplateService newFreemarkerTemplateService() {
+    private PageTemplateService newFreemarkerTemplateService() {
 
         Path templatesDir = _conf.templatesDir;
-        YawgTemplateService result =
+        PageTemplateService result =
                 new FreemarkerTemplateService(templatesDir);
 
         return result;

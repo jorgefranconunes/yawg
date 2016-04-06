@@ -11,11 +11,10 @@ import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Optional;
 
-import com.varmateo.commons.logging.Log;
-
 import com.varmateo.yawg.ItemBaker;
 import com.varmateo.yawg.YawgException;
-import com.varmateo.yawg.YawgTemplate;
+import com.varmateo.yawg.PageTemplate;
+import com.varmateo.yawg.logging.Log;
 
 
 /**
@@ -81,7 +80,7 @@ import com.varmateo.yawg.YawgTemplate;
     @Override
     public void bake(
             final Path sourcePath,
-            final Optional<YawgTemplate> template,
+            final Optional<PageTemplate> template,
             final Path targetDir)
             throws YawgException {
 

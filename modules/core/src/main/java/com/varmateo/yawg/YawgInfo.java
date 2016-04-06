@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 JOrge Nunes, All Rights Reserved.
+ * Copyright (c) 2016 Jorge Nunes, All Rights Reserved.
  *
  **************************************************************************/
 
@@ -10,7 +10,7 @@ import java.io.InputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import com.varmateo.commons.util.Exceptions;
+import com.varmateo.yawg.util.Exceptions;
 
 
 /**

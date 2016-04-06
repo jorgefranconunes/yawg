@@ -6,12 +6,12 @@
 
 package com.varmateo.yawg;
 
-import com.varmateo.commons.util.Exceptions;
+import com.varmateo.yawg.util.Exceptions;
 
 
 /**
- * An exception signaling an abnormal occurence during the baking of a
- * directory tree.
+ * An exception signaling an abnormal occurence during a baking
+ * related activity.
  */
 public final class YawgException
     extends RuntimeException {
