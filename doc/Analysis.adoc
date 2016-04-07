@@ -1,4 +1,4 @@
-= YAWG - Yet Another Wiki Generator
+= YAWG - Yet Another Wiki Generator : There and back
 :author: Jorge Nunes
 
 

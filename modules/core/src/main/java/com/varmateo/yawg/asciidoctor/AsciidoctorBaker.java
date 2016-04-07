@@ -20,6 +20,7 @@ import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.AttributesBuilder;
 import org.asciidoctor.OptionsBuilder;
 import org.asciidoctor.SafeMode;
+import org.asciidoctor.ast.DocumentHeader;
 import org.asciidoctor.internal.AsciidoctorCoreException;
 
 import com.varmateo.yawg.ItemBaker;
@@ -45,7 +46,7 @@ public final class AsciidoctorBaker
 
     private static final Charset UTF8 = Charset.forName("UTF-8");
 
-    private final Asciidoctor _converter;
+    private final Asciidoctor _asciidoctor;
 
 
     /**
@@ -53,7 +54,7 @@ public final class AsciidoctorBaker
      */
     public AsciidoctorBaker() {
 
-        _converter = Asciidoctor.Factory.create();
+        _asciidoctor = Asciidoctor.Factory.create();
     }
 
 
@@ -188,7 +189,7 @@ public final class AsciidoctorBaker
                 .toFile(targetFile)
                 .safe(SafeMode.UNSAFE);
 
-        _converter.convertFile(sourceFile, options);
+        _asciidoctor.convertFile(sourceFile, options);
     }
 
 
@@ -216,28 +217,6 @@ public final class AsciidoctorBaker
     /**
      *
      */
-    private PageTemplateDataModel buildDataModel(final String sourceContent)
-            throws AsciidoctorCoreException {
-
-        OptionsBuilder options =
-                OptionsBuilder.options()
-                .headerFooter(false)
-                .safe(SafeMode.UNSAFE);
-        String body = _converter.render(sourceContent, options);
-        String title = "Title not yet implemented...";
-        PageTemplateDataModel result =
-                new PageTemplateDataModel.Builder()
-                .setTitle(title)
-                .setBody(body)
-                .build();
-
-        return result;
-    }
-
-
-    /**
-     *
-     */
     private String readContent(final Path sourcePath)
             throws IOException {
 
@@ -245,6 +224,34 @@ public final class AsciidoctorBaker
         String content = new String(contentBytes, UTF8);
 
         return content;
+    }
+
+
+    /**
+     *
+     */
+    private PageTemplateDataModel buildDataModel(final String sourceContent)
+            throws AsciidoctorCoreException {
+
+        OptionsBuilder options =
+                OptionsBuilder.options()
+                .headerFooter(false)
+                .safe(SafeMode.UNSAFE);
+        String body = _asciidoctor.render(sourceContent, options);
+        DocumentHeader header = _asciidoctor.readDocumentHeader(sourceContent);
+        String title =
+                Optional.ofNullable(header)
+                .map(h -> h.getDocumentTitle())
+                .map(t -> t.getMain())
+                .orElse((String)null);
+
+        PageTemplateDataModel result =
+                new PageTemplateDataModel.Builder()
+                .setTitle(title)
+                .setBody(body)
+                .build();
+
+        return result;
     }
 
 
