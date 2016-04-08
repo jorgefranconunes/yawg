@@ -6,13 +6,8 @@
 
 package com.varmateo.yawg;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import com.varmateo.yawg.ItemBaker;
 import com.varmateo.yawg.BakerConf;
@@ -21,6 +16,7 @@ import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.YawgInfo;
 import com.varmateo.yawg.PageTemplate;
 import com.varmateo.yawg.PageTemplateService;
+import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogWithUtils;
 
 
@@ -67,79 +63,24 @@ public final class Baker
                 "    Templates : {0}",
                 (templatesDir==null) ? "NONE" : templatesDir.toString());
 
-        log.logDelay("bake", this::doBake);
+        log.logDelay("bake", () -> doBake(log));
     }
 
 
     /**
      *
      */
-    private void doBake()
+    private void doBake(final Log log)
             throws YawgException {
 
-        ItemBaker fileBaker = _domain.getFileBaker();
         Path sourceDir = _conf.sourceDir;
         Path targetDir = _conf.targetDir;
-
-        try {
-            bakeDirectory(fileBaker, sourceDir, targetDir);
-        } catch ( IOException e ) {
-            YawgException.raise(
-                    e,
-                    "Failed baking {0} - {1} - {2}",
-                    sourceDir,
-                    e.getClass().getSimpleName(),
-                    e.getMessage());
-        }
-    }
-
-
-    /**
-     *
-     */
-    private void bakeDirectory(
-            final ItemBaker fileBaker,
-            final Path sourceDir,
-            final Path targetDir)
-            throws IOException, YawgException {
-
-        if ( !Files.exists(targetDir) ) {
-            Files.createDirectory(targetDir);
-        }
-
+        ItemBaker fileBaker = _domain.getFileBaker();
+        ItemBaker dirBaker = new DirBaker(log, sourceDir, fileBaker);
         PageTemplateService templateService = _domain.getTemplateService();
         Optional<PageTemplate> template = templateService.getDefaultTemplate();
-        List<Path> entries = getDirEntries(sourceDir);
 
-        for ( Path path : entries ) {
-            if ( Files.isRegularFile(path) ) {
-                fileBaker.bake(path, template, targetDir);
-            }
-        }
-
-        for ( Path path : entries ) {
-            if ( Files.isDirectory(path) ) {
-                Path dirBasename = path.getFileName();
-                Path childTargetDir = targetDir.resolve(dirBasename);
-                bakeDirectory(fileBaker, path, childTargetDir);
-            }
-        }
-    }
-
-
-    /**
-     *
-     */
-    private List<Path> getDirEntries(final Path dir)
-        throws IOException {
-
-        List<Path> result = null;
-
-        try ( Stream<Path> entries = Files.list(dir) ) {
-            result = entries.sorted().collect(Collectors.toList());
-        }
-
-        return result;
+        dirBaker.bake(sourceDir, template, targetDir);
     }
 
 
