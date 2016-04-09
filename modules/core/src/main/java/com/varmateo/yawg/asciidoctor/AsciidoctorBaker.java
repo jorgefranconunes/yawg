@@ -139,7 +139,6 @@ public final class AsciidoctorBaker
             final Path targetDir)
             throws AsciidoctorCoreException, IOException {
 
-        Path sourceBasename = sourcePath.getFileName();
         Path targetPath = getTargetPath(sourcePath, targetDir);
 
         if ( template.isPresent() ) {

@@ -26,6 +26,7 @@ Copyright (c) 2015-2016 Jorge Nunes, All Rights Reserved.
 
     <!-- Versions of dependencies and Maven plugins. -->
     <asciidoctorj.version>1.5.4</asciidoctorj.version>
+    <findbugs-maven-plugin.version>3.0.3</findbugs-maven-plugin.version>
     <jacoco-maven-plugin.version>0.7.6.201602180812</jacoco-maven-plugin.version>
     <junit.version>4.11</junit.version>
     <commons-cli.version>1.2</commons-cli.version>
@@ -295,6 +296,10 @@ Copyright (c) 2015-2016 Jorge Nunes, All Rights Reserved.
         <version>${jacoco-maven-plugin.version}</version>
       </plugin>
       
+      <!--
+         See http://maven.apache.org/plugins/maven-checkstyle-plugin/
+         for documentation.
+      -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
@@ -309,6 +314,21 @@ Copyright (c) 2015-2016 Jorge Nunes, All Rights Reserved.
             </reports>
           </reportSet>
         </reportSets>
+      </plugin>
+
+      <!--
+         See http://www.mojohaus.org/findbugs-maven-plugin/ for
+         documentation.
+      -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <version>${findbugs-maven-plugin.version}</version>
+        <configuration>
+          <effort>Max</effort>
+          <xmlOutput>true</xmlOutput>
+          <xmlOutputDirectory>target/site</xmlOutputDirectory>
+        </configuration>
       </plugin>
 
     </plugins>

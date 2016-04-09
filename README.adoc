@@ -1,7 +1,7 @@
 image:https://travis-ci.org/jorgefranconunes/yawg.svg?branch=master["Build Status", link="https://travis-ci.org/jorgefranconunes/yawg"]
 
 
-== Yet Another Wiki Genarator
+== Yet Another Wiki Generator
 
 Tool for generating static sites.
 

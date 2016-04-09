@@ -89,9 +89,6 @@ import com.varmateo.yawg.logging.Log;
         Path sourceRelPath = _sourceRootDir.relativize(sourcePath);
         _log.debug("Baking {0} with {1}", sourceRelPath, baker.getShortName());
 
-        Path sourceBasename = sourcePath.getFileName();
-        Path targetPath = targetDir.resolve(sourceBasename);
-
         baker.bake(sourcePath, template, targetDir);
     }
 
