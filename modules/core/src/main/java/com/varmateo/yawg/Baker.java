@@ -6,7 +6,13 @@
 
 package com.varmateo.yawg;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.FileVisitResult;
 import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Optional;
 
 import com.varmateo.yawg.ItemBaker;
@@ -55,6 +61,7 @@ public final class Baker
         Path sourceDir = _conf.sourceDir;
         Path targetDir = _conf.targetDir;
         Path templatesDir = _conf.templatesDir;
+        Path assetsDir   = _conf.assetsDir;
 
         log.info("{0} {1}", YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);
         log.info("    Source    : {0}", sourceDir);
@@ -62,6 +69,9 @@ public final class Baker
         log.info(
                 "    Templates : {0}",
                 (templatesDir==null) ? "NONE" : templatesDir.toString());
+        log.info(
+                "    Assets    : {0}",
+                (assetsDir==null) ? "NONE" : assetsDir.toString());
 
         log.logDelay("bake", () -> doBake(log));
     }
@@ -70,7 +80,23 @@ public final class Baker
     /**
      *
      */
-    private void doBake(final Log log)
+    private void doBake(final LogWithUtils log)
+            throws YawgException {
+
+        if ( _conf.assetsDir != null ) {
+            log.logDelay("copying assets", () -> copyAssets(log));
+        } else {
+            log.debug("No assets directory given");
+        }
+
+        log.logDelay("baking source tree", () -> bakeSourceTree(log));
+    }
+
+
+    /**
+     *
+     */
+    private void bakeSourceTree(final Log log)
             throws YawgException {
 
         Path sourceDir = _conf.sourceDir;
@@ -81,6 +107,66 @@ public final class Baker
         Optional<PageTemplate> template = templateService.getDefaultTemplate();
 
         dirBaker.bake(sourceDir, template, targetDir);
+    }
+
+
+    /**
+     *
+     */
+    private void copyAssets(final Log log)
+            throws YawgException {
+
+        final Path sourceDir = _conf.assetsDir;
+        final Path targetDir = _conf.targetDir;
+
+        try {
+            copyDirectoryTree(sourceDir, targetDir);
+        } catch ( IOException e ) {
+            YawgException.raise(
+                    e,
+                    "Failed to copy assets - {0} - {1}",
+                    e.getClass().getSimpleName(),
+                    e.getMessage());
+        }
+    }
+
+
+    /**
+     *
+     */
+    private void copyDirectoryTree(
+            final Path sourceDir,
+            final Path targetDir)
+            throws IOException {
+
+        Files.walkFileTree(
+                sourceDir,
+                new SimpleFileVisitor<Path>() {
+                    @Override
+                    public FileVisitResult preVisitDirectory(
+                            final Path dir,
+                            final BasicFileAttributes attrs)
+                            throws IOException {
+                        Path childTargetDir =
+                                targetDir.resolve(sourceDir.relativize(dir));
+                        if ( !Files.exists(childTargetDir) ) {
+                            Files.createDirectory(childTargetDir);
+                        }
+                        return FileVisitResult.CONTINUE;
+                    }
+                    @Override
+                    public FileVisitResult visitFile(
+                            final Path file,
+                            final BasicFileAttributes attrs)
+                            throws IOException {
+                        Files.copy(
+                                file,
+                                targetDir.resolve(sourceDir.relativize(file)),
+                                StandardCopyOption.REPLACE_EXISTING,
+                                StandardCopyOption.COPY_ATTRIBUTES);
+                        return FileVisitResult.CONTINUE;
+                    }
+                });
     }
 
 

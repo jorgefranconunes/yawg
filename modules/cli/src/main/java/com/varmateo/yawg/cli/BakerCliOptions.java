@@ -24,13 +24,20 @@ public final class BakerCliOptions
     extends Object {
 
 
+    public static final CliOption ASSETS_DIR =
+        new CliOption.Builder()
+        .setLongName("assets")
+        .setArgName("PATH")
+        .setDescription("path of assets directory")
+        .build();
+
     public static final CliOption HELP =
         new CliOption.Builder()
         .setLongName("help")
         .setDescription("show this help text and exit")
         .setShortName("h")
         .build();
- 
+
     public static final CliOption SOURCE_DIR =
         new CliOption.Builder()
         .setLongName("source")
@@ -79,6 +86,7 @@ public final class BakerCliOptions
 
     static {
         CliOption[] allOptions = {
+            ASSETS_DIR,
             HELP,
             SOURCE_DIR,
             TARGET_DIR,

@@ -18,6 +18,7 @@ public final class BakerConf
     extends Object {
 
 
+    public final Path assetsDir;
     public final Path sourceDir;
     public final Path targetDir;
     public final Path templatesDir;
@@ -28,6 +29,7 @@ public final class BakerConf
      */
     private BakerConf(final Builder builder) {
 
+        this.assetsDir = builder._assetsDir;
         this.sourceDir = builder._sourceDir;
         this.targetDir = builder._targetDir;
         this.templatesDir = builder._templatesDir;
@@ -41,6 +43,7 @@ public final class BakerConf
         extends Object {
 
 
+        private Path _assetsDir = null;
         private Path _sourceDir = null;
         private Path _targetDir = null;
         private Path _templatesDir = null;
@@ -52,6 +55,16 @@ public final class BakerConf
         public Builder() {
 
             // Nothing to do.
+        }
+
+
+        /**
+         *
+         */
+        public Builder setAssetsDir(final Path assetsDir) {
+
+            _assetsDir = assetsDir;
+            return this;
         }
 
 

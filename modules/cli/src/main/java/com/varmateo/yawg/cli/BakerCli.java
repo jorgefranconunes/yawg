@@ -120,12 +120,15 @@ public final class BakerCli
         Path targetDir = cliOptions.getPath(BakerCliOptions.TARGET_DIR);
         Path templatesDir =
                 cliOptions.getPath(BakerCliOptions.TEMPLATES_DIR, null);
+        Path assetsDir =
+                cliOptions.getPath(BakerCliOptions.ASSETS_DIR, null);
 
         BakerConf conf =
                 new BakerConf.Builder()
                 .setSourceDir(sourceDir)
                 .setTargetDir(targetDir)
                 .setTemplatesDir(templatesDir)
+                .setAssetsDir(assetsDir)
                 .build();
         Baker baker = new Baker(conf);
 
