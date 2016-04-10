@@ -14,82 +14,63 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.varmateo.yawg.DirBakerConf;
 import com.varmateo.yawg.ItemBaker;
-import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.PageTemplate;
+import com.varmateo.yawg.PageTemplateService;
+import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.logging.Log;
-import com.varmateo.yawg.util.Exceptions;
 
 
 /**
  * 
  */
 /* package private */ final class DirBaker
-        extends Object
-        implements ItemBaker {
+        extends Object {
 
-
-    private static final String NAME = "dir";
 
     private final Log _log;
     private final Path _sourceRootDir;
     private final ItemBaker _fileBaker;
+    private final PageTemplateService _templateService;
 
 
 
     /**
-     * @param log The logger that will be used for logging.
+     * @param log Used for logging.
      *
      * @param sourceRootDir The top level directory being baked. This
      * is only used to improve logging messages.
      *
      * @param fileBaker Baker to be used on regular files.
+     *
+     * @param templateService Will provide the templates used in the
+     * baking of individual files.
      */
     public DirBaker(
             final Log log,
             final Path sourceRootDir,
-            final ItemBaker fileBaker) {
+            final ItemBaker fileBaker,
+            final PageTemplateService templateService) {
 
         _log = log;
         _sourceRootDir = sourceRootDir;
         _fileBaker = fileBaker;
+        _templateService = templateService;
     }
 
 
     /**
-     * {@inheritDoc}
+     * 
      */
-    @Override
-    public String getShortName() {
-
-        return NAME;
-    }
-
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isBakeable(final Path path) {
-
-        boolean result = Files.isDirectory(path);
-
-        return result;
-    }
-
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void bake(
-            final Path sourcePath,
-            final Optional<PageTemplate> template,
-            final Path targetDir)
+    public void bakeDirectory(
+            final Path sourceDir,
+            final Path targetDir,
+            final DirBakerConf parentDirBakerConf)
             throws YawgException {
 
-        Path sourceRelPath = _sourceRootDir.relativize(sourcePath);
-        _log.debug("Baking directory {0}", sourceRelPath);
+        Path relSourceDir = _sourceRootDir.relativize(sourceDir);
+        _log.debug("Baking directory {0}", relSourceDir);
 
         if ( !Files.exists(targetDir) ) {
             doIoAction(
@@ -97,23 +78,91 @@ import com.varmateo.yawg.util.Exceptions;
                     () -> Files.createDirectory(targetDir));
         }
 
-        Path sourceDir = sourcePath;
+        DirBakerConf dirBakerConf =
+                buildDirBakerConf(parentDirBakerConf, sourceDir);
+
         List<Path> entries =
                 doIoAction(
                         "list directory",
                         ()-> getDirEntries(sourceDir));
 
-        entries.stream()
+        List<Path> filePathList =
+                entries.stream()
                 .filter(Files::isRegularFile)
-                .forEach(path -> _fileBaker.bake(path, template, targetDir));
+                .collect(Collectors.toList());
 
-        entries.stream()
+        if ( filePathList.size() > 0 ) {
+            bakeChildFiles(filePathList, targetDir, dirBakerConf);
+        }
+
+        List<Path> dirPathList =
+                entries.stream()
                 .filter(Files::isDirectory)
-                .forEach(path -> {
-                        Path dirBasename = path.getFileName();
-                        Path childTargetDir = targetDir.resolve(dirBasename);
-                        bake(path, template, childTargetDir);
-                    });
+                .collect(Collectors.toList());
+
+        if ( dirPathList.size() > 0 ) {
+            bakeChildDirectories(sourceDir, dirPathList, targetDir, dirBakerConf);
+        }
+    }
+
+
+    /**
+     *
+     */
+    private void bakeChildFiles(
+            final List<Path> filePathList,
+            final Path targetDir,
+            final DirBakerConf dirBakerConf)
+            throws YawgException {
+
+        Optional<PageTemplate> template =
+                dirBakerConf.templateName
+                .map(_templateService::getTemplate);
+        if ( !template.isPresent() ) {
+            template = _templateService.getDefaultTemplate();
+        }
+
+        for ( Path path : filePathList ) {
+            _fileBaker.bake(path, template, targetDir);
+        }
+    }
+
+
+    /**
+     *
+     */
+    private void bakeChildDirectories(
+            final Path sourceDir,
+            final List<Path> dirPathList,
+            final Path targetDir,
+            final DirBakerConf parentConf) {
+
+        DirBakerConf myBakerConf = buildDirBakerConf(parentConf, sourceDir);
+
+        for ( Path childSourceDir : dirPathList ) {
+            Path dirBasename = childSourceDir.getFileName();
+            Path childTargetDir = targetDir.resolve(dirBasename);
+            bakeDirectory(childSourceDir, childTargetDir, myBakerConf);
+        }
+    }
+
+
+    /**
+     * Builds the baker configuration for the given directory,
+     * inheriting the values from the given parent baker conf.
+     *
+     * @param parentConf The configuration from which we will inherit
+     * values.
+     *
+     * @param sourceDir The directory for which we are going to create
+     * the baker conf.
+     */
+    private DirBakerConf buildDirBakerConf(
+            final DirBakerConf parentConf,
+            final Path sourceDir) {
+
+        // TBD
+        return parentConf;
     }
 
 
@@ -146,8 +195,7 @@ import com.varmateo.yawg.util.Exceptions;
         try {
             result = supplier.get();
         } catch ( IOException e ) {
-            Exceptions.raise(
-                    YawgException.class,
+            YawgException.raise(
                     e,
                     "Failed to {0} - {1} - {2}",
                     description,

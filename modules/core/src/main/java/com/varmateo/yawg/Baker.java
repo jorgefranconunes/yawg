@@ -15,13 +15,15 @@ import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Optional;
 
-import com.varmateo.yawg.ItemBaker;
 import com.varmateo.yawg.BakerConf;
+import com.varmateo.yawg.DirBaker;
+import com.varmateo.yawg.DirBakerConf;
+import com.varmateo.yawg.ItemBaker;
+import com.varmateo.yawg.PageTemplate;
+import com.varmateo.yawg.PageTemplateService;
 import com.varmateo.yawg.YawgDomain;
 import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.YawgInfo;
-import com.varmateo.yawg.PageTemplate;
-import com.varmateo.yawg.PageTemplateService;
 import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogWithUtils;
 
@@ -102,11 +104,14 @@ public final class Baker
         Path sourceDir = _conf.sourceDir;
         Path targetDir = _conf.targetDir;
         ItemBaker fileBaker = _domain.getFileBaker();
-        ItemBaker dirBaker = new DirBaker(log, sourceDir, fileBaker);
         PageTemplateService templateService = _domain.getTemplateService();
-        Optional<PageTemplate> template = templateService.getDefaultTemplate();
+        DirBaker dirBaker =
+                new DirBaker(log, sourceDir, fileBaker, templateService);
+        DirBakerConf dirBakerConf =
+                new DirBakerConf.Builder()
+                .build();
 
-        dirBaker.bake(sourceDir, template, targetDir);
+        dirBaker.bakeDirectory(sourceDir, targetDir, dirBakerConf);
     }
 
 

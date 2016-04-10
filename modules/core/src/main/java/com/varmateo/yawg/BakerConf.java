@@ -50,7 +50,7 @@ public final class BakerConf
 
 
         /**
-         * A builder of <code>BakerConf</code> instances.
+         * 
          */
         public Builder() {
 
