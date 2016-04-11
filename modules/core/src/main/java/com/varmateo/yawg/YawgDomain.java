@@ -16,6 +16,7 @@ import com.varmateo.yawg.ItemBaker;
 import com.varmateo.yawg.BakerConf;
 import com.varmateo.yawg.asciidoctor.AsciidoctorBaker;
 import com.varmateo.yawg.freemarker.FreemarkerTemplateService;
+import com.varmateo.yawg.html.HtmlBaker;
 import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogFactory;
 import com.varmateo.yawg.util.Holder;
@@ -39,11 +40,14 @@ import com.varmateo.yawg.util.Holder;
     private final Holder<ItemBaker> _fileBaker =
             Holder.of(this::newFileBaker);
 
-    private final Holder<Log> _log =
-            Holder.of(this::newLog);
-
     private final Holder<PageTemplateService> _fmTemplateService =
             Holder.of(this::newFreemarkerTemplateService);
+
+    private final Holder<ItemBaker> _htmlBaker =
+            Holder.of(this::newHtmlBaker);
+
+    private final Holder<Log> _log =
+            Holder.of(this::newLog);
 
 
     /**
@@ -111,7 +115,10 @@ import com.varmateo.yawg.util.Holder;
 
         Log log = _log.get();
         Path sourceRootDir = _conf.sourceDir;
-        Collection<ItemBaker> bakers = Arrays.asList(_asciidocBaker.get());
+        Collection<ItemBaker> bakers =
+                Arrays.asList(
+                        _asciidocBaker.get(),
+                        _htmlBaker.get());
         ItemBaker defaultBaker = _copyBaker.get();
         ItemBaker result =
                 new FileBaker(log, sourceRootDir, bakers, defaultBaker);
@@ -128,6 +135,17 @@ import com.varmateo.yawg.util.Holder;
         Path templatesDir = _conf.templatesDir;
         PageTemplateService result =
                 new FreemarkerTemplateService(templatesDir);
+
+        return result;
+    }
+
+
+    /**
+     *
+     */
+    private ItemBaker newHtmlBaker() {
+
+        ItemBaker result = new HtmlBaker();
 
         return result;
     }
