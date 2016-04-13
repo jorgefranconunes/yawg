@@ -33,6 +33,7 @@ Definition of the contents to be included in the release tarball.
     <fileSet>
       <directory>../../lib</directory>
       <outputDirectory>lib</outputDirectory>
+      <fileMode>0644</fileMode>
       <includes>
         <include>**</include>
       </includes>

@@ -73,8 +73,31 @@ function yawgCheckForTools () {
         if type $tool > /dev/null 2>&1 ; then
             : # We found the tool. All is ok
         else
-            teaError "Missing \"${tool}\" tool. Please install this tool."
+            yawgError "Missing \"${tool}\" tool. Please install this tool."
         fi
     done
+}
+
+
+
+
+
+###########################################################################
+#
+# In a Cygwin environment, converts the given path to a Windows
+# path. This will be needed when passing paths to Java, because Java
+# is a native Windows app (so we assume).
+#
+###########################################################################
+
+function yawgNormalizePath () {
+
+    case "$OSTYPE" in
+    cygwin )
+        cygpath --mixed --absolute "$1"
+        ;;
+    * )
+        echo $1
+    esac
 }
 

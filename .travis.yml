@@ -7,12 +7,16 @@
 language: java
 
 jdk:
-    - oraclejdk8
+- oraclejdk8
 
 script:
-    - mvn -f modules/pom.xml -DskipTests=false
+- ./devtools/bin/build-create-bundle --with-unit-tests
 
 cache:
-    - directories:
-        - $HOME/.m2
+- directories:
+    - $HOME/.m2
 
+addons:
+    apt:
+        packages:
+        - xsltproc

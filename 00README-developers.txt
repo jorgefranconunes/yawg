@@ -135,7 +135,14 @@ be at $REPORT_DIR/index.html
 
 == Creating a new release
 
-TBD
+To generate a release bundle to the following:
 
+----
+./devtools/bin/build-create-bundle
+----
 
+The above will perform a full build and create the release tarbal at
+the root of the workspace.
+
+TBD - How to generate and publish a public release.
 

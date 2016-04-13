@@ -13,13 +13,11 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.Optional;
 
 import com.varmateo.yawg.BakerConf;
 import com.varmateo.yawg.DirBaker;
 import com.varmateo.yawg.DirBakerConf;
 import com.varmateo.yawg.ItemBaker;
-import com.varmateo.yawg.PageTemplate;
 import com.varmateo.yawg.PageTemplateService;
 import com.varmateo.yawg.YawgDomain;
 import com.varmateo.yawg.YawgException;

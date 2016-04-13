@@ -6,9 +6,7 @@
 
 package com.varmateo.yawg.html;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.charset.Charset;
 import java.nio.file.Files;

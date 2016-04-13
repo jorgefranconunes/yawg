@@ -1,0 +1,454 @@
+#!/bin/bash
+###########################################################################
+#
+# Copyright (c) 2016 Jorge Nunes, All Rights Reserved.
+#
+#
+# Creates a release bundle for the Yawg software.
+#
+###########################################################################
+
+_scriptName=$0
+_scriptDir=$(dirname $0)
+_yawgHome=$(cd ${_scriptDir}/../..; pwd)
+
+source ${_yawgHome}/lib/bash/yawg-utils.sh
+source ${_yawgHome}/conf/yawg-defaults.conf
+
+
+
+
+
+TOOL_NAME="Release builder"
+PRODUCT_HEADER="${YAWG_PRODUCT_NAME} ${YAWG_VERSION} - ${TOOL_NAME}"
+
+MAVEN_DEFAULT_TOOL=mvn
+MAVEN_DEFAULT_OPTIONS=""
+MAVEN_DEFAULT_GOALS="clean package"
+
+_buildNumber=
+_jdkHome=
+_mavenTool=${MAVEN_DEFAULT_TOOL}
+_mavenHome=
+_mavenOptions=${MAVEN_DEFAULT_OPTIONS}
+_isWithUnitTests=false
+_isWithReports=false
+
+_mavenGoals=${MAVEN_DEFAULT_GOALS}
+_isWithLocalChanges=false
+_oldBuildNumber=SNAPSHOT
+_gitDir=${_yawgHome}/.git
+_reportsDir=${_yawgHome}/work/CodeQualityReports
+
+
+
+
+
+#######################################################################
+#
+# The main script.
+#
+#######################################################################
+
+function main () {
+
+    processCliArgs "$@"
+
+    prepareForMaven
+    showConfig
+    checkForLocalChanges
+    checkBuildNumber
+    updateBuildNumberInProjectTree
+
+    performBuild
+    local buildStatus=$?
+
+    restoreBuildNumberInProjectTree
+
+    if [ ${buildStatus} -eq 0 ] ; then
+        showFinalInfo
+    else
+        yawgLog "*** WARNING: BUILD HAS FAILED ***"
+    fi
+
+    return ${buildStatus}
+}
+
+
+
+
+
+###########################################################################
+#
+# Processes the command line options.
+#
+###########################################################################
+
+function processCliArgs () {
+
+    for option in "$@" ; do
+        case "${option}" in
+            --build-number=* )
+                _buildNumber=$(expr "$option" : '--build-number=\(.*\)')
+                ;;
+            --jdk-home=* )
+                _jdkHome=$(expr "$option" : '--jdk-home=\(.*\)')
+                ;;
+            --maven-home=* )
+                _mavenHome=$(expr "$option" : '--maven-home=\(.*\)')
+                _mavenTool=${_mavenHome}/bin/mvn
+                ;;
+            --maven-options=* )
+                _mavenOptions=$(expr "$option" : '--maven-options=\(.*\)')
+                ;;
+            --with-unit-tests )
+                _isWithUnitTests=true
+                ;;
+            --with-unit-tests=* )
+                _isWithUnitTests=$(expr "$option" : '--with-unit-tests=\(.*\)')
+                ;;
+            --with-reports )
+                _isWithReports=true
+                ;;
+            --with-reports=* )
+                _isWithReports=$(expr "$option" : '--with-reports=\(.*\)')
+                ;;
+            --help )
+                displayHelp
+                exit 0
+                ;;
+            --*=* )
+                option=$(expr $option : '\(--.*\)=.*')
+                yawgError "$option : unknown option. Use --help for details."
+                ;;
+            * )
+                yawgError "$option : unknown option. Use --help for details."
+                ;;
+        esac
+    done
+
+    if [ -z "${_jdkHome}" ] ; then
+        _jdkHome=${JAVA_HOME}
+
+        if [ -z "${_jdkHome}" ] ; then
+            yawgError "No --jdk-home option and JAVA_HOME is not set."
+        fi
+    fi
+
+    if type "${_mavenTool}" > /dev/null 2>&1 ; then
+        : # We found the Maven tool. Cool.
+    else
+        yawgError "Maven tool \"${_mavenTool}\" not found."
+    fi
+
+    if [ "${_isWithReports}" == true ] ; then
+        _isWithUnitTests=true
+    fi
+}
+
+
+
+
+
+###########################################################################
+#
+# Displays an help messages describing the configuration options.
+#
+###########################################################################
+
+function displayHelp () {
+
+    cat <<EOF
+
+${PRODUCT_HEADER}
+${YAWG_COPYRIGHT_HEADER}
+
+Creates a release bundle.
+
+Available options:
+
+--build-number=BUILD_NUMBER
+    Sufix for the full version number. If not specified it will
+    default to a string with format "yyYY_uu_HHmm", where the time
+    (UTC) is taken from the latest Git commit.
+
+--jdk-home=PATH
+    Base directory of the JDK 8 installation to be used in the build.
+
+--maven-home=PATH
+    Base directory of the Maven 3 installation to be used in the
+    build.
+
+--maven-options=STRING
+    Additional command line options passed to the Maven tool.
+
+--with-unit-tests
+--with-unit-tests=FLAG
+    Signals that unit tests should be executed (FLAG!=false) or not
+    (FLAG=false). If no flag is given then unit tests will be
+    executed.
+
+--with-reports
+--with-reports=FLAG
+    Signals that code quality reports should be generated
+    (FLAG!=false) or not (FLAG=false). If no flag is given then code
+    quality reports will be generated. Having FLAG==true implies
+    --with-unit-tests.
+
+--help
+    Prints this help text.
+
+EOF
+}
+
+
+
+
+
+#######################################################################
+#
+# Prepares the Maven options and goals from the command line options.
+#
+#######################################################################
+
+function prepareForMaven () {
+
+    if [ "${_isWithUnitTests}" == false ] ; then
+        _mavenOptions="-DskipTests=true ${_mavenOptions}"
+    else
+        _mavenOptions="-DskipTests=false ${_mavenOptions}"
+    fi
+
+    if [ "${_isWithReports}" == true ] ; then
+        local reportsDir=$(yawgNormalizePath ${_reportsDir})
+        _mavenOptions="${_mavenOptions} -Dyawg.mavensite=${reportsDir}"
+        _mavenGoals="clean package site"
+
+        mkdir -p ${_reportsDir}
+    fi
+}
+
+
+
+
+
+#######################################################################
+#
+# 
+#
+#######################################################################
+
+function showConfig () {
+
+    local buildNumberText=${_buildNumber}
+    if [ -z "${_buildNumber}" ] ; then
+        buildNumberText="AUTOMATIC"
+    fi
+
+    yawgLog "${PRODUCT_HEADER}"
+    yawgLog "    JDK           : ${_jdkHome}"
+    yawgLog "    Maven         : ${_mavenTool}"
+    yawgLog "    Maven options : ${_mavenOptions}"
+    yawgLog "    Maven goals   : ${_mavenGoals}"
+    yawgLog "    Build number  : ${buildNumberText}"
+}
+
+
+
+
+
+#######################################################################
+#
+# 
+#
+#######################################################################
+
+function checkForLocalChanges () {
+
+    local isWithLocalChanges=false
+
+    if ! git --git-dir=${_gitDir} diff-files --quiet -- ; then
+        yawgLog "There are unstaged changes in the work area."
+        isWithLocalChanges=true
+    fi
+
+    if ! git --git-dir=${_gitDir} diff-index --cached --quiet HEAD -- ; then
+        yawgLog "There are uncommited changes in the work area."
+        isWithLocalChanges=true
+    fi
+
+    _isWithLocalChanges=${isWithLocalChanges}
+}
+
+
+
+
+
+#######################################################################
+#
+# 
+#
+#######################################################################
+
+function checkBuildNumber () {
+
+    if [ "${_buildNumber}" != "" ] ; then
+        yawgLog "Using provided build number: ${_buildNumber}"
+    else
+        createBuildNumber
+    fi
+}
+
+
+
+
+
+#######################################################################
+#
+# 
+#
+#######################################################################
+
+function createBuildNumber () {
+
+    local buildNumber=
+    local dateFormat="+%Y%m%d%H%M"
+
+    if [ ${_isWithLocalChanges} == true ] ; then
+        #
+        # There are local changes in the work area, so we will use the
+        # current UTC time as build number.
+        #
+        buildNumber=$(date --utc ${dateFormat})
+
+        yawgLog "Will use current time as build number: ${buildNumber}"
+    else
+        #
+        # We will use as build number the date of the last Git commit
+        # in the current branch.
+        #
+        local date8061=$(git --git-dir=${_gitDir} log -1 --format=%ci)
+        local dateUtc=$(date --utc --date="${date8061}" ${dateFormat})
+
+        buildNumber=${dateUtc}
+
+        yawgLog "Will use last Git commit date as build number: ${buildNumber}"
+    fi
+
+    _buildNumber=${buildNumber}
+}
+
+
+
+
+
+#######################################################################
+#
+# 
+#
+#######################################################################
+
+function updateBuildNumberInProjectTree () {
+
+    yawgLog "Updating build number from ${_oldBuildNumber} to ${_buildNumber}..."
+
+    ${_yawgHome}/devtools/bin/build-sync-version \
+        --quiet \
+        --build-number=${_buildNumber}
+
+    if [ $? -ne 0 ] ; then
+        yawgError "Cannot continue"
+    fi
+}
+
+
+
+
+
+#######################################################################
+#
+# 
+#
+#######################################################################
+
+function restoreBuildNumberInProjectTree () {
+
+    yawgLog "Restoring build number to ${_oldBuildNumber}..."
+
+    ${_yawgHome}/devtools/bin/build-sync-version \
+        --quiet \
+        --build-number=${_oldBuildNumber}
+}
+
+
+
+
+
+#######################################################################
+#
+# 
+#
+#######################################################################
+
+function performBuild () {
+
+    yawgLog "Performing build..."
+
+    local masterPom=$(yawgNormalizePath ${_yawgHome}/modules/pom.xml)
+
+    set -x
+
+    JAVA_HOME=${_jdkHome} ${_mavenTool} \
+        -f "${masterPom}" \
+        -Dyawg.release \
+        ${_mavenOptions} \
+        ${_mavenGoals}
+
+    local buildStatus=$?
+    set +x
+
+    yawgLog "Done performing build."
+
+    return ${buildStatus}
+}
+
+
+
+
+
+#######################################################################
+#
+# 
+#
+#######################################################################
+
+function showFinalInfo() {
+
+    if [ "${_isWithReports}" == true ] ; then
+        yawgLog "Code quality reports saved to ${_reportsDir}"
+    fi
+
+    #
+    # Here we assume we known how the name of the tarball is
+    # constructed, and where the tarball file is created. This is
+    # actually defined inside 'modules/release/pom.xml'.
+    #
+    local releaseVersion=${YAWG_MAIN_VERSION}-${_buildNumber}
+    local releaseTarballBasename=yawg-${releaseVersion}.tar.bz2
+    local releaseTarball=${_yawgHome}/${releaseTarballBasename}
+
+    yawgLog "Release tarball saved to ${releaseTarball}"
+}
+
+
+
+
+
+#######################################################################
+#
+# Entry point.
+#
+#######################################################################
+
+main "$@"
+

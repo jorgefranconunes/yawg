@@ -20,10 +20,8 @@ source ${_yawgHome}/conf/yawg-defaults.conf
 
 
 
-PRODUCT_NAME="Yawg"
 TOOL_NAME="Version updater"
-COPYRIGHT_HEADER="Copyright (c) 2016 Jorge Nunes, All Rights Reserved."
-PRODUCT_HEADER="${PRODUCT_NAME} ${YAWG_VERSION} - ${TOOL_NAME}"
+PRODUCT_HEADER="${YAWG_PRODUCT_NAME} ${YAWG_VERSION} - ${TOOL_NAME}"
 
 DEFAULT_NEW_BUILD_NUMBER=SNAPSHOT
 
@@ -107,7 +105,7 @@ function displayHelp () {
     cat <<EOF
 
 ${PRODUCT_HEADER}
-${COPYRIGHT_HEADER}
+${YAWG_COPYRIGHT_HEADER}
 
 Updates the version number in source files.
 
