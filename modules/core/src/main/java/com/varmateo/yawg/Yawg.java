@@ -10,7 +10,9 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collection;
 
+import com.varmateo.yawg.Baker;
 import com.varmateo.yawg.CopyBaker;
+import com.varmateo.yawg.DirBaker;
 import com.varmateo.yawg.PageTemplateService;
 import com.varmateo.yawg.ItemBaker;
 import com.varmateo.yawg.BakerConf;
@@ -25,7 +27,7 @@ import com.varmateo.yawg.util.Holder;
 /**
  * Factory for all the objects required by the main baker.
  */
-/* package private */ final class YawgDomain
+public final class Yawg
         extends Object {
 
 
@@ -34,13 +36,19 @@ import com.varmateo.yawg.util.Holder;
     private final Holder<ItemBaker> _asciidocBaker =
             Holder.of(this::newAsciidoctorBaker);
 
+    private final Holder<Baker> _baker =
+            Holder.of(this::newBaker);
+
     private final Holder<ItemBaker> _copyBaker =
             Holder.of(this::newCopyBaker);
+
+    private final Holder<DirBaker> _dirBaker =
+            Holder.of(this::newDirBaker);
 
     private final Holder<ItemBaker> _fileBaker =
             Holder.of(this::newFileBaker);
 
-    private final Holder<PageTemplateService> _fmTemplateService =
+    private final Holder<PageTemplateService> _templateService =
             Holder.of(this::newFreemarkerTemplateService);
 
     private final Holder<ItemBaker> _htmlBaker =
@@ -53,7 +61,7 @@ import com.varmateo.yawg.util.Holder;
     /**
      *
      */
-    public YawgDomain(final BakerConf conf) {
+    public Yawg(final BakerConf conf) {
 
         _conf = conf;
     }
@@ -62,27 +70,9 @@ import com.varmateo.yawg.util.Holder;
     /**
      *
      */
-    public ItemBaker getFileBaker() {
+    public Baker getBaker() {
 
-        return _fileBaker.get();
-    }
-
-
-    /**
-     *
-     */
-    public Log getLog() {
-
-        return _log.get();
-    }
-
-
-    /**
-     *
-     */
-    public PageTemplateService getTemplateService() {
-
-        return _fmTemplateService.get();
+        return _baker.get();
     }
 
 
@@ -100,10 +90,36 @@ import com.varmateo.yawg.util.Holder;
     /**
      *
      */
+    private Baker newBaker() {
+
+        Baker result = new Baker(_log.get(), _conf, _dirBaker.get());
+
+        return result;
+    }
+
+
+    /**
+     *
+     */
     private ItemBaker newCopyBaker() {
 
         ItemBaker result = new CopyBaker();
 
+        return result;
+    }
+
+
+    /**
+     *
+     */
+    private DirBaker newDirBaker() {
+
+        DirBaker result =
+                new DirBaker(
+                        _log.get(),
+                        _conf.sourceDir,
+                        _fileBaker.get(),
+                        _templateService.get());
         return result;
     }
 

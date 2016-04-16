@@ -14,12 +14,8 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
 
-import com.varmateo.yawg.BakerConf;
 import com.varmateo.yawg.DirBaker;
 import com.varmateo.yawg.DirBakerConf;
-import com.varmateo.yawg.ItemBaker;
-import com.varmateo.yawg.PageTemplateService;
-import com.varmateo.yawg.YawgDomain;
 import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.YawgInfo;
 import com.varmateo.yawg.logging.Log;
@@ -34,17 +30,22 @@ public final class Baker
     extends Object {
 
 
+    private final LogWithUtils _log;
     private final BakerConf _conf;
-    private final YawgDomain _domain;
+    private final DirBaker _dirBaker;
 
 
     /**
      * @param conf All the parameters needed for performing a bake.
      */
-    public Baker(final BakerConf conf) {
+    /* package private */ Baker(
+            final Log log,
+            final BakerConf conf,
+            final DirBaker dirBaker) {
 
+        _log = LogWithUtils.from(log);
         _conf = conf;
-        _domain = new YawgDomain(conf);
+        _dirBaker = dirBaker;
     }
 
 
@@ -57,66 +58,61 @@ public final class Baker
     public void bake()
             throws YawgException {
 
-        LogWithUtils log = LogWithUtils.from(_domain.getLog());
         Path sourceDir = _conf.sourceDir;
         Path targetDir = _conf.targetDir;
         Path templatesDir = _conf.templatesDir;
         Path assetsDir   = _conf.assetsDir;
 
-        log.info("{0} {1}", YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);
-        log.info("    Source    : {0}", sourceDir);
-        log.info("    Target    : {0}", targetDir);
-        log.info(
+        _log.info("{0} {1}", YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);
+        _log.info("    Source    : {0}", sourceDir);
+        _log.info("    Target    : {0}", targetDir);
+        _log.info(
                 "    Templates : {0}",
                 (templatesDir==null) ? "NONE" : templatesDir.toString());
-        log.info(
+        _log.info(
                 "    Assets    : {0}",
                 (assetsDir==null) ? "NONE" : assetsDir.toString());
 
-        log.logDelay("bake", () -> doBake(log));
+        _log.logDelay("bake", this::doBake);
     }
 
 
     /**
      *
      */
-    private void doBake(final LogWithUtils log)
+    private void doBake()
             throws YawgException {
 
         if ( _conf.assetsDir != null ) {
-            log.logDelay("copying assets", () -> copyAssets(log));
+            _log.logDelay("copying assets", this::copyAssets);
         } else {
-            log.debug("No assets directory given");
+            _log.debug("No assets directory given");
         }
 
-        log.logDelay("baking source tree", () -> bakeSourceTree(log));
+        _log.logDelay("baking source tree", this::bakeSourceTree);
     }
 
 
     /**
      *
      */
-    private void bakeSourceTree(final Log log)
+    private void bakeSourceTree()
             throws YawgException {
 
         Path sourceDir = _conf.sourceDir;
         Path targetDir = _conf.targetDir;
-        ItemBaker fileBaker = _domain.getFileBaker();
-        PageTemplateService templateService = _domain.getTemplateService();
-        DirBaker dirBaker =
-                new DirBaker(log, sourceDir, fileBaker, templateService);
         DirBakerConf dirBakerConf =
                 new DirBakerConf.Builder()
                 .build();
 
-        dirBaker.bakeDirectory(sourceDir, targetDir, dirBakerConf);
+        _dirBaker.bakeDirectory(sourceDir, targetDir, dirBakerConf);
     }
 
 
     /**
      *
      */
-    private void copyAssets(final Log log)
+    private void copyAssets()
             throws YawgException {
 
         final Path sourceDir = _conf.assetsDir;

@@ -21,7 +21,7 @@ Copyright (c) 2015-2016 Jorge Nunes, All Rights Reserved.
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    <!-- By default unit tests (JUnit+TUnit) are not run. -->
+    <!-- By default unit tests are not run. -->
     <skipTests>true</skipTests>
 
     <!-- Versions of dependencies and Maven plugins. -->
@@ -139,12 +139,16 @@ Copyright (c) 2015-2016 Jorge Nunes, All Rights Reserved.
         </property>
       </activation>
       <distributionManagement>
-	<site>
-	  <id>yawg.mavensite</id>
-	  <name>Yawg Project Maven Reports</name>
-	  <url>file:///${yawg.mavensite}/</url>
-	</site>
+	    <site>
+	      <id>yawg.mavensite</id>
+	      <name>Yawg Project Maven Reports</name>
+	      <url>file:///${yawg.mavensite}/</url>
+	    </site>
       </distributionManagement>
+
+      <properties>
+        <skipTests>false</skipTests>
+      </properties>
 
       <build>
         <plugins>

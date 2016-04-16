@@ -42,6 +42,9 @@ Configuration:
 
 The implementation makes use of the libraries enumerated below.
 
+* https://commons.apache.org/proper/commons-cli/[Apache Commons CLI] -
+  API for parsing command line options.
+
 * https://github.com/asciidoctor/asciidoctorj[AsciidoctorJ] - Java
   bindings for http://asciidoctor.org/[Asciidoctor]. Used for
   converting Asciidoc documents to
@@ -54,3 +57,11 @@ The implementation makes use of the libraries enumerated below.
 * http://jsoup.org/[jsoup] - Java HTML parser. Used for kneading HTML
   input for the final bake.
 
+
+
+
+
+== Documentation look & feel
+
+* http://getmdl.io/[Material Design Lite] - Material Design look and
+  feel from Google.

@@ -6,11 +6,15 @@
 
 package com.varmateo.yawg.cli;
 
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.Writer;
+import java.nio.charset.Charset;
 import java.nio.file.Path;
 
 import com.varmateo.yawg.Baker;
 import com.varmateo.yawg.BakerConf;
+import com.varmateo.yawg.Yawg;
 import com.varmateo.yawg.YawgException;
 
 import com.varmateo.yawg.cli.InfoPrinter;
@@ -76,7 +80,10 @@ public final class BakerCli
     private InfoPrinter buildInfoPrinter(final String argv0) {
 
         boolean autoFlush = true;
-        PrintWriter stdout = new PrintWriter(System.out, autoFlush);
+        Writer stdoutWriter =
+                new OutputStreamWriter(System.out, Charset.defaultCharset());
+        PrintWriter stdout =
+                new PrintWriter(stdoutWriter, autoFlush);
 
         InfoPrinter infoPrinter =
             new InfoPrinter.Builder()
@@ -130,7 +137,8 @@ public final class BakerCli
                 .setTemplatesDir(templatesDir)
                 .setAssetsDir(assetsDir)
                 .build();
-        Baker baker = new Baker(conf);
+        Yawg yawg = new Yawg(conf);
+        Baker baker = yawg.getBaker();
 
         try {
             baker.bake();
