@@ -55,8 +55,7 @@ final class InfoPrinter
         +" \n"
         + "Options:";
 
-    private static final String USAGE_FOOTER = ""
-        + "\n";
+    private static final String USAGE_FOOTER = "";
 
     private PrintWriter    _output         = null;
     private CliInfoPrinter _cliInfoPrinter = null;
@@ -74,7 +73,7 @@ final class InfoPrinter
     public InfoPrinter(final Builder builder) {
 
         String argv0 = builder._argv0;
-        
+
         _output         = builder._output;
         _cliInfoPrinter =
             new CliInfoPrinter.Builder()

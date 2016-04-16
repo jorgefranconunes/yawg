@@ -30,7 +30,7 @@ public final class FreemarkerTemplateService
         implements PageTemplateService {
 
 
-    private static final String DEFAULT_TEMPLATE_NAME = "default.ftl";
+    private static final String DEFAULT_TEMPLATE_NAME = "default.ftlh";
 
 
     private final Configuration _fmConfig;

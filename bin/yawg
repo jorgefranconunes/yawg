@@ -35,10 +35,12 @@ function main () {
 
     findJre
 
-    local mainJar=${_yawgHome}/lib/jars/yawg-cli-${YAWG_VERSION}.jar
+    local mainJarBasename=yawg-cli-${YAWG_VERSION}.jar
+    local mainJar=$(yawgNormalizePath ${_yawgHome}/lib/jars/${mainJarBasename})
+    local logConf=$(yawgNormalizePath ${_logConf})
 
     exec "${_yawgJre}" \
-        -Djava.util.logging.config.file=${_logConf} \
+        -Djava.util.logging.config.file="${logConf}" \
         -jar "${mainJar}" \
         "$@"
 }

@@ -7,6 +7,7 @@
 package com.varmateo.yawg.cli.util;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -157,8 +158,9 @@ public final class CliOptionsTest
         String[] args = { OPT_WITH_ARG_OPT, "this/is/a/path" };
         CliOptions cliOptions = CliOptions.parse(options, args);
         Path actualPath = cliOptions.getPath(OPT_WITH_ARG);
+        Path expectedPath = Paths.get("this", "is", "a", "path");
 
-        assertEquals(actualPath.toString(), "this/is/a/path");
+        assertEquals(expectedPath, actualPath);
     }
 
 

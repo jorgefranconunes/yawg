@@ -51,6 +51,6 @@ The implementation makes use of the libraries enumerated below.
   for generating the final HTML pages from the intermediate HTML
   output by AsccidoctorJ. http://freemarker.org/docs/api/[Javadoc].
 
-* http://jsoup.org/[jsoup] - Java HTML parser. Used for kneading the
-  HTML output from AsciidoctorJ into Freemarker for the final bake.
+* http://jsoup.org/[jsoup] - Java HTML parser. Used for kneading HTML
+  input for the final bake.
 
