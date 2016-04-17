@@ -7,16 +7,16 @@
 language: java
 
 jdk:
-- oraclejdk8
+  - oraclejdk8
 
 script:
-- ./devtools/bin/build-create-bundle --with-unit-tests
+  - ./devtools/bin/build-create-bundle --with-unit-tests
 
 cache:
-- directories:
+  directories:
     - $HOME/.m2
 
 addons:
-    apt:
-        packages:
-        - xsltproc
+  apt:
+    packages:
+      - xsltproc

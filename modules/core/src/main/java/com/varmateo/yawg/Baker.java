@@ -86,7 +86,7 @@ public final class Baker
         if ( _conf.assetsDir != null ) {
             _log.logDelay("copying assets", this::copyAssets);
         } else {
-            _log.debug("No assets directory given");
+            _log.debug("No assets directory given. Nothing to copy.");
         }
 
         _log.logDelay("baking source tree", this::bakeSourceTree);
@@ -105,7 +105,7 @@ public final class Baker
                 new DirBakerConf.Builder()
                 .build();
 
-        _dirBaker.bakeDirectory(sourceDir, targetDir, dirBakerConf);
+        _dirBaker.bakeDirectory(dirBakerConf, sourceDir, targetDir);
     }
 
 

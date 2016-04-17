@@ -60,6 +60,12 @@ Copyright (c) 2016 Jorge Nunes, All Rights Reserved.
       <version>${jsoup.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>com.esotericsoftware.yamlbeans</groupId>
+      <artifactId>yamlbeans</artifactId>
+      <version>${yamlbeans.version}</version>
+    </dependency>
+
   </dependencies>
 
 

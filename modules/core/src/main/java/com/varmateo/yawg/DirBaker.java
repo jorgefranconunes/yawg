@@ -15,11 +15,13 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.varmateo.yawg.DirBakerConf;
+import com.varmateo.yawg.DirBakerConfDao;
 import com.varmateo.yawg.ItemBaker;
 import com.varmateo.yawg.PageTemplate;
 import com.varmateo.yawg.PageTemplateService;
 import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.logging.Log;
+import com.varmateo.yawg.logging.LogWithUtils;
 
 
 /**
@@ -29,10 +31,11 @@ import com.varmateo.yawg.logging.Log;
         extends Object {
 
 
-    private final Log _log;
+    private final LogWithUtils _log;
     private final Path _sourceRootDir;
     private final ItemBaker _fileBaker;
     private final PageTemplateService _templateService;
+    private final DirBakerConfDao _dirBakerConfDao;
 
 
 
@@ -46,17 +49,22 @@ import com.varmateo.yawg.logging.Log;
      *
      * @param templateService Will provide the templates used in the
      * baking of individual files.
+     *
+     * @param dirBakerConfDao Used for reading the bake configuration
+     * for each directory.
      */
     public DirBaker(
             final Log log,
             final Path sourceRootDir,
             final ItemBaker fileBaker,
-            final PageTemplateService templateService) {
+            final PageTemplateService templateService,
+            final DirBakerConfDao dirBakerConfDao) {
 
-        _log = log;
+        _log = LogWithUtils.from(log);
         _sourceRootDir = sourceRootDir;
         _fileBaker = fileBaker;
         _templateService = templateService;
+        _dirBakerConfDao = dirBakerConfDao;
     }
 
 
@@ -64,9 +72,9 @@ import com.varmateo.yawg.logging.Log;
      * 
      */
     public void bakeDirectory(
+            final DirBakerConf parentDirBakerConf,
             final Path sourceDir,
-            final Path targetDir,
-            final DirBakerConf parentDirBakerConf)
+            final Path targetDir)
             throws YawgException {
 
         Path relSourceDir = _sourceRootDir.relativize(sourceDir);
@@ -79,7 +87,9 @@ import com.varmateo.yawg.logging.Log;
         }
 
         DirBakerConf dirBakerConf =
-                buildDirBakerConf(parentDirBakerConf, sourceDir);
+                _dirBakerConfDao
+                .load(sourceDir)
+                .merge(parentDirBakerConf);
 
         List<Path> entries =
                 doIoAction(
@@ -135,34 +145,13 @@ import com.varmateo.yawg.logging.Log;
             final Path sourceDir,
             final List<Path> dirPathList,
             final Path targetDir,
-            final DirBakerConf parentConf) {
-
-        DirBakerConf myBakerConf = buildDirBakerConf(parentConf, sourceDir);
+            final DirBakerConf dirBakerConf) {
 
         for ( Path childSourceDir : dirPathList ) {
             Path dirBasename = childSourceDir.getFileName();
             Path childTargetDir = targetDir.resolve(dirBasename);
-            bakeDirectory(childSourceDir, childTargetDir, myBakerConf);
+            bakeDirectory(dirBakerConf, childSourceDir, childTargetDir);
         }
-    }
-
-
-    /**
-     * Builds the baker configuration for the given directory,
-     * inheriting the values from the given parent baker conf.
-     *
-     * @param parentConf The configuration from which we will inherit
-     * values.
-     *
-     * @param sourceDir The directory for which we are going to create
-     * the baker conf.
-     */
-    private DirBakerConf buildDirBakerConf(
-            final DirBakerConf parentConf,
-            final Path sourceDir) {
-
-        // TBD
-        return parentConf;
     }
 
 

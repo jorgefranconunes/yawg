@@ -44,6 +44,7 @@ Copyright (c) 2015-2016 Jorge Nunes, All Rights Reserved.
     <maven-surefire-plugin.version>2.18.1</maven-surefire-plugin.version>
     <maven-surefire-report-plugin.version>2.18.1</maven-surefire-report-plugin.version>
     <maven-site-plugin.version>3.4</maven-site-plugin.version>
+    <yamlbeans.version>1.09</yamlbeans.version>
 
   </properties>
 

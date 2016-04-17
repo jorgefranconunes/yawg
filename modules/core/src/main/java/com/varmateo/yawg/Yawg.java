@@ -13,6 +13,7 @@ import java.util.Collection;
 import com.varmateo.yawg.Baker;
 import com.varmateo.yawg.CopyBaker;
 import com.varmateo.yawg.DirBaker;
+import com.varmateo.yawg.DirBakerConfDao;
 import com.varmateo.yawg.PageTemplateService;
 import com.varmateo.yawg.ItemBaker;
 import com.varmateo.yawg.BakerConf;
@@ -44,6 +45,9 @@ public final class Yawg
 
     private final Holder<DirBaker> _dirBaker =
             Holder.of(this::newDirBaker);
+
+    private final Holder<DirBakerConfDao> _dirBakerConfDao =
+            Holder.of(this::newDirBakerConfDao);
 
     private final Holder<ItemBaker> _fileBaker =
             Holder.of(this::newFileBaker);
@@ -119,7 +123,19 @@ public final class Yawg
                         _log.get(),
                         _conf.sourceDir,
                         _fileBaker.get(),
-                        _templateService.get());
+                        _templateService.get(),
+                        _dirBakerConfDao.get());
+        return result;
+    }
+
+
+    /**
+     *
+     */
+    private DirBakerConfDao newDirBakerConfDao() {
+
+        DirBakerConfDao result = new DirBakerConfDao();
+
         return result;
     }
 
