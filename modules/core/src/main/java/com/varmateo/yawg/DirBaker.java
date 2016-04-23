@@ -94,7 +94,7 @@ import com.varmateo.yawg.logging.LogWithUtils;
         List<Path> entries =
                 doIoAction(
                         "list directory",
-                        ()-> getDirEntries(sourceDir));
+                        ()-> getDirEntries(sourceDir, dirBakerConf));
 
         List<Path> filePathList =
                 entries.stream()
@@ -158,16 +158,41 @@ import com.varmateo.yawg.logging.LogWithUtils;
     /**
      *
      */
-    private List<Path> getDirEntries(final Path dir)
+    private List<Path> getDirEntries(
+            final Path dir,
+            final DirBakerConf dirBakerConf)
         throws IOException {
 
         List<Path> result = null;
 
         try ( Stream<Path> entries = Files.list(dir) ) {
-            result = entries.sorted().collect(Collectors.toList());
+            result =
+                    entries
+                    .filter(entry -> isEntryAcceptable(entry, dirBakerConf))
+                    .sorted()
+                    .collect(Collectors.toList());
         }
 
         return result;
+    }
+
+
+    /**
+     *
+     */
+    private boolean isEntryAcceptable(
+            final Path entry,
+            final DirBakerConf dirBakerConf) {
+
+        String basename = entry.getFileName().toString();
+        boolean isToIgnore =
+                dirBakerConf.filesToIgnore.stream()
+                .filter(pattern -> pattern.matcher(basename).matches())
+                .findFirst()
+                .isPresent();
+        boolean isAcceptable = !isToIgnore;
+
+        return isAcceptable;
     }
 
 

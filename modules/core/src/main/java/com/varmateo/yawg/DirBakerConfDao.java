@@ -11,8 +11,13 @@ import java.io.Reader;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import com.esotericsoftware.yamlbeans.YamlReader;
 
@@ -30,6 +35,7 @@ import com.varmateo.yawg.YawgException;
     private static final String FILE_NAME = ".yawg.yml";
 
     private static final String PARAM_TEMPLATE_NAME = "template";
+    private static final String PARAM_FILES_TO_IGNORE = "ignore";
 
     private static final Charset UTF8 = Charset.forName("UTF-8");
 
@@ -68,6 +74,11 @@ import com.varmateo.yawg.YawgException;
         String templateName = getString(items, PARAM_TEMPLATE_NAME);
         if ( templateName != null ) {
             builder.setTemplateName(templateName);
+        }
+        Collection<Pattern> filesToIgnore =
+                getPatternList(items, PARAM_FILES_TO_IGNORE);
+        if ( filesToIgnore != null ) {
+            builder.addFilesToIgnore(filesToIgnore);
         }
 
         DirBakerConf result = builder.build();
@@ -146,6 +157,41 @@ import com.varmateo.yawg.YawgException;
     /**
      *
      */
+    private List<Pattern> getPatternList(
+            final Map<String,Object> items,
+            final String key)
+            throws YawgException {
+
+        List<Pattern> result = new ArrayList<>();
+        List<Object> itemList = (List)getWithType(items, key, List.class);
+
+        if ( itemList != null ) {
+            for ( int i=0, count=itemList.size(); i<count; ++i ) {
+                String regex = (String)getWithType(itemList, i, String.class);
+                Pattern pattern = null;
+
+                try {
+                    pattern = Pattern.compile(regex);
+                } catch ( PatternSyntaxException e ) {
+                    YawgException.raise(
+                            e,
+                            "Invalid regex \"{0}\" on item {1} of {2}",
+                            regex,
+                            i,
+                            key);
+                }
+
+                result.add(pattern);
+            }
+        }
+
+        return result;
+    }
+
+
+    /**
+     *
+     */
     private Object getWithType(
             final Map<String,Object> items,
             final String key,
@@ -157,14 +203,37 @@ import com.varmateo.yawg.YawgException;
         if ( value != null ) {
             if ( !klass.isInstance(value) ) {
                 YawgException.raise(
-                        "Invalid value {1} field \"{0}\"",
+                        "Invalid {2} value in {1} field \"{0}\"",
                         key,
-                        klass.getSimpleName());
+                        klass.getSimpleName(),
+                        value.getClass().getSimpleName());
             }
         }
 
         return value;
     }
 
+
+    /**
+     *
+     */
+    private Object getWithType(
+            final List<Object> items,
+            final int index,
+            final Class<?> klass)
+            throws YawgException {
+
+        Object value = items.get(index);
+
+        if ( (value==null) || !klass.isInstance(value) ) {
+            YawgException.raise(
+                    "Invalid {2} value in {1} position {0}",
+                    index,
+                    klass.getSimpleName(),
+                    (value==null) ? "NULL" : value.getClass().getSimpleName());
+        }
+
+        return value;
+    }
 
 }

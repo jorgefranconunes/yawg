@@ -6,7 +6,12 @@
 
 package com.varmateo.yawg;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Optional;
+import java.util.regex.Pattern;
+
+import com.varmateo.yawg.util.Lists;
 
 
 /**
@@ -17,7 +22,16 @@ import java.util.Optional;
         extends Object {
 
 
+    /**
+     * Name of template to use for the current directory and all
+     * sub-directories.
+     */
     public final Optional<String> templateName;
+
+    /**
+     * List of files to ignore.
+     */
+    public final Collection<Pattern> filesToIgnore;
 
 
     /**
@@ -26,6 +40,7 @@ import java.util.Optional;
     private DirBakerConf(final Builder builder) {
 
         this.templateName = builder._templateName;
+        this.filesToIgnore = Lists.readOnlyCopy(builder._filesToIgnore);
     }
 
 
@@ -43,9 +58,10 @@ import java.util.Optional;
 
         Builder builder = new Builder(that);
 
-        if ( templateName.isPresent() ) {
-            builder.setTemplateName(templateName.get());
+        if ( this.templateName.isPresent() ) {
+            builder.setTemplateName(this.templateName.get());
         }
+        builder.addFilesToIgnore(this.filesToIgnore);
 
         DirBakerConf result = builder.build();
 
@@ -61,6 +77,7 @@ import java.util.Optional;
 
 
         private Optional<String> _templateName = Optional.empty();
+        private Collection<Pattern> _filesToIgnore = new ArrayList<>();
 
 
         /**
@@ -78,6 +95,7 @@ import java.util.Optional;
         private Builder(final DirBakerConf defaults) {
 
             _templateName = defaults.templateName;
+            _filesToIgnore.addAll(defaults.filesToIgnore);
         }
 
 
@@ -87,6 +105,17 @@ import java.util.Optional;
         public Builder setTemplateName(final String templateName) {
 
             _templateName = Optional.of(templateName);
+
+            return this;
+        }
+
+
+        /**
+         *
+         */
+        public Builder addFilesToIgnore(final Collection<Pattern> fileNames) {
+
+            _filesToIgnore.addAll(fileNames);
 
             return this;
         }
