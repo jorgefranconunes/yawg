@@ -159,15 +159,9 @@ public final class Exceptions
     }
 
 
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-
+    /**
+     *
+     */
     private static <T extends Exception> T
         newException(final Class<T>  exceptionClass,
                      final Throwable cause,
@@ -217,9 +211,6 @@ public final class Exceptions
     }
 
 
-
-
-
     /**
      * Builds a string with the stack trace of the given
      * exception. The string is obtained directly from
@@ -249,14 +240,3 @@ public final class Exceptions
 
 
 }
-
-
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-

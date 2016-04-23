@@ -31,6 +31,22 @@ public final class Lists
     /**
      *
      */
+    public static <T,R> List<R> map(
+            final Collection<T> inputCollection,
+            final Function<T,R> function) {
+
+        List<R> mappedList =
+            inputCollection.stream()
+            .map(function)
+            .collect(Collectors.toList());
+
+        return mappedList;
+    }
+
+
+    /**
+     *
+     */
     public static <T> List<T> readOnlyCopy(
             final Collection<T> inputCollection) {
 
@@ -42,14 +58,3 @@ public final class Lists
 
 
 }
-
-
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-

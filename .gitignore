@@ -1,3 +1,7 @@
+#
+# List of glob patterns for files to be ignored by Git.
+#
+
 *~
 *.~??
 *.aux
@@ -6,3 +10,4 @@
 *.out
 *.pid
 target
+work

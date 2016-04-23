@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import com.esotericsoftware.yamlbeans.YamlException;
 import com.esotericsoftware.yamlbeans.YamlReader;
 
 import com.varmateo.yawg.DirBakerConf;
@@ -26,7 +27,7 @@ import com.varmateo.yawg.YawgException;
 
 
 /**
- *
+ * Reads the baker configuration for one given directory.
  */
 /* package private */ final class DirBakerConfDao
         extends Object {
@@ -35,7 +36,8 @@ import com.varmateo.yawg.YawgException;
     private static final String FILE_NAME = ".yawg.yml";
 
     private static final String PARAM_TEMPLATE_NAME = "template";
-    private static final String PARAM_FILES_TO_IGNORE = "ignore";
+    private static final String PARAM_IGNORE = "ignore";
+    private static final String PARAM_INCLUDE_ONLY = "includeOnly";
 
     private static final Charset UTF8 = Charset.forName("UTF-8");
 
@@ -50,8 +52,7 @@ import com.varmateo.yawg.YawgException;
 
 
     /**
-     * Builds the baker configuration for the given directory,
-     * inheriting the values from the given parent baker conf.
+     * Builds the baker configuration for the given directory.
      *
      * @param parentConf The configuration from which we will inherit
      * values.
@@ -67,21 +68,14 @@ import com.varmateo.yawg.YawgException;
     public DirBakerConf load(final Path sourceDir)
             throws YawgException {
 
+        DirBakerConf result = null;
         Path confFile = sourceDir.resolve(FILE_NAME);
-        Map<String,Object> items = loadYaml(confFile);
-        DirBakerConf.Builder builder = new DirBakerConf.Builder();
 
-        String templateName = getString(items, PARAM_TEMPLATE_NAME);
-        if ( templateName != null ) {
-            builder.setTemplateName(templateName);
+        if ( Files.isRegularFile(confFile) ) {
+            result = loadFromFile(confFile);
+        } else {
+            result = new DirBakerConf.Builder().build();
         }
-        Collection<Pattern> filesToIgnore =
-                getPatternList(items, PARAM_FILES_TO_IGNORE);
-        if ( filesToIgnore != null ) {
-            builder.addFilesToIgnore(filesToIgnore);
-        }
-
-        DirBakerConf result = builder.build();
 
         return result;
     }
@@ -90,20 +84,14 @@ import com.varmateo.yawg.YawgException;
     /**
      *
      */
-    private Map<String,Object> loadYaml(final Path confFile)
-            throws YawgException{
+    /* package private */ DirBakerConf loadFromFile(final Path confFile)
+            throws YawgException {
 
-        Map<String,Object> result = null;
+        DirBakerConf result = null;
 
         try {
-            if ( Files.isRegularFile(confFile) ) {
-                result = doLoadYaml(confFile);
-            } else {
-                // Config file does not exist. We will return an empty
-                // config set.
-                result = Collections.emptyMap();
-            }
-        } catch ( IOException e) {
+            result = doLoadFromFile(confFile);
+        } catch ( IOException e ) {
             YawgException.raise(
                     e,
                     "Failed to read config file \"{0}\" - {1} - {2}",
@@ -119,21 +107,66 @@ import com.varmateo.yawg.YawgException;
     /**
      *
      */
-    private Map<String,Object> doLoadYaml(final Path confFile)
-            throws IOException {
+    private DirBakerConf doLoadFromFile(final Path confFile)
+            throws YawgException, IOException {
 
-        Map<String,Object> result = null;
+        DirBakerConf result = null;
 
         try ( Reader reader = Files.newBufferedReader(confFile, UTF8) ) {
-            YamlReader yamlReader = new YamlReader(reader);
-            Object yamlObj = yamlReader.read();
+            result = read(reader);
+        }
 
-            if ( (yamlObj!=null) && (yamlObj instanceof Map) ) {
-                result = (Map<String,Object>)yamlObj;
-            } else {
-                // The contents of the YAML file are invalid.
-                result = Collections.emptyMap();
-            }
+        return result;
+    }
+
+
+    /**
+     *
+     */
+    /* package private */ DirBakerConf read(final Reader reader)
+            throws YawgException, IOException {
+
+        Map<String,Object> items = readYaml(reader);
+        DirBakerConf.Builder builder = new DirBakerConf.Builder();
+
+        String templateName = getString(items, PARAM_TEMPLATE_NAME);
+        if ( templateName != null ) {
+            builder.setTemplateName(templateName);
+        }
+
+        Collection<Pattern> filesToIgnore =
+                getPatternList(items, PARAM_IGNORE);
+        if ( filesToIgnore != null ) {
+            builder.addFilesToIgnore(filesToIgnore);
+        }
+
+        Collection<Pattern> filesToIncludeOnly =
+                getPatternList(items, PARAM_INCLUDE_ONLY);
+        if ( filesToIncludeOnly != null ) {
+            builder.setFilesToIncludeOnly(filesToIncludeOnly);
+        }
+
+        DirBakerConf result = builder.build();
+
+        return result;
+    }
+
+
+    /**
+     *
+     */
+    private Map<String,Object> readYaml(final Reader reader)
+            throws YamlException {
+
+        Map<String,Object> result = null;
+        YamlReader yamlReader = new YamlReader(reader);
+        Object yamlObj = yamlReader.read();
+
+        if ( (yamlObj!=null) && (yamlObj instanceof Map) ) {
+            result = (Map<String,Object>)yamlObj;
+        } else {
+            // The contents of the YAML file are invalid.
+            result = Collections.emptyMap();
         }
 
         return result;
@@ -162,10 +195,12 @@ import com.varmateo.yawg.YawgException;
             final String key)
             throws YawgException {
 
-        List<Pattern> result = new ArrayList<>();
+        List<Pattern> result = null;
         List<Object> itemList = (List)getWithType(items, key, List.class);
 
         if ( itemList != null ) {
+            result = new ArrayList<>();
+
             for ( int i=0, count=itemList.size(); i<count; ++i ) {
                 String regex = (String)getWithType(itemList, i, String.class);
                 Pattern pattern = null;

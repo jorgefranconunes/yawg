@@ -111,7 +111,11 @@ import com.varmateo.yawg.logging.LogWithUtils;
                 .collect(Collectors.toList());
 
         if ( dirPathList.size() > 0 ) {
-            bakeChildDirectories(sourceDir, dirPathList, targetDir, dirBakerConf);
+            bakeChildDirectories(
+                    sourceDir,
+                    dirPathList,
+                    targetDir,
+                    dirBakerConf);
         }
     }
 
@@ -166,33 +170,15 @@ import com.varmateo.yawg.logging.LogWithUtils;
         List<Path> result = null;
 
         try ( Stream<Path> entries = Files.list(dir) ) {
+            DirEntryChecker checker = new DirEntryChecker(dirBakerConf);
             result =
                     entries
-                    .filter(entry -> isEntryAcceptable(entry, dirBakerConf))
+                    .filter(checker.asPathPredicate())
                     .sorted()
                     .collect(Collectors.toList());
         }
 
         return result;
-    }
-
-
-    /**
-     *
-     */
-    private boolean isEntryAcceptable(
-            final Path entry,
-            final DirBakerConf dirBakerConf) {
-
-        String basename = entry.getFileName().toString();
-        boolean isToIgnore =
-                dirBakerConf.filesToIgnore.stream()
-                .filter(pattern -> pattern.matcher(basename).matches())
-                .findFirst()
-                .isPresent();
-        boolean isAcceptable = !isToIgnore;
-
-        return isAcceptable;
     }
 
 

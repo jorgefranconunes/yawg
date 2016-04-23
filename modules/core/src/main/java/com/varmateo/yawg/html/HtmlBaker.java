@@ -85,8 +85,8 @@ public final class HtmlBaker
 
 
     /**
-     * Converts the given text file in Asciidoc format into an HTML
-     * file.
+     * Converts the given text file in HTML format into another HTML
+     * file processed through the template engine.
      *
      * <p>The target directory must already exist. Otherwise an
      * exception will be thrown.</p>
@@ -94,10 +94,10 @@ public final class HtmlBaker
      * @param sourcePath The file to be baked.
      *
      * @param template Used for generating the target document. If no
-     * template is provided, then the default AsciidoctorJ document
-     * generator will be used.
+     * template is provided, then the source document is just copied
+     * to the target directory.
      *
-     * @param targetDir The directory where the source file will be
+     * @param targetDir The directory where the baked file will be
      * copied to.
      *
      * @exception YawgException Thrown if the copying failed for

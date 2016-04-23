@@ -9,12 +9,9 @@ package com.varmateo.yawg;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import com.varmateo.testutils.TestUtils;
+
 import com.varmateo.yawg.YawgInfo;
-
-import com.varmateo.yawg.util.Exceptions;
-
-
-
 
 
 /**
@@ -31,7 +28,7 @@ public final class YawgInfoTest
     public void checkVersion() {
 
         String expectedVersion = getYawgVersion();
-        String actualVersion   = YawgInfo.VERSION;
+        String actualVersion = YawgInfo.VERSION;
 
         assertEquals(expectedVersion, actualVersion);
     }
@@ -43,26 +40,10 @@ public final class YawgInfoTest
     private String getYawgVersion() {
 
         String key = YawgInfoTest.class.getSimpleName() + ".version";
-        String version = System.getProperty(key);
-
-        if ( version == null ) {
-            String msgFmt = "System property \"{0}\" is not defined";
-            Exceptions.raise(IllegalStateException.class, msgFmt, key);
-        }
+        String version = TestUtils.getSystemProperty(key);
 
         return version;
     }
 
 
 }
-
-
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-

@@ -99,6 +99,12 @@ Copyright (c) 2016 Jorge Nunes, All Rights Reserved.
               <value>${project.version}</value>
             </property>
 
+            <!-- Required by com.varmateo.testutils.TestUtils -->
+            <property>
+              <name>TestUtils.inputTestFilesDir</name>
+              <value>${basedir}/src/test/resources</value>
+            </property>
+
           </systemProperties>
 
         </configuration>

@@ -23,15 +23,20 @@ import com.varmateo.yawg.util.Lists;
 
 
     /**
-     * Name of template to use for the current directory and all
+     * Name of template to use when baking a directory and all its
      * sub-directories.
      */
     public final Optional<String> templateName;
 
     /**
-     * List of files to ignore.
+     * List of files to ignore when baking a directory.
      */
     public final Collection<Pattern> filesToIgnore;
+
+    /**
+     * Strict list of files to include when baking a directory.
+     */
+    public final Optional<Collection<Pattern>> filesToIncludeOnly;
 
 
     /**
@@ -39,8 +44,12 @@ import com.varmateo.yawg.util.Lists;
      */
     private DirBakerConf(final Builder builder) {
 
-        this.templateName = builder._templateName;
-        this.filesToIgnore = Lists.readOnlyCopy(builder._filesToIgnore);
+        this.templateName =
+                builder._templateName;
+        this.filesToIgnore =
+                Lists.readOnlyCopy(builder._filesToIgnore);
+        this.filesToIncludeOnly =
+                builder._filesToIncludeOnly.map(Lists::readOnlyCopy);
     }
 
 
@@ -62,6 +71,7 @@ import com.varmateo.yawg.util.Lists;
             builder.setTemplateName(this.templateName.get());
         }
         builder.addFilesToIgnore(this.filesToIgnore);
+        this.filesToIncludeOnly.ifPresent(builder::setFilesToIncludeOnly);
 
         DirBakerConf result = builder.build();
 
@@ -76,8 +86,12 @@ import com.varmateo.yawg.util.Lists;
             extends Object {
 
 
-        private Optional<String> _templateName = Optional.empty();
-        private Collection<Pattern> _filesToIgnore = new ArrayList<>();
+        private Optional<String> _templateName =
+                Optional.empty();
+        private Collection<Pattern> _filesToIgnore =
+                new ArrayList<>();
+        private Optional<Collection<Pattern>> _filesToIncludeOnly =
+                Optional.empty();
 
 
         /**
@@ -90,12 +104,14 @@ import com.varmateo.yawg.util.Lists;
 
 
         /**
-         *
+         * Prepares a Builder for performing a merge.
          */
         private Builder(final DirBakerConf defaults) {
 
             _templateName = defaults.templateName;
             _filesToIgnore.addAll(defaults.filesToIgnore);
+
+            // The _filesToIncludeOnly always start empty.
         }
 
 
@@ -116,6 +132,18 @@ import com.varmateo.yawg.util.Lists;
         public Builder addFilesToIgnore(final Collection<Pattern> fileNames) {
 
             _filesToIgnore.addAll(fileNames);
+
+            return this;
+        }
+
+
+        /**
+         *
+         */
+        public Builder setFilesToIncludeOnly(
+                final Collection<Pattern> fileNames) {
+
+            _filesToIncludeOnly = Optional.of(new ArrayList<>(fileNames));
 
             return this;
         }
