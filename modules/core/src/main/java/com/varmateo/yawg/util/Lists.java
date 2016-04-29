@@ -22,7 +22,7 @@ public final class Lists
 
 
     /**
-     *
+     * No instances of this class are to be created.
      */
     private Lists() {
     }
