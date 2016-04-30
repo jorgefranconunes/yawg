@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -27,6 +26,7 @@ import com.varmateo.yawg.ItemBaker;
 import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.PageTemplate;
 import com.varmateo.yawg.PageTemplateDataModel;
+import com.varmateo.yawg.util.Charsets;
 
 
 /**
@@ -43,8 +43,6 @@ public final class AsciidoctorBaker
     private static final Pattern RE_ADOC = Pattern.compile(".*\\.adoc$");
 
     private static final String TARGET_EXTENSION = ".html";
-
-    private static final Charset UTF8 = Charset.forName("UTF-8");
 
     private final Asciidoctor _asciidoctor;
 
@@ -220,7 +218,7 @@ public final class AsciidoctorBaker
             throws IOException {
 
         byte[] contentBytes = Files.readAllBytes(sourcePath);
-        String content = new String(contentBytes, UTF8);
+        String content = new String(contentBytes, Charsets.UTF_8);
 
         return content;
     }
@@ -262,7 +260,8 @@ public final class AsciidoctorBaker
             final Path targetPath)
             throws IOException {
 
-        try ( Writer writer = Files.newBufferedWriter(targetPath, UTF8) ) {
+        try ( Writer writer =
+                Files.newBufferedWriter(targetPath, Charsets.UTF_8) ) {
             writer.write(content);
         }
     }

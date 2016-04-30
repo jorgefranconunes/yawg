@@ -19,6 +19,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.varmateo.testutils.TestUtils;
+
 import com.varmateo.yawg.DirBakerConfDao;
 import com.varmateo.yawg.util.Lists;
 

@@ -164,9 +164,8 @@ public final class Yawg
      */
     private PageTemplateService newFreemarkerTemplateService() {
 
-        Path templatesDir = _conf.templatesDir;
         PageTemplateService result =
-                new FreemarkerTemplateService(templatesDir);
+                new FreemarkerTemplateService(_conf.templatesDir);
 
         return result;
     }

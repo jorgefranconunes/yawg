@@ -7,6 +7,7 @@
 package com.varmateo.yawg;
 
 import java.nio.file.Path;
+import java.util.Optional;
 
 
 /**
@@ -21,7 +22,7 @@ public final class BakerConf
     public final Path assetsDir;
     public final Path sourceDir;
     public final Path targetDir;
-    public final Path templatesDir;
+    public final Optional<Path> templatesDir;
 
 
     /**
@@ -46,7 +47,7 @@ public final class BakerConf
         private Path _assetsDir = null;
         private Path _sourceDir = null;
         private Path _targetDir = null;
-        private Path _templatesDir = null;
+        private Optional<Path> _templatesDir = Optional.empty();
 
 
         /**
@@ -93,7 +94,7 @@ public final class BakerConf
          */
         public Builder setTemplatesDir(final Path templatesDir) {
 
-            _templatesDir = templatesDir;
+            _templatesDir = Optional.of(templatesDir);
             return this;
         }
 

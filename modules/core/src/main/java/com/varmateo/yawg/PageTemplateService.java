@@ -8,8 +8,8 @@ package com.varmateo.yawg;
 
 import java.util.Optional;
 
-import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.PageTemplate;
+import com.varmateo.yawg.YawgException;
 
 
 /**

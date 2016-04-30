@@ -8,7 +8,6 @@ package com.varmateo.yawg.html;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -23,6 +22,7 @@ import com.varmateo.yawg.ItemBaker;
 import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.PageTemplate;
 import com.varmateo.yawg.PageTemplateDataModel;
+import com.varmateo.yawg.util.Charsets;
 
 
 /**
@@ -39,8 +39,6 @@ public final class HtmlBaker
     private static final Pattern RE_ADOC = Pattern.compile(".*\\.html$");
 
     private static final String TARGET_EXTENSION = ".html";
-
-    private static final Charset UTF8 = Charset.forName("UTF-8");
 
 
     /**
@@ -100,7 +98,7 @@ public final class HtmlBaker
      * @param targetDir The directory where the baked file will be
      * copied to.
      *
-     * @exception YawgException Thrown if the copying failed for
+     * @exception YawgException Thrown if the baking failed for
      * whatever reason.
      */
     @Override
@@ -191,8 +189,9 @@ public final class HtmlBaker
 
         PageTemplateDataModel dataModel = buildDataModel(sourcePath);
 
-        try ( Writer writer = Files.newBufferedWriter(targetPath, UTF8) ) {
-                template.process(dataModel, writer);
+        try ( Writer writer =
+                  Files.newBufferedWriter(targetPath, Charsets.UTF_8) ) {
+            template.process(dataModel, writer);
         }
     }
 

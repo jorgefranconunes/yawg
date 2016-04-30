@@ -8,7 +8,6 @@ package com.varmateo.yawg;
 
 import java.io.IOException;
 import java.io.Reader;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
@@ -24,6 +23,7 @@ import com.esotericsoftware.yamlbeans.YamlReader;
 
 import com.varmateo.yawg.DirBakerConf;
 import com.varmateo.yawg.YawgException;
+import com.varmateo.yawg.util.Charsets;
 
 
 /**
@@ -38,8 +38,6 @@ import com.varmateo.yawg.YawgException;
     private static final String PARAM_TEMPLATE_NAME = "template";
     private static final String PARAM_IGNORE = "ignore";
     private static final String PARAM_INCLUDE_ONLY = "includeOnly";
-
-    private static final Charset UTF8 = Charset.forName("UTF-8");
 
 
     /**
@@ -112,7 +110,8 @@ import com.varmateo.yawg.YawgException;
 
         DirBakerConf result = null;
 
-        try ( Reader reader = Files.newBufferedReader(confFile, UTF8) ) {
+        try ( Reader reader =
+                Files.newBufferedReader(confFile, Charsets.UTF_8) ) {
             result = read(reader);
         }
 

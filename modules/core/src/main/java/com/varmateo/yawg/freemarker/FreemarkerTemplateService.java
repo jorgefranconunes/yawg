@@ -41,21 +41,21 @@ public final class FreemarkerTemplateService
     /**
      *
      */
-    public FreemarkerTemplateService(final Path templatesDir) {
+    public FreemarkerTemplateService(final Optional<Path> templatesDir) {
 
         Configuration fmConfig = null;
         IOException initializationError = null;
 
-        if ( templatesDir != null ) {
+        if ( templatesDir.isPresent() ) {
             try {
-                fmConfig = buildConfiguration(templatesDir);
+                fmConfig = buildConfiguration(templatesDir.get());
             } catch ( IOException e ) {
                 initializationError = e;
             }
         }
 
         _fmConfig = fmConfig;
-        _isDefaultTemplateAvailable = (fmConfig != null);
+        _isDefaultTemplateAvailable = templatesDir.isPresent();
         _initializationError = initializationError;
     }
 

@@ -13,6 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Optional;
 
 import com.varmateo.yawg.DirBaker;
 import com.varmateo.yawg.DirBakerConf;
@@ -60,7 +61,7 @@ public final class Baker
 
         Path sourceDir = _conf.sourceDir;
         Path targetDir = _conf.targetDir;
-        Path templatesDir = _conf.templatesDir;
+        Optional<Path> templatesDir = _conf.templatesDir;
         Path assetsDir   = _conf.assetsDir;
 
         _log.info("{0} {1}", YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);
@@ -68,7 +69,7 @@ public final class Baker
         _log.info("    Target    : {0}", targetDir);
         _log.info(
                 "    Templates : {0}",
-                (templatesDir==null) ? "NONE" : templatesDir.toString());
+                templatesDir.isPresent() ? templatesDir.toString(): "NONE");
         _log.info(
                 "    Assets    : {0}",
                 (assetsDir==null) ? "NONE" : assetsDir.toString());
