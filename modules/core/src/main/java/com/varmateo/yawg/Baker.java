@@ -69,7 +69,7 @@ public final class Baker
         _log.info("    Target    : {0}", targetDir);
         _log.info(
                 "    Templates : {0}",
-                templatesDir.isPresent() ? templatesDir.toString(): "NONE");
+                templatesDir.map(Path::toString).orElse("NONE"));
         _log.info(
                 "    Assets    : {0}",
                 (assetsDir==null) ? "NONE" : assetsDir.toString());

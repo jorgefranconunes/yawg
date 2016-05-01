@@ -234,14 +234,12 @@ import com.varmateo.yawg.util.Charsets;
 
         Object value = items.get(key);
 
-        if ( value != null ) {
-            if ( !klass.isInstance(value) ) {
-                YawgException.raise(
-                        "Invalid {2} value in {1} field \"{0}\"",
-                        key,
-                        klass.getSimpleName(),
-                        value.getClass().getSimpleName());
-            }
+        if ( (value!=null) && !klass.isInstance(value) ) {
+            YawgException.raise(
+                    "Invalid {2} value in {1} field \"{0}\"",
+                    key,
+                    klass.getSimpleName(),
+                    value.getClass().getSimpleName());
         }
 
         return value;

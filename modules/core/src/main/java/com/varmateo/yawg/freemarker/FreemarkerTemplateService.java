@@ -39,7 +39,8 @@ public final class FreemarkerTemplateService
 
 
     /**
-     *
+     * @param templatesDir The directory containing the Freemarker
+     * template files.
      */
     public FreemarkerTemplateService(final Optional<Path> templatesDir) {
 

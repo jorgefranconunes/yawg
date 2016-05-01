@@ -101,7 +101,7 @@ import com.varmateo.yawg.logging.LogWithUtils;
                 .filter(Files::isRegularFile)
                 .collect(Collectors.toList());
 
-        if ( filePathList.size() > 0 ) {
+        if ( !filePathList.isEmpty() ) {
             bakeChildFiles(filePathList, targetDir, dirBakerConf);
         }
 
@@ -110,7 +110,7 @@ import com.varmateo.yawg.logging.LogWithUtils;
                 .filter(Files::isDirectory)
                 .collect(Collectors.toList());
 
-        if ( dirPathList.size() > 0 ) {
+        if ( !dirPathList.isEmpty() ) {
             bakeChildDirectories(
                     sourceDir,
                     dirPathList,

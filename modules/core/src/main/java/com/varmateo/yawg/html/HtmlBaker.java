@@ -7,10 +7,7 @@
 package com.varmateo.yawg.html;
 
 import java.io.IOException;
-import java.io.Writer;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
@@ -22,7 +19,8 @@ import com.varmateo.yawg.ItemBaker;
 import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.PageTemplate;
 import com.varmateo.yawg.PageTemplateDataModel;
-import com.varmateo.yawg.util.Charsets;
+import com.varmateo.yawg.html.HtmlBakerDataModelBuilder;
+import com.varmateo.yawg.util.FileUtils;
 
 
 /**
@@ -148,14 +146,9 @@ public final class HtmlBaker
             final Path sourcePath,
             final Path targetDir) {
 
-        String sourceBasename = sourcePath.getFileName().toString();
-        int extensionIndex = sourceBasename.lastIndexOf(".");
-        String sourceBasenameNoExtension =
-                (extensionIndex>-1)
-                ? sourceBasename.substring(0, extensionIndex)
-                : sourceBasename;
-        String targetBasename = sourceBasenameNoExtension + TARGET_EXTENSION;
-        Path targetPath = targetDir.resolve(targetBasename);
+        String sourceBasename = FileUtils.basename(sourcePath);
+        String targetName = sourceBasename + TARGET_EXTENSION;
+        Path targetPath = targetDir.resolve(targetName);
 
         return targetPath;
     }
@@ -170,11 +163,7 @@ public final class HtmlBaker
             final Path targetPath)
             throws IOException {
 
-        Files.copy(
-                sourcePath,
-                targetPath,
-                StandardCopyOption.REPLACE_EXISTING,
-                StandardCopyOption.COPY_ATTRIBUTES);
+        FileUtils.copy(sourcePath, targetPath);
     }
 
 
@@ -189,10 +178,9 @@ public final class HtmlBaker
 
         PageTemplateDataModel dataModel = buildDataModel(sourcePath);
 
-        try ( Writer writer =
-                  Files.newBufferedWriter(targetPath, Charsets.UTF_8) ) {
-            template.process(dataModel, writer);
-        }
+        FileUtils.newWriter(
+                targetPath,
+                writer -> template.process(dataModel, writer));
     }
 
 
@@ -202,26 +190,9 @@ public final class HtmlBaker
     private PageTemplateDataModel buildDataModel(final Path sourcePath)
             throws IOException {
 
-        Optional<Document> document =
-                Optional.of(Jsoup.parse(sourcePath.toFile(), null));
-        String body =
-                document
-                .map(doc -> doc.getElementsByTag("body"))
-                .flatMap(elems -> Optional.ofNullable(elems.first()))
-                .map(Element::html)
-                .orElse("");
-        String title =
-                document
-                .map(doc -> doc.getElementsByTag("title"))
-                .flatMap(elems -> Optional.ofNullable(elems.first()))
-                .map(Element::text)
-                .orElse((String)null);
-
         PageTemplateDataModel result =
-                new PageTemplateDataModel.Builder()
-                .setTitle(title)
-                .setBody(body)
-                .build();
+                new HtmlBakerDataModelBuilder()
+                .build(sourcePath);
 
         return result;
     }

@@ -9,7 +9,6 @@ package com.varmateo.yawg.asciidoctor;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -26,7 +25,9 @@ import com.varmateo.yawg.ItemBaker;
 import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.PageTemplate;
 import com.varmateo.yawg.PageTemplateDataModel;
+import com.varmateo.yawg.asciidoctor.AsciidoctorBakerDataModelBuilder;
 import com.varmateo.yawg.util.Charsets;
+import com.varmateo.yawg.util.FileUtils;
 
 
 /**
@@ -154,14 +155,9 @@ public final class AsciidoctorBaker
             final Path sourcePath,
             final Path targetDir) {
 
-        String sourceBasename = sourcePath.getFileName().toString();
-        int extensionIndex = sourceBasename.lastIndexOf(".");
-        String sourceBasenameNoExtension =
-                (extensionIndex>-1)
-                ? sourceBasename.substring(0, extensionIndex)
-                : sourceBasename;
-        String targetBasename = sourceBasenameNoExtension + TARGET_EXTENSION;
-        Path targetPath = targetDir.resolve(targetBasename);
+        String sourceBasename = FileUtils.basename(sourcePath);
+        String targetName = sourceBasename + TARGET_EXTENSION;
+        Path targetPath = targetDir.resolve(targetName);
 
         return targetPath;
     }
@@ -199,8 +195,7 @@ public final class AsciidoctorBaker
             final Path targetPath)
             throws AsciidoctorCoreException, IOException {
 
-        String sourceContent = readContent(sourcePath);
-        PageTemplateDataModel dataModel = buildDataModel(sourceContent);
+        PageTemplateDataModel dataModel = buildDataModel(sourcePath);
         StringWriter buffer = new StringWriter();
 
         template.process(dataModel, buffer);
@@ -214,39 +209,12 @@ public final class AsciidoctorBaker
     /**
      *
      */
-    private String readContent(final Path sourcePath)
-            throws IOException {
-
-        byte[] contentBytes = Files.readAllBytes(sourcePath);
-        String content = new String(contentBytes, Charsets.UTF_8);
-
-        return content;
-    }
-
-
-    /**
-     *
-     */
-    private PageTemplateDataModel buildDataModel(final String sourceContent)
-            throws AsciidoctorCoreException {
-
-        OptionsBuilder options =
-                OptionsBuilder.options()
-                .headerFooter(false)
-                .safe(SafeMode.UNSAFE);
-        String body = _asciidoctor.render(sourceContent, options);
-        DocumentHeader header = _asciidoctor.readDocumentHeader(sourceContent);
-        String title =
-                Optional.ofNullable(header)
-                .map(h -> h.getDocumentTitle())
-                .map(t -> t.getMain())
-                .orElse((String)null);
+    private PageTemplateDataModel buildDataModel(final Path sourcePath)
+            throws AsciidoctorCoreException, IOException {
 
         PageTemplateDataModel result =
-                new PageTemplateDataModel.Builder()
-                .setTitle(title)
-                .setBody(body)
-                .build();
+                new AsciidoctorBakerDataModelBuilder(_asciidoctor)
+                .build(sourcePath);
 
         return result;
     }
@@ -260,10 +228,9 @@ public final class AsciidoctorBaker
             final Path targetPath)
             throws IOException {
 
-        try ( Writer writer =
-                Files.newBufferedWriter(targetPath, Charsets.UTF_8) ) {
-            writer.write(content);
-        }
+        FileUtils.newWriter(
+                targetPath,
+                writer -> writer.write(content));
     }
 
 

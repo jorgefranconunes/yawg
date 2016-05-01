@@ -7,14 +7,13 @@
 package com.varmateo.yawg;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 
 import com.varmateo.yawg.ItemBaker;
 import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.PageTemplate;
+import com.varmateo.yawg.util.FileUtils;
 
 
 /**
@@ -106,10 +105,7 @@ import com.varmateo.yawg.PageTemplate;
         Path sourceBasename = sourcePath.getFileName();
         Path targetPath = targetDir.resolve(sourceBasename);
 
-        Files.copy(sourcePath,
-                   targetPath,
-                   StandardCopyOption.REPLACE_EXISTING,
-                   StandardCopyOption.COPY_ATTRIBUTES);
+        FileUtils.copy(sourcePath, targetPath);
     }
 
 

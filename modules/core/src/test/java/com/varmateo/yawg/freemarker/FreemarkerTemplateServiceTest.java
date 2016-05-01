@@ -67,7 +67,7 @@ public final class FreemarkerTemplateServiceTest
 
         Path templatesDir =
                 TestUtils.getPath(
-                        FreemarkerTemplateServiceTest.class,
+                        FreemarkerTemplateService.class,
                         "emptyDir");
         PageTemplateService service =
                 new FreemarkerTemplateService(Optional.of(templatesDir));
@@ -86,7 +86,7 @@ public final class FreemarkerTemplateServiceTest
 
         Path templatesDir =
                 TestUtils.getPath(
-                        FreemarkerTemplateServiceTest.class,
+                        FreemarkerTemplateService.class,
                         "okDir");
         PageTemplateService service =
                 new FreemarkerTemplateService(Optional.of(templatesDir));

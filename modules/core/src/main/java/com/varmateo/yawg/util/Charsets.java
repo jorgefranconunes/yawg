@@ -16,6 +16,9 @@ public final class Charsets
         extends Object {
 
 
+    /**
+     * UTF-8 character set.
+     */
     public static final Charset UTF_8 = Charset.forName("UTF-8");
 
 
