@@ -8,6 +8,6 @@
     <h1>${title}</h1>
     ${body?no_esc}
 
-    <footer>Baked with Yawg</footer>
+    <footer>Baked with ${productName} ${version}</footer>
   </body>
 </html>

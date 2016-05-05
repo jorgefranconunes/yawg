@@ -9,7 +9,6 @@ package com.varmateo.yawg.asciidoctor;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -18,7 +17,6 @@ import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.AttributesBuilder;
 import org.asciidoctor.OptionsBuilder;
 import org.asciidoctor.SafeMode;
-import org.asciidoctor.ast.DocumentHeader;
 import org.asciidoctor.internal.AsciidoctorCoreException;
 
 import com.varmateo.yawg.ItemBaker;
@@ -26,7 +24,6 @@ import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.PageTemplate;
 import com.varmateo.yawg.PageTemplateDataModel;
 import com.varmateo.yawg.asciidoctor.AsciidoctorBakerDataModelBuilder;
-import com.varmateo.yawg.util.Charsets;
 import com.varmateo.yawg.util.FileUtils;
 
 

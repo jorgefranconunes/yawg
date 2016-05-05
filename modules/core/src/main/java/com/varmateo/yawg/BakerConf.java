@@ -7,6 +7,7 @@
 package com.varmateo.yawg;
 
 import java.nio.file.Path;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -74,7 +75,7 @@ public final class BakerConf
          */
         public Builder setSourceDir(final Path sourceDir) {
 
-            _sourceDir = sourceDir;
+            _sourceDir = Objects.requireNonNull(sourceDir);
             return this;
         }
 
@@ -84,7 +85,7 @@ public final class BakerConf
          */
         public Builder setTargetDir(final Path targetDir) {
 
-            _targetDir = targetDir;
+            _targetDir = Objects.requireNonNull(targetDir);
             return this;
         }
 
@@ -94,7 +95,7 @@ public final class BakerConf
          */
         public Builder setTemplatesDir(final Path templatesDir) {
 
-            _templatesDir = Optional.of(templatesDir);
+            _templatesDir = Optional.ofNullable(templatesDir);
             return this;
         }
 

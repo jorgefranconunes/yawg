@@ -112,7 +112,6 @@ import com.varmateo.yawg.logging.LogWithUtils;
 
         if ( !dirPathList.isEmpty() ) {
             bakeChildDirectories(
-                    sourceDir,
                     dirPathList,
                     targetDir,
                     dirBakerConf);
@@ -146,7 +145,6 @@ import com.varmateo.yawg.logging.LogWithUtils;
      *
      */
     private void bakeChildDirectories(
-            final Path sourceDir,
             final List<Path> dirPathList,
             final Path targetDir,
             final DirBakerConf dirBakerConf) {

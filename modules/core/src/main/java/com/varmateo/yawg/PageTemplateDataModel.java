@@ -6,6 +6,8 @@
 
 package com.varmateo.yawg;
 
+import com.varmateo.yawg.YawgInfo;
+
 
 /**
  * Data available to a template during processing.
@@ -29,7 +31,10 @@ public final class PageTemplateDataModel
 
 
     /**
-     *
+     * @return The raw HTML contents of the baked document. This is
+     * actually an HTML snippet appropriate for inclusion under a
+     * <code>&lt;body&gt;</code> tag, or any other block level
+     * element.
      */
     public String getBody() {
 
@@ -38,11 +43,30 @@ public final class PageTemplateDataModel
 
 
     /**
-     *
+     * @return The title of the document, as extracted from its source
+     * file.
      */
     public String getTitle() {
 
         return _title;
+    }
+
+
+    /**
+     * @return A fixed string with the Yawg product name.
+     */
+    public String getProductName() {
+
+        return YawgInfo.PRODUCT_NAME;
+    }
+
+
+    /**
+     * @return The version of the Yawg software being used.
+     */
+    public String getVersion() {
+
+        return YawgInfo.VERSION;
     }
 
 

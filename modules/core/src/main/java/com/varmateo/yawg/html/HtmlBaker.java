@@ -11,10 +11,6 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-
 import com.varmateo.yawg.ItemBaker;
 import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.PageTemplate;
