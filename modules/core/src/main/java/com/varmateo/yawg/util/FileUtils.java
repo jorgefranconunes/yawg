@@ -8,11 +8,10 @@ package com.varmateo.yawg.util;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-
-import com.varmateo.yawg.util.Charsets;
 
 
 /**
@@ -94,7 +93,7 @@ public final class FileUtils
             throws IOException {
 
         byte[] contentBytes = Files.readAllBytes(sourcePath);
-        String content = new String(contentBytes, Charsets.UTF_8);
+        String content = new String(contentBytes, StandardCharsets.UTF_8);
 
         return content;
     }
@@ -109,7 +108,7 @@ public final class FileUtils
      * <code>Writer</code> is ensured to be closed when this method
      * returns.</p>
      *
-     * @param targetPath The file to be written.
+     * @param target The file to be written.
      *
      * @param consumer The consumer that is suppoed to write into the
      * <code>Writer</code> associated with the given target file.
@@ -118,12 +117,12 @@ public final class FileUtils
      * writing, or writing into the file.
      */
     public static void newWriter(
-            final Path targetPath,
+            final Path target,
             final ConsumerWithIOException<Writer> consumer)
             throws IOException {
 
         try ( Writer writer =
-                  Files.newBufferedWriter(targetPath, Charsets.UTF_8) ) {
+                  Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {
             consumer.accept(writer);
         }
     }

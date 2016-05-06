@@ -8,6 +8,7 @@ package com.varmateo.yawg;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
@@ -23,7 +24,6 @@ import com.esotericsoftware.yamlbeans.YamlReader;
 
 import com.varmateo.yawg.DirBakerConf;
 import com.varmateo.yawg.YawgException;
-import com.varmateo.yawg.util.Charsets;
 
 
 /**
@@ -111,7 +111,7 @@ import com.varmateo.yawg.util.Charsets;
         DirBakerConf result = null;
 
         try ( Reader reader =
-                Files.newBufferedReader(confFile, Charsets.UTF_8) ) {
+                Files.newBufferedReader(confFile, StandardCharsets.UTF_8) ) {
             result = read(reader);
         }
 
