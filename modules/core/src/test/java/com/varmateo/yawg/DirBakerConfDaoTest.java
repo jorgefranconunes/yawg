@@ -118,7 +118,7 @@ public final class DirBakerConfDaoTest
         DirBakerConf actualConf = readFromString(confContents);
         DirBakerConf expectedConf =
                 new DirBakerConf.Builder()
-                .addFilesToIgnore(
+                .setFilesToIgnore(
                         Arrays.asList(
                                 Pattern.compile("one"),
                                 Pattern.compile("two")))
@@ -135,7 +135,7 @@ public final class DirBakerConfDaoTest
     public void withIgnoreParamMissing()
             throws IOException {
 
-        assertEquals(0, _emptyConf.filesToIgnore.size());
+        assertFalse(_emptyConf.filesToIgnore.isPresent());
     }
 
 
@@ -289,8 +289,10 @@ public final class DirBakerConfDaoTest
                 expectedConf.templateName,
                 actualConf.templateName);
         assertEquals(
-                Lists.map(expectedConf.filesToIgnore, Pattern::pattern),
-                Lists.map(actualConf.filesToIgnore, Pattern::pattern));
+                expectedConf.filesToIgnore.map(
+                        c -> Lists.map(c, Pattern::pattern)),
+                actualConf.filesToIgnore.map(
+                        c -> Lists.map(c, Pattern::pattern)));
         assertEquals(
                 expectedConf.filesToIncludeOnly.map(
                         c -> Lists.map(c, Pattern::pattern)),

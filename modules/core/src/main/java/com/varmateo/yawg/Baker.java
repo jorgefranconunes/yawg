@@ -31,6 +31,9 @@ public final class Baker
     extends Object {
 
 
+    private static final String DEFAULT_TEMPLATE_NAME = "default.ftlh";
+
+
     private final LogWithUtils _log;
     private final BakerConf _conf;
     private final DirBaker _dirBaker;
@@ -104,6 +107,7 @@ public final class Baker
         Path targetDir = _conf.targetDir;
         DirBakerConf dirBakerConf =
                 new DirBakerConf.Builder()
+                .setTemplateName(DEFAULT_TEMPLATE_NAME)
                 .build();
 
         _dirBaker.bakeDirectory(dirBakerConf, sourceDir, targetDir);

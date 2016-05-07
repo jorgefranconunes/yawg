@@ -9,7 +9,6 @@ package com.varmateo.yawg.freemarker;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.Path;
-import java.util.Optional;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -30,11 +29,7 @@ public final class FreemarkerTemplateService
         implements PageTemplateService {
 
 
-    private static final String DEFAULT_TEMPLATE_NAME = "default.ftlh";
-
-
     private final Configuration _fmConfig;
-    private final boolean _isDefaultTemplateAvailable;
     private final IOException _initializationError;
 
 
@@ -42,21 +37,18 @@ public final class FreemarkerTemplateService
      * @param templatesDir The directory containing the Freemarker
      * template files.
      */
-    public FreemarkerTemplateService(final Optional<Path> templatesDir) {
+    public FreemarkerTemplateService(final Path templatesDir) {
 
         Configuration fmConfig = null;
         IOException initializationError = null;
 
-        if ( templatesDir.isPresent() ) {
-            try {
-                fmConfig = buildConfiguration(templatesDir.get());
-            } catch ( IOException e ) {
-                initializationError = e;
-            }
+        try {
+            fmConfig = buildConfiguration(templatesDir);
+        } catch ( IOException e ) {
+            initializationError = e;
         }
 
         _fmConfig = fmConfig;
-        _isDefaultTemplateAvailable = templatesDir.isPresent();
         _initializationError = initializationError;
     }
 
@@ -77,28 +69,6 @@ public final class FreemarkerTemplateService
         fmConfig.setLogTemplateExceptions(false);
 
         return fmConfig;
-    }
-
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Optional<PageTemplate> getDefaultTemplate()
-            throws YawgException {
-
-        checkInitialization();
-
-        Optional<PageTemplate> result = null;
-
-        if ( _isDefaultTemplateAvailable ) {
-            PageTemplate template = getTemplate(DEFAULT_TEMPLATE_NAME);
-            result = Optional.of(template);
-        } else {
-            result = Optional.empty();
-        }
-
-        return result;
     }
 
 

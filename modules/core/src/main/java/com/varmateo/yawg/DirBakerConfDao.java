@@ -136,7 +136,7 @@ import com.varmateo.yawg.YawgException;
         Collection<Pattern> filesToIgnore =
                 getPatternList(items, PARAM_IGNORE);
         if ( filesToIgnore != null ) {
-            builder.addFilesToIgnore(filesToIgnore);
+            builder.setFilesToIgnore(filesToIgnore);
         }
 
         Collection<Pattern> filesToIncludeOnly =

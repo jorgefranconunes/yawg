@@ -9,6 +9,7 @@ package com.varmateo.yawg;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Optional;
 
 import com.varmateo.yawg.Baker;
 import com.varmateo.yawg.CopyBaker;
@@ -52,7 +53,7 @@ public final class Yawg
     private final Holder<ItemBaker> _fileBaker =
             Holder.of(this::newFileBaker);
 
-    private final Holder<PageTemplateService> _templateService =
+    private final Holder<Optional<PageTemplateService>> _templateService =
             Holder.of(this::newFreemarkerTemplateService);
 
     private final Holder<ItemBaker> _htmlBaker =
@@ -162,10 +163,11 @@ public final class Yawg
     /**
      *
      */
-    private PageTemplateService newFreemarkerTemplateService() {
+    private Optional<PageTemplateService> newFreemarkerTemplateService() {
 
-        PageTemplateService result =
-                new FreemarkerTemplateService(_conf.templatesDir);
+        Optional<PageTemplateService> result =
+                _conf.templatesDir
+                .map(FreemarkerTemplateService::new);
 
         return result;
     }

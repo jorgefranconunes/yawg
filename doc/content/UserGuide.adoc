@@ -159,7 +159,7 @@ http://yaml.org/[YAML] format.
 
 The supported baking parameters are listed below.
 
-`templateName` (`String`) -- The name of the page template to use for
+`template` (`String`) -- The name of the page template to use for
 baking the files in the directory. If not specified it will default to
 `default.ftlh`.
 

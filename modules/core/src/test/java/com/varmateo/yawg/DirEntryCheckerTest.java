@@ -50,7 +50,7 @@ public final class DirEntryCheckerTest
 
         DirBakerConf conf =
                 new DirBakerConf.Builder()
-                .addFilesToIgnore(
+                .setFilesToIgnore(
                         Lists.map(Arrays.asList(".*\\.txt"), Pattern::compile))
                 .build();
         DirEntryChecker checker = new DirEntryChecker(conf);
@@ -69,7 +69,7 @@ public final class DirEntryCheckerTest
 
         DirBakerConf conf =
                 new DirBakerConf.Builder()
-                .addFilesToIgnore(
+                .setFilesToIgnore(
                         Lists.map(
                                 Arrays.asList(".*\\.txt", ".*\\.puml"),
                                 Pattern::compile))
@@ -133,7 +133,7 @@ public final class DirEntryCheckerTest
 
         DirBakerConf conf =
                 new DirBakerConf.Builder()
-                .addFilesToIgnore(
+                .setFilesToIgnore(
                         Lists.map(Arrays.asList(".*\\.txt"), Pattern::compile))
                 .setFilesToIncludeOnly(
                         Lists.map(Arrays.asList(".*\\.adoc"), Pattern::compile))
@@ -155,7 +155,7 @@ public final class DirEntryCheckerTest
 
         DirBakerConf conf =
                 new DirBakerConf.Builder()
-                .addFilesToIgnore(
+                .setFilesToIgnore(
                         Lists.map(Arrays.asList(".*\\.txt"), Pattern::compile))
                 .build();
         DirEntryChecker checker = new DirEntryChecker(conf);

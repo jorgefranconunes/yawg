@@ -8,7 +8,6 @@ package com.varmateo.yawg.freemarker;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Optional;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -28,19 +27,7 @@ public final class FreemarkerTemplateServiceTest
         extends Object {
 
 
-    /**
-     *
-     */
-    @Test
-    public void noTemplatesDir() {
-
-        Optional<Path> templatesDir = Optional.empty();
-        PageTemplateService service =
-                new FreemarkerTemplateService(templatesDir);
-        Optional<PageTemplate> template = service.getDefaultTemplate();
-
-        assertFalse(template.isPresent());
-    }
+    private static final String TEMPLATE_NAME_OK = "default.ftlh";
 
 
     /**
@@ -51,11 +38,11 @@ public final class FreemarkerTemplateServiceTest
 
         Path templatesDir = Paths.get("this/directory/does/not/exist");
         PageTemplateService service =
-                new FreemarkerTemplateService(Optional.of(templatesDir));
+                new FreemarkerTemplateService(templatesDir);
 
         TestUtils.assertThrows(
                 YawgException.class,
-                () -> service.getDefaultTemplate());
+                () -> service.getTemplate(TEMPLATE_NAME_OK));
     }
 
 
@@ -63,36 +50,17 @@ public final class FreemarkerTemplateServiceTest
      *
      */
     @Test
-    public void emptyTemplatesDir() {
-
-        Path templatesDir =
-                TestUtils.getPath(
-                        FreemarkerTemplateService.class,
-                        "emptyDir");
-        PageTemplateService service =
-                new FreemarkerTemplateService(Optional.of(templatesDir));
-
-        TestUtils.assertThrows(
-                YawgException.class,
-                () -> service.getDefaultTemplate());
-    }
-
-
-    /**
-     *
-     */
-    @Test
-    public void withDefaultTemplate() {
+    public void withTemplate() {
 
         Path templatesDir =
                 TestUtils.getPath(
                         FreemarkerTemplateService.class,
                         "okDir");
         PageTemplateService service =
-                new FreemarkerTemplateService(Optional.of(templatesDir));
-        Optional<PageTemplate> template = service.getDefaultTemplate();
+                new FreemarkerTemplateService(templatesDir);
+        PageTemplate template = service.getTemplate(TEMPLATE_NAME_OK);
 
-        assertTrue(template.isPresent());
+        assertNotNull(template);
     }
 
 

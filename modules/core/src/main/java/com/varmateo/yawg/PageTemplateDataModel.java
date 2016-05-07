@@ -6,6 +6,8 @@
 
 package com.varmateo.yawg;
 
+import java.util.Objects;
+
 import com.varmateo.yawg.YawgInfo;
 
 
@@ -95,7 +97,7 @@ public final class PageTemplateDataModel
          */
         public Builder setBody(final String body) {
 
-            _body = body;
+            _body = Objects.requireNonNull(body);
             return this;
         }
 
@@ -105,7 +107,7 @@ public final class PageTemplateDataModel
          */
         public Builder setTitle(final String title) {
 
-            _title = title;
+            _title = Objects.requireNonNull(title);
             return this;
         }
 

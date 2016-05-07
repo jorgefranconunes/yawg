@@ -6,8 +6,6 @@
 
 package com.varmateo.yawg;
 
-import java.util.Optional;
-
 import com.varmateo.yawg.PageTemplate;
 import com.varmateo.yawg.YawgException;
 
@@ -16,19 +14,6 @@ import com.varmateo.yawg.YawgException;
  * Provider of layout templates for baking.
  */
 public interface PageTemplateService {
-
-
-    /**
-     * Fetches the default template.
-     *
-     * @return A filled <code>Optional</code> if a default page
-     * template is available. An empty one otherwise.
-     *
-     * @throws YawgException If for whatever reason it was not
-     * possible to create the default page template.
-     */
-    Optional<PageTemplate> getDefaultTemplate()
-            throws YawgException;
 
 
     /**

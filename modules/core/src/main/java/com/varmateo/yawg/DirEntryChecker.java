@@ -102,10 +102,14 @@ import com.varmateo.yawg.DirBakerConf;
     private boolean testForIgnore(final String name) {
 
         boolean result =
-                _conf.filesToIgnore.stream()
-                .filter(pattern -> pattern.matcher(name).matches())
-                .findFirst()
-                .isPresent();
+                _conf.filesToIgnore
+                .map(
+                        collection ->
+                        collection.stream()
+                        .filter(pattern -> pattern.matcher(name).matches())
+                        .findFirst()
+                        .isPresent())
+                .orElse(false);
 
         return result;
     }

@@ -34,7 +34,7 @@ import com.varmateo.yawg.logging.LogWithUtils;
     private final LogWithUtils _log;
     private final Path _sourceRootDir;
     private final ItemBaker _fileBaker;
-    private final PageTemplateService _templateService;
+    private final Optional<PageTemplateService> _templateService;
     private final DirBakerConfDao _dirBakerConfDao;
 
 
@@ -57,7 +57,7 @@ import com.varmateo.yawg.logging.LogWithUtils;
             final Log log,
             final Path sourceRootDir,
             final ItemBaker fileBaker,
-            final PageTemplateService templateService,
+            final Optional<PageTemplateService> templateService,
             final DirBakerConfDao dirBakerConfDao) {
 
         _log = LogWithUtils.from(log);
@@ -130,10 +130,8 @@ import com.varmateo.yawg.logging.LogWithUtils;
 
         Optional<PageTemplate> template =
                 dirBakerConf.templateName
-                .map(_templateService::getTemplate);
-        if ( !template.isPresent() ) {
-            template = _templateService.getDefaultTemplate();
-        }
+                .flatMap(name ->
+                         _templateService.map(srv -> srv.getTemplate(name)));
 
         for ( Path path : filePathList ) {
             _fileBaker.bake(path, template, targetDir);
