@@ -24,16 +24,16 @@ import com.varmateo.yawg.cli.util.CliOptions;
 
 
 /**
- *
+ * Command line interface for the baker.
  */
 public final class BakerCli
     extends Object {
 
 
-    private static final int EXIT_STATUS_OK      = 0;
+    private static final int EXIT_STATUS_OK = 0;
     private static final int EXIT_STATUS_FAILURE = 1;
 
-    private String      _argv0       = null;
+    private String      _argv0 = null;
     private InfoPrinter _infoPrinter = null;
 
 
@@ -49,8 +49,9 @@ public final class BakerCli
     /**
      *
      */
-    public int main(final String   argv0,
-                    final String[] args) {
+    public int main(
+            final String   argv0,
+            final String[] args) {
 
         _argv0       = argv0;
         _infoPrinter = buildInfoPrinter(argv0);
