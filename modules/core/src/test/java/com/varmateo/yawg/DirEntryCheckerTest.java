@@ -8,16 +8,13 @@ package com.varmateo.yawg;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.function.Predicate;
-import java.util.regex.Pattern;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
 
 import com.varmateo.yawg.DirBakerConf;
 import com.varmateo.yawg.DirEntryChecker;
-import com.varmateo.yawg.util.Lists;
 
 
 /**
@@ -50,8 +47,7 @@ public final class DirEntryCheckerTest
 
         DirBakerConf conf =
                 new DirBakerConf.Builder()
-                .setFilesToIgnore(
-                        Lists.map(Arrays.asList(".*\\.txt"), Pattern::compile))
+                .setFilesToIgnore(".*\\.txt")
                 .build();
         DirEntryChecker checker = new DirEntryChecker(conf);
         Predicate<String> predicate = checker.asStringPredicate();
@@ -69,10 +65,7 @@ public final class DirEntryCheckerTest
 
         DirBakerConf conf =
                 new DirBakerConf.Builder()
-                .setFilesToIgnore(
-                        Lists.map(
-                                Arrays.asList(".*\\.txt", ".*\\.puml", ".*~"),
-                                Pattern::compile))
+                .setFilesToIgnore(".*\\.txt", ".*\\.puml", ".*~")
                 .build();
         DirEntryChecker checker = new DirEntryChecker(conf);
         Predicate<String> predicate = checker.asStringPredicate();
@@ -92,8 +85,7 @@ public final class DirEntryCheckerTest
 
         DirBakerConf conf =
                 new DirBakerConf.Builder()
-                .setFilesToIncludeOnly(
-                        Lists.map(Arrays.asList(".*\\.adoc"), Pattern::compile))
+                .setFilesToIncludeOnly(".*\\.adoc")
                 .build();
         DirEntryChecker checker = new DirEntryChecker(conf);
         Predicate<String> predicate = checker.asStringPredicate();
@@ -111,10 +103,7 @@ public final class DirEntryCheckerTest
 
         DirBakerConf conf =
                 new DirBakerConf.Builder()
-                .setFilesToIncludeOnly(
-                        Lists.map(
-                                Arrays.asList(".*\\.adoc", ".*\\.svg"),
-                                Pattern::compile))
+                .setFilesToIncludeOnly(".*\\.adoc", ".*\\.svg")
                 .build();
         DirEntryChecker checker = new DirEntryChecker(conf);
         Predicate<String> predicate = checker.asStringPredicate();
@@ -134,10 +123,8 @@ public final class DirEntryCheckerTest
 
         DirBakerConf conf =
                 new DirBakerConf.Builder()
-                .setFilesToIgnore(
-                        Lists.map(Arrays.asList(".*\\.txt"), Pattern::compile))
-                .setFilesToIncludeOnly(
-                        Lists.map(Arrays.asList(".*\\.adoc"), Pattern::compile))
+                .setFilesToIgnore(".*\\.txt")
+                .setFilesToIncludeOnly(".*\\.adoc")
                 .build();
         DirEntryChecker checker = new DirEntryChecker(conf);
         Predicate<String> predicate = checker.asStringPredicate();
@@ -156,8 +143,7 @@ public final class DirEntryCheckerTest
 
         DirBakerConf conf =
                 new DirBakerConf.Builder()
-                .setFilesToIgnore(
-                        Lists.map(Arrays.asList(".*\\.txt"), Pattern::compile))
+                .setFilesToIgnore(".*\\.txt")
                 .build();
         DirEntryChecker checker = new DirEntryChecker(conf);
         Predicate<Path> predicate = checker.asPathPredicate();

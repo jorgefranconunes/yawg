@@ -11,7 +11,6 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.regex.Pattern;
 
 import static org.junit.Assert.*;
@@ -19,9 +18,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.varmateo.testutils.TestUtils;
+import static com.varmateo.yawg.DirBakerConfTestUtils.assertConfEquals;
 
 import com.varmateo.yawg.DirBakerConfDao;
-import com.varmateo.yawg.util.Lists;
 
 
 /**
@@ -118,10 +117,7 @@ public final class DirBakerConfDaoTest
         DirBakerConf actualConf = readFromString(confContents);
         DirBakerConf expectedConf =
                 new DirBakerConf.Builder()
-                .setFilesToIgnore(
-                        Arrays.asList(
-                                Pattern.compile("one"),
-                                Pattern.compile(".*~")))
+                .setFilesToIgnore("one", ".*~")
                 .build();
 
         assertConfEquals(expectedConf, actualConf);
@@ -187,10 +183,7 @@ public final class DirBakerConfDaoTest
         DirBakerConf actualConf = readFromString(confContents);
         DirBakerConf expectedConf =
                 new DirBakerConf.Builder()
-                .setFilesToIncludeOnly(
-                        Arrays.asList(
-                                Pattern.compile("one"),
-                                Pattern.compile("two")))
+                .setFilesToIncludeOnly("one", "two")
                 .build();
 
         assertConfEquals(expectedConf, actualConf);
@@ -275,29 +268,6 @@ public final class DirBakerConfDaoTest
         DirBakerConf expectedConf = _emptyConf;
 
         assertConfEquals(expectedConf, actualConf);
-    }
-
-
-    /**
-     *
-     */
-    private void assertConfEquals(
-            final DirBakerConf expectedConf,
-            final DirBakerConf actualConf) {
-
-        assertEquals(
-                expectedConf.templateName,
-                actualConf.templateName);
-        assertEquals(
-                expectedConf.filesToIgnore.map(
-                        c -> Lists.map(c, Pattern::pattern)),
-                actualConf.filesToIgnore.map(
-                        c -> Lists.map(c, Pattern::pattern)));
-        assertEquals(
-                expectedConf.filesToIncludeOnly.map(
-                        c -> Lists.map(c, Pattern::pattern)),
-                actualConf.filesToIncludeOnly.map(
-                        c -> Lists.map(c, Pattern::pattern)));
     }
 
 

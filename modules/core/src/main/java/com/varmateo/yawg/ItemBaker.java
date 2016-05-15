@@ -46,7 +46,6 @@ public interface ItemBaker {
      *
      * @exception YawgException Thrown if the baking could not be
      * completed for whatever reason.
-     *
      */
     void bake(
             Path sourcePath,

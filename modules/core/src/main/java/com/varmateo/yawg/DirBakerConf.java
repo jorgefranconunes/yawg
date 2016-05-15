@@ -7,6 +7,7 @@
 package com.varmateo.yawg;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -68,7 +69,7 @@ import com.varmateo.yawg.util.Lists;
         Builder builder = new Builder(that);
 
         this.templateName.ifPresent(builder::setTemplateName);
-        this.filesToIgnore.ifPresent(builder::setFilesToIgnore);
+        this.filesToIgnore.ifPresent(builder::addFilesToIgnore);
         this.filesToIncludeOnly.ifPresent(builder::setFilesToIncludeOnly);
 
         DirBakerConf result = builder.build();
@@ -107,7 +108,7 @@ import com.varmateo.yawg.util.Lists;
         private Builder(final DirBakerConf defaults) {
 
             _templateName = defaults.templateName;
-            // _filesToIgnore always starts empty.
+            _filesToIgnore = defaults.filesToIgnore.map(ArrayList::new);
             // _filesToIncludeOnly always start empty.
         }
 
@@ -135,12 +136,57 @@ import com.varmateo.yawg.util.Lists;
 
 
         /**
+         * @throws PatternSyntaxException If any of the given regular
+         * expressions are invalid.
+         */
+        public Builder setFilesToIgnore(final String... fileNames) {
+
+            Collection<Pattern> patterns =
+                    Lists.map(Arrays.asList(fileNames), Pattern::compile);
+
+            setFilesToIgnore(patterns);
+
+            return this;
+        }
+
+
+        /**
+         *
+         */
+        private Builder addFilesToIgnore(final Collection<Pattern> fileNames) {
+
+            if ( _filesToIgnore.isPresent() ) {
+                _filesToIgnore.get().addAll(fileNames);
+            } else {
+                _filesToIgnore = Optional.of(new ArrayList<>(fileNames));
+            }
+
+            return this;
+        }
+
+
+        /**
          *
          */
         public Builder setFilesToIncludeOnly(
                 final Collection<Pattern> fileNames) {
 
             _filesToIncludeOnly = Optional.of(new ArrayList<>(fileNames));
+
+            return this;
+        }
+
+
+        /**
+         * @throws PatternSyntaxException If any of the given regular
+         * expressions are invalid.
+         */
+        public Builder setFilesToIncludeOnly(final String... fileNames) {
+
+            Collection<Pattern> patterns =
+                    Lists.map(Arrays.asList(fileNames), Pattern::compile);
+
+            setFilesToIncludeOnly(patterns);
 
             return this;
         }

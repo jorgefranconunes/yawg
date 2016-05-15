@@ -16,6 +16,7 @@ import java.util.stream.Stream;
 
 import com.varmateo.yawg.DirBakerConf;
 import com.varmateo.yawg.DirBakerConfDao;
+import com.varmateo.yawg.DirEntryScanner;
 import com.varmateo.yawg.ItemBaker;
 import com.varmateo.yawg.PageTemplate;
 import com.varmateo.yawg.PageTemplateService;
@@ -94,7 +95,7 @@ import com.varmateo.yawg.logging.LogWithUtils;
         List<Path> entries =
                 doIoAction(
                         "list directory",
-                        ()-> getDirEntries(sourceDir, dirBakerConf));
+                        () -> getDirEntries(sourceDir, dirBakerConf));
 
         List<Path> filePathList =
                 entries.stream()
@@ -163,23 +164,16 @@ import com.varmateo.yawg.logging.LogWithUtils;
             final DirBakerConf dirBakerConf)
         throws IOException {
 
-        DirEntryChecker checker = new DirEntryChecker(dirBakerConf);
-        List<Path> result = null;
-
-        try ( Stream<Path> entries = Files.list(dir) ) {
-            result =
-                    entries
-                    .filter(checker.asPathPredicate())
-                    .sorted()
-                    .collect(Collectors.toList());
-        }
+        DirEntryScanner scanner = new DirEntryScanner(dirBakerConf);
+        List<Path> result = scanner.getDirEntries(dir);
 
         return result;
     }
 
 
     /**
-     *
+     * A simple wrapper to change a method signature from the checked
+     * IOException to the unchecked YawgException.
      */
     private <T> T doIoAction(
             final String description,
