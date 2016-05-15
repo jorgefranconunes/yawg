@@ -65,19 +65,20 @@ public final class DirEntryCheckerTest
      *
      */
     @Test
-    public void withIgnoreTwo() {
+    public void withIgnoreMany() {
 
         DirBakerConf conf =
                 new DirBakerConf.Builder()
                 .setFilesToIgnore(
                         Lists.map(
-                                Arrays.asList(".*\\.txt", ".*\\.puml"),
+                                Arrays.asList(".*\\.txt", ".*\\.puml", ".*~"),
                                 Pattern::compile))
                 .build();
         DirEntryChecker checker = new DirEntryChecker(conf);
         Predicate<String> predicate = checker.asStringPredicate();
 
         assertTrue(predicate.test("something.adoc"));
+        assertFalse(predicate.test("something.adoc~"));
         assertFalse(predicate.test("something.txt"));
         assertFalse(predicate.test("something.puml"));
     }

@@ -114,14 +114,14 @@ public final class DirBakerConfDaoTest
         String confContents = ""
                 + "ignore:\n"
                 + "  - one\n"
-                + "  - two\n";
+                + "  - .*~\n";
         DirBakerConf actualConf = readFromString(confContents);
         DirBakerConf expectedConf =
                 new DirBakerConf.Builder()
                 .setFilesToIgnore(
                         Arrays.asList(
                                 Pattern.compile("one"),
-                                Pattern.compile("two")))
+                                Pattern.compile(".*~")))
                 .build();
 
         assertConfEquals(expectedConf, actualConf);

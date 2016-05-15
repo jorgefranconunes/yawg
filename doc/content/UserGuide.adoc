@@ -7,90 +7,121 @@
 
 Welcome to the user manual for Yawg.
 
-TBD - What is Yawg?
+Yawg is a static site generator. Given a source directory tree with
+files, a new directory tree will be populated with HTML files
+generated from the baking of the source files. Yawg is able to bake
+files in asciidoc and HTML formats. Other types of files will just be
+copied without any modification.
 
-TBD - Who is this document intended to?
+This document is intended for end users.
 
-TBD - How is this document organized?
+The remainder of this document is organized as follows:
+
+* <<sec-Requirements>> -- Describes the pre-requisites needed for
+  installing and running Yawg.
+
+* <<sec-DownloadAnsInstall>> -- Provides instructions on installing
+  the Yawg software.
+
+* <<sec-Running>> -- Shows you how to run Yawg and describes the
+  command line options.
+
+* <<sec-BakerTypes>> -- Introduces you to the currently supported
+  baker types: asciidoc, and HTML. The type of baker used defines how
+  a given source file will be baked.
+
+* <<sec-ConfiguringBaking>> -- Describes how the baking process can be
+  configured per-directory. For example, which template to use, or
+  which files should be ignored.
+
+* <<sec-PageTemplates>> -- Describes how templates are used for the
+  rendering of the final HTML. This section also addresses the data
+  model the template has access to for injecting data into the
+  genenated HTML.
 
 
 
 
 
+[[sec-Requirements]]
 == Requirements
 
-You will need Java 8 to run Yawg.
+For running Yawg you will need the following:
 
-TBD - More requirements? E.g. Linux environment.
+* Java 8 -- The Oracle JVM is known to work.
 
+* Linux -- Any typical Linux distribution from the last five years
+  should "just work" (TM).
 
-
-
-
-== Download
-
-TBD - Where can I download Yawg from?
+While Windows is not currently explicitly supported, you can still run
+Yawg just fine under Cygwin.
 
 
 
 
 
-== Installing Yawg
+[[sec-DownloadAnsInstall]]
+== Downloading and installing Yawg
 
-Unpack the Yawg tarball wherever it suits you. An example follows:
+Tarballs of Yawg releases are available for download from
+https://github.com/jorgefranconunes/yawg/releases
 
+After downloading the tarball, the installation consists simply of
+untaring said tarball. An example combining download and untaring
+follows:
+
+[source.sh]
 ----
 mkdir ~/local
-curl https://github.com/jorgefranconunes/yawg/somewhere/yawg-1.0.0.tar.gz \
+curl https://github.com/jorgefranconunes/yawg/releases/yawg-1.0.0.tar.gz \
     | tar xfz -C ~/local
 ----
 
-The example above will have installed Yawg under `$HOME/local/yawg-1.1.0/`.
+The example example above would have installed Yawg under directory
+`$HOME/local/yawg-1.1.0/`.
 
-Installation tree.
-
-----
-yawg-1.1.0/
-    +-- bin
-    +-- conf
-    +-- doc
-    +-- lib
-----
-
-There is no need to ever change any of the files under the
+The only files under the installation directory you need to know about
+are listed below. All other files are for internal use by Yawg. You
+should not, of course, ever need to modify any of the files under the
 installation directory.
 
+* `bin/yawg` -- The command line tool for running yawg. Described in
+  detail in the next section.
+
+* `doc` -- End user documentation.
 
 
 
 
+
+[[sec-Running]]
 == Running Yawg
 
-The command line tool to bake sites is at `bin/yawg` under the
-installation tree.
+The command line tool to bake sites lives at `bin/yawg` under the
+installation directory. This is the tool that is used for baking a
+site from a tree of documents.
 
-TBD - What does the `yawg` tool do?
+Yawg requires Java 8 to run. You tell the `bin\yawg` tool which JVM to
+use in one of the following ways:
 
-You need Java 8 to run Yawg. You have two different ways to select
-which JVM should be used for running Yawg.
+* If the environment variable `YAWG_JAVA_HOME` is defined, it will be
+  used to select the JVM.
 
-* If the environment variable `JAVA_HOME` is defined, it will be used
-  to select the JVM.
+* Otherwise, if the environment variable `JAVA_HOME` is defined, it
+  will be used to select the JVM.
 
-* If the environment variable `JAVA_HOME` is not defined, then Yawg
-  will attemp to look for `java` according to the PATH envionrment
-  variable.
+* Otherwise, Yawg will attemp to use the `java` accessible in the
+  PATH.
 
-* If the two previous bullets to not apply, then `yawg` will refuse to
-  work and just print a failure message informing you of the error in
-  your ways.
+* Otherwise, Yawg will despondently give up, and print print a failure
+  message gently reminding you of the error in your ways.
 
-If you run `yawg` it without any arguments it will just print some
-information on how to use the tool, and will then exit.
+Running `bin/yawg` without any arguments will just print some
+information on how to use the tool. 
 
 ----
 Yawg 1.0.0 - CLI Baker
-Copyright (c) 2016 Jorge Nunes
+Copyright (c) 2016 Jorge Nunes, All Rights Reserved.
 
 Usage: yawg [OPTION] ...
 
@@ -104,9 +135,11 @@ Options:
     --templates <PATH>   path of templates directory
  -v,--version            show version and exit
     --verbose            show abundant logging
+
+Find additional information at http://yawg.varmateo.com/
 ----
 
-The `yawg` command supports the following command line options:
+The `bin/yawg` command supports the following command line options:
 
 `--assets <PATH>` -- Path to the assets directory. The contents of
 this directory will be recursively copied to the target directory. The
@@ -127,6 +160,7 @@ that may be used during the baking.
 
 
 
+[[sec-BakerTypes]]
 == Baker types
 
 There are three types of baker.
@@ -143,6 +177,7 @@ There are three types of baker.
 
 
 
+[[sec-ConfiguringBaking]]
 == Configuring the baking process
 
 A set of baking parameters can be used to influence the baking
@@ -163,9 +198,8 @@ The supported baking parameters are listed below.
 baking the files in the directory. If not specified it will default to
 `default.ftlh`.
 
-`filesToIgnore` (`List<String>`) -- List of regular expressions
-representing the files in the directory that are to be ignore during
-the bake.
+`ignore` (`List<String>`) -- List of regular expressions representing
+the files in the directory that are to be ignore during the bake.
 
 `filesToIncludeOnly` (`List<String>`) -- List of regular expressions
 representing the files in the directory that are to be baked. All
@@ -176,14 +210,13 @@ precedence over the `filesToIgnore` parameter.
 
 
 
+[[sec-PageTemplates]]
 == Page templates
 
 Yawg supports http://freemarker.org/[Freemarker] page templates.
 
 The page template files are read from the directory specified with the
 `--templates` command line option.
-
-TBD -- More info on page templates.
 
 
 

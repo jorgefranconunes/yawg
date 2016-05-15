@@ -38,7 +38,7 @@ public final class YawgInfo
 
     /** Copyright string to be displayed to end users. */
     public static final String COPYRIGHT_HEADER =
-        "Copyright (c) 2016 Jorge Nunes";
+        "Copyright (c) 2016 Jorge Nunes, All Rights Reserved.";
 
 
     /**

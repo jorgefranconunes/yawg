@@ -27,8 +27,8 @@ public final class PageTemplateDataModel
      */
     private PageTemplateDataModel(final Builder builder) {
 
-        _body = builder._body;
-        _title = builder._title;
+        _body = Objects.requireNonNull(builder._body);
+        _title = Objects.requireNonNull(builder._title);
     }
 
 

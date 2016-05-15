@@ -59,7 +59,7 @@ import com.varmateo.yawg.util.Lists;
      *
      * @param that The source of default values.
      *
-     * @return A newly created container initialized with out values,
+     * @return A newly created container initialized with our values,
      * and using as default values the ones contained in
      * <code>that</code>.
      */
@@ -67,9 +67,9 @@ import com.varmateo.yawg.util.Lists;
 
         Builder builder = new Builder(that);
 
-        that.templateName.ifPresent(builder::setTemplateName);
-        that.filesToIgnore.ifPresent(builder::setFilesToIgnore);
-        that.filesToIncludeOnly.ifPresent(builder::setFilesToIncludeOnly);
+        this.templateName.ifPresent(builder::setTemplateName);
+        this.filesToIgnore.ifPresent(builder::setFilesToIgnore);
+        this.filesToIncludeOnly.ifPresent(builder::setFilesToIncludeOnly);
 
         DirBakerConf result = builder.build();
 
@@ -108,7 +108,7 @@ import com.varmateo.yawg.util.Lists;
 
             _templateName = defaults.templateName;
             // _filesToIgnore always starts empty.
-            // The _filesToIncludeOnly always start empty.
+            // _filesToIncludeOnly always start empty.
         }
 
 

@@ -163,10 +163,10 @@ import com.varmateo.yawg.logging.LogWithUtils;
             final DirBakerConf dirBakerConf)
         throws IOException {
 
+        DirEntryChecker checker = new DirEntryChecker(dirBakerConf);
         List<Path> result = null;
 
         try ( Stream<Path> entries = Files.list(dir) ) {
-            DirEntryChecker checker = new DirEntryChecker(dirBakerConf);
             result =
                     entries
                     .filter(checker.asPathPredicate())
