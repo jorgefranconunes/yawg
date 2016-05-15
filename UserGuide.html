@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>YAWG User Guide</title>
+  </head>
+
+  <body>
+    <h1>YAWG User Guide</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Welcome to the user manual for Yawg.</p>
+</div>
+<div class="paragraph">
+<p>Yawg is a static site generator. Given a source directory tree with
+files, a new directory tree will be populated with HTML files
+generated from the baking of the source files. Yawg is able to bake
+files in asciidoc and HTML formats. Other types of files will just be
+copied without any modification.</p>
+</div>
+<div class="paragraph">
+<p>This document is intended for end users.</p>
+</div>
+<div class="paragraph">
+<p>The remainder of this document is organized as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#sec-Requirements">Requirements</a>&#8201;&#8212;&#8201;Describes the pre-requisites needed for
+installing and running Yawg.</p>
+</li>
+<li>
+<p><a href="#sec-DownloadAnsInstall">Downloading and installing Yawg</a>&#8201;&#8212;&#8201;Provides instructions on installing
+the Yawg software.</p>
+</li>
+<li>
+<p><a href="#sec-Running">Running Yawg</a>&#8201;&#8212;&#8201;Shows you how to run Yawg and describes the
+command line options.</p>
+</li>
+<li>
+<p><a href="#sec-BakerTypes">Baker types</a>&#8201;&#8212;&#8201;Introduces you to the currently supported
+baker types: asciidoc, and HTML. The type of baker used defines how
+a given source file will be baked.</p>
+</li>
+<li>
+<p><a href="#sec-ConfiguringBaking">Configuring the baking process</a>&#8201;&#8212;&#8201;Describes how the baking process can be
+configured per-directory. For example, which template to use, or
+which files should be ignored.</p>
+</li>
+<li>
+<p><a href="#sec-PageTemplates">Page templates</a>&#8201;&#8212;&#8201;Describes how templates are used for the
+rendering of the final HTML. This section also addresses the data
+model the template has access to for injecting data into the
+genenated HTML.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="sec-Requirements">Requirements</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For running Yawg you will need the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Java 8&#8201;&#8212;&#8201;The Oracle JVM is known to work.</p>
+</li>
+<li>
+<p>Linux&#8201;&#8212;&#8201;Any typical Linux distribution from the last five years
+should "just work" &#8482;.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>While Windows is not currently explicitly supported, you can still run
+Yawg just fine under Cygwin.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="sec-DownloadAnsInstall">Downloading and installing Yawg</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Tarballs of Yawg releases are available for download from
+<a href="https://github.com/jorgefranconunes/yawg/releases" class="bare">https://github.com/jorgefranconunes/yawg/releases</a></p>
+</div>
+<div class="paragraph">
+<p>After downloading the tarball, the installation consists simply of
+untaring said tarball. An example combining download and untaring
+follows:</p>
+</div>
+<div class="listingblock sh">
+<div class="content">
+<pre class="highlight"><code>mkdir ~/local
+curl https://github.com/jorgefranconunes/yawg/releases/yawg-1.0.0.tar.gz \
+    | tar xfz -C ~/local</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The example example above would have installed Yawg under directory
+<code>$HOME/local/yawg-1.1.0/</code>.</p>
+</div>
+<div class="paragraph">
+<p>The only files under the installation directory you need to know about
+are listed below. All other files are for internal use by Yawg. You
+should not, of course, ever need to modify any of the files under the
+installation directory.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>bin/yawg</code>&#8201;&#8212;&#8201;The command line tool for running yawg. Described in
+detail in the next section.</p>
+</li>
+<li>
+<p><code>doc</code>&#8201;&#8212;&#8201;End user documentation.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="sec-Running">Running Yawg</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The command line tool to bake sites lives at <code>bin/yawg</code> under the
+installation directory. This is the tool that is used for baking a
+site from a tree of documents.</p>
+</div>
+<div class="paragraph">
+<p>Yawg requires Java 8 to run. You tell the <code>bin\yawg</code> tool which JVM to
+use in one of the following ways:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If the environment variable <code>YAWG_JAVA_HOME</code> is defined, it will be
+used to select the JVM.</p>
+</li>
+<li>
+<p>Otherwise, if the environment variable <code>JAVA_HOME</code> is defined, it
+will be used to select the JVM.</p>
+</li>
+<li>
+<p>Otherwise, Yawg will attemp to use the <code>java</code> accessible in the
+PATH.</p>
+</li>
+<li>
+<p>Otherwise, Yawg will despondently give up, and print print a failure
+message gently reminding you of the error in your ways.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Running <code>bin/yawg</code> without any arguments will just print some
+information on how to use the tool.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Yawg 1.0.0 - CLI Baker
+Copyright (c) 2016 Jorge Nunes, All Rights Reserved.
+
+Usage: yawg [OPTION] ...
+
+Bakes a site from a directory tree.
+
+Options:
+    --assets &lt;PATH&gt;      path of assets directory
+ -h,--help               show this help text and exit
+    --source &lt;PATH&gt;      path of source directory
+    --target &lt;PATH&gt;      path of target directory
+    --templates &lt;PATH&gt;   path of templates directory
+ -v,--version            show version and exit
+    --verbose            show abundant logging
+
+Find additional information at http://yawg.varmateo.com/</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>bin/yawg</code> command supports the following command line options:</p>
+</div>
+<div class="paragraph">
+<p><code>--assets &lt;PATH&gt;</code>&#8201;&#8212;&#8201;Path to the assets directory. The contents of
+this directory will be recursively copied to the target directory. The
+files under the assets directory are copied without any
+transformations.</p>
+</div>
+<div class="paragraph">
+<p><code>--source &lt;PATH&gt;</code>&#8201;&#8212;&#8201;Path to the directory containing the content to
+be baked.</p>
+</div>
+<div class="paragraph">
+<p><code>--target &lt;PATH&gt;</code>&#8201;&#8212;&#8201;Path to the directory where the results of the
+baked will be copied to. If this directory does not yet exist, it will
+be created.</p>
+</div>
+<div class="paragraph">
+<p><code>--templates &lt;PATH&gt;</code>&#8201;&#8212;&#8201;Path the directory containing the page templates
+that may be used during the baking.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="sec-BakerTypes">Baker types</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are three types of baker.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Asciidoc&#8201;&#8212;&#8201;Converts input files in Asciidoc format to HTML.</p>
+</li>
+<li>
+<p>HTML&#8201;&#8212;&#8201;Converts an input file in HTML format to another HTML file
+generated by the selected page template.</p>
+</li>
+<li>
+<p>Copy&#8201;&#8212;&#8201;Just copies the input file to the target directory without
+making any change.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="sec-ConfiguringBaking">Configuring the baking process</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A set of baking parameters can be used to influence the baking
+process. Each directory under the source directory being baked can
+specify its own set of baking parameters.</p>
+</div>
+<div class="paragraph">
+<p>The baking parameters are defined in a file named <code>.yawg.yaml</code> inside
+each directory. The existence of the <code>.yawg.yaml</code> file is optional. If
+there is no <code>.yawg.yaml</code> file in a given directory, then the baking
+parameters for the parent directory will be used instead.</p>
+</div>
+<div class="paragraph">
+<p>The <code>.yawg.yaml</code> file, as you might have guessed, is in
+<a href="http://yaml.org/">YAML</a> format.</p>
+</div>
+<div class="paragraph">
+<p>The supported baking parameters are listed below.</p>
+</div>
+<div class="paragraph">
+<p><code>template</code> (<code>String</code>)&#8201;&#8212;&#8201;The name of the page template to use for
+baking the files in the directory. If not specified it will default to
+<code>default.ftlh</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>ignore</code> (<code>List&lt;String&gt;</code>)&#8201;&#8212;&#8201;List of regular expressions representing
+the files in the directory that are to be ignore during the bake.</p>
+</div>
+<div class="paragraph">
+<p><code>filesToIncludeOnly</code> (<code>List&lt;String&gt;</code>)&#8201;&#8212;&#8201;List of regular expressions
+representing the files in the directory that are to be baked. All
+other files in the directory will be skipped. This parameter takes
+precedence over the <code>filesToIgnore</code> parameter.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="sec-PageTemplates">Page templates</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Yawg supports <a href="http://freemarker.org/">Freemarker</a> page templates.</p>
+</div>
+<div class="paragraph">
+<p>The page template files are read from the directory specified with the
+<code>--templates</code> command line option.</p>
+</div>
+<div class="sect2">
+<h3 id="_page_template_data_model">Page template data model</h3>
+<div class="paragraph">
+<p>The page template has access to a set of variables while it is being
+processed during the baking of a document. We call data model to the
+set of variables accessible to the page template.</p>
+</div>
+<div class="paragraph">
+<p>The variables composing the data model are described below.</p>
+</div>
+<div class="paragraph">
+<p><code>body</code>&#8201;&#8212;&#8201;String containing the raw HTML resulting from converting the
+source document into HTML. This is an HTML snippet ready to be
+included a <code>&lt;body&gt;</code> element, or any other block level element.</p>
+</div>
+<div class="paragraph">
+<p><code>productName</code>&#8201;&#8212;&#8201;The name of the Yawg softare (i.e. "Yawg"). The value
+of the template variable is always the same.</p>
+</div>
+<div class="paragraph">
+<p><code>title</code>&#8201;&#8212;&#8201;The document title. If the source document did not define a
+title, then the base name of the source document file will be used as
+title.</p>
+</div>
+<div class="paragraph">
+<p><code>version</code>&#8201;&#8212;&#8201;The version of the Yawg software. The value of the
+template variable is always the same, for a given Yawg release.</p>
+</div>
+</div>
+</div>
+</div>
+
+    <footer>Baked with Yawg 0.0.1-SNAPSHOT</footer>
+  </body>
+</html>
