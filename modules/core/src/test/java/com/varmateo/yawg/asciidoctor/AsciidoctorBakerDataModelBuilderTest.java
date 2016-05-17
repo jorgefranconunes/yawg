@@ -28,7 +28,7 @@ public final class AsciidoctorBakerDataModelBuilderTest
         extends Object {
 
 
-    private Asciidoctor _asciidoctor = null;
+    private AsciidoctorBakerDataModelBuilder _modelBuilder = null;
 
 
     /**
@@ -37,7 +37,13 @@ public final class AsciidoctorBakerDataModelBuilderTest
     @Before
     public void setUp() {
 
-        _asciidoctor = Asciidoctor.Factory.create();
+        Path sourceDir =
+                TestUtils.getInputsDir(AsciidoctorBakerDataModelBuilder.class);
+        Asciidoctor asciidoctor =
+                Asciidoctor.Factory.create();
+
+        _modelBuilder =
+                new AsciidoctorBakerDataModelBuilder(sourceDir, asciidoctor);
     }
 
 
@@ -52,13 +58,12 @@ public final class AsciidoctorBakerDataModelBuilderTest
                 TestUtils.getPath(
                         AsciidoctorBakerDataModelBuilder.class,
                         "DocumentWithTitle.adoc");
-        PageTemplateDataModel model =
-                new AsciidoctorBakerDataModelBuilder(_asciidoctor)
-                .build(sourcePath);
+        PageTemplateDataModel model = _modelBuilder.build(sourcePath);
 
         assertEquals("Document with Title", model.getTitle());
         assertTrue(model.getBody().contains(
                 "The body of the document with a title."));
+        assertEquals(".", model.getRootRelativeUrl());
     }
 
 
@@ -73,13 +78,12 @@ public final class AsciidoctorBakerDataModelBuilderTest
                 TestUtils.getPath(
                         AsciidoctorBakerDataModelBuilder.class,
                         "DocumentWithoutTitle.adoc");
-        PageTemplateDataModel model =
-                new AsciidoctorBakerDataModelBuilder(_asciidoctor)
-                .build(sourcePath);
+        PageTemplateDataModel model = _modelBuilder.build(sourcePath);
 
         assertEquals("DocumentWithoutTitle", model.getTitle());
         assertTrue(model.getBody().contains(
                 "The body of the document without a title."));
+        assertEquals(".", model.getRootRelativeUrl());
     }
 
 

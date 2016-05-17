@@ -20,19 +20,31 @@ public interface ItemBaker {
 
 
     /**
-     * The baker name, used for informational purposes.
+     * The baker identifier.  It is intended to be used only for
+     * informational purposes. It does not need to be unique.
+     *
+     * @return The baker name.
      */
     String getShortName();
 
 
     /**
-     * Checks if this baker is able to bake the given path.
+     * Checks if this baker is able to bake the given file.
+     *
+     * <p>Typical implementations check if the file extension is one
+     * of a set of supported file types.</p>
+     *
+     * @param path The file system path of the file to be checked.
+     *
+     * @return True if this baker can handle the file. False
+     * otherwise.
      */
     boolean isBakeable(Path path);
 
 
     /**
-     * Bakes the given file into the specified target directory.
+     * Bakes the given file creating the result in the specified
+     * target directory.
      *
      * <p>The target directory must already exist. Otherwise an
      * exception will be thrown.</p>

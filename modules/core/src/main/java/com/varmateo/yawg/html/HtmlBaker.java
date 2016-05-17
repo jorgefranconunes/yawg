@@ -34,13 +34,15 @@ public final class HtmlBaker
 
     private static final String TARGET_EXTENSION = ".html";
 
+    private final HtmlBakerDataModelBuilder _modelBuilder;
+
 
     /**
      * 
      */
-    public HtmlBaker() {
+    public HtmlBaker(final Path sourceRootDir) {
 
-        // Nothing to do.
+        _modelBuilder = new HtmlBakerDataModelBuilder(sourceRootDir);
     }
 
 
@@ -172,25 +174,11 @@ public final class HtmlBaker
             final Path targetPath)
             throws IOException {
 
-        PageTemplateDataModel dataModel = buildDataModel(sourcePath);
+        PageTemplateDataModel dataModel = _modelBuilder.build(sourcePath);
 
         FileUtils.newWriter(
                 targetPath,
                 writer -> template.process(dataModel, writer));
-    }
-
-
-    /**
-     *
-     */
-    private PageTemplateDataModel buildDataModel(final Path sourcePath)
-            throws IOException {
-
-        PageTemplateDataModel result =
-                new HtmlBakerDataModelBuilder()
-                .build(sourcePath);
-
-        return result;
     }
 
 

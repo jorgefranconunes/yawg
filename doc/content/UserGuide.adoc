@@ -237,6 +237,9 @@ included a `<body>` element, or any other block level element.
 `productName` -- The name of the Yawg softare (i.e. "Yawg"). The value
 of the template variable is always the same.
 
+`rootRelativeUrl` -- The relative URL for the top URL of the baked
+site.
+
 `title` -- The document title. If the source document did not define a
 title, then the base name of the source document file will be used as
 title.

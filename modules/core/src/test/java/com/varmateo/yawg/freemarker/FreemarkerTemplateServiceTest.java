@@ -108,6 +108,7 @@ public final class FreemarkerTemplateServiceTest
                 new PageTemplateDataModel.Builder()
                 .setBody(body)
                 .setTitle(title)
+                .setRootRelativeUrl(".")
                 .build();
         StringWriter buffer = new StringWriter();
 
@@ -140,6 +141,7 @@ public final class FreemarkerTemplateServiceTest
                 new PageTemplateDataModel.Builder()
                 .setBody(body)
                 .setTitle(title)
+                .setRootRelativeUrl(".")
                 .build();
         StringWriter buffer = new StringWriter();
 

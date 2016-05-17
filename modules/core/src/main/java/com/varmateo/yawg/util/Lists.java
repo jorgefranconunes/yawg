@@ -29,7 +29,24 @@ public final class Lists
 
 
     /**
+     * Creates a new list where the elements are obtained by applying
+     * the given function to each of the elements of the given
+     * collection.
      *
+     * <p>The order of the elements in the returned list is the same
+     * order of the given input collection iterator.</p>
+     *
+     * @param <T> The type of the elements in the input collection.
+     *
+     * @param <R> The type of the elements in the returned list.
+     *
+     * @param inputCollection The elements to be transformed by the
+     * given function.
+     *
+     * @param function The function to be applied to each element in
+     * the given collection.
+     *
+     * @return A newly created list with the mapped elements.
      */
     public static <T,R> List<R> map(
             final Collection<T> inputCollection,
@@ -45,7 +62,18 @@ public final class Lists
 
 
     /**
+     * Builds a read-only copy of the given collection.
      *
+     * <p>The order of the elements in the returned list is the same
+     * order of the given collection iterator.</p>
+     *
+     * @param <T> The type of the elements in the given and returned
+     * collections.
+     *
+     * @param inputCollection The collection to be copied.
+     *
+     * @return A new read only list containing the elements in the
+     * given collection.
      */
     public static <T> List<T> readOnlyCopy(
             final Collection<T> inputCollection) {

@@ -19,7 +19,7 @@ public interface PageTemplateService {
     /**
      * Fetches the template with the given name.
      *
-     * <p>The meaning and structure of the template name depdend on
+     * <p>The meaning and structure of the template name depend on
      * the concrete template framework being used.</p>
      *
      * <p>Do not assume that the same object will be returned for two
@@ -29,8 +29,11 @@ public interface PageTemplateService {
      *
      * @param name The name of the template to return.
      *
+     * @return The template associated with the given name.
+     *
      * @throws YawgException If for whatever reason it was not
-     * possible to create the page template.
+     * possible to create the page template. For instance, if the
+     * template with the given name does not exist.
      */
     PageTemplate getTemplate(String name)
             throws YawgException;

@@ -64,7 +64,7 @@ public final class Yawg
 
 
     /**
-     *
+     * @param conf Configuration parameters.
      */
     public Yawg(final BakerConf conf) {
 
@@ -73,7 +73,7 @@ public final class Yawg
 
 
     /**
-     *
+     * @return The baker object.
      */
     public Baker getBaker() {
 
@@ -86,7 +86,7 @@ public final class Yawg
      */
     private ItemBaker newAsciidoctorBaker() {
 
-        ItemBaker result = new AsciidoctorBaker();
+        ItemBaker result = new AsciidoctorBaker(_conf.sourceDir);
 
         return result;
     }
@@ -178,7 +178,7 @@ public final class Yawg
      */
     private ItemBaker newHtmlBaker() {
 
-        ItemBaker result = new HtmlBaker();
+        ItemBaker result = new HtmlBaker(_conf.sourceDir);
 
         return result;
     }

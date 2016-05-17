@@ -33,7 +33,7 @@ import com.varmateo.yawg.YawgException;
         extends Object {
 
 
-    private static final String FILE_NAME = ".yawg.yml";
+    private static final String CONF_FILE_NAME = ".yawg.yml";
 
     private static final String PARAM_TEMPLATE_NAME = "template";
     private static final String PARAM_IGNORE = "ignore";
@@ -67,7 +67,7 @@ import com.varmateo.yawg.YawgException;
             throws YawgException {
 
         DirBakerConf result = null;
-        Path confFile = sourceDir.resolve(FILE_NAME);
+        Path confFile = sourceDir.resolve(CONF_FILE_NAME);
 
         if ( Files.isRegularFile(confFile) ) {
             result = loadFromFile(confFile);

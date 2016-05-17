@@ -6,6 +6,7 @@
 
 package com.varmateo.yawg.html;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -24,6 +25,18 @@ import com.varmateo.yawg.util.FileUtils;
  */
 /* package private */ final class HtmlBakerDataModelBuilder
         extends Object {
+
+
+    private final Path _sourceRootDir;
+
+
+    /**
+     *
+     */
+    public HtmlBakerDataModelBuilder(final Path sourceRootDir) {
+
+        _sourceRootDir = sourceRootDir;
+    }
 
 
     /**
@@ -46,12 +59,30 @@ import com.varmateo.yawg.util.FileUtils;
                 .flatMap(elems -> Optional.ofNullable(elems.first()))
                 .map(Element::text)
                 .orElseGet(() -> FileUtils.basename(sourcePath));
+        String rootRelativeUrl = buildRootRelativeUrl(sourcePath);
 
         PageTemplateDataModel result =
                 new PageTemplateDataModel.Builder()
                 .setTitle(title)
                 .setBody(body)
+                .setRootRelativeUrl(rootRelativeUrl)
                 .build();
+
+        return result;
+    }
+
+
+    /**
+     *
+     */
+    private String buildRootRelativeUrl(final Path sourcePath) {
+
+        Path relDir = sourcePath.getParent().relativize(_sourceRootDir);
+        String result = relDir.toString().replace(File.separatorChar, '/');
+
+        if ( result.length() == 0 ) {
+            result = ".";
+        }
 
         return result;
     }

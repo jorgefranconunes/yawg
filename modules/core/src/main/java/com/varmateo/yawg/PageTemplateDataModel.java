@@ -20,6 +20,7 @@ public final class PageTemplateDataModel
 
     private final String _body;
     private final String _title;
+    private final String _rootRelativeUrl;
 
 
     /**
@@ -29,6 +30,7 @@ public final class PageTemplateDataModel
 
         _body = Objects.requireNonNull(builder._body);
         _title = Objects.requireNonNull(builder._title);
+        _rootRelativeUrl = Objects.requireNonNull(builder._rootRelativeUrl);
     }
 
 
@@ -51,6 +53,16 @@ public final class PageTemplateDataModel
     public String getTitle() {
 
         return _title;
+    }
+
+
+    /**
+     * @return The URL of the root directory of the site being baked
+     * relative to teh document about to be baked.
+     */
+    public String getRootRelativeUrl() {
+
+        return _rootRelativeUrl;
     }
 
 
@@ -81,6 +93,7 @@ public final class PageTemplateDataModel
 
         private String _body = null;
         private String _title = null;
+        private String _rootRelativeUrl = null;
 
 
         /**
@@ -108,6 +121,16 @@ public final class PageTemplateDataModel
         public Builder setTitle(final String title) {
 
             _title = Objects.requireNonNull(title);
+            return this;
+        }
+
+
+        /**
+         *
+         */
+        public Builder setRootRelativeUrl(final String rootRelativeUrl) {
+
+            _rootRelativeUrl = rootRelativeUrl;
             return this;
         }
 

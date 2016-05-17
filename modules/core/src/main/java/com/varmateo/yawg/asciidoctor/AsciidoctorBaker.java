@@ -43,14 +43,22 @@ public final class AsciidoctorBaker
     private static final String TARGET_EXTENSION = ".html";
 
     private final Asciidoctor _asciidoctor;
+    private final AsciidoctorBakerDataModelBuilder _modelBuilder;
 
 
     /**
-     * 
+     * @param sourceRootDir Used to determine the relative directory
+     * of the file being baked.
      */
-    public AsciidoctorBaker() {
+    public AsciidoctorBaker(final Path sourceRootDir) {
 
-        _asciidoctor = Asciidoctor.Factory.create();
+        Asciidoctor asciidoctor = Asciidoctor.Factory.create();
+
+        _asciidoctor = asciidoctor;
+        _modelBuilder =
+                new AsciidoctorBakerDataModelBuilder(
+                        sourceRootDir,
+                        asciidoctor);
     }
 
 
@@ -192,7 +200,7 @@ public final class AsciidoctorBaker
             final Path targetPath)
             throws AsciidoctorCoreException, IOException {
 
-        PageTemplateDataModel dataModel = buildDataModel(sourcePath);
+        PageTemplateDataModel dataModel = _modelBuilder.build(sourcePath);
         StringWriter buffer = new StringWriter();
 
         template.process(dataModel, buffer);
@@ -200,20 +208,6 @@ public final class AsciidoctorBaker
         String targetContent = buffer.toString();
 
         saveContent(targetContent, targetPath);
-    }
-
-
-    /**
-     *
-     */
-    private PageTemplateDataModel buildDataModel(final Path sourcePath)
-            throws AsciidoctorCoreException, IOException {
-
-        PageTemplateDataModel result =
-                new AsciidoctorBakerDataModelBuilder(_asciidoctor)
-                .build(sourcePath);
-
-        return result;
     }
 
 
