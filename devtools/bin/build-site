@@ -1,0 +1,291 @@
+#!/bin/bash
+###########################################################################
+#
+# Copyright (c) 2016 Jorge Nunes, All Rights Reserved.
+#
+#
+# Generates the Yawg static site.
+#
+###########################################################################
+
+_scriptName=$0
+_scriptDir=$(dirname $0)
+_yawgHome=$(cd $_scriptDir/../..; pwd)
+
+source ${_yawgHome}/lib/bash/yawg-utils.sh
+source ${_yawgHome}/conf/yawg-defaults.conf
+
+
+
+
+
+TOOL_NAME="Yawg Site Baker"
+PRODUCT_HEADER="${YAWG_PRODUCT_NAME} ${YAWG_VERSION} - ${TOOL_NAME}"
+
+SITE_REPO="git@github.com:jorgefranconunes/yawg.git"
+SITE_BRANCH="gh-pages"
+
+DEFAULT_COMMIT_COMMENT="Doc updates"
+
+_workingArea=
+_isInit=false
+_isCommit=false
+_commitComment=${DEFAULT_COMMIT_COMMENT}
+
+
+
+
+
+#######################################################################
+#
+# The main script.
+#
+#######################################################################
+
+function main () {
+
+    processCliArgs "$@"
+
+    _workingArea=${_yawgHome}/../yawg.${SITE_BRANCH}
+    
+    yawgLog "Building site..."
+
+    doBakeSite || yawgError "Failed building site."
+
+    yawgLog "Done building site."
+}
+
+
+
+
+
+###########################################################################
+#
+# Processes the command line options.
+#
+###########################################################################
+
+function processCliArgs () {
+
+    for option in "$@" ; do
+        case $option in
+            --init )
+                _isInit=true
+                ;;
+            --commit )
+                _isCommit=true
+                ;;
+            --help )
+                displayHelp
+                exit 0
+                ;;
+            --*=* )
+                option=$(expr $option : '\(--.*\)=.*')
+                yawgError "$option : unknown option. Use --help for details."
+                ;;
+            * )
+                yawgError "$option : unknown option. Use --help for details."
+                ;;
+        esac
+    done
+}
+
+
+
+
+
+###########################################################################
+#
+# Displays an help messages describing the configuration options.
+#
+###########################################################################
+
+function displayHelp () {
+
+    cat <<EOF
+
+${PRODUCT_HEADER}
+${YAWG_COPYRIGHT_HEADER}
+
+Builds the Yawg site and optionally uploads it to Github.
+
+Available options:
+
+--init
+    Initialize directory to be used as working area for site files.
+
+--commit
+    Commit changes to the site branch and uploads to Git origin
+    repository.
+
+--help
+    Prints this help text.
+
+EOF
+}
+
+
+
+
+
+#######################################################################
+#
+# 
+#
+#######################################################################
+
+function doBakeSite () {
+
+    true \
+        && setupWorkingArea \
+        && doBaking \
+        && finalizeWorkingArea
+}
+
+
+
+
+
+#######################################################################
+#
+# 
+#
+#######################################################################
+
+function setupWorkingArea () {
+
+    if [ ${_isInit} == true -o ${_isCommit} == true ] ; then
+        doSetupWorkingArea
+    fi
+}
+
+
+
+
+
+#######################################################################
+#
+# 
+#
+#######################################################################
+
+function doSetupWorkingArea () {
+
+    yawgLog "Setting up working area..."
+
+    local exitStatus=0
+
+    if [ ! -d ${_workingArea} ] ; then
+        local username=$(git --git-dir ${_yawgHome}/.git config user.name)
+        local email=$(git --git-dir ${_yawgHome}/.git config user.email)
+
+        mkdir ${_workingArea} || yawgError "Unable to created ${_workingArea}"
+        pushd ${_workingArea} > /dev/null
+        true \
+            && git clone -b ${SITE_BRANCH} ${SITE_REPO} . \
+            && git config user.name ${username} \
+            && git config user.email ${email} \
+            && git rm ./*
+
+        exitStatus=$?
+        popd  > /dev/null
+    else
+        pushd ${_workingArea} > /dev/null
+        true \
+            && git reset --hard HEAD \
+            && git checkout -- . \
+            && git pull origin ${SITE_BRANCH} \
+            && git rm ./*
+
+        exitStatus=$?
+        popd  > /dev/null
+    fi
+
+    return ${exitStatus}
+}
+
+
+
+
+
+#######################################################################
+#
+# 
+#
+#######################################################################
+
+function doBaking () {
+
+    yawgLog "Baking site..."
+
+    if [ -d "${_workingArea}" ] ; then
+        if [ $(ls ${_workingArea} | wc -l) -gt 0 ] ; then
+            rm -rf ${_workingArea}/*
+        fi
+    else
+        yawgError "Directory \"${_workingArea}\" does not exist. Use --init."
+    fi
+
+    ${_yawgHome}/bin/yawg \
+        --source=${_yawgHome}/doc/content \
+        --target=${_workingArea} \
+        --templates=${_yawgHome}/doc/templates \
+        --verbose
+}
+
+
+
+
+
+#######################################################################
+#
+# 
+#
+#######################################################################
+
+function finalizeWorkingArea () {
+
+    if [ ${_isCommit} == true ] ; then
+        doFinalizeWorkingArea
+    fi
+}
+
+
+
+
+
+#######################################################################
+#
+# 
+#
+#######################################################################
+
+function doFinalizeWorkingArea () {
+
+    yawgLog "Uploading changes to origin Git repo..."
+
+    local exitStatus=0
+
+    pushd ${_workingArea} > /dev/null
+    true \
+        && git add ./* \
+        && git commit -a -m "${_commitComment}" \
+        && git push origin ${SITE_BRANCH}
+
+    exitStatus=$?
+    popd > /dev/null
+
+    return ${exitStatus}
+}
+
+
+
+
+
+#######################################################################
+#
+# Entry point.
+#
+#######################################################################
+
+main "$@"
