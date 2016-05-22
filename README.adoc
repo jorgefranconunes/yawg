@@ -5,5 +5,5 @@ image:https://travis-ci.org/jorgefranconunes/yawg.svg?branch=master["Build Statu
 
 Tool for generating static sites.
 
-Go to the http://yawg.varateo.com/[Yawg site] for additional
+Go to the http://yawg.varmateo.com/[Yawg site] for additional
 documentation.
