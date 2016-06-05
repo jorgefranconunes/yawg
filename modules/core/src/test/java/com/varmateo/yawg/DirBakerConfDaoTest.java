@@ -244,7 +244,7 @@ public final class DirBakerConfDaoTest
                 TestUtils
                 .getInputsDir(DirBakerConfDao.class)
                 .resolve("dirWithYawgYml");
-        DirBakerConf actualConf = _dao.load(sourceDir);
+        DirBakerConf actualConf = _dao.loadFromDir(sourceDir);
         DirBakerConf expectedConf =
                 new DirBakerConf.Builder()
                 .setTemplateName("demo")
@@ -264,7 +264,7 @@ public final class DirBakerConfDaoTest
                 TestUtils
                 .getInputsDir(DirBakerConfDao.class)
                 .resolve("dirWithNoYawgYml");
-        DirBakerConf actualConf = _dao.load(sourceDir);
+        DirBakerConf actualConf = _dao.loadFromDir(sourceDir);
         DirBakerConf expectedConf = _emptyConf;
 
         assertConfEquals(expectedConf, actualConf);

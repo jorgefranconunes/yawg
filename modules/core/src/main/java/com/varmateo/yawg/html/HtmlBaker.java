@@ -38,7 +38,9 @@ public final class HtmlBaker
 
 
     /**
-     * 
+     * @param sourceRootDir Root of directory tree containing the
+     * files being baked. It is used to obtain relative URLs from the
+     * root.
      */
     public HtmlBaker(final Path sourceRootDir) {
 

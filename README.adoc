@@ -1,9 +1,9 @@
 image:https://travis-ci.org/jorgefranconunes/yawg.svg?branch=master["Build Status", link="https://travis-ci.org/jorgefranconunes/yawg"]
 
 
-== Yet Another Wiki Generator
+== Yawg - Yet Another Wiki Generator
 
-Tool for generating static sites.
+Yawg is a tool for generating static sites.
 
 Go to the http://yawg.varmateo.com/[Yawg site] for additional
 documentation.

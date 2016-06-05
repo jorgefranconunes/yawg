@@ -12,18 +12,16 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-import com.esotericsoftware.yamlbeans.YamlException;
-import com.esotericsoftware.yamlbeans.YamlReader;
-
 import com.varmateo.yawg.DirBakerConf;
 import com.varmateo.yawg.YawgException;
+import com.varmateo.yawg.util.yaml.YamlList;
+import com.varmateo.yawg.util.yaml.YamlMap;
+import com.varmateo.yawg.util.yaml.YamlParser;
 
 
 /**
@@ -63,7 +61,7 @@ import com.varmateo.yawg.YawgException;
      * @throws YawgException Thrown if the configuration file could
      * not be read or had syntax problems.
      */
-    public DirBakerConf load(final Path sourceDir)
+    public DirBakerConf loadFromDir(final Path sourceDir)
             throws YawgException {
 
         DirBakerConf result = null;
@@ -123,24 +121,24 @@ import com.varmateo.yawg.YawgException;
      *
      */
     /* package private */ DirBakerConf read(final Reader reader)
-            throws YawgException, IOException {
+            throws YawgException {
 
-        Map<String,Object> items = readYaml(reader);
+        YamlMap map = new YamlParser().parse(reader);
         DirBakerConf.Builder builder = new DirBakerConf.Builder();
 
-        String templateName = getString(items, PARAM_TEMPLATE_NAME);
+        String templateName = map.getString(PARAM_TEMPLATE_NAME);
         if ( templateName != null ) {
             builder.setTemplateName(templateName);
         }
 
         Collection<Pattern> filesToIgnore =
-                getPatternList(items, PARAM_IGNORE);
+                getPatternList(map, PARAM_IGNORE);
         if ( filesToIgnore != null ) {
             builder.setFilesToIgnore(filesToIgnore);
         }
 
         Collection<Pattern> filesToIncludeOnly =
-                getPatternList(items, PARAM_INCLUDE_ONLY);
+                getPatternList(map, PARAM_INCLUDE_ONLY);
         if ( filesToIncludeOnly != null ) {
             builder.setFilesToIncludeOnly(filesToIncludeOnly);
         }
@@ -154,54 +152,19 @@ import com.varmateo.yawg.YawgException;
     /**
      *
      */
-    private Map<String,Object> readYaml(final Reader reader)
-            throws YamlException {
-
-        Map<String,Object> result = null;
-        YamlReader yamlReader = new YamlReader(reader);
-        Object yamlObj = yamlReader.read();
-
-        if ( (yamlObj!=null) && (yamlObj instanceof Map) ) {
-            result = (Map<String,Object>)yamlObj;
-        } else {
-            // The contents of the YAML file are invalid.
-            result = Collections.emptyMap();
-        }
-
-        return result;
-    }
-
-
-    /**
-     *
-     */
-    private String getString(
-            final Map<String,Object> items,
-            final String key)
-            throws YawgException {
-
-        String result = (String)getWithType(items, key, String.class);
-
-        return result;
-    }
-
-
-    /**
-     *
-     */
     private List<Pattern> getPatternList(
-            final Map<String,Object> items,
+            final YamlMap map,
             final String key)
             throws YawgException {
 
         List<Pattern> result = null;
-        List<Object> itemList = (List)getWithType(items, key, List.class);
+        YamlList<String> itemList = map.getList(key, String.class);
 
         if ( itemList != null ) {
             result = new ArrayList<>();
 
             for ( int i=0, count=itemList.size(); i<count; ++i ) {
-                String regex = (String)getWithType(itemList, i, String.class);
+                String regex = itemList.getString(i);
                 Pattern pattern = null;
 
                 try {
@@ -220,52 +183,6 @@ import com.varmateo.yawg.YawgException;
         }
 
         return result;
-    }
-
-
-    /**
-     *
-     */
-    private Object getWithType(
-            final Map<String,Object> items,
-            final String key,
-            final Class<?> klass)
-            throws YawgException {
-
-        Object value = items.get(key);
-
-        if ( (value!=null) && !klass.isInstance(value) ) {
-            YawgException.raise(
-                    "Invalid {2} value in {1} field \"{0}\"",
-                    key,
-                    klass.getSimpleName(),
-                    value.getClass().getSimpleName());
-        }
-
-        return value;
-    }
-
-
-    /**
-     *
-     */
-    private Object getWithType(
-            final List<Object> items,
-            final int index,
-            final Class<?> klass)
-            throws YawgException {
-
-        Object value = items.get(index);
-
-        if ( (value==null) || !klass.isInstance(value) ) {
-            YawgException.raise(
-                    "Invalid {2} value in {1} position {0}",
-                    index,
-                    klass.getSimpleName(),
-                    (value==null) ? "NULL" : value.getClass().getSimpleName());
-        }
-
-        return value;
     }
 
 }

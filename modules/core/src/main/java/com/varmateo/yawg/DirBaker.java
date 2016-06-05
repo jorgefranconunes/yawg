@@ -88,7 +88,7 @@ import com.varmateo.yawg.logging.LogWithUtils;
 
         DirBakerConf dirBakerConf =
                 _dirBakerConfDao
-                .load(sourceDir)
+                .loadFromDir(sourceDir)
                 .merge(parentDirBakerConf);
 
         List<Path> entries =
