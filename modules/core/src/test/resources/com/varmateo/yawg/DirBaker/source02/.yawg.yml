@@ -3,6 +3,6 @@
 #
 
 ignore:
-  - .*~
-  - .*\.txt
-  - .yawg.yml
+  - '*~'
+  - '*.txt'
+  - '.yawg.yml'

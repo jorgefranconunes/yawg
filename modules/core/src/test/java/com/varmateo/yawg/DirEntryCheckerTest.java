@@ -47,7 +47,7 @@ public final class DirEntryCheckerTest
 
         DirBakerConf conf =
                 new DirBakerConf.Builder()
-                .setFilesToIgnore(".*\\.txt")
+                .setFilesToIgnore("*.txt")
                 .build();
         DirEntryChecker checker = new DirEntryChecker(conf);
         Predicate<String> predicate = checker.asStringPredicate();
@@ -65,7 +65,7 @@ public final class DirEntryCheckerTest
 
         DirBakerConf conf =
                 new DirBakerConf.Builder()
-                .setFilesToIgnore(".*\\.txt", ".*\\.puml", ".*~")
+                .setFilesToIgnore("*.txt", "*.puml", "*~")
                 .build();
         DirEntryChecker checker = new DirEntryChecker(conf);
         Predicate<String> predicate = checker.asStringPredicate();
@@ -85,7 +85,7 @@ public final class DirEntryCheckerTest
 
         DirBakerConf conf =
                 new DirBakerConf.Builder()
-                .setFilesToIncludeOnly(".*\\.adoc")
+                .setFilesToIncludeOnly("*.adoc")
                 .build();
         DirEntryChecker checker = new DirEntryChecker(conf);
         Predicate<String> predicate = checker.asStringPredicate();
@@ -103,7 +103,7 @@ public final class DirEntryCheckerTest
 
         DirBakerConf conf =
                 new DirBakerConf.Builder()
-                .setFilesToIncludeOnly(".*\\.adoc", ".*\\.svg")
+                .setFilesToIncludeOnly("*.adoc", "*.svg")
                 .build();
         DirEntryChecker checker = new DirEntryChecker(conf);
         Predicate<String> predicate = checker.asStringPredicate();
@@ -123,8 +123,8 @@ public final class DirEntryCheckerTest
 
         DirBakerConf conf =
                 new DirBakerConf.Builder()
-                .setFilesToIgnore(".*\\.txt")
-                .setFilesToIncludeOnly(".*\\.adoc")
+                .setFilesToIgnore("*.txt")
+                .setFilesToIncludeOnly("*.adoc")
                 .build();
         DirEntryChecker checker = new DirEntryChecker(conf);
         Predicate<String> predicate = checker.asStringPredicate();
@@ -143,7 +143,7 @@ public final class DirEntryCheckerTest
 
         DirBakerConf conf =
                 new DirBakerConf.Builder()
-                .setFilesToIgnore(".*\\.txt")
+                .setFilesToIgnore("*.txt")
                 .build();
         DirEntryChecker checker = new DirEntryChecker(conf);
         Predicate<Path> predicate = checker.asPathPredicate();

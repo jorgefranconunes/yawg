@@ -6,12 +6,13 @@
 
 package com.varmateo.yawg;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
-import java.util.regex.Pattern;
 
+import com.varmateo.yawg.util.GlobMatcher;
 import com.varmateo.yawg.util.Lists;
 
 
@@ -32,12 +33,12 @@ import com.varmateo.yawg.util.Lists;
     /**
      * List of files to ignore when baking a directory.
      */
-    public final Optional<Collection<Pattern>> filesToIgnore;
+    public final Optional<Collection<GlobMatcher>> filesToIgnore;
 
     /**
      * Strict list of files to include when baking a directory.
      */
-    public final Optional<Collection<Pattern>> filesToIncludeOnly;
+    public final Optional<Collection<GlobMatcher>> filesToIncludeOnly;
 
 
     /**
@@ -87,9 +88,9 @@ import com.varmateo.yawg.util.Lists;
 
         private Optional<String> _templateName =
                 Optional.empty();
-        private Optional<Collection<Pattern>> _filesToIgnore =
+        private Optional<Collection<GlobMatcher>> _filesToIgnore =
                 Optional.empty();
-        private Optional<Collection<Pattern>> _filesToIncludeOnly =
+        private Optional<Collection<GlobMatcher>> _filesToIncludeOnly =
                 Optional.empty();
 
 
@@ -127,7 +128,8 @@ import com.varmateo.yawg.util.Lists;
         /**
          *
          */
-        public Builder setFilesToIgnore(final Collection<Pattern> fileNames) {
+        public Builder setFilesToIgnore(
+                final Collection<GlobMatcher> fileNames) {
 
             _filesToIgnore = Optional.of(new ArrayList<>(fileNames));
 
@@ -136,13 +138,13 @@ import com.varmateo.yawg.util.Lists;
 
 
         /**
-         * @throws PatternSyntaxException If any of the given regular
+         * @throws PatternSyntaxException If any of the given glob
          * expressions are invalid.
          */
         public Builder setFilesToIgnore(final String... fileNames) {
 
-            Collection<Pattern> patterns =
-                    Lists.map(Arrays.asList(fileNames), Pattern::compile);
+            Collection<GlobMatcher> patterns =
+                    Lists.map(Arrays.asList(fileNames), GlobMatcher::new);
 
             setFilesToIgnore(patterns);
 
@@ -153,7 +155,8 @@ import com.varmateo.yawg.util.Lists;
         /**
          *
          */
-        private Builder addFilesToIgnore(final Collection<Pattern> fileNames) {
+        private Builder addFilesToIgnore(
+                final Collection<GlobMatcher> fileNames) {
 
             if ( _filesToIgnore.isPresent() ) {
                 _filesToIgnore.get().addAll(fileNames);
@@ -169,7 +172,7 @@ import com.varmateo.yawg.util.Lists;
          *
          */
         public Builder setFilesToIncludeOnly(
-                final Collection<Pattern> fileNames) {
+                final Collection<GlobMatcher> fileNames) {
 
             _filesToIncludeOnly = Optional.of(new ArrayList<>(fileNames));
 
@@ -183,8 +186,8 @@ import com.varmateo.yawg.util.Lists;
          */
         public Builder setFilesToIncludeOnly(final String... fileNames) {
 
-            Collection<Pattern> patterns =
-                    Lists.map(Arrays.asList(fileNames), Pattern::compile);
+            Collection<GlobMatcher> patterns =
+                    Lists.map(Arrays.asList(fileNames), GlobMatcher::new);
 
             setFilesToIncludeOnly(patterns);
 

@@ -7,6 +7,7 @@
 package com.varmateo.yawg;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.function.Predicate;
 
 import com.varmateo.yawg.DirBakerConf;
@@ -56,8 +57,10 @@ import com.varmateo.yawg.DirBakerConf;
      */
     private boolean testPath(final Path path) {
 
-        String basename = path.getFileName().toString();
-        boolean result = testString(basename);
+        boolean result =
+                _isIncludeOnly
+                ? testForIncludeOnly(path)
+                : !testForIgnore(path);
 
         return result;
     }
@@ -68,10 +71,8 @@ import com.varmateo.yawg.DirBakerConf;
      */
     private boolean testString(final String name) {
 
-        boolean result =
-                _isIncludeOnly
-                ? testForIncludeOnly(name)
-                : !testForIgnore(name);
+        Path path = Paths.get(name);
+        boolean result = testPath(path);
 
         return result;
     }
@@ -80,14 +81,14 @@ import com.varmateo.yawg.DirBakerConf;
     /**
      *
      */
-    private boolean testForIncludeOnly(final String name) {
+    private boolean testForIncludeOnly(final Path path) {
 
         boolean result =
                 _conf.filesToIncludeOnly
                 .map(
                         collection ->
                         collection.stream()
-                        .filter(pattern -> pattern.matcher(name).matches())
+                        .filter(pattern -> pattern.test(path))
                         .findFirst()
                         .isPresent())
                 .orElse(false);
@@ -99,14 +100,14 @@ import com.varmateo.yawg.DirBakerConf;
     /**
      *
      */
-    private boolean testForIgnore(final String name) {
+    private boolean testForIgnore(final Path path) {
 
         boolean result =
                 _conf.filesToIgnore
                 .map(
                         collection ->
                         collection.stream()
-                        .filter(pattern -> pattern.matcher(name).matches())
+                        .filter(pattern -> pattern.test(path))
                         .findFirst()
                         .isPresent())
                 .orElse(false);

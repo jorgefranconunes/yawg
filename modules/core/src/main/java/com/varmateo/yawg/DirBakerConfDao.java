@@ -10,15 +10,17 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.nio.file.PathMatcher;
 import java.util.Collection;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import com.varmateo.yawg.DirBakerConf;
 import com.varmateo.yawg.YawgException;
+import com.varmateo.yawg.util.GlobMatcher;
 import com.varmateo.yawg.util.yaml.YamlList;
 import com.varmateo.yawg.util.yaml.YamlMap;
 import com.varmateo.yawg.util.yaml.YamlParser;
@@ -131,13 +133,13 @@ import com.varmateo.yawg.util.yaml.YamlParser;
             builder.setTemplateName(templateName);
         }
 
-        Collection<Pattern> filesToIgnore =
+        Collection<GlobMatcher> filesToIgnore =
                 getPatternList(map, PARAM_IGNORE);
         if ( filesToIgnore != null ) {
             builder.setFilesToIgnore(filesToIgnore);
         }
 
-        Collection<Pattern> filesToIncludeOnly =
+        Collection<GlobMatcher> filesToIncludeOnly =
                 getPatternList(map, PARAM_INCLUDE_ONLY);
         if ( filesToIncludeOnly != null ) {
             builder.setFilesToIncludeOnly(filesToIncludeOnly);
@@ -152,28 +154,28 @@ import com.varmateo.yawg.util.yaml.YamlParser;
     /**
      *
      */
-    private List<Pattern> getPatternList(
+    private List<GlobMatcher> getPatternList(
             final YamlMap map,
             final String key)
             throws YawgException {
 
-        List<Pattern> result = null;
+        List<GlobMatcher> result = null;
         YamlList<String> itemList = map.getList(key, String.class);
 
         if ( itemList != null ) {
             result = new ArrayList<>();
 
             for ( int i=0, count=itemList.size(); i<count; ++i ) {
-                String regex = itemList.getString(i);
-                Pattern pattern = null;
+                String glob = itemList.getString(i);
+                GlobMatcher pattern = null;
 
                 try {
-                    pattern = Pattern.compile(regex);
+                    pattern = new GlobMatcher(glob);
                 } catch ( PatternSyntaxException e ) {
                     YawgException.raise(
                             e,
-                            "Invalid regex \"{0}\" on item {1} of {2}",
-                            regex,
+                            "Invalid glob \"{0}\" on item {1} of {2}",
+                            glob,
                             i,
                             key);
                 }

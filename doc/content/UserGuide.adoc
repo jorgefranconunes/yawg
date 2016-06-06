@@ -198,10 +198,10 @@ The supported baking parameters are listed below.
 baking the files in the directory. If not specified it will default to
 `default.ftlh`.
 
-`ignore` (`List<String>`) -- List of regular expressions representing
+`ignore` (`List<String>`) -- List of glob patterns representing
 the files in the directory that are to be ignore during the bake.
 
-`filesToIncludeOnly` (`List<String>`) -- List of regular expressions
+`filesToIncludeOnly` (`List<String>`) -- List of glob patterns
 representing the files in the directory that are to be baked. All
 other files in the directory will be skipped. This parameter takes
 precedence over the `filesToIgnore` parameter.

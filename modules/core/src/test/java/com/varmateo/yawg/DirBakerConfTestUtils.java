@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 import static org.junit.Assert.*;
 
 import com.varmateo.yawg.DirBakerConf;
+import com.varmateo.yawg.util.GlobMatcher;
 import com.varmateo.yawg.util.Lists;
 
 
@@ -43,14 +44,14 @@ import com.varmateo.yawg.util.Lists;
                 actualConf.templateName);
         assertEquals(
                 expectedConf.filesToIgnore.map(
-                        c -> Lists.map(c, Pattern::pattern)),
+                        c -> Lists.map(c, GlobMatcher::toString)),
                 actualConf.filesToIgnore.map(
-                        c -> Lists.map(c, Pattern::pattern)));
+                        c -> Lists.map(c, GlobMatcher::toString)));
         assertEquals(
                 expectedConf.filesToIncludeOnly.map(
-                        c -> Lists.map(c, Pattern::pattern)),
+                        c -> Lists.map(c, GlobMatcher::toString)),
                 actualConf.filesToIncludeOnly.map(
-                        c -> Lists.map(c, Pattern::pattern)));
+                        c -> Lists.map(c, GlobMatcher::toString)));
     }
 
 
