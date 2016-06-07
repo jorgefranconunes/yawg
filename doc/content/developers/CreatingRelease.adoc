@@ -1,0 +1,72 @@
+= Creating a release of the Yawg software
+
+
+
+
+
+The steps for making a an official release of the Yawg softare are
+enumerated below.
+
+* Validate the desired version number
+
+* Create a Git tag.
+
+* Create the release tarball.
+
+* Create a release on Github with the given tag and tarball.
+
+The following sections desribe with more detail what needs to be done
+in each setp.
+
+The commands in the text assume your working area reflects the `HEAD`
+of the `main` branch.
+
+
+
+
+
+== Validate the desired version number
+
+Ensure the desired version number is defined at
+`conf/yawg-defaults.conf`.
+
+If you do make changes on `conf/yawg-defaults.conf` you will need to
+commit your changes and initiate the release process from the
+beginning.
+
+
+== Create Git tag
+
+The Git tag will mark the commit used for the release in the project
+change history.
+
+For now we will create the release tag on the HEAD of the master branch.
+
+[source,sh]
+----
+git tag -a v1.0.0 -m 'Version 1.0.0"
+git push origin v1.0.0
+----
+
+
+== Create the release tarball
+
+Execute the following command:
+
+[source,sh]
+----
+./devtools/bin/build-create-bundle --build-number=NONE
+----
+
+This will create a tarball at the top of the working area named
+`yawg-1.0.0.tar.bz2`.
+
+
+== Create release on Github
+
+Goto https://github.com/jorgefranconunes/yawg/releases and create a
+release:
+
+* With the tag created above.
+
+* With the tarball manually created above.

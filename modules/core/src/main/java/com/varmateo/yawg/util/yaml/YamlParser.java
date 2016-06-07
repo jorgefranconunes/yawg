@@ -38,6 +38,9 @@ public final class YamlParser
      *
      * @param reader Source of YAML contents to be read.
      *
+     * @return A map with the results of parsing the given YAML
+     * content.
+     *
      * @exception YawgException Thrown if there were any problems
      * reading from the reader, or if the YAML contents are invalid.
      */

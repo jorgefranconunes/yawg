@@ -135,14 +135,15 @@ be at $REPORT_DIR/index.html
 
 == Creating a new release
 
-To generate a release bundle to the following:
+To generate the tarball for an engineering build do the following:
 
 ----
 ./devtools/bin/build-create-bundle
 ----
 
-The above will perform a full build and create the release tarbal at
-the root of the workspace.
+The above will perform a full build and create a tarball named
+'yawg-x.y.z-yyyyMMddhhmm.tar.bz2' at the top of the working area.
 
-TBD - How to generate and publish a public release.
+To generate an official release see the instructions on the project
+site at 'doc/content/developers/CreatingRelease.adoc'.
 
