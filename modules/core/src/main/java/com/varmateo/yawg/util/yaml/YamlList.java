@@ -76,7 +76,7 @@ public final class YamlList<T>
             final Class<T> itemsClass) {
 
         List<Object> list = YamlUtils.getWithType(_list, index, List.class);
-        YamlList result = new YamlList(list, itemsClass);
+        YamlList<T> result = new YamlList<>(list, itemsClass);
 
         return result;
     }

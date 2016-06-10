@@ -11,9 +11,6 @@ import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collection;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.PatternSyntaxException;
 
 import com.varmateo.yawg.DirBakerConf;
@@ -131,13 +128,13 @@ import com.varmateo.yawg.util.yaml.YamlParser;
             builder.setTemplateName(templateName);
         }
 
-        Collection<GlobMatcher> filesToIgnore =
+        GlobMatcher filesToIgnore =
                 getPatternList(map, PARAM_IGNORE);
         if ( filesToIgnore != null ) {
             builder.setFilesToIgnore(filesToIgnore);
         }
 
-        Collection<GlobMatcher> filesToIncludeOnly =
+        GlobMatcher filesToIncludeOnly =
                 getPatternList(map, PARAM_INCLUDE_ONLY);
         if ( filesToIncludeOnly != null ) {
             builder.setFilesToIncludeOnly(filesToIncludeOnly);
@@ -152,23 +149,22 @@ import com.varmateo.yawg.util.yaml.YamlParser;
     /**
      *
      */
-    private List<GlobMatcher> getPatternList(
+    private GlobMatcher getPatternList(
             final YamlMap map,
             final String key)
             throws YawgException {
 
-        List<GlobMatcher> result = null;
+        GlobMatcher result = null;
         YamlList<String> itemList = map.getList(key, String.class);
 
         if ( itemList != null ) {
-            result = new ArrayList<>();
+            GlobMatcher.Builder builder = new GlobMatcher.Builder();
 
             for ( int i=0, count=itemList.size(); i<count; ++i ) {
                 String glob = itemList.getString(i);
-                GlobMatcher pattern = null;
 
                 try {
-                    pattern = new GlobMatcher(glob);
+                    builder.addGlobPattern(glob);
                 } catch ( PatternSyntaxException e ) {
                     YawgException.raise(
                             e,
@@ -177,9 +173,8 @@ import com.varmateo.yawg.util.yaml.YamlParser;
                             i,
                             key);
                 }
-
-                result.add(pattern);
             }
+            result = builder.build();
         }
 
         return result;

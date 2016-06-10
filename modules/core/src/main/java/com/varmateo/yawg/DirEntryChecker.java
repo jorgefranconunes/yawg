@@ -85,12 +85,7 @@ import com.varmateo.yawg.DirBakerConf;
 
         boolean result =
                 _conf.filesToIncludeOnly
-                .map(
-                        collection ->
-                        collection.stream()
-                        .filter(pattern -> pattern.test(path))
-                        .findFirst()
-                        .isPresent())
+                .map(matcher -> matcher.test(path))
                 .orElse(false);
 
         return result;
@@ -104,12 +99,7 @@ import com.varmateo.yawg.DirBakerConf;
 
         boolean result =
                 _conf.filesToIgnore
-                .map(
-                        collection ->
-                        collection.stream()
-                        .filter(pattern -> pattern.test(path))
-                        .findFirst()
-                        .isPresent())
+                .map(matcher -> matcher.test(path))
                 .orElse(false);
 
         return result;

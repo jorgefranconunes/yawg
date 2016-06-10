@@ -64,7 +64,8 @@ public final class YamlMap
             final Class<T> itemsClass) {
 
         List<Object> list = YamlUtils.getWithType(_map, key, List.class);
-        YamlList result = (list==null) ? null : new YamlList(list, itemsClass);
+        YamlList<T> result =
+                (list==null) ? null : new YamlList<>(list, itemsClass);
 
         return result;
     }
