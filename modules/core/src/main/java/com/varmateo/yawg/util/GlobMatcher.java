@@ -35,7 +35,7 @@ public final class GlobMatcher
             FileSystems.getDefault();
 
 
-    private final String _toString;
+    private final List<String> _globPatterns;
     private final List<PathMatcher> _matchers;
 
 
@@ -48,7 +48,7 @@ public final class GlobMatcher
     public GlobMatcher(final Collection<String> globPatterns)
             throws PatternSyntaxException {
 
-        _toString = String.join("; ", globPatterns);
+        _globPatterns = Lists.readOnlyCopy(globPatterns);
         _matchers =
                 Lists.map(
                         globPatterns,
@@ -61,7 +61,7 @@ public final class GlobMatcher
      */
     private GlobMatcher(final Builder builder) {
 
-        _toString = String.join("; ", builder._globPatterns);
+        _globPatterns = Lists.readOnlyCopy(builder._globPatterns);
         _matchers = Lists.readOnlyCopy(builder._matchers);
     }
 
@@ -70,35 +70,11 @@ public final class GlobMatcher
      *
      */
     private GlobMatcher(
-            final String toString,
+            final List<String> globPatterns,
             final List<PathMatcher> matchers) {
 
-        _toString = toString;
+        _globPatterns = globPatterns;
         _matchers = matchers;
-    }
-
-
-    /**
-     * Creates a new <code>GlobMatcher</code> resulting from joining
-     * all the globa patterns we have the patterns from the given
-     * matcher.
-     *
-     * @param that The matcher to be added to our own.
-     *
-     * @return A new matcher object obtained from joining our matcher
-     * with the given matcher.
-     */
-    public GlobMatcher add(final GlobMatcher that) {
-
-        String toString = String.join("; ", this._toString, that._toString);
-        List<PathMatcher> matchers = new ArrayList<>();
-
-        matchers.addAll(this._matchers);
-        matchers.addAll(that._matchers);
-
-        GlobMatcher result = new GlobMatcher(toString, matchers);
-
-        return result;
     }
 
 
@@ -132,7 +108,13 @@ public final class GlobMatcher
     @Override
     public String toString() {
 
-        return _toString;
+        // This implementation is not particularly performant. Let's
+        // hope client code only uses this method for sporadic logging
+        // or debugging.
+
+        String result = String.join(";", _globPatterns);
+
+        return result;
     }
 
 
@@ -146,15 +128,27 @@ public final class GlobMatcher
             extends Object {
 
 
-        private final List<String> _globPatterns = new ArrayList<>();
-        private final List<PathMatcher> _matchers = new ArrayList<>();
+        private final List<String> _globPatterns;
+        private final List<PathMatcher> _matchers;
 
 
         /**
          *
          */
         public Builder() {
-            // Nothing to do.
+
+            _globPatterns = new ArrayList<>();
+            _matchers = new ArrayList<>();
+        }
+
+
+        /**
+         *
+         */
+        public Builder(final GlobMatcher globMatcher) {
+
+            _globPatterns = new ArrayList<>(globMatcher._globPatterns);
+            _matchers = new ArrayList<>(globMatcher._matchers);
         }
 
 
@@ -171,6 +165,18 @@ public final class GlobMatcher
 
             _globPatterns.add(globPattern);
             _matchers.add(matcher);
+
+            return this;
+        }
+
+
+        /**
+         *
+         */
+        public Builder addGlobMatcher(final GlobMatcher globMatcher) {
+
+            _globPatterns.addAll(globMatcher._globPatterns);
+            _matchers.addAll(globMatcher._matchers);
 
             return this;
         }

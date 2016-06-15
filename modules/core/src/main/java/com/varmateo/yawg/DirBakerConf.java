@@ -145,11 +145,18 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         private Builder addFilesToIgnore(final GlobMatcher fileNames) {
 
+            GlobMatcher newFilesToIgnore = null;
+
             if ( _filesToIgnore.isPresent() ) {
-                _filesToIgnore = _filesToIgnore.map(m -> m.add(fileNames));
+                newFilesToIgnore =
+                        new GlobMatcher.Builder(_filesToIgnore.get())
+                        .addGlobMatcher(fileNames)
+                        .build();
             } else {
-                _filesToIgnore = Optional.of(fileNames);
+                newFilesToIgnore = fileNames;
             }
+
+            _filesToIgnore = Optional.of(newFilesToIgnore);
 
             return this;
         }
