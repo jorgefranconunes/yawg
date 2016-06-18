@@ -9,6 +9,8 @@ package com.varmateo.yawg;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import com.varmateo.yawg.YawgException;
@@ -28,6 +30,10 @@ import com.varmateo.yawg.logging.Log;
     private final Collection<ItemBaker> _bakers;
     private final ItemBaker _defaultBaker;
 
+    // Keys are baker names (aka baker types), values are the
+    // corresponding baker. This map also includes the default baker.
+    private final Map<String, ItemBaker> _allBakersByType;
+
 
     /**
      * @param log The logger that will be used for logging.
@@ -45,6 +51,10 @@ import com.varmateo.yawg.logging.Log;
         _sourceRootDir = sourceRootDir;
         _bakers = bakers;
         _defaultBaker = defaultBaker;
+        _allBakersByType = new HashMap();
+
+        bakers.stream().forEach(b -> _allBakersByType.put(b.getShortName(), b));
+        _allBakersByType.put(defaultBaker.getShortName(), defaultBaker);
     }
 
 
@@ -58,7 +68,7 @@ import com.varmateo.yawg.logging.Log;
             final DirBakerConf dirBakerConf)
             throws YawgException {
 
-        ItemBaker baker = findBaker(sourcePath);
+        ItemBaker baker = findBaker(sourcePath, dirBakerConf);
 
         Path sourceRelPath = _sourceRootDir.relativize(sourcePath);
         _log.debug("Baking {0} with {1}", sourceRelPath, baker.getShortName());
@@ -68,22 +78,50 @@ import com.varmateo.yawg.logging.Log;
 
 
     /**
+     * @throws YawgException Thrown if the directory configuration
+     * specifies a baker type that is unknown.
+     */
+    private ItemBaker findBaker(
+            final Path sourcePath,
+            final DirBakerConf dirBakerConf)
+            throws YawgException {
+
+        ItemBaker baker =
+                dirBakerConf.bakerTypes
+                .flatMap(bakerTypes -> bakerTypes.getBakerTypeFor(sourcePath))
+                .map(bakerType -> findBakerWithType(bakerType))
+                .orElseGet(() -> findBakerFromAll(sourcePath));
+
+        return baker;
+    }
+
+
+    /**
      *
      */
-    private ItemBaker findBaker(final Path sourcePath) {
+    private ItemBaker findBakerWithType(final String bakerType)
+            throws YawgException {
 
-        ItemBaker baker = null;
-
-        for ( ItemBaker candidateBaker : _bakers ) {
-            if ( candidateBaker.isBakeable(sourcePath) ) {
-                baker = candidateBaker;
-                break;
-            }
-        }
+        ItemBaker baker = _allBakersByType.get(bakerType);
 
         if ( baker == null ) {
-            baker = _defaultBaker;
+            YawgException.raise("Unknown baker type \"{0}\"", bakerType);
         }
+
+        return baker;
+    }
+
+
+    /**
+     *
+     */
+    private ItemBaker findBakerFromAll(final Path sourcePath) {
+
+        ItemBaker baker =
+                _bakers.stream()
+                .filter(candidate -> candidate.isBakeable(sourcePath))
+                .findFirst()
+                .orElse(_defaultBaker);
 
         return baker;
     }

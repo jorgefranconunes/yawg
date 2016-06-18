@@ -185,7 +185,7 @@ function doSetupWorkingArea () {
             && git clone -b ${SITE_BRANCH} ${SITE_REPO} . \
             && git config user.name ${username} \
             && git config user.email ${email} \
-            && git rm ./*
+            && git rm -r ./*
 
         exitStatus=$?
         popd  > /dev/null
@@ -195,7 +195,7 @@ function doSetupWorkingArea () {
             && git reset --hard HEAD \
             && git checkout -- . \
             && git pull origin ${SITE_BRANCH} \
-            && git rm ./*
+            && git rm -r ./*
 
         exitStatus=$?
         popd  > /dev/null

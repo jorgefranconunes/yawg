@@ -33,6 +33,7 @@ import com.varmateo.yawg.util.yaml.YamlParser;
     private static final String PARAM_TEMPLATE_NAME = "template";
     private static final String PARAM_IGNORE = "ignore";
     private static final String PARAM_INCLUDE_ONLY = "includeOnly";
+    private static final String PARAM_BAKER_TYPES = "bakerTypes";
 
 
     /**
@@ -140,6 +141,12 @@ import com.varmateo.yawg.util.yaml.YamlParser;
             builder.setFilesToIncludeOnly(filesToIncludeOnly);
         }
 
+        BakerMatcher bakerTypes =
+                getBakerTypes(map, PARAM_BAKER_TYPES);
+        if ( bakerTypes != null ) {
+            builder.setBakerTypes(bakerTypes);
+        }
+
         DirBakerConf result = builder.build();
 
         return result;
@@ -173,6 +180,32 @@ import com.varmateo.yawg.util.yaml.YamlParser;
                             i,
                             key);
                 }
+            }
+            result = builder.build();
+        }
+
+        return result;
+    }
+
+
+    /**
+     *
+     */
+    private BakerMatcher getBakerTypes(
+            final YamlMap map,
+            final String key)
+            throws YawgException {
+
+        BakerMatcher result = null;
+        YamlMap bakerTypesMap = map.getMap(key);
+
+        if ( bakerTypesMap != null ) {
+            BakerMatcher.Builder builder = new BakerMatcher.Builder();
+
+            for ( String bakerType : bakerTypesMap.keySet() ) {
+                GlobMatcher matcher = getPatternList(bakerTypesMap, bakerType);
+
+                builder.addBakerType(bakerType, matcher);
             }
             result = builder.build();
         }

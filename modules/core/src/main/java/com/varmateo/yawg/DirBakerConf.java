@@ -38,6 +38,12 @@ import com.varmateo.yawg.util.GlobMatcher;
 
 
     /**
+     * Association of baker types to some lists of files.
+     */
+    public final Optional<BakerMatcher> bakerTypes;
+
+
+    /**
      *
      */
     private DirBakerConf(final Builder builder) {
@@ -45,6 +51,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         this.templateName = builder._templateName;
         this.filesToIgnore = builder._filesToIgnore;
         this.filesToIncludeOnly = builder._filesToIncludeOnly;
+        this.bakerTypes = builder._bakerTypes;
     }
 
 
@@ -65,6 +72,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         this.templateName.ifPresent(builder::setTemplateName);
         this.filesToIgnore.ifPresent(builder::addFilesToIgnore);
         this.filesToIncludeOnly.ifPresent(builder::setFilesToIncludeOnly);
+        this.bakerTypes.ifPresent(builder::addBakerTypes);
 
         DirBakerConf result = builder.build();
 
@@ -82,6 +90,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         private Optional<String> _templateName = Optional.empty();
         private Optional<GlobMatcher> _filesToIgnore = Optional.empty();
         private Optional<GlobMatcher> _filesToIncludeOnly = Optional.empty();
+        private Optional<BakerMatcher> _bakerTypes = Optional.empty();
 
 
         /**
@@ -101,6 +110,7 @@ import com.varmateo.yawg.util.GlobMatcher;
             _templateName = defaults.templateName;
             _filesToIgnore = defaults.filesToIgnore;
             // _filesToIncludeOnly always start empty.
+            _bakerTypes = defaults.bakerTypes;
         }
 
 
@@ -179,9 +189,60 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public Builder setFilesToIncludeOnly(final String... fileNames) {
 
-            GlobMatcher patterns = new GlobMatcher(Arrays.asList(fileNames));
+            GlobMatcher patterns = new GlobMatcher(fileNames);
 
             setFilesToIncludeOnly(patterns);
+
+            return this;
+        }
+
+
+        /**
+         *
+         */
+        public Builder setBakerTypes(final BakerMatcher bakerTypes) {
+
+            _bakerTypes = Optional.of(bakerTypes);
+
+            return this;
+        }
+
+
+        /**
+         *
+         */
+        public Builder addBakerType(
+                final String bakerType,
+                final String... fileNames) {
+
+            BakerMatcher bakerTypes =
+                    new BakerMatcher.Builder()
+                    .addBakerType(bakerType, fileNames)
+                    .build();
+
+            addBakerTypes(bakerTypes);
+
+            return this;
+        }
+
+
+        /**
+         *
+         */
+        private Builder addBakerTypes(final BakerMatcher bakerTypes) {
+
+            BakerMatcher newBakerTypes = null;
+
+            if ( _bakerTypes.isPresent() ) {
+                newBakerTypes =
+                        new BakerMatcher.Builder(_bakerTypes.get())
+                        .addBakerTypes(bakerTypes)
+                        .build();
+            } else {
+                newBakerTypes = bakerTypes;
+            }
+
+            _bakerTypes = Optional.of(newBakerTypes);
 
             return this;
         }

@@ -20,8 +20,7 @@ public interface ItemBaker {
 
 
     /**
-     * The baker identifier.  It is intended to be used only for
-     * informational purposes. It does not need to be unique.
+     * The baker identifier. It is used to uniquely identify a baker.
      *
      * @return The baker name.
      */

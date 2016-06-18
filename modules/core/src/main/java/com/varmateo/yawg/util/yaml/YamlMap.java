@@ -9,6 +9,7 @@ package com.varmateo.yawg.util.yaml;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 import com.varmateo.yawg.util.yaml.YamlList;
 import com.varmateo.yawg.util.yaml.YamlUtils;
@@ -68,6 +69,15 @@ public final class YamlMap
                 (list==null) ? null : new YamlList<>(list, itemsClass);
 
         return result;
+    }
+
+
+    /**
+     *
+     */
+    public Set<String> keySet() {
+
+        return _map.keySet();
     }
 
 

@@ -11,6 +11,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.PathMatcher;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
@@ -53,6 +54,16 @@ public final class GlobMatcher
                 Lists.map(
                         globPatterns,
                         p -> DEFAULT_FILESYSTEM.getPathMatcher("glob:" + p));
+    }
+
+
+    /**
+     *
+     */
+    public GlobMatcher(final String... globPatterns)
+            throws PatternSyntaxException {
+
+        this(Arrays.asList(globPatterns));
     }
 
 
@@ -102,8 +113,9 @@ public final class GlobMatcher
 
 
     /**
-     * @return The string representation of our glob pattern. This is
-     * the same string passed to the constructor.
+     * Intended for logging or debugging.
+     *
+     * @return The string representation of our glob pattern.
      */
     @Override
     public String toString() {
@@ -112,7 +124,7 @@ public final class GlobMatcher
         // hope client code only uses this method for sporadic logging
         // or debugging.
 
-        String result = String.join(";", _globPatterns);
+        String result = String.join(",", _globPatterns);
 
         return result;
     }

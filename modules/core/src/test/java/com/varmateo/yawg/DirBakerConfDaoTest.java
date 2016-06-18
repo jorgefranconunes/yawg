@@ -95,7 +95,7 @@ public final class DirBakerConfDaoTest
 
         String confContents = ""
                 + "template: \n"
-                + "  - something: wrong"; 
+                + "  - something: wrong";
 
         TestUtils.assertThrows(
                 YawgException.class,
@@ -197,6 +197,31 @@ public final class DirBakerConfDaoTest
     public void withIncludeOnlyParamMissing() {
 
         assertFalse(_emptyConf.filesToIncludeOnly.isPresent());
+    }
+
+
+    /**
+     *
+     */
+    @Test
+    public void withBakerTypesParamOk()
+            throws IOException {
+
+        String confContents = ""
+                + "bakerTypes:\n"
+                + "  something :\n"
+                + "      - '*.txt'\n"
+                + "      - '*.html'\n"
+                + "  other :\n"
+                +"       - '*.adoc'\n";
+        DirBakerConf actualConf = readFromString(confContents);
+        DirBakerConf expectedConf =
+                new DirBakerConf.Builder()
+                .addBakerType("something", "*.txt", "*.html")
+                .addBakerType("other", "*.adoc")
+                .build();
+
+        assertConfEquals(expectedConf, actualConf);
     }
 
 
