@@ -11,7 +11,6 @@ import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Optional;
 
-import com.varmateo.yawg.ItemBaker;
 import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.PageTemplate;
 import com.varmateo.yawg.logging.Log;
@@ -21,11 +20,8 @@ import com.varmateo.yawg.logging.Log;
  * 
  */
 /* package private */ final class FileBaker
-        extends Object
-        implements ItemBaker {
+        extends Object {
 
-
-    private static final String NAME = "main";
 
     private final Log _log;
     private final Path _sourceRootDir;
@@ -53,35 +49,13 @@ import com.varmateo.yawg.logging.Log;
 
 
     /**
-     * {@inheritDoc}
+     * 
      */
-    @Override
-    public String getShortName() {
-
-        return NAME;
-    }
-
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isBakeable(final Path path) {
-
-        boolean result = Files.isRegularFile(path);
-
-        return result;
-    }
-
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void bake(
+    public void bakeFile(
             final Path sourcePath,
+            final Path targetDir,
             final Optional<PageTemplate> template,
-            final Path targetDir)
+            final DirBakerConf dirBakerConf)
             throws YawgException {
 
         ItemBaker baker = findBaker(sourcePath);

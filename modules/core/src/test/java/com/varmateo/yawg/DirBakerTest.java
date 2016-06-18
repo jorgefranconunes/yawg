@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,6 +24,7 @@ import com.varmateo.testutils.TestUtils;
 
 import com.varmateo.yawg.DirBaker;
 import com.varmateo.yawg.DirBakerConf;
+import com.varmateo.yawg.FileBaker;
 import com.varmateo.yawg.ItemBaker;
 import com.varmateo.yawg.PageTemplate;
 import com.varmateo.yawg.logging.Log;
@@ -65,12 +67,12 @@ public final class DirBakerTest
 
         Path sourceDir = TestUtils.getPath(DirBaker.class, "source01");
         Path targetDir = Paths.get(".");
-        MockItemBaker fileBaker = new MockItemBaker();
-        DirBaker baker = buildDirBaker(sourceDir, fileBaker);
+        MockItemBaker mockBaker = new MockItemBaker();
+        DirBaker baker = buildDirBaker(sourceDir, mockBaker);
 
         baker.bakeDirectory(conf, sourceDir, targetDir);
 
-        List<Path> bakedFiles = fileBaker.getBakedFiles();
+        List<Path> bakedFiles = mockBaker.getBakedFiles();
         List<String> expectedFiles =
                 Arrays.asList(
                         "file02.adoc",
@@ -88,12 +90,12 @@ public final class DirBakerTest
 
         Path sourceDir = TestUtils.getPath(DirBaker.class, "source02");
         Path targetDir = Paths.get(".");
-        MockItemBaker fileBaker = new MockItemBaker();
-        DirBaker baker = buildDirBaker(sourceDir, fileBaker);
+        MockItemBaker mockBaker = new MockItemBaker();
+        DirBaker baker = buildDirBaker(sourceDir, mockBaker);
 
         baker.bakeDirectory(_emptyConf, sourceDir, targetDir);
 
-        List<Path> bakedFiles = fileBaker.getBakedFiles();
+        List<Path> bakedFiles = mockBaker.getBakedFiles();
         List<String> expectedFiles =
                 Arrays.asList(
                         "file02.adoc",
@@ -108,9 +110,15 @@ public final class DirBakerTest
      */
     private DirBaker buildDirBaker(
             final Path sourceRootDir,
-            final ItemBaker fileBaker) {
+            final ItemBaker baker) {
 
         Log log = LogFactory.createFor(DirBaker.class);
+        FileBaker fileBaker =
+                new FileBaker(
+                        log,
+                        sourceRootDir,
+                        Collections.emptyList(),
+                        baker);
         DirBaker result =
                 new DirBaker(
                         log,

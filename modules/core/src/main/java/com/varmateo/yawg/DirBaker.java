@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 import com.varmateo.yawg.DirBakerConf;
 import com.varmateo.yawg.DirBakerConfDao;
 import com.varmateo.yawg.DirEntryScanner;
-import com.varmateo.yawg.ItemBaker;
+import com.varmateo.yawg.FileBaker;
 import com.varmateo.yawg.PageTemplate;
 import com.varmateo.yawg.PageTemplateService;
 import com.varmateo.yawg.YawgException;
@@ -33,7 +33,7 @@ import com.varmateo.yawg.logging.LogWithUtils;
 
     private final LogWithUtils _log;
     private final Path _sourceRootDir;
-    private final ItemBaker _fileBaker;
+    private final FileBaker _fileBaker;
     private final Optional<PageTemplateService> _templateService;
     private final DirBakerConfDao _dirBakerConfDao;
 
@@ -56,7 +56,7 @@ import com.varmateo.yawg.logging.LogWithUtils;
     public DirBaker(
             final Log log,
             final Path sourceRootDir,
-            final ItemBaker fileBaker,
+            final FileBaker fileBaker,
             final Optional<PageTemplateService> templateService,
             final DirBakerConfDao dirBakerConfDao) {
 
@@ -80,42 +80,56 @@ import com.varmateo.yawg.logging.LogWithUtils;
         Path relSourceDir = _sourceRootDir.relativize(sourceDir);
         _log.debug("Baking directory {0}", relSourceDir);
 
-        if ( !Files.exists(targetDir) ) {
-            doIoAction(
-                    "create directory",
-                    () -> Files.createDirectory(targetDir));
-        }
+        createDirIfNeeded(targetDir);
 
         DirBakerConf dirBakerConf =
                 _dirBakerConfDao
                 .loadFromDir(sourceDir)
                 .merge(parentDirBakerConf);
 
-        List<Path> entries =
-                doIoAction(
-                        "list directory",
-                        () -> getDirEntries(sourceDir, dirBakerConf));
+        List<Path> dirEntries = getDirEntries(sourceDir, dirBakerConf);
 
         List<Path> filePathList =
-                entries.stream()
+                dirEntries.stream()
                 .filter(Files::isRegularFile)
                 .collect(Collectors.toList());
 
-        if ( !filePathList.isEmpty() ) {
-            bakeChildFiles(filePathList, targetDir, dirBakerConf);
-        }
-
         List<Path> dirPathList =
-                entries.stream()
+                dirEntries.stream()
                 .filter(Files::isDirectory)
                 .collect(Collectors.toList());
 
-        if ( !dirPathList.isEmpty() ) {
-            bakeChildDirectories(
-                    dirPathList,
-                    targetDir,
-                    dirBakerConf);
+        bakeChildFiles(filePathList, targetDir, dirBakerConf);
+        bakeChildDirectories(dirPathList, targetDir, dirBakerConf);
+    }
+
+
+    /**
+     *
+     */
+    private void createDirIfNeeded(final Path targetDir) {
+
+        if ( !Files.exists(targetDir) ) {
+            doIoAction(
+                    "create directory",
+                    () -> Files.createDirectory(targetDir));
         }
+    }
+
+
+    /**
+     *
+     */
+    private List<Path> getDirEntries(
+            final Path dir,
+            final DirBakerConf dirBakerConf) {
+
+        List<Path> result =
+                doIoAction(
+                        "list directory",
+                        () -> new DirEntryScanner(dirBakerConf).getDirEntries(dir));
+
+        return result;
     }
 
 
@@ -134,7 +148,7 @@ import com.varmateo.yawg.logging.LogWithUtils;
                          _templateService.map(srv -> srv.getTemplate(name)));
 
         for ( Path path : filePathList ) {
-            _fileBaker.bake(path, template, targetDir);
+            _fileBaker.bakeFile(path, targetDir, template, dirBakerConf);
         }
     }
 
@@ -152,21 +166,6 @@ import com.varmateo.yawg.logging.LogWithUtils;
             Path childTargetDir = targetDir.resolve(dirBasename);
             bakeDirectory(dirBakerConf, childSourceDir, childTargetDir);
         }
-    }
-
-
-    /**
-     *
-     */
-    private List<Path> getDirEntries(
-            final Path dir,
-            final DirBakerConf dirBakerConf)
-        throws IOException {
-
-        DirEntryScanner scanner = new DirEntryScanner(dirBakerConf);
-        List<Path> result = scanner.getDirEntries(dir);
-
-        return result;
     }
 
 

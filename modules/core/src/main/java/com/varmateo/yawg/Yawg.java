@@ -12,12 +12,13 @@ import java.util.Collection;
 import java.util.Optional;
 
 import com.varmateo.yawg.Baker;
+import com.varmateo.yawg.BakerConf;
 import com.varmateo.yawg.CopyBaker;
 import com.varmateo.yawg.DirBaker;
 import com.varmateo.yawg.DirBakerConfDao;
-import com.varmateo.yawg.PageTemplateService;
+import com.varmateo.yawg.FileBaker;
 import com.varmateo.yawg.ItemBaker;
-import com.varmateo.yawg.BakerConf;
+import com.varmateo.yawg.PageTemplateService;
 import com.varmateo.yawg.asciidoctor.AsciidoctorBaker;
 import com.varmateo.yawg.freemarker.FreemarkerTemplateService;
 import com.varmateo.yawg.html.HtmlBaker;
@@ -50,7 +51,7 @@ public final class Yawg
     private final Holder<DirBakerConfDao> _dirBakerConfDao =
             Holder.of(this::newDirBakerConfDao);
 
-    private final Holder<ItemBaker> _fileBaker =
+    private final Holder<FileBaker> _fileBaker =
             Holder.of(this::newFileBaker);
 
     private final Holder<Optional<PageTemplateService>> _templateService =
@@ -144,7 +145,7 @@ public final class Yawg
     /**
      *
      */
-    private ItemBaker newFileBaker() {
+    private FileBaker newFileBaker() {
 
         Log log = _log.get();
         Path sourceRootDir = _conf.sourceDir;
@@ -153,7 +154,7 @@ public final class Yawg
                         _asciidocBaker.get(),
                         _htmlBaker.get());
         ItemBaker defaultBaker = _copyBaker.get();
-        ItemBaker result =
+        FileBaker result =
                 new FileBaker(log, sourceRootDir, bakers, defaultBaker);
 
         return result;
