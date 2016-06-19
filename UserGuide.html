@@ -208,7 +208,7 @@ that may be used during the baking.</p>
 <h2 id="sec-BakerTypes">Baker types</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>There are three types of baker.</p>
+<p>There are three types of baker at the moment.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -254,14 +254,40 @@ baking the files in the directory. If not specified it will default to
 <code>default.ftlh</code>.</p>
 </div>
 <div class="paragraph">
-<p><code>ignore</code> (<code>List&lt;String&gt;</code>)&#8201;&#8212;&#8201;List of glob patterns representing
-the files in the directory that are to be ignore during the bake.</p>
+<p><code>ignore</code> (<code>List&lt;String&gt;</code>)&#8201;&#8212;&#8201;List of glob patterns representing the
+files in the directory that are to be ignored during the bake.</p>
 </div>
 <div class="paragraph">
 <p><code>filesToIncludeOnly</code> (<code>List&lt;String&gt;</code>)&#8201;&#8212;&#8201;List of glob patterns
 representing the files in the directory that are to be baked. All
 other files in the directory will be skipped. This parameter takes
 precedence over the <code>filesToIgnore</code> parameter.</p>
+</div>
+<div class="paragraph">
+<p><code>bakerTypes</code> (<code>Map&lt;String,List&lt;String&gt;&gt;</code>)&#8201;&#8212;&#8201;Map that specifies the
+baker type to be used for certain files. This is useful when you want
+to override the default baker type for some files (e.g. when you want
+<code>*.txt</code> files baked with the <code>asciidoc</code> baker). The keys are baker
+types. The values are list of glob patterns representing the files to
+be baked by that baker type.</p>
+</div>
+<div class="paragraph">
+<p>The baker types that can be specified for the <code>bakerTypes</code> parameter
+are the ones described in <a href="#sec-BakerTypes">Baker types</a>. The possible values
+currently supported are the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>asciidoc</code>&#8201;&#8212;&#8201;Asciddoc baker.</p>
+</li>
+<li>
+<p><code>html</code>&#8201;&#8212;&#8201;HTML baker.</p>
+</li>
+<li>
+<p><code>copy</code>&#8201;&#8212;&#8201;Plain copy baker.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
