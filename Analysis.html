@@ -1,12 +1,42 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>YAWG - Yet Another Wiki Generator </title>
+
+    <link
+       rel="stylesheet"
+       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+       integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+       crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="./yawg-site.css" />
+
   </head>
 
   <body>
-    <h1>YAWG - Yet Another Wiki Generator </h1>
-    <div id="preamble">
+
+    <div class="yawg-body">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="./index.html">Yawg</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container yawg-content">
+
+      <h1>YAWG - Yet Another Wiki Generator </h1>
+      <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
 <p>Products in the same area as Yawg:</p>
@@ -100,6 +130,12 @@ feel from Google.</p>
 </div>
 </div>
 
-    <footer>Baked with Yawg 0.0.1-SNAPSHOT</footer>
+      <footer class="yawg-footer">
+        <p>&copy;Jorge Nunes 2016
+        <p>Baked with Yawg 0.0.1-SNAPSHOT</p>
+      </footer>
+
+    </div>
+    </div>
   </body>
 </html>
