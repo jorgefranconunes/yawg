@@ -185,7 +185,7 @@ function doSetupWorkingArea () {
             && git clone -b ${SITE_BRANCH} ${SITE_REPO} . \
             && git config user.name ${username} \
             && git config user.email ${email} \
-            && git rm -r ./*
+            && rm -rf ./*
 
         exitStatus=$?
         popd  > /dev/null
@@ -195,7 +195,7 @@ function doSetupWorkingArea () {
             && git reset --hard HEAD \
             && git checkout -- . \
             && git pull origin ${SITE_BRANCH} \
-            && git rm -r ./*
+            && rm -rf ./*
 
         exitStatus=$?
         popd  > /dev/null
@@ -230,6 +230,7 @@ function doBaking () {
         --source=${_yawgHome}/doc/content \
         --target=${_workingArea} \
         --templates=${_yawgHome}/doc/templates \
+        --assets=${_yawgHome}/doc/assets \
         --verbose
 }
 
