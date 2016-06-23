@@ -19,6 +19,16 @@
 
   <body>
 
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-79615115-1', 'auto');
+  ga('send', 'pageview');
+    </script>
+
     <div class="yawg-body">
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -28,6 +38,9 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
+            <li><a href="https://github.com/jorgefranconunes/yawg/releases" target="_blank">Download</a></li>
+            <li><a href="./UserGuide.html">Documentation</a></li>
+            <li><a href="./developers/index.html">Developers</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -132,7 +145,7 @@ curl https://github.com/jorgefranconunes/yawg/releases/yawg-1.0.0.tar.gz \
 </div>
 <div class="paragraph">
 <p>The example example above would have installed Yawg under directory
-<code>$HOME/local/yawg-1.1.0/</code>.</p>
+<code>$HOME/local/yawg-1.0.0/</code>.</p>
 </div>
 <div class="paragraph">
 <p>The only files under the installation directory you need to know about
@@ -278,28 +291,32 @@ parameters for the parent directory will be used instead.</p>
 <div class="paragraph">
 <p>The supported baking parameters are listed below.</p>
 </div>
-<div class="paragraph">
+<div class="ulist">
+<ul>
+<li>
 <p><code>template</code> (<code>String</code>)&#8201;&#8212;&#8201;The name of the page template to use for
 baking the files in the directory. If not specified it will default to
 <code>default.ftlh</code>.</p>
-</div>
-<div class="paragraph">
+</li>
+<li>
 <p><code>ignore</code> (<code>List&lt;String&gt;</code>)&#8201;&#8212;&#8201;List of glob patterns representing the
 files in the directory that are to be ignored during the bake.</p>
-</div>
-<div class="paragraph">
+</li>
+<li>
 <p><code>filesToIncludeOnly</code> (<code>List&lt;String&gt;</code>)&#8201;&#8212;&#8201;List of glob patterns
 representing the files in the directory that are to be baked. All
 other files in the directory will be skipped. This parameter takes
 precedence over the <code>filesToIgnore</code> parameter.</p>
-</div>
-<div class="paragraph">
+</li>
+<li>
 <p><code>bakerTypes</code> (<code>Map&lt;String,List&lt;String&gt;&gt;</code>)&#8201;&#8212;&#8201;Map that specifies the
 baker type to be used for certain files. This is useful when you want
 to override the default baker type for some files (e.g. when you want
 <code>*.txt</code> files baked with the <code>asciidoc</code> baker). The keys are baker
 types. The values are list of glob patterns representing the files to
 be baked by that baker type.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>The baker types that can be specified for the <code>bakerTypes</code> parameter
@@ -341,28 +358,32 @@ set of variables accessible to the page template.</p>
 <div class="paragraph">
 <p>The variables composing the data model are described below.</p>
 </div>
-<div class="paragraph">
+<div class="ulist">
+<ul>
+<li>
 <p><code>body</code>&#8201;&#8212;&#8201;String containing the raw HTML resulting from converting the
 source document into HTML. This is an HTML snippet ready to be
 included a <code>&lt;body&gt;</code> element, or any other block level element.</p>
-</div>
-<div class="paragraph">
+</li>
+<li>
 <p><code>productName</code>&#8201;&#8212;&#8201;The name of the Yawg softare (i.e. "Yawg"). The value
 of this template variable is always the same, for a given Yawg release.</p>
-</div>
-<div class="paragraph">
+</li>
+<li>
 <p><code>rootRelativeUrl</code>&#8201;&#8212;&#8201;The relative URL for the top URL of the baked
 site. Useful for refering to resources at the top of the document
 tree.</p>
-</div>
-<div class="paragraph">
+</li>
+<li>
 <p><code>title</code>&#8201;&#8212;&#8201;The document title. If the source document did not define a
 title, then the base name of the source document file will be used as
 title.</p>
-</div>
-<div class="paragraph">
+</li>
+<li>
 <p><code>version</code>&#8201;&#8212;&#8201;The version of the Yawg software. The value of this
 template variable is always the same, for a given Yawg release.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
