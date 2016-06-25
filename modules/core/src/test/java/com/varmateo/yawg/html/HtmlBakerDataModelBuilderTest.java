@@ -55,11 +55,11 @@ public final class HtmlBakerDataModelBuilderTest
                         "DocumentWithTitle.html");
         PageTemplateDataModel model = _modelBuilder.build(sourcePath);
 
-        assertEquals("Document with Title", model.getTitle());
+        assertEquals("Document with Title", model.title);
         assertEquals(
                 "<p>The body of the document with a title.</p>",
-                model.getBody());
-        assertEquals(".", model.getRootRelativeUrl());
+                model.body);
+        assertEquals(".", model.rootRelativeUrl);
     }
 
 
@@ -76,11 +76,11 @@ public final class HtmlBakerDataModelBuilderTest
                         "DocumentWithoutTitle.html");
         PageTemplateDataModel model = _modelBuilder.build(sourcePath);
 
-        assertEquals("DocumentWithoutTitle", model.getTitle());
+        assertEquals("DocumentWithoutTitle", model.title);
         assertEquals(
                 "<p>The body of the document without a title.</p>",
-                model.getBody());
-        assertEquals(".", model.getRootRelativeUrl());
+                model.body);
+        assertEquals(".", model.rootRelativeUrl);
     }
 
 
@@ -97,11 +97,11 @@ public final class HtmlBakerDataModelBuilderTest
                         "depth01/DocumentWithTitleDepth01.html");
         PageTemplateDataModel model = _modelBuilder.build(sourcePath);
 
-        assertEquals("Document with Title", model.getTitle());
+        assertEquals("Document with Title", model.title);
         assertEquals(
                 "<p>The body of the document with a title.</p>",
-                model.getBody());
-        assertEquals("..", model.getRootRelativeUrl());
+                model.body);
+        assertEquals("..", model.rootRelativeUrl);
     }
 
 
@@ -118,11 +118,11 @@ public final class HtmlBakerDataModelBuilderTest
                         "depth01/depth02/DocumentWithTitleDepth02.html");
         PageTemplateDataModel model = _modelBuilder.build(sourcePath);
 
-        assertEquals("Document with Title", model.getTitle());
+        assertEquals("Document with Title", model.title);
         assertEquals(
                 "<p>The body of the document with a title.</p>",
-                model.getBody());
-        assertEquals("../..", model.getRootRelativeUrl());
+                model.body);
+        assertEquals("../..", model.rootRelativeUrl);
     }
 
 

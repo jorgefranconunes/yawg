@@ -60,10 +60,10 @@ public final class AsciidoctorBakerDataModelBuilderTest
                         "DocumentWithTitle.adoc");
         PageTemplateDataModel model = _modelBuilder.build(sourcePath);
 
-        assertEquals("Document with Title", model.getTitle());
-        assertTrue(model.getBody().contains(
+        assertEquals("Document with Title", model.title);
+        assertTrue(model.body.contains(
                 "The body of the document with a title."));
-        assertEquals(".", model.getRootRelativeUrl());
+        assertEquals(".", model.rootRelativeUrl);
     }
 
 
@@ -80,10 +80,10 @@ public final class AsciidoctorBakerDataModelBuilderTest
                         "DocumentWithoutTitle.adoc");
         PageTemplateDataModel model = _modelBuilder.build(sourcePath);
 
-        assertEquals("DocumentWithoutTitle", model.getTitle());
-        assertTrue(model.getBody().contains(
+        assertEquals("DocumentWithoutTitle", model.title);
+        assertTrue(model.body.contains(
                 "The body of the document without a title."));
-        assertEquals(".", model.getRootRelativeUrl());
+        assertEquals(".", model.rootRelativeUrl);
     }
 
 

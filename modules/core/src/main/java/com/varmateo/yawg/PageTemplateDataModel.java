@@ -18,9 +18,11 @@ public final class PageTemplateDataModel
         extends Object {
 
 
-    private final String _body;
-    private final String _title;
-    private final String _rootRelativeUrl;
+    public final String body;
+    public final String title;
+    public final String rootRelativeUrl;
+    public final String productName;
+    public final String version;
 
 
     /**
@@ -28,64 +30,16 @@ public final class PageTemplateDataModel
      */
     private PageTemplateDataModel(final Builder builder) {
 
-        _body = Objects.requireNonNull(builder._body);
-        _title = Objects.requireNonNull(builder._title);
-        _rootRelativeUrl = Objects.requireNonNull(builder._rootRelativeUrl);
+        body = Objects.requireNonNull(builder._body);
+        title = Objects.requireNonNull(builder._title);
+        rootRelativeUrl = Objects.requireNonNull(builder._rootRelativeUrl);
+        productName = YawgInfo.PRODUCT_NAME;
+        version = YawgInfo.VERSION;
     }
 
 
     /**
-     * @return The raw HTML contents of the baked document. This is
-     * actually an HTML snippet appropriate for inclusion under a
-     * <code>&lt;body&gt;</code> tag, or any other block level
-     * element.
-     */
-    public String getBody() {
-
-        return _body;
-    }
-
-
-    /**
-     * @return The title of the document, as extracted from its source
-     * file.
-     */
-    public String getTitle() {
-
-        return _title;
-    }
-
-
-    /**
-     * @return The URL of the root directory of the site being baked
-     * relative to teh document about to be baked.
-     */
-    public String getRootRelativeUrl() {
-
-        return _rootRelativeUrl;
-    }
-
-
-    /**
-     * @return A fixed string with the Yawg product name.
-     */
-    public String getProductName() {
-
-        return YawgInfo.PRODUCT_NAME;
-    }
-
-
-    /**
-     * @return The version of the Yawg software being used.
-     */
-    public String getVersion() {
-
-        return YawgInfo.VERSION;
-    }
-
-
-    /**
-     * Builder of <code>PageTemplateDataModel</code>s.
+     * Builder of <code>PageTemplateDataModel</code> instances.
      */
     public static final class Builder
             extends Object {

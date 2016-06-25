@@ -19,6 +19,7 @@ import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.PageTemplate;
 import com.varmateo.yawg.PageTemplateDataModel;
 import com.varmateo.yawg.PageTemplateService;
+import com.varmateo.yawg.freemarker.FreemarkerDataModel;
 
 
 /**
@@ -156,8 +157,11 @@ public final class FreemarkerTemplateService
                 final Writer writer)
                 throws YawgException {
 
+            FreemarkerDataModel fmDataModel =
+                    new FreemarkerDataModel(dataModel);
+
             try {
-                _fmTemplate.process(dataModel, writer);
+                _fmTemplate.process(fmDataModel, writer);
             } catch ( TemplateException | IOException e ) {
                 YawgException.raise(
                         e,
