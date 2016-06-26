@@ -19,21 +19,22 @@ import org.asciidoctor.OptionsBuilder;
 import org.asciidoctor.SafeMode;
 import org.asciidoctor.internal.AsciidoctorCoreException;
 
-import com.varmateo.yawg.ItemBaker;
-import com.varmateo.yawg.YawgException;
+import com.varmateo.yawg.Baker;
+import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.PageTemplate;
 import com.varmateo.yawg.PageTemplateDataModel;
+import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.asciidoctor.AsciidoctorBakerDataModelBuilder;
 import com.varmateo.yawg.util.FileUtils;
 
 
 /**
- * An <code>ItemBaker</code> that translates text files in Asciidoc
- * format into HTML files.
+ * A <code>Baker</code> that translates text files in Asciidoc format
+ * into HTML files.
  */
 public final class AsciidoctorBaker
         extends Object
-        implements ItemBaker {
+        implements Baker {
 
 
     private static final String NAME = "asciidoc";
@@ -47,18 +48,14 @@ public final class AsciidoctorBaker
 
 
     /**
-     * @param sourceRootDir Used to determine the relative directory
-     * of the file being baked.
+     * 
      */
-    public AsciidoctorBaker(final Path sourceRootDir) {
+    public AsciidoctorBaker() {
 
         Asciidoctor asciidoctor = Asciidoctor.Factory.create();
 
         _asciidoctor = asciidoctor;
-        _modelBuilder =
-                new AsciidoctorBakerDataModelBuilder(
-                        sourceRootDir,
-                        asciidoctor);
+        _modelBuilder = new AsciidoctorBakerDataModelBuilder(asciidoctor);
     }
 
 
@@ -103,9 +100,9 @@ public final class AsciidoctorBaker
      *
      * @param sourcePath The file to be baked.
      *
-     * @param template Used for generating the target document. If no
-     * template is provided, then the default AsciidoctorJ document
-     * generator will be used.
+     * @param context Provides the template for generating the target
+     * document. If no template is provided, then the default
+     * AsciidoctorJ document generator will be used.
      *
      * @param targetDir The directory where the source file will be
      * copied to.
@@ -116,12 +113,12 @@ public final class AsciidoctorBaker
     @Override
     public void bake(
             final Path sourcePath,
-            final Optional<PageTemplate> template,
+            final PageContext context,
             final Path targetDir)
             throws YawgException {
 
         try {
-            doBake(sourcePath, template, targetDir);
+            doBake(sourcePath, context, targetDir);
         } catch ( AsciidoctorCoreException | IOException e ) {
             YawgException.raise(
                     e,
@@ -139,14 +136,15 @@ public final class AsciidoctorBaker
      */
     private void doBake(
             final Path sourcePath,
-            final Optional<PageTemplate> template,
+            final PageContext context,
             final Path targetDir)
             throws AsciidoctorCoreException, IOException {
 
         Path targetPath = getTargetPath(sourcePath, targetDir);
+        Optional<PageTemplate> template = context.pageTemplate;
 
         if ( template.isPresent() ) {
-            doBakeWithTemplate(sourcePath, template.get(), targetPath);
+            doBakeWithTemplate(sourcePath, context, targetPath);
         } else {
             doBakeWithoutTemplate(sourcePath, targetPath);
         }
@@ -196,28 +194,18 @@ public final class AsciidoctorBaker
      */
     private void doBakeWithTemplate(
             final Path sourcePath,
-            final PageTemplate template,
+            final PageContext context,
             final Path targetPath)
             throws AsciidoctorCoreException, IOException {
 
-        PageTemplateDataModel dataModel = _modelBuilder.build(sourcePath);
+        PageTemplateDataModel dataModel =
+                _modelBuilder.build(sourcePath, context.rootRelativeUrl);
+        PageTemplate template = context.pageTemplate.get();
         StringWriter buffer = new StringWriter();
 
         template.process(dataModel, buffer);
 
-        String targetContent = buffer.toString();
-
-        saveContent(targetContent, targetPath);
-    }
-
-
-    /**
-     *
-     */
-    private void saveContent(
-            final String content,
-            final Path targetPath)
-            throws IOException {
+        String content = buffer.toString();
 
         FileUtils.newWriter(
                 targetPath,

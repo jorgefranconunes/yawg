@@ -6,6 +6,7 @@
 
 package com.varmateo.yawg;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,6 +18,7 @@ import com.varmateo.yawg.DirBakerConf;
 import com.varmateo.yawg.DirBakerConfDao;
 import com.varmateo.yawg.DirEntryScanner;
 import com.varmateo.yawg.FileBaker;
+import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.PageTemplate;
 import com.varmateo.yawg.PageTemplateService;
 import com.varmateo.yawg.YawgException;
@@ -99,7 +101,7 @@ import com.varmateo.yawg.logging.LogWithUtils;
                 .filter(Files::isDirectory)
                 .collect(Collectors.toList());
 
-        bakeChildFiles(filePathList, targetDir, dirBakerConf);
+        bakeChildFiles(sourceDir, filePathList, targetDir, dirBakerConf);
         bakeChildDirectories(dirPathList, targetDir, dirBakerConf);
     }
 
@@ -137,6 +139,7 @@ import com.varmateo.yawg.logging.LogWithUtils;
      *
      */
     private void bakeChildFiles(
+            final Path sourceDir,
             final List<Path> filePathList,
             final Path targetDir,
             final DirBakerConf dirBakerConf)
@@ -146,10 +149,32 @@ import com.varmateo.yawg.logging.LogWithUtils;
                 dirBakerConf.templateName
                 .flatMap(name ->
                          _templateService.map(srv -> srv.getTemplate(name)));
+        String rootRelativeUrl = buildRootRelativeUrl(sourceDir);
+        PageContext context =
+                new PageContext.Builder()
+                .setPageTemplate(template)
+                .setRootRelativeUrl(rootRelativeUrl)
+                .build();
 
         for ( Path path : filePathList ) {
-            _fileBaker.bakeFile(path, targetDir, template, dirBakerConf);
+            _fileBaker.bakeFile(path, context, targetDir, dirBakerConf);
         }
+    }
+
+
+    /**
+     *
+     */
+    private String buildRootRelativeUrl(final Path sourceDir) {
+
+        Path relDir = sourceDir.relativize(_sourceRootDir);
+        String result = relDir.toString().replace(File.separatorChar, '/');
+
+        if ( result.length() == 0 ) {
+            result = ".";
+        }
+
+        return result;
     }
 
 

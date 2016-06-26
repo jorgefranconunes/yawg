@@ -37,13 +37,9 @@ public final class AsciidoctorBakerDataModelBuilderTest
     @Before
     public void setUp() {
 
-        Path sourceDir =
-                TestUtils.getInputsDir(AsciidoctorBakerDataModelBuilder.class);
-        Asciidoctor asciidoctor =
-                Asciidoctor.Factory.create();
+        Asciidoctor asciidoctor = Asciidoctor.Factory.create();
 
-        _modelBuilder =
-                new AsciidoctorBakerDataModelBuilder(sourceDir, asciidoctor);
+        _modelBuilder = new AsciidoctorBakerDataModelBuilder(asciidoctor);
     }
 
 
@@ -58,7 +54,7 @@ public final class AsciidoctorBakerDataModelBuilderTest
                 TestUtils.getPath(
                         AsciidoctorBakerDataModelBuilder.class,
                         "DocumentWithTitle.adoc");
-        PageTemplateDataModel model = _modelBuilder.build(sourcePath);
+        PageTemplateDataModel model = _modelBuilder.build(sourcePath, ".");
 
         assertEquals("Document with Title", model.title);
         assertTrue(model.body.contains(
@@ -78,7 +74,7 @@ public final class AsciidoctorBakerDataModelBuilderTest
                 TestUtils.getPath(
                         AsciidoctorBakerDataModelBuilder.class,
                         "DocumentWithoutTitle.adoc");
-        PageTemplateDataModel model = _modelBuilder.build(sourcePath);
+        PageTemplateDataModel model = _modelBuilder.build(sourcePath, ".");
 
         assertEquals("DocumentWithoutTitle", model.title);
         assertTrue(model.body.contains(

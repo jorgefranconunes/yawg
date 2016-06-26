@@ -12,13 +12,13 @@ import java.util.Collection;
 import java.util.Optional;
 
 import com.varmateo.yawg.Baker;
-import com.varmateo.yawg.BakerConf;
 import com.varmateo.yawg.CopyBaker;
 import com.varmateo.yawg.DirBaker;
 import com.varmateo.yawg.DirBakerConfDao;
 import com.varmateo.yawg.FileBaker;
-import com.varmateo.yawg.ItemBaker;
 import com.varmateo.yawg.PageTemplateService;
+import com.varmateo.yawg.SiteBaker;
+import com.varmateo.yawg.SiteBakerConf;
 import com.varmateo.yawg.asciidoctor.AsciidoctorBaker;
 import com.varmateo.yawg.freemarker.FreemarkerTemplateService;
 import com.varmateo.yawg.html.HtmlBaker;
@@ -30,19 +30,19 @@ import com.varmateo.yawg.util.Holder;
 /**
  * Factory for all the objects required by the main baker.
  */
-public final class Yawg
+public final class SiteBakerFactory
         extends Object {
 
 
-    private final BakerConf _conf;
+    private final SiteBakerConf _conf;
 
-    private final Holder<ItemBaker> _asciidocBaker =
+    private final Holder<Baker> _asciidocBaker =
             Holder.of(this::newAsciidoctorBaker);
 
-    private final Holder<Baker> _baker =
-            Holder.of(this::newBaker);
+    private final Holder<SiteBaker> _siteBaker =
+            Holder.of(this::newSiteBaker);
 
-    private final Holder<ItemBaker> _copyBaker =
+    private final Holder<Baker> _copyBaker =
             Holder.of(this::newCopyBaker);
 
     private final Holder<DirBaker> _dirBaker =
@@ -57,7 +57,7 @@ public final class Yawg
     private final Holder<Optional<PageTemplateService>> _templateService =
             Holder.of(this::newFreemarkerTemplateService);
 
-    private final Holder<ItemBaker> _htmlBaker =
+    private final Holder<Baker> _htmlBaker =
             Holder.of(this::newHtmlBaker);
 
     private final Holder<Log> _log =
@@ -67,7 +67,7 @@ public final class Yawg
     /**
      * @param conf Configuration parameters.
      */
-    public Yawg(final BakerConf conf) {
+    public SiteBakerFactory(final SiteBakerConf conf) {
 
         _conf = conf;
     }
@@ -76,18 +76,18 @@ public final class Yawg
     /**
      * @return The baker object.
      */
-    public Baker getBaker() {
+    public SiteBaker getSiteBaker() {
 
-        return _baker.get();
+        return _siteBaker.get();
     }
 
 
     /**
      *
      */
-    private ItemBaker newAsciidoctorBaker() {
+    private Baker newAsciidoctorBaker() {
 
-        ItemBaker result = new AsciidoctorBaker(_conf.sourceDir);
+        Baker result = new AsciidoctorBaker();
 
         return result;
     }
@@ -96,9 +96,9 @@ public final class Yawg
     /**
      *
      */
-    private Baker newBaker() {
+    private SiteBaker newSiteBaker() {
 
-        Baker result = new Baker(_log.get(), _conf, _dirBaker.get());
+        SiteBaker result = new SiteBaker(_log.get(), _conf, _dirBaker.get());
 
         return result;
     }
@@ -107,9 +107,9 @@ public final class Yawg
     /**
      *
      */
-    private ItemBaker newCopyBaker() {
+    private Baker newCopyBaker() {
 
-        ItemBaker result = new CopyBaker();
+        Baker result = new CopyBaker();
 
         return result;
     }
@@ -149,11 +149,11 @@ public final class Yawg
 
         Log log = _log.get();
         Path sourceRootDir = _conf.sourceDir;
-        Collection<ItemBaker> bakers =
+        Collection<Baker> bakers =
                 Arrays.asList(
                         _asciidocBaker.get(),
                         _htmlBaker.get());
-        ItemBaker defaultBaker = _copyBaker.get();
+        Baker defaultBaker = _copyBaker.get();
         FileBaker result =
                 new FileBaker(log, sourceRootDir, bakers, defaultBaker);
 
@@ -177,9 +177,9 @@ public final class Yawg
     /**
      *
      */
-    private ItemBaker newHtmlBaker() {
+    private Baker newHtmlBaker() {
 
-        ItemBaker result = new HtmlBaker(_conf.sourceDir);
+        Baker result = new HtmlBaker();
 
         return result;
     }

@@ -35,10 +35,7 @@ public final class HtmlBakerDataModelBuilderTest
     @Before
     public void setUp() {
 
-        Path sourceDir =
-                TestUtils.getInputsDir(HtmlBakerDataModelBuilder.class);
-
-        _modelBuilder = new HtmlBakerDataModelBuilder(sourceDir);
+        _modelBuilder = new HtmlBakerDataModelBuilder();
     }
 
 
@@ -53,7 +50,7 @@ public final class HtmlBakerDataModelBuilderTest
                 TestUtils.getPath(
                         HtmlBakerDataModelBuilder.class,
                         "DocumentWithTitle.html");
-        PageTemplateDataModel model = _modelBuilder.build(sourcePath);
+        PageTemplateDataModel model = _modelBuilder.build(sourcePath, ".");
 
         assertEquals("Document with Title", model.title);
         assertEquals(
@@ -74,7 +71,7 @@ public final class HtmlBakerDataModelBuilderTest
                 TestUtils.getPath(
                         HtmlBakerDataModelBuilder.class,
                         "DocumentWithoutTitle.html");
-        PageTemplateDataModel model = _modelBuilder.build(sourcePath);
+        PageTemplateDataModel model = _modelBuilder.build(sourcePath, ".");
 
         assertEquals("DocumentWithoutTitle", model.title);
         assertEquals(
@@ -95,7 +92,7 @@ public final class HtmlBakerDataModelBuilderTest
                 TestUtils.getPath(
                         HtmlBakerDataModelBuilder.class,
                         "depth01/DocumentWithTitleDepth01.html");
-        PageTemplateDataModel model = _modelBuilder.build(sourcePath);
+        PageTemplateDataModel model = _modelBuilder.build(sourcePath, "..");
 
         assertEquals("Document with Title", model.title);
         assertEquals(
@@ -116,7 +113,7 @@ public final class HtmlBakerDataModelBuilderTest
                 TestUtils.getPath(
                         HtmlBakerDataModelBuilder.class,
                         "depth01/depth02/DocumentWithTitleDepth02.html");
-        PageTemplateDataModel model = _modelBuilder.build(sourcePath);
+        PageTemplateDataModel model = _modelBuilder.build(sourcePath, "../..");
 
         assertEquals("Document with Title", model.title);
         assertEquals(

@@ -22,11 +22,11 @@ import org.junit.Test;
 
 import com.varmateo.testutils.TestUtils;
 
+import com.varmateo.yawg.Baker;
 import com.varmateo.yawg.DirBaker;
 import com.varmateo.yawg.DirBakerConf;
 import com.varmateo.yawg.FileBaker;
-import com.varmateo.yawg.ItemBaker;
-import com.varmateo.yawg.PageTemplate;
+import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogFactory;
 import com.varmateo.yawg.util.Lists;
@@ -67,7 +67,7 @@ public final class DirBakerTest
 
         Path sourceDir = TestUtils.getPath(DirBaker.class, "source01");
         Path targetDir = Paths.get(".");
-        MockItemBaker mockBaker = new MockItemBaker();
+        MockBaker mockBaker = new MockBaker();
         DirBaker baker = buildDirBaker(sourceDir, mockBaker);
 
         baker.bakeDirectory(conf, sourceDir, targetDir);
@@ -90,7 +90,7 @@ public final class DirBakerTest
 
         Path sourceDir = TestUtils.getPath(DirBaker.class, "source02");
         Path targetDir = Paths.get(".");
-        MockItemBaker mockBaker = new MockItemBaker();
+        MockBaker mockBaker = new MockBaker();
         DirBaker baker = buildDirBaker(sourceDir, mockBaker);
 
         baker.bakeDirectory(_emptyConf, sourceDir, targetDir);
@@ -110,7 +110,7 @@ public final class DirBakerTest
      */
     private DirBaker buildDirBaker(
             final Path sourceRootDir,
-            final ItemBaker baker) {
+            final Baker baker) {
 
         Log log = LogFactory.createFor(DirBaker.class);
         FileBaker fileBaker =
@@ -152,9 +152,9 @@ public final class DirBakerTest
      * Does nothing apart from keeping a list of files submitted for
      * baking.
      */
-    private static final class MockItemBaker
+    private static final class MockBaker
             extends Object
-            implements ItemBaker {
+            implements Baker {
 
 
         final List<Path> _bakedFiles = new ArrayList<>();
@@ -186,7 +186,7 @@ public final class DirBakerTest
         @Override
         public void bake(
                 final Path sourcePath,
-                final Optional<PageTemplate> template,
+                final PageContext context,
                 final Path targetDir) {
 
             _bakedFiles.add(sourcePath);

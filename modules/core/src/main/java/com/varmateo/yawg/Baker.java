@@ -6,172 +6,60 @@
 
 package com.varmateo.yawg;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.FileVisitResult;
 import java.nio.file.Path;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.StandardCopyOption;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.Optional;
 
-import com.varmateo.yawg.DirBaker;
-import com.varmateo.yawg.DirBakerConf;
+import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.YawgException;
-import com.varmateo.yawg.YawgInfo;
-import com.varmateo.yawg.logging.Log;
-import com.varmateo.yawg.logging.LogWithUtils;
 
 
 /**
- * Copies the contents of a source directory tree to a target
- * directory, transforming some files on the way.
+ * A baker of giles.
  */
-public final class Baker
-    extends Object {
-
-
-    private static final String DEFAULT_TEMPLATE_NAME = "default.ftlh";
-
-
-    private final LogWithUtils _log;
-    private final BakerConf _conf;
-    private final DirBaker _dirBaker;
+public interface Baker {
 
 
     /**
-     * @param conf All the parameters needed for performing a bake.
+     * The baker identifier. It is used to uniquely identify a baker.
+     *
+     * @return The baker name.
      */
-    /* package private */ Baker(
-            final Log log,
-            final BakerConf conf,
-            final DirBaker dirBaker) {
-
-        _log = LogWithUtils.from(log);
-        _conf = conf;
-        _dirBaker = dirBaker;
-    }
+    String getShortName();
 
 
     /**
-     * Performs the baking of one directory tree into another.
+     * Checks if this baker is able to bake the given file.
+     *
+     * <p>Typical implementations check if the file extension is one
+     * of a set of supported file types.</p>
+     *
+     * @param path The file system path of the file to be checked.
+     *
+     * @return True if this baker can handle the file. False
+     * otherwise.
+     */
+    boolean isBakeable(Path path);
+
+
+    /**
+     * Bakes the given file creating the result in the specified
+     * target directory.
+     *
+     * <p>The target directory must already exist. Otherwise an
+     * exception will be thrown.</p>
+     *
+     * @param sourcePath The file to be baked.
+     *
+     * @param context Data for performing the baking.
+     *
+     * @param targetDir The directory where the result of the bake
+     * will be created.
      *
      * @exception YawgException Thrown if the baking could not be
      * completed for whatever reason.
      */
-    public void bake()
-            throws YawgException {
-
-        Path sourceDir = _conf.sourceDir;
-        Path targetDir = _conf.targetDir;
-        Optional<Path> templatesDir = _conf.templatesDir;
-        Path assetsDir   = _conf.assetsDir;
-
-        _log.info("{0} {1}", YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);
-        _log.info("    Source    : {0}", sourceDir);
-        _log.info("    Target    : {0}", targetDir);
-        _log.info(
-                "    Templates : {0}",
-                templatesDir.map(Path::toString).orElse("NONE"));
-        _log.info(
-                "    Assets    : {0}",
-                (assetsDir==null) ? "NONE" : assetsDir.toString());
-
-        _log.logDelay("bake", this::doBake);
-    }
-
-
-    /**
-     *
-     */
-    private void doBake()
-            throws YawgException {
-
-        if ( _conf.assetsDir != null ) {
-            _log.logDelay("copying assets", this::copyAssets);
-        } else {
-            _log.debug("No assets directory given. Nothing to copy.");
-        }
-
-        _log.logDelay("baking source tree", this::bakeSourceTree);
-    }
-
-
-    /**
-     *
-     */
-    private void bakeSourceTree()
-            throws YawgException {
-
-        Path sourceDir = _conf.sourceDir;
-        Path targetDir = _conf.targetDir;
-        DirBakerConf dirBakerConf =
-                new DirBakerConf.Builder()
-                .setTemplateName(DEFAULT_TEMPLATE_NAME)
-                .build();
-
-        _dirBaker.bakeDirectory(dirBakerConf, sourceDir, targetDir);
-    }
-
-
-    /**
-     *
-     */
-    private void copyAssets()
-            throws YawgException {
-
-        final Path sourceDir = _conf.assetsDir;
-        final Path targetDir = _conf.targetDir;
-
-        try {
-            copyDirectoryTree(sourceDir, targetDir);
-        } catch ( IOException e ) {
-            YawgException.raise(
-                    e,
-                    "Failed to copy assets - {0} - {1}",
-                    e.getClass().getSimpleName(),
-                    e.getMessage());
-        }
-    }
-
-
-    /**
-     *
-     */
-    private void copyDirectoryTree(
-            final Path sourceDir,
-            final Path targetDir)
-            throws IOException {
-
-        Files.walkFileTree(
-                sourceDir,
-                new SimpleFileVisitor<Path>() {
-                    @Override
-                    public FileVisitResult preVisitDirectory(
-                            final Path dir,
-                            final BasicFileAttributes attrs)
-                            throws IOException {
-                        Path childTargetDir =
-                                targetDir.resolve(sourceDir.relativize(dir));
-                        if ( !Files.exists(childTargetDir) ) {
-                            Files.createDirectory(childTargetDir);
-                        }
-                        return FileVisitResult.CONTINUE;
-                    }
-                    @Override
-                    public FileVisitResult visitFile(
-                            final Path file,
-                            final BasicFileAttributes attrs)
-                            throws IOException {
-                        Files.copy(
-                                file,
-                                targetDir.resolve(sourceDir.relativize(file)),
-                                StandardCopyOption.REPLACE_EXISTING,
-                                StandardCopyOption.COPY_ATTRIBUTES);
-                        return FileVisitResult.CONTINUE;
-                    }
-                });
-    }
-
-
+    void bake(
+            Path sourcePath,
+            PageContext context,
+            Path targetDir)
+            throws YawgException;
 }

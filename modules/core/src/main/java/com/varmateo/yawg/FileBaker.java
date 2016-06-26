@@ -6,15 +6,14 @@
 
 package com.varmateo.yawg;
 
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
+import com.varmateo.yawg.Baker;
+import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.YawgException;
-import com.varmateo.yawg.PageTemplate;
 import com.varmateo.yawg.logging.Log;
 
 
@@ -27,25 +26,24 @@ import com.varmateo.yawg.logging.Log;
 
     private final Log _log;
     private final Path _sourceRootDir;
-    private final Collection<ItemBaker> _bakers;
-    private final ItemBaker _defaultBaker;
+    private final Collection<Baker> _bakers;
+    private final Baker _defaultBaker;
 
     // Keys are baker names (aka baker types), values are the
-    // corresponding baker. This map also includes the default baker.
-    private final Map<String, ItemBaker> _allBakersByType;
+    // corresponding bakers. This map also includes the default baker.
+    private final Map<String, Baker> _allBakersByType;
 
 
     /**
      * @param log The logger that will be used for logging.
      *
-     * @param sourceRootDir The top level directory being baked. This
-     * is only used to improve logging messages.
+     * @param sourceRootDir The top level directory being baked.
      */
     public FileBaker(
             final Log log,
             final Path sourceRootDir,
-            final Collection<ItemBaker> bakers,
-            final ItemBaker defaultBaker) {
+            final Collection<Baker> bakers,
+            final Baker defaultBaker) {
 
         _log = log;
         _sourceRootDir = sourceRootDir;
@@ -63,17 +61,16 @@ import com.varmateo.yawg.logging.Log;
      */
     public void bakeFile(
             final Path sourcePath,
+            final PageContext context,
             final Path targetDir,
-            final Optional<PageTemplate> template,
             final DirBakerConf dirBakerConf)
             throws YawgException {
 
-        ItemBaker baker = findBaker(sourcePath, dirBakerConf);
-
+        Baker baker = findBaker(sourcePath, dirBakerConf);
         Path sourceRelPath = _sourceRootDir.relativize(sourcePath);
-        _log.debug("Baking {0} with {1}", sourceRelPath, baker.getShortName());
 
-        baker.bake(sourcePath, template, targetDir);
+        _log.debug("Baking {0} with {1}", sourceRelPath, baker.getShortName());
+        baker.bake(sourcePath, context, targetDir);
     }
 
 
@@ -81,12 +78,12 @@ import com.varmateo.yawg.logging.Log;
      * @throws YawgException Thrown if the directory configuration
      * specifies a baker type that is unknown.
      */
-    private ItemBaker findBaker(
+    private Baker findBaker(
             final Path sourcePath,
             final DirBakerConf dirBakerConf)
             throws YawgException {
 
-        ItemBaker baker =
+        Baker baker =
                 dirBakerConf.bakerTypes
                 .flatMap(bakerTypes -> bakerTypes.getBakerTypeFor(sourcePath))
                 .map(bakerType -> findBakerWithType(bakerType))
@@ -99,10 +96,10 @@ import com.varmateo.yawg.logging.Log;
     /**
      *
      */
-    private ItemBaker findBakerWithType(final String bakerType)
+    private Baker findBakerWithType(final String bakerType)
             throws YawgException {
 
-        ItemBaker baker = _allBakersByType.get(bakerType);
+        Baker baker = _allBakersByType.get(bakerType);
 
         if ( baker == null ) {
             YawgException.raise("Unknown baker type \"{0}\"", bakerType);
@@ -115,9 +112,9 @@ import com.varmateo.yawg.logging.Log;
     /**
      *
      */
-    private ItemBaker findBakerFromAll(final Path sourcePath) {
+    private Baker findBakerFromAll(final Path sourcePath) {
 
-        ItemBaker baker =
+        Baker baker =
                 _bakers.stream()
                 .filter(candidate -> candidate.isBakeable(sourcePath))
                 .findFirst()

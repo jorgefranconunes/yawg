@@ -12,9 +12,9 @@ import java.io.Writer;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 
-import com.varmateo.yawg.Baker;
-import com.varmateo.yawg.BakerConf;
-import com.varmateo.yawg.Yawg;
+import com.varmateo.yawg.SiteBaker;
+import com.varmateo.yawg.SiteBakerConf;
+import com.varmateo.yawg.SiteBakerFactory;
 import com.varmateo.yawg.YawgException;
 
 import com.varmateo.yawg.cli.InfoPrinter;
@@ -131,18 +131,18 @@ public final class BakerCli
         Path assetsDir =
                 cliOptions.getPath(BakerCliOptions.ASSETS_DIR, null);
 
-        BakerConf conf =
-                new BakerConf.Builder()
+        SiteBakerConf conf =
+                new SiteBakerConf.Builder()
                 .setSourceDir(sourceDir)
                 .setTargetDir(targetDir)
                 .setTemplatesDir(templatesDir)
                 .setAssetsDir(assetsDir)
                 .build();
-        Yawg yawg = new Yawg(conf);
-        Baker baker = yawg.getBaker();
+        SiteBakerFactory factory = new SiteBakerFactory(conf);
+        SiteBaker siteBaker = factory.getSiteBaker();
 
         try {
-            baker.bake();
+            siteBaker.bake();
         } catch ( YawgException e ) {
             CliException.raise(e, "Baking failed - {0}", e.getMessage());
         }

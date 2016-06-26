@@ -16,7 +16,7 @@ import java.util.Optional;
  *
  * <p>Objects of this class are immutable.</p>
  */
-public final class BakerConf
+public final class SiteBakerConf
     extends Object {
 
 
@@ -29,7 +29,7 @@ public final class BakerConf
     /**
      *
      */
-    private BakerConf(final Builder builder) {
+    private SiteBakerConf(final Builder builder) {
 
         this.assetsDir = builder._assetsDir;
         this.sourceDir = builder._sourceDir;
@@ -39,7 +39,7 @@ public final class BakerConf
 
 
     /**
-     * A builder of <code>BakerConf</code> instances.
+     * A builder of <code>SiteBakerConf</code> instances.
      */
     public static final class Builder
         extends Object {
@@ -103,9 +103,9 @@ public final class BakerConf
         /**
          *
          */
-        public BakerConf build() {
+        public SiteBakerConf build() {
 
-            BakerConf result = new BakerConf(this);
+            SiteBakerConf result = new SiteBakerConf(this);
             return result;
         }
 

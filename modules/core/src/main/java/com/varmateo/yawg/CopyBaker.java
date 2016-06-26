@@ -8,21 +8,20 @@ package com.varmateo.yawg;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Optional;
 
-import com.varmateo.yawg.ItemBaker;
+import com.varmateo.yawg.Baker;
+import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.YawgException;
-import com.varmateo.yawg.PageTemplate;
 import com.varmateo.yawg.util.FileUtils;
 
 
 /**
- * An <code>ItemBaker</code> that just copies the source file to the
- * target location.
+ * A <code>Baker</code> that just copies the source file to the target
+ * location.
  */
 /* package private */ final class CopyBaker
         extends Object
-        implements ItemBaker {
+        implements Baker {
 
 
     private static final String NAME = "copy";
@@ -48,7 +47,7 @@ import com.varmateo.yawg.util.FileUtils;
 
 
     /**
-     * Always returns true. This means this <code>ItemBaker</code> can
+     * Always returns true. This means this <code>Baker</code> can
      * bake all types of files.
      *
      * @return Always true.
@@ -67,7 +66,7 @@ import com.varmateo.yawg.util.FileUtils;
      *
      * @param sourcePath The file to be baked.
      *
-     * @param template Not used.
+     * @param context Not used.
      *
      * @param targetDir The directory where the source file will be
      * copied to.
@@ -78,7 +77,7 @@ import com.varmateo.yawg.util.FileUtils;
     @Override
     public void bake(
             final Path sourcePath,
-            final Optional<PageTemplate> template,
+            final PageContext context,
             final Path targetDir)
             throws YawgException {
 

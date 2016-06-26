@@ -6,7 +6,6 @@
 
 package com.varmateo.yawg.asciidoctor;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -28,18 +27,14 @@ import com.varmateo.yawg.util.FileUtils;
         extends Object {
 
 
-    private final Path _sourceRootDir;
     private final Asciidoctor _asciidoctor;
 
 
     /**
      *
      */
-    public AsciidoctorBakerDataModelBuilder(
-            final Path sourceRootDir,
-            final Asciidoctor asciidoctor) {
+    public AsciidoctorBakerDataModelBuilder(final Asciidoctor asciidoctor) {
 
-        _sourceRootDir = sourceRootDir;
         _asciidoctor = asciidoctor;
     }
 
@@ -47,7 +42,9 @@ import com.varmateo.yawg.util.FileUtils;
     /**
      *
      */
-    public PageTemplateDataModel build(final Path sourcePath)
+    public PageTemplateDataModel build(
+            final Path sourcePath,
+            final String rootRelativeUrl)
             throws AsciidoctorCoreException, IOException {
 
         String sourceContent = FileUtils.readAsString(sourcePath);
@@ -62,7 +59,6 @@ import com.varmateo.yawg.util.FileUtils;
                 .map(h -> h.getDocumentTitle())
                 .map(t -> t.getMain())
                 .orElseGet(() -> FileUtils.basename(sourcePath));
-        String rootRelativeUrl = buildRootRelativeUrl(sourcePath);
 
         PageTemplateDataModel result =
                 new PageTemplateDataModel.Builder()
@@ -70,22 +66,6 @@ import com.varmateo.yawg.util.FileUtils;
                 .setBody(body)
                 .setRootRelativeUrl(rootRelativeUrl)
                 .build();
-
-        return result;
-    }
-
-
-    /**
-     *
-     */
-    private String buildRootRelativeUrl(final Path sourcePath) {
-
-        Path relDir = sourcePath.getParent().relativize(_sourceRootDir);
-        String result = relDir.toString().replace(File.separatorChar, '/');
-
-        if ( result.length() == 0 ) {
-            result = ".";
-        }
 
         return result;
     }

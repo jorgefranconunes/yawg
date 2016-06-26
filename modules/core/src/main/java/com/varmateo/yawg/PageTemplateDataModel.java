@@ -18,10 +18,33 @@ public final class PageTemplateDataModel
         extends Object {
 
 
+    /**
+     * The raw HTML contents of the baked document. This is actually
+     * an HTML snippet appropriate for inclusion under a
+     * <code>&lt;body&gt;</code> tag, or any other block level
+     * element.
+     */
     public final String body;
+
+    /**
+     * The title of the document, as extracted from its source.
+     */
     public final String title;
+
+    /**
+     * The URL of the root directory of the site being baked relative
+     * to the document about to be baked.
+     */
     public final String rootRelativeUrl;
+
+    /**
+     * A fixed string with the Yawg product name.
+     */
     public final String productName;
+
+    /**
+     * The version of the Yawg software being used.
+     */
     public final String version;
 
 

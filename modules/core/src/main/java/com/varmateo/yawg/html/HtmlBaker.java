@@ -11,21 +11,22 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
-import com.varmateo.yawg.ItemBaker;
-import com.varmateo.yawg.YawgException;
+import com.varmateo.yawg.Baker;
+import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.PageTemplate;
 import com.varmateo.yawg.PageTemplateDataModel;
+import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.html.HtmlBakerDataModelBuilder;
 import com.varmateo.yawg.util.FileUtils;
 
 
 /**
- * An <code>ItemBaker</code> that transforms HTML files into other
- * HTML files.
+ * A <code>Baker</code> that transforms HTML files into other HTML
+ * files.
  */
 public final class HtmlBaker
         extends Object
-        implements ItemBaker {
+        implements Baker {
 
 
     private static final String NAME = "html";
@@ -38,13 +39,11 @@ public final class HtmlBaker
 
 
     /**
-     * @param sourceRootDir Root of directory tree containing the
-     * files being baked. It is used to obtain relative URLs from the
-     * root.
+     * 
      */
-    public HtmlBaker(final Path sourceRootDir) {
+    public HtmlBaker() {
 
-        _modelBuilder = new HtmlBakerDataModelBuilder(sourceRootDir);
+        _modelBuilder = new HtmlBakerDataModelBuilder();
     }
 
 
@@ -89,9 +88,9 @@ public final class HtmlBaker
      *
      * @param sourcePath The file to be baked.
      *
-     * @param template Used for generating the target document. If no
-     * template is provided, then the source document is just copied
-     * to the target directory.
+     * @param context Provides the template for generating the target
+     * document. If no template is provided, then the source document
+     * is just copied to the target directory.
      *
      * @param targetDir The directory where the baked file will be
      * copied to.
@@ -102,12 +101,12 @@ public final class HtmlBaker
     @Override
     public void bake(
             final Path sourcePath,
-            final Optional<PageTemplate> template,
+            final PageContext context,
             final Path targetDir)
             throws YawgException {
 
         try {
-            doBake(sourcePath, template, targetDir);
+            doBake(sourcePath, context, targetDir);
         } catch ( IOException e ) {
             YawgException.raise(
                     e,
@@ -125,14 +124,15 @@ public final class HtmlBaker
      */
     private void doBake(
             final Path sourcePath,
-            final Optional<PageTemplate> template,
+            final PageContext context,
             final Path targetDir)
             throws IOException {
 
         Path targetPath = getTargetPath(sourcePath, targetDir);
+        Optional<PageTemplate> template = context.pageTemplate;
 
         if ( template.isPresent() ) {
-            doBakeWithTemplate(sourcePath, template.get(), targetPath);
+            doBakeWithTemplate(sourcePath, context, targetPath);
         } else {
             doBakeWithoutTemplate(sourcePath, targetPath);
         }
@@ -172,11 +172,13 @@ public final class HtmlBaker
      */
     private void doBakeWithTemplate(
             final Path sourcePath,
-            final PageTemplate template,
+            final PageContext context,
             final Path targetPath)
             throws IOException {
 
-        PageTemplateDataModel dataModel = _modelBuilder.build(sourcePath);
+        PageTemplateDataModel dataModel =
+                _modelBuilder.build(sourcePath, context.rootRelativeUrl);
+        PageTemplate template = context.pageTemplate.get();
 
         FileUtils.newWriter(
                 targetPath,
