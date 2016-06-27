@@ -87,7 +87,7 @@ import com.varmateo.yawg.logging.LogWithUtils;
         DirBakerConf dirBakerConf =
                 _dirBakerConfDao
                 .loadFromDir(sourceDir)
-                .merge(parentDirBakerConf);
+                .mergeOnTopOf(parentDirBakerConf);
 
         List<Path> dirEntries = getDirEntries(sourceDir, dirBakerConf);
 
@@ -154,6 +154,7 @@ import com.varmateo.yawg.logging.LogWithUtils;
                 new PageContext.Builder()
                 .setPageTemplate(template)
                 .setRootRelativeUrl(rootRelativeUrl)
+                .setTemplateVars(dirBakerConf.templateVars)
                 .build();
 
         for ( Path path : filePathList ) {

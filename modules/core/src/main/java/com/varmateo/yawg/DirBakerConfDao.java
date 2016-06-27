@@ -14,6 +14,7 @@ import java.nio.file.Path;
 import java.util.regex.PatternSyntaxException;
 
 import com.varmateo.yawg.DirBakerConf;
+import com.varmateo.yawg.TemplateVars;
 import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.util.GlobMatcher;
 import com.varmateo.yawg.util.yaml.YamlList;
@@ -30,10 +31,11 @@ import com.varmateo.yawg.util.yaml.YamlParser;
 
     private static final String CONF_FILE_NAME = ".yawg.yml";
 
-    private static final String PARAM_TEMPLATE_NAME = "template";
+    private static final String PARAM_BAKER_TYPES = "bakerTypes";
     private static final String PARAM_IGNORE = "ignore";
     private static final String PARAM_INCLUDE_ONLY = "includeOnly";
-    private static final String PARAM_BAKER_TYPES = "bakerTypes";
+    private static final String PARAM_TEMPLATE = "template";
+    private static final String PARAM_TEMPLATE_VARS = "templateVars";
 
 
     /**
@@ -124,7 +126,7 @@ import com.varmateo.yawg.util.yaml.YamlParser;
         YamlMap map = new YamlParser().parse(reader);
         DirBakerConf.Builder builder = new DirBakerConf.Builder();
 
-        String templateName = map.getString(PARAM_TEMPLATE_NAME);
+        String templateName = map.getString(PARAM_TEMPLATE);
         if ( templateName != null ) {
             builder.setTemplateName(templateName);
         }
@@ -145,6 +147,12 @@ import com.varmateo.yawg.util.yaml.YamlParser;
                 getBakerTypes(map, PARAM_BAKER_TYPES);
         if ( bakerTypes != null ) {
             builder.setBakerTypes(bakerTypes);
+        }
+
+        TemplateVars templateVars =
+                getTemplateVars(map, PARAM_TEMPLATE_VARS);
+        if ( templateVars != null ) {
+            builder.setTemplateVars(templateVars);
         }
 
         DirBakerConf result = builder.build();
@@ -208,6 +216,25 @@ import com.varmateo.yawg.util.yaml.YamlParser;
                 builder.addBakerType(bakerType, matcher);
             }
             result = builder.build();
+        }
+
+        return result;
+    }
+
+
+    /**
+     *
+     */
+    private TemplateVars getTemplateVars(
+            final YamlMap map,
+            final String key)
+            throws YawgException {
+
+        TemplateVars result = null;
+        YamlMap templateVarsMap = map.getMap(key);
+
+        if ( templateVarsMap != null ) {
+            result = new TemplateVars(templateVarsMap.asMap());
         }
 
         return result;

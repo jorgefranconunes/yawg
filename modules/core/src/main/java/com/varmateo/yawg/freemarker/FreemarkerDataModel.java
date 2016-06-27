@@ -6,6 +6,8 @@
 
 package com.varmateo.yawg.freemarker;
 
+import java.util.Optional;
+
 import com.varmateo.yawg.PageTemplateDataModel;
 
 
@@ -70,6 +72,17 @@ public final class FreemarkerDataModel
     public String getVersion() {
 
         return _data.version;
+    }
+
+
+    /**
+     *
+     */
+    public Object get(final String key) {
+
+        Object result = _data.templateVars.get(key).orElse(null);
+
+        return result;
     }
 
 

@@ -14,6 +14,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.PageTemplateDataModel;
 import com.varmateo.yawg.util.FileUtils;
 
@@ -39,7 +40,7 @@ import com.varmateo.yawg.util.FileUtils;
      */
     public PageTemplateDataModel build(
             final Path sourcePath,
-            final String rootRelativeUrl)
+            final PageContext context)
             throws IOException {
 
         Optional<Document> document =
@@ -61,7 +62,8 @@ import com.varmateo.yawg.util.FileUtils;
                 new PageTemplateDataModel.Builder()
                 .setTitle(title)
                 .setBody(body)
-                .setRootRelativeUrl(rootRelativeUrl)
+                .setRootRelativeUrl(context.rootRelativeUrl)
+                .setTemplateVars(context.templateVars)
                 .build();
 
         return result;

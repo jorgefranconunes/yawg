@@ -11,6 +11,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 import static org.junit.Assert.*;
@@ -21,6 +22,7 @@ import com.varmateo.testutils.TestUtils;
 import static com.varmateo.yawg.DirBakerConfTestUtils.assertConfEquals;
 
 import com.varmateo.yawg.DirBakerConfDao;
+import com.varmateo.yawg.TemplateVars;
 
 
 /**
@@ -222,6 +224,26 @@ public final class DirBakerConfDaoTest
                 .build();
 
         assertConfEquals(expectedConf, actualConf);
+    }
+
+
+    /**
+     *
+     */
+    @Test
+    public void withTemplateVars()
+            throws IOException {
+
+        String confContents = ""
+                + "templateVars:\n"
+                + "  hello : 'world'\n";
+        DirBakerConf actualConf = readFromString(confContents);
+        TemplateVars vars = actualConf.templateVars;
+        Optional<Object> value = vars.get("hello");
+
+        assertTrue(value.isPresent());
+        assertTrue(value.get() instanceof String);
+        assertEquals("world", value.get());
     }
 
 

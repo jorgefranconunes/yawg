@@ -199,7 +199,7 @@ public final class AsciidoctorBaker
             throws AsciidoctorCoreException, IOException {
 
         PageTemplateDataModel dataModel =
-                _modelBuilder.build(sourcePath, context.rootRelativeUrl);
+                _modelBuilder.build(sourcePath, context);
         PageTemplate template = context.pageTemplate.get();
         StringWriter buffer = new StringWriter();
 

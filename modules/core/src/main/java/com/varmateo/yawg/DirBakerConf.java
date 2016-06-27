@@ -36,11 +36,15 @@ import com.varmateo.yawg.util.GlobMatcher;
      */
     public final Optional<GlobMatcher> filesToIncludeOnly;
 
-
     /**
      * Association of baker types to some lists of files.
      */
     public final Optional<BakerMatcher> bakerTypes;
+
+    /**
+     *
+     */
+    public final TemplateVars templateVars;
 
 
     /**
@@ -52,6 +56,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         this.filesToIgnore = builder._filesToIgnore;
         this.filesToIncludeOnly = builder._filesToIncludeOnly;
         this.bakerTypes = builder._bakerTypes;
+        this.templateVars = builder._templateVars;
     }
 
 
@@ -65,7 +70,7 @@ import com.varmateo.yawg.util.GlobMatcher;
      * and using as default values the ones contained in
      * <code>that</code>.
      */
-    public DirBakerConf merge(final DirBakerConf that) {
+    public DirBakerConf mergeOnTopOf(final DirBakerConf that) {
 
         Builder builder = new Builder(that);
 
@@ -73,6 +78,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         this.filesToIgnore.ifPresent(builder::addFilesToIgnore);
         this.filesToIncludeOnly.ifPresent(builder::setFilesToIncludeOnly);
         this.bakerTypes.ifPresent(builder::addBakerTypes);
+        builder.addTemplateVars(this.templateVars);
 
         DirBakerConf result = builder.build();
 
@@ -91,13 +97,13 @@ import com.varmateo.yawg.util.GlobMatcher;
         private Optional<GlobMatcher> _filesToIgnore = Optional.empty();
         private Optional<GlobMatcher> _filesToIncludeOnly = Optional.empty();
         private Optional<BakerMatcher> _bakerTypes = Optional.empty();
+        private TemplateVars _templateVars = new TemplateVars();
 
 
         /**
          *
          */
         public Builder() {
-
             // Nothing to do.
         }
 
@@ -111,6 +117,7 @@ import com.varmateo.yawg.util.GlobMatcher;
             _filesToIgnore = defaults.filesToIgnore;
             // _filesToIncludeOnly always start empty.
             _bakerTypes = defaults.bakerTypes;
+            _templateVars = defaults.templateVars;
         }
 
 
@@ -120,7 +127,6 @@ import com.varmateo.yawg.util.GlobMatcher;
         public Builder setTemplateName(final String templateName) {
 
             _templateName = Optional.of(templateName);
-
             return this;
         }
 
@@ -131,7 +137,6 @@ import com.varmateo.yawg.util.GlobMatcher;
         public Builder setFilesToIgnore(final GlobMatcher fileNames) {
 
             _filesToIgnore = Optional.of(fileNames);
-
             return this;
         }
 
@@ -178,7 +183,6 @@ import com.varmateo.yawg.util.GlobMatcher;
         public Builder setFilesToIncludeOnly(final GlobMatcher fileNames) {
 
             _filesToIncludeOnly = Optional.of(fileNames);
-
             return this;
         }
 
@@ -203,7 +207,6 @@ import com.varmateo.yawg.util.GlobMatcher;
         public Builder setBakerTypes(final BakerMatcher bakerTypes) {
 
             _bakerTypes = Optional.of(bakerTypes);
-
             return this;
         }
 
@@ -244,6 +247,26 @@ import com.varmateo.yawg.util.GlobMatcher;
 
             _bakerTypes = Optional.of(newBakerTypes);
 
+            return this;
+        }
+
+
+        /**
+         *
+         */
+        public  Builder setTemplateVars(final TemplateVars templateVars) {
+
+            _templateVars = templateVars;
+            return this;
+        }
+
+
+        /**
+         *
+         */
+        private Builder addTemplateVars(final TemplateVars templateVars) {
+
+            _templateVars = templateVars.mergeOnTopOf(_templateVars);
             return this;
         }
 

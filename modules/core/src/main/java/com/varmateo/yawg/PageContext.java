@@ -31,12 +31,19 @@ public final class PageContext
 
 
     /**
+     *
+     */
+    public final TemplateVars templateVars;
+
+
+    /**
      * Instances of this class are only created by the Builder.
      */
     private PageContext(final Builder builder) {
 
         pageTemplate = builder._pageTemplate;
         rootRelativeUrl = Objects.requireNonNull(builder._rootRelativeUrl);
+        templateVars = Objects.requireNonNull(builder._templateVars);
     }
 
 
@@ -49,6 +56,7 @@ public final class PageContext
 
         private Optional<PageTemplate> _pageTemplate = Optional.empty();
         private String _rootRelativeUrl = null;
+        private TemplateVars _templateVars = new TemplateVars();
 
 
         /**
@@ -87,6 +95,17 @@ public final class PageContext
         public Builder setRootRelativeUrl(final String rootRelativeUrl) {
 
             _rootRelativeUrl = rootRelativeUrl;
+
+            return this;
+        }
+
+
+        /**
+         *
+         */
+        public Builder setTemplateVars(final TemplateVars templateVars) {
+
+            _templateVars = templateVars;
 
             return this;
         }

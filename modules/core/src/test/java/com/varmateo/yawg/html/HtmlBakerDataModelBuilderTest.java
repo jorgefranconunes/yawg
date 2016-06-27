@@ -15,6 +15,7 @@ import org.junit.Test;
 
 import com.varmateo.testutils.TestUtils;
 
+import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.PageTemplateDataModel;
 import com.varmateo.yawg.html.HtmlBakerDataModelBuilder;
 
@@ -46,11 +47,8 @@ public final class HtmlBakerDataModelBuilderTest
     public void withTitle()
             throws IOException {
 
-        Path sourcePath =
-                TestUtils.getPath(
-                        HtmlBakerDataModelBuilder.class,
-                        "DocumentWithTitle.html");
-        PageTemplateDataModel model = _modelBuilder.build(sourcePath, ".");
+        PageTemplateDataModel model =
+                buildModel("DocumentWithTitle.html", ".");
 
         assertEquals("Document with Title", model.title);
         assertEquals(
@@ -67,11 +65,8 @@ public final class HtmlBakerDataModelBuilderTest
     public void withoutTitle()
             throws IOException {
 
-        Path sourcePath =
-                TestUtils.getPath(
-                        HtmlBakerDataModelBuilder.class,
-                        "DocumentWithoutTitle.html");
-        PageTemplateDataModel model = _modelBuilder.build(sourcePath, ".");
+        PageTemplateDataModel model =
+                buildModel("DocumentWithoutTitle.html", ".");
 
         assertEquals("DocumentWithoutTitle", model.title);
         assertEquals(
@@ -88,11 +83,8 @@ public final class HtmlBakerDataModelBuilderTest
     public void depthOne()
             throws IOException {
 
-        Path sourcePath =
-                TestUtils.getPath(
-                        HtmlBakerDataModelBuilder.class,
-                        "depth01/DocumentWithTitleDepth01.html");
-        PageTemplateDataModel model = _modelBuilder.build(sourcePath, "..");
+        PageTemplateDataModel model =
+                buildModel("depth01/DocumentWithTitleDepth01.html", "..");
 
         assertEquals("Document with Title", model.title);
         assertEquals(
@@ -109,17 +101,36 @@ public final class HtmlBakerDataModelBuilderTest
     public void depthTwo()
             throws IOException {
 
-        Path sourcePath =
-                TestUtils.getPath(
-                        HtmlBakerDataModelBuilder.class,
-                        "depth01/depth02/DocumentWithTitleDepth02.html");
-        PageTemplateDataModel model = _modelBuilder.build(sourcePath, "../..");
+        PageTemplateDataModel model =
+                buildModel(
+                        "depth01/depth02/DocumentWithTitleDepth02.html",
+                        "../..");
 
         assertEquals("Document with Title", model.title);
         assertEquals(
                 "<p>The body of the document with a title.</p>",
                 model.body);
         assertEquals("../..", model.rootRelativeUrl);
+    }
+
+
+    /**
+     *
+     */
+    private PageTemplateDataModel buildModel(
+            final String relPath,
+            final String rootRelativeUrl)
+            throws IOException {
+
+        Path sourcePath =
+                TestUtils.getPath(HtmlBakerDataModelBuilder.class, relPath);
+        PageContext context =
+                new PageContext.Builder()
+                .setRootRelativeUrl(rootRelativeUrl)
+                .build();
+        PageTemplateDataModel model = _modelBuilder.build(sourcePath, context);
+
+        return model;
     }
 
 

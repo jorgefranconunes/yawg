@@ -17,6 +17,7 @@ import org.junit.Test;
 
 import com.varmateo.testutils.TestUtils;
 
+import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.PageTemplateDataModel;
 import com.varmateo.yawg.asciidoctor.AsciidoctorBakerDataModelBuilder;
 
@@ -50,11 +51,8 @@ public final class AsciidoctorBakerDataModelBuilderTest
     public void withTitle()
             throws IOException {
 
-        Path sourcePath =
-                TestUtils.getPath(
-                        AsciidoctorBakerDataModelBuilder.class,
-                        "DocumentWithTitle.adoc");
-        PageTemplateDataModel model = _modelBuilder.build(sourcePath, ".");
+        PageTemplateDataModel model =
+                buildModel("DocumentWithTitle.adoc", ".");
 
         assertEquals("Document with Title", model.title);
         assertTrue(model.body.contains(
@@ -70,16 +68,35 @@ public final class AsciidoctorBakerDataModelBuilderTest
     public void withoutTitle()
             throws IOException {
 
-        Path sourcePath =
-                TestUtils.getPath(
-                        AsciidoctorBakerDataModelBuilder.class,
-                        "DocumentWithoutTitle.adoc");
-        PageTemplateDataModel model = _modelBuilder.build(sourcePath, ".");
+        PageTemplateDataModel model =
+                buildModel("DocumentWithoutTitle.adoc", ".");
 
         assertEquals("DocumentWithoutTitle", model.title);
         assertTrue(model.body.contains(
                 "The body of the document without a title."));
         assertEquals(".", model.rootRelativeUrl);
+    }
+
+
+    /**
+     *
+     */
+    private PageTemplateDataModel buildModel(
+            final String relPath,
+            final String rootRelativeUrl)
+            throws IOException {
+
+        Path sourcePath =
+                TestUtils.getPath(
+                        AsciidoctorBakerDataModelBuilder.class,
+                        relPath);
+        PageContext context =
+                new PageContext.Builder()
+                .setRootRelativeUrl(rootRelativeUrl)
+                .build();
+        PageTemplateDataModel model = _modelBuilder.build(sourcePath, context);
+
+        return model;
     }
 
 

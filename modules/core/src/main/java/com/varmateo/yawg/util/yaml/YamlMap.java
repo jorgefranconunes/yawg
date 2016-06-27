@@ -6,6 +6,7 @@
 
 package com.varmateo.yawg.util.yaml;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -31,6 +32,17 @@ public final class YamlMap
     /* package private */ YamlMap(final Map<String,Object> map) {
 
         _map = Objects.requireNonNull(map);
+    }
+
+
+    /**
+     *
+     */
+    public Map<String,Object> asMap() {
+
+        Map<String,Object> result = Collections.unmodifiableMap(_map);
+
+        return result;
     }
 
 

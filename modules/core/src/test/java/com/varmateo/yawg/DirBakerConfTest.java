@@ -34,7 +34,7 @@ public final class DirBakerConfTest
                 new DirBakerConf.Builder()
                 .setFilesToIgnore("hello")
                 .build()
-                .merge(confEmpty);
+                .mergeOnTopOf(confEmpty);
         DirBakerConf expectedConf =
                 new DirBakerConf.Builder()
                 .setFilesToIgnore("hello")
@@ -58,7 +58,7 @@ public final class DirBakerConfTest
                 new DirBakerConf.Builder()
                 .setFilesToIgnore("world")
                 .build()
-                .merge(conf01);
+                .mergeOnTopOf(conf01);
         DirBakerConf expectedConf =
                 new DirBakerConf.Builder()
                 .setFilesToIgnore("hello", "world")

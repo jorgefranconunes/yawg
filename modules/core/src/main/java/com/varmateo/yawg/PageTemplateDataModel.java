@@ -8,6 +8,7 @@ package com.varmateo.yawg;
 
 import java.util.Objects;
 
+import com.varmateo.yawg.TemplateVars;
 import com.varmateo.yawg.YawgInfo;
 
 
@@ -51,6 +52,12 @@ public final class PageTemplateDataModel
     /**
      *
      */
+    public final TemplateVars templateVars;
+
+
+    /**
+     *
+     */
     private PageTemplateDataModel(final Builder builder) {
 
         body = Objects.requireNonNull(builder._body);
@@ -58,6 +65,7 @@ public final class PageTemplateDataModel
         rootRelativeUrl = Objects.requireNonNull(builder._rootRelativeUrl);
         productName = YawgInfo.PRODUCT_NAME;
         version = YawgInfo.VERSION;
+        templateVars = Objects.requireNonNull(builder._templateVars);
     }
 
 
@@ -71,6 +79,7 @@ public final class PageTemplateDataModel
         private String _body = null;
         private String _title = null;
         private String _rootRelativeUrl = null;
+        private TemplateVars _templateVars = new TemplateVars();
 
 
         /**
@@ -108,6 +117,16 @@ public final class PageTemplateDataModel
         public Builder setRootRelativeUrl(final String rootRelativeUrl) {
 
             _rootRelativeUrl = rootRelativeUrl;
+            return this;
+        }
+
+
+        /**
+         *
+         */
+        public Builder setTemplateVars(final TemplateVars templateVars) {
+
+            _templateVars = templateVars;
             return this;
         }
 
