@@ -38,9 +38,19 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
+            <@navbarItem
+               name="home"
+               url="index.html"
+               title="Home" />
             <li><a href="https://github.com/jorgefranconunes/yawg/releases" target="_blank">Download</a></li>
-            <li><a href="${rootRelativeUrl}/UserGuide.html">Documentation</a></li>
-            <li><a href="${rootRelativeUrl}/developers/index.html">Developers</a></li>
+            <@navbarItem
+               name="documentation"
+               url="Documentation/UserGuide.html"
+               title="Documentation" />
+            <@navbarItem
+               name="developers"
+               url="Developers/index.html"
+               title="Developers" />
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -60,3 +70,11 @@
     </div>
   </body>
 </html>
+
+<#macro navbarItem name url title>
+  <#if (navbarSelectedItem!"") == name>
+    <li class="active"><a href="${rootRelativeUrl}/${url}">${title}</a></li>
+  <#else>
+    <li><a href="${rootRelativeUrl}/${url}">${title}</a></li>
+  </#if>
+</#macro>

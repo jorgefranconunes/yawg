@@ -14,3 +14,7 @@ ignore:
   - 'work'
   - '.*~$'
   - '.yawg.yml'
+
+
+templateVars:
+  navbarSelectedItem: "home"
