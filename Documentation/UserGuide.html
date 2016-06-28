@@ -13,7 +13,7 @@
        integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
        crossorigin="anonymous" />
 
-    <link rel="stylesheet" href="./yawg-site.css" />
+    <link rel="stylesheet" href="../yawg-site.css" />
 
   </head>
 
@@ -34,13 +34,14 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="./index.html">Yawg</a>
+          <a class="navbar-brand" href="../index.html">Yawg</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
+    <li><a href="../index.html">Home</a></li>
             <li><a href="https://github.com/jorgefranconunes/yawg/releases" target="_blank">Download</a></li>
-            <li><a href="./UserGuide.html">Documentation</a></li>
-            <li><a href="./developers/index.html">Developers</a></li>
+    <li class="active"><a href="../Documentation/UserGuide.html">Documentation</a></li>
+    <li><a href="../Developers/index.html">Developers</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -294,13 +295,12 @@ parameters for the parent directory will be used instead.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>template</code> (<code>String</code>)&#8201;&#8212;&#8201;The name of the page template to use for
-baking the files in the directory. If not specified it will default to
-<code>default.ftlh</code>.</p>
-</li>
-<li>
-<p><code>ignore</code> (<code>List&lt;String&gt;</code>)&#8201;&#8212;&#8201;List of glob patterns representing the
-files in the directory that are to be ignored during the bake.</p>
+<p><code>bakerTypes</code> (<code>Map&lt;String,List&lt;String&gt;&gt;</code>)&#8201;&#8212;&#8201;Map that specifies the
+baker type to be used for certain files. This is useful when you want
+to override the default baker type for some files (e.g. when you want
+<code>*.txt</code> files baked with the <code>asciidoc</code> baker). The keys are baker
+types. The values are list of glob patterns representing the files to
+be baked by that baker type.</p>
 </li>
 <li>
 <p><code>filesToIncludeOnly</code> (<code>List&lt;String&gt;</code>)&#8201;&#8212;&#8201;List of glob patterns
@@ -309,12 +309,17 @@ other files in the directory will be skipped. This parameter takes
 precedence over the <code>filesToIgnore</code> parameter.</p>
 </li>
 <li>
-<p><code>bakerTypes</code> (<code>Map&lt;String,List&lt;String&gt;&gt;</code>)&#8201;&#8212;&#8201;Map that specifies the
-baker type to be used for certain files. This is useful when you want
-to override the default baker type for some files (e.g. when you want
-<code>*.txt</code> files baked with the <code>asciidoc</code> baker). The keys are baker
-types. The values are list of glob patterns representing the files to
-be baked by that baker type.</p>
+<p><code>ignore</code> (<code>List&lt;String&gt;</code>)&#8201;&#8212;&#8201;List of glob patterns representing the
+files in the directory that are to be ignored during the bake.</p>
+</li>
+<li>
+<p><code>template</code> (<code>String</code>)&#8201;&#8212;&#8201;The name of the page template to use for
+baking the files in the directory. If not specified it will default to
+<code>default.ftlh</code>.</p>
+</li>
+<li>
+<p><code>templateVars</code> (<code>Map</code>)&#8201;&#8212;&#8201;Set of additional variables to be added to
+the page template data model. See <a href="#sec-PageTemplateDataModel">Page template data model</a>.</p>
 </li>
 </ul>
 </div>
@@ -349,7 +354,7 @@ currently supported are the following:</p>
 <code>--templates</code> command line option.</p>
 </div>
 <div class="sect2">
-<h3 id="_page_template_data_model">Page template data model</h3>
+<h3 id="sec-PageTemplateDataModel">Page template data model</h3>
 <div class="paragraph">
 <p>The page template has access to a set of variables while it is being
 processed during the baking of a document. We call data model to the
@@ -398,3 +403,4 @@ template variable is always the same, for a given Yawg release.</p>
     </div>
   </body>
 </html>
+
