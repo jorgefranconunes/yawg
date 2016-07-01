@@ -13,7 +13,10 @@ import java.util.Optional;
 
 
 /**
+ * Set of variables made available to the template when generating the
+ * final bake result.
  *
+ * <p>The meaning of this variables is template specific.</p>
  */
 public final class TemplateVars
         extends Object {
@@ -25,7 +28,7 @@ public final class TemplateVars
     /**
      * @param map Immutable mapping.
      */
-    public TemplateVars(final Map<String,Object> map) {
+    /* package private */ TemplateVars(final Map<String,Object> map) {
 
         _map = map;
     }

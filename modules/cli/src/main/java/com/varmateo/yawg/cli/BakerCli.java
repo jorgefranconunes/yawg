@@ -138,11 +138,11 @@ public final class BakerCli
                 .setTemplatesDir(templatesDir)
                 .setAssetsDir(assetsDir)
                 .build();
-        SiteBakerFactory factory = new SiteBakerFactory(conf);
-        SiteBaker siteBaker = factory.getSiteBaker();
+        SiteBakerFactory factory = new SiteBakerFactory();
+        SiteBaker siteBaker = factory.newSiteBaker();
 
         try {
-            siteBaker.bake();
+            siteBaker.bake(conf);
         } catch ( YawgException e ) {
             CliException.raise(e, "Baking failed - {0}", e.getMessage());
         }

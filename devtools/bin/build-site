@@ -227,10 +227,10 @@ function doBaking () {
     fi
 
     ${_yawgHome}/bin/yawg \
-        --source=${_yawgHome}/doc/content \
-        --target=${_workingArea} \
-        --templates=${_yawgHome}/doc/templates \
-        --assets=${_yawgHome}/doc/assets \
+        --source=$(yawgNormalizePath ${_yawgHome}/doc/content) \
+        --target=$(yawgNormalizePath ${_workingArea}) \
+        --templates=$(yawgNormalizePath ${_yawgHome}/doc/templates) \
+        --assets=$(yawgNormalizePath ${_yawgHome}/doc/assets) \
         --verbose
 }
 

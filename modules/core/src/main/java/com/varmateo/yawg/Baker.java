@@ -13,7 +13,7 @@ import com.varmateo.yawg.YawgException;
 
 
 /**
- * A baker of giles.
+ * A baker of files.
  */
 public interface Baker {
 

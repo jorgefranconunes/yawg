@@ -48,7 +48,7 @@ public final class PageContext
 
 
     /**
-     *
+     * A builder of <code>PageContext</code> instances.
      */
     public static final class Builder
             extends Object {

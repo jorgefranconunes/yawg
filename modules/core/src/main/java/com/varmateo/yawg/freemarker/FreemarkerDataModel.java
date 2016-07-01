@@ -6,8 +6,6 @@
 
 package com.varmateo.yawg.freemarker;
 
-import java.util.Optional;
-
 import com.varmateo.yawg.PageTemplateDataModel;
 
 
