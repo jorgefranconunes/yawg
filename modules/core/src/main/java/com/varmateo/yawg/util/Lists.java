@@ -9,6 +9,7 @@ package com.varmateo.yawg.util;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -80,6 +81,34 @@ public final class Lists
 
         List<T> copy = new ArrayList<T>(inputCollection);
         List<T> result = Collections.unmodifiableList(copy);
+
+        return result;
+    }
+
+
+    /**
+     * Creates a new immutable list with the elements contained in the
+     * given iterator.
+     *
+     * @param <T> The type of elements in the given iterator and on
+     * the returned list.
+     *
+     * @param iterator The source of the elements that will be
+     * contained in the returned list.
+     *
+     * @return An immutable list containing all the elements in the
+     * given iterator, in the same order.
+     */
+    public static <T> List<T> newList(final Iterator<T> iterator) {
+
+        List<T> newList = new ArrayList<T>();
+
+        while ( iterator.hasNext() ) {
+            T element = iterator.next();
+            newList.add(element);
+        }
+
+        List<T> result = Collections.unmodifiableList(newList);
 
         return result;
     }

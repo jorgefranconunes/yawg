@@ -1,0 +1,14 @@
+###########################################################################
+#
+# Copyright (C) 2016 Jorge Nunes, All Rights Reserved.
+#
+#
+# Names of classes implementig the com.varmateo.yawg.BakerFactory
+# interface. Instances of these classes will be created through the
+# Java service loading facility
+# (https://docs.oracle.com/javase/tutorial/ext/basics/spi.html).
+#
+###########################################################################
+
+com.varmateo.yawg.asciidoctor.AsciidoctorBakerFactory
+com.varmateo.yawg.html.HtmlBakerFactory

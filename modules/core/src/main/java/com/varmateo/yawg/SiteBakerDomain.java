@@ -7,11 +7,11 @@
 package com.varmateo.yawg;
 
 import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
 
 import com.varmateo.yawg.Baker;
+import com.varmateo.yawg.BakerFactory;
 import com.varmateo.yawg.CopyBaker;
 import com.varmateo.yawg.DirBaker;
 import com.varmateo.yawg.DirBakerConfDao;
@@ -19,12 +19,11 @@ import com.varmateo.yawg.FileBaker;
 import com.varmateo.yawg.PageTemplateService;
 import com.varmateo.yawg.SiteBakerConf;
 import com.varmateo.yawg.SingleSiteBaker;
-import com.varmateo.yawg.asciidoctor.AsciidoctorBaker;
 import com.varmateo.yawg.freemarker.FreemarkerTemplateService;
-import com.varmateo.yawg.html.HtmlBaker;
 import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogFactory;
 import com.varmateo.yawg.util.Holder;
+import com.varmateo.yawg.util.Lists;
 
 
 /**
@@ -36,11 +35,8 @@ import com.varmateo.yawg.util.Holder;
 
     private final SiteBakerConf _conf;
 
-    private final Holder<Baker> _asciidocBaker =
-            Holder.of(this::newAsciidoctorBaker);
-
-    private final Holder<SingleSiteBaker> _siteBaker =
-            Holder.of(this::newSiteBaker);
+    private final Holder<Collection<Baker>> _bakers =
+            Holder.of(this::newBakers);
 
     private final Holder<Baker> _copyBaker =
             Holder.of(this::newCopyBaker);
@@ -54,11 +50,11 @@ import com.varmateo.yawg.util.Holder;
     private final Holder<FileBaker> _fileBaker =
             Holder.of(this::newFileBaker);
 
+    private final Holder<SingleSiteBaker> _siteBaker =
+            Holder.of(this::newSiteBaker);
+
     private final Holder<Optional<PageTemplateService>> _templateService =
             Holder.of(this::newFreemarkerTemplateService);
-
-    private final Holder<Baker> _htmlBaker =
-            Holder.of(this::newHtmlBaker);
 
     private final Holder<Log> _log =
             Holder.of(this::newLog);
@@ -85,21 +81,12 @@ import com.varmateo.yawg.util.Holder;
     /**
      *
      */
-    private Baker newAsciidoctorBaker() {
+    private Collection<Baker> newBakers() {
 
-        Baker result = new AsciidoctorBaker();
-
-        return result;
-    }
-
-
-    /**
-     *
-     */
-    private SingleSiteBaker newSiteBaker() {
-
-        SingleSiteBaker result =
-                new SingleSiteBaker(_log.get(), _conf, _dirBaker.get());
+        Collection<Baker> result =
+                Lists.map(
+                        BakerFactory.getAllFactories(),
+                        BakerFactory::getBaker);
 
         return result;
     }
@@ -150,10 +137,7 @@ import com.varmateo.yawg.util.Holder;
 
         Log log = _log.get();
         Path sourceRootDir = _conf.sourceDir;
-        Collection<Baker> bakers =
-                Arrays.asList(
-                        _asciidocBaker.get(),
-                        _htmlBaker.get());
+        Collection<Baker> bakers = _bakers.get();
         Baker defaultBaker = _copyBaker.get();
         FileBaker result =
                 new FileBaker(log, sourceRootDir, bakers, defaultBaker);
@@ -178,9 +162,9 @@ import com.varmateo.yawg.util.Holder;
     /**
      *
      */
-    private Baker newHtmlBaker() {
+    private Log newLog() {
 
-        Baker result = new HtmlBaker();
+        Log result = LogFactory.createFor(this);
 
         return result;
     }
@@ -189,9 +173,10 @@ import com.varmateo.yawg.util.Holder;
     /**
      *
      */
-    private Log newLog() {
+    private SingleSiteBaker newSiteBaker() {
 
-        Log result = LogFactory.createFor(this);
+        SingleSiteBaker result =
+                new SingleSiteBaker(_log.get(), _conf, _dirBaker.get());
 
         return result;
     }
