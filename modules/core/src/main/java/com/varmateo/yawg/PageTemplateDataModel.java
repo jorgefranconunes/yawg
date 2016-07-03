@@ -7,6 +7,7 @@
 package com.varmateo.yawg;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import com.varmateo.yawg.TemplateVars;
 import com.varmateo.yawg.YawgInfo;
@@ -18,6 +19,12 @@ import com.varmateo.yawg.YawgInfo;
 public final class PageTemplateDataModel
         extends Object {
 
+
+    /**
+     * Randomnly generated unique bake identifier. Each bake will have
+     * a different identifier.
+     */
+    public final String bakeId;
 
     /**
      * The raw HTML contents of the baked document. This is actually
@@ -50,7 +57,8 @@ public final class PageTemplateDataModel
 
 
     /**
-     *
+     * Set of variables available to the page template. These
+     * variables are immutable.
      */
     public final TemplateVars templateVars;
 
@@ -60,6 +68,7 @@ public final class PageTemplateDataModel
      */
     private PageTemplateDataModel(final Builder builder) {
 
+        bakeId = UUID.randomUUID().toString();
         body = Objects.requireNonNull(builder._body);
         title = Objects.requireNonNull(builder._title);
         rootRelativeUrl = Objects.requireNonNull(builder._rootRelativeUrl);

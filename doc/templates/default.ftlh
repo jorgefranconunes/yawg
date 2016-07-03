@@ -13,7 +13,7 @@
        integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
        crossorigin="anonymous" />
 
-    <link rel="stylesheet" href="${rootRelativeUrl}/yawg-site.css" />
+    <link rel="stylesheet" href="${rootRelativeUrl}/yawg-site.css?v=${bakeId}" />
 
   </head>
 

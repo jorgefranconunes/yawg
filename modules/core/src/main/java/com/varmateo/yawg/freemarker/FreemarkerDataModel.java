@@ -31,6 +31,15 @@ public final class FreemarkerDataModel
     /**
      *
      */
+    public String getBakeId() {
+
+        return _data.bakeId;
+    }
+
+
+    /**
+     *
+     */
     public String getBody() {
 
         return _data.body;
