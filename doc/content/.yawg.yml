@@ -3,17 +3,17 @@
 #
 
 ignore:
-  - '*~'
-  - '*.~'
-  - '*.aux'
-  - '*.bak'
-  - '*.log'
-  - '*.out'
-  - '*.pid'
-  - 'target'
-  - 'work'
-  - '.*~$'
-  - '.yawg.yml'
+  - "*~"
+  - "*.~"
+  - "*.aux"
+  - "*.bak"
+  - "*.log"
+  - "*.out"
+  - "*.pid"
+  - "target"
+  - "work"
+  - ".*~$"
+  - ".yawg.yml
 
 
 templateVars:

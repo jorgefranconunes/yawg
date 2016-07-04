@@ -121,7 +121,7 @@ import com.varmateo.yawg.util.yaml.YamlParser;
      *
      */
     /* package private */ DirBakerConf read(final Reader reader)
-            throws YawgException {
+            throws IOException, YawgException {
 
         YamlMap map = new YamlParser().parse(reader);
         DirBakerConf.Builder builder = new DirBakerConf.Builder();

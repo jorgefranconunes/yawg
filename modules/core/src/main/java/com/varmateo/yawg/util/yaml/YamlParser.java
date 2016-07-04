@@ -6,6 +6,7 @@
 
 package com.varmateo.yawg.util.yaml;
 
+import java.io.IOException;
 import java.io.Reader;
 import java.util.Collections;
 import java.util.Map;
@@ -13,7 +14,6 @@ import java.util.Map;
 import com.esotericsoftware.yamlbeans.YamlException;
 import com.esotericsoftware.yamlbeans.YamlReader;
 
-import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.util.yaml.YamlMap;
 
 
@@ -41,33 +41,11 @@ public final class YamlParser
      * @return A map with the results of parsing the given YAML
      * content.
      *
-     * @exception YawgException Thrown if there were any problems
+     * @exception IOException Thrown if there were any problems
      * reading from the reader, or if the YAML contents are invalid.
      */
     public YamlMap parse(final Reader reader)
-            throws YawgException {
-
-        YamlMap result = null;
-
-        try {
-            result = doParse(reader);
-        } catch ( YamlException e ) {
-            YawgException.raise(
-                    e,
-                    "Failed to parse YAML content - {0} - {1}",
-                    e.getClass().getSimpleName(),
-                    e.getMessage());
-        }
-
-        return result;
-    }
-
-
-    /**
-     *
-     */
-    private YamlMap doParse(final Reader reader)
-            throws YamlException {
+            throws IOException {
 
         Map<String,Object> resultMap = null;
         YamlReader yamlReader = new YamlReader(reader);
