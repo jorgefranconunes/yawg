@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Equations and mathematical formulas</title>
+
+    <link
+       rel="stylesheet"
+       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+       integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+       crossorigin="anonymous" />
+
+    <link rel="stylesheet"
+          href="../yawg-site.css?v=4544efc4-78c6-44ec-99c8-4c65a3320431" />
+    
+    <script
+       type="text/javascript"
+       async
+       src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+  </head>
+
+  <body>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-79615115-1', 'auto');
+  ga('send', 'pageview');
+    </script>
+
+    <div class="yawg-body">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="../index.html">Yawg</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+    <li><a href="../index.html">Home</a></li>
+            <li><a href="https://github.com/jorgefranconunes/yawg/releases" target="_blank">Download</a></li>
+    <li class="active"><a href="../Documentation/index.html">Documentation</a></li>
+    <li><a href="../Developers/index.html">Developers</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container yawg-content">
+
+      <h1>Equations and mathematical formulas</h1>
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>It is easy to have LaTeX equations embedded in AsciiDoc
+documents. Because Yawg internally uses
+<a href="http://asciidoctor.org/">Asciidoctor</a> for processing AsciiDoc files, we
+can make use of the Asciidoctor facililities for
+<a href="http://asciidoctor.org/docs/user-manual/#activating-stem-support">supporting
+equations and formulas</a>. The actual rendering of the equations is done
+by the wonderful <a href="https://www.mathjax.org/">MathJax</a> Javascript display
+engine.</p>
+</div>
+<div class="paragraph">
+<p>We can have inline equations and equations in display math mode. Here
+is an inline equation: \(e^{\pi j} + 1 = 0\). And below you
+have an equation in display math mode.</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\int e^{-x^2} \, dx = \sqrt{\pi}\]
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_equations_in_asciidoc">Equations in AsciiDoc</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Inline equation:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-asciidoc" data-lang="asciidoc">latexmath:[e^{\pi j} + 1 = 0]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Display math mode equation:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-asciidoc" data-lang="asciidoc">[latexmath]
+++++
+\int e^{-x^2} \, dx = \sqrt{\pi}
+++++</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_displaying_equations">Displaying equations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In order for the equations to be appropriately displayed you need to
+include the MathJax Javascript libraries in your HTML document
+template. It is enough to add the following snippet to the <code>&lt;head&gt;</code>
+section of your template:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;script
+   type="text/javascript"
+   async
+   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"&gt;
+&lt;/script&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above snippet will download the MathJax Javascript files from the
+MaxJac content delivery network. If you are a MathJax expert you can
+of course tweak the above snippet to your heart&#8217;s content. MathJax
+provides very detailed
+<a href="http://docs.mathjax.org/en/latest/start.html">documentation</a>.</p>
+</div>
+</div>
+</div>
+
+      <footer class="yawg-footer">
+        <p>&copy;Jorge Nunes 2016
+        <p>Baked with Yawg 0.9.0-SNAPSHOT</p>
+      </footer>
+
+    </div>
+    </div>
+  </body>
+</html>
+

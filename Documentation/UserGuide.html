@@ -13,7 +13,14 @@
        integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
        crossorigin="anonymous" />
 
-    <link rel="stylesheet" href="../yawg-site.css?v=93a59892-ede4-49de-a37c-401268cd458c" />
+    <link rel="stylesheet"
+          href="../yawg-site.css?v=5f1bd719-bc35-403e-a8b7-76805ef4922a" />
+    
+    <script
+       type="text/javascript"
+       async
+       src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
 
   </head>
 
@@ -40,7 +47,7 @@
           <ul class="nav navbar-nav">
     <li><a href="../index.html">Home</a></li>
             <li><a href="https://github.com/jorgefranconunes/yawg/releases" target="_blank">Download</a></li>
-    <li class="active"><a href="../Documentation/UserGuide.html">Documentation</a></li>
+    <li class="active"><a href="../Documentation/index.html">Documentation</a></li>
     <li><a href="../Developers/index.html">Developers</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -234,17 +241,24 @@ files under the assets directory are copied without any
 transformations.</p>
 </div>
 <div class="paragraph">
-<p><code>--source &lt;PATH&gt;</code>&#8201;&#8212;&#8201;Path to the directory containing the content to
-be baked.</p>
+<p><code>--source &lt;PATH&gt;</code>&#8201;&#8212;&#8201;Path to the directory containing the content
+source files to be baked.</p>
 </div>
 <div class="paragraph">
 <p><code>--target &lt;PATH&gt;</code>&#8201;&#8212;&#8201;Path to the directory where the results of the
-baked will be copied to. If this directory does not yet exist, it will
-be created.</p>
+baking will be copied to. If this directory does not yet exist, it
+will be created.</p>
 </div>
 <div class="paragraph">
-<p><code>--templates &lt;PATH&gt;</code>&#8201;&#8212;&#8201;Path the directory containing the page templates
+<p><code>--templates &lt;PATH&gt;</code>&#8201;&#8212;&#8201;Path to the directory containing the page templates
 that may be used during the baking.</p>
+</div>
+<div class="paragraph">
+<p><code>--verbose</code>&#8201;&#8212;&#8201;Print detailed logging during the baking. By default
+only minimal logging is shown.</p>
+</div>
+<div class="paragraph">
+<p><code>--version</code>&#8201;&#8212;&#8201;Prints the version of the Yawg software and exits.</p>
 </div>
 </div>
 </div>
@@ -400,7 +414,7 @@ template variable is always the same, for a given Yawg release.</p>
 
       <footer class="yawg-footer">
         <p>&copy;Jorge Nunes 2016
-        <p>Baked with Yawg 0.1.0-SNAPSHOT</p>
+        <p>Baked with Yawg 0.9.0-SNAPSHOT</p>
       </footer>
 
     </div>
