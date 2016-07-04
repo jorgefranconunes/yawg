@@ -21,7 +21,7 @@ public final class PageTemplateDataModel
 
 
     /**
-     * Randomnly generated unique bake identifier. Each bake will have
+     * Randomly generated unique bake identifier. Each bake will have
      * a different identifier.
      */
     public final String bakeId;

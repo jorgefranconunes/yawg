@@ -20,18 +20,19 @@ public final class PageContext
 
 
     /**
-     *
+     * Template to be used when generating the target page.
      */
     public final Optional<PageTemplate> pageTemplate;
 
     /**
-     *
+     * The relative URL for the top URL of the baked site. Useful for
+     * refering to resources at the top of the document tree.
      */
     public final String rootRelativeUrl;
 
 
     /**
-     *
+     * Additional variables made available to the template.
      */
     public final TemplateVars templateVars;
 

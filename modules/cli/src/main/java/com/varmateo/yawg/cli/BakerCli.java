@@ -11,11 +11,17 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Formatter;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.varmateo.yawg.SiteBaker;
 import com.varmateo.yawg.SiteBakerConf;
 import com.varmateo.yawg.SiteBakerFactory;
 import com.varmateo.yawg.YawgException;
+import com.varmateo.yawg.logging.PlainFormatter;
 
 import com.varmateo.yawg.cli.InfoPrinter;
 import com.varmateo.yawg.cli.BakerCliOptions;
@@ -33,8 +39,10 @@ public final class BakerCli
     private static final int EXIT_STATUS_OK = 0;
     private static final int EXIT_STATUS_FAILURE = 1;
 
-    private String      _argv0 = null;
-    private InfoPrinter _infoPrinter = null;
+    private static final String LOG_FMT_CONSOLE =
+            "{0,date,yyyy-MM.dd HH:mm:ss.SSS} {1} {2}\n";
+    private static final String LOG_FMT_FILE =
+            "{0,date,yyyy-MM.dd HH:mm:ss.SSS} {1} {2}\n";
 
 
     /**
@@ -53,13 +61,11 @@ public final class BakerCli
             final String   argv0,
             final String[] args) {
 
-        _argv0       = argv0;
-        _infoPrinter = buildInfoPrinter(argv0);
-
+        InfoPrinter infoPrinter = buildInfoPrinter(argv0);
         CliException error = null;
 
         try {
-            doEverything(args);
+            doEverything(infoPrinter, args);
         } catch ( CliException e ) {
             error = e;
         }
@@ -67,7 +73,7 @@ public final class BakerCli
         int exitStatus = EXIT_STATUS_OK;
 
         if ( error != null ) {
-            _infoPrinter.printError(error);
+            infoPrinter.printError(error);
             exitStatus = EXIT_STATUS_FAILURE;
         }
 
@@ -99,18 +105,20 @@ public final class BakerCli
     /**
      *
      */
-    public void doEverything(final String[] args)
-        throws CliException {
+    public void doEverything(
+            final InfoPrinter infoPrinter,
+            final String[] args)
+            throws CliException {
 
         if ( args.length == 0 ) {
-            _infoPrinter.printHelp();
+            infoPrinter.printHelp();
         } else {
             CliOptions cliOptions = BakerCliOptions.parse(args);
 
             if ( cliOptions.hasOption(BakerCliOptions.HELP) ) {
-                _infoPrinter.printHelp();
+                infoPrinter.printHelp();
             } else if ( cliOptions.hasOption(BakerCliOptions.VERSION) ) {
-                _infoPrinter.printVersion();
+                infoPrinter.printVersion();
             } else {
                 doBake(cliOptions);
             }
@@ -123,6 +131,8 @@ public final class BakerCli
      */
     private void doBake(final CliOptions cliOptions)
         throws CliException {
+
+        setupLogging(cliOptions);
 
         Path sourceDir = cliOptions.getPath(BakerCliOptions.SOURCE_DIR);
         Path targetDir = cliOptions.getPath(BakerCliOptions.TARGET_DIR);
@@ -146,6 +156,32 @@ public final class BakerCli
         } catch ( YawgException e ) {
             CliException.raise(e, "Baking failed - {0}", e.getMessage());
         }
+    }
+
+
+    /**
+     *
+     */
+    private void setupLogging(final CliOptions cliOptions) {
+
+        Level loggerLevel = null;
+        if ( cliOptions.hasOption(BakerCliOptions.VERBOSE) ) {
+            loggerLevel = Level.FINEST;
+        } else {
+            loggerLevel = Level.INFO;
+        }
+
+        Formatter formatter = new PlainFormatter(LOG_FMT_CONSOLE);
+
+        Handler handler = new ConsoleHandler();
+        handler.setFormatter(formatter);
+        handler.setLevel(loggerLevel);
+
+        String loggerName = "com.varmateo";
+        Logger logger = Logger.getLogger(loggerName);
+        logger.addHandler(handler);
+        logger.setLevel(Level.FINEST);
+        logger.setUseParentHandlers(false);
     }
 
 

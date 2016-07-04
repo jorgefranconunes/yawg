@@ -146,15 +146,20 @@ this directory will be recursively copied to the target directory. The
 files under the assets directory are copied without any
 transformations.
 
-`--source <PATH>` -- Path to the directory containing the content to
-be baked.
+`--source <PATH>` -- Path to the directory containing the content
+source files to be baked.
 
 `--target <PATH>` -- Path to the directory where the results of the
-baked will be copied to. If this directory does not yet exist, it will
-be created.
+baking will be copied to. If this directory does not yet exist, it
+will be created.
 
-`--templates <PATH>` -- Path the directory containing the page templates
+`--templates <PATH>` -- Path to the directory containing the page templates
 that may be used during the baking.
+
+`--verbose` -- Print detailed logging during the baking. By default
+only minimal logging is shown.
+
+`--version` -- Prints the version of the Yawg software and exits.
 
 
 

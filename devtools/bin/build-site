@@ -216,8 +216,6 @@ function doSetupWorkingArea () {
 
 function doBaking () {
 
-    yawgLog "Baking site..."
-
     if [ -d "${_workingArea}" ] ; then
         if [ $(ls ${_workingArea} | wc -l) -gt 0 ] ; then
             rm -rf ${_workingArea}/*
