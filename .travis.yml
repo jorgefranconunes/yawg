@@ -20,3 +20,6 @@ addons:
   apt:
     packages:
       - xsltproc
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
