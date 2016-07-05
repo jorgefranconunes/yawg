@@ -13,7 +13,14 @@
        integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
        crossorigin="anonymous" />
 
-    <link rel="stylesheet" href="${rootRelativeUrl}/yawg-site.css?v=${bakeId}" />
+    <link rel="stylesheet"
+          href="${rootRelativeUrl}/yawg-site.css?v=${bakeId}" />
+    
+    <script
+       type="text/javascript"
+       async
+       src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
 
   </head>
 
@@ -45,7 +52,7 @@
             <li><a href="https://github.com/jorgefranconunes/yawg/releases" target="_blank">Download</a></li>
             <@navbarItem
                name="documentation"
-               url="Documentation/UserGuide.html"
+               url="Documentation/index.html"
                title="Documentation" />
             <@navbarItem
                name="developers"

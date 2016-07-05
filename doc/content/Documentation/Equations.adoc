@@ -1,0 +1,69 @@
+= Equations and mathematical formulas
+
+It is easy to have LaTeX equations embedded in AsciiDoc
+documents. Because Yawg internally uses
+http://asciidoctor.org/[Asciidoctor] for processing AsciiDoc files, we
+can make use of the Asciidoctor facililities for
+http://asciidoctor.org/docs/user-manual/#activating-stem-support[supporting
+equations and formulas]. The actual rendering of the equations is done
+by the wonderful https://www.mathjax.org/[MathJax] Javascript display
+engine.
+
+We can have inline equations and equations in display math mode. Here
+is an inline equation: latexmath:[e^{i \pi} + 1 = 0]. And below you
+have an equation in display math mode.
+
+[latexmath]
+++++
+\int e^{-x^2} \, dx = \sqrt{\pi}
+++++
+
+
+
+
+
+== Equations in AsciiDoc
+
+Inline equation:
+
+[source,asciidoc]
+----
+latexmath:[e^{i \pi} + 1 = 0]
+----
+
+Display math mode equation:
+
+[source,asciidoc]
+----
+[latexmath]
+++++
+\int e^{-x^2} \, dx = \sqrt{\pi}
+++++
+----
+
+
+
+
+
+== Displaying equations
+
+In order for the equations to be appropriately displayed you need to
+include the MathJax Javascript libraries in your HTML document
+template. It is enough to add the following snippet to the `<head>`
+section of your template:
+
+[source,html]
+----
+<script
+   type="text/javascript"
+   async
+   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+----
+
+The above snippet will download the MathJax Javascript files from the
+MathJax content delivery network. If you are a MathJax expert you can
+of course tweak the above snippet to your heart's content. MathJax
+provides very detailed
+http://docs.mathjax.org/en/latest/start.html[documentation].
+
