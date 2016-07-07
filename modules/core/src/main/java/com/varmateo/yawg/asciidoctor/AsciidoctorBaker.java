@@ -54,6 +54,10 @@ public final class AsciidoctorBaker
 
         Asciidoctor asciidoctor = Asciidoctor.Factory.create();
 
+        // The following is required for supporting PlantUML diagrams
+        // (cf. http://asciidoctor.org/docs/asciidoctor-diagram/).
+        asciidoctor.requireLibrary("asciidoctor-diagram/plantuml");
+
         _asciidoctor = asciidoctor;
         _modelBuilder = new AsciidoctorBakerDataModelBuilder(asciidoctor);
     }
@@ -144,9 +148,9 @@ public final class AsciidoctorBaker
         Optional<PageTemplate> template = context.pageTemplate;
 
         if ( template.isPresent() ) {
-            doBakeWithTemplate(sourcePath, context, targetPath);
+            doBakeWithTemplate(sourcePath, context, targetDir, targetPath);
         } else {
-            doBakeWithoutTemplate(sourcePath, targetPath);
+            doBakeWithoutTemplate(sourcePath, targetDir, targetPath);
         }
     }
 
@@ -171,6 +175,7 @@ public final class AsciidoctorBaker
      */
     private void doBakeWithoutTemplate(
             final Path sourcePath,
+            final Path targetDir,
             final Path targetPath)
             throws AsciidoctorCoreException {
 
@@ -178,6 +183,7 @@ public final class AsciidoctorBaker
         File targetFile = targetPath.toFile();
         AttributesBuilder attributes =
                 AttributesBuilder.attributes()
+                .attribute("imagesoutdir", targetDir.toString())
                 .noFooter(false);
         OptionsBuilder options =
                 OptionsBuilder.options()
@@ -195,11 +201,12 @@ public final class AsciidoctorBaker
     private void doBakeWithTemplate(
             final Path sourcePath,
             final PageContext context,
+            final Path targetDir,
             final Path targetPath)
             throws AsciidoctorCoreException, IOException {
 
         PageTemplateDataModel dataModel =
-                _modelBuilder.build(sourcePath, context);
+                _modelBuilder.build(sourcePath, targetDir, context);
         PageTemplate template = context.pageTemplate.get();
         StringWriter buffer = new StringWriter();
 

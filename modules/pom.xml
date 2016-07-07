@@ -26,6 +26,7 @@ Copyright (c) 2015-2016 Jorge Nunes, All Rights Reserved.
 
     <!-- Versions of dependencies and Maven plugins. -->
     <asciidoctorj.version>1.5.4</asciidoctorj.version>
+    <asciidoctorj-diagram.version>1.3.1</asciidoctorj-diagram.version>
     <findbugs-maven-plugin.version>3.0.3</findbugs-maven-plugin.version>
     <jacoco-maven-plugin.version>0.7.6.201602180812</jacoco-maven-plugin.version>
     <junit.version>4.11</junit.version>

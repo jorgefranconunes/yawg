@@ -8,7 +8,7 @@ package com.varmateo.yawg.asciidoctor;
 
 import com.varmateo.yawg.Baker;
 import com.varmateo.yawg.BakerFactory;
-import com.varmateo.yawg.asciidoctor.AsciidoctorBakerFactory;
+import com.varmateo.yawg.asciidoctor.AsciidoctorBaker;
 
 
 /**

@@ -49,6 +49,12 @@ Copyright (c) 2016 Jorge Nunes, All Rights Reserved.
     </dependency>
 
     <dependency>
+      <groupId>org.asciidoctor</groupId>
+      <artifactId>asciidoctorj-diagram</artifactId>
+      <version>${asciidoctorj-diagram.version}</version>
+    </dependency>
+
+    <dependency>
       <groupId>org.freemarker</groupId>
       <artifactId>freemarker</artifactId>
       <version>${freemaker.version}</version>

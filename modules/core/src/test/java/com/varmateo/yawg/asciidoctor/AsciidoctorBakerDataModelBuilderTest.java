@@ -94,7 +94,11 @@ public final class AsciidoctorBakerDataModelBuilderTest
                 new PageContext.Builder()
                 .setRootRelativeUrl(rootRelativeUrl)
                 .build();
-        PageTemplateDataModel model = _modelBuilder.build(sourcePath, context);
+        PageTemplateDataModel model =
+                _modelBuilder.build(
+                        sourcePath,
+                        sourcePath.getParent(),
+                        context);
 
         return model;
     }

@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2015 Jorge Nunes, All Rights Reserved.
+ * Copyright (c) 2015-2016 Jorge Nunes, All Rights Reserved.
  *
  **************************************************************************/
 
@@ -9,20 +9,11 @@ package com.varmateo.yawg.cli;
 import com.varmateo.yawg.cli.BakerCli;
 
 
-
-
-
-/**************************************************************************
- *
+/**
  * Program for baking a site from a directory tree.
- *
- **************************************************************************/
-
+ */
 public final class Main
     extends Object {
-
-
-
 
 
     private static final String DEFAULT_ARGV0 = "yawg";
@@ -31,15 +22,19 @@ public final class Main
     private static final String PROP_ARGV = Main.class.getName() + ".argv0";
 
 
+    /**
+     * No instances of this class are to be created.
+     */
+    private Main() {
+        // Nothing to do.
+    }
 
 
-
- /**************************************************************************
-  *
-  * 
-  *
-  **************************************************************************/
-
+    /**
+     * Main program.
+     *
+     * @param args Command line arguments.
+     */
      public static void main(final String[] args) {
 
          BakerCli bakerCli = new BakerCli();
@@ -52,14 +47,3 @@ public final class Main
 
 
 }
-
-
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-

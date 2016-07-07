@@ -41,8 +41,6 @@ public final class BakerCli
 
     private static final String LOG_FMT_CONSOLE =
             "{0,date,yyyy-MM.dd HH:mm:ss.SSS} {1} {2}\n";
-    private static final String LOG_FMT_FILE =
-            "{0,date,yyyy-MM.dd HH:mm:ss.SSS} {1} {2}\n";
 
 
     /**

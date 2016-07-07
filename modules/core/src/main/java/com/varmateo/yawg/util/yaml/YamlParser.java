@@ -11,7 +11,6 @@ import java.io.Reader;
 import java.util.Collections;
 import java.util.Map;
 
-import com.esotericsoftware.yamlbeans.YamlException;
 import com.esotericsoftware.yamlbeans.YamlReader;
 
 import com.varmateo.yawg.util.yaml.YamlMap;

@@ -1,0 +1,61 @@
+= Diagrams
+
+Yawg supports the inclusion of http://plantuml.com/[PlantUML] diagrams
+in Asciidoc documents. This is achieved through the
+http://asciidoctor.org/docs/asciidoctor-diagram/[Asciidoctor Diagram]
+extension.
+
+There are two possible ways to include a diagram inside an Asciidoc
+document.
+
+* In a literal block -- The diagram definition is part of the Asciidoc
+  document itself.
+
+* Using a diagram block macro -- The diagram definition is read from
+  an external file.
+
+An example of a diagram in a literal block follows.
+
+[source,asciidoc]
+----
+[plantuml,Diagram-InlineExample,format=svg]     
+....
+class Car
+
+Driver - Car : drives >
+Car *- Wheel : have 4 >
+Car -- Person : < owns
+....
+----
+
+And the image resulting from the above block is shown below.
+
+[[fig-InlineDiagram]]
+.Example PlantUML diagram defined inline in the Asciidoc source file.
+[plantuml, Diagram-InlineExample, svg]
+....
+class Car
+
+Driver - Car : drives >
+Car *- Wheel : have 4 >
+Car -- Person : < owns
+....
+
+
+It is also possible to have PlantUML diagrams imported from files. The
+`plantuml` block macro used for that. The Asciidoc snippet below shows
+an example of using the `plantuml` block macro to include a diagram
+defined in a PlantUML source file.
+
+[source,asciidoc]
+----
+.Example PlantUML diagram contained in an external file.
+plantuml::Diagram-Example.puml[Diagram-Example,svg]
+----
+
+The result of the above snippet is the following image.
+
+[[fig-ExternalDiagram]]
+.Example PlantUML diagram contained in an external file.
+plantuml::Diagram-Example.puml[Diagram-Example,svg]
+
