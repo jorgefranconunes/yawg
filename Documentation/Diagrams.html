@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Diagrams</title>
+
+    <link
+       rel="stylesheet"
+       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+       integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+       crossorigin="anonymous" />
+
+    <link rel="stylesheet"
+          href="../yawg-site.css?v=ebd34911-e9bc-4d9f-8fb0-0c274f305c36" />
+    
+    <script
+       type="text/javascript"
+       async
+       src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+  </head>
+
+  <body>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-79615115-1', 'auto');
+  ga('send', 'pageview');
+    </script>
+
+    <div class="yawg-body">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="../index.html">Yawg</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+    <li><a href="../index.html">Home</a></li>
+            <li><a href="https://github.com/jorgefranconunes/yawg/releases" target="_blank">Download</a></li>
+    <li class="active"><a href="../Documentation/index.html">Documentation</a></li>
+    <li><a href="../Developers/index.html">Developers</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container yawg-content">
+
+      <h1>Diagrams</h1>
+      <div class="paragraph">
+<p>Yawg supports the inclusion of <a href="http://plantuml.com/">PlantUML</a> diagrams
+in Asciidoc documents. This is achieved through the
+<a href="http://asciidoctor.org/docs/asciidoctor-diagram/">Asciidoctor Diagram</a>
+extension.</p>
+</div>
+<div class="paragraph">
+<p>There are two possible ways to include a diagram inside an Asciidoc
+document.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>In a literal block&#8201;&#8212;&#8201;The diagram definition is part of the Asciidoc
+document itself.</p>
+</li>
+<li>
+<p>Using a diagram block macro&#8201;&#8212;&#8201;The diagram definition is read from
+an external file.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>An example of a diagram in a literal block follows.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-asciidoc" data-lang="asciidoc">[plantuml,Diagram-InlineExample,format=svg]
+....
+class Car
+
+Driver - Car : drives &gt;
+Car *- Wheel : have 4 &gt;
+Car -- Person : &lt; owns
+....</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And the image resulting from the above block is shown below.</p>
+</div>
+<div id="fig-InlineDiagram" class="imageblock">
+<div class="content">
+<img src="Diagram-InlineExample.svg" alt="Example PlantUML diagram defined inline in the Asciidoc source file." width="367" height="191">
+</div>
+<div class="title">Figure 1. Example PlantUML diagram defined inline in the Asciidoc source file.</div>
+</div>
+<div class="paragraph">
+<p>It is also possible to have PlantUML diagrams imported from files. The
+<code>plantuml</code> block macro used for that. The Asciidoc snippet below shows
+an example of using the <code>plantuml</code> block macro to include a diagram
+defined in a PlantUML source file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-asciidoc" data-lang="asciidoc">.Example PlantUML diagram contained in an external file.
+plantuml::Diagram-Example.puml[Diagram-Example,svg]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The result of the above snippet is the following image.</p>
+</div>
+<div id="fig-ExternalDiagram" class="imageblock">
+<div class="content">
+<img src="Diagram-Example.svg" alt="Example PlantUML diagram contained in an external file." width="379" height="375">
+</div>
+<div class="title">Figure 2. Example PlantUML diagram contained in an external file.</div>
+</div>
+
+      <footer class="yawg-footer">
+        <p>&copy;Jorge Nunes 2016
+        <p>Baked with Yawg 0.9.0-SNAPSHOT</p>
+      </footer>
+
+    </div>
+    </div>
+  </body>
+</html>
+

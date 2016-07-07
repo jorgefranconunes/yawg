@@ -29,3 +29,13 @@ body {
 .yawg-footer p {
     margin: 0;
 }
+
+
+/**
+ * Asccidoctor classes.
+ */
+
+.imageblock {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}

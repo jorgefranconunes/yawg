@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Creating a release of the Yawg software</title>
+    <title>CreatingRelease</title>
 
     <link
        rel="stylesheet"
@@ -14,7 +14,7 @@
        crossorigin="anonymous" />
 
     <link rel="stylesheet"
-          href="../yawg-site.css?v=5d9a9075-cced-403a-9429-f6bdb95ae58b" />
+          href="../yawg-site.css?v=7b51b881-66ee-4955-af69-60fd2d7c947d" />
     
     <script
        type="text/javascript"
@@ -56,106 +56,85 @@
 
     <div class="container yawg-content">
 
-      <h1>Creating a release of the Yawg software</h1>
-      <div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>The steps for making a an official release of the Yawg softare are
-enumerated below.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Validate the desired version number</p>
-</li>
-<li>
-<p>Create a Git tag.</p>
-</li>
-<li>
-<p>Create the release tarball.</p>
-</li>
-<li>
-<p>Create a release on Github with the given tag and tarball.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>The following sections desribe with more detail what needs to be done
-in each setp.</p>
-</div>
-<div class="paragraph">
-<p>The commands in the text assume your working area reflects the <code>HEAD</code>
-of the <code>main</code> branch.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_validate_the_desired_version_number">Validate the desired version number</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Ensure the desired version number is defined at
-<code>conf/yawg-defaults.conf</code>.</p>
-</div>
-<div class="paragraph">
-<p>If you do make changes on <code>conf/yawg-defaults.conf</code> you will need to
-commit your changes and initiate the release process from the
-beginning.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_create_git_tag">Create Git tag</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The Git tag will mark the commit used for the release in the project
-change history.</p>
-</div>
-<div class="paragraph">
-<p>For now we will create the release tag on the HEAD of the master branch.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-sh" data-lang="sh">git tag -a v1.0.0 -m 'Version 1.0.0"
-git push origin v1.0.0</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_create_the_release_tarball">Create the release tarball</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Execute the following command:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-sh" data-lang="sh">./devtools/bin/build-create-bundle --build-number=NONE</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This will create a tarball at the top of the working area named
-<code>yawg-1.0.0.tar.bz2</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_create_release_on_github">Create release on Github</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Goto <a href="https://github.com/jorgefranconunes/yawg/releases" class="bare">https://github.com/jorgefranconunes/yawg/releases</a> and create a
-release:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>With the tag created above.</p>
-</li>
-<li>
-<p>With the tarball manually created above.</p>
-</li>
-</ul>
-</div>
-</div>
+      <h1>CreatingRelease</h1>
+      <div id="preamble"> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>The steps for making a an official release of the Yawg softare are enumerated below.</p> 
+  </div> 
+  <div class="ulist"> 
+   <ul> 
+    <li> <p>Validate the desired version number</p> </li> 
+    <li> <p>Create a Git tag.</p> </li> 
+    <li> <p>Create the release tarball.</p> </li> 
+    <li> <p>Create a release on Github with the given tag and tarball.</p> </li> 
+   </ul> 
+  </div> 
+  <div class="paragraph"> 
+   <p>The following sections desribe with more detail what needs to be done in each setp.</p> 
+  </div> 
+  <div class="paragraph"> 
+   <p>The commands in the text assume your working area reflects the <code>HEAD</code> of the <code>main</code> branch.</p> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_validate_the_desired_version_number">Validate the desired version number</h2> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>Ensure the desired version number is defined at <code>conf/yawg-defaults.conf</code>.</p> 
+  </div> 
+  <div class="paragraph"> 
+   <p>If you do make changes on <code>conf/yawg-defaults.conf</code> you will need to commit your changes and initiate the release process from the beginning.</p> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_create_git_tag">Create Git tag</h2> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>The Git tag will mark the commit used for the release in the project change history.</p> 
+  </div> 
+  <div class="paragraph"> 
+   <p>For now we will create the release tag on the HEAD of the master branch.</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="highlight"><code class="language-sh" data-lang="sh">git tag -a v1.0.0 -m 'Version 1.0.0"
+git push origin v1.0.0</code></pre> 
+   </div> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_create_the_release_tarball">Create the release tarball</h2> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>Execute the following command:</p> 
+  </div> 
+  <div class="listingblock"> 
+   <div class="content"> 
+    <pre class="highlight"><code class="language-sh" data-lang="sh">./devtools/bin/build-create-bundle --build-number=NONE</code></pre> 
+   </div> 
+  </div> 
+  <div class="paragraph"> 
+   <p>This will create a tarball at the top of the working area named <code>yawg-1.0.0.tar.bz2</code>.</p> 
+  </div> 
+ </div> 
+</div> 
+<div class="sect1"> 
+ <h2 id="_create_release_on_github">Create release on Github</h2> 
+ <div class="sectionbody"> 
+  <div class="paragraph"> 
+   <p>Goto <a href="https://github.com/jorgefranconunes/yawg/releases" class="bare">https://github.com/jorgefranconunes/yawg/releases</a> and create a release:</p> 
+  </div> 
+  <div class="ulist"> 
+   <ul> 
+    <li> <p>With the tag created above.</p> </li> 
+    <li> <p>With the tarball manually created above.</p> </li> 
+   </ul> 
+  </div> 
+ </div> 
 </div>
 
       <footer class="yawg-footer">
