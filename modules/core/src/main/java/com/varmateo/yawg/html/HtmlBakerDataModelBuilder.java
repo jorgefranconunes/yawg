@@ -15,12 +15,12 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import com.varmateo.yawg.PageContext;
-import com.varmateo.yawg.PageTemplateDataModel;
+import com.varmateo.yawg.TemplateDataModel;
 import com.varmateo.yawg.util.FileUtils;
 
 
 /**
- * Creates a <code>PageTemplateDataModel</code> from an input HTML
+ * Creates a <code>TemplateDataModel</code> from an input HTML
  * file.
  */
 /* package private */ final class HtmlBakerDataModelBuilder
@@ -38,7 +38,7 @@ import com.varmateo.yawg.util.FileUtils;
     /**
      *
      */
-    public PageTemplateDataModel build(
+    public TemplateDataModel build(
             final Path sourcePath,
             final PageContext context)
             throws IOException {
@@ -58,8 +58,8 @@ import com.varmateo.yawg.util.FileUtils;
                 .map(Element::text)
                 .orElseGet(() -> FileUtils.basename(sourcePath));
 
-        PageTemplateDataModel result =
-                new PageTemplateDataModel.Builder()
+        TemplateDataModel result =
+                new TemplateDataModel.Builder()
                 .setTitle(title)
                 .setBody(body)
                 .setRootRelativeUrl(context.rootRelativeUrl)

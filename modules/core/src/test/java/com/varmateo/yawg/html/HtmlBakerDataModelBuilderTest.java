@@ -16,7 +16,7 @@ import org.junit.Test;
 import com.varmateo.testutils.TestUtils;
 
 import com.varmateo.yawg.PageContext;
-import com.varmateo.yawg.PageTemplateDataModel;
+import com.varmateo.yawg.TemplateDataModel;
 import com.varmateo.yawg.html.HtmlBakerDataModelBuilder;
 
 
@@ -47,7 +47,7 @@ public final class HtmlBakerDataModelBuilderTest
     public void withTitle()
             throws IOException {
 
-        PageTemplateDataModel model =
+        TemplateDataModel model =
                 buildModel("DocumentWithTitle.html", ".");
 
         assertEquals("Document with Title", model.title);
@@ -65,7 +65,7 @@ public final class HtmlBakerDataModelBuilderTest
     public void withoutTitle()
             throws IOException {
 
-        PageTemplateDataModel model =
+        TemplateDataModel model =
                 buildModel("DocumentWithoutTitle.html", ".");
 
         assertEquals("DocumentWithoutTitle", model.title);
@@ -83,7 +83,7 @@ public final class HtmlBakerDataModelBuilderTest
     public void depthOne()
             throws IOException {
 
-        PageTemplateDataModel model =
+        TemplateDataModel model =
                 buildModel("depth01/DocumentWithTitleDepth01.html", "..");
 
         assertEquals("Document with Title", model.title);
@@ -101,7 +101,7 @@ public final class HtmlBakerDataModelBuilderTest
     public void depthTwo()
             throws IOException {
 
-        PageTemplateDataModel model =
+        TemplateDataModel model =
                 buildModel(
                         "depth01/depth02/DocumentWithTitleDepth02.html",
                         "../..");
@@ -117,7 +117,7 @@ public final class HtmlBakerDataModelBuilderTest
     /**
      *
      */
-    private PageTemplateDataModel buildModel(
+    private TemplateDataModel buildModel(
             final String relPath,
             final String rootRelativeUrl)
             throws IOException {
@@ -128,7 +128,7 @@ public final class HtmlBakerDataModelBuilderTest
                 new PageContext.Builder()
                 .setRootRelativeUrl(rootRelativeUrl)
                 .build();
-        PageTemplateDataModel model = _modelBuilder.build(sourcePath, context);
+        TemplateDataModel model = _modelBuilder.build(sourcePath, context);
 
         return model;
     }

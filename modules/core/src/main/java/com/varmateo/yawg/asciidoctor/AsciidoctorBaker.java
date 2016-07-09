@@ -21,8 +21,8 @@ import org.asciidoctor.internal.AsciidoctorCoreException;
 
 import com.varmateo.yawg.Baker;
 import com.varmateo.yawg.PageContext;
-import com.varmateo.yawg.PageTemplate;
-import com.varmateo.yawg.PageTemplateDataModel;
+import com.varmateo.yawg.Template;
+import com.varmateo.yawg.TemplateDataModel;
 import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.asciidoctor.AsciidoctorBakerDataModelBuilder;
 import com.varmateo.yawg.util.FileUtils;
@@ -32,7 +32,7 @@ import com.varmateo.yawg.util.FileUtils;
  * A <code>Baker</code> that translates text files in Asciidoc format
  * into HTML files.
  */
-public final class AsciidoctorBaker
+/* package private */ final class AsciidoctorBaker
         extends Object
         implements Baker {
 
@@ -145,7 +145,7 @@ public final class AsciidoctorBaker
             throws AsciidoctorCoreException, IOException {
 
         Path targetPath = getTargetPath(sourcePath, targetDir);
-        Optional<PageTemplate> template = context.pageTemplate;
+        Optional<Template> template = context.pageTemplate;
 
         if ( template.isPresent() ) {
             doBakeWithTemplate(sourcePath, context, targetDir, targetPath);
@@ -205,9 +205,9 @@ public final class AsciidoctorBaker
             final Path targetPath)
             throws AsciidoctorCoreException, IOException {
 
-        PageTemplateDataModel dataModel =
+        TemplateDataModel dataModel =
                 _modelBuilder.build(sourcePath, targetDir, context);
-        PageTemplate template = context.pageTemplate.get();
+        Template template = context.pageTemplate.get();
         StringWriter buffer = new StringWriter();
 
         template.process(dataModel, buffer);

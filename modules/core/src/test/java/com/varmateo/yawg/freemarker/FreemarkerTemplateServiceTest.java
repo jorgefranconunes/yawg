@@ -9,6 +9,7 @@ package com.varmateo.yawg.freemarker;
 import java.io.StringWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -17,9 +18,9 @@ import freemarker.template.TemplateException;
 
 import com.varmateo.testutils.TestUtils;
 
-import com.varmateo.yawg.PageTemplate;
-import com.varmateo.yawg.PageTemplateDataModel;
-import com.varmateo.yawg.PageTemplateService;
+import com.varmateo.yawg.Template;
+import com.varmateo.yawg.TemplateDataModel;
+import com.varmateo.yawg.TemplateService;
 import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.freemarker.FreemarkerTemplateService;
 
@@ -31,7 +32,7 @@ public final class FreemarkerTemplateServiceTest
         extends Object {
 
 
-    private static final String TEMPLATE_NAME_OK = "template01.fthl";
+    private static final String TEMPLATE_NAME_OK = "template01.ftlh";
     private static final String TEMPLATE_DIR_OK = "templates";
 
 
@@ -42,7 +43,7 @@ public final class FreemarkerTemplateServiceTest
     public void wrongTemplatesDir() {
 
         Path templatesDir = Paths.get("this/directory/does/not/exist");
-        PageTemplateService service =
+        TemplateService service =
                 new FreemarkerTemplateService(templatesDir);
 
         TestUtils.assertThrows(
@@ -61,11 +62,11 @@ public final class FreemarkerTemplateServiceTest
                 TestUtils.getPath(
                         FreemarkerTemplateService.class,
                         TEMPLATE_DIR_OK);
-        PageTemplateService service =
+        TemplateService service =
                 new FreemarkerTemplateService(templatesDir);
-        PageTemplate template = service.getTemplate(TEMPLATE_NAME_OK);
+        Optional<Template> template = service.getTemplate(TEMPLATE_NAME_OK);
 
-        assertNotNull(template);
+        assertTrue(template.isPresent());
     }
 
 
@@ -79,12 +80,12 @@ public final class FreemarkerTemplateServiceTest
                 TestUtils.getPath(
                         FreemarkerTemplateService.class,
                         TEMPLATE_DIR_OK);
-        PageTemplateService service =
+        TemplateService service =
                 new FreemarkerTemplateService(templatesDir);
 
         TestUtils.assertThrows(
                 YawgException.class,
-                () -> service.getTemplate("NoSuchTemplate.fthl"));
+                () -> service.getTemplate("NoSuchTemplate.ftlh"));
     }
 
 
@@ -98,14 +99,14 @@ public final class FreemarkerTemplateServiceTest
                 TestUtils.getPath(
                         FreemarkerTemplateService.class,
                         TEMPLATE_DIR_OK);
-        PageTemplateService service =
+        TemplateService service =
                 new FreemarkerTemplateService(templatesDir);
-        PageTemplate template = service.getTemplate("template02.fthl");
+        Template template = service.getTemplate("template02.ftlh").get();
 
         String title = "Simple title";
         String body = "Hello, world!";
-        PageTemplateDataModel model =
-                new PageTemplateDataModel.Builder()
+        TemplateDataModel model =
+                new TemplateDataModel.Builder()
                 .setBody(body)
                 .setTitle(title)
                 .setRootRelativeUrl(".")
@@ -131,14 +132,14 @@ public final class FreemarkerTemplateServiceTest
                 TestUtils.getPath(
                         FreemarkerTemplateService.class,
                         TEMPLATE_DIR_OK);
-        PageTemplateService service =
+        TemplateService service =
                 new FreemarkerTemplateService(templatesDir);
-        PageTemplate template = service.getTemplate("template03.fthl");
+        Template template = service.getTemplate("template03.ftlh").get();
 
         String title = "Simple title";
         String body = "Hello, world!";
-        PageTemplateDataModel model =
-                new PageTemplateDataModel.Builder()
+        TemplateDataModel model =
+                new TemplateDataModel.Builder()
                 .setBody(body)
                 .setTitle(title)
                 .setRootRelativeUrl(".")

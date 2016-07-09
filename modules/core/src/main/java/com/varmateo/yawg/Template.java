@@ -9,13 +9,13 @@ package com.varmateo.yawg;
 import java.io.Writer;
 
 import com.varmateo.yawg.YawgException;
-import com.varmateo.yawg.PageTemplateDataModel;
+import com.varmateo.yawg.TemplateDataModel;
 
 
 /**
  * Layout template for a baked page.
  */
-public interface PageTemplate {
+public interface Template {
 
 
     /**
@@ -29,7 +29,7 @@ public interface PageTemplate {
      * processing the template or writing into the given writer.
      */
     void process(
-            PageTemplateDataModel dataModel,
+            TemplateDataModel dataModel,
             Writer output)
             throws YawgException;
 }

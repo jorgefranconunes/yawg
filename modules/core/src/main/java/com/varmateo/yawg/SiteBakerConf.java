@@ -20,9 +20,29 @@ public final class SiteBakerConf
     extends Object {
 
 
-    public final Path assetsDir;
+    /**
+     * Path of directory containing the assets files. These files will
+     * be copied without any changes to teh target directory.
+     */
+    public final Optional<Path> assetsDir;
+
+
+    /**
+     * Path of directory containing the documents to be baked.
+     */
     public final Path sourceDir;
+
+
+    /**
+     * Path of directory where the results of the baking will be
+     * stored.
+     */
     public final Path targetDir;
+
+
+    /**
+     * Path of directory containing the templates files.
+     */
     public final Optional<Path> templatesDir;
 
 
@@ -32,8 +52,8 @@ public final class SiteBakerConf
     private SiteBakerConf(final Builder builder) {
 
         this.assetsDir = builder._assetsDir;
-        this.sourceDir = builder._sourceDir;
-        this.targetDir = builder._targetDir;
+        this.sourceDir = Objects.requireNonNull(builder._sourceDir);
+        this.targetDir = Objects.requireNonNull(builder._targetDir);
         this.templatesDir = builder._templatesDir;
     }
 
@@ -45,7 +65,7 @@ public final class SiteBakerConf
         extends Object {
 
 
-        private Path _assetsDir = null;
+        private Optional<Path> _assetsDir = Optional.empty();
         private Path _sourceDir = null;
         private Path _targetDir = null;
         private Optional<Path> _templatesDir = Optional.empty();
@@ -65,7 +85,7 @@ public final class SiteBakerConf
          */
         public Builder setAssetsDir(final Path assetsDir) {
 
-            _assetsDir = assetsDir;
+            _assetsDir = Optional.ofNullable(assetsDir);
             return this;
         }
 

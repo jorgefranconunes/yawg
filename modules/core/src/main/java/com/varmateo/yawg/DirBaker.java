@@ -19,8 +19,8 @@ import com.varmateo.yawg.DirBakerConfDao;
 import com.varmateo.yawg.DirEntryScanner;
 import com.varmateo.yawg.FileBaker;
 import com.varmateo.yawg.PageContext;
-import com.varmateo.yawg.PageTemplate;
-import com.varmateo.yawg.PageTemplateService;
+import com.varmateo.yawg.Template;
+import com.varmateo.yawg.TemplateService;
 import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogWithUtils;
@@ -36,7 +36,7 @@ import com.varmateo.yawg.logging.LogWithUtils;
     private final LogWithUtils _log;
     private final Path _sourceRootDir;
     private final FileBaker _fileBaker;
-    private final Optional<PageTemplateService> _templateService;
+    private final Optional<TemplateService> _templateService;
     private final DirBakerConfDao _dirBakerConfDao;
 
 
@@ -59,7 +59,7 @@ import com.varmateo.yawg.logging.LogWithUtils;
             final Log log,
             final Path sourceRootDir,
             final FileBaker fileBaker,
-            final Optional<PageTemplateService> templateService,
+            final Optional<TemplateService> templateService,
             final DirBakerConfDao dirBakerConfDao) {
 
         _log = LogWithUtils.from(log);
@@ -126,10 +126,11 @@ import com.varmateo.yawg.logging.LogWithUtils;
             final Path dir,
             final DirBakerConf dirBakerConf) {
 
+        DirEntryScanner scanner = new DirEntryScanner(dirBakerConf);
         List<Path> result =
                 doIoAction(
                         "list directory",
-                        () -> new DirEntryScanner(dirBakerConf).getDirEntries(dir));
+                        () -> scanner.getDirEntries(dir));
 
         return result;
     }
@@ -145,14 +146,15 @@ import com.varmateo.yawg.logging.LogWithUtils;
             final DirBakerConf dirBakerConf)
             throws YawgException {
 
-        Optional<PageTemplate> template =
+        Optional<Template> template =
                 dirBakerConf.templateName
                 .flatMap(name ->
-                         _templateService.map(srv -> srv.getTemplate(name)));
+                         _templateService.flatMap(srv ->
+                                                  srv.getTemplate(name)));
         String rootRelativeUrl = buildRootRelativeUrl(sourceDir);
         PageContext context =
                 new PageContext.Builder()
-                .setPageTemplate(template)
+                .setTemplate(template)
                 .setRootRelativeUrl(rootRelativeUrl)
                 .setTemplateVars(dirBakerConf.templateVars)
                 .build();

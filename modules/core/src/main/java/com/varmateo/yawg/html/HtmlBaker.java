@@ -13,8 +13,8 @@ import java.util.regex.Pattern;
 
 import com.varmateo.yawg.Baker;
 import com.varmateo.yawg.PageContext;
-import com.varmateo.yawg.PageTemplate;
-import com.varmateo.yawg.PageTemplateDataModel;
+import com.varmateo.yawg.Template;
+import com.varmateo.yawg.TemplateDataModel;
 import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.html.HtmlBakerDataModelBuilder;
 import com.varmateo.yawg.util.FileUtils;
@@ -129,7 +129,7 @@ public final class HtmlBaker
             throws IOException {
 
         Path targetPath = getTargetPath(sourcePath, targetDir);
-        Optional<PageTemplate> template = context.pageTemplate;
+        Optional<Template> template = context.pageTemplate;
 
         if ( template.isPresent() ) {
             doBakeWithTemplate(sourcePath, context, targetPath);
@@ -176,9 +176,9 @@ public final class HtmlBaker
             final Path targetPath)
             throws IOException {
 
-        PageTemplateDataModel dataModel =
+        TemplateDataModel dataModel =
                 _modelBuilder.build(sourcePath, context);
-        PageTemplate template = context.pageTemplate.get();
+        Template template = context.pageTemplate.get();
 
         FileUtils.newWriter(
                 targetPath,

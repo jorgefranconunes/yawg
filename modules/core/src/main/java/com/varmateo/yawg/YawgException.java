@@ -29,8 +29,9 @@ public final class YawgException
     /**
      *
      */
-    public YawgException(final String msg,
-                         final Throwable cause) {
+    public YawgException(
+            final String msg,
+            final Throwable cause) {
 
         super(msg, cause);
     }
@@ -39,9 +40,10 @@ public final class YawgException
     /**
      * Throws a newly created <code>YawgException</code>.
      */
-    public static void raise(final String msgFmt,
-                             final Object... fmtArgs)
-        throws YawgException {
+    public static void raise(
+            final String msgFmt,
+            final Object... fmtArgs)
+            throws YawgException {
 
         Exceptions.raise(YawgException.class, msgFmt, fmtArgs);
     }
@@ -50,10 +52,11 @@ public final class YawgException
     /**
      * Throws a newly created <code>YawgException</code>.
      */
-    public static void raise(final Throwable cause,
-                             final String msgFmt,
-                             final Object... fmtArgs)
-        throws YawgException {
+    public static void raise(
+            final Throwable cause,
+            final String msgFmt,
+            final Object... fmtArgs)
+            throws YawgException {
 
         Exceptions.raise(YawgException.class, cause, msgFmt, fmtArgs);
     }

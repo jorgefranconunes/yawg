@@ -65,7 +65,7 @@ import com.varmateo.yawg.logging.LogWithUtils;
         Path sourceDir = _conf.sourceDir;
         Path targetDir = _conf.targetDir;
         Optional<Path> templatesDir = _conf.templatesDir;
-        Path assetsDir   = _conf.assetsDir;
+        Optional<Path> assetsDir = _conf.assetsDir;
 
         _log.info("{0} {1}", YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);
         _log.info("    Source    : {0}", sourceDir);
@@ -75,7 +75,7 @@ import com.varmateo.yawg.logging.LogWithUtils;
                 templatesDir.map(Path::toString).orElse("NONE"));
         _log.info(
                 "    Assets    : {0}",
-                (assetsDir==null) ? "NONE" : assetsDir.toString());
+                assetsDir.map(Path::toString).orElse("NONE"));
 
         _log.logDelay("bake", this::doBake);
     }
@@ -87,7 +87,7 @@ import com.varmateo.yawg.logging.LogWithUtils;
     private void doBake()
             throws YawgException {
 
-        if ( _conf.assetsDir != null ) {
+        if ( _conf.assetsDir.isPresent() ) {
             _log.logDelay("copying assets", this::copyAssets);
         } else {
             _log.debug("No assets directory given. Nothing to copy.");
@@ -120,7 +120,7 @@ import com.varmateo.yawg.logging.LogWithUtils;
     private void copyAssets()
             throws YawgException {
 
-        final Path sourceDir = _conf.assetsDir;
+        final Path sourceDir = _conf.assetsDir.get();
         final Path targetDir = _conf.targetDir;
 
         try {

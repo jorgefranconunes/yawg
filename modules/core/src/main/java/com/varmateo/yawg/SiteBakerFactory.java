@@ -20,7 +20,7 @@ public final class SiteBakerFactory
 
 
     /**
-     * @param conf Configuration parameters.
+     * 
      */
     public SiteBakerFactory() {
         // Nothing to do.
@@ -28,6 +28,8 @@ public final class SiteBakerFactory
 
 
     /**
+     * Creates a new <code>SiteBake</code> instance.
+     *
      * @return The baker object.
      */
     public SiteBaker newSiteBaker() {

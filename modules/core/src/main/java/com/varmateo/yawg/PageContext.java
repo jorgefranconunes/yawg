@@ -9,7 +9,7 @@ package com.varmateo.yawg;
 import java.util.Objects;
 import java.util.Optional;
 
-import com.varmateo.yawg.PageTemplate;
+import com.varmateo.yawg.Template;
 
 
 /**
@@ -22,7 +22,7 @@ public final class PageContext
     /**
      * Template to be used when generating the target page.
      */
-    public final Optional<PageTemplate> pageTemplate;
+    public final Optional<Template> pageTemplate;
 
     /**
      * The relative URL for the top URL of the baked site. Useful for
@@ -55,7 +55,7 @@ public final class PageContext
             extends Object {
 
 
-        private Optional<PageTemplate> _pageTemplate = Optional.empty();
+        private Optional<Template> _pageTemplate = Optional.empty();
         private String _rootRelativeUrl = null;
         private TemplateVars _templateVars = new TemplateVars();
 
@@ -71,7 +71,7 @@ public final class PageContext
         /**
          *
          */
-        public Builder setPageTemplate(final PageTemplate template) {
+        public Builder setTemplate(final Template template) {
 
             _pageTemplate = Optional.of(template);
 
@@ -82,7 +82,7 @@ public final class PageContext
         /**
          *
          */
-        public Builder setPageTemplate(final Optional<PageTemplate> template) {
+        public Builder setTemplate(final Optional<Template> template) {
 
             _pageTemplate = template;
 

@@ -49,7 +49,7 @@ import com.varmateo.yawg.logging.Log;
         _sourceRootDir = sourceRootDir;
         _bakers = bakers;
         _defaultBaker = defaultBaker;
-        _allBakersByType = new HashMap();
+        _allBakersByType = new HashMap<>();
 
         bakers.stream().forEach(b -> _allBakersByType.put(b.getShortName(), b));
         _allBakersByType.put(defaultBaker.getShortName(), defaultBaker);
@@ -68,9 +68,15 @@ import com.varmateo.yawg.logging.Log;
 
         Baker baker = findBaker(sourcePath, dirBakerConf);
         Path sourceRelPath = _sourceRootDir.relativize(sourcePath);
+        long startTime = System.currentTimeMillis();
 
-        _log.debug("Baking {0} with {1}", sourceRelPath, baker.getShortName());
         baker.bake(sourcePath, context, targetDir);
+
+        long delay = System.currentTimeMillis() - startTime;
+        _log.debug("    {0} with {1} ({2}ms)",
+                   sourceRelPath,
+                   baker.getShortName(),
+                   String.valueOf(delay));
     }
 
 

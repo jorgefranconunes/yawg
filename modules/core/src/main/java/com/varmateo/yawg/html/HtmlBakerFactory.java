@@ -35,7 +35,7 @@ public final class HtmlBakerFactory
      *
      */
     @Override
-    public Baker getBaker() {
+    public Baker newBaker() {
 
         return _baker;
     }

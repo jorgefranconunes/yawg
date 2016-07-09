@@ -18,7 +18,7 @@ import org.junit.Test;
 import com.varmateo.testutils.TestUtils;
 
 import com.varmateo.yawg.PageContext;
-import com.varmateo.yawg.PageTemplateDataModel;
+import com.varmateo.yawg.TemplateDataModel;
 import com.varmateo.yawg.asciidoctor.AsciidoctorBakerDataModelBuilder;
 
 
@@ -51,7 +51,7 @@ public final class AsciidoctorBakerDataModelBuilderTest
     public void withTitle()
             throws IOException {
 
-        PageTemplateDataModel model =
+        TemplateDataModel model =
                 buildModel("DocumentWithTitle.adoc", ".");
 
         assertEquals("Document with Title", model.title);
@@ -68,7 +68,7 @@ public final class AsciidoctorBakerDataModelBuilderTest
     public void withoutTitle()
             throws IOException {
 
-        PageTemplateDataModel model =
+        TemplateDataModel model =
                 buildModel("DocumentWithoutTitle.adoc", ".");
 
         assertEquals("DocumentWithoutTitle", model.title);
@@ -81,7 +81,7 @@ public final class AsciidoctorBakerDataModelBuilderTest
     /**
      *
      */
-    private PageTemplateDataModel buildModel(
+    private TemplateDataModel buildModel(
             final String relPath,
             final String rootRelativeUrl)
             throws IOException {
@@ -94,7 +94,7 @@ public final class AsciidoctorBakerDataModelBuilderTest
                 new PageContext.Builder()
                 .setRootRelativeUrl(rootRelativeUrl)
                 .build();
-        PageTemplateDataModel model =
+        TemplateDataModel model =
                 _modelBuilder.build(
                         sourcePath,
                         sourcePath.getParent(),

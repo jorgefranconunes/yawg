@@ -29,11 +29,11 @@ public interface BakerFactory {
     /**
      * Returns a <code>Baker</code> object.
      *
-     * <p>You should not assume that the same object is returned for
+     * <p>You should not assume that a distinct object is returned for
      * every call. Nevertheless, implementors of this interface must
      * guarantee that the returned object is thread safe.</p>
      */
-    Baker getBaker();
+    Baker newBaker();
 
 
     /**

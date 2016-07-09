@@ -9,26 +9,30 @@ package com.varmateo.yawg.freemarker;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.Path;
+import java.util.Optional;
+import java.util.regex.Pattern;
 
 import freemarker.template.Configuration;
-import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
 import freemarker.template.TemplateException;
 
 import com.varmateo.yawg.YawgException;
-import com.varmateo.yawg.PageTemplate;
-import com.varmateo.yawg.PageTemplateDataModel;
-import com.varmateo.yawg.PageTemplateService;
+import com.varmateo.yawg.Template;
+import com.varmateo.yawg.TemplateDataModel;
+import com.varmateo.yawg.TemplateService;
 import com.varmateo.yawg.freemarker.FreemarkerDataModel;
 
 
 /**
- * Creates templates based on Freemarker template files.
+ * Creates templates based on <a
+ * href="http://freemarker.org/">Freemarker</a> template engine.
  */
 public final class FreemarkerTemplateService
         extends Object
-        implements PageTemplateService {
+        implements TemplateService {
 
+
+    private static final Pattern RE_FTLH = Pattern.compile(".*\\.ftlh$");
 
     private final Configuration _fmConfig;
     private final IOException _initializationError;
@@ -90,16 +94,25 @@ public final class FreemarkerTemplateService
 
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
-    public PageTemplate getTemplate(final String name)
+    public Optional<Template> getTemplate(final String name)
             throws YawgException {
 
         checkInitialization();
 
-        Template fmTemplate = getFreemarkerTemplate(name);
-        PageTemplate result = new FreemarkerTemplate(fmTemplate);
+        Optional<Template> result = null;
+
+        if ( RE_FTLH.matcher(name).matches() ) {
+            freemarker.template.Template fmTemplate =
+                    getFreemarkerTemplate(name);
+            Template template =
+                    new FreemarkerTemplate(fmTemplate);
+            result = Optional.of(template);
+        } else {
+            result = Optional.empty();
+        }
 
         return result;
     }
@@ -108,10 +121,11 @@ public final class FreemarkerTemplateService
     /**
      *
      */
-    private Template getFreemarkerTemplate(final String name)
+    private freemarker.template.Template getFreemarkerTemplate(
+            final String name)
             throws YawgException {
 
-        Template fmTemplate = null;
+        freemarker.template.Template fmTemplate = null;
 
         try {
             fmTemplate = _fmConfig.getTemplate(name);
@@ -133,16 +147,17 @@ public final class FreemarkerTemplateService
      */
     private static final class FreemarkerTemplate
             extends Object
-            implements PageTemplate {
+            implements Template {
 
 
-        private final Template _fmTemplate;
+        private final freemarker.template.Template _fmTemplate;
 
 
         /**
          *
          */
-        public FreemarkerTemplate(final Template fmTemplate) {
+        public FreemarkerTemplate(
+                final freemarker.template.Template fmTemplate) {
 
             _fmTemplate = fmTemplate;
         }
@@ -153,7 +168,7 @@ public final class FreemarkerTemplateService
          */
         @Override
         public void process(
-                final PageTemplateDataModel dataModel,
+                final TemplateDataModel dataModel,
                 final Writer writer)
                 throws YawgException {
 

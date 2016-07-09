@@ -32,10 +32,10 @@ public final class AsciidoctorBakerFactory
 
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
-    public Baker getBaker() {
+    public Baker newBaker() {
 
         return _baker;
     }

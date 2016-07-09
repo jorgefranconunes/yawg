@@ -6,7 +6,7 @@
 
 package com.varmateo.yawg.freemarker;
 
-import com.varmateo.yawg.PageTemplateDataModel;
+import com.varmateo.yawg.TemplateDataModel;
 
 
 /**
@@ -16,13 +16,13 @@ public final class FreemarkerDataModel
         extends Object {
 
 
-    private final PageTemplateDataModel _data;
+    private final TemplateDataModel _data;
 
 
     /**
      *
      */
-    public FreemarkerDataModel(final PageTemplateDataModel data) {
+    public FreemarkerDataModel(final TemplateDataModel data) {
 
         _data = data;
     }

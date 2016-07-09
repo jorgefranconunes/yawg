@@ -12,14 +12,15 @@ import java.util.Optional;
 
 import com.varmateo.yawg.Baker;
 import com.varmateo.yawg.BakerFactory;
+import com.varmateo.yawg.CollectiveTemplateService;
 import com.varmateo.yawg.CopyBaker;
 import com.varmateo.yawg.DirBaker;
 import com.varmateo.yawg.DirBakerConfDao;
 import com.varmateo.yawg.FileBaker;
-import com.varmateo.yawg.PageTemplateService;
 import com.varmateo.yawg.SiteBakerConf;
 import com.varmateo.yawg.SingleSiteBaker;
-import com.varmateo.yawg.freemarker.FreemarkerTemplateService;
+import com.varmateo.yawg.TemplateService;
+import com.varmateo.yawg.TemplateServiceFactory;
 import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogFactory;
 import com.varmateo.yawg.util.Holder;
@@ -53,8 +54,8 @@ import com.varmateo.yawg.util.Lists;
     private final Holder<SingleSiteBaker> _siteBaker =
             Holder.of(this::newSiteBaker);
 
-    private final Holder<Optional<PageTemplateService>> _templateService =
-            Holder.of(this::newFreemarkerTemplateService);
+    private final Holder<Optional<TemplateService>> _templateService =
+            Holder.of(this::newTemplateService);
 
     private final Holder<Log> _log =
             Holder.of(this::newLog);
@@ -86,7 +87,7 @@ import com.varmateo.yawg.util.Lists;
         Collection<Baker> result =
                 Lists.map(
                         BakerFactory.getAllFactories(),
-                        BakerFactory::getBaker);
+                        BakerFactory::newBaker);
 
         return result;
     }
@@ -149,11 +150,22 @@ import com.varmateo.yawg.util.Lists;
     /**
      *
      */
-    private Optional<PageTemplateService> newFreemarkerTemplateService() {
+    private Optional<TemplateService> newTemplateService() {
 
-        Optional<PageTemplateService> result =
-                _conf.templatesDir
-                .map(FreemarkerTemplateService::new);
+        Optional<TemplateService> result = null;
+        Optional<Path> dirPath = _conf.templatesDir;
+
+        if ( dirPath.isPresent() ) {
+            Collection<TemplateService> allServices =
+                    Lists.map(
+                            TemplateServiceFactory.getAllFactories(),
+                            f -> f.newTemplateService(dirPath.get()));
+            TemplateService service =
+                    new CollectiveTemplateService(allServices);
+            result = Optional.of(service);
+        } else {
+            result = Optional.empty();
+        }
 
         return result;
     }

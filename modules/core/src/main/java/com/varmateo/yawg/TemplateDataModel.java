@@ -16,7 +16,7 @@ import com.varmateo.yawg.YawgInfo;
 /**
  * Data available to a template during processing.
  */
-public final class PageTemplateDataModel
+public final class TemplateDataModel
         extends Object {
 
 
@@ -66,7 +66,7 @@ public final class PageTemplateDataModel
     /**
      *
      */
-    private PageTemplateDataModel(final Builder builder) {
+    private TemplateDataModel(final Builder builder) {
 
         bakeId = UUID.randomUUID().toString();
         body = Objects.requireNonNull(builder._body);
@@ -79,7 +79,7 @@ public final class PageTemplateDataModel
 
 
     /**
-     * Builder of <code>PageTemplateDataModel</code> instances.
+     * Builder of <code>TemplateDataModel</code> instances.
      */
     public static final class Builder
             extends Object {
@@ -143,9 +143,9 @@ public final class PageTemplateDataModel
         /**
          *
          */
-        public PageTemplateDataModel build() {
+        public TemplateDataModel build() {
 
-            PageTemplateDataModel result = new PageTemplateDataModel(this);
+            TemplateDataModel result = new TemplateDataModel(this);
 
             return result;
         }
