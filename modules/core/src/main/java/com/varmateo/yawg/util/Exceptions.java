@@ -200,11 +200,11 @@ public final class Exceptions
             } else {
                 result = constructor.newInstance(msg, cause);
             }
-        } catch ( Exception e ) {
+        } catch ( ReflectiveOperationException e ) {
             String fmt   = "Failed to create instance of class {0}";
             String errorMsg =
                 MessageFormat.format(fmt, exceptionClass.getName());
-            throw new IllegalArgumentException(errorMsg, e);
+            throw new IllegalArgumentException(errorMsg, e.getCause());
         }
 
         return result;

@@ -20,7 +20,7 @@ import com.varmateo.yawg.cli.util.CliOptions;
 /**
  * Represents the set of supported command line options.
  */
-public final class BakerCliOptions
+/* package private */ final class BakerCliOptions
     extends Object {
 
 

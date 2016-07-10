@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -74,13 +75,12 @@ public final class CliOptions
             raiseCliException(apacheOptions, e);
         }
 
-        if ( cmdLine.getArgList().size() > 0 ) {
+        List<String> argList = cmdLine.getArgList();
+        if ( (argList!=null) && (argList.size()>0) ) {
             // There were arguments that were not options. We require
             // all arguments to be options, thus this is an invalid
             // command line.
-            String   msg     = "unknown option {0}";
-            Object[] fmtArgs = { cmdLine.getArgList().get(0) };
-            CliException.raise(msg, fmtArgs);
+            CliException.raise("unknown option {0}", argList.get(0));
         }
 
         CliOptions result = new CliOptions(options, cmdLine);

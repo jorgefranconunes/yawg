@@ -88,10 +88,7 @@ import com.varmateo.yawg.util.FileUtils;
     @Override
     public boolean isBakeable(final Path path) {
 
-        String basename = path.getFileName().toString();
-        boolean result = RE_ADOC.matcher(basename).matches();
-
-        return result;
+        return FileUtils.isNameMatch(path, RE_ADOC);
     }
 
 

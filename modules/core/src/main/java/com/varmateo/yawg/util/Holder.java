@@ -34,13 +34,15 @@ public final class Holder<T>
     /**
      *
      */
-    private synchronized T buildAndCache(final Supplier<T> builder) {
+    private T buildAndCache(final Supplier<T> builder) {
 
-        if ( !_isBuilt ) {
-            T payload = builder.get();
+        synchronized ( this ) {
+            if ( !_isBuilt ) {
+                T payload = builder.get();
 
-            _getter  = () -> payload;
-            _isBuilt = true;
+                _getter  = () -> payload;
+                _isBuilt = true;
+            }
         }
 
         return _getter.get();

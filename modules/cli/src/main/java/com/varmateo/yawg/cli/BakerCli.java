@@ -30,7 +30,7 @@ import com.varmateo.yawg.cli.util.CliOptions;
 
 
 /**
- * Command line interface for the baker.
+ * Command line interface for the baker utility.
  */
 public final class BakerCli
     extends Object {
@@ -47,13 +47,20 @@ public final class BakerCli
      *
      */
     public BakerCli() {
-
         // Nothing to do.
     }
 
 
     /**
+     * The utility entry point.
      *
+     * @param argv0 The name the utility was launched with on the
+     * command line. It will be used in informative or error messages.
+     *
+     * @param args The command line arguments passed to the utility.
+     *
+     * @return The utility exit status. Zero means all went
+     * well. Non-zero means something failed.
      */
     public int main(
             final String   argv0,
@@ -103,7 +110,7 @@ public final class BakerCli
     /**
      *
      */
-    public void doEverything(
+    private void doEverything(
             final InfoPrinter infoPrinter,
             final String[] args)
             throws CliException {

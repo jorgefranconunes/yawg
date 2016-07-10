@@ -8,7 +8,6 @@ package com.varmateo.yawg.html;
 
 import com.varmateo.yawg.Baker;
 import com.varmateo.yawg.BakerFactory;
-import com.varmateo.yawg.html.HtmlBakerFactory;
 
 
 /**

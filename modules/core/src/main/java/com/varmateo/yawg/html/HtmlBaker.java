@@ -31,7 +31,7 @@ public final class HtmlBaker
 
     private static final String NAME = "html";
 
-    private static final Pattern RE_ADOC = Pattern.compile(".*\\.html$");
+    private static final Pattern RE_HTML = Pattern.compile(".*\\.html$");
 
     private static final String TARGET_EXTENSION = ".html";
 
@@ -72,10 +72,7 @@ public final class HtmlBaker
     @Override
     public boolean isBakeable(final Path path) {
 
-        String basename = path.getFileName().toString();
-        boolean result = RE_ADOC.matcher(basename).matches();
-
-        return result;
+        return FileUtils.isNameMatch(path, RE_HTML);
     }
 
 

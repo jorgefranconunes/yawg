@@ -12,6 +12,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.Optional;
+import java.util.regex.Pattern;
 
 
 /**
@@ -25,11 +27,12 @@ public final class FileUtils
      * No instances of this class are to be created.
      */
     private FileUtils() {
+        // Nothing to do.
     }
 
 
     /**
-     * Determines the basename of the fibel file.
+     * Determines the basename of the given file.
      *
      * <p>The basename is the name of the file without extension.</p>
      *
@@ -48,6 +51,24 @@ public final class FileUtils
                 : basenameWithExtension;
 
         return basenameWithoutExtension;
+    }
+
+
+    /**
+     *
+     */
+    public static boolean isNameMatch(
+            final Path path,
+            final Pattern pattern) {
+
+        Optional<Path> fileName = Optional.ofNullable(path.getFileName());
+        boolean result =
+                fileName
+                .map(Path::toString)
+                .map(basename -> pattern.matcher(basename).matches())
+                .orElse(false);
+
+        return result;
     }
 
 
