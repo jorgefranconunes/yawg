@@ -12,8 +12,11 @@ import java.util.Optional;
 
 import com.varmateo.yawg.Baker;
 import com.varmateo.yawg.BakerFactory;
+import com.varmateo.yawg.CollectiveDirBakeListener;
 import com.varmateo.yawg.CollectiveTemplateService;
 import com.varmateo.yawg.CopyBaker;
+import com.varmateo.yawg.DirBakeListener;
+import com.varmateo.yawg.DirBakeListenerFactory;
 import com.varmateo.yawg.DirBaker;
 import com.varmateo.yawg.DirBakerConfDao;
 import com.varmateo.yawg.FileBaker;
@@ -41,6 +44,9 @@ import com.varmateo.yawg.util.Lists;
 
     private final Holder<Baker> _copyBaker =
             Holder.of(this::newCopyBaker);
+
+    private final Holder<DirBakeListener> _dirBakeListener =
+            Holder.of(this::newDirBakeListener);
 
     private final Holder<DirBaker> _dirBaker =
             Holder.of(this::newDirBaker);
@@ -107,6 +113,22 @@ import com.varmateo.yawg.util.Lists;
     /**
      *
      */
+    private DirBakeListener newDirBakeListener() {
+
+        Collection<DirBakeListener> allListeners =
+                Lists.map(
+                        DirBakeListenerFactory.getAllFactories(),
+                        f -> f.newDirBakeListener());
+        DirBakeListener result =
+                new CollectiveDirBakeListener(allListeners);
+
+        return result;
+    }
+
+
+    /**
+     *
+     */
     private DirBaker newDirBaker() {
 
         DirBaker result =
@@ -115,7 +137,8 @@ import com.varmateo.yawg.util.Lists;
                         _conf.sourceDir,
                         _fileBaker.get(),
                         _templateService.get(),
-                        _dirBakerConfDao.get());
+                        _dirBakerConfDao.get(),
+                        _dirBakeListener.get());
         return result;
     }
 

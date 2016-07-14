@@ -24,9 +24,11 @@ public final class PageContext
      */
     public final Optional<Template> pageTemplate;
 
+
     /**
-     * The relative URL for the top URL of the baked site. Useful for
-     * refering to resources at the top of the document tree.
+     * The URL of the top of the baked site relative to the current
+     * page. Useful for refering to resources at the top of the
+     * document tree.
      */
     public final String rootRelativeUrl;
 
@@ -44,7 +46,7 @@ public final class PageContext
 
         pageTemplate = builder._pageTemplate;
         rootRelativeUrl = Objects.requireNonNull(builder._rootRelativeUrl);
-        templateVars = Objects.requireNonNull(builder._templateVars);
+        templateVars = builder._templateVarsBuilder.build();
     }
 
 
@@ -55,16 +57,30 @@ public final class PageContext
             extends Object {
 
 
-        private Optional<Template> _pageTemplate = Optional.empty();
-        private String _rootRelativeUrl = null;
-        private TemplateVars _templateVars = new TemplateVars();
+        private Optional<Template> _pageTemplate;
+        private String _rootRelativeUrl;
+        private TemplateVars.Builder _templateVarsBuilder;
 
 
         /**
          *
          */
         public Builder() {
-            // Nothing to do.
+
+            _pageTemplate = Optional.empty();
+            _rootRelativeUrl = null;
+            _templateVarsBuilder = new TemplateVars.Builder();
+        }
+
+
+        /**
+         *
+         */
+        public Builder(final PageContext data) {
+
+            _pageTemplate = data.pageTemplate;
+            _rootRelativeUrl = data.rootRelativeUrl;
+            _templateVarsBuilder = new TemplateVars.Builder(data.templateVars);
         }
 
 
@@ -106,7 +122,20 @@ public final class PageContext
          */
         public Builder setTemplateVars(final TemplateVars templateVars) {
 
-            _templateVars = templateVars;
+            _templateVarsBuilder = new TemplateVars.Builder(templateVars);
+
+            return this;
+        }
+
+
+        /**
+         *
+         */
+        public Builder addVar(
+                final String varName,
+                final Object varValue) {
+
+            _templateVarsBuilder.addVar(varName, varValue);
 
             return this;
         }

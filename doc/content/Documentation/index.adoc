@@ -4,8 +4,8 @@
 
 
 
-link:UserGuide.html[User guide]
+link:UserGuide/UserGuide.html[User guide]
 
-link:Equations.html[Equations and mathematical formulas]
+link:Equations/Equations.html[Equations and mathematical formulas]
 
-link:Diagrams.html[Diagrams]
+link:Diagrams/Diagrams.html[Diagrams]

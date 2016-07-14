@@ -12,7 +12,8 @@ import java.util.Optional;
 
 
 /**
- * Set of configuration parameters for a <code>Baker</code>.
+ * Set of configuration parameters for a baking a site with
+ * <code>SiteBaker</code>.
  *
  * <p>Objects of this class are immutable.</p>
  */

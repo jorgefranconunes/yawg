@@ -17,12 +17,14 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.varmateo.testutils.TestUtils;
 
 import com.varmateo.yawg.Baker;
+import com.varmateo.yawg.DirBakeListener;
 import com.varmateo.yawg.DirBaker;
 import com.varmateo.yawg.DirBakerConf;
 import com.varmateo.yawg.FileBaker;
@@ -42,6 +44,8 @@ public final class DirBakerTest
     private static DirBakerConf _emptyConf;
     private static DirBakerConfDao _confDao;
 
+    private DirBakeListener _dirBakeListener;
+
 
     /**
      *
@@ -51,6 +55,16 @@ public final class DirBakerTest
 
         _emptyConf = new DirBakerConf.Builder().build();
         _confDao = new DirBakerConfDao();
+    }
+
+
+    /**
+     *
+     */
+    @Before
+    public void setUp() {
+
+        _dirBakeListener = new MockDirBakeListener();
     }
 
 
@@ -125,7 +139,8 @@ public final class DirBakerTest
                         sourceRootDir,
                         fileBaker,
                         Optional.empty(),
-                        _confDao);
+                        _confDao,
+                        _dirBakeListener);
         return result;
     }
 
@@ -201,6 +216,51 @@ public final class DirBakerTest
             return _bakedFiles;
         }
 
+
+
+    }
+
+
+    /**
+     *
+     */
+    private static final class MockDirBakeListener
+            extends Object
+            implements DirBakeListener {
+
+
+        private int _eventCount;
+
+
+        /**
+         *
+         */
+        public MockDirBakeListener() {
+            _eventCount = 0;
+        }
+
+
+        /**
+         *
+         */
+        @Override
+        public TemplateVars onDirBake(final PageContext context) {
+
+            TemplateVars newVars = context.templateVars;
+
+            ++_eventCount;
+
+            return newVars;
+        }
+
+
+        /**
+         *
+         */
+        public int getEventCount() {
+
+            return _eventCount;
+        }
 
 
     }

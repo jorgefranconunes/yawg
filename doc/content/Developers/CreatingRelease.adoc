@@ -15,11 +15,9 @@ enumerated below.
 
 * Create a release on Github with the given tag and tarball.
 
-The following sections desribe with more detail what needs to be done
-in each setp.
-
-The commands in the text assume your working area reflects the `HEAD`
-of the `main` branch.
+The following sections describe with more detail what needs to be done
+in each step. The commands shown in the text assume your working area
+reflects the `HEAD` of the `main` branch.
 
 
 
@@ -35,6 +33,9 @@ commit your changes and initiate the release process from the
 beginning.
 
 
+
+
+
 == Create Git tag
 
 The Git tag will mark the commit used for the release in the project
@@ -44,9 +45,12 @@ For now we will create the release tag on the HEAD of the master branch.
 
 [source,sh]
 ----
-git tag -a v1.0.0 -m 'Version 1.0.0"
+git tag -a v1.0.0 -m "Version 1.0.0"
 git push origin v1.0.0
 ----
+
+
+
 
 
 == Create the release tarball
@@ -58,8 +62,11 @@ Execute the following command:
 ./devtools/bin/build-create-bundle --build-number=NONE
 ----
 
-This will create a tarball at the top of the working area named
+This will create a tarball at the root of your working area named
 `yawg-1.0.0.tar.bz2`.
+
+
+
 
 
 == Create release on Github

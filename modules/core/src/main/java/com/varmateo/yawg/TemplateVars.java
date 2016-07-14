@@ -37,6 +37,15 @@ public final class TemplateVars
     /**
      *
      */
+    private TemplateVars(final Builder builder) {
+
+        _map = Collections.unmodifiableMap(new HashMap<>(builder._map));
+    }
+
+
+    /**
+     *
+     */
     public TemplateVars() {
 
         _map = Collections.emptyMap();
@@ -66,6 +75,61 @@ public final class TemplateVars
         Optional<Object> result = Optional.ofNullable(value);
 
         return result;
+    }
+
+
+    /**
+     * A builder of <code>TemplateVars</code> instances.
+     */
+    public static final class Builder
+            extends Object {
+
+
+        private Map<String,Object> _map;
+
+
+        /**
+         *
+         */
+        public Builder() {
+
+            _map = new HashMap<>();
+        }
+
+
+        /**
+         *
+         */
+        public Builder(final TemplateVars vars) {
+
+            _map = new HashMap<>(vars._map);
+        }
+
+
+        /**
+         *
+         */
+        public Builder addVar(
+                final String varName,
+                final Object varValue) {
+
+            _map.put(varName, varValue);
+
+            return this;
+        }
+
+
+        /**
+         *
+         */
+        public TemplateVars build() {
+
+            TemplateVars result = new TemplateVars(this);
+
+            return result;
+        }
+
+
     }
 
 

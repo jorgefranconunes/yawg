@@ -1,0 +1,32 @@
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="${rootRelativeUrl}/index.html">Yawg</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <@navbarItem
+               name="home"
+               url="index.html"
+               title="Home" />
+            <li><a href="https://github.com/jorgefranconunes/yawg/releases" target="_blank">Download</a></li>
+            <@navbarItem
+               name="documentation"
+               url="Documentation/index.html"
+               title="Documentation" />
+            <@navbarItem
+               name="developers"
+               url="Developers/index.html"
+               title="Developers" />
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+<#macro navbarItem name url title>
+  <#if (navbarSelectedItem!"") == name>
+    <li class="active"><a href="${rootRelativeUrl}/${url}">${title}</a></li>
+  <#else>
+    <li><a href="${rootRelativeUrl}/${url}">${title}</a></li>
+  </#if>
+</#macro>

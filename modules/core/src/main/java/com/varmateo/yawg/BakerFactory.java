@@ -32,6 +32,8 @@ public interface BakerFactory {
      * <p>You should not assume that a distinct object is returned for
      * every call. Nevertheless, implementors of this interface must
      * guarantee that the returned object is thread safe.</p>
+     *
+     * @return A new <code>Baker</code> object.
      */
     Baker newBaker();
 
@@ -40,6 +42,8 @@ public interface BakerFactory {
      * Retrieves all <code>BakerFactory</code> instances available
      * through the standard Java service loading facility
      * (https://docs.oracle.com/javase/tutorial/ext/basics/spi.html).
+     *
+     * @return All available <code>BakerFactory</code> instances.
      */
     static Collection<BakerFactory> getAllFactories() {
 

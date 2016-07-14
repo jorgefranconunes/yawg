@@ -13,8 +13,9 @@
        integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
        crossorigin="anonymous" />
 
-    <link rel="stylesheet"
-          href="${rootRelativeUrl}/yawg-site.css?v=${bakeId}" />
+    <link
+       rel="stylesheet"
+       href="${rootRelativeUrl}/yawg-site.css?v=${bakeId}" />
     
     <script
        type="text/javascript"
@@ -38,50 +39,22 @@
 
     <div class="yawg-body">
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="${rootRelativeUrl}/index.html">Yawg</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <@navbarItem
-               name="home"
-               url="index.html"
-               title="Home" />
-            <li><a href="https://github.com/jorgefranconunes/yawg/releases" target="_blank">Download</a></li>
-            <@navbarItem
-               name="documentation"
-               url="Documentation/index.html"
-               title="Documentation" />
-            <@navbarItem
-               name="developers"
-               url="Developers/index.html"
-               title="Developers" />
-          </ul>
-        </div><!--/.nav-collapse -->
+      <#include "navbar.ftlh">
+
+      <div class="container yawg-content">
+
+        <h1>${title}</h1>
+        ${body?no_esc}
+
+        <footer class="yawg-footer">
+          <p>&copy;2016 Jorge Nunes
+          <p>Baked with ${productName} ${version}</p>
+        </footer>
+
       </div>
-    </nav>
-
-    <div class="container yawg-content">
-
-      <h1>${title}</h1>
-      ${body?no_esc}
-
-      <footer class="yawg-footer">
-        <p>&copy;Jorge Nunes 2016
-        <p>Baked with ${productName} ${version}</p>
-      </footer>
-
+      
     </div>
-    </div>
+    
   </body>
+  
 </html>
-
-<#macro navbarItem name url title>
-  <#if (navbarSelectedItem!"") == name>
-    <li class="active"><a href="${rootRelativeUrl}/${url}">${title}</a></li>
-  <#else>
-    <li><a href="${rootRelativeUrl}/${url}">${title}</a></li>
-  </#if>
-</#macro>

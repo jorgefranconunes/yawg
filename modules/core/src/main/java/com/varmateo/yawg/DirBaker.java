@@ -27,7 +27,8 @@ import com.varmateo.yawg.logging.LogWithUtils;
 
 
 /**
- * 
+ * Bakes the files contained in a directory, and recursively bake all
+ * sub-directories.
  */
 /* package private */ final class DirBaker
         extends Object {
@@ -38,6 +39,7 @@ import com.varmateo.yawg.logging.LogWithUtils;
     private final FileBaker _fileBaker;
     private final Optional<TemplateService> _templateService;
     private final DirBakerConfDao _dirBakerConfDao;
+    private final DirBakeListener _listener;
 
 
 
@@ -54,19 +56,24 @@ import com.varmateo.yawg.logging.LogWithUtils;
      *
      * @param dirBakerConfDao Used for reading the bake configuration
      * for each directory.
+     *
+     * @param dirBakeListener Will be notified when the bake of a
+     * directory starts.
      */
     public DirBaker(
             final Log log,
             final Path sourceRootDir,
             final FileBaker fileBaker,
             final Optional<TemplateService> templateService,
-            final DirBakerConfDao dirBakerConfDao) {
+            final DirBakerConfDao dirBakerConfDao,
+            final DirBakeListener dirBakeListener) {
 
         _log = LogWithUtils.from(log);
         _sourceRootDir = sourceRootDir;
         _fileBaker = fileBaker;
         _templateService = templateService;
         _dirBakerConfDao = dirBakerConfDao;
+        _listener = dirBakeListener;
     }
 
 
@@ -101,7 +108,9 @@ import com.varmateo.yawg.logging.LogWithUtils;
                 .filter(Files::isDirectory)
                 .collect(Collectors.toList());
 
-        bakeChildFiles(sourceDir, filePathList, targetDir, dirBakerConf);
+        PageContext context = buildPageContext(sourceDir, dirBakerConf);
+
+        bakeChildFiles(context, filePathList, targetDir, dirBakerConf);
         bakeChildDirectories(dirPathList, targetDir, dirBakerConf);
     }
 
@@ -139,12 +148,9 @@ import com.varmateo.yawg.logging.LogWithUtils;
     /**
      *
      */
-    private void bakeChildFiles(
+    private PageContext buildPageContext(
             final Path sourceDir,
-            final List<Path> filePathList,
-            final Path targetDir,
-            final DirBakerConf dirBakerConf)
-            throws YawgException {
+            final DirBakerConf dirBakerConf) {
 
         Optional<Template> template =
                 dirBakerConf.templateName
@@ -159,9 +165,7 @@ import com.varmateo.yawg.logging.LogWithUtils;
                 .setTemplateVars(dirBakerConf.templateVars)
                 .build();
 
-        for ( Path path : filePathList ) {
-            _fileBaker.bakeFile(path, context, targetDir, dirBakerConf);
-        }
+        return context;
     }
 
 
@@ -178,6 +182,22 @@ import com.varmateo.yawg.logging.LogWithUtils;
         }
 
         return result;
+    }
+
+
+    /**
+     *
+     */
+    private void bakeChildFiles(
+            final PageContext context,
+            final List<Path> filePathList,
+            final Path targetDir,
+            final DirBakerConf dirBakerConf)
+            throws YawgException {
+
+        for ( Path path : filePathList ) {
+            _fileBaker.bakeFile(path, context, targetDir, dirBakerConf);
+        }
     }
 
 
