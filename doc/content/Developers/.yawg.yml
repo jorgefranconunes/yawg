@@ -4,3 +4,7 @@
 
 templateVars:
   navbarSelectedItem: "developers"
+  
+  breadcrumb:
+    title: "Developers"
+    url: "index.html"

@@ -4,3 +4,7 @@
 
 templateVars:
   navbarSelectedItem: "documentation"
+  
+  breadcrumb:
+    title: "Documentation"
+    url: "index.html"

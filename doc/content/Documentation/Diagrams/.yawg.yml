@@ -1,0 +1,8 @@
+#
+#
+#
+
+templateVars:
+  breadcrumb:
+    title: "Diagrams"
+    url: "Diagrams.html"

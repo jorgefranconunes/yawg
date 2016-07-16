@@ -1,0 +1,8 @@
+#
+#
+#
+
+templateVars:
+  breadcrumb:
+    title: "User guide"
+    url: "UserGuide.html"

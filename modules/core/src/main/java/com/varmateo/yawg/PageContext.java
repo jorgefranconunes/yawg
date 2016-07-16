@@ -20,6 +20,13 @@ public final class PageContext
 
 
     /**
+     * Th URLof the directory containing the current page relative to
+     * the top of the document tree.
+     */
+    public final String dirUrl;
+
+
+    /**
      * Template to be used when generating the target page.
      */
     public final Optional<Template> pageTemplate;
@@ -44,6 +51,7 @@ public final class PageContext
      */
     private PageContext(final Builder builder) {
 
+        dirUrl = Objects.requireNonNull(builder._dirUrl);
         pageTemplate = builder._pageTemplate;
         rootRelativeUrl = Objects.requireNonNull(builder._rootRelativeUrl);
         templateVars = builder._templateVarsBuilder.build();
@@ -57,6 +65,7 @@ public final class PageContext
             extends Object {
 
 
+        private String _dirUrl;
         private Optional<Template> _pageTemplate;
         private String _rootRelativeUrl;
         private TemplateVars.Builder _templateVarsBuilder;
@@ -67,6 +76,7 @@ public final class PageContext
          */
         public Builder() {
 
+            _dirUrl = null;
             _pageTemplate = Optional.empty();
             _rootRelativeUrl = null;
             _templateVarsBuilder = new TemplateVars.Builder();
@@ -78,9 +88,21 @@ public final class PageContext
          */
         public Builder(final PageContext data) {
 
+            _dirUrl = data.dirUrl;
             _pageTemplate = data.pageTemplate;
             _rootRelativeUrl = data.rootRelativeUrl;
             _templateVarsBuilder = new TemplateVars.Builder(data.templateVars);
+        }
+
+
+        /**
+         *
+         */
+        public Builder setDirUrl(final String dirUrl) {
+
+            _dirUrl = dirUrl;
+
+            return this;
         }
 
 

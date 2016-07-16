@@ -110,7 +110,7 @@ import com.varmateo.yawg.logging.LogWithUtils;
                 .setTemplateName(DEFAULT_TEMPLATE_NAME)
                 .build();
 
-        _dirBaker.bakeDirectory(dirBakerConf, sourceDir, targetDir);
+        _dirBaker.bakeDirectory(sourceDir, targetDir, dirBakerConf);
     }
 
 

@@ -151,6 +151,7 @@ public final class CollectiveDirBakeListenerTest
 
         PageContext context =
                 new PageContext.Builder()
+                .setDirUrl(".")
                 .setRootRelativeUrl(".")
                 .addVar(varName, varValue)
                 .build();

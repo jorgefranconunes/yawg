@@ -18,24 +18,7 @@ ignore:
 
 templateVars:
   navbarSelectedItem: "home"
-
-  breadcrumbs:
-    itemUrl: "index.html"
-    itemTitle: "Home"
-    itemChildren:
-      "Documentation":
-        itemUrl: "Documentation/index.html"
-        itemTitle: "Documentation"
-        itemChildren:
-          "UserGuide":
-            itemUrl: "Documentation/UserGuide/UserGuide.html"
-            itemTitle: "User guide"
-          "Equations":
-            itemUrl: "Documentation/Equations/Equations.html"
-            itemTitle: "Equations and formulas"
-          "Diagrams":
-            itemUrl: "Documentation/Diagrams/Diagrams.html"
-            itemTitle: "Diagrams"
-      "Developers":
-        itemUrl: "Developers/index.html"
-        itemTitle: "Developers"
+  
+  breadcrumb:
+    title: "Home"
+    url: "index.html"

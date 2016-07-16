@@ -115,7 +115,7 @@ import com.varmateo.yawg.util.GlobMatcher;
 
             _templateName = defaults.templateName;
             _filesToIgnore = defaults.filesToIgnore;
-            // _filesToIncludeOnly always start empty.
+            // _filesToIncludeOnly always starts empty.
             _bakerTypes = defaults.bakerTypes;
             _templateVars = defaults.templateVars;
         }

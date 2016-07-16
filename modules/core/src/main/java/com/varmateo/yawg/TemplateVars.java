@@ -79,6 +79,44 @@ public final class TemplateVars
 
 
     /**
+     *
+     */
+    public <T> Optional<T> get(
+            final String key,
+            final Class<T> klass) {
+
+        Optional<T> result = null;
+        Object value = _map.get(key);
+
+        if ( (value!=null) && klass.isInstance(value) ) {
+            result = Optional.of((T)value);
+        } else {
+            result = Optional.empty();
+        }
+
+        return result;
+    }
+
+
+    /**
+     *
+     */
+    public Optional<Map<String,Object>> getMap(final String key) {
+
+        Optional<Map<String,Object>> result = null;
+        Object value = _map.get(key);
+
+        if ( (value!=null) && (value instanceof Map) ) {
+            result = Optional.of((Map<String,Object>)value);
+        } else {
+            result = Optional.empty();
+        }
+
+        return result;
+    }
+
+
+    /**
      * A builder of <code>TemplateVars</code> instances.
      */
     public static final class Builder

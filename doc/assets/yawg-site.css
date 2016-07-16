@@ -32,6 +32,15 @@ body {
 
 
 /**
+ * Bootstrap classes.
+ */
+
+.breadcrumb {
+    margin-top: 20px;
+}
+
+
+/**
  * Asccidoctor classes.
  */
 

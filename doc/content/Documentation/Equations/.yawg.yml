@@ -1,0 +1,8 @@
+#
+#
+#
+
+templateVars:
+  breadcrumb:
+    title: "Equations"
+    url: "Equations.html"

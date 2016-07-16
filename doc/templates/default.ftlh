@@ -43,6 +43,8 @@
 
       <div class="container yawg-content">
 
+        <#include "breadcrumbs.ftlh">
+
         <h1>${title}</h1>
         ${body?no_esc}
 

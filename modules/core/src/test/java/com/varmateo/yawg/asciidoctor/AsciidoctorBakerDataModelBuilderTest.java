@@ -51,13 +51,11 @@ public final class AsciidoctorBakerDataModelBuilderTest
     public void withTitle()
             throws IOException {
 
-        TemplateDataModel model =
-                buildModel("DocumentWithTitle.adoc", ".");
+        TemplateDataModel model = buildModel("DocumentWithTitle.adoc");
 
         assertEquals("Document with Title", model.title);
         assertTrue(model.body.contains(
                 "The body of the document with a title."));
-        assertEquals(".", model.rootRelativeUrl);
     }
 
 
@@ -68,32 +66,31 @@ public final class AsciidoctorBakerDataModelBuilderTest
     public void withoutTitle()
             throws IOException {
 
-        TemplateDataModel model =
-                buildModel("DocumentWithoutTitle.adoc", ".");
+        TemplateDataModel model = buildModel("DocumentWithoutTitle.adoc");
 
         assertEquals("DocumentWithoutTitle", model.title);
         assertTrue(model.body.contains(
                 "The body of the document without a title."));
-        assertEquals(".", model.rootRelativeUrl);
     }
 
 
     /**
      *
      */
-    private TemplateDataModel buildModel(
-            final String relPath,
-            final String rootRelativeUrl)
+    private TemplateDataModel buildModel(final String relPath)
             throws IOException {
 
+        String dirUrl = ".";
+        String rootRelativeUrl = ".";
+        PageContext context =
+                new PageContext.Builder()
+                .setDirUrl(dirUrl)
+                .setRootRelativeUrl(rootRelativeUrl)
+                .build();
         Path sourcePath =
                 TestUtils.getPath(
                         AsciidoctorBakerDataModelBuilder.class,
                         relPath);
-        PageContext context =
-                new PageContext.Builder()
-                .setRootRelativeUrl(rootRelativeUrl)
-                .build();
         TemplateDataModel model =
                 _modelBuilder.build(
                         sourcePath,

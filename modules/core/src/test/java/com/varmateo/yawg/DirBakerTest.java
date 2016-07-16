@@ -84,7 +84,7 @@ public final class DirBakerTest
         MockBaker mockBaker = new MockBaker();
         DirBaker baker = buildDirBaker(sourceDir, mockBaker);
 
-        baker.bakeDirectory(conf, sourceDir, targetDir);
+        baker.bakeDirectory(sourceDir, targetDir, conf);
 
         List<Path> bakedFiles = mockBaker.getBakedFiles();
         List<String> expectedFiles =
@@ -107,7 +107,7 @@ public final class DirBakerTest
         MockBaker mockBaker = new MockBaker();
         DirBaker baker = buildDirBaker(sourceDir, mockBaker);
 
-        baker.bakeDirectory(_emptyConf, sourceDir, targetDir);
+        baker.bakeDirectory(sourceDir, targetDir, _emptyConf);
 
         List<Path> bakedFiles = mockBaker.getBakedFiles();
         List<String> expectedFiles =

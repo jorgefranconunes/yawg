@@ -15,13 +15,15 @@ import com.varmateo.yawg.util.Lists;
 
 
 /**
- * A factory o <code>DirBakeListener</code> instances.
+ * A factory of <code>DirBakeListener</code> instances.
  */
 public interface DirBakeListenerFactory {
 
 
     /**
      * Returns a <code>DirBakeListener</code> object.
+     *
+     * @return A newly created <code>DirBakeListener</code> instance.
      */
     DirBakeListener newDirBakeListener();
 

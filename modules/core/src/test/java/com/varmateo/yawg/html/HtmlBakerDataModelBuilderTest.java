@@ -47,14 +47,12 @@ public final class HtmlBakerDataModelBuilderTest
     public void withTitle()
             throws IOException {
 
-        TemplateDataModel model =
-                buildModel("DocumentWithTitle.html", ".");
+        TemplateDataModel model = buildModel("DocumentWithTitle.html");
 
         assertEquals("Document with Title", model.title);
         assertEquals(
                 "<p>The body of the document with a title.</p>",
                 model.body);
-        assertEquals(".", model.rootRelativeUrl);
     }
 
 
@@ -65,69 +63,30 @@ public final class HtmlBakerDataModelBuilderTest
     public void withoutTitle()
             throws IOException {
 
-        TemplateDataModel model =
-                buildModel("DocumentWithoutTitle.html", ".");
+        TemplateDataModel model = buildModel("DocumentWithoutTitle.html");
 
         assertEquals("DocumentWithoutTitle", model.title);
         assertEquals(
                 "<p>The body of the document without a title.</p>",
                 model.body);
-        assertEquals(".", model.rootRelativeUrl);
     }
 
 
     /**
      *
      */
-    @Test
-    public void depthOne()
+    private TemplateDataModel buildModel(final String relPath)
             throws IOException {
 
-        TemplateDataModel model =
-                buildModel("depth01/DocumentWithTitleDepth01.html", "..");
-
-        assertEquals("Document with Title", model.title);
-        assertEquals(
-                "<p>The body of the document with a title.</p>",
-                model.body);
-        assertEquals("..", model.rootRelativeUrl);
-    }
-
-
-    /**
-     *
-     */
-    @Test
-    public void depthTwo()
-            throws IOException {
-
-        TemplateDataModel model =
-                buildModel(
-                        "depth01/depth02/DocumentWithTitleDepth02.html",
-                        "../..");
-
-        assertEquals("Document with Title", model.title);
-        assertEquals(
-                "<p>The body of the document with a title.</p>",
-                model.body);
-        assertEquals("../..", model.rootRelativeUrl);
-    }
-
-
-    /**
-     *
-     */
-    private TemplateDataModel buildModel(
-            final String relPath,
-            final String rootRelativeUrl)
-            throws IOException {
-
-        Path sourcePath =
-                TestUtils.getPath(HtmlBakerDataModelBuilder.class, relPath);
+        String dirUrl = ".";
+        String rootRelativeUrl = ".";
         PageContext context =
                 new PageContext.Builder()
+                .setDirUrl(dirUrl)
                 .setRootRelativeUrl(rootRelativeUrl)
                 .build();
+        Path sourcePath =
+                TestUtils.getPath(HtmlBakerDataModelBuilder.class, relPath);
         TemplateDataModel model = _modelBuilder.build(sourcePath, context);
 
         return model;
