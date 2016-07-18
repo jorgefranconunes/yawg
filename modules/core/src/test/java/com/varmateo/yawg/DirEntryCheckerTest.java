@@ -30,9 +30,7 @@ public final class DirEntryCheckerTest
     @Test
     public void withEmptyConf() {
 
-        DirBakerConf conf =
-                new DirBakerConf.Builder()
-                .build();
+        DirBakerConf conf = DirBakerConf.builder().build();
         DirEntryChecker checker = new DirEntryChecker(conf);
 
         assertTrue(checker.asStringPredicate().test("anything"));
@@ -46,7 +44,7 @@ public final class DirEntryCheckerTest
     public void withIgnoreOne() {
 
         DirBakerConf conf =
-                new DirBakerConf.Builder()
+                DirBakerConf.builder()
                 .setFilesToIgnore("*.txt")
                 .build();
         DirEntryChecker checker = new DirEntryChecker(conf);
@@ -64,7 +62,7 @@ public final class DirEntryCheckerTest
     public void withIgnoreMany() {
 
         DirBakerConf conf =
-                new DirBakerConf.Builder()
+                DirBakerConf.builder()
                 .setFilesToIgnore("*.txt", "*.puml", "*~")
                 .build();
         DirEntryChecker checker = new DirEntryChecker(conf);
@@ -84,7 +82,7 @@ public final class DirEntryCheckerTest
     public void withIncludeOnlyOne() {
 
         DirBakerConf conf =
-                new DirBakerConf.Builder()
+                DirBakerConf.builder()
                 .setFilesToIncludeOnly("*.adoc")
                 .build();
         DirEntryChecker checker = new DirEntryChecker(conf);
@@ -102,7 +100,7 @@ public final class DirEntryCheckerTest
     public void withIncludeOnlyTwo() {
 
         DirBakerConf conf =
-                new DirBakerConf.Builder()
+                DirBakerConf.builder()
                 .setFilesToIncludeOnly("*.adoc", "*.svg")
                 .build();
         DirEntryChecker checker = new DirEntryChecker(conf);
@@ -122,7 +120,7 @@ public final class DirEntryCheckerTest
     public void withIgnoreAndInclude() {
 
         DirBakerConf conf =
-                new DirBakerConf.Builder()
+                DirBakerConf.builder()
                 .setFilesToIgnore("*.txt")
                 .setFilesToIncludeOnly("*.adoc")
                 .build();
@@ -142,7 +140,7 @@ public final class DirEntryCheckerTest
     public void pathWithIgnoreOne() {
 
         DirBakerConf conf =
-                new DirBakerConf.Builder()
+                DirBakerConf.builder()
                 .setFilesToIgnore("*.txt")
                 .build();
         DirEntryChecker checker = new DirEntryChecker(conf);

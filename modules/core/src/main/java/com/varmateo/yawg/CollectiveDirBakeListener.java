@@ -60,7 +60,7 @@ final class CollectiveDirBakeListener
             final TemplateVars newVars) {
 
         PageContext result =
-                new PageContext.Builder(oldData)
+                PageContext.builder(oldData)
                 .setTemplateVars(newVars)
                 .build();
 

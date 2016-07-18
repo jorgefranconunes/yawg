@@ -29,14 +29,14 @@ public final class DirBakerConfTest
     @Test
     public void mergeFromEmpty() {
 
-        DirBakerConf confEmpty = new DirBakerConf.Builder().build();
+        DirBakerConf confEmpty = DirBakerConf.builder().build();
         DirBakerConf conf =
-                new DirBakerConf.Builder()
+                DirBakerConf.builder()
                 .setFilesToIgnore("hello")
                 .build()
                 .mergeOnTopOf(confEmpty);
         DirBakerConf expectedConf =
-                new DirBakerConf.Builder()
+                DirBakerConf.builder()
                 .setFilesToIgnore("hello")
                 .build();
 
@@ -51,16 +51,16 @@ public final class DirBakerConfTest
     public void mergeOne() {
 
         DirBakerConf conf01 =
-                new DirBakerConf.Builder()
+                DirBakerConf.builder()
                 .setFilesToIgnore("hello")
                 .build();
         DirBakerConf conf02 =
-                new DirBakerConf.Builder()
+                DirBakerConf.builder()
                 .setFilesToIgnore("world")
                 .build()
                 .mergeOnTopOf(conf01);
         DirBakerConf expectedConf =
-                new DirBakerConf.Builder()
+                DirBakerConf.builder()
                 .setFilesToIgnore("hello", "world")
                 .build();
 

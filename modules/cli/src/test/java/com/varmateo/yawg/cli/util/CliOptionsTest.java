@@ -29,7 +29,7 @@ public final class CliOptionsTest
 
 
     private static final CliOption OPT1 =
-        new CliOption.Builder()
+        CliOption.builder()
         .setLongName("option1")
         .setDescription("This is option one")
         .setShortName("o1")
@@ -38,7 +38,7 @@ public final class CliOptionsTest
     private static final String OPT_WITH_ARG_NAME = "option-with-arg";
     private static final String OPT_WITH_ARG_OPT = "--" + OPT_WITH_ARG_NAME;
     private static final CliOption OPT_WITH_ARG =
-        new CliOption.Builder()
+        CliOption.builder()
         .setLongName(OPT_WITH_ARG_NAME)
         .setDescription("This is option has one argument")
         .setArgName("ARG")
@@ -47,7 +47,7 @@ public final class CliOptionsTest
     private static final String OPT_NO_ARG_NAME = "option-with-no-arg";
     private static final String OPT_NO_ARG_OPT = "--" + OPT_WITH_ARG_NAME;
     private static final CliOption OPT_NO_ARG =
-        new CliOption.Builder()
+        CliOption.builder()
         .setLongName(OPT_WITH_ARG_NAME)
         .setDescription("This is option has one argument")
         .build();

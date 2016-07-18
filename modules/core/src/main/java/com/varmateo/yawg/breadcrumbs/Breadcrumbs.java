@@ -43,6 +43,35 @@ public final class Breadcrumbs
 
 
     /**
+     * Creates a new builder with no initializations.
+     *
+     * @return A newly created <code>Builder</code> instance.
+     */
+    public static Builder builder() {
+
+        Builder result = new Builder();
+
+        return result;
+    }
+
+
+    /**
+     * Creates a new builder initialized with the data from the given
+     * <code>Breadcrumbs</code>.
+     *
+     * @param data Used for initializing the builder state.
+     *
+     * @return A newly created <code>Builder</code> instance.
+     */
+    public static Builder builder(final Breadcrumbs data) {
+
+        Builder result = new Builder(data);
+
+        return result;
+    }
+
+
+    /**
      *
      */
     public List<BreadcrumbItem> getItems() {
@@ -64,7 +93,16 @@ public final class Breadcrumbs
         /**
          *
          */
-        public Builder(final Breadcrumbs data) {
+        private Builder() {
+
+            _items = new ArrayList<>();
+        }
+
+
+        /**
+         *
+         */
+        private Builder(final Breadcrumbs data) {
 
             _items = new ArrayList<>(data._items);
         }

@@ -83,7 +83,7 @@ public final class AsciidoctorBakerDataModelBuilderTest
         String dirUrl = ".";
         String rootRelativeUrl = ".";
         PageContext context =
-                new PageContext.Builder()
+                PageContext.builder()
                 .setDirUrl(dirUrl)
                 .setRootRelativeUrl(rootRelativeUrl)
                 .build();

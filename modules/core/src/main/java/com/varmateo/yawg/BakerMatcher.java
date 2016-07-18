@@ -39,6 +39,35 @@ import com.varmateo.yawg.util.GlobMatcher;
 
 
     /**
+     * Creates a new builder with no initializations.
+     *
+     * @return A newly created <code>Builder</code> instance.
+     */
+    public static Builder builder() {
+
+        Builder result = new Builder();
+
+        return result;
+    }
+
+
+    /**
+     * Creates a new builder initialized with the data from the given
+     * <code>BakerMatcher</code>.
+     *
+     * @param data Used for initializing the builder state.
+     *
+     * @return A newly created <code>Builder</code> instance.
+     */
+    public static Builder builder(final BakerMatcher data) {
+
+        Builder result = new Builder(data);
+
+        return result;
+    }
+
+
+    /**
      *
      */
     public Optional<String> getBakerTypeFor(final Path path) {
@@ -111,7 +140,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         /**
          *
          */
-        public Builder() {
+        private Builder() {
 
             _bakerTypes = new LinkedHashMap<>();
         }
@@ -120,10 +149,10 @@ import com.varmateo.yawg.util.GlobMatcher;
         /**
          *
          */
-        public Builder(final BakerMatcher bakerTypes) {
+        private Builder(final BakerMatcher data) {
 
             _bakerTypes = new LinkedHashMap<>();
-            bakerTypes._bakerTypes
+            data._bakerTypes
                     .stream()
                     .forEach(e -> _bakerTypes.put(e.mapType, e.matcher));
         }
@@ -140,7 +169,7 @@ import com.varmateo.yawg.util.GlobMatcher;
                     bakerType,
                     matcher,
                     (oldMatcher, newMatcher) ->
-                    new GlobMatcher.Builder(oldMatcher)
+                    GlobMatcher.builder(oldMatcher)
                     .addGlobMatcher(newMatcher)
                     .build());
 

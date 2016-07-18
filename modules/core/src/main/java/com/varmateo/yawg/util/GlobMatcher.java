@@ -90,6 +90,35 @@ public final class GlobMatcher
 
 
     /**
+     * Creates a new builder with no initializations.
+     *
+     * @return A newly created <code>Builder</code> instance.
+     */
+    public static Builder builder() {
+
+        Builder result = new Builder();
+
+        return result;
+    }
+
+
+    /**
+     * Creates a new builder initialized with the data from the given
+     * <code>GlobMatcher</code>.
+     *
+     * @param data Used for initializing the builder state.
+     *
+     * @return A newly created <code>Builder</code> instance.
+     */
+    public static Builder builder(final GlobMatcher data) {
+
+        Builder result = new Builder(data);
+
+        return result;
+    }
+
+
+    /**
      * Checks if the given path matches the glob pattern represented
      * by this object.
      *
@@ -134,7 +163,7 @@ public final class GlobMatcher
 
 
     /**
-     *
+     * A builder of <code>GlobMatcher</code> instances.
      */
     public static final class Builder
             extends Object {
@@ -147,7 +176,7 @@ public final class GlobMatcher
         /**
          *
          */
-        public Builder() {
+        private Builder() {
 
             _globPatterns = new ArrayList<>();
             _matchers = new ArrayList<>();
@@ -157,7 +186,7 @@ public final class GlobMatcher
         /**
          *
          */
-        public Builder(final GlobMatcher globMatcher) {
+        private Builder(final GlobMatcher globMatcher) {
 
             _globPatterns = new ArrayList<>(globMatcher._globPatterns);
             _matchers = new ArrayList<>(globMatcher._matchers);

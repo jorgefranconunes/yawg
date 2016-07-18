@@ -60,6 +60,19 @@ public final class SiteBakerConf
 
 
     /**
+     * Creates a new builder with no initializations.
+     *
+     * @return A newly created <code>Builder</code> instance.
+     */
+    public static Builder builder() {
+
+        Builder result = new Builder();
+
+        return result;
+    }
+
+
+    /**
      * A builder of <code>SiteBakerConf</code> instances.
      */
     public static final class Builder
@@ -75,7 +88,7 @@ public final class SiteBakerConf
         /**
          * 
          */
-        public Builder() {
+        private Builder() {
 
             // Nothing to do.
         }

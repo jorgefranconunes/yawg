@@ -98,7 +98,7 @@ public final class BakerCli
                 new PrintWriter(stdoutWriter, autoFlush);
 
         InfoPrinter infoPrinter =
-            new InfoPrinter.Builder()
+            InfoPrinter.builder()
             .setArgv0(argv0)
             .setOutput(stdout)
             .build();
@@ -147,7 +147,7 @@ public final class BakerCli
                 cliOptions.getPath(BakerCliOptions.ASSETS_DIR, null);
 
         SiteBakerConf conf =
-                new SiteBakerConf.Builder()
+                SiteBakerConf.builder()
                 .setSourceDir(sourceDir)
                 .setTargetDir(targetDir)
                 .setTemplatesDir(templatesDir)

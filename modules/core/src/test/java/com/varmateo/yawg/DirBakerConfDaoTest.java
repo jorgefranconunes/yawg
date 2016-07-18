@@ -32,7 +32,7 @@ public final class DirBakerConfDaoTest
         extends Object {
 
 
-    private final DirBakerConf _emptyConf = new DirBakerConf.Builder().build();
+    private final DirBakerConf _emptyConf = DirBakerConf.builder().build();
     private DirBakerConfDao _dao = null;
 
 
@@ -70,7 +70,7 @@ public final class DirBakerConfDaoTest
                 + "template: " + templateName;
         DirBakerConf actualConf = readFromString(confContents);
         DirBakerConf expectedConf =
-                new DirBakerConf.Builder()
+                DirBakerConf.builder()
                 .setTemplateName(templateName)
                 .build();
 
@@ -118,7 +118,7 @@ public final class DirBakerConfDaoTest
                 + "  - .*~\n";
         DirBakerConf actualConf = readFromString(confContents);
         DirBakerConf expectedConf =
-                new DirBakerConf.Builder()
+                DirBakerConf.builder()
                 .setFilesToIgnore("one", ".*~")
                 .build();
 
@@ -184,7 +184,7 @@ public final class DirBakerConfDaoTest
                 + "  - two\n";
         DirBakerConf actualConf = readFromString(confContents);
         DirBakerConf expectedConf =
-                new DirBakerConf.Builder()
+                DirBakerConf.builder()
                 .setFilesToIncludeOnly("one", "two")
                 .build();
 
@@ -218,7 +218,7 @@ public final class DirBakerConfDaoTest
                 +"       - '*.adoc'\n";
         DirBakerConf actualConf = readFromString(confContents);
         DirBakerConf expectedConf =
-                new DirBakerConf.Builder()
+                DirBakerConf.builder()
                 .addBakerType("something", "*.txt", "*.html")
                 .addBakerType("other", "*.adoc")
                 .build();
@@ -259,7 +259,7 @@ public final class DirBakerConfDaoTest
                 .resolve("dirWithYawgYml/.yawg.yml");
         DirBakerConf actualConf = _dao.loadFromFile(confFile);
         DirBakerConf expectedConf =
-                new DirBakerConf.Builder()
+                DirBakerConf.builder()
                 .setTemplateName("demo")
                 .build();
 
@@ -293,7 +293,7 @@ public final class DirBakerConfDaoTest
                 .resolve("dirWithYawgYml");
         DirBakerConf actualConf = _dao.loadFromDir(sourceDir);
         DirBakerConf expectedConf =
-                new DirBakerConf.Builder()
+                DirBakerConf.builder()
                 .setTemplateName("demo")
                 .build();
 

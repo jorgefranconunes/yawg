@@ -59,6 +59,35 @@ public final class PageContext
 
 
     /**
+     * Creates a new builder with no initializations.
+     *
+     * @return A newly created <code>Builder</code> instance.
+     */
+    public static Builder builder() {
+
+        Builder result = new Builder();
+
+        return result;
+    }
+
+
+    /**
+     * Creates a new builder initialized with the data from the given
+     * <code>PageContext</code>.
+     *
+     * @param data Used for initializing the builder state.
+     *
+     * @return A newly created <code>Builder</code> instance.
+     */
+    public static Builder builder(final PageContext data) {
+
+        Builder result = new Builder(data);
+
+        return result;
+    }
+
+
+    /**
      * A builder of <code>PageContext</code> instances.
      */
     public static final class Builder
@@ -74,24 +103,24 @@ public final class PageContext
         /**
          *
          */
-        public Builder() {
+        private Builder() {
 
             _dirUrl = null;
             _pageTemplate = Optional.empty();
             _rootRelativeUrl = null;
-            _templateVarsBuilder = new TemplateVars.Builder();
+            _templateVarsBuilder = TemplateVars.builder();
         }
 
 
         /**
          *
          */
-        public Builder(final PageContext data) {
+        private Builder(final PageContext data) {
 
             _dirUrl = data.dirUrl;
             _pageTemplate = data.pageTemplate;
             _rootRelativeUrl = data.rootRelativeUrl;
-            _templateVarsBuilder = new TemplateVars.Builder(data.templateVars);
+            _templateVarsBuilder = TemplateVars.builder(data.templateVars);
         }
 
 
@@ -144,7 +173,7 @@ public final class PageContext
          */
         public Builder setTemplateVars(final TemplateVars templateVars) {
 
-            _templateVarsBuilder = new TemplateVars.Builder(templateVars);
+            _templateVarsBuilder = TemplateVars.builder(templateVars);
 
             return this;
         }

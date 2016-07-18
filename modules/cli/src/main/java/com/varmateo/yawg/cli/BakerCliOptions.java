@@ -25,48 +25,48 @@ import com.varmateo.yawg.cli.util.CliOptions;
 
 
     public static final CliOption ASSETS_DIR =
-        new CliOption.Builder()
+        CliOption.builder()
         .setLongName("assets")
         .setArgName("PATH")
         .setDescription("path of assets directory")
         .build();
 
     public static final CliOption HELP =
-        new CliOption.Builder()
+        CliOption.builder()
         .setLongName("help")
         .setDescription("show this help text and exit")
         .setShortName("h")
         .build();
 
     public static final CliOption SOURCE_DIR =
-        new CliOption.Builder()
+        CliOption.builder()
         .setLongName("source")
         .setArgName("PATH")
         .setDescription("path of source directory")
         .build();
 
     public static final CliOption TARGET_DIR =
-        new CliOption.Builder()
+        CliOption.builder()
         .setLongName("target")
         .setArgName("PATH")
         .setDescription("path of target directory")
         .build();
 
     public static final CliOption TEMPLATES_DIR =
-        new CliOption.Builder()
+        CliOption.builder()
         .setLongName("templates")
         .setArgName("PATH")
         .setDescription("path of templates directory")
         .build();
 
     public static final CliOption VERBOSE =
-        new CliOption.Builder()
+        CliOption.builder()
         .setLongName("verbose")
         .setDescription("show abundant logging")
         .build();
 
     public static final CliOption VERSION =
-        new CliOption.Builder()
+        CliOption.builder()
         .setShortName("v")
         .setLongName("version")
         .setDescription("show version and exit")

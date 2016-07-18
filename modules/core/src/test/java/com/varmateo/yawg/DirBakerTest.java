@@ -53,7 +53,7 @@ public final class DirBakerTest
     @BeforeClass
     public static void classSetUp() {
 
-        _emptyConf = new DirBakerConf.Builder().build();
+        _emptyConf = DirBakerConf.builder().build();
         _confDao = new DirBakerConfDao();
     }
 
@@ -75,7 +75,7 @@ public final class DirBakerTest
     public void bakeSomeWithConfFixed() {
 
         DirBakerConf conf =
-                new DirBakerConf.Builder()
+                DirBakerConf.builder()
                 .setFilesToIgnore("*.txt")
                 .build();
 

@@ -61,6 +61,19 @@ import com.varmateo.yawg.util.GlobMatcher;
 
 
     /**
+     * Creates a new builder with no initializations.
+     *
+     * @return A newly created <code>Builder</code> instance.
+     */
+    public static Builder builder() {
+
+        Builder result = new Builder();
+
+        return result;
+    }
+
+
+    /**
      * Creates a new container starting with the values from
      * <code>that</code> and overriding it with the values we possess.
      *
@@ -103,7 +116,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         /**
          *
          */
-        public Builder() {
+        private Builder() {
             // Nothing to do.
         }
 
@@ -164,7 +177,7 @@ import com.varmateo.yawg.util.GlobMatcher;
 
             if ( _filesToIgnore.isPresent() ) {
                 newFilesToIgnore =
-                        new GlobMatcher.Builder(_filesToIgnore.get())
+                        GlobMatcher.builder(_filesToIgnore.get())
                         .addGlobMatcher(fileNames)
                         .build();
             } else {
@@ -219,7 +232,7 @@ import com.varmateo.yawg.util.GlobMatcher;
                 final String... fileNames) {
 
             BakerMatcher bakerTypes =
-                    new BakerMatcher.Builder()
+                    BakerMatcher.builder()
                     .addBakerType(bakerType, fileNames)
                     .build();
 
@@ -238,7 +251,7 @@ import com.varmateo.yawg.util.GlobMatcher;
 
             if ( _bakerTypes.isPresent() ) {
                 newBakerTypes =
-                        new BakerMatcher.Builder(_bakerTypes.get())
+                        BakerMatcher.builder(_bakerTypes.get())
                         .addBakerTypes(bakerTypes)
                         .build();
             } else {

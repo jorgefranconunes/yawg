@@ -168,7 +168,8 @@ import com.varmateo.yawg.logging.LogWithUtils;
     private PageContext buildPageContext(
             final Path sourceDir,
             final DirBakerConf dirBakerConf,
-            final TemplateVars vars) {
+            final TemplateVars vars)
+            throws YawgException {
 
         Optional<Template> template =
                 dirBakerConf.templateName
@@ -179,7 +180,7 @@ import com.varmateo.yawg.logging.LogWithUtils;
         String rootRelativeUrl = buildRelativeUrl(_sourceRootDir, sourceDir);
         TemplateVars newVars = dirBakerConf.templateVars.mergeOnTopOf(vars);
         PageContext context =
-                new PageContext.Builder()
+                PageContext.builder()
                 .setDirUrl(dirUrl)
                 .setRootRelativeUrl(rootRelativeUrl)
                 .setTemplate(template)
@@ -187,7 +188,7 @@ import com.varmateo.yawg.logging.LogWithUtils;
                 .build();
         TemplateVars extendedVars = _listener.onDirBake(context);
         PageContext extendedContext =
-                new PageContext.Builder(context)
+                PageContext.builder(context)
                 .setTemplateVars(extendedVars)
                 .build();
 

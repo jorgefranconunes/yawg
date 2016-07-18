@@ -8,6 +8,7 @@ package com.varmateo.yawg;
 
 import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.TemplateVars;
+import com.varmateo.yawg.YawgException;
 
 
 /**
@@ -32,8 +33,12 @@ public interface DirBakeListener {
      * template variables it should return the same
      * <code>TemplateVars</code> instance contained in the given
      * <code>PageContext</code>.
+     *
+     * @throws YawgException If there were any problems performing its
+     * activities.
      */
-    TemplateVars onDirBake(PageContext context);
+    TemplateVars onDirBake(PageContext context)
+            throws YawgException;
 
 
 }

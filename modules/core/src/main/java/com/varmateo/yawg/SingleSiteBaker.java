@@ -106,7 +106,7 @@ import com.varmateo.yawg.logging.LogWithUtils;
         Path sourceDir = _conf.sourceDir;
         Path targetDir = _conf.targetDir;
         DirBakerConf dirBakerConf =
-                new DirBakerConf.Builder()
+                DirBakerConf.builder()
                 .setTemplateName(DEFAULT_TEMPLATE_NAME)
                 .build();
 

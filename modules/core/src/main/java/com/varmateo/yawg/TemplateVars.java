@@ -53,6 +53,35 @@ public final class TemplateVars
 
 
     /**
+     * Creates a new builder with no initializations.
+     *
+     * @return A newly created <code>Builder</code> instance.
+     */
+    public static Builder builder() {
+
+        Builder result = new Builder();
+
+        return result;
+    }
+
+
+    /**
+     * Creates a new builder initialized with the data from the given
+     * <code>TemplateVars</code>.
+     *
+     * @param data Used for initializing the builder state.
+     *
+     * @return A newly created <code>Builder</code> instance.
+     */
+    public static Builder builder(final TemplateVars data) {
+
+        Builder result = new Builder(data);
+
+        return result;
+    }
+
+
+    /**
      *
      */
     public TemplateVars mergeOnTopOf(final TemplateVars that) {
@@ -79,40 +108,14 @@ public final class TemplateVars
 
 
     /**
+     * Fetches a view of the set of vars as an unmodifiable map.
      *
+     * @return An unmodifiable map containing all the vars. Each entry
+     * is one var.
      */
-    public <T> Optional<T> get(
-            final String key,
-            final Class<T> klass) {
+    public Map<String,Object> asMap() {
 
-        Optional<T> result = null;
-        Object value = _map.get(key);
-
-        if ( (value!=null) && klass.isInstance(value) ) {
-            result = Optional.of((T)value);
-        } else {
-            result = Optional.empty();
-        }
-
-        return result;
-    }
-
-
-    /**
-     *
-     */
-    public Optional<Map<String,Object>> getMap(final String key) {
-
-        Optional<Map<String,Object>> result = null;
-        Object value = _map.get(key);
-
-        if ( (value!=null) && (value instanceof Map) ) {
-            result = Optional.of((Map<String,Object>)value);
-        } else {
-            result = Optional.empty();
-        }
-
-        return result;
+        return _map;
     }
 
 
@@ -129,7 +132,7 @@ public final class TemplateVars
         /**
          *
          */
-        public Builder() {
+        private Builder() {
 
             _map = new HashMap<>();
         }
@@ -138,7 +141,7 @@ public final class TemplateVars
         /**
          *
          */
-        public Builder(final TemplateVars vars) {
+        private Builder(final TemplateVars vars) {
 
             _map = new HashMap<>(vars._map);
         }

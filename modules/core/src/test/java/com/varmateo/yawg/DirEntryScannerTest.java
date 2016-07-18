@@ -35,7 +35,7 @@ public final class DirEntryScannerTest
     public void allFiles()
             throws IOException {
 
-        DirBakerConf conf = new DirBakerConf.Builder().build();
+        DirBakerConf conf = DirBakerConf.builder().build();
         Path dirPath = TestUtils.getInputsDir(DirEntryScanner.class);
         DirEntryScanner scanner = new DirEntryScanner(conf);
         List<Path> actualEntries = scanner.getDirEntries(dirPath);
@@ -59,7 +59,7 @@ public final class DirEntryScannerTest
             throws IOException {
 
         DirBakerConf conf =
-                new DirBakerConf.Builder()
+                DirBakerConf.builder()
                 .setFilesToIgnore("*.txt", "*.html")
                 .build();
         Path dirPath = TestUtils.getInputsDir(DirEntryScanner.class);

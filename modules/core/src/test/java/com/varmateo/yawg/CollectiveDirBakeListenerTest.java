@@ -150,7 +150,7 @@ public final class CollectiveDirBakeListenerTest
             final String varValue) {
 
         PageContext context =
-                new PageContext.Builder()
+                PageContext.builder()
                 .setDirUrl(".")
                 .setRootRelativeUrl(".")
                 .addVar(varName, varValue)
@@ -193,7 +193,7 @@ public final class CollectiveDirBakeListenerTest
         public TemplateVars onDirBake(final PageContext context) {
 
             TemplateVars newVars =
-                    new TemplateVars.Builder(context.templateVars)
+                    TemplateVars.builder(context.templateVars)
                     .addVar(_varName, _varValue)
                     .build();
 

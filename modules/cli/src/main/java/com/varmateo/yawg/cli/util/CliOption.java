@@ -17,9 +17,6 @@ public final class CliOption
     extends Object {
 
 
-
-
-
     private String  _shortName   = null;
     private String  _longName    = null;
     private String  _description = null;
@@ -33,15 +30,9 @@ public final class CliOption
     private Option  _apacheOption = null;
 
 
-
-
-
-/**************************************************************************
- *
- * Only for internal use.
- *
- **************************************************************************/
-
+    /**
+     * Only for internal use.
+     */
     private CliOption(final Builder builder) {
 
         _shortName   = builder._shortName;
@@ -57,15 +48,22 @@ public final class CliOption
     }
 
 
+    /**
+     * Creates a new builder with no initializations.
+     *
+     * @return A newly created <code>Builder</code> instance.
+     */
+    public static Builder builder() {
+
+        Builder result = new Builder();
+
+        return result;
+    }
 
 
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-
+    /**
+     *
+     */
     private static Option buildApacheOption(final CliOption option) {
 
         Option result = null;
@@ -101,140 +99,83 @@ public final class CliOption
     }
 
 
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-
+    /**
+     *
+     */
     public String getShortName() {
 
         return _shortName;
     }
 
 
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-
+    /**
+     *
+     */
     public String getLongName() {
 
         return _longName;
     }
 
 
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-
+    /**
+     *
+     */
     public String getDescription() {
 
         return _description;
     }
 
 
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-
+    /**
+     *
+     */
     public boolean isWithArg() {
 
         return _isWithArg;
     }
 
 
-
-
-
-/**************************************************************************
- *
- * Informative only.
- *
- **************************************************************************/
-
+    /**
+     * Informative only.
+     */
     public String getArgName() {
 
         return _argName;
     }
 
 
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-
+    /**
+     *
+     */
     public String getName() {
 
         return _name;
     }
 
 
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-
+    /**
+     *
+     */
     public String getLiteral() {
 
         return _literal;
     }
 
 
-
-
-
-/**************************************************************************
- *
- * Package private access.
- *
- **************************************************************************/
-
+    /**
+     *
+     */
     /* package private */ Option apacheOption() {
 
         return _apacheOption;
     }
 
 
-
-
-
-/**************************************************************************
- *
- * A builder of <code>CliOption</code> instances.
- *
- **************************************************************************/
-
+    /**
+     * A builder of <code>CliOption</code> instances.
+     */
     public static final class Builder
         extends Object {
-
-
-
 
 
         private String  _shortName   = null;
@@ -243,30 +184,17 @@ public final class CliOption
         private String  _argName     = null;
 
 
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-
-        public Builder() {
-
+        /**
+         *
+         */
+        private Builder() {
             // Nothing to do.
         }
 
 
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-
+        /**
+         *
+         */
         public Builder setShortName(final String shortName) {
 
             _shortName = shortName;
@@ -275,14 +203,9 @@ public final class CliOption
         }
 
 
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
+        /**
+         *
+         */
 
         public Builder setLongName(final String longName) {
 
@@ -293,13 +216,9 @@ public final class CliOption
 
 
 
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
+        /**
+         *
+         */
 
         public Builder setDescription(final String description) {
 
@@ -309,15 +228,9 @@ public final class CliOption
         }
 
 
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-
+        /**
+         *
+         */
         public Builder setArgName(final String argName) {
 
             _argName = argName;
@@ -326,15 +239,9 @@ public final class CliOption
         }
 
 
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-
+        /**
+         *
+         */
         public CliOption build() {
 
             CliOption result = new CliOption(this);

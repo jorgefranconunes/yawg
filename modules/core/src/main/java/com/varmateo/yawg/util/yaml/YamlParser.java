@@ -27,7 +27,6 @@ public final class YamlParser
      *
      */
     public YamlParser() {
-
         // Nothing do to.
     }
 

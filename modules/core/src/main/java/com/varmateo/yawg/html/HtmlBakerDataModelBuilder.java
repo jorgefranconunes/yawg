@@ -59,7 +59,7 @@ import com.varmateo.yawg.util.FileUtils;
                 .orElseGet(() -> FileUtils.basename(sourcePath));
 
         TemplateDataModel result =
-                new TemplateDataModel.Builder()
+                TemplateDataModel.builder()
                 .setTitle(title)
                 .setBody(body)
                 .setRootRelativeUrl(context.rootRelativeUrl)

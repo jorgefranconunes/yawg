@@ -79,6 +79,19 @@ public final class TemplateDataModel
 
 
     /**
+     * Creates a new builder with no initializations.
+     *
+     * @return A newly created <code>Builder</code> instance.
+     */
+    public static Builder builder() {
+
+        Builder result = new Builder();
+
+        return result;
+    }
+
+
+    /**
      * Builder of <code>TemplateDataModel</code> instances.
      */
     public static final class Builder
@@ -94,7 +107,7 @@ public final class TemplateDataModel
         /**
          *
          */
-        public Builder() {
+        private Builder() {
 
             // Nothing to do.
         }

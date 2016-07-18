@@ -26,7 +26,7 @@ public final class CliOptionTest
     public void withoutArg() {
 
         CliOption option =
-            new CliOption.Builder()
+            CliOption.builder()
             .setShortName("demo")
             .build();
 
@@ -42,7 +42,7 @@ public final class CliOptionTest
     public void withArg() {
 
         CliOption option =
-            new CliOption.Builder()
+            CliOption.builder()
             .setShortName("demo")
             .setArgName("something")
             .build();
@@ -60,7 +60,7 @@ public final class CliOptionTest
     public void shortName() {
 
         CliOption option =
-            new CliOption.Builder()
+            CliOption.builder()
             .setShortName("s")
             .build();
 
@@ -78,7 +78,7 @@ public final class CliOptionTest
     public void longName() {
 
         CliOption option =
-            new CliOption.Builder()
+            CliOption.builder()
             .setShortName("s")
             .setLongName("something")
             .build();

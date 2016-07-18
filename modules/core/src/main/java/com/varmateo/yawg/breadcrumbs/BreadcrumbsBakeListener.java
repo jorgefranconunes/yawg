@@ -6,12 +6,13 @@
 
 package com.varmateo.yawg.breadcrumbs;
 
-import java.util.Map;
 import java.util.Optional;
 
 import com.varmateo.yawg.DirBakeListener;
 import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.TemplateVars;
+import com.varmateo.yawg.util.SimpleMap;
+
 import com.varmateo.yawg.breadcrumbs.BreadcrumbItem;
 import com.varmateo.yawg.breadcrumbs.Breadcrumbs;
 
@@ -47,7 +48,8 @@ public final class BreadcrumbsBakeListener
 
         Breadcrumbs oldBreadcrumbs = getBreadcrumbs(context);
         BreadcrumbItem newBreadcrumbItem = buildBreadcrumbItem(context);
-        Breadcrumbs newBreadcrumbs = extendBreadcrumbs(oldBreadcrumbs, newBreadcrumbItem);
+        Breadcrumbs newBreadcrumbs =
+                extendBreadcrumbs(oldBreadcrumbs, newBreadcrumbItem);
         TemplateVars newVars = updateBreadcrumbs(context, newBreadcrumbs);
 
         return newVars;
@@ -59,7 +61,7 @@ public final class BreadcrumbsBakeListener
      */
     private Breadcrumbs getBreadcrumbs(final PageContext context) {
 
-        TemplateVars vars = context.templateVars;
+        SimpleMap vars = new SimpleMap(context.templateVars.asMap());
         Optional<Breadcrumbs> optBreadcrumbs =
                 vars.get(VAR_BREADCRUMB_LIST, Breadcrumbs.class);
         Breadcrumbs result = optBreadcrumbs.orElse(new Breadcrumbs());
@@ -73,17 +75,17 @@ public final class BreadcrumbsBakeListener
      */
     private BreadcrumbItem buildBreadcrumbItem(final PageContext context) {
 
-        TemplateVars vars = context.templateVars;
+        SimpleMap vars = new SimpleMap(context.templateVars.asMap());
 
-        Optional<Map<String,Object>> itemData = vars.getMap(VAR_BREADCRUMB);
+        Optional<SimpleMap> itemData = vars.getMap(VAR_BREADCRUMB);
         String title =
                 itemData
-                .map(m -> (String)m.get(ATTR_TITLE))
+                .flatMap(m -> m.getString(ATTR_TITLE))
                 .orElse(null);
         String url =
-                itemData.
-                map(m -> (String)m.get(ATTR_URL))
-                .orElse((String)null);
+                itemData
+                .flatMap(m -> m.getString(ATTR_URL))
+                .orElse(null);
 
         if ( title == null ) {
             title = basenameOf(context.dirUrl);
@@ -120,7 +122,7 @@ public final class BreadcrumbsBakeListener
             final BreadcrumbItem newBreadcrumbItem) {
 
         Breadcrumbs newBreadcrumbs =
-                new Breadcrumbs.Builder(oldBreadcrumbs)
+                Breadcrumbs.builder(oldBreadcrumbs)
                 .addBreadcrumbItem(newBreadcrumbItem)
                 .build();
 
@@ -137,7 +139,7 @@ public final class BreadcrumbsBakeListener
 
         TemplateVars oldVars = context.templateVars;
         TemplateVars newVars =
-                new TemplateVars.Builder(oldVars)
+                TemplateVars.builder(oldVars)
                 .addVar(VAR_BREADCRUMB_LIST, newBreadcrumbs)
                 .build();
 

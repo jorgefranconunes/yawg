@@ -57,18 +57,31 @@ final class InfoPrinter
     /**
      *
      */
-    public InfoPrinter(final Builder builder) {
+    private InfoPrinter(final Builder builder) {
 
         String argv0 = builder._argv0;
 
         _output = builder._output;
         _cliInfoPrinter =
-            new CliInfoPrinter.Builder()
+            CliInfoPrinter.builder()
             .setArgv0(argv0)
             .setVersionMessage(PRODUCT_HEADER)
             .setUsageMessageHeader(USAGE_HEADER_FMT)
             .setUsageMessageFooter(USAGE_FOOTER)
             .build();
+    }
+
+
+    /**
+     * Creates a new builder with no initializations.
+     *
+     * @return A newly created <code>Builder</code> instance.
+     */
+    public static Builder builder() {
+
+        Builder result = new Builder();
+
+        return result;
     }
 
 
@@ -113,7 +126,7 @@ final class InfoPrinter
         /**
          *
          */
-        public Builder() {
+        private Builder() {
             // Nothing to do.
         }
 

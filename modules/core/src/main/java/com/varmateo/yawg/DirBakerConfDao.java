@@ -70,7 +70,7 @@ import com.varmateo.yawg.util.yaml.YamlParser;
         if ( Files.isRegularFile(confFile) ) {
             result = loadFromFile(confFile);
         } else {
-            result = new DirBakerConf.Builder().build();
+            result = DirBakerConf.builder().build();
         }
 
         return result;
@@ -124,7 +124,7 @@ import com.varmateo.yawg.util.yaml.YamlParser;
             throws IOException, YawgException {
 
         YamlMap map = new YamlParser().parse(reader);
-        DirBakerConf.Builder builder = new DirBakerConf.Builder();
+        DirBakerConf.Builder builder = DirBakerConf.builder();
 
         String templateName = map.getString(PARAM_TEMPLATE);
         if ( templateName != null ) {
@@ -173,7 +173,7 @@ import com.varmateo.yawg.util.yaml.YamlParser;
         YamlList<String> itemList = map.getList(key, String.class);
 
         if ( itemList != null ) {
-            GlobMatcher.Builder builder = new GlobMatcher.Builder();
+            GlobMatcher.Builder builder = GlobMatcher.builder();
 
             for ( int i=0, count=itemList.size(); i<count; ++i ) {
                 String glob = itemList.getString(i);
@@ -208,7 +208,7 @@ import com.varmateo.yawg.util.yaml.YamlParser;
         YamlMap bakerTypesMap = map.getMap(key);
 
         if ( bakerTypesMap != null ) {
-            BakerMatcher.Builder builder = new BakerMatcher.Builder();
+            BakerMatcher.Builder builder = BakerMatcher.builder();
 
             for ( String bakerType : bakerTypesMap.keySet() ) {
                 GlobMatcher matcher = getPatternList(bakerTypesMap, bakerType);

@@ -106,7 +106,7 @@ public final class FreemarkerTemplateServiceTest
         String title = "Simple title";
         String body = "Hello, world!";
         TemplateDataModel model =
-                new TemplateDataModel.Builder()
+                TemplateDataModel.builder()
                 .setBody(body)
                 .setTitle(title)
                 .setRootRelativeUrl(".")
@@ -139,7 +139,7 @@ public final class FreemarkerTemplateServiceTest
         String title = "Simple title";
         String body = "Hello, world!";
         TemplateDataModel model =
-                new TemplateDataModel.Builder()
+                TemplateDataModel.builder()
                 .setBody(body)
                 .setTitle(title)
                 .setRootRelativeUrl(".")

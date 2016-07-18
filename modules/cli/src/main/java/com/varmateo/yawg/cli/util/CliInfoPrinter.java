@@ -55,6 +55,19 @@ public final class CliInfoPrinter
 
 
     /**
+     * Creates a new builder with no initializations.
+     *
+     * @return A newly created <code>Builder</code> instance.
+     */
+    public static Builder builder() {
+
+        Builder result = new Builder();
+
+        return result;
+    }
+
+
+    /**
      *
      */
     public void printUsage(
@@ -137,7 +150,7 @@ public final class CliInfoPrinter
         /**
          *
          */
-        public Builder() {
+        private Builder() {
             // Nothing to do.
         }
 
