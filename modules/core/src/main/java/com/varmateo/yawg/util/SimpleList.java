@@ -40,6 +40,17 @@ public final class SimpleList<T>
     /**
      *
      */
+    public T get(final int index) {
+
+        T result = getWithType(index, _itemsClass);
+
+        return result;
+    }
+
+
+    /**
+     *
+     */
     public SimpleMap getMap(final int index) {
 
         Map<String,Object> map = getWithType(index, Map.class);
@@ -82,6 +93,17 @@ public final class SimpleList<T>
         }
 
         T result = (T)value;
+
+        return result;
+    }
+
+
+    /**
+     *
+     */
+    public int size() {
+
+        int result = _list.size();
 
         return result;
     }

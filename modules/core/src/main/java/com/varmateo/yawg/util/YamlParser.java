@@ -4,7 +4,7 @@
  *
  **************************************************************************/
 
-package com.varmateo.yawg.util.yaml;
+package com.varmateo.yawg.util;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -13,7 +13,7 @@ import java.util.Map;
 
 import com.esotericsoftware.yamlbeans.YamlReader;
 
-import com.varmateo.yawg.util.yaml.YamlMap;
+import com.varmateo.yawg.util.SimpleMap;
 
 
 /**
@@ -42,7 +42,7 @@ public final class YamlParser
      * @exception IOException Thrown if there were any problems
      * reading from the reader, or if the YAML contents are invalid.
      */
-    public YamlMap parse(final Reader reader)
+    public SimpleMap parse(final Reader reader)
             throws IOException {
 
         Map<String,Object> resultMap = null;
@@ -56,7 +56,7 @@ public final class YamlParser
             resultMap = Collections.emptyMap();
         }
 
-        YamlMap result = new YamlMap(resultMap);
+        SimpleMap result = new SimpleMap(resultMap);
 
         return result;
     }

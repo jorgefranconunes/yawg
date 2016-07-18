@@ -11,6 +11,7 @@ import java.util.Optional;
 import com.varmateo.yawg.DirBakeListener;
 import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.TemplateVars;
+import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.util.SimpleMap;
 
 import com.varmateo.yawg.breadcrumbs.BreadcrumbItem;
@@ -44,10 +45,13 @@ public final class BreadcrumbsBakeListener
      *
      */
     @Override
-    public TemplateVars onDirBake(final PageContext context) {
+    public TemplateVars onDirBake(final PageContext context)
+            throws YawgException {
 
-        Breadcrumbs oldBreadcrumbs = getBreadcrumbs(context);
-        BreadcrumbItem newBreadcrumbItem = buildBreadcrumbItem(context);
+        SimpleMap vars = new SimpleMap(context.templateVars.asMap());
+        Breadcrumbs oldBreadcrumbs = getBreadcrumbs(vars);
+        BreadcrumbItem newBreadcrumbItem =
+                buildBreadcrumbItem(vars, context.dirUrl);
         Breadcrumbs newBreadcrumbs =
                 extendBreadcrumbs(oldBreadcrumbs, newBreadcrumbItem);
         TemplateVars newVars = updateBreadcrumbs(context, newBreadcrumbs);
@@ -59,9 +63,8 @@ public final class BreadcrumbsBakeListener
     /**
      *
      */
-    private Breadcrumbs getBreadcrumbs(final PageContext context) {
+    private Breadcrumbs getBreadcrumbs(final SimpleMap vars) {
 
-        SimpleMap vars = new SimpleMap(context.templateVars.asMap());
         Optional<Breadcrumbs> optBreadcrumbs =
                 vars.get(VAR_BREADCRUMB_LIST, Breadcrumbs.class);
         Breadcrumbs result = optBreadcrumbs.orElse(new Breadcrumbs());
@@ -73,28 +76,20 @@ public final class BreadcrumbsBakeListener
     /**
      *
      */
-    private BreadcrumbItem buildBreadcrumbItem(final PageContext context) {
-
-        SimpleMap vars = new SimpleMap(context.templateVars.asMap());
+    private BreadcrumbItem buildBreadcrumbItem(
+            final SimpleMap vars,
+            final String dirUrl) {
 
         Optional<SimpleMap> itemData = vars.getMap(VAR_BREADCRUMB);
         String title =
                 itemData
                 .flatMap(m -> m.getString(ATTR_TITLE))
-                .orElse(null);
+                .orElseGet(() -> basenameOf(dirUrl));
         String url =
                 itemData
                 .flatMap(m -> m.getString(ATTR_URL))
-                .orElse(null);
-
-        if ( title == null ) {
-            title = basenameOf(context.dirUrl);
-        }
-        if ( url == null ) {
-            url = context.dirUrl;
-        } else {
-            url = context.dirUrl + "/" + url;
-        }
+                .map(s -> dirUrl + "/" + s)
+                .orElse(dirUrl);
 
         BreadcrumbItem result = new BreadcrumbItem(title, url);
 

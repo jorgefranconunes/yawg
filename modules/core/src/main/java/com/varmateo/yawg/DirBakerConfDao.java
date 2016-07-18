@@ -11,15 +11,16 @@ import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.regex.PatternSyntaxException;
 
 import com.varmateo.yawg.DirBakerConf;
 import com.varmateo.yawg.TemplateVars;
 import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.util.GlobMatcher;
-import com.varmateo.yawg.util.yaml.YamlList;
-import com.varmateo.yawg.util.yaml.YamlMap;
-import com.varmateo.yawg.util.yaml.YamlParser;
+import com.varmateo.yawg.util.SimpleMap;
+import com.varmateo.yawg.util.SimpleList;
+import com.varmateo.yawg.util.YamlParser;
 
 
 /**
@@ -123,37 +124,23 @@ import com.varmateo.yawg.util.yaml.YamlParser;
     /* package private */ DirBakerConf read(final Reader reader)
             throws IOException, YawgException {
 
-        YamlMap map = new YamlParser().parse(reader);
+        SimpleMap map = new YamlParser().parse(reader);
         DirBakerConf.Builder builder = DirBakerConf.builder();
 
-        String templateName = map.getString(PARAM_TEMPLATE);
-        if ( templateName != null ) {
-            builder.setTemplateName(templateName);
-        }
+        map.getString(PARAM_TEMPLATE)
+                .ifPresent(builder::setTemplateName);
 
-        GlobMatcher filesToIgnore =
-                getPatternList(map, PARAM_IGNORE);
-        if ( filesToIgnore != null ) {
-            builder.setFilesToIgnore(filesToIgnore);
-        }
+        getPatternList(map, PARAM_IGNORE)
+                .ifPresent(builder::setFilesToIgnore);
 
-        GlobMatcher filesToIncludeOnly =
-                getPatternList(map, PARAM_INCLUDE_ONLY);
-        if ( filesToIncludeOnly != null ) {
-            builder.setFilesToIncludeOnly(filesToIncludeOnly);
-        }
+        getPatternList(map, PARAM_INCLUDE_ONLY)
+                .ifPresent(builder::setFilesToIncludeOnly);
 
-        BakerMatcher bakerTypes =
-                getBakerTypes(map, PARAM_BAKER_TYPES);
-        if ( bakerTypes != null ) {
-            builder.setBakerTypes(bakerTypes);
-        }
+        getBakerTypes(map, PARAM_BAKER_TYPES)
+                .ifPresent(builder::setBakerTypes);
 
-        TemplateVars templateVars =
-                getTemplateVars(map, PARAM_TEMPLATE_VARS);
-        if ( templateVars != null ) {
-            builder.setTemplateVars(templateVars);
-        }
+        getTemplateVars(map, PARAM_TEMPLATE_VARS)
+                .ifPresent(builder::setTemplateVars);
 
         DirBakerConf result = builder.build();
 
@@ -164,19 +151,21 @@ import com.varmateo.yawg.util.yaml.YamlParser;
     /**
      *
      */
-    private GlobMatcher getPatternList(
-            final YamlMap map,
+    private Optional<GlobMatcher> getPatternList(
+            final SimpleMap map,
             final String key)
             throws YawgException {
 
-        GlobMatcher result = null;
-        YamlList<String> itemList = map.getList(key, String.class);
+        Optional<GlobMatcher> result;
+        Optional<SimpleList<String>> itemListOpt =
+                map.getList(key, String.class);
 
-        if ( itemList != null ) {
+        if ( itemListOpt.isPresent() ) {
+            SimpleList<String> itemList = itemListOpt.get();
             GlobMatcher.Builder builder = GlobMatcher.builder();
 
             for ( int i=0, count=itemList.size(); i<count; ++i ) {
-                String glob = itemList.getString(i);
+                String glob = itemList.get(i);
 
                 try {
                     builder.addGlobPattern(glob);
@@ -189,7 +178,9 @@ import com.varmateo.yawg.util.yaml.YamlParser;
                             key);
                 }
             }
-            result = builder.build();
+            result = Optional.of(builder.build());
+        } else {
+            result = Optional.empty();
         }
 
         return result;
@@ -199,23 +190,25 @@ import com.varmateo.yawg.util.yaml.YamlParser;
     /**
      *
      */
-    private BakerMatcher getBakerTypes(
-            final YamlMap map,
+    private Optional<BakerMatcher> getBakerTypes(
+            final SimpleMap map,
             final String key)
             throws YawgException {
 
-        BakerMatcher result = null;
-        YamlMap bakerTypesMap = map.getMap(key);
+        Optional<BakerMatcher> result;
+        Optional<SimpleMap> bakerTypesMapOpt = map.getMap(key);
 
-        if ( bakerTypesMap != null ) {
+        if ( bakerTypesMapOpt.isPresent() ) {
+            SimpleMap bakerTypesMap = bakerTypesMapOpt.get();
             BakerMatcher.Builder builder = BakerMatcher.builder();
 
             for ( String bakerType : bakerTypesMap.keySet() ) {
-                GlobMatcher matcher = getPatternList(bakerTypesMap, bakerType);
-
-                builder.addBakerType(bakerType, matcher);
+                getPatternList(bakerTypesMap, bakerType)
+                        .ifPresent(m -> builder.addBakerType(bakerType, m));
             }
-            result = builder.build();
+            result = Optional.of(builder.build());
+        } else {
+            result = Optional.empty();
         }
 
         return result;
@@ -225,16 +218,20 @@ import com.varmateo.yawg.util.yaml.YamlParser;
     /**
      *
      */
-    private TemplateVars getTemplateVars(
-            final YamlMap map,
+    private Optional<TemplateVars> getTemplateVars(
+            final SimpleMap map,
             final String key)
             throws YawgException {
 
-        TemplateVars result = null;
-        YamlMap templateVarsMap = map.getMap(key);
+        Optional<TemplateVars> result;
+        Optional<SimpleMap> templateVarsMapOpt = map.getMap(key);
 
-        if ( templateVarsMap != null ) {
-            result = new TemplateVars(templateVarsMap.asMap());
+        if ( templateVarsMapOpt.isPresent() ) {
+            SimpleMap templateVarsMap = templateVarsMapOpt.get();
+
+            result = Optional.of(new TemplateVars(templateVarsMap.asMap()));
+        } else {
+            result = Optional.empty();
         }
 
         return result;
