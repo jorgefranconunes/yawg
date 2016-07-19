@@ -203,7 +203,7 @@ import com.varmateo.yawg.util.FileUtils;
             throws AsciidoctorCoreException, IOException {
 
         TemplateDataModel dataModel =
-                _modelBuilder.build(sourcePath, targetDir, context);
+                _modelBuilder.build(sourcePath, targetDir, targetPath, context);
         Template template = context.pageTemplate.get();
         StringWriter buffer = new StringWriter();
 

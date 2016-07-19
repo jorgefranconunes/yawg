@@ -108,8 +108,9 @@ public final class FreemarkerTemplateServiceTest
         TemplateDataModel model =
                 TemplateDataModel.builder()
                 .setBody(body)
-                .setTitle(title)
+                .setPageUrl("MyPage.html")
                 .setRootRelativeUrl(".")
+                .setTitle(title)
                 .build();
         StringWriter buffer = new StringWriter();
 
@@ -141,8 +142,9 @@ public final class FreemarkerTemplateServiceTest
         TemplateDataModel model =
                 TemplateDataModel.builder()
                 .setBody(body)
-                .setTitle(title)
+                .setPageUrl("MyPage.html")
                 .setRootRelativeUrl(".")
+                .setTitle(title)
                 .build();
         StringWriter buffer = new StringWriter();
 

@@ -40,6 +40,7 @@ import com.varmateo.yawg.util.FileUtils;
      */
     public TemplateDataModel build(
             final Path sourcePath,
+            final Path targetPath,
             final PageContext context)
             throws IOException {
 
@@ -51,6 +52,7 @@ import com.varmateo.yawg.util.FileUtils;
                 .flatMap(elems -> Optional.ofNullable(elems.first()))
                 .map(Element::html)
                 .orElse("");
+        String pageUrl = context.dirUrl + "/" + targetPath.getFileName();
         String title =
                 document
                 .map(doc -> doc.getElementsByTag("title"))
@@ -62,6 +64,7 @@ import com.varmateo.yawg.util.FileUtils;
                 TemplateDataModel.builder()
                 .setTitle(title)
                 .setBody(body)
+                .setPageUrl(pageUrl)
                 .setRootRelativeUrl(context.rootRelativeUrl)
                 .setTemplateVars(context.templateVars)
                 .build();

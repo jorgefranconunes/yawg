@@ -263,6 +263,9 @@ The variables composing the data model are described below.
 source document into HTML. This is an HTML snippet ready to be
 included a `<body>` element, or any other block level element.
 
+* `pageUrl` -- The URL of the page being baked relative to the top URL
+  of the baked site.
+
 * `productName` -- The name of the Yawg softare (i.e. "Yawg"). The value
 of this template variable is always the same, for a given Yawg release.
 

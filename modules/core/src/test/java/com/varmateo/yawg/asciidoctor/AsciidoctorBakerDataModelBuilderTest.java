@@ -95,6 +95,7 @@ public final class AsciidoctorBakerDataModelBuilderTest
                 _modelBuilder.build(
                         sourcePath,
                         sourcePath.getParent(),
+                        sourcePath,
                         context);
 
         return model;

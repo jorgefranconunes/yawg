@@ -174,7 +174,7 @@ public final class HtmlBaker
             throws IOException {
 
         TemplateDataModel dataModel =
-                _modelBuilder.build(sourcePath, context);
+                _modelBuilder.build(sourcePath, targetPath, context);
         Template template = context.pageTemplate.get();
 
         FileUtils.newWriter(

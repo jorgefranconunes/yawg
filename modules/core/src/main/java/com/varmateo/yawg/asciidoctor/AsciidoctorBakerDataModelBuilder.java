@@ -53,6 +53,7 @@ import com.varmateo.yawg.util.FileUtils;
     public TemplateDataModel build(
             final Path sourcePath,
             final Path targetDir,
+            final Path targetPath,
             final PageContext context)
             throws AsciidoctorCoreException, IOException {
 
@@ -67,6 +68,7 @@ import com.varmateo.yawg.util.FileUtils;
                 .headerFooter(false)
                 .safe(SafeMode.UNSAFE);
         String body = _asciidoctor.render(sourceContent, options);
+        String pageUrl = context.dirUrl + "/" + targetPath.getFileName();
         DocumentHeader header = _asciidoctor.readDocumentHeader(sourceContent);
         String title =
                 Optional.ofNullable(header)
@@ -78,6 +80,7 @@ import com.varmateo.yawg.util.FileUtils;
                 TemplateDataModel.builder()
                 .setTitle(title)
                 .setBody(body)
+                .setPageUrl(pageUrl)
                 .setRootRelativeUrl(context.rootRelativeUrl)
                 .setTemplateVars(context.templateVars)
                 .build();

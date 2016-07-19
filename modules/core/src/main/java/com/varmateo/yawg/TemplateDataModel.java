@@ -34,10 +34,16 @@ public final class TemplateDataModel
      */
     public final String body;
 
+
     /**
-     * The title of the document, as extracted from its source.
+     *
      */
-    public final String title;
+    public final String pageUrl;
+
+    /**
+     * A fixed string with the Yawg product name.
+     */
+    public final String productName;
 
     /**
      * The URL of the root directory of the site being baked relative
@@ -46,9 +52,9 @@ public final class TemplateDataModel
     public final String rootRelativeUrl;
 
     /**
-     * A fixed string with the Yawg product name.
+     * The title of the document, as extracted from its source.
      */
-    public final String productName;
+    public final String title;
 
     /**
      * The version of the Yawg software being used.
@@ -70,9 +76,10 @@ public final class TemplateDataModel
 
         bakeId = UUID.randomUUID().toString();
         body = Objects.requireNonNull(builder._body);
-        title = Objects.requireNonNull(builder._title);
         rootRelativeUrl = Objects.requireNonNull(builder._rootRelativeUrl);
+        pageUrl = Objects.requireNonNull(builder._pageUrl);
         productName = YawgInfo.PRODUCT_NAME;
+        title = Objects.requireNonNull(builder._title);
         version = YawgInfo.VERSION;
         templateVars = Objects.requireNonNull(builder._templateVars);
     }
@@ -99,9 +106,10 @@ public final class TemplateDataModel
 
 
         private String _body = null;
-        private String _title = null;
+        private String _pageUrl = null;
         private String _rootRelativeUrl = null;
         private TemplateVars _templateVars = new TemplateVars();
+        private String _title = null;
 
 
         /**
@@ -126,9 +134,9 @@ public final class TemplateDataModel
         /**
          *
          */
-        public Builder setTitle(final String title) {
+        public Builder setPageUrl(final String pageUrl) {
 
-            _title = Objects.requireNonNull(title);
+            _pageUrl = pageUrl;
             return this;
         }
 
@@ -149,6 +157,16 @@ public final class TemplateDataModel
         public Builder setTemplateVars(final TemplateVars templateVars) {
 
             _templateVars = templateVars;
+            return this;
+        }
+
+
+        /**
+         *
+         */
+        public Builder setTitle(final String title) {
+
+            _title = Objects.requireNonNull(title);
             return this;
         }
 

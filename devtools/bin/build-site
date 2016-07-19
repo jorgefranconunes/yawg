@@ -30,6 +30,7 @@ DEFAULT_COMMIT_COMMENT="Doc updates"
 _workingArea=
 _isInit=false
 _isCommit=false
+_yawgTool=${_yawgHome}/bin/yawg
 _commitComment=${DEFAULT_COMMIT_COMMENT}
 
 
@@ -75,6 +76,9 @@ function processCliArgs () {
             --commit )
                 _isCommit=true
                 ;;
+            --yawg=* )
+                _yawgTool=$(expr "$option" : '--yawg=\(.*\)')
+                ;;
             --help )
                 displayHelp
                 exit 0
@@ -117,6 +121,10 @@ Available options:
 --commit
     Commit changes to the site branch and uploads to Git origin
     repository.
+
+--yawg
+    Path of the'yawg' tool to be used. By default it will use the
+    'yawg' tool in the project working area.
 
 --help
     Prints this help text.
@@ -224,7 +232,7 @@ function doBaking () {
         yawgError "Directory \"${_workingArea}\" does not exist. Use --init."
     fi
 
-    ${_yawgHome}/bin/yawg \
+    ${_yawgTool} \
         --source=$(yawgNormalizePath ${_yawgHome}/doc/content) \
         --target=$(yawgNormalizePath ${_workingArea}) \
         --templates=$(yawgNormalizePath ${_yawgHome}/doc/templates) \

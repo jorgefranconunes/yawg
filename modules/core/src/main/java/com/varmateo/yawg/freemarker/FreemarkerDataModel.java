@@ -49,9 +49,18 @@ public final class FreemarkerDataModel
     /**
      *
      */
-    public String getTitle() {
+    public String getPageUrl() {
 
-        return _data.title;
+        return _data.pageUrl;
+    }
+
+
+    /**
+     *
+     */
+    public String getProductName() {
+
+        return _data.productName;
     }
 
 
@@ -67,9 +76,9 @@ public final class FreemarkerDataModel
     /**
      *
      */
-    public String getProductName() {
+    public String getTitle() {
 
-        return _data.productName;
+        return _data.title;
     }
 
 
