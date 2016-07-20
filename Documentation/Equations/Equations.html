@@ -15,7 +15,7 @@
 
     <link
        rel="stylesheet"
-       href="../../yawg-site.css?v=9b98d3d9-e043-4d8e-8b5f-fab9bbce1811" />
+       href="../../yawg-site.css?v=0b324e28-9132-4bda-989b-141cac3bdf01" />
     
     <script
        type="text/javascript"
@@ -68,46 +68,89 @@
         <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>It is easy to have LaTeX equations embedded in AsciiDoc
-documents. Because Yawg internally uses
-<a href="http://asciidoctor.org/">Asciidoctor</a> for processing AsciiDoc files, we
-can make use of the Asciidoctor facililities for
-<a href="http://asciidoctor.org/docs/user-manual/#activating-stem-support">supporting
-equations and formulas</a>. The actual rendering of the equations is done
-by the wonderful <a href="https://www.mathjax.org/">MathJax</a> Javascript display
-engine.</p>
+<p>It is easy to have LaTeX math formulas inside AsciiDoc documents and Yawg
+supports it out of the box. In this section we describe how to include
+math formulas in AsciiDoc content to be baked by Yawg.</p>
 </div>
 <div class="paragraph">
-<p>We can have inline equations and equations in display math mode. Here
-is an inline equation: \(e^{i \pi} + 1 = 0\). And below you
-have an equation in display math mode.</p>
+<p>Internally, Yawg uses <a href="http://asciidoctor.org/">Asciidoctor</a> for
+processing AsciiDoc files. Yawg makes use of the Asciidoctor
+facilities for
+<a href="http://asciidoctor.org/docs/user-manual/#activating-stem-support">supporting
+equations and formulas</a>. The actual rendering of the equations in the
+final HTML page is done by the wonderful
+<a href="https://www.mathjax.org/">MathJax</a> Javascript display engine.</p>
 </div>
-<div class="stemblock">
+<div class="paragraph">
+<p>As usual in LaTex we have two ways to include math formulas in the text:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Inline math mode&#8201;&#8212;&#8201;The formula is shown inline with the text. Like
+when you want to say that \(\sin^2 x + \cos^2 x = 1\) is as
+obvious as \(\pi\).</p>
+</li>
+<li>
+<p>Display math mode&#8201;&#8212;&#8201;The formula is shown in a dedicated
+paragraph. This is tipically used for larger formulas or equations.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In the following sections we describe how to include these two types
+of math formulas in AsciiDoc content.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_inline_math_mode">Inline math mode</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We can have the equivalent of LaTeX inline math in our AsciiDoc
+documents. Here is an example, \(e^{i \pi} + 1 = 0\).</p>
+</div>
+<div class="paragraph">
+<p>A math formula in inline math mode is created using the  <code>latexmath</code>
+macro. The last statement of the previous paragraph is obtained with
+the content shown below.</p>
+</div>
+<div class="listingblock">
 <div class="content">
-\[\int e^{-x^2} \, dx = \sqrt{\pi}\]
+<pre class="highlight"><code class="language-asciidoc" data-lang="asciidoc">Here is an example, latexmath:[e^{i \pi} + 1 = 0].</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_equations_in_asciidoc">Equations in AsciiDoc</h2>
+<h2 id="_display_math_mode">Display math mode</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Inline equation:</p>
+<p>In display math mode a formula is shown in its own paragraph. A math
+formula in display math mode is created using an AsciiDoc passthrough
+block with the <code>latexmath</code> style. You can see an example equation
+below.</p>
 </div>
-<div class="listingblock">
+<div class="stemblock">
 <div class="content">
-<pre class="highlight"><code class="language-asciidoc" data-lang="asciidoc">latexmath:[e^{i \pi} + 1 = 0]</code></pre>
+\[\frac{\partial V}{\partial t}
++ \frac{1}{2} \sigma^2 S^2 \frac{\partial^2 V}{\partial S^2}
++ r S \frac{\partial V}{\partial S}
+- r V = 0\]
 </div>
 </div>
 <div class="paragraph">
-<p>Display math mode equation:</p>
+<p>The pretty equation above is obtained with the piece of AsciiDoc
+markup shown below.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-asciidoc" data-lang="asciidoc">[latexmath]
 ++++
-\int e^{-x^2} \, dx = \sqrt{\pi}
+\frac{\partial V}{\partial t}
++ \frac{1}{2} \sigma^2 S^2 \frac{\partial^2 V}{\partial S^2}
++ r S \frac{\partial V}{\partial S}
+- r V = 0
 ++++</code></pre>
 </div>
 </div>
