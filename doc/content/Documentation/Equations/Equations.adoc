@@ -1,43 +1,77 @@
 = Equations and mathematical formulas
 
-It is easy to have LaTeX equations embedded in AsciiDoc
-documents. Because Yawg internally uses
-http://asciidoctor.org/[Asciidoctor] for processing AsciiDoc files, we
-can make use of the Asciidoctor facililities for
+It is easy to have LaTeX math formulas inside AsciiDoc documents and Yawg
+supports it out of the box. In this section we describe how to include
+math formulas in AsciiDoc content to be baked by Yawg.
+
+Internally, Yawg uses http://asciidoctor.org/[Asciidoctor] for
+processing AsciiDoc files. Yawg makes use of the Asciidoctor
+facilities for
 http://asciidoctor.org/docs/user-manual/#activating-stem-support[supporting
-equations and formulas]. The actual rendering of the equations is done
-by the wonderful https://www.mathjax.org/[MathJax] Javascript display
-engine.
+equations and formulas]. The actual rendering of the equations in the
+final HTML page is done by the wonderful
+https://www.mathjax.org/[MathJax] Javascript display engine.
 
-We can have inline equations and equations in display math mode. Here
-is an inline equation: latexmath:[e^{i \pi} + 1 = 0]. And below you
-have an equation in display math mode.
+As usual in LaTex we have two ways to include math formulas in the text:
 
-[latexmath]
-++++
-\int e^{-x^2} \, dx = \sqrt{\pi}
-++++
+* Inline math mode -- The formula is shown inline with the text. Like
+  when you want to say that latexmath:[\sin^2 x + \cos^2 x = 1] is as
+  obvious as latexmath:[\pi].
+
+* Display math mode -- The formula is shown in a dedicated
+  paragraph. This is tipically used for larger formulas or equations.
+
+In the following sections we describe how to include these two types
+of math formulas in AsciiDoc content.
 
 
 
 
 
-== Equations in AsciiDoc
+== Inline math mode
 
-Inline equation:
+We can have the equivalent of LaTeX inline math in our AsciiDoc
+documents. Here is an example, latexmath:[e^{i \pi} + 1 = 0].
+
+A math formula in inline math mode is created using the  `latexmath`
+macro. The last statement of the previous paragraph is obtained with
+the content shown below.
 
 [source,asciidoc]
 ----
-latexmath:[e^{i \pi} + 1 = 0]
+Here is an example, latexmath:[e^{i \pi} + 1 = 0].
 ----
 
-Display math mode equation:
+
+
+
+
+== Display math mode
+
+In display math mode a formula is shown in its own paragraph. A math
+formula in display math mode is created using an AsciiDoc passthrough
+block with the `latexmath` style. You can see an example equation
+below.
+
+[latexmath]
+++++
+\frac{\partial V}{\partial t}
++ \frac{1}{2} \sigma^2 S^2 \frac{\partial^2 V}{\partial S^2}
++ r S \frac{\partial V}{\partial S}
+- r V = 0
+++++
+
+The pretty equation above is obtained with the piece of AsciiDoc
+markup shown below.
 
 [source,asciidoc]
 ----
 [latexmath]
 ++++
-\int e^{-x^2} \, dx = \sqrt{\pi}
+\frac{\partial V}{\partial t}
++ \frac{1}{2} \sigma^2 S^2 \frac{\partial^2 V}{\partial S^2}
++ r S \frac{\partial V}{\partial S}
+- r V = 0
 ++++
 ----
 
