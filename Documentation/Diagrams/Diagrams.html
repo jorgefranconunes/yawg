@@ -15,7 +15,7 @@
 
     <link
        rel="stylesheet"
-       href="../../yawg-site.css?v=05273a2a-39e5-439a-961c-18f8db2b90c8" />
+       href="../../yawg-site.css?v=a2994cbc-d92f-4e94-a263-9683e02ba33c" />
     
     <script
        type="text/javascript"
@@ -65,30 +65,62 @@
     </ol>
 
         <h1>Diagrams</h1>
-        <div class="paragraph">
+        <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
 <p>Yawg supports the inclusion of <a href="http://plantuml.com/">PlantUML</a> diagrams
-in Asciidoc documents. This is achieved through the
+in AsciiDoc documents. Support for PlantUML diagrams is provided
+internally by <a href="http://asciidoctor.org/">Asciidoctor</a> through the
 <a href="http://asciidoctor.org/docs/asciidoctor-diagram/">Asciidoctor Diagram</a>
 extension.</p>
 </div>
 <div class="paragraph">
-<p>There are two possible ways to include a diagram inside an Asciidoc
+<p>There are two possible ways to include a PlantUML diagram inside an AsciiDoc
 document.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>In a literal block&#8201;&#8212;&#8201;The diagram definition is part of the Asciidoc
-document itself.</p>
+<p>Embedded diagrams&#8201;&#8212;&#8201;The diagram is defined in a literal block, and
+is part of the AsciiDoc document itself.</p>
 </li>
 <li>
-<p>Using a diagram block macro&#8201;&#8212;&#8201;The diagram definition is read from
-an external file.</p>
+<p>External diagrams&#8201;&#8212;&#8201;The diagram is defined in a block
+macro that imports the contents of an external PlantUML file.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>An example of a diagram in a literal block follows.</p>
+<p>The following sections address these two options in more detail.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_embedded_diagrams">Embedded diagrams</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With embedded PlantUML diagrams, the diagram is defined in a literal
+block. This means the PlantUML content defining the diagram is part of
+the AsciiDoc file itself.</p>
+</div>
+<div class="paragraph">
+<p>Using embedded diagrams is fine when the PlantUML definition is short
+and the diagram is only intended to be used to be included in the
+final baked HTML document. For complex diagrams with longer
+definitions it is recommeded to have the diagram in its own dedicated
+PlantUML file. This is described in the next section.</p>
+</div>
+<div class="paragraph">
+<p>The figure below contains an example diagram defined in a literal block.</p>
+</div>
+<div id="fig-InlineDiagram" class="imageblock">
+<div class="content">
+<img src="Diagram-InlineExample.svg" alt="Example of embdedded PlantUML diagram defined in a literal block in the AsciiDoc source file." width="367" height="191">
+</div>
+<div class="title">Figure 1. Example of embdedded PlantUML diagram defined in a literal block in the AsciiDoc source file.</div>
+</div>
+<div class="paragraph">
+<p>The AsciiDoc markup that resulted in the above diagram follows.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -102,20 +134,34 @@ Car -- Person : &lt; owns
 ....</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>And the image resulting from the above block is shown below.</p>
 </div>
-<div id="fig-InlineDiagram" class="imageblock">
+</div>
+<div class="sect1">
+<h2 id="_external_diagrams">External diagrams</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>It is also possible to have PlantUML diagrams imported from external
+files. The <code>plantuml</code> block macro is used in this case.</p>
+</div>
+<div class="paragraph">
+<p>Defining a PlantUML diagram in its own dedicated file is preferable
+when the PlantUML definition is long. This helps with keeping the
+Asciidoc content mostly with actual text content. It is also the
+natural solution if the diagram also needs to be processed by other
+tools.</p>
+</div>
+<div class="paragraph">
+<p>We now show an example of using the <code>plantuml</code> block macro. The figure
+below contains a diagram defined in its own dedicated file.</p>
+</div>
+<div id="fig-ExternalDiagram" class="imageblock">
 <div class="content">
-<img src="Diagram-InlineExample.svg" alt="Example PlantUML diagram defined inline in the Asciidoc source file." width="367" height="191">
+<img src="Diagram-Example.svg" alt="Example PlantUML diagram contained in an external file." width="379" height="375">
 </div>
-<div class="title">Figure 1. Example PlantUML diagram defined inline in the Asciidoc source file.</div>
+<div class="title">Figure 2. Example PlantUML diagram contained in an external file.</div>
 </div>
 <div class="paragraph">
-<p>It is also possible to have PlantUML diagrams imported from files. The
-<code>plantuml</code> block macro used for that. The Asciidoc snippet below shows
-an example of using the <code>plantuml</code> block macro to include a diagram
-defined in a PlantUML source file.</p>
+<p>The AsciiDoc markup that resulted in the above diagram follows.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -124,13 +170,13 @@ plantuml::Diagram-Example.puml[Diagram-Example,svg]</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The result of the above snippet is the following image.</p>
+<p>The main argument for the <code>plantuml</code> block macro is the name of the
+file containing the PlantUML diagram definition. That is actually a
+file system path relative to the AsciiDoc source file. In our example
+the <code>Diagram-Example.puml</code> file is contained in the same directory as
+the AsciiDoc source file with the content of this page.</p>
 </div>
-<div id="fig-ExternalDiagram" class="imageblock">
-<div class="content">
-<img src="Diagram-Example.svg" alt="Example PlantUML diagram contained in an external file." width="379" height="375">
 </div>
-<div class="title">Figure 2. Example PlantUML diagram contained in an external file.</div>
 </div>
 
         <footer class="yawg-footer">

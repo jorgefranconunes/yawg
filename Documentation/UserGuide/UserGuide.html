@@ -15,7 +15,7 @@
 
     <link
        rel="stylesheet"
-       href="../../yawg-site.css?v=68964697-41ab-4344-8b18-d5537c1f608c" />
+       href="../../yawg-site.css?v=78e05844-a012-4b8e-b793-477da0a2ca35" />
     
     <script
        type="text/javascript"
@@ -74,7 +74,7 @@
 <p>Yawg is a static site generator. Given a source directory tree with
 files, a new directory tree will be populated with HTML files
 generated from the baking of the source files. Yawg is able to bake
-files in asciidoc and HTML formats. Other types of files will just be
+files in AsciiDoc and HTML formats. Other types of files will just be
 copied without any modification.</p>
 </div>
 <div class="paragraph">
@@ -99,7 +99,7 @@ command line options.</p>
 </li>
 <li>
 <p><a href="#sec-BakerTypes">Baker types</a>&#8201;&#8212;&#8201;Introduces you to the currently supported
-baker types: asciidoc, and HTML. The type of baker used defines how
+baker types: AsciiDoc, and HTML. The type of baker used defines how
 a given source file will be baked.</p>
 </li>
 <li>
@@ -135,8 +135,8 @@ should "just work" &#8482;.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>While Windows is not currently explicitly supported, you can still run
-Yawg just fine under Cygwin.</p>
+<p>While Windows is not yet explicitly supported, you can still run Yawg
+just fine under Cygwin.</p>
 </div>
 </div>
 </div>
@@ -279,7 +279,7 @@ only minimal logging is shown.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Asciidoc&#8201;&#8212;&#8201;Converts input files in Asciidoc format to HTML.</p>
+<p>Asciidoc&#8201;&#8212;&#8201;Converts input files in AsciiDoc format to HTML.</p>
 </li>
 <li>
 <p>HTML&#8201;&#8212;&#8201;Converts an input file in HTML format to another HTML file
@@ -321,8 +321,8 @@ parameters for the parent directory will be used instead.</p>
 baker type to be used for certain files. This is useful when you want
 to override the default baker type for some files (e.g. when you want
 <code>*.txt</code> files baked with the <code>asciidoc</code> baker). The keys are baker
-types. The values are list of glob patterns representing the files to
-be baked by that baker type.</p>
+types. The values are a list of glob patterns representing the files
+to be baked by that baker type.</p>
 </li>
 <li>
 <p><code>filesToIncludeOnly</code> (<code>List&lt;String&gt;</code>)&#8201;&#8212;&#8201;List of glob patterns
@@ -353,7 +353,7 @@ currently supported are the following:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>asciidoc</code>&#8201;&#8212;&#8201;Asciddoc baker.</p>
+<p><code>asciidoc</code>&#8201;&#8212;&#8201;AsciiDoc baker.</p>
 </li>
 <li>
 <p><code>html</code>&#8201;&#8212;&#8201;HTML baker.</p>
