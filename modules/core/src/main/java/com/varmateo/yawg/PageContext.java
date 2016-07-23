@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Jorge Nunes, All Rights Reserved.
+ * Copyright (c) 2016 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -20,8 +20,8 @@ public final class PageContext
 
 
     /**
-     * Th URLof the directory containing the current page relative to
-     * the top of the document tree.
+     * The URL of the directory containing the current page relative
+     * to the top of the document tree.
      */
     public final String dirUrl;
 

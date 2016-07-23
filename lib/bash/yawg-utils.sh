@@ -1,7 +1,7 @@
 #!/bin/bash
 ###########################################################################
 #
-# Copyright (c) 2016 Jorge Nunes, All Rights Reserved.
+# Copyright (c) 2016 Yawg project contributors.
 #
 #
 # Utility functions. This script is not meant to be executed by

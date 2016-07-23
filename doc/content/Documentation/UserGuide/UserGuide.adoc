@@ -37,7 +37,7 @@ The remainder of this document is organized as follows:
 * <<sec-PageTemplates>> -- Describes how templates are used for the
   rendering of the final HTML. This section also addresses the data
   model the template has access to for injecting data into the
-  genenated HTML.
+  generated HTML.
 
 
 

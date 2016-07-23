@@ -49,7 +49,7 @@
         ${body?no_esc}
 
         <footer class="yawg-footer">
-          <p>&copy;2016 Jorge Nunes
+          <p>&copy;2016 Yawg project contributors
           <p>Baked with ${productName} ${version}</p>
         </footer>
 

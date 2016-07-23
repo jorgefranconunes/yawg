@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright (c) 2016 Jorge Nunes, All Rights Reserved.
+Copyright (c) 2016 Yawg project contributors.
 
 XSLT for replacing the artifact version and parent version in a POM file.
 -->
