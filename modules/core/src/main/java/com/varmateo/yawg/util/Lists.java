@@ -63,30 +63,6 @@ public final class Lists
 
 
     /**
-     * Builds a read-only copy of the given collection.
-     *
-     * <p>The order of the elements in the returned list is the same
-     * order of the given collection iterator.</p>
-     *
-     * @param <T> The type of the elements in the given and returned
-     * collections.
-     *
-     * @param inputCollection The collection to be copied.
-     *
-     * @return A new read only list containing the elements in the
-     * given collection.
-     */
-    public static <T> List<T> readOnlyCopy(
-            final Collection<T> inputCollection) {
-
-        List<T> copy = new ArrayList<T>(inputCollection);
-        List<T> result = Collections.unmodifiableList(copy);
-
-        return result;
-    }
-
-
-    /**
      * Creates a new immutable list with the elements contained in the
      * given iterator.
      *
@@ -109,6 +85,30 @@ public final class Lists
         }
 
         List<T> result = Collections.unmodifiableList(newList);
+
+        return result;
+    }
+
+
+    /**
+     * Builds a read-only copy of the given collection.
+     *
+     * <p>The order of the elements in the returned list is the same
+     * order of the given collection iterator.</p>
+     *
+     * @param <T> The type of the elements in the given and returned
+     * collections.
+     *
+     * @param inputCollection The collection to be copied.
+     *
+     * @return A new read only list containing the elements in the
+     * given collection.
+     */
+    public static <T> List<T> readOnlyCopy(
+            final Collection<T> inputCollection) {
+
+        List<T> copy = new ArrayList<T>(inputCollection);
+        List<T> result = Collections.unmodifiableList(copy);
 
         return result;
     }

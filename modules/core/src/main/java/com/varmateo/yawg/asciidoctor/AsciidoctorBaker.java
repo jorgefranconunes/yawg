@@ -24,7 +24,9 @@ import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.Template;
 import com.varmateo.yawg.TemplateDataModel;
 import com.varmateo.yawg.YawgException;
+
 import com.varmateo.yawg.asciidoctor.AsciidoctorBakerDataModelBuilder;
+import com.varmateo.yawg.util.Exceptions;
 import com.varmateo.yawg.util.FileUtils;
 
 
@@ -121,7 +123,7 @@ import com.varmateo.yawg.util.FileUtils;
         try {
             doBake(sourcePath, context, targetDir);
         } catch ( AsciidoctorCoreException | IOException e ) {
-            YawgException.raise(
+            Exceptions.raise(
                     e,
                     "Failed {0} on {1} - {2} - {3}",
                     NAME,

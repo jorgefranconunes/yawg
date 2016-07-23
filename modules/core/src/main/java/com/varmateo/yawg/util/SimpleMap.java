@@ -14,6 +14,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import com.varmateo.yawg.YawgException;
+
+import com.varmateo.yawg.util.Exceptions;
 import com.varmateo.yawg.util.SimpleList;
 
 
@@ -128,7 +130,7 @@ public final class SimpleMap
         Object value = _map.get(key);
 
         if ( (value!=null) && !klass.isInstance(value) ) {
-            YawgException.raise(
+            Exceptions.raise(
                     "Invalid {2} value in {1} field \"{0}\"",
                     key,
                     klass.getSimpleName(),

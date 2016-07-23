@@ -11,6 +11,8 @@ import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.text.MessageFormat;
 
+import com.varmateo.yawg.YawgException;
+
 
 
 
@@ -26,6 +28,31 @@ public final class Exceptions
      * No instances of this class are to be created.
      */
     private Exceptions() {
+    }
+
+
+    /**
+     *
+     */
+    public static void raise(
+            final Throwable cause,
+            final String    msgFmt,
+            final Object... fmtArgs)
+            throws YawgException {
+
+        Exceptions.raise(YawgException.class, cause, msgFmt, fmtArgs);
+    }
+
+
+    /**
+     *
+     */
+    public static void raise(
+            final String    msgFmt,
+            final Object... fmtArgs)
+            throws YawgException {
+
+        Exceptions.raise(YawgException.class, msgFmt, fmtArgs);
     }
 
 

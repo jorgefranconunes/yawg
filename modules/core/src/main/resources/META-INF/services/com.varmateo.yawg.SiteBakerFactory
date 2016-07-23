@@ -1,0 +1,13 @@
+###########################################################################
+#
+# Copyright (C) 2016 Yawg project contributors.
+#
+#
+# Name of one class implementig the com.varmateo.yawg.SiteBakerFactory
+# interface. Instances of these classes will be created through the
+# Java service provider facility
+# (https://docs.oracle.com/javase/tutorial/ext/basics/spi.html).
+#
+###########################################################################
+
+com.varmateo.yawg.core.CoreSiteBakerFactory

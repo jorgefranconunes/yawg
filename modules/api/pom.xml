@@ -10,7 +10,7 @@ Copyright (c) 2016 Yawg project contributors.
   <packaging>jar</packaging>
 
   <groupId>com.varmateo.yawg</groupId>
-  <artifactId>yawg-core</artifactId>
+  <artifactId>yawg-api</artifactId>
 
   <parent>
     <groupId>com.varmateo.yawg</groupId>
@@ -41,42 +41,6 @@ Copyright (c) 2016 Yawg project contributors.
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
-        
-    <dependency>
-      <groupId>com.varmateo.yawg</groupId>
-      <artifactId>yawg-api</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.asciidoctor</groupId>
-      <artifactId>asciidoctorj</artifactId>
-      <version>${asciidoctorj.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.asciidoctor</groupId>
-      <artifactId>asciidoctorj-diagram</artifactId>
-      <version>${asciidoctorj-diagram.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.freemarker</groupId>
-      <artifactId>freemarker</artifactId>
-      <version>${freemaker.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jsoup</groupId>
-      <artifactId>jsoup</artifactId>
-      <version>${jsoup.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.esotericsoftware.yamlbeans</groupId>
-      <artifactId>yamlbeans</artifactId>
-      <version>${yamlbeans.version}</version>
-    </dependency>
 
   </dependencies>
 
@@ -105,6 +69,12 @@ Copyright (c) 2016 Yawg project contributors.
                system properties. -->
           <systemProperties>
 
+            <!-- Required by com.varmateo.yawg.YawgInfoTest -->
+            <property>
+              <name>YawgInfoTest.version</name>
+              <value>${project.version}</value>
+            </property>
+
             <!-- Required by com.varmateo.testutils.TestUtils -->
             <property>
               <name>TestUtils.inputTestFilesDir</name>
@@ -123,9 +93,9 @@ Copyright (c) 2016 Yawg project contributors.
 
   <!-- More project information. -->
 
-  <name>Yawg core implementation</name>
+  <name>Yawg extension API</name>
 
-  <description>Core Yawg classes.</description>
+  <description>Yawg API classes needed by extensions.</description>
 
 
 </project>

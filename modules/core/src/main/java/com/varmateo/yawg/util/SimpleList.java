@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.Objects;
 
 import com.varmateo.yawg.YawgException;
+
+import com.varmateo.yawg.util.Exceptions;
 import com.varmateo.yawg.util.SimpleMap;
 
 
@@ -85,7 +87,7 @@ public final class SimpleList<T>
         Object value = _list.get(index);
 
         if ( (value==null) || !klass.isInstance(value) ) {
-            YawgException.raise(
+            Exceptions.raise(
                     "Invalid {2} value in {1} position {0}",
                     index,
                     klass.getSimpleName(),

@@ -153,7 +153,7 @@ public final class BakerCli
                 .setTemplatesDir(templatesDir)
                 .setAssetsDir(assetsDir)
                 .build();
-        SiteBakerFactory factory = new SiteBakerFactory();
+        SiteBakerFactory factory = SiteBakerFactory.get();
         SiteBaker siteBaker = factory.newSiteBaker();
 
         try {

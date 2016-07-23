@@ -8,11 +8,13 @@ package com.varmateo.yawg.breadcrumbs;
 
 import java.util.Collection;
 
-import com.varmateo.yawg.DirBakeListenerFactory;
-import com.varmateo.yawg.breadcrumbs.BreadcrumbsBakeListenerFactory;
-
 import static org.junit.Assert.*;
 import org.junit.Test;
+
+import com.varmateo.yawg.DirBakeListenerFactory;
+
+import com.varmateo.yawg.breadcrumbs.BreadcrumbsBakeListenerFactory;
+import com.varmateo.yawg.util.Services;
 
 
 /**
@@ -29,7 +31,7 @@ public final class BreadcrumbsBakeListenerFactoryTest
     public void loadAsSpi() {
 
         Collection<DirBakeListenerFactory> allFactories =
-                DirBakeListenerFactory.getAllFactories();
+                Services.getAll(DirBakeListenerFactory.class);
         boolean isFound = false;
 
         for ( DirBakeListenerFactory factory : allFactories ) {

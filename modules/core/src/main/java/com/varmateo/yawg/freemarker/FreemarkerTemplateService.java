@@ -20,7 +20,9 @@ import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.Template;
 import com.varmateo.yawg.TemplateDataModel;
 import com.varmateo.yawg.TemplateService;
+
 import com.varmateo.yawg.freemarker.FreemarkerDataModel;
+import com.varmateo.yawg.util.Exceptions;
 
 
 /**
@@ -84,7 +86,7 @@ public final class FreemarkerTemplateService
             throws YawgException {
 
         if ( _initializationError != null ) {
-            YawgException.raise(
+            Exceptions.raise(
                     _initializationError,
                     "Failed to initialize template service - {0} - {1}",
                     _initializationError.getClass().getSimpleName(),
@@ -130,7 +132,7 @@ public final class FreemarkerTemplateService
         try {
             fmTemplate = _fmConfig.getTemplate(name);
         } catch ( IOException e ) {
-            YawgException.raise(
+            Exceptions.raise(
                     e,
                     "Failed to fetch template \"{0}\" - {1} - {2}",
                     name,
@@ -178,7 +180,7 @@ public final class FreemarkerTemplateService
             try {
                 _fmTemplate.process(fmDataModel, writer);
             } catch ( TemplateException | IOException e ) {
-                YawgException.raise(
+                Exceptions.raise(
                         e,
                         "Failed to process template \"{0}\" - {1} - {2}",
                         _fmTemplate.getName(),
