@@ -26,7 +26,7 @@ import com.varmateo.testutils.TestUtils;
 import com.varmateo.yawg.Baker;
 import com.varmateo.yawg.DirBakeListener;
 import com.varmateo.yawg.PageContext;
-import com.varmateo.yawg.TemplateVars;
+import com.varmateo.yawg.PageVars;
 
 import com.varmateo.yawg.core.DirBaker;
 import com.varmateo.yawg.core.DirBakerConf;
@@ -246,9 +246,9 @@ public final class DirBakerTest
          *
          */
         @Override
-        public TemplateVars onDirBake(final PageContext context) {
+        public PageVars onDirBake(final PageContext context) {
 
-            TemplateVars newVars = context.templateVars;
+            PageVars newVars = context.pageVars;
 
             ++_eventCount;
 

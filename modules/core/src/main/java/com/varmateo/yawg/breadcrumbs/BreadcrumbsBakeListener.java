@@ -10,12 +10,12 @@ import java.util.Optional;
 
 import com.varmateo.yawg.DirBakeListener;
 import com.varmateo.yawg.PageContext;
-import com.varmateo.yawg.TemplateVars;
+import com.varmateo.yawg.PageVars;
 import com.varmateo.yawg.YawgException;
-import com.varmateo.yawg.util.SimpleMap;
 
 import com.varmateo.yawg.breadcrumbs.BreadcrumbItem;
 import com.varmateo.yawg.breadcrumbs.Breadcrumbs;
+import com.varmateo.yawg.util.SimpleMap;
 
 
 /**
@@ -45,16 +45,16 @@ public final class BreadcrumbsBakeListener
      *
      */
     @Override
-    public TemplateVars onDirBake(final PageContext context)
+    public PageVars onDirBake(final PageContext context)
             throws YawgException {
 
-        SimpleMap vars = new SimpleMap(context.templateVars.asMap());
+        SimpleMap vars = new SimpleMap(context.pageVars.asMap());
         Breadcrumbs oldBreadcrumbs = getBreadcrumbs(vars);
         BreadcrumbItem newBreadcrumbItem =
                 buildBreadcrumbItem(vars, context.dirUrl);
         Breadcrumbs newBreadcrumbs =
                 extendBreadcrumbs(oldBreadcrumbs, newBreadcrumbItem);
-        TemplateVars newVars = updateBreadcrumbs(context, newBreadcrumbs);
+        PageVars newVars = updateBreadcrumbs(context, newBreadcrumbs);
 
         return newVars;
     }
@@ -128,13 +128,13 @@ public final class BreadcrumbsBakeListener
     /**
      *
      */
-    private TemplateVars updateBreadcrumbs(
+    private PageVars updateBreadcrumbs(
             final PageContext context,
             final Breadcrumbs newBreadcrumbs) {
 
-        TemplateVars oldVars = context.templateVars;
-        TemplateVars newVars =
-                TemplateVars.builder(oldVars)
+        PageVars oldVars = context.pageVars;
+        PageVars newVars =
+                PageVars.builder(oldVars)
                 .addVar(VAR_BREADCRUMB_LIST, newBreadcrumbs)
                 .build();
 

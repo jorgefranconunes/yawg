@@ -9,6 +9,7 @@ package com.varmateo.yawg;
 import java.util.Objects;
 import java.util.Optional;
 
+import com.varmateo.yawg.PageVars;
 import com.varmateo.yawg.Template;
 
 
@@ -43,7 +44,7 @@ public final class PageContext
     /**
      * Additional variables made available to the template.
      */
-    public final TemplateVars templateVars;
+    public final PageVars pageVars;
 
 
     /**
@@ -54,7 +55,7 @@ public final class PageContext
         dirUrl = Objects.requireNonNull(builder._dirUrl);
         pageTemplate = builder._pageTemplate;
         rootRelativeUrl = Objects.requireNonNull(builder._rootRelativeUrl);
-        templateVars = builder._templateVarsBuilder.build();
+        pageVars = builder._pageVarsBuilder.build();
     }
 
 
@@ -97,7 +98,7 @@ public final class PageContext
         private String _dirUrl;
         private Optional<Template> _pageTemplate;
         private String _rootRelativeUrl;
-        private TemplateVars.Builder _templateVarsBuilder;
+        private PageVars.Builder _pageVarsBuilder;
 
 
         /**
@@ -108,7 +109,7 @@ public final class PageContext
             _dirUrl = null;
             _pageTemplate = Optional.empty();
             _rootRelativeUrl = null;
-            _templateVarsBuilder = TemplateVars.builder();
+            _pageVarsBuilder = PageVars.builder();
         }
 
 
@@ -120,7 +121,7 @@ public final class PageContext
             _dirUrl = data.dirUrl;
             _pageTemplate = data.pageTemplate;
             _rootRelativeUrl = data.rootRelativeUrl;
-            _templateVarsBuilder = TemplateVars.builder(data.templateVars);
+            _pageVarsBuilder = PageVars.builder(data.pageVars);
         }
 
 
@@ -171,9 +172,9 @@ public final class PageContext
         /**
          *
          */
-        public Builder setTemplateVars(final TemplateVars templateVars) {
+        public Builder setPageVars(final PageVars pageVars) {
 
-            _templateVarsBuilder = TemplateVars.builder(templateVars);
+            _pageVarsBuilder = PageVars.builder(pageVars);
 
             return this;
         }
@@ -186,7 +187,7 @@ public final class PageContext
                 final String varName,
                 final Object varValue) {
 
-            _templateVarsBuilder.addVar(varName, varValue);
+            _pageVarsBuilder.addVar(varName, varValue);
 
             return this;
         }

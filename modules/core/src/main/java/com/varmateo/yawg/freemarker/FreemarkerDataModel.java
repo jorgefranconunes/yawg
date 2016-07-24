@@ -96,7 +96,7 @@ public final class FreemarkerDataModel
      */
     public Object get(final String key) {
 
-        Object result = _data.templateVars.get(key).orElse(null);
+        Object result = _data.pageVars.get(key).orElse(null);
 
         return result;
     }

@@ -14,7 +14,7 @@ import org.junit.Test;
 
 import com.varmateo.yawg.DirBakeListener;
 import com.varmateo.yawg.PageContext;
-import com.varmateo.yawg.TemplateVars;
+import com.varmateo.yawg.PageVars;
 
 import com.varmateo.yawg.core.CollectiveDirBakeListener;
 
@@ -39,7 +39,7 @@ public final class CollectiveDirBakeListenerTest
 
         assertEquals(0, listener01.getEventCount());
 
-        TemplateVars vars = listener.onDirBake(context);
+        PageVars vars = listener.onDirBake(context);
 
         assertEquals(1, listener01.getEventCount());
         assertEquals("hello", vars.get("var01").get());
@@ -60,7 +60,7 @@ public final class CollectiveDirBakeListenerTest
 
         assertEquals(0, listener01.getEventCount());
 
-        TemplateVars vars = listener.onDirBake(context);
+        PageVars vars = listener.onDirBake(context);
 
         assertEquals(1, listener01.getEventCount());
         assertEquals("hello", vars.get("var01").get());
@@ -83,7 +83,7 @@ public final class CollectiveDirBakeListenerTest
         assertEquals(0, listener01.getEventCount());
         assertEquals(0, listener02.getEventCount());
 
-        TemplateVars vars = listener.onDirBake(context);
+        PageVars vars = listener.onDirBake(context);
 
         assertEquals(1, listener01.getEventCount());
         assertEquals(1, listener02.getEventCount());
@@ -109,7 +109,7 @@ public final class CollectiveDirBakeListenerTest
         assertEquals(0, listener01.getEventCount());
         assertEquals(0, listener02.getEventCount());
 
-        TemplateVars vars = listener.onDirBake(context);
+        PageVars vars = listener.onDirBake(context);
 
         assertEquals(1, listener01.getEventCount());
         assertEquals(1, listener02.getEventCount());
@@ -134,7 +134,7 @@ public final class CollectiveDirBakeListenerTest
         assertEquals(0, listener01.getEventCount());
         assertEquals(0, listener02.getEventCount());
 
-        TemplateVars vars = listener.onDirBake(context);
+        PageVars vars = listener.onDirBake(context);
 
         assertEquals(1, listener01.getEventCount());
         assertEquals(1, listener02.getEventCount());
@@ -191,10 +191,10 @@ public final class CollectiveDirBakeListenerTest
          *
          */
         @Override
-        public TemplateVars onDirBake(final PageContext context) {
+        public PageVars onDirBake(final PageContext context) {
 
-            TemplateVars newVars =
-                    TemplateVars.builder(context.templateVars)
+            PageVars newVars =
+                    PageVars.builder(context.pageVars)
                     .addVar(_varName, _varValue)
                     .build();
 

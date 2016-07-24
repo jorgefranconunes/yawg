@@ -66,7 +66,7 @@ import com.varmateo.yawg.util.FileUtils;
                 .setBody(body)
                 .setPageUrl(pageUrl)
                 .setRootRelativeUrl(context.rootRelativeUrl)
-                .setTemplateVars(context.templateVars)
+                .setPageVars(context.pageVars)
                 .build();
 
         return result;

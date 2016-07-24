@@ -7,7 +7,7 @@
 package com.varmateo.yawg;
 
 import com.varmateo.yawg.PageContext;
-import com.varmateo.yawg.TemplateVars;
+import com.varmateo.yawg.PageVars;
 import com.varmateo.yawg.YawgException;
 
 
@@ -31,13 +31,13 @@ public interface DirBakeListener {
      * @return An updated set of template variables to be used by the
      * baker. If the listener does not want to make any change to the
      * template variables it should return the same
-     * <code>TemplateVars</code> instance contained in the given
+     * <code>PageVars</code> instance contained in the given
      * <code>PageContext</code>.
      *
      * @throws YawgException If there were any problems performing its
      * activities.
      */
-    TemplateVars onDirBake(PageContext context)
+    PageVars onDirBake(PageContext context)
             throws YawgException;
 
 

@@ -14,7 +14,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.regex.PatternSyntaxException;
 
-import com.varmateo.yawg.TemplateVars;
+import com.varmateo.yawg.PageVars;
 import com.varmateo.yawg.YawgException;
 
 import com.varmateo.yawg.core.DirBakerConf;
@@ -38,7 +38,7 @@ import com.varmateo.yawg.util.YamlParser;
     private static final String PARAM_IGNORE = "ignore";
     private static final String PARAM_INCLUDE_ONLY = "includeOnly";
     private static final String PARAM_TEMPLATE = "template";
-    private static final String PARAM_TEMPLATE_VARS = "templateVars";
+    private static final String PARAM_PAGE_VARS = "pageVars";
 
 
     /**
@@ -141,8 +141,8 @@ import com.varmateo.yawg.util.YamlParser;
         getBakerTypes(map, PARAM_BAKER_TYPES)
                 .ifPresent(builder::setBakerTypes);
 
-        getTemplateVars(map, PARAM_TEMPLATE_VARS)
-                .ifPresent(builder::setTemplateVars);
+        getPageVars(map, PARAM_PAGE_VARS)
+                .ifPresent(builder::setPageVars);
 
         DirBakerConf result = builder.build();
 
@@ -220,21 +220,21 @@ import com.varmateo.yawg.util.YamlParser;
     /**
      *
      */
-    private Optional<TemplateVars> getTemplateVars(
+    private Optional<PageVars> getPageVars(
             final SimpleMap map,
             final String key)
             throws YawgException {
 
-        Optional<TemplateVars> result;
-        Optional<SimpleMap> templateVarsMapOpt = map.getMap(key);
+        Optional<PageVars> result;
+        Optional<SimpleMap> pageVarsMapOpt = map.getMap(key);
 
-        if ( templateVarsMapOpt.isPresent() ) {
-            SimpleMap templateVarsMap = templateVarsMapOpt.get();
-            TemplateVars templateVars =
-                    TemplateVars.builder(templateVarsMap.asMap())
+        if ( pageVarsMapOpt.isPresent() ) {
+            SimpleMap pageVarsMap = pageVarsMapOpt.get();
+            PageVars pageVars =
+                    PageVars.builder(pageVarsMap.asMap())
                     .build();
 
-            result = Optional.of(templateVars);
+            result = Optional.of(pageVars);
         } else {
             result = Optional.empty();
         }

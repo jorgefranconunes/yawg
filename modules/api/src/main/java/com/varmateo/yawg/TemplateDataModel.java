@@ -9,7 +9,7 @@ package com.varmateo.yawg;
 import java.util.Objects;
 import java.util.UUID;
 
-import com.varmateo.yawg.TemplateVars;
+import com.varmateo.yawg.PageVars;
 import com.varmateo.yawg.YawgInfo;
 
 
@@ -66,7 +66,7 @@ public final class TemplateDataModel
      * Set of variables available to the page template. These
      * variables are immutable.
      */
-    public final TemplateVars templateVars;
+    public final PageVars pageVars;
 
 
     /**
@@ -81,7 +81,7 @@ public final class TemplateDataModel
         productName = YawgInfo.PRODUCT_NAME;
         title = Objects.requireNonNull(builder._title);
         version = YawgInfo.VERSION;
-        templateVars = Objects.requireNonNull(builder._templateVars);
+        pageVars = Objects.requireNonNull(builder._pageVars);
     }
 
 
@@ -108,7 +108,7 @@ public final class TemplateDataModel
         private String _body = null;
         private String _pageUrl = null;
         private String _rootRelativeUrl = null;
-        private TemplateVars _templateVars = new TemplateVars();
+        private PageVars _pageVars = new PageVars();
         private String _title = null;
 
 
@@ -154,9 +154,9 @@ public final class TemplateDataModel
         /**
          *
          */
-        public Builder setTemplateVars(final TemplateVars templateVars) {
+        public Builder setPageVars(final PageVars pageVars) {
 
-            _templateVars = templateVars;
+            _pageVars = pageVars;
             return this;
         }
 

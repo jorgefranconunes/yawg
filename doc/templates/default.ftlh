@@ -49,7 +49,7 @@
         ${body?no_esc}
 
         <footer class="yawg-footer">
-          <p>&copy;2016 Yawg project contributors
+          <p>&copy;2016 <a href="http://yawg.varmateo.com/">Yawg project</a> contributors</p>
           <p>Baked with ${productName} ${version}</p>
         </footer>
 

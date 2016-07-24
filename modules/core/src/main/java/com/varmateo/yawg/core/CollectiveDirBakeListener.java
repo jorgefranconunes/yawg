@@ -10,7 +10,7 @@ import java.util.Collection;
 
 import com.varmateo.yawg.DirBakeListener;
 import com.varmateo.yawg.PageContext;
-import com.varmateo.yawg.TemplateVars;
+import com.varmateo.yawg.PageVars;
 import com.varmateo.yawg.util.Lists;
 
 
@@ -39,16 +39,16 @@ final class CollectiveDirBakeListener
      *
      */
     @Override
-    public TemplateVars onDirBake(final PageContext context) {
+    public PageVars onDirBake(final PageContext context) {
 
         PageContext result = context;
 
         for ( DirBakeListener listener : _listeners ) {
-            TemplateVars newVars = listener.onDirBake(result);
+            PageVars newVars = listener.onDirBake(result);
             result = buildContext(result, newVars);
         }
 
-        return result.templateVars;
+        return result.pageVars;
     }
 
 
@@ -57,11 +57,11 @@ final class CollectiveDirBakeListener
      */
     private static PageContext buildContext(
             final PageContext oldData,
-            final TemplateVars newVars) {
+            final PageVars newVars) {
 
         PageContext result =
                 PageContext.builder(oldData)
-                .setTemplateVars(newVars)
+                .setPageVars(newVars)
                 .build();
 
         return result;

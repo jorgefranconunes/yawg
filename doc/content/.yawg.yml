@@ -16,7 +16,7 @@ ignore:
   - ".yawg.yml"
 
 
-templateVars:
+pageVars:
   navbarSelectedItem: "home"
   
   breadcrumb:

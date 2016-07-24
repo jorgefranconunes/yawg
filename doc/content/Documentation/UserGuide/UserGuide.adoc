@@ -206,10 +206,10 @@ to override the default baker type for some files (e.g. when you want
 types. The values are a list of glob patterns representing the files
 to be baked by that baker type.
 
-* `filesToIncludeOnly` (`List<String>`) -- List of glob patterns
-representing the files in the directory that are to be baked. All
-other files in the directory will be skipped. This parameter takes
-precedence over the `filesToIgnore` parameter.
+* `includeOnly` (`List<String>`) -- List of glob patterns representing
+the files in the directory that are to be baked. All other files in
+the directory will be skipped. This parameter takes precedence over
+the `ignore` parameter.
 
 * `ignore` (`List<String>`) -- List of glob patterns representing the
 files in the directory that are to be ignored during the bake.

@@ -2,7 +2,7 @@
 #
 #
 
-templateVars:
+pageVars:
   navbarSelectedItem: "documentation"
   
   breadcrumb:

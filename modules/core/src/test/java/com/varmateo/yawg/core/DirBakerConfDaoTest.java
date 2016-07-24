@@ -24,7 +24,7 @@ import com.varmateo.yawg.YawgException;
 
 import static com.varmateo.yawg.core.DirBakerConfTestUtils.assertConfEquals;
 import com.varmateo.yawg.core.DirBakerConfDao;
-import com.varmateo.yawg.TemplateVars;
+import com.varmateo.yawg.PageVars;
 
 
 /**
@@ -233,14 +233,14 @@ public final class DirBakerConfDaoTest
      *
      */
     @Test
-    public void withTemplateVars()
+    public void withPageVars()
             throws IOException {
 
         String confContents = ""
-                + "templateVars:\n"
+                + "pageVars:\n"
                 + "  hello : 'world'\n";
         DirBakerConf actualConf = readFromString(confContents);
-        TemplateVars vars = actualConf.templateVars;
+        PageVars vars = actualConf.pageVars;
         Optional<Object> value = vars.get("hello");
 
         assertTrue(value.isPresent());

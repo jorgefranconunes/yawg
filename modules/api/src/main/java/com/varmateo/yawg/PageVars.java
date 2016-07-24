@@ -18,7 +18,7 @@ import java.util.Optional;
  *
  * <p>The meaning of this variables is template specific.</p>
  */
-public final class TemplateVars
+public final class PageVars
         extends Object {
 
 
@@ -28,7 +28,7 @@ public final class TemplateVars
     /**
      * @param map Immutable mapping.
      */
-    private TemplateVars(final Map<String,Object> map) {
+    private PageVars(final Map<String,Object> map) {
 
         _map = map;
     }
@@ -37,7 +37,7 @@ public final class TemplateVars
     /**
      *
      */
-    private TemplateVars(final Builder builder) {
+    private PageVars(final Builder builder) {
 
         _map = Collections.unmodifiableMap(new HashMap<>(builder._map));
     }
@@ -46,7 +46,7 @@ public final class TemplateVars
     /**
      *
      */
-    public TemplateVars() {
+    public PageVars() {
 
         _map = Collections.emptyMap();
     }
@@ -67,7 +67,7 @@ public final class TemplateVars
 
     /**
      * Creates a new builder initialized with the data from the given
-     * <code>TemplateVars</code>.
+     * <code>PageVars</code>.
      *
      * @param data Used for initializing the builder state.
      *
@@ -83,13 +83,13 @@ public final class TemplateVars
 
     /**
      * Creates a new builder initialized with the data from the given
-     * <code>TemplateVars</code>.
+     * <code>PageVars</code>.
      *
      * @param data Used for initializing the builder state.
      *
      * @return A newly created <code>Builder</code> instance.
      */
-    public static Builder builder(final TemplateVars data) {
+    public static Builder builder(final PageVars data) {
 
         Builder result = new Builder(data);
 
@@ -100,12 +100,12 @@ public final class TemplateVars
     /**
      *
      */
-    public TemplateVars mergeOnTopOf(final TemplateVars that) {
+    public PageVars mergeOnTopOf(final PageVars that) {
 
         Map<String,Object> newMap = new HashMap<>(that._map);
         newMap.putAll(_map);
 
-        TemplateVars result = new TemplateVars(newMap);
+        PageVars result = new PageVars(newMap);
 
         return result;
     }
@@ -136,7 +136,7 @@ public final class TemplateVars
 
 
     /**
-     * A builder of <code>TemplateVars</code> instances.
+     * A builder of <code>PageVars</code> instances.
      */
     public static final class Builder
             extends Object {
@@ -166,7 +166,7 @@ public final class TemplateVars
         /**
          *
          */
-        private Builder(final TemplateVars vars) {
+        private Builder(final PageVars vars) {
 
             _map = new HashMap<>(vars._map);
         }
@@ -188,9 +188,9 @@ public final class TemplateVars
         /**
          *
          */
-        public TemplateVars build() {
+        public PageVars build() {
 
-            TemplateVars result = new TemplateVars(this);
+            PageVars result = new PageVars(this);
 
             return result;
         }

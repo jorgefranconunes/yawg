@@ -9,7 +9,7 @@ package com.varmateo.yawg.core;
 import java.util.Arrays;
 import java.util.Optional;
 
-import com.varmateo.yawg.TemplateVars;
+import com.varmateo.yawg.PageVars;
 
 import com.varmateo.yawg.util.GlobMatcher;
 
@@ -46,7 +46,7 @@ import com.varmateo.yawg.util.GlobMatcher;
     /**
      *
      */
-    public final TemplateVars templateVars;
+    public final PageVars pageVars;
 
 
     /**
@@ -58,7 +58,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         this.filesToIgnore = builder._filesToIgnore;
         this.filesToIncludeOnly = builder._filesToIncludeOnly;
         this.bakerTypes = builder._bakerTypes;
-        this.templateVars = builder._templateVars;
+        this.pageVars = builder._pageVars;
     }
 
 
@@ -93,7 +93,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         this.filesToIgnore.ifPresent(builder::addFilesToIgnore);
         this.filesToIncludeOnly.ifPresent(builder::setFilesToIncludeOnly);
         this.bakerTypes.ifPresent(builder::addBakerTypes);
-        builder.addTemplateVars(this.templateVars);
+        builder.addPageVars(this.pageVars);
 
         DirBakerConf result = builder.build();
 
@@ -112,7 +112,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         private Optional<GlobMatcher> _filesToIgnore = Optional.empty();
         private Optional<GlobMatcher> _filesToIncludeOnly = Optional.empty();
         private Optional<BakerMatcher> _bakerTypes = Optional.empty();
-        private TemplateVars _templateVars = new TemplateVars();
+        private PageVars _pageVars = new PageVars();
 
 
         /**
@@ -132,7 +132,7 @@ import com.varmateo.yawg.util.GlobMatcher;
             _filesToIgnore = defaults.filesToIgnore;
             // _filesToIncludeOnly always starts empty.
             _bakerTypes = defaults.bakerTypes;
-            _templateVars = defaults.templateVars;
+            _pageVars = defaults.pageVars;
         }
 
 
@@ -269,9 +269,9 @@ import com.varmateo.yawg.util.GlobMatcher;
         /**
          *
          */
-        public  Builder setTemplateVars(final TemplateVars templateVars) {
+        public  Builder setPageVars(final PageVars pageVars) {
 
-            _templateVars = templateVars;
+            _pageVars = pageVars;
             return this;
         }
 
@@ -279,9 +279,9 @@ import com.varmateo.yawg.util.GlobMatcher;
         /**
          *
          */
-        private Builder addTemplateVars(final TemplateVars templateVars) {
+        private Builder addPageVars(final PageVars pageVars) {
 
-            _templateVars = templateVars.mergeOnTopOf(_templateVars);
+            _pageVars = pageVars.mergeOnTopOf(_pageVars);
             return this;
         }
 
