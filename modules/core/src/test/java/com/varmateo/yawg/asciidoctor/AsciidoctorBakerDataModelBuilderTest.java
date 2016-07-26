@@ -55,8 +55,8 @@ public final class AsciidoctorBakerDataModelBuilderTest
 
         TemplateDataModel model = buildModel("DocumentWithTitle.adoc");
 
-        assertEquals("Document with Title", model.title);
-        assertTrue(model.body.contains(
+        assertEquals("Document with Title", model.getTitle());
+        assertTrue(model.getBody().contains(
                 "The body of the document with a title."));
     }
 
@@ -70,8 +70,8 @@ public final class AsciidoctorBakerDataModelBuilderTest
 
         TemplateDataModel model = buildModel("DocumentWithoutTitle.adoc");
 
-        assertEquals("DocumentWithoutTitle", model.title);
-        assertTrue(model.body.contains(
+        assertEquals("DocumentWithoutTitle", model.getTitle());
+        assertTrue(model.getBody().contains(
                 "The body of the document without a title."));
     }
 

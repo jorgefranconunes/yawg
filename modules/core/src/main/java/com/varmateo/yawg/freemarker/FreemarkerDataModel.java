@@ -33,7 +33,7 @@ public final class FreemarkerDataModel
      */
     public String getBakeId() {
 
-        return _data.bakeId;
+        return _data.getBakeId();
     }
 
 
@@ -42,7 +42,7 @@ public final class FreemarkerDataModel
      */
     public String getBody() {
 
-        return _data.body;
+        return _data.getBody();
     }
 
 
@@ -51,7 +51,7 @@ public final class FreemarkerDataModel
      */
     public String getPageUrl() {
 
-        return _data.pageUrl;
+        return _data.getPageUrl();
     }
 
 
@@ -60,7 +60,7 @@ public final class FreemarkerDataModel
      */
     public String getProductName() {
 
-        return _data.productName;
+        return _data.getProductName();
     }
 
 
@@ -69,7 +69,7 @@ public final class FreemarkerDataModel
      */
     public String getRootRelativeUrl() {
 
-        return _data.rootRelativeUrl;
+        return _data.getRootRelativeUrl();
     }
 
 
@@ -78,7 +78,7 @@ public final class FreemarkerDataModel
      */
     public String getTitle() {
 
-        return _data.title;
+        return _data.getTitle();
     }
 
 
@@ -87,7 +87,7 @@ public final class FreemarkerDataModel
      */
     public String getVersion() {
 
-        return _data.version;
+        return _data.getVersion();
     }
 
 
@@ -96,7 +96,7 @@ public final class FreemarkerDataModel
      */
     public Object get(final String key) {
 
-        Object result = _data.pageVars.get(key).orElse(null);
+        Object result = _data.getPageVars().get(key).orElse(null);
 
         return result;
     }

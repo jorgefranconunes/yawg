@@ -19,6 +19,8 @@ import org.asciidoctor.internal.AsciidoctorCoreException;
 
 import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.TemplateDataModel;
+
+import com.varmateo.yawg.core.TemplateDataModelBuilder;
 import com.varmateo.yawg.util.FileUtils;
 
 
@@ -77,7 +79,7 @@ import com.varmateo.yawg.util.FileUtils;
                 .orElseGet(() -> FileUtils.basename(sourcePath));
 
         TemplateDataModel result =
-                TemplateDataModel.builder()
+                new TemplateDataModelBuilder()
                 .setTitle(title)
                 .setBody(body)
                 .setPageUrl(pageUrl)

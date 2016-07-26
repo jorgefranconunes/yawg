@@ -51,10 +51,10 @@ public final class HtmlBakerDataModelBuilderTest
 
         TemplateDataModel model = buildModel("DocumentWithTitle.html");
 
-        assertEquals("Document with Title", model.title);
+        assertEquals("Document with Title", model.getTitle());
         assertEquals(
                 "<p>The body of the document with a title.</p>",
-                model.body);
+                model.getBody());
     }
 
 
@@ -67,10 +67,10 @@ public final class HtmlBakerDataModelBuilderTest
 
         TemplateDataModel model = buildModel("DocumentWithoutTitle.html");
 
-        assertEquals("DocumentWithoutTitle", model.title);
+        assertEquals("DocumentWithoutTitle", model.getTitle());
         assertEquals(
                 "<p>The body of the document without a title.</p>",
-                model.body);
+                model.getBody());
     }
 
 
