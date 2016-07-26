@@ -144,7 +144,7 @@ import com.varmateo.yawg.util.FileUtils;
             throws AsciidoctorCoreException, IOException {
 
         Path targetPath = getTargetPath(sourcePath, targetDir);
-        Optional<Template> template = context.pageTemplate;
+        Optional<Template> template = context.getPageTemplate();
 
         if ( template.isPresent() ) {
             doBakeWithTemplate(sourcePath, context, targetDir, targetPath);
@@ -206,7 +206,7 @@ import com.varmateo.yawg.util.FileUtils;
 
         TemplateDataModel dataModel =
                 _modelBuilder.build(sourcePath, targetDir, targetPath, context);
-        Template template = context.pageTemplate.get();
+        Template template = context.getPageTemplate().get();
         StringWriter buffer = new StringWriter();
 
         template.process(dataModel, buffer);

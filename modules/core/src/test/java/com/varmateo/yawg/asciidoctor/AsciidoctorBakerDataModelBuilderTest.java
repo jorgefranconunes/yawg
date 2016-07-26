@@ -19,6 +19,8 @@ import com.varmateo.testutils.TestUtils;
 
 import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.TemplateDataModel;
+
+import com.varmateo.yawg.core.PageContextBuilder;
 import com.varmateo.yawg.asciidoctor.AsciidoctorBakerDataModelBuilder;
 
 
@@ -83,7 +85,7 @@ public final class AsciidoctorBakerDataModelBuilderTest
         String dirUrl = ".";
         String rootRelativeUrl = ".";
         PageContext context =
-                PageContext.builder()
+                new PageContextBuilder()
                 .setDirUrl(dirUrl)
                 .setRootRelativeUrl(rootRelativeUrl)
                 .build();

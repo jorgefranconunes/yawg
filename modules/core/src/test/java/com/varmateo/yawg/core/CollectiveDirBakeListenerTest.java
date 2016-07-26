@@ -17,6 +17,7 @@ import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.PageVars;
 
 import com.varmateo.yawg.core.CollectiveDirBakeListener;
+import com.varmateo.yawg.core.PageContextBuilder;
 
 
 /**
@@ -151,7 +152,7 @@ public final class CollectiveDirBakeListenerTest
             final String varValue) {
 
         PageContext context =
-                PageContext.builder()
+                new PageContextBuilder()
                 .setDirUrl(".")
                 .setRootRelativeUrl(".")
                 .addVar(varName, varValue)
@@ -194,7 +195,7 @@ public final class CollectiveDirBakeListenerTest
         public PageVars onDirBake(final PageContext context) {
 
             PageVars newVars =
-                    PageVars.builder(context.pageVars)
+                    PageVars.builder(context.getPageVars())
                     .addVar(_varName, _varValue)
                     .build();
 

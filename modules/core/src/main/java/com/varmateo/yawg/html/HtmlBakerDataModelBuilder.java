@@ -52,7 +52,7 @@ import com.varmateo.yawg.util.FileUtils;
                 .flatMap(elems -> Optional.ofNullable(elems.first()))
                 .map(Element::html)
                 .orElse("");
-        String pageUrl = context.dirUrl + "/" + targetPath.getFileName();
+        String pageUrl = context.getDirUrl() + "/" + targetPath.getFileName();
         String title =
                 document
                 .map(doc -> doc.getElementsByTag("title"))
@@ -65,8 +65,8 @@ import com.varmateo.yawg.util.FileUtils;
                 .setTitle(title)
                 .setBody(body)
                 .setPageUrl(pageUrl)
-                .setRootRelativeUrl(context.rootRelativeUrl)
-                .setPageVars(context.pageVars)
+                .setRootRelativeUrl(context.getRootRelativeUrl())
+                .setPageVars(context.getPageVars())
                 .build();
 
         return result;

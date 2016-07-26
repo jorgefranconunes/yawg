@@ -11,6 +11,8 @@ import java.util.Collection;
 import com.varmateo.yawg.DirBakeListener;
 import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.PageVars;
+
+import com.varmateo.yawg.core.PageContextBuilder;
 import com.varmateo.yawg.util.Lists;
 
 
@@ -48,7 +50,7 @@ final class CollectiveDirBakeListener
             result = buildContext(result, newVars);
         }
 
-        return result.pageVars;
+        return result.getPageVars();
     }
 
 
@@ -60,7 +62,7 @@ final class CollectiveDirBakeListener
             final PageVars newVars) {
 
         PageContext result =
-                PageContext.builder(oldData)
+                new PageContextBuilder(oldData)
                 .setPageVars(newVars)
                 .build();
 

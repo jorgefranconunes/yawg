@@ -128,7 +128,7 @@ public final class HtmlBaker
             throws IOException {
 
         Path targetPath = getTargetPath(sourcePath, targetDir);
-        Optional<Template> template = context.pageTemplate;
+        Optional<Template> template = context.getPageTemplate();
 
         if ( template.isPresent() ) {
             doBakeWithTemplate(sourcePath, context, targetPath);
@@ -177,7 +177,7 @@ public final class HtmlBaker
 
         TemplateDataModel dataModel =
                 _modelBuilder.build(sourcePath, targetPath, context);
-        Template template = context.pageTemplate.get();
+        Template template = context.getPageTemplate().get();
 
         FileUtils.newWriter(
                 targetPath,

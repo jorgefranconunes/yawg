@@ -248,7 +248,7 @@ public final class DirBakerTest
         @Override
         public PageVars onDirBake(final PageContext context) {
 
-            PageVars newVars = context.pageVars;
+            PageVars newVars = context.getPageVars();
 
             ++_eventCount;
 

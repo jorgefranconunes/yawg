@@ -48,10 +48,10 @@ public final class BreadcrumbsBakeListener
     public PageVars onDirBake(final PageContext context)
             throws YawgException {
 
-        SimpleMap vars = new SimpleMap(context.pageVars.asMap());
+        SimpleMap vars = new SimpleMap(context.getPageVars().asMap());
         Breadcrumbs oldBreadcrumbs = getBreadcrumbs(vars);
         BreadcrumbItem newBreadcrumbItem =
-                buildBreadcrumbItem(vars, context.dirUrl);
+                buildBreadcrumbItem(vars, context.getDirUrl());
         Breadcrumbs newBreadcrumbs =
                 extendBreadcrumbs(oldBreadcrumbs, newBreadcrumbItem);
         PageVars newVars = updateBreadcrumbs(context, newBreadcrumbs);
@@ -132,7 +132,7 @@ public final class BreadcrumbsBakeListener
             final PageContext context,
             final Breadcrumbs newBreadcrumbs) {
 
-        PageVars oldVars = context.pageVars;
+        PageVars oldVars = context.getPageVars();
         PageVars newVars =
                 PageVars.builder(oldVars)
                 .addVar(VAR_BREADCRUMB_LIST, newBreadcrumbs)

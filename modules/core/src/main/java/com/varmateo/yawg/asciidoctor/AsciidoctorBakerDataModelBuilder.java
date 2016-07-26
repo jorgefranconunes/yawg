@@ -68,7 +68,7 @@ import com.varmateo.yawg.util.FileUtils;
                 .headerFooter(false)
                 .safe(SafeMode.UNSAFE);
         String body = _asciidoctor.render(sourceContent, options);
-        String pageUrl = context.dirUrl + "/" + targetPath.getFileName();
+        String pageUrl = context.getDirUrl() + "/" + targetPath.getFileName();
         DocumentHeader header = _asciidoctor.readDocumentHeader(sourceContent);
         String title =
                 Optional.ofNullable(header)
@@ -81,8 +81,8 @@ import com.varmateo.yawg.util.FileUtils;
                 .setTitle(title)
                 .setBody(body)
                 .setPageUrl(pageUrl)
-                .setRootRelativeUrl(context.rootRelativeUrl)
-                .setPageVars(context.pageVars)
+                .setRootRelativeUrl(context.getRootRelativeUrl())
+                .setPageVars(context.getPageVars())
                 .build();
 
         return result;
