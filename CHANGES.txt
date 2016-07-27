@@ -1,0 +1,33 @@
+= Yawg Change History
+
+
+
+
+
+This document contains the lists of changes for each release of the
+Yawg project.
+
+
+
+
+
+== 0.9.1
+
+#127 Adapted copyright notice on source code
+
+#145 Separated extensions API into dedicated module
+
+#147 Renamed dir bake parameter templateVars to pageVars
+
+#149 Refactored the PageContext interface to have no public builder
+
+#151 Refactored the TemplateDataModel interface to have no public
+builder
+
+
+
+
+
+== 0.9.0
+
+First feature complete release.
