@@ -2,7 +2,7 @@
 #
 #
 
-templateVars:
+pageVars:
   breadcrumb:
     title: "Equations"
     url: "Equations.html"

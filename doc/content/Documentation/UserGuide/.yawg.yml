@@ -2,7 +2,7 @@
 #
 #
 
-templateVars:
+pageVars:
   breadcrumb:
     title: "User guide"
     url: "UserGuide.html"
