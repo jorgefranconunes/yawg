@@ -58,7 +58,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         this.filesToExclude = builder._filesToExclude;
         this.filesToIncludeOnly = builder._filesToIncludeOnly;
         this.bakerTypes = builder._bakerTypes;
-        this.pageVars = builder._pageVars;
+        this.pageVars = builder._pageVarsBuilder.build();
     }
 
 
@@ -112,7 +112,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         private Optional<GlobMatcher> _filesToExclude = Optional.empty();
         private Optional<GlobMatcher> _filesToIncludeOnly = Optional.empty();
         private Optional<BakerMatcher> _bakerTypes = Optional.empty();
-        private PageVars _pageVars = new PageVars();
+        private PageVars.Builder _pageVarsBuilder = PageVars.builder();
 
 
         /**
@@ -132,7 +132,7 @@ import com.varmateo.yawg.util.GlobMatcher;
             _filesToExclude = defaults.filesToExclude;
             // _filesToIncludeOnly always starts empty.
             _bakerTypes = defaults.bakerTypes;
-            _pageVars = defaults.pageVars;
+            _pageVarsBuilder = PageVars.builder(defaults.pageVars);
         }
 
 
@@ -142,6 +142,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         public Builder setTemplateName(final String templateName) {
 
             _templateName = Optional.of(templateName);
+
             return this;
         }
 
@@ -152,6 +153,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         public Builder setFilesToExclude(final GlobMatcher fileNames) {
 
             _filesToExclude = Optional.of(fileNames);
+
             return this;
         }
 
@@ -198,6 +200,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         public Builder setFilesToIncludeOnly(final GlobMatcher fileNames) {
 
             _filesToIncludeOnly = Optional.of(fileNames);
+
             return this;
         }
 
@@ -222,6 +225,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         public Builder setBakerTypes(final BakerMatcher bakerTypes) {
 
             _bakerTypes = Optional.of(bakerTypes);
+
             return this;
         }
 
@@ -271,7 +275,8 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public  Builder setPageVars(final PageVars pageVars) {
 
-            _pageVars = pageVars;
+            _pageVarsBuilder = PageVars.builder(pageVars);
+
             return this;
         }
 
@@ -281,7 +286,8 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         private Builder addPageVars(final PageVars pageVars) {
 
-            _pageVars = pageVars.mergeOnTopOf(_pageVars);
+            _pageVarsBuilder.addPageVars(pageVars);
+
             return this;
         }
 

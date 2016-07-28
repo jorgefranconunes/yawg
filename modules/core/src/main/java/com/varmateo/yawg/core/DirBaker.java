@@ -182,7 +182,10 @@ import com.varmateo.yawg.util.Exceptions;
                                                   srv.getTemplate(name)));
         String dirUrl = buildRelativeUrl(sourceDir, _sourceRootDir);
         String rootRelativeUrl = buildRelativeUrl(_sourceRootDir, sourceDir);
-        PageVars newVars = dirBakerConf.pageVars.mergeOnTopOf(vars);
+        PageVars newVars =
+                PageVars.builder(vars)
+                .addPageVars(dirBakerConf.pageVars)
+                .build();
         PageContext context =
                 new PageContextBuilder()
                 .setDirUrl(dirUrl)

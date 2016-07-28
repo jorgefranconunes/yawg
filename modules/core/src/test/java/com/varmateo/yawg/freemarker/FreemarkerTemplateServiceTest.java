@@ -23,7 +23,6 @@ import com.varmateo.yawg.TemplateDataModel;
 import com.varmateo.yawg.TemplateService;
 import com.varmateo.yawg.YawgException;
 
-import com.varmateo.yawg.core.TemplateDataModelBuilder;
 import com.varmateo.yawg.freemarker.FreemarkerTemplateService;
 
 
@@ -108,7 +107,7 @@ public final class FreemarkerTemplateServiceTest
         String title = "Simple title";
         String body = "Hello, world!";
         TemplateDataModel model =
-                new TemplateDataModelBuilder()
+                TemplateDataModel.builder()
                 .setBody(body)
                 .setPageUrl("MyPage.html")
                 .setRootRelativeUrl(".")
@@ -142,7 +141,7 @@ public final class FreemarkerTemplateServiceTest
         String title = "Simple title";
         String body = "Hello, world!";
         TemplateDataModel model =
-                new TemplateDataModelBuilder()
+                TemplateDataModel.builder()
                 .setBody(body)
                 .setPageUrl("MyPage.html")
                 .setRootRelativeUrl(".")

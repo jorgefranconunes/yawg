@@ -26,15 +26,6 @@ public final class PageVars
 
 
     /**
-     * @param map Immutable mapping.
-     */
-    private PageVars(final Map<String,Object> map) {
-
-        _map = map;
-    }
-
-
-    /**
      *
      */
     private PageVars(final Builder builder) {
@@ -44,7 +35,7 @@ public final class PageVars
 
 
     /**
-     *
+     * Initializes an empty set of variables.
      */
     public PageVars() {
 
@@ -98,21 +89,14 @@ public final class PageVars
 
 
     /**
+     * Retrieves the value of one of the variables.
      *
-     */
-    public PageVars mergeOnTopOf(final PageVars that) {
-
-        Map<String,Object> newMap = new HashMap<>(that._map);
-        newMap.putAll(_map);
-
-        PageVars result = new PageVars(newMap);
-
-        return result;
-    }
-
-
-    /**
+     * @param key The name of the variable whose value is to be
+     * returned.
      *
+     * @return An <code>Optional</code> containing the value of the
+     * given variable, or nan empty <code>Optional</code> if the
+     * variable does not exist.
      */
     public Optional<Object> get(final String key) {
 
@@ -180,6 +164,17 @@ public final class PageVars
                 final Object varValue) {
 
             _map.put(varName, varValue);
+
+            return this;
+        }
+
+
+        /**
+         *
+         */
+        public Builder addPageVars(final PageVars that) {
+
+            _map.putAll(that._map);
 
             return this;
         }
