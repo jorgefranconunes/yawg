@@ -21,30 +21,10 @@ public final class SiteBakerConf
     extends Object {
 
 
-    /**
-     * Path of directory containing the assets files. These files will
-     * be copied without any changes to teh target directory.
-     */
-    public final Optional<Path> assetsDir;
-
-
-    /**
-     * Path of directory containing the documents to be baked.
-     */
-    public final Path sourceDir;
-
-
-    /**
-     * Path of directory where the results of the baking will be
-     * stored.
-     */
-    public final Path targetDir;
-
-
-    /**
-     * Path of directory containing the templates files.
-     */
-    public final Optional<Path> templatesDir;
+    private final Optional<Path> _assetsDir;
+    private final Path _sourceDir;
+    private final Path _targetDir;
+    private final Optional<Path> _templatesDir;
 
 
     /**
@@ -52,10 +32,44 @@ public final class SiteBakerConf
      */
     private SiteBakerConf(final Builder builder) {
 
-        this.assetsDir = builder._assetsDir;
-        this.sourceDir = Objects.requireNonNull(builder._sourceDir);
-        this.targetDir = Objects.requireNonNull(builder._targetDir);
-        this.templatesDir = builder._templatesDir;
+        _assetsDir = builder._assetsDir;
+        _sourceDir = Objects.requireNonNull(builder._sourceDir);
+        _targetDir = Objects.requireNonNull(builder._targetDir);
+        _templatesDir = builder._templatesDir;
+    }
+
+
+    /**
+     * Path of directory containing the assets files. These files will
+     * be copied without any changes to teh target directory.
+     */
+    public Optional<Path> getAssetsDir() {
+        return _assetsDir;
+    }
+
+
+    /**
+     * Path of directory containing the documents to be baked.
+     */
+    public Path getSourceDir() {
+        return _sourceDir;
+    }
+
+
+    /**
+     * Path of directory where the results of the baking will be
+     * stored.
+     */
+    public Path getTargetDir() {
+        return _targetDir;
+    }
+
+
+    /**
+     * Path of directory containing the templates files.
+     */
+    public Optional<Path> getTemplatesDir() {
+        return _templatesDir;
     }
 
 

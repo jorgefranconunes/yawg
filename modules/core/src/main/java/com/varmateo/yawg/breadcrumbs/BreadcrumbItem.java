@@ -8,7 +8,7 @@ package com.varmateo.yawg.breadcrumbs;
 
 
 /**
- *
+ * Attributes of a breadcrumb item.
  */
 public final class BreadcrumbItem
         extends Object {
@@ -19,7 +19,9 @@ public final class BreadcrumbItem
 
 
     /**
+     * @param title The title for this breadcrumb item.
      *
+     * @param url The URL for this breadcrum item.
      */
     public BreadcrumbItem(
             final String title,
@@ -31,7 +33,7 @@ public final class BreadcrumbItem
 
 
     /**
-     *
+     * @return The title of this breadcrumb item.
      */
     public String getTitle() {
         return _title;
@@ -39,7 +41,7 @@ public final class BreadcrumbItem
 
 
     /**
-     *
+     * @return The URL for this breadcrum item.
      */
     public String getUrl() {
         return _url;

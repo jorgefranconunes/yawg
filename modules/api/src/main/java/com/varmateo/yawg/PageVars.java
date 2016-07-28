@@ -44,6 +44,37 @@ public final class PageVars
 
 
     /**
+     * Retrieves the value of one of the variables.
+     *
+     * @param key The name of the variable whose value is to be
+     * returned.
+     *
+     * @return An <code>Optional</code> containing the value of the
+     * given variable, or nan empty <code>Optional</code> if the
+     * variable does not exist.
+     */
+    public Optional<Object> get(final String key) {
+
+        Object value = _map.get(key);
+        Optional<Object> result = Optional.ofNullable(value);
+
+        return result;
+    }
+
+
+    /**
+     * Fetches a view of the set of vars as an unmodifiable map.
+     *
+     * @return An unmodifiable map containing all the vars. Each entry
+     * is one var.
+     */
+    public Map<String,Object> asMap() {
+
+        return _map;
+    }
+
+
+    /**
      * Creates a new builder with no initializations.
      *
      * @return A newly created <code>Builder</code> instance.
@@ -85,37 +116,6 @@ public final class PageVars
         Builder result = new Builder(data);
 
         return result;
-    }
-
-
-    /**
-     * Retrieves the value of one of the variables.
-     *
-     * @param key The name of the variable whose value is to be
-     * returned.
-     *
-     * @return An <code>Optional</code> containing the value of the
-     * given variable, or nan empty <code>Optional</code> if the
-     * variable does not exist.
-     */
-    public Optional<Object> get(final String key) {
-
-        Object value = _map.get(key);
-        Optional<Object> result = Optional.ofNullable(value);
-
-        return result;
-    }
-
-
-    /**
-     * Fetches a view of the set of vars as an unmodifiable map.
-     *
-     * @return An unmodifiable map containing all the vars. Each entry
-     * is one var.
-     */
-    public Map<String,Object> asMap() {
-
-        return _map;
     }
 
 

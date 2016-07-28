@@ -187,7 +187,7 @@ import com.varmateo.yawg.util.Exceptions;
                 .addPageVars(dirBakerConf.pageVars)
                 .build();
         PageContext context =
-                new PageContextBuilder()
+                PageContext.builder()
                 .setDirUrl(dirUrl)
                 .setRootRelativeUrl(rootRelativeUrl)
                 .setTemplate(template)
@@ -195,7 +195,7 @@ import com.varmateo.yawg.util.Exceptions;
                 .build();
         PageVars extendedVars = _listener.onDirBake(context);
         PageContext extendedContext =
-                new PageContextBuilder(context)
+                PageContext.builder(context)
                 .setPageVars(extendedVars)
                 .build();
 

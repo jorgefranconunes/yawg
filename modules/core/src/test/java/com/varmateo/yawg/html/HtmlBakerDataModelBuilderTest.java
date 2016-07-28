@@ -18,7 +18,6 @@ import com.varmateo.testutils.TestUtils;
 import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.TemplateDataModel;
 
-import com.varmateo.yawg.core.PageContextBuilder;
 import com.varmateo.yawg.html.HtmlBakerDataModelBuilder;
 
 
@@ -83,7 +82,7 @@ public final class HtmlBakerDataModelBuilderTest
         String dirUrl = ".";
         String rootRelativeUrl = ".";
         PageContext context =
-                new PageContextBuilder()
+                PageContext.builder()
                 .setDirUrl(dirUrl)
                 .setRootRelativeUrl(rootRelativeUrl)
                 .build();

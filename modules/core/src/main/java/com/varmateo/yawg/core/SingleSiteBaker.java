@@ -64,10 +64,10 @@ import com.varmateo.yawg.util.Exceptions;
     public void bake()
             throws YawgException {
 
-        Path sourceDir = _conf.sourceDir;
-        Path targetDir = _conf.targetDir;
-        Optional<Path> templatesDir = _conf.templatesDir;
-        Optional<Path> assetsDir = _conf.assetsDir;
+        Path sourceDir = _conf.getSourceDir();
+        Path targetDir = _conf.getTargetDir();
+        Optional<Path> templatesDir = _conf.getTemplatesDir();
+        Optional<Path> assetsDir = _conf.getAssetsDir();
 
         _log.info("{0} {1}", YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);
         _log.info("    Source    : {0}", sourceDir);
@@ -89,7 +89,7 @@ import com.varmateo.yawg.util.Exceptions;
     private void doBake()
             throws YawgException {
 
-        if ( _conf.assetsDir.isPresent() ) {
+        if ( _conf.getAssetsDir().isPresent() ) {
             _log.logDelay("copying assets", this::copyAssets);
         } else {
             _log.debug("No assets directory given. Nothing to copy.");
@@ -105,8 +105,8 @@ import com.varmateo.yawg.util.Exceptions;
     private void bakeSourceTree()
             throws YawgException {
 
-        Path sourceDir = _conf.sourceDir;
-        Path targetDir = _conf.targetDir;
+        Path sourceDir = _conf.getSourceDir();
+        Path targetDir = _conf.getTargetDir();
         DirBakerConf dirBakerConf =
                 DirBakerConf.builder()
                 .setTemplateName(DEFAULT_TEMPLATE_NAME)
@@ -122,8 +122,8 @@ import com.varmateo.yawg.util.Exceptions;
     private void copyAssets()
             throws YawgException {
 
-        final Path sourceDir = _conf.assetsDir.get();
-        final Path targetDir = _conf.targetDir;
+        final Path sourceDir = _conf.getAssetsDir().get();
+        final Path targetDir = _conf.getTargetDir();
 
         try {
             copyDirectoryTree(sourceDir, targetDir);

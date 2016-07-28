@@ -25,7 +25,11 @@ public interface SiteBakerFactory {
 
 
     /**
+     * Retrieves the default <code>SiteBakerFactory</code>
+     * implementation that is always available. This is the main entry
+     * point for baking a site.
      *
+     * @return The default factory instance.
      */
     static SiteBakerFactory get() {
 
