@@ -111,17 +111,17 @@ public final class DirBakerConfDaoTest
      *
      */
     @Test
-    public void withIgnoreParamOk()
+    public void withExcludeParamOk()
             throws IOException {
 
         String confContents = ""
-                + "ignore:\n"
+                + "exclude:\n"
                 + "  - one\n"
                 + "  - .*~\n";
         DirBakerConf actualConf = readFromString(confContents);
         DirBakerConf expectedConf =
                 DirBakerConf.builder()
-                .setFilesToIgnore("one", ".*~")
+                .setFilesToExclude("one", ".*~")
                 .build();
 
         assertConfEquals(expectedConf, actualConf);
@@ -132,10 +132,10 @@ public final class DirBakerConfDaoTest
      *
      */
     @Test
-    public void withIgnoreParamMissing()
+    public void withExcludeParamMissing()
             throws IOException {
 
-        assertFalse(_emptyConf.filesToIgnore.isPresent());
+        assertFalse(_emptyConf.filesToExclude.isPresent());
     }
 
 
@@ -143,11 +143,11 @@ public final class DirBakerConfDaoTest
      *
      */
     @Test
-    public void withIgnoreParamFail()
+    public void withExcludeParamFail()
             throws IOException {
 
         String confContents = ""
-                + "ignore: \n"
+                + "exclude: \n"
                 + "  - something: wrong"; 
 
         TestUtils.assertThrows(
@@ -160,11 +160,11 @@ public final class DirBakerConfDaoTest
      *
      */
     @Test
-    public void withIgnoreParamInvalidRegex()
+    public void withExcludeParamInvalidRegex()
             throws IOException {
 
         String confContents = ""
-                + "ignore: \n"
+                + "exclude: \n"
                 + "  - \"[\""; 
 
         TestUtils.assertThrows(

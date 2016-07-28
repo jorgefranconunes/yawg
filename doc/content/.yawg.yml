@@ -2,7 +2,7 @@
 #
 #
 
-ignore:
+exclude:
   - "*~"
   - "*.~"
   - "*.aux"

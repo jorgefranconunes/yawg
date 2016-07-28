@@ -29,9 +29,9 @@ import com.varmateo.yawg.util.GlobMatcher;
     public final Optional<String> templateName;
 
     /**
-     * List of files to ignore when baking a directory.
+     * List of files to exclude when baking a directory.
      */
-    public final Optional<GlobMatcher> filesToIgnore;
+    public final Optional<GlobMatcher> filesToExclude;
 
     /**
      * Strict list of files to include when baking a directory.
@@ -55,7 +55,7 @@ import com.varmateo.yawg.util.GlobMatcher;
     private DirBakerConf(final Builder builder) {
 
         this.templateName = builder._templateName;
-        this.filesToIgnore = builder._filesToIgnore;
+        this.filesToExclude = builder._filesToExclude;
         this.filesToIncludeOnly = builder._filesToIncludeOnly;
         this.bakerTypes = builder._bakerTypes;
         this.pageVars = builder._pageVars;
@@ -90,7 +90,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         Builder builder = new Builder(that);
 
         this.templateName.ifPresent(builder::setTemplateName);
-        this.filesToIgnore.ifPresent(builder::addFilesToIgnore);
+        this.filesToExclude.ifPresent(builder::addFilesToExclude);
         this.filesToIncludeOnly.ifPresent(builder::setFilesToIncludeOnly);
         this.bakerTypes.ifPresent(builder::addBakerTypes);
         builder.addPageVars(this.pageVars);
@@ -109,7 +109,7 @@ import com.varmateo.yawg.util.GlobMatcher;
 
 
         private Optional<String> _templateName = Optional.empty();
-        private Optional<GlobMatcher> _filesToIgnore = Optional.empty();
+        private Optional<GlobMatcher> _filesToExclude = Optional.empty();
         private Optional<GlobMatcher> _filesToIncludeOnly = Optional.empty();
         private Optional<BakerMatcher> _bakerTypes = Optional.empty();
         private PageVars _pageVars = new PageVars();
@@ -129,7 +129,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         private Builder(final DirBakerConf defaults) {
 
             _templateName = defaults.templateName;
-            _filesToIgnore = defaults.filesToIgnore;
+            _filesToExclude = defaults.filesToExclude;
             // _filesToIncludeOnly always starts empty.
             _bakerTypes = defaults.bakerTypes;
             _pageVars = defaults.pageVars;
@@ -149,9 +149,9 @@ import com.varmateo.yawg.util.GlobMatcher;
         /**
          *
          */
-        public Builder setFilesToIgnore(final GlobMatcher fileNames) {
+        public Builder setFilesToExclude(final GlobMatcher fileNames) {
 
-            _filesToIgnore = Optional.of(fileNames);
+            _filesToExclude = Optional.of(fileNames);
             return this;
         }
 
@@ -160,11 +160,11 @@ import com.varmateo.yawg.util.GlobMatcher;
          * @throws PatternSyntaxException If any of the given glob
          * expressions are invalid.
          */
-        public Builder setFilesToIgnore(final String... fileNames) {
+        public Builder setFilesToExclude(final String... fileNames) {
 
             GlobMatcher patterns = new GlobMatcher(Arrays.asList(fileNames));
 
-            setFilesToIgnore(patterns);
+            setFilesToExclude(patterns);
 
             return this;
         }
@@ -173,20 +173,20 @@ import com.varmateo.yawg.util.GlobMatcher;
         /**
          *
          */
-        private Builder addFilesToIgnore(final GlobMatcher fileNames) {
+        private Builder addFilesToExclude(final GlobMatcher fileNames) {
 
-            GlobMatcher newFilesToIgnore = null;
+            GlobMatcher newFilesToExclude = null;
 
-            if ( _filesToIgnore.isPresent() ) {
-                newFilesToIgnore =
-                        GlobMatcher.builder(_filesToIgnore.get())
+            if ( _filesToExclude.isPresent() ) {
+                newFilesToExclude =
+                        GlobMatcher.builder(_filesToExclude.get())
                         .addGlobMatcher(fileNames)
                         .build();
             } else {
-                newFilesToIgnore = fileNames;
+                newFilesToExclude = fileNames;
             }
 
-            _filesToIgnore = Optional.of(newFilesToIgnore);
+            _filesToExclude = Optional.of(newFilesToExclude);
 
             return this;
         }

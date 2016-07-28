@@ -60,7 +60,7 @@ public final class DirEntryScannerTest
 
         DirBakerConf conf =
                 DirBakerConf.builder()
-                .setFilesToIgnore("*.txt", "*.html")
+                .setFilesToExclude("*.txt", "*.html")
                 .build();
         Path dirPath = TestUtils.getInputsDir(DirEntryScanner.class);
         DirEntryScanner scanner = new DirEntryScanner(conf);

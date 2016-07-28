@@ -43,8 +43,8 @@ import com.varmateo.yawg.util.Lists;
                 expectedConf.templateName,
                 actualConf.templateName);
         assertEquals(
-                expectedConf.filesToIgnore.map(GlobMatcher::toString),
-                actualConf.filesToIgnore.map(GlobMatcher::toString));
+                expectedConf.filesToExclude.map(GlobMatcher::toString),
+                actualConf.filesToExclude.map(GlobMatcher::toString));
         assertEquals(
                 expectedConf.filesToIncludeOnly.map(GlobMatcher::toString),
                 actualConf.filesToIncludeOnly.map(GlobMatcher::toString));

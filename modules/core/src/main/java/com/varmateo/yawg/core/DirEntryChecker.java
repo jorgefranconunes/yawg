@@ -60,7 +60,7 @@ import com.varmateo.yawg.core.DirBakerConf;
         boolean result =
                 _isIncludeOnly
                 ? testForIncludeOnly(path)
-                : !testForIgnore(path);
+                : !testForExclude(path);
 
         return result;
     }
@@ -95,10 +95,10 @@ import com.varmateo.yawg.core.DirBakerConf;
     /**
      *
      */
-    private boolean testForIgnore(final Path path) {
+    private boolean testForExclude(final Path path) {
 
         boolean result =
-                _conf.filesToIgnore
+                _conf.filesToExclude
                 .map(matcher -> matcher.test(path))
                 .orElse(false);
 

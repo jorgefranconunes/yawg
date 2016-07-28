@@ -78,7 +78,7 @@ public final class DirBakerTest
 
         DirBakerConf conf =
                 DirBakerConf.builder()
-                .setFilesToIgnore("*.txt")
+                .setFilesToExclude("*.txt")
                 .build();
 
         Path sourceDir = TestUtils.getPath(DirBaker.class, "source01");

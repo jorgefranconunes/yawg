@@ -41,11 +41,11 @@ public final class DirEntryCheckerTest
      *
      */
     @Test
-    public void withIgnoreOne() {
+    public void withExcludeOne() {
 
         DirBakerConf conf =
                 DirBakerConf.builder()
-                .setFilesToIgnore("*.txt")
+                .setFilesToExclude("*.txt")
                 .build();
         DirEntryChecker checker = new DirEntryChecker(conf);
         Predicate<String> predicate = checker.asStringPredicate();
@@ -59,11 +59,11 @@ public final class DirEntryCheckerTest
      *
      */
     @Test
-    public void withIgnoreMany() {
+    public void withExcludeMany() {
 
         DirBakerConf conf =
                 DirBakerConf.builder()
-                .setFilesToIgnore("*.txt", "*.puml", "*~")
+                .setFilesToExclude("*.txt", "*.puml", "*~")
                 .build();
         DirEntryChecker checker = new DirEntryChecker(conf);
         Predicate<String> predicate = checker.asStringPredicate();
@@ -117,11 +117,11 @@ public final class DirEntryCheckerTest
      *
      */
     @Test
-    public void withIgnoreAndInclude() {
+    public void withExcludeAndInclude() {
 
         DirBakerConf conf =
                 DirBakerConf.builder()
-                .setFilesToIgnore("*.txt")
+                .setFilesToExclude("*.txt")
                 .setFilesToIncludeOnly("*.adoc")
                 .build();
         DirEntryChecker checker = new DirEntryChecker(conf);
@@ -137,11 +137,11 @@ public final class DirEntryCheckerTest
      *
      */
     @Test
-    public void pathWithIgnoreOne() {
+    public void pathWithExcludeOne() {
 
         DirBakerConf conf =
                 DirBakerConf.builder()
-                .setFilesToIgnore("*.txt")
+                .setFilesToExclude("*.txt")
                 .build();
         DirEntryChecker checker = new DirEntryChecker(conf);
         Predicate<Path> predicate = checker.asPathPredicate();

@@ -32,12 +32,12 @@ public final class DirBakerConfTest
         DirBakerConf confEmpty = DirBakerConf.builder().build();
         DirBakerConf conf =
                 DirBakerConf.builder()
-                .setFilesToIgnore("hello")
+                .setFilesToExclude("hello")
                 .build()
                 .mergeOnTopOf(confEmpty);
         DirBakerConf expectedConf =
                 DirBakerConf.builder()
-                .setFilesToIgnore("hello")
+                .setFilesToExclude("hello")
                 .build();
 
         assertConfEquals(expectedConf, conf);
@@ -52,16 +52,16 @@ public final class DirBakerConfTest
 
         DirBakerConf conf01 =
                 DirBakerConf.builder()
-                .setFilesToIgnore("hello")
+                .setFilesToExclude("hello")
                 .build();
         DirBakerConf conf02 =
                 DirBakerConf.builder()
-                .setFilesToIgnore("world")
+                .setFilesToExclude("world")
                 .build()
                 .mergeOnTopOf(conf01);
         DirBakerConf expectedConf =
                 DirBakerConf.builder()
-                .setFilesToIgnore("hello", "world")
+                .setFilesToExclude("hello", "world")
                 .build();
 
         assertConfEquals(expectedConf, conf02);
