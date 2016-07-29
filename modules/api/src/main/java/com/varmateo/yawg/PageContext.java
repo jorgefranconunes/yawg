@@ -16,13 +16,14 @@ import com.varmateo.yawg.Template;
 /**
  * Information to be used by a baker when baking a file.
  */
-public final class PageContext {
+public final class PageContext 
+        extends Object {
 
 
     private final String _dirUrl;
     private final Optional<Template> _pageTemplate;
-    private final String _rootRelativeUrl;
     private final PageVars _pageVars;
+    private final String _rootRelativeUrl;
 
 
     /**
@@ -55,20 +56,20 @@ public final class PageContext {
 
 
     /**
+     * Additional variables made available to the template.
+     */
+    public PageVars getPageVars() {
+        return _pageVars;
+    }
+
+
+    /**
      * The URL of the top of the baked site relative to the current
      * page. Useful for refering to resources at the top of the
      * document tree.
      */
     public String getRootRelativeUrl() {
         return _rootRelativeUrl;
-    }
-
-
-    /**
-     * Additional variables made available to the template.
-     */
-    public PageVars getPageVars() {
-        return _pageVars;
     }
 
 

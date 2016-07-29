@@ -178,8 +178,8 @@ import com.varmateo.yawg.util.Exceptions;
         Optional<Template> template =
                 dirBakerConf.templateName
                 .flatMap(name ->
-                         _templateService.flatMap(srv ->
-                                                  srv.getTemplate(name)));
+                         _templateService.flatMap(
+                                 srv -> srv.getTemplate(name)));
         String dirUrl = buildRelativeUrl(sourceDir, _sourceRootDir);
         String rootRelativeUrl = buildRelativeUrl(_sourceRootDir, sourceDir);
         PageVars newVars =

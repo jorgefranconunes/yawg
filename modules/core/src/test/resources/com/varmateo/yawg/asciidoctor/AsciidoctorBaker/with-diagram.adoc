@@ -1,0 +1,13 @@
+= Example document with PlantUML diagram
+
+This AsciiDoc document contains an inline PlantUML diagram.
+
+.Example of embdedded PlantUML diagram.
+[plantuml, diagram, svg]
+....
+class Car
+
+Driver - Car : drives >
+Car *- Wheel : have 4 >
+Car -- Person : < owns
+....

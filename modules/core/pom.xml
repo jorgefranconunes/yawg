@@ -111,6 +111,12 @@ Copyright (c) 2016 Yawg project contributors.
               <value>${basedir}/src/test/resources</value>
             </property>
 
+            <!-- Required by com.varmateo.testutils.TestUtils -->
+            <property>
+              <name>TestUtils.tmpTestFilesDir</name>
+              <value>${project.build.directory}/tmp</value>
+            </property>
+
           </systemProperties>
 
         </configuration>

@@ -19,6 +19,7 @@ cache:
 addons:
   apt:
     packages:
+      - graphviz
       - xsltproc
 
 after_success:

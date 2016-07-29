@@ -8,8 +8,8 @@ package com.varmateo.yawg;
 
 import java.io.Writer;
 
-import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.TemplateDataModel;
+import com.varmateo.yawg.YawgException;
 
 
 /**

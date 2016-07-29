@@ -68,7 +68,8 @@ public final class TemplateDataModel
 
 
     /**
-     *
+     * The URL of the page being baked relative to the root directory
+     * of the site.
      */
     public String getPageUrl() {
         return _pageUrl;

@@ -6,11 +6,11 @@
 
 package com.varmateo.testutils;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.MessageFormat;
-
-import org.junit.Assert;
 
 
 /**
@@ -26,6 +26,9 @@ public final class TestUtils
     private static final String PROP_INPUTS_DIR_PREFIX =
             TestUtils.class.getSimpleName() + ".inputTestFilesDir";
 
+    private static final String PROP_TMP_DIR_PREFIX =
+            TestUtils.class.getSimpleName() + ".tmpTestFilesDir";
+
 
     /**
      * No instances of this class are to be created.
@@ -37,6 +40,11 @@ public final class TestUtils
     /**
      * Retrieves the value of a given system property. If the system
      * property is not set, then it will blow up.
+     *
+     * @param key The name of the system property whose value is to be
+     * returned.
+     *
+     * @return The value of the given system property.
      */
     public static String getSystemProperty(final String key) {
 
@@ -91,6 +99,28 @@ public final class TestUtils
 
 
     /**
+     *
+     */
+    public static Path getTmpDir(final Class<?> testSuiteClass)
+            throws IOException {
+
+        String tmpDirRoot =
+                getSystemProperty(PROP_TMP_DIR_PREFIX);
+        String[] pathComponents =
+            testSuiteClass.getName().split("\\.");
+        Path tmpDirParent =
+                Paths.get(tmpDirRoot, pathComponents);
+
+        Files.createDirectories(tmpDirParent);
+
+        Path tmpDir =
+                Files.createTempDirectory(tmpDirParent, "tmp");
+
+        return tmpDir;
+    }
+
+
+    /**
      * Retrives the path for a test file related with the given
      * testsuit class.
      *
@@ -123,13 +153,14 @@ public final class TestUtils
      * <p>The task is executed. If it throws an exception of the given
      * type, then this method just returns the exception object.</p>
      *
-     * <p>If the task throws no exception, then JUnits
-     * <code>Assert.fail()</code> will be called, causing the JUnit test
-     * invoking this method to fail</p>
+     * <p>If the task throws no exception, a
+     * <code>TestUtils.ExceptionMissingException</code> will be
+     * thrown.</p>
      *
-     * <p>If the task throws an exception of a type not compatible with
-     * the given type, then an
-     * <code>java.lang.IllegalStateException</code> will be thrown.
+     * <p>If the task throws an exception of a type not compatible
+     * with the given type, then an
+     * <code>TestUtils.UnexpectedExceptionTypeException</code> will be
+     * thrown.
      *
      * @param <T> The type of exception the task is expected to throw.
      *
@@ -139,10 +170,14 @@ public final class TestUtils
      *
      * @param task The runnable that will be excuted,
      *
-     * @return The exception thrown during the execution of the given task.
+     * @return The exception thrown during the execution of the given
+     * task.
      *
-     * @throws IllegalStateException When the task throws an exception,
-     * but it is of a type not compatible with
+     * @throws ExceptionMissingException When the task throws no
+     * exception.
+     *
+     * @throws UnexpectedExceptionTypeException When the task throws
+     * an exception, but it is of a type not compatible with
      * <code>expectedExceptionClass</code>.
      */
     public static <T extends Throwable> T assertThrows(
@@ -159,24 +194,95 @@ public final class TestUtils
             } else {
                 // Uh, oh... The wrong exception was thrown. Let us
                 // blow up with yet another one!
-                String msg =
-                        MessageFormat.format(
-                                "Expected exception {0} but got {1}",
-                                expectedExceptionClass.getName(),
-                                actualException.getClass().getName());
-                throw new IllegalStateException(msg, actualException);
+                UnexpectedExceptionTypeException.raise(
+                        expectedExceptionClass,
+                        actualException);
             }
         }
 
         if ( result == null ) {
-            String msg =
-                    MessageFormat.format(
-                            "Failed to throw expected exception {0}",
-                            expectedExceptionClass.getName());
-            Assert.fail(msg);
+            ExceptionMissingException.raise(expectedExceptionClass);
         }
 
         return result;
+    }
+
+
+    /**
+     * Signals that the wrong type of exception was thrown, when
+     * another exception type was expected.
+     */
+    public static final class UnexpectedExceptionTypeException
+            extends IllegalStateException {
+
+
+        /**
+         * 
+         */
+        private UnexpectedExceptionTypeException(
+                final String message,
+                final Throwable cause) {
+            super(message, cause);
+        }
+
+
+        /**
+         * Creates a new exception and throws it.
+         *
+         * @param expectedExceptionType The type of exception that was
+         * being expected.
+         *
+         * @param actualException The actual exception instance that
+         * was caught.
+         */
+        public static void raise(
+                final Class<? extends Throwable> expectedExceptionType,
+                final Throwable actualException) {
+
+            String msg =
+                    MessageFormat.format(
+                            "Expected exception {0} but got {1}",
+                            expectedExceptionType.getName(),
+                            actualException.getClass().getName());
+
+            throw new UnexpectedExceptionTypeException(msg, actualException);
+        }
+
+
+    }
+
+
+    /**
+     * Signals that an exception should have been thrown, but none was.
+     */
+    public static final class ExceptionMissingException
+            extends IllegalStateException {
+
+
+        /**
+         *
+         */
+        private ExceptionMissingException(final String message) {
+            super(message);
+        }
+
+
+        /**
+         * @param expectedExceptionType The type of exception that was
+         * being exected.
+         */
+        public static void raise(
+                final Class<? extends Throwable> expectedExceptionType) {
+
+            String msg =
+                    MessageFormat.format(
+                            "Failed to throw expected exception {0}",
+                            expectedExceptionType.getName());
+
+            throw new ExceptionMissingException(msg);
+        }
+
+
     }
 
 

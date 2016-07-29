@@ -180,9 +180,11 @@ import com.varmateo.yawg.util.FileUtils;
 
         File sourceFile = sourcePath.toFile();
         File targetFile = targetPath.toFile();
+        String imagesOutDir =
+                targetDir.toAbsolutePath().normalize().toString();
         AttributesBuilder attributes =
                 AttributesBuilder.attributes()
-                .attribute("imagesoutdir", targetDir.toString())
+                .attribute("imagesoutdir", imagesOutDir)
                 .noFooter(false);
         OptionsBuilder options =
                 OptionsBuilder.options()

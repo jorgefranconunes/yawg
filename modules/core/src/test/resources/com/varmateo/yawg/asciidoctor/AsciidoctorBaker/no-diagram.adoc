@@ -1,0 +1,4 @@
+= Example document
+
+This AsciiDoc document does not contain diagrams.
+
