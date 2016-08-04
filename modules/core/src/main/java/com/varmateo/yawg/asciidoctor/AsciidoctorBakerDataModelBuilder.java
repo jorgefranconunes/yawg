@@ -59,10 +59,12 @@ import com.varmateo.yawg.util.FileUtils;
             throws AsciidoctorCoreException, IOException {
 
         String sourceContent = FileUtils.readAsString(sourcePath);
+        String imagesOutDir =
+                targetDir.toAbsolutePath().normalize().toString();
         AttributesBuilder attributes =
                 AttributesBuilder.attributes()
                 .attribute(ATTR_DOC_DIR, sourcePath.getParent().toString())
-                .attribute(ATTR_IMAGES_OUT_DIR, targetDir.toString());
+                .attribute(ATTR_IMAGES_OUT_DIR, imagesOutDir);
         OptionsBuilder options =
                 OptionsBuilder.options()
                 .attributes(attributes)
