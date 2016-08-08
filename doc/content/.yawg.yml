@@ -2,6 +2,8 @@
 #
 #
 
+template: "yawg-site.ftlh"
+
 exclude:
   - "*~"
   - "*.~"

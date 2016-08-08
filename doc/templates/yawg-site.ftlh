@@ -39,18 +39,20 @@
 
     <div class="yawg-body">
 
-      <#include "navbar.ftlh">
+      <#include "yawg-navbar.ftlh">
 
       <div class="container yawg-content">
 
-        <#include "breadcrumbs.ftlh">
+        <#include "yawg-breadcrumbs.ftlh">
 
         <h1>${title}</h1>
         ${body?no_esc}
 
         <footer class="yawg-footer">
-          <p>&copy;2016 <a href="http://yawg.varmateo.com/">Yawg project</a> contributors</p>
-          <p>Baked with ${productName} ${version}</p>
+          <p>&copy;2016 Yawg project contributors</p>
+          <p>Baked
+          with <a href="http://yawg.varmateo.com/">${productName}
+          ${version}</a></p>
         </footer>
 
       </div>

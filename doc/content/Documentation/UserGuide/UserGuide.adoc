@@ -1,17 +1,17 @@
 = YAWG User Guide
 :author: Jorge Nunes
+:toc:
 
 
 
 
 
-Welcome to the user manual for Yawg.
-
-Yawg is a static site generator. Given a source directory tree with
-files, a new directory tree will be populated with HTML files
-generated from the baking of the source files. Yawg is able to bake
-files in AsciiDoc and HTML formats. Other types of files will just be
-copied without any modification.
+This is the user guide for Yawg. Yawg is a static site
+generator. Given a source directory tree with files, a new directory
+tree will be populated with HTML files generated from the baking of
+the source files. Yawg is able to bake files in AsciiDoc and HTML
+formats. Other types of files will just be copied without any
+modification.
 
 This document is intended for end users.
 
