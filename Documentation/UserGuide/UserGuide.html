@@ -15,7 +15,7 @@
 
     <link
        rel="stylesheet"
-       href="../../yawg-site.css?v=31019e30-ba03-4ff8-aa99-98fa0d8eb0c6" />
+       href="../../yawg-site.css?v=234c826d-6ece-4585-94a1-4b635b789a63" />
     
     <script
        type="text/javascript"
@@ -65,17 +65,30 @@
     </ol>
 
         <h1>YAWG User Guide</h1>
-        <div id="preamble">
+        <div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#sec-Requirements">Requirements</a></li>
+<li><a href="#sec-DownloadAnsInstall">Downloading and installing Yawg</a></li>
+<li><a href="#sec-Running">Running Yawg</a></li>
+<li><a href="#sec-BakerTypes">Baker types</a></li>
+<li><a href="#sec-ConfiguringBaking">Configuring the baking process</a></li>
+<li><a href="#sec-PageTemplates">Page templates</a>
+<ul class="sectlevel2">
+<li><a href="#sec-PageTemplateDataModel">Page template data model</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Welcome to the user manual for Yawg.</p>
-</div>
-<div class="paragraph">
-<p>Yawg is a static site generator. Given a source directory tree with
-files, a new directory tree will be populated with HTML files
-generated from the baking of the source files. Yawg is able to bake
-files in AsciiDoc and HTML formats. Other types of files will just be
-copied without any modification.</p>
+<p>This is the user guide for Yawg. Yawg is a static site
+generator. Given a source directory tree with files, a new directory
+tree will be populated with HTML files generated from the baking of
+the source files. Yawg is able to bake files in AsciiDoc and HTML
+formats. Other types of files will just be copied without any
+modification.</p>
 </div>
 <div class="paragraph">
 <p>This document is intended for end users.</p>
@@ -126,11 +139,15 @@ generated HTML.</p>
 <div class="ulist">
 <ul>
 <li>
+<p>Linux&#8201;&#8212;&#8201;Any typical Linux distribution from the last five years
+should "just work" &#8482;.</p>
+</li>
+<li>
 <p>Java 8&#8201;&#8212;&#8201;The Oracle JVM is known to work.</p>
 </li>
 <li>
-<p>Linux&#8201;&#8212;&#8201;Any typical Linux distribution from the last five years
-should "just work" &#8482;.</p>
+<p>Graphviz&#8201;&#8212;&#8201;But only if you want to have PlantUML diagrams in your
+content.</p>
 </li>
 </ul>
 </div>
@@ -154,7 +171,7 @@ follows:</p>
 </div>
 <div class="listingblock sh">
 <div class="content">
-<pre class="highlight"><code>mkdir ~/local
+<pre class="CodeRay highlight"><code>mkdir ~/local
 curl https://github.com/jorgefranconunes/yawg/releases/yawg-1.0.0.tar.gz \
     | tar xfz -C ~/local</code></pre>
 </div>
@@ -425,8 +442,10 @@ template variable is always the same, for a given Yawg release.</p>
 </div>
 
         <footer class="yawg-footer">
-          <p>&copy;2016 <a href="http://yawg.varmateo.com/">Yawg project</a> contributors</p>
-          <p>Baked with Yawg 0.9.1</p>
+          <p>&copy;2016 Yawg project contributors</p>
+          <p>Baked
+          with <a href="http://yawg.varmateo.com/">Yawg
+          0.9.2</a></p>
         </footer>
 
       </div>
