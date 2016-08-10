@@ -15,7 +15,7 @@
 
     <link
        rel="stylesheet"
-       href="../yawg-site.css?v=566d2e85-6163-429d-9200-a51362734d2a" />
+       href="../yawg-site.css?v=e480a4cd-1ef3-4afc-83f4-a3180e636ced" />
     
     <script
        type="text/javascript"
@@ -67,13 +67,13 @@
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_introduction">Introduction</a></li>
-<li><a href="#_including_a_table_of_contents">Including a table of contents</a></li>
-<li><a href="#_styling_the_table_of_contents">Styling the table of contents</a></li>
+<li><a href="#_introduction">1. Introduction</a></li>
+<li><a href="#_including_a_table_of_contents">2. Including a table of contents</a></li>
+<li><a href="#_styling_the_table_of_contents">3. Styling the table of contents</a></li>
 </ul>
 </div>
 <div class="sect1">
-<h2 id="_introduction">Introduction</h2>
+<h2 id="_introduction">1. Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>When a page has more than a few sections it is often useful to include
@@ -93,7 +93,7 @@ page.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_including_a_table_of_contents">Including a table of contents</h2>
+<h2 id="_including_a_table_of_contents">2. Including a table of contents</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>To have a table of contents in your page you just have to define the
@@ -104,13 +104,20 @@ following contents:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="asciidoc">= Including a table of contents
-:toc:</code></pre>
+:toc:
+:sectnums:</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>In the example above the <code>sectnums</code> AsciiDoc attribute is also
+included.  The <code>sectnums</code> attribute turns on numbering for
+sections. We like having numbered sections when also showing a table
+of contents, although it certainly is a matter of personal taste.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_styling_the_table_of_contents">Styling the table of contents</h2>
+<h2 id="_styling_the_table_of_contents">3. Styling the table of contents</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The table of contents is just a piece of HTML that is automatically
@@ -163,6 +170,7 @@ the Bootstrap style used in this site.</p>
 }
 <span style="color:#B06;font-weight:bold">.toc</span> <span style="color:#070;font-weight:bold">ul</span> {
     <span style="color:#606">list-style-position</span>: <span style="color:#088">inside</span>;
+    <span style="color:#606">list-style-type</span>: <span style="color:#088">none</span>;
     <span style="color:#606">margin</span>: <span style="color:#60E">0</span>;
     <span style="color:#606">padding</span>: <span style="color:#60E">0</span> <span style="color:#60E">0</span> <span style="color:#60E">0</span> <span style="color:#60E">1em</span>;
     <span style="color:#606">text-indent</span>: <span style="color:#60E">-1em</span>;

@@ -15,7 +15,7 @@
 
     <link
        rel="stylesheet"
-       href="../../yawg-site.css?v=234c826d-6ece-4585-94a1-4b635b789a63" />
+       href="../../yawg-site.css?v=b567208f-0a26-45f0-a332-7e7dea39274c" />
     
     <script
        type="text/javascript"
@@ -68,14 +68,14 @@
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#sec-Requirements">Requirements</a></li>
-<li><a href="#sec-DownloadAnsInstall">Downloading and installing Yawg</a></li>
-<li><a href="#sec-Running">Running Yawg</a></li>
-<li><a href="#sec-BakerTypes">Baker types</a></li>
-<li><a href="#sec-ConfiguringBaking">Configuring the baking process</a></li>
-<li><a href="#sec-PageTemplates">Page templates</a>
+<li><a href="#sec-Requirements">1. Requirements</a></li>
+<li><a href="#sec-DownloadAnsInstall">2. Downloading and installing Yawg</a></li>
+<li><a href="#sec-Running">3. Running Yawg</a></li>
+<li><a href="#sec-BakerTypes">4. Baker types</a></li>
+<li><a href="#sec-ConfiguringBaking">5. Configuring the baking process</a></li>
+<li><a href="#sec-PageTemplates">6. Page templates</a>
 <ul class="sectlevel2">
-<li><a href="#sec-PageTemplateDataModel">Page template data model</a></li>
+<li><a href="#sec-PageTemplateDataModel">6.1. Page template data model</a></li>
 </ul>
 </li>
 </ul>
@@ -131,7 +131,7 @@ generated HTML.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="sec-Requirements">Requirements</h2>
+<h2 id="sec-Requirements">1. Requirements</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>For running Yawg you will need the following:</p>
@@ -158,7 +158,7 @@ just fine under Cygwin.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="sec-DownloadAnsInstall">Downloading and installing Yawg</h2>
+<h2 id="sec-DownloadAnsInstall">2. Downloading and installing Yawg</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Tarballs of Yawg releases are available for download from
@@ -169,9 +169,9 @@ just fine under Cygwin.</p>
 untaring said tarball. An example combining download and untaring
 follows:</p>
 </div>
-<div class="listingblock sh">
+<div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>mkdir ~/local
+<pre class="CodeRay highlight"><code data-lang="bash">mkdir ~/local
 curl https://github.com/jorgefranconunes/yawg/releases/yawg-1.0.0.tar.gz \
     | tar xfz -C ~/local</code></pre>
 </div>
@@ -200,7 +200,7 @@ detail in the next section.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="sec-Running">Running Yawg</h2>
+<h2 id="sec-Running">3. Running Yawg</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The command line tool to bake sites lives at <code>bin/yawg</code> under the
@@ -238,7 +238,7 @@ information on how to use the tool.</p>
 <div class="listingblock">
 <div class="content">
 <pre>Yawg 1.0.0 - CLI Baker
-Copyright (c) 2016 Jorge Nunes, All Rights Reserved.
+Copyright (c) 2016 Yawg project contributors.
 
 Usage: yawg [OPTION] ...
 
@@ -288,7 +288,7 @@ only minimal logging is shown.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="sec-BakerTypes">Baker types</h2>
+<h2 id="sec-BakerTypes">4. Baker types</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>There are three types of baker at the moment.</p>
@@ -311,7 +311,7 @@ making any change.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="sec-ConfiguringBaking">Configuring the baking process</h2>
+<h2 id="sec-ConfiguringBaking">5. Configuring the baking process</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A set of baking parameters can be used to influence the baking
@@ -319,13 +319,13 @@ process. Each directory under the source directory being baked can
 specify its own set of baking parameters.</p>
 </div>
 <div class="paragraph">
-<p>The baking parameters are defined in a file named <code>.yawg.yaml</code> inside
-each directory. The existence of the <code>.yawg.yaml</code> file is optional. If
-there is no <code>.yawg.yaml</code> file in a given directory, then the baking
+<p>The baking parameters are defined in a file named <code>.yawg.yml</code> inside
+each directory. The existence of the <code>.yawg.yml</code> file is optional. If
+there is no <code>.yawg.yml</code> file in a given directory, then the baking
 parameters for the parent directory will be used instead.</p>
 </div>
 <div class="paragraph">
-<p>The <code>.yawg.yaml</code> file, as you might have guessed, is in
+<p>The <code>.yawg.yml</code> file, as you might have guessed, is in
 <a href="http://yaml.org/">YAML</a> format.</p>
 </div>
 <div class="paragraph">
@@ -345,11 +345,12 @@ to be baked by that baker type.</p>
 <p><code>includeOnly</code> (<code>List&lt;String&gt;</code>)&#8201;&#8212;&#8201;List of glob patterns representing
 the files in the directory that are to be baked. All other files in
 the directory will be skipped. This parameter takes precedence over
-the <code>ignore</code> parameter.</p>
+the <code>exclude</code> parameter.</p>
 </li>
 <li>
-<p><code>ignore</code> (<code>List&lt;String&gt;</code>)&#8201;&#8212;&#8201;List of glob patterns representing the
-files in the directory that are to be ignored during the bake.</p>
+<p><code>exclude</code> (<code>List&lt;String&gt;</code>)&#8201;&#8212;&#8201;List of glob patterns representing the
+files in the directory that are to be excluded from the bake. These
+files will not be processed in any way.</p>
 </li>
 <li>
 <p><code>template</code> (<code>String</code>)&#8201;&#8212;&#8201;The name of the page template to use for
@@ -383,7 +384,7 @@ currently supported are the following:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="sec-PageTemplates">Page templates</h2>
+<h2 id="sec-PageTemplates">6. Page templates</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Yawg supports <a href="http://freemarker.org/">Freemarker</a> page templates.</p>
@@ -393,7 +394,7 @@ currently supported are the following:</p>
 <code>--templates</code> command line option.</p>
 </div>
 <div class="sect2">
-<h3 id="sec-PageTemplateDataModel">Page template data model</h3>
+<h3 id="sec-PageTemplateDataModel">6.1. Page template data model</h3>
 <div class="paragraph">
 <p>The page template has access to a set of variables while it is being
 processed during the baking of a document. We call data model to the
