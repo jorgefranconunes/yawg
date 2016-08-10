@@ -1,6 +1,7 @@
 = YAWG User Guide
 :author: Jorge Nunes
 :toc:
+:sectnums:
 
 
 
@@ -73,7 +74,7 @@ After downloading the tarball, the installation consists simply of
 untaring said tarball. An example combining download and untaring
 follows:
 
-[source.sh]
+[source,bash]
 ----
 mkdir ~/local
 curl https://github.com/jorgefranconunes/yawg/releases/yawg-1.0.0.tar.gz \
@@ -124,7 +125,7 @@ information on how to use the tool.
 
 ----
 Yawg 1.0.0 - CLI Baker
-Copyright (c) 2016 Jorge Nunes, All Rights Reserved.
+Copyright (c) 2016 Yawg project contributors.
 
 Usage: yawg [OPTION] ...
 
@@ -192,12 +193,12 @@ A set of baking parameters can be used to influence the baking
 process. Each directory under the source directory being baked can
 specify its own set of baking parameters.
 
-The baking parameters are defined in a file named `.yawg.yaml` inside
-each directory. The existence of the `.yawg.yaml` file is optional. If
-there is no `.yawg.yaml` file in a given directory, then the baking
+The baking parameters are defined in a file named `.yawg.yml` inside
+each directory. The existence of the `.yawg.yml` file is optional. If
+there is no `.yawg.yml` file in a given directory, then the baking
 parameters for the parent directory will be used instead.
 
-The `.yawg.yaml` file, as you might have guessed, is in
+The `.yawg.yml` file, as you might have guessed, is in
 http://yaml.org/[YAML] format.
 
 The supported baking parameters are listed below.
@@ -212,10 +213,11 @@ to be baked by that baker type.
 * `includeOnly` (`List<String>`) -- List of glob patterns representing
 the files in the directory that are to be baked. All other files in
 the directory will be skipped. This parameter takes precedence over
-the `ignore` parameter.
+the `exclude` parameter.
 
-* `ignore` (`List<String>`) -- List of glob patterns representing the
-files in the directory that are to be ignored during the bake.
+* `exclude` (`List<String>`) -- List of glob patterns representing the
+files in the directory that are to be excluded from the bake. These
+files will not be processed in any way.
 
 * `template` (`String`) -- The name of the page template to use for
 baking the files in the directory. If not specified it will default to

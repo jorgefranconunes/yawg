@@ -1,5 +1,6 @@
 = Including a table of contents
 :toc:
+:sectnums:
 
 
 
@@ -35,7 +36,13 @@ following contents:
 ----
 = Including a table of contents
 :toc:
+:sectnums:
 ----
+
+In the example above the `sectnums` AsciiDoc attribute is also
+included.  The `sectnums` attribute turns on numbering for
+sections. We like having numbered sections when also showing a table
+of contents, although it certainly is a matter of personal taste.
 
 
 
@@ -90,6 +97,7 @@ the Bootstrap style used in this site.
 }
 .toc ul {
     list-style-position: inside;
+    list-style-type: none;
     margin: 0;
     padding: 0 0 0 1em;
     text-indent: -1em;
