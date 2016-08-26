@@ -79,11 +79,11 @@ public final class DirEntryCheckerTest
      *
      */
     @Test
-    public void withIncludeOnlyOne() {
+    public void withIncludeHereOne() {
 
         DirBakerConf conf =
                 DirBakerConf.builder()
-                .setFilesToIncludeOnly("*.adoc")
+                .setFilesToIncludeHere("*.adoc")
                 .build();
         DirEntryChecker checker = new DirEntryChecker(conf);
         Predicate<String> predicate = checker.asStringPredicate();
@@ -97,11 +97,11 @@ public final class DirEntryCheckerTest
      *
      */
     @Test
-    public void withIncludeOnlyTwo() {
+    public void withIncludeHereTwo() {
 
         DirBakerConf conf =
                 DirBakerConf.builder()
-                .setFilesToIncludeOnly("*.adoc", "*.svg")
+                .setFilesToIncludeHere("*.adoc", "*.svg")
                 .build();
         DirEntryChecker checker = new DirEntryChecker(conf);
         Predicate<String> predicate = checker.asStringPredicate();
@@ -122,7 +122,7 @@ public final class DirEntryCheckerTest
         DirBakerConf conf =
                 DirBakerConf.builder()
                 .setFilesToExclude("*.txt")
-                .setFilesToIncludeOnly("*.adoc")
+                .setFilesToIncludeHere("*.adoc")
                 .build();
         DirEntryChecker checker = new DirEntryChecker(conf);
         Predicate<String> predicate = checker.asStringPredicate();

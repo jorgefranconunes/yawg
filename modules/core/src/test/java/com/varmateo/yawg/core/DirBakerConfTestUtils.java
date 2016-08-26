@@ -46,8 +46,8 @@ import com.varmateo.yawg.util.Lists;
                 expectedConf.filesToExclude.map(GlobMatcher::toString),
                 actualConf.filesToExclude.map(GlobMatcher::toString));
         assertEquals(
-                expectedConf.filesToIncludeOnly.map(GlobMatcher::toString),
-                actualConf.filesToIncludeOnly.map(GlobMatcher::toString));
+                expectedConf.filesToIncludeHere.map(GlobMatcher::toString),
+                actualConf.filesToIncludeHere.map(GlobMatcher::toString));
         assertEquals(
                 expectedConf.bakerTypes.map(BakerMatcher::toString),
                 actualConf.bakerTypes.map(BakerMatcher::toString));

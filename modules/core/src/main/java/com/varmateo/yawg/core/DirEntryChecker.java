@@ -21,7 +21,7 @@ import com.varmateo.yawg.core.DirBakerConf;
 
 
     private final DirBakerConf _conf;
-    private final boolean _isIncludeOnly;
+    private final boolean _isIncludeHere;
 
 
     /**
@@ -30,7 +30,7 @@ import com.varmateo.yawg.core.DirBakerConf;
     public DirEntryChecker(final DirBakerConf conf) {
 
         _conf = conf;
-        _isIncludeOnly = conf.filesToIncludeOnly.isPresent();
+        _isIncludeHere = conf.filesToIncludeHere.isPresent();
     }
 
 
@@ -58,8 +58,8 @@ import com.varmateo.yawg.core.DirBakerConf;
     private boolean testPath(final Path path) {
 
         boolean result =
-                _isIncludeOnly
-                ? testForIncludeOnly(path)
+                _isIncludeHere
+                ? testForIncludeHere(path)
                 : !testForExclude(path);
 
         return result;
@@ -81,10 +81,10 @@ import com.varmateo.yawg.core.DirBakerConf;
     /**
      *
      */
-    private boolean testForIncludeOnly(final Path path) {
+    private boolean testForIncludeHere(final Path path) {
 
         boolean result =
-                _conf.filesToIncludeOnly
+                _conf.filesToIncludeHere
                 .map(matcher -> matcher.test(path))
                 .orElse(false);
 

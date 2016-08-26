@@ -36,7 +36,7 @@ import com.varmateo.yawg.util.GlobMatcher;
     /**
      * Strict list of files to include when baking a directory.
      */
-    public final Optional<GlobMatcher> filesToIncludeOnly;
+    public final Optional<GlobMatcher> filesToIncludeHere;
 
     /**
      * Association of baker types to some lists of files.
@@ -56,7 +56,7 @@ import com.varmateo.yawg.util.GlobMatcher;
 
         this.templateName = builder._templateName;
         this.filesToExclude = builder._filesToExclude;
-        this.filesToIncludeOnly = builder._filesToIncludeOnly;
+        this.filesToIncludeHere = builder._filesToIncludeHere;
         this.bakerTypes = builder._bakerTypes;
         this.pageVars = builder._pageVarsBuilder.build();
     }
@@ -91,7 +91,7 @@ import com.varmateo.yawg.util.GlobMatcher;
 
         this.templateName.ifPresent(builder::setTemplateName);
         this.filesToExclude.ifPresent(builder::addFilesToExclude);
-        this.filesToIncludeOnly.ifPresent(builder::setFilesToIncludeOnly);
+        this.filesToIncludeHere.ifPresent(builder::setFilesToIncludeHere);
         this.bakerTypes.ifPresent(builder::addBakerTypes);
         builder.addPageVars(this.pageVars);
 
@@ -110,7 +110,7 @@ import com.varmateo.yawg.util.GlobMatcher;
 
         private Optional<String> _templateName = Optional.empty();
         private Optional<GlobMatcher> _filesToExclude = Optional.empty();
-        private Optional<GlobMatcher> _filesToIncludeOnly = Optional.empty();
+        private Optional<GlobMatcher> _filesToIncludeHere = Optional.empty();
         private Optional<BakerMatcher> _bakerTypes = Optional.empty();
         private PageVars.Builder _pageVarsBuilder = PageVars.builder();
 
@@ -119,7 +119,12 @@ import com.varmateo.yawg.util.GlobMatcher;
          *
          */
         private Builder() {
-            // Nothing to do.
+
+            _templateName = Optional.empty();
+            _filesToExclude = Optional.empty();
+            _filesToIncludeHere = Optional.empty();
+            _bakerTypes = Optional.empty();
+            _pageVarsBuilder = PageVars.builder();
         }
 
 
@@ -130,7 +135,7 @@ import com.varmateo.yawg.util.GlobMatcher;
 
             _templateName = defaults.templateName;
             _filesToExclude = defaults.filesToExclude;
-            // _filesToIncludeOnly always starts empty.
+            _filesToIncludeHere = Optional.empty();
             _bakerTypes = defaults.bakerTypes;
             _pageVarsBuilder = PageVars.builder(defaults.pageVars);
         }
@@ -197,9 +202,9 @@ import com.varmateo.yawg.util.GlobMatcher;
         /**
          *
          */
-        public Builder setFilesToIncludeOnly(final GlobMatcher fileNames) {
+        public Builder setFilesToIncludeHere(final GlobMatcher fileNames) {
 
-            _filesToIncludeOnly = Optional.of(fileNames);
+            _filesToIncludeHere = Optional.of(fileNames);
 
             return this;
         }
@@ -209,11 +214,11 @@ import com.varmateo.yawg.util.GlobMatcher;
          * @throws PatternSyntaxException If any of the given regular
          * expressions are invalid.
          */
-        public Builder setFilesToIncludeOnly(final String... fileNames) {
+        public Builder setFilesToIncludeHere(final String... fileNames) {
 
             GlobMatcher patterns = new GlobMatcher(fileNames);
 
-            setFilesToIncludeOnly(patterns);
+            setFilesToIncludeHere(patterns);
 
             return this;
         }

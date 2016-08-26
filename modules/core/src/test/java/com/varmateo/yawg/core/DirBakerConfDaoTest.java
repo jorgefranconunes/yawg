@@ -177,17 +177,17 @@ public final class DirBakerConfDaoTest
      *
      */
     @Test
-    public void withIncludeOnlyParamOk()
+    public void withIncludeHereParamOk()
             throws IOException {
 
         String confContents = ""
-                + "includeOnly:\n"
+                + "includeHere:\n"
                 + "  - one\n"
                 + "  - two\n";
         DirBakerConf actualConf = readFromString(confContents);
         DirBakerConf expectedConf =
                 DirBakerConf.builder()
-                .setFilesToIncludeOnly("one", "two")
+                .setFilesToIncludeHere("one", "two")
                 .build();
 
         assertConfEquals(expectedConf, actualConf);
@@ -198,9 +198,9 @@ public final class DirBakerConfDaoTest
      *
      */
     @Test
-    public void withIncludeOnlyParamMissing() {
+    public void withIncludeHereParamMissing() {
 
-        assertFalse(_emptyConf.filesToIncludeOnly.isPresent());
+        assertFalse(_emptyConf.filesToIncludeHere.isPresent());
     }
 
 

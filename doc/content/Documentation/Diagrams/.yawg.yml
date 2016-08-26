@@ -7,5 +7,5 @@ pageVars:
     title: "Diagrams"
     url: "Diagrams.html"
 
-includeOnly:
+includeHere:
   - "*.adoc"

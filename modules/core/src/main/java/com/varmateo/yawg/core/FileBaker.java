@@ -69,16 +69,17 @@ import com.varmateo.yawg.util.Exceptions;
             throws YawgException {
 
         Baker baker = findBaker(sourcePath, dirBakerConf);
-        Path sourceRelPath = _sourceRootDir.relativize(sourcePath);
         long startTime = System.currentTimeMillis();
 
         baker.bake(sourcePath, context, targetDir);
 
         long delay = System.currentTimeMillis() - startTime;
-        _log.debug("    {0} with {1} ({2}ms)",
-                   sourceRelPath,
-                   baker.getShortName(),
-                   String.valueOf(delay));
+        Path sourceBasename = sourcePath.getFileName();
+        _log.debug(
+                "    {1}: {0} ({2}ms)",
+                sourceBasename,
+                baker.getShortName(),
+                String.valueOf(delay));
     }
 
 
