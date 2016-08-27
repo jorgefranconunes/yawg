@@ -253,6 +253,26 @@ public final class DirBakerConfDaoTest
      *
      */
     @Test
+    public void withPageVarsHere()
+            throws IOException {
+
+        String confContents = ""
+                + "pageVarsHere:\n"
+                + "  hello : 'world'\n";
+        DirBakerConf actualConf = readFromString(confContents);
+        PageVars vars = actualConf.pageVarsHere;
+        Optional<Object> value = vars.get("hello");
+
+        assertTrue(value.isPresent());
+        assertTrue(value.get() instanceof String);
+        assertEquals("world", value.get());
+    }
+
+
+    /**
+     *
+     */
+    @Test
     public void loadFromFileOk() {
 
         Path confFile =

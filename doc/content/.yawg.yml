@@ -20,7 +20,9 @@ exclude:
 
 pageVars:
   navbarSelectedItem: "home"
-  
+
+
+pageVarsHere:
   breadcrumb:
     title: "Home"
     url: "index.html"

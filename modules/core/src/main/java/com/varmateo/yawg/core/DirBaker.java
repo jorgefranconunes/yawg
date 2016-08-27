@@ -6,7 +6,6 @@
 
 package com.varmateo.yawg.core;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,14 +15,14 @@ import java.util.stream.Collectors;
 
 import com.varmateo.yawg.DirBakeListener;
 import com.varmateo.yawg.PageContext;
-import com.varmateo.yawg.Template;
-import com.varmateo.yawg.TemplateService;
 import com.varmateo.yawg.PageVars;
+import com.varmateo.yawg.TemplateService;
 import com.varmateo.yawg.YawgException;
 
 import com.varmateo.yawg.core.DirBakerConf;
 import com.varmateo.yawg.core.DirBakerConfDao;
 import com.varmateo.yawg.core.DirEntryScanner;
+import com.varmateo.yawg.core.DirPageContextBuilder;
 import com.varmateo.yawg.core.FileBaker;
 import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogWithUtils;
@@ -41,9 +40,9 @@ import com.varmateo.yawg.util.Exceptions;
     private final LogWithUtils _log;
     private final Path _sourceRootDir;
     private final FileBaker _fileBaker;
-    private final Optional<TemplateService> _templateService;
     private final DirBakerConfDao _dirBakerConfDao;
     private final DirBakeListener _listener;
+    private final DirPageContextBuilder _dirPageContextBuilder;
 
 
 
@@ -75,9 +74,10 @@ import com.varmateo.yawg.util.Exceptions;
         _log = LogWithUtils.from(log);
         _sourceRootDir = sourceRootDir;
         _fileBaker = fileBaker;
-        _templateService = templateService;
         _dirBakerConfDao = dirBakerConfDao;
         _listener = dirBakeListener;
+        _dirPageContextBuilder =
+                new DirPageContextBuilder(sourceRootDir, templateService);
     }
 
 
@@ -90,9 +90,13 @@ import com.varmateo.yawg.util.Exceptions;
             final DirBakerConf parentDirBakerConf)
             throws YawgException {
 
-        PageVars pageVars = new PageVars();
+        PageVars parentExtensionVars = new PageVars();
 
-        doBakeDirectory(sourceDir, targetDir, parentDirBakerConf, pageVars);
+        doBakeDirectory(
+                sourceDir,
+                targetDir,
+                parentDirBakerConf,
+                parentExtensionVars);
     }
 
 
@@ -103,7 +107,7 @@ import com.varmateo.yawg.util.Exceptions;
             final Path sourceDir,
             final Path targetDir,
             final DirBakerConf parentDirBakerConf,
-            final PageVars pageVars)
+            final PageVars parentExtensionVars)
             throws YawgException {
 
         Path relSourceDir = _sourceRootDir.relativize(sourceDir);
@@ -115,24 +119,24 @@ import com.varmateo.yawg.util.Exceptions;
                 _dirBakerConfDao
                 .loadFromDir(sourceDir)
                 .mergeOnTopOf(parentDirBakerConf);
-
+        PageContext context =
+                _dirPageContextBuilder.buildPageContext(
+                        sourceDir,
+                        dirBakerConf,
+                        parentExtensionVars);
+        PageVars thisDirExtensionVars = _listener.onDirBake(context);
+        PageVars extensionVars =
+                PageVars.builder(parentExtensionVars)
+                .addPageVars(thisDirExtensionVars)
+                .build();
+        PageContext extendedContext =
+                PageContext.builder(context)
+                .addPageVars(extensionVars)
+                .build();
         List<Path> dirEntries = getDirEntries(sourceDir, dirBakerConf);
 
-        List<Path> filePathList =
-                dirEntries.stream()
-                .filter(Files::isRegularFile)
-                .collect(Collectors.toList());
-
-        List<Path> dirPathList =
-                dirEntries.stream()
-                .filter(Files::isDirectory)
-                .collect(Collectors.toList());
-
-        PageContext context =
-                buildPageContext(sourceDir, dirBakerConf, pageVars);
-
-        bakeChildFiles(filePathList, targetDir, dirBakerConf, context);
-        bakeChildDirectories(dirPathList, targetDir, dirBakerConf, context);
+        bakeChildFiles(dirEntries, targetDir, dirBakerConf, extendedContext);
+        bakeChildDirectories(dirEntries, targetDir, dirBakerConf, extensionVars);
     }
 
 
@@ -169,68 +173,17 @@ import com.varmateo.yawg.util.Exceptions;
     /**
      *
      */
-    private PageContext buildPageContext(
-            final Path sourceDir,
-            final DirBakerConf dirBakerConf,
-            final PageVars vars)
-            throws YawgException {
-
-        Optional<Template> template =
-                dirBakerConf.templateName
-                .flatMap(name ->
-                         _templateService.flatMap(
-                                 srv -> srv.getTemplate(name)));
-        String dirUrl = buildRelativeUrl(sourceDir, _sourceRootDir);
-        String rootRelativeUrl = buildRelativeUrl(_sourceRootDir, sourceDir);
-        PageVars newVars =
-                PageVars.builder(vars)
-                .addPageVars(dirBakerConf.pageVars)
-                .build();
-        PageContext context =
-                PageContext.builder()
-                .setDirUrl(dirUrl)
-                .setRootRelativeUrl(rootRelativeUrl)
-                .setTemplate(template)
-                .setPageVars(newVars)
-                .build();
-        PageVars extendedVars = _listener.onDirBake(context);
-        PageContext extendedContext =
-                PageContext.builder(context)
-                .setPageVars(extendedVars)
-                .build();
-
-        return extendedContext;
-    }
-
-
-    /**
-     * Generates the URL for the given <code>dir</code> relative to
-     * the given <code>baseDir</code>.
-     */
-    private String buildRelativeUrl(
-            final Path dir,
-            final Path baseDir) {
-
-        Path relDir = baseDir.relativize(dir);
-        String result = relDir.toString().replace(File.separatorChar, '/');
-
-        if ( result.length() == 0 ) {
-            result = ".";
-        }
-
-        return result;
-    }
-
-
-    /**
-     *
-     */
     private void bakeChildFiles(
-            final List<Path> filePathList,
+            final List<Path> dirEntries,
             final Path targetDir,
             final DirBakerConf dirBakerConf,
             final PageContext context)
             throws YawgException {
+
+        List<Path> filePathList =
+                dirEntries.stream()
+                .filter(Files::isRegularFile)
+                .collect(Collectors.toList());
 
         for ( Path path : filePathList ) {
             _fileBaker.bakeFile(path, context, targetDir, dirBakerConf);
@@ -242,17 +195,24 @@ import com.varmateo.yawg.util.Exceptions;
      *
      */
     private void bakeChildDirectories(
-            final List<Path> dirPathList,
+            final List<Path> dirEntries,
             final Path targetDir,
             final DirBakerConf dirBakerConf,
-            final PageContext context) {
+            final PageVars extensionVars) {
 
-        PageVars vars = context.getPageVars();
+        List<Path> dirPathList =
+                dirEntries.stream()
+                .filter(Files::isDirectory)
+                .collect(Collectors.toList());
 
         for ( Path childSourceDir : dirPathList ) {
             Path dirBasename = childSourceDir.getFileName();
             Path childTargetDir = targetDir.resolve(dirBasename);
-            doBakeDirectory(childSourceDir, childTargetDir, dirBakerConf, vars);
+            doBakeDirectory(
+                    childSourceDir,
+                    childTargetDir,
+                    dirBakerConf,
+                    extensionVars);
         }
     }
 

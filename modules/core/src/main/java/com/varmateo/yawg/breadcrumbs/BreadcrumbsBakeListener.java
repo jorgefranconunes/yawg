@@ -54,7 +54,7 @@ public final class BreadcrumbsBakeListener
                 buildBreadcrumbItem(vars, context.getDirUrl());
         Breadcrumbs newBreadcrumbs =
                 extendBreadcrumbs(oldBreadcrumbs, newBreadcrumbItem);
-        PageVars newVars = updateBreadcrumbs(context, newBreadcrumbs);
+        PageVars newVars = updateBreadcrumbs(newBreadcrumbs);
 
         return newVars;
     }
@@ -98,7 +98,7 @@ public final class BreadcrumbsBakeListener
 
 
     /**
-     *
+     * Basename without extension.
      */
     private String basenameOf(final String url) {
 
@@ -128,13 +128,10 @@ public final class BreadcrumbsBakeListener
     /**
      *
      */
-    private PageVars updateBreadcrumbs(
-            final PageContext context,
-            final Breadcrumbs newBreadcrumbs) {
+    private PageVars updateBreadcrumbs(final Breadcrumbs newBreadcrumbs) {
 
-        PageVars oldVars = context.getPageVars();
         PageVars newVars =
-                PageVars.builder(oldVars)
+                PageVars.builder()
                 .addVar(VAR_BREADCRUMB_LIST, newBreadcrumbs)
                 .build();
 

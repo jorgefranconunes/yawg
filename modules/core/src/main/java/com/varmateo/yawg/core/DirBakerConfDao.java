@@ -39,6 +39,7 @@ import com.varmateo.yawg.util.YamlParser;
     private static final String PARAM_INCLUDE_HERE = "includeHere";
     private static final String PARAM_TEMPLATE = "template";
     private static final String PARAM_PAGE_VARS = "pageVars";
+    private static final String PARAM_PAGE_VARS_HERE = "pageVarsHere";
 
 
     /**
@@ -143,6 +144,9 @@ import com.varmateo.yawg.util.YamlParser;
 
         getPageVars(map, PARAM_PAGE_VARS)
                 .ifPresent(builder::setPageVars);
+
+        getPageVars(map, PARAM_PAGE_VARS_HERE)
+                .ifPresent(builder::setPageVarsHere);
 
         DirBakerConf result = builder.build();
 

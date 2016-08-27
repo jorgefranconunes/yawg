@@ -12,7 +12,8 @@ import java.util.ServiceLoader;
 
 
 /**
- *
+ * Utility functions to support common use cases in the Java
+ * service-provider loading facility.
  */
 public final class Services
         extends Object {
@@ -26,7 +27,11 @@ public final class Services
 
 
     /**
+     * Retrieves all available services of the given class.
      *
+     * @param klass The class of the services we are searching for.
+     *
+     * @return All available services of the given class.
      */
     public static <T> Collection<T> getAll(final Class<T> klass) {
 

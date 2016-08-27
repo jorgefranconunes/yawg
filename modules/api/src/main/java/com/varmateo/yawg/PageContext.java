@@ -196,6 +196,17 @@ public final class PageContext
         /**
          *
          */
+        public Builder addPageVars(final PageVars pageVars) {
+
+            _pageVarsBuilder.addPageVars(pageVars);
+
+            return this;
+        }
+
+
+        /**
+         *
+         */
         public Builder addVar(
                 final String varName,
                 final Object varValue) {
