@@ -6,8 +6,10 @@
 
 package com.varmateo.yawg;
 
+import java.nio.file.Path;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 
 import com.varmateo.yawg.PageVars;
 import com.varmateo.yawg.Template;
@@ -21,7 +23,7 @@ public final class PageContext
 
 
     private final String _dirUrl;
-    private final Optional<Template> _pageTemplate;
+    private final Function<Path,Optional<Template>> _templateFetcher;
     private final PageVars _pageVars;
     private final String _rootRelativeUrl;
 
@@ -32,7 +34,7 @@ public final class PageContext
     private PageContext(final Builder builder) {
 
         _dirUrl = Objects.requireNonNull(builder._dirUrl);
-        _pageTemplate = builder._pageTemplate;
+        _templateFetcher = builder._templateFetcher;
         _rootRelativeUrl = Objects.requireNonNull(builder._rootRelativeUrl);
         _pageVars = builder._pageVarsBuilder.build();
     }
@@ -50,8 +52,11 @@ public final class PageContext
     /**
      * Template to be used when generating the target page.
      */
-    public Optional<Template> getPageTemplate() {
-        return _pageTemplate;
+    public Optional<Template> getTemplateFor(final Path path) {
+
+        Optional<Template> result = _templateFetcher.apply(path);
+
+        return result;
     }
 
 
@@ -109,7 +114,7 @@ public final class PageContext
 
 
         private String _dirUrl;
-        private Optional<Template> _pageTemplate;
+        private Function<Path,Optional<Template>> _templateFetcher;
         private String _rootRelativeUrl;
         private PageVars.Builder _pageVarsBuilder;
 
@@ -120,7 +125,7 @@ public final class PageContext
         private Builder() {
 
             _dirUrl = null;
-            _pageTemplate = Optional.empty();
+            _templateFetcher = (path -> Optional.empty());
             _rootRelativeUrl = null;
             _pageVarsBuilder = PageVars.builder();
         }
@@ -131,10 +136,10 @@ public final class PageContext
          */
         private Builder(final PageContext data) {
 
-            _dirUrl = data.getDirUrl();
-            _pageTemplate = data.getPageTemplate();
-            _rootRelativeUrl = data.getRootRelativeUrl();
-            _pageVarsBuilder = PageVars.builder(data.getPageVars());
+            _dirUrl = data._dirUrl;
+            _templateFetcher = data._templateFetcher;
+            _rootRelativeUrl = data._rootRelativeUrl;
+            _pageVarsBuilder = PageVars.builder(data._pageVars);
         }
 
 
@@ -152,20 +157,10 @@ public final class PageContext
         /**
          *
          */
-        public Builder setTemplate(final Template template) {
+        public Builder setTemplateFetcher(
+                final Function<Path,Optional<Template>> templateFetcher) {
 
-            _pageTemplate = Optional.of(template);
-
-            return this;
-        }
-
-
-        /**
-         *
-         */
-        public Builder setTemplate(final Optional<Template> template) {
-
-            _pageTemplate = template;
+            _templateFetcher = templateFetcher;
 
             return this;
         }

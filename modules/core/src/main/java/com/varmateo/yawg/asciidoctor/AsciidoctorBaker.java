@@ -144,10 +144,14 @@ import com.varmateo.yawg.util.FileUtils;
             throws AsciidoctorCoreException, IOException {
 
         Path targetPath = getTargetPath(sourcePath, targetDir);
-        Optional<Template> template = context.getPageTemplate();
+        Optional<Template> template = context.getTemplateFor(sourcePath);
 
         if ( template.isPresent() ) {
-            doBakeWithTemplate(sourcePath, context, targetDir, targetPath);
+            doBakeWithTemplate(sourcePath,
+                               context,
+                               targetDir,
+                               targetPath,
+                               template.get());
         } else {
             doBakeWithoutTemplate(sourcePath, targetDir, targetPath);
         }
@@ -203,12 +207,12 @@ import com.varmateo.yawg.util.FileUtils;
             final Path sourcePath,
             final PageContext context,
             final Path targetDir,
-            final Path targetPath)
+            final Path targetPath,
+            final Template template)
             throws AsciidoctorCoreException, IOException {
 
         TemplateDataModel dataModel =
                 _modelBuilder.build(sourcePath, targetDir, targetPath, context);
-        Template template = context.getPageTemplate().get();
         StringWriter buffer = new StringWriter();
 
         template.process(dataModel, buffer);

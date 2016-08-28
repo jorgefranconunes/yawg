@@ -287,7 +287,7 @@ public final class TestUtils
 
 
     /**
-     * A runnable simile that throws a checked exception. Used for
+     * A runnable simile that throws a checked exception. Intended for
      * simplifying the use of lambdas when calling <code>{@link
      * #assertThrows(Class, TestTask)}</code>.
      */

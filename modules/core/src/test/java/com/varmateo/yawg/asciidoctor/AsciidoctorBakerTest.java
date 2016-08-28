@@ -92,7 +92,7 @@ public final class AsciidoctorBakerTest
                 PageContext.builder()
                 .setDirUrl(".")
                 .setRootRelativeUrl(".")
-                .setTemplate(template)
+                .setTemplateFetcher(path -> Optional.of(template))
                 .build();
         Path targetDir = Paths.get("does-not-matter");
 
@@ -222,7 +222,7 @@ public final class AsciidoctorBakerTest
                 PageContext.builder()
                 .setDirUrl(".")
                 .setRootRelativeUrl(".")
-                .setTemplate(template)
+                .setTemplateFetcher(path -> template)
                 .build();
 
         _baker.bake(sourcePath, context, targetDir);

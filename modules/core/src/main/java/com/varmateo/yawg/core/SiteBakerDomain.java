@@ -8,6 +8,7 @@ package com.varmateo.yawg.core;
 
 import java.nio.file.Path;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Optional;
 
 import com.varmateo.yawg.Baker;
@@ -62,7 +63,7 @@ import com.varmateo.yawg.util.Services;
     private final Holder<SingleSiteBaker> _siteBaker =
             Holder.of(this::newSiteBaker);
 
-    private final Holder<Optional<TemplateService>> _templateService =
+    private final Holder<TemplateService> _templateService =
             Holder.of(this::newTemplateService);
 
     private final Holder<Log> _log =
@@ -175,22 +176,21 @@ import com.varmateo.yawg.util.Services;
     /**
      *
      */
-    private Optional<TemplateService> newTemplateService() {
+    private TemplateService newTemplateService() {
 
-        Optional<TemplateService> result = null;
+        Collection<TemplateService> allServices = null;
         Optional<Path> dirPath = _conf.getTemplatesDir();
 
         if ( dirPath.isPresent() ) {
-            Collection<TemplateService> allServices =
+            allServices =
                     Lists.map(
                             getAllServices(TemplateServiceFactory.class),
                             f -> f.newTemplateService(dirPath.get()));
-            TemplateService service =
-                    new CollectiveTemplateService(allServices);
-            result = Optional.of(service);
         } else {
-            result = Optional.empty();
+            allServices = Collections.emptyList();
         }
+
+        TemplateService result = new CollectiveTemplateService(allServices);
 
         return result;
     }

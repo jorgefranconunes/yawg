@@ -11,6 +11,7 @@ import java.util.Optional;
 
 import com.varmateo.yawg.PageVars;
 
+import com.varmateo.yawg.core.TemplateNameMatcher;
 import com.varmateo.yawg.util.GlobMatcher;
 
 
@@ -60,6 +61,12 @@ import com.varmateo.yawg.util.GlobMatcher;
     /**
      *
      */
+    public final TemplateNameMatcher templatesHere;
+
+
+    /**
+     *
+     */
     private DirBakerConf(final Builder builder) {
 
         this.templateName = builder._templateName;
@@ -68,6 +75,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         this.bakerTypes = builder._bakerTypes;
         this.pageVars = builder._pageVarsBuilder.build();
         this.pageVarsHere = builder._pageVarsHere;
+        this.templatesHere = builder._templatesHere;
     }
 
 
@@ -104,7 +112,8 @@ import com.varmateo.yawg.util.GlobMatcher;
         this.bakerTypes.ifPresent(builder::addBakerTypes);
         builder
                 .addPageVars(this.pageVars)
-                .setPageVarsHere(this.pageVarsHere);
+                .setPageVarsHere(this.pageVarsHere)
+                .setTemplatesHere(this.templatesHere);
 
 
         DirBakerConf result = builder.build();
@@ -123,6 +132,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         // These always start empty.
         private Optional<GlobMatcher> _filesToIncludeHere = Optional.empty();;
         private PageVars _pageVarsHere = new PageVars();
+        private TemplateNameMatcher _templatesHere = new TemplateNameMatcher();
 
         // These adopt the values from externally provided
         // initialization data.
@@ -318,6 +328,18 @@ import com.varmateo.yawg.util.GlobMatcher;
         public Builder setPageVarsHere(final PageVars pageVarsHere) {
 
             _pageVarsHere = pageVarsHere;
+
+            return this;
+        }
+
+
+        /**
+         *
+         */
+        public Builder setTemplatesHere(
+                final TemplateNameMatcher templatesHere) {
+
+            _templatesHere = templatesHere;
 
             return this;
         }

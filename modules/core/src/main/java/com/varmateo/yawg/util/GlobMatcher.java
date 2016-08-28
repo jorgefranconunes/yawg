@@ -20,9 +20,6 @@ import java.util.regex.PatternSyntaxException;
 import com.varmateo.yawg.util.Lists;
 
 
-
-
-
 /**
  * A predicate for checking if a path matches a given collection of
  * glob patterns.

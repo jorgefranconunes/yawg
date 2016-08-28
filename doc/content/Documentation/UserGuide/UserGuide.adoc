@@ -210,21 +210,31 @@ to override the default baker type for some files (e.g. when you want
 types. The values are a list of glob patterns representing the files
 to be baked by that baker type.
 
+* `exclude` (`List<String>`) -- List of glob patterns representing the
+files in the directory that are to be excluded from the bake. These
+files will not be processed in any way.
+
 * `includeHere` (`List<String>`) -- List of glob patterns representing
 the files in the directory that are to be baked. All other files in
 the directory will be skipped. This parameter takes precedence over
 the `exclude` parameter.
 
-* `exclude` (`List<String>`) -- List of glob patterns representing the
-files in the directory that are to be excluded from the bake. These
-files will not be processed in any way.
+* `pageVars` (`Map`) -- Set of additional variables to be added to the
+  page template data model. These variables will be propagated to
+  child directories. See <<sec-PageTemplateDataModel>>.
+
+* `pageVarsHere` (`Map`) -- Set of additional variables to be added to the
+  page template data model. These variables will not be propagated to
+  child directories. See <<sec-PageTemplateDataModel>>.
 
 * `template` (`String`) -- The name of the page template to use for
 baking the files in the directory. If not specified it will default to
 `default.ftlh`.
 
-* `templateVars` (`Map`) -- Set of additional variables to be added to
-  the page template data model. See <<sec-PageTemplateDataModel>>.
+* `templatesHere` (`Map<String,List<String>>`) -- Map that specifies
+  the templates to be used for certain files. The keys are template
+  names. The values are a list of glob patterns representing the files
+  for which the corresponding template will be used.
 
 The baker types that can be specified for the `bakerTypes` parameter
 are the ones described in <<sec-BakerTypes>>. The possible values

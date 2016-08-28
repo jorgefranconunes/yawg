@@ -151,7 +151,9 @@ public final class FileUtils
 
     /**
      * Similar to a <code>java.util.function.Consumer</code> but
-     * throws <code>IOException</code>.
+     * throws <code>IOException</code>. Intended for simplifying the
+     * use of lambdas when calling the <code>newWriter(...)</code>
+     * method.
      */
     @FunctionalInterface
     public interface ConsumerWithIOException<T> {

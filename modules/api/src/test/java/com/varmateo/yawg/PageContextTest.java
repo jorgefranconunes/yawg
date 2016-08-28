@@ -6,6 +6,8 @@
 
 package com.varmateo.yawg;
 
+import java.nio.file.Paths;
+
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -47,7 +49,7 @@ public final class PageContextTest
 
         assertEquals("something", context.getDirUrl());
         assertEquals("whatever", context.getRootRelativeUrl());
-        assertFalse(context.getPageTemplate().isPresent());
+        assertFalse(context.getTemplateFor(Paths.get("xxx")).isPresent());
         assertTrue(context.getPageVars().asMap().isEmpty());
     }
 

@@ -9,6 +9,7 @@ package com.varmateo.yawg.core;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.function.Function;
 
 import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.PageVars;
@@ -17,6 +18,7 @@ import com.varmateo.yawg.TemplateService;
 import com.varmateo.yawg.YawgException;
 
 import com.varmateo.yawg.core.DirBakerConf;
+import com.varmateo.yawg.core.TemplateNameMatcher;
 
 
 /**
@@ -28,7 +30,7 @@ import com.varmateo.yawg.core.DirBakerConf;
 
 
     private final Path _sourceRootDir;
-    private final Optional<TemplateService> _templateService;
+    private final TemplateService _templateService;
 
 
     /**
@@ -36,7 +38,7 @@ import com.varmateo.yawg.core.DirBakerConf;
      */
     public DirPageContextBuilder(
             final Path sourceRootDir,
-            final Optional<TemplateService> templateService) {
+            final TemplateService templateService) {
 
         _sourceRootDir = sourceRootDir;
         _templateService = templateService;
@@ -52,11 +54,8 @@ import com.varmateo.yawg.core.DirBakerConf;
             final PageVars extensionVars)
             throws YawgException {
 
-        Optional<Template> template =
-                dirBakerConf.templateName
-                .flatMap(name ->
-                         _templateService.flatMap(
-                                 srv -> srv.getTemplate(name)));
+        Function<Path,Optional<Template>> templateFetcher =
+                buildTemplateFetcher(dirBakerConf);
         String dirUrl = buildRelativeUrl(sourceDir, _sourceRootDir);
         String rootRelativeUrl = buildRelativeUrl(_sourceRootDir, sourceDir);
         PageVars allPageVars =
@@ -69,11 +68,86 @@ import com.varmateo.yawg.core.DirBakerConf;
                 PageContext.builder()
                 .setDirUrl(dirUrl)
                 .setRootRelativeUrl(rootRelativeUrl)
-                .setTemplate(template)
+                .setTemplateFetcher(templateFetcher)
                 .setPageVars(allPageVars)
                 .build();
 
         return context;
+    }
+
+
+    /**
+     * @throws YawgException When the template service throws this
+     * exception.
+     */
+    private Function<Path,Optional<Template>> buildTemplateFetcher(
+            final DirBakerConf dirBakerConf)
+            throws YawgException {
+
+        Optional<String> templateName = dirBakerConf.templateName;
+        TemplateNameMatcher templateNameMatcher = dirBakerConf.templatesHere;
+        TemplateService templateService = _templateService;
+
+        Function<Path,Optional<Template>> fetcher =
+                path ->
+                getTemplate(
+                        path,
+                        templateNameMatcher,
+                        templateName,
+                        templateService);
+
+        return fetcher;
+    }
+
+
+    /**
+     *
+     */
+    private static Optional<Template> getTemplate(
+            final Path path,
+            final TemplateNameMatcher templateNameMatcher,
+            final Optional<String> templateName,
+            final TemplateService templateService) {
+
+        Optional<Template> template =
+                getTemplateForPath(path, templateNameMatcher, templateService);
+
+        if ( !template.isPresent() ) {
+            template = getDefaultTemplate(templateName, templateService);
+        }
+
+        return template;
+    }
+
+
+    /**
+     *
+     */
+    private static Optional<Template> getDefaultTemplate(
+            final Optional<String> templateName,
+            final TemplateService templateService) {
+
+        Optional<Template> template =
+                templateName.flatMap(name -> templateService.getTemplate(name));
+
+        return template;
+    }
+
+
+    /**
+     *
+     */
+    private static Optional<Template> getTemplateForPath(
+            final Path path,
+            final TemplateNameMatcher templateNameMatcher,
+            final TemplateService templateService) {
+
+        Optional<Template> template =
+                templateNameMatcher
+                .getTemplateNameFor(path)
+                .flatMap(name -> templateService.getTemplate(name));
+
+        return template;
     }
 
 

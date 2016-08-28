@@ -27,6 +27,8 @@ import com.varmateo.yawg.Baker;
 import com.varmateo.yawg.DirBakeListener;
 import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.PageVars;
+import com.varmateo.yawg.Template;
+import com.varmateo.yawg.TemplateService;
 
 import com.varmateo.yawg.core.DirBaker;
 import com.varmateo.yawg.core.DirBakerConf;
@@ -46,6 +48,7 @@ public final class DirBakerTest
     private static DirBakerConf _emptyConf;
     private static DirBakerConfDao _confDao;
 
+    private TemplateService _templateService;
     private DirBakeListener _dirBakeListener;
 
 
@@ -66,6 +69,7 @@ public final class DirBakerTest
     @Before
     public void setUp() {
 
+        _templateService = new MockTemplateService();
         _dirBakeListener = new MockDirBakeListener();
     }
 
@@ -140,7 +144,7 @@ public final class DirBakerTest
                         log,
                         sourceRootDir,
                         fileBaker,
-                        Optional.empty(),
+                        _templateService,
                         _confDao,
                         _dirBakeListener);
         return result;
@@ -262,6 +266,37 @@ public final class DirBakerTest
         public int getEventCount() {
 
             return _eventCount;
+        }
+
+
+    }
+
+
+    /**
+     *
+     */
+    private static final class MockTemplateService
+            extends Object
+            implements TemplateService {
+
+
+        /**
+         *
+         */
+        public MockTemplateService() {
+            // Nothing to do.
+        }
+
+
+        /**
+         *
+         */
+        @Override
+        public Optional<Template> getTemplate(final String name) {
+
+            Optional<Template> result = Optional.empty();
+
+            return result;
         }
 
 

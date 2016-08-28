@@ -18,6 +18,7 @@ import com.varmateo.yawg.PageVars;
 import com.varmateo.yawg.YawgException;
 
 import com.varmateo.yawg.core.DirBakerConf;
+import com.varmateo.yawg.core.TemplateNameMatcher;
 import com.varmateo.yawg.util.Exceptions;
 import com.varmateo.yawg.util.GlobMatcher;
 import com.varmateo.yawg.util.SimpleMap;
@@ -40,6 +41,7 @@ import com.varmateo.yawg.util.YamlParser;
     private static final String PARAM_TEMPLATE = "template";
     private static final String PARAM_PAGE_VARS = "pageVars";
     private static final String PARAM_PAGE_VARS_HERE = "pageVarsHere";
+    private static final String PARAM_TEMPLATES_HERE = "templatesHere";
 
 
     /**
@@ -148,6 +150,9 @@ import com.varmateo.yawg.util.YamlParser;
         getPageVars(map, PARAM_PAGE_VARS_HERE)
                 .ifPresent(builder::setPageVarsHere);
 
+        getTemplatesHere(map, PARAM_TEMPLATES_HERE)
+                .ifPresent(builder::setTemplatesHere);
+
         DirBakerConf result = builder.build();
 
         return result;
@@ -245,5 +250,36 @@ import com.varmateo.yawg.util.YamlParser;
 
         return result;
     }
+
+
+    /**
+     *
+     */
+    private Optional<TemplateNameMatcher> getTemplatesHere(
+            final SimpleMap map,
+            final String key)
+            throws YawgException {
+
+        Optional<TemplateNameMatcher> result;
+        Optional<SimpleMap> templatesHereMapOpt = map.getMap(key);
+
+        if ( templatesHereMapOpt.isPresent() ) {
+            SimpleMap templatesHereMap = templatesHereMapOpt.get();
+            TemplateNameMatcher.Builder builder = TemplateNameMatcher.builder();
+
+            for ( String templateName : templatesHereMap.keySet() ) {
+                GlobMatcher globMatcher =
+                        getPatternList(templatesHereMap, templateName).get();
+
+                builder.addTemplateName(templateName, globMatcher);
+            }
+            result = Optional.of(builder.build());
+        } else {
+            result = Optional.empty();
+        }
+
+        return result;
+    }
+
 
 }

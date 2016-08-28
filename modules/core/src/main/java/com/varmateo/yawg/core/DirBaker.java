@@ -67,7 +67,7 @@ import com.varmateo.yawg.util.Exceptions;
             final Log log,
             final Path sourceRootDir,
             final FileBaker fileBaker,
-            final Optional<TemplateService> templateService,
+            final TemplateService templateService,
             final DirBakerConfDao dirBakerConfDao,
             final DirBakeListener dirBakeListener) {
 
