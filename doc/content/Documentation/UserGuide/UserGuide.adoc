@@ -214,6 +214,14 @@ to be baked by that baker type.
 files in the directory that are to be excluded from the bake. These
 files will not be processed in any way.
 
+* `extraDirsHere` - List of additional directories to be baked
+into the current target directory. The elements of the list are file
+system paths of directories. If a path is relative it is taken as
+being relative to the directory currently being baked. Only the
+content of the extra source directories is baked into the current
+target directory. The target directory will not contain a directory
+with the same name as the extra directory.
+
 * `includeHere` (`List<String>`) -- List of glob patterns representing
 the files in the directory that are to be baked. All other files in
 the directory will be skipped. This parameter takes precedence over

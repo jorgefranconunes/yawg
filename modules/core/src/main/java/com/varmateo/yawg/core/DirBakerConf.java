@@ -6,13 +6,17 @@
 
 package com.varmateo.yawg.core;
 
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Optional;
 
 import com.varmateo.yawg.PageVars;
 
 import com.varmateo.yawg.core.TemplateNameMatcher;
 import com.varmateo.yawg.util.GlobMatcher;
+import com.varmateo.yawg.util.Lists;
 
 
 /**
@@ -67,6 +71,12 @@ import com.varmateo.yawg.util.GlobMatcher;
     /**
      *
      */
+    public final Collection<Path> extraDirsHere;
+
+
+    /**
+     *
+     */
     private DirBakerConf(final Builder builder) {
 
         this.templateName = builder._templateName;
@@ -76,6 +86,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         this.pageVars = builder._pageVarsBuilder.build();
         this.pageVarsHere = builder._pageVarsHere;
         this.templatesHere = builder._templatesHere;
+        this.extraDirsHere = Lists.readOnlyCopy(builder._extraDirsHere);
     }
 
 
@@ -113,7 +124,8 @@ import com.varmateo.yawg.util.GlobMatcher;
         builder
                 .addPageVars(this.pageVars)
                 .setPageVarsHere(this.pageVarsHere)
-                .setTemplatesHere(this.templatesHere);
+                .setTemplatesHere(this.templatesHere)
+                .setExtraDirsHere(this.extraDirsHere);
 
 
         DirBakerConf result = builder.build();
@@ -140,6 +152,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         private Optional<GlobMatcher> _filesToExclude;
         private Optional<BakerMatcher> _bakerTypes;
         private PageVars.Builder _pageVarsBuilder;
+        private Collection<Path> _extraDirsHere;
 
 
         /**
@@ -151,6 +164,7 @@ import com.varmateo.yawg.util.GlobMatcher;
             _filesToExclude = Optional.empty();
             _bakerTypes = Optional.empty();
             _pageVarsBuilder = PageVars.builder();
+            _extraDirsHere = new ArrayList<>();
         }
 
 
@@ -163,6 +177,7 @@ import com.varmateo.yawg.util.GlobMatcher;
             _filesToExclude = defaults.filesToExclude;
             _bakerTypes = defaults.bakerTypes;
             _pageVarsBuilder = PageVars.builder(defaults.pageVars);
+            _extraDirsHere = new ArrayList<>(defaults.extraDirsHere);
         }
 
 
@@ -340,6 +355,18 @@ import com.varmateo.yawg.util.GlobMatcher;
                 final TemplateNameMatcher templatesHere) {
 
             _templatesHere = templatesHere;
+
+            return this;
+        }
+
+
+        /**
+         *
+         */
+        public Builder setExtraDirsHere(
+                final Collection<Path> extraDirsHere) {
+
+            _extraDirsHere = new ArrayList<>(extraDirsHere);
 
             return this;
         }

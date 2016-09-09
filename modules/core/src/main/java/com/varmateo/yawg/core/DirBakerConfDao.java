@@ -10,7 +10,11 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Optional;
 import java.util.regex.PatternSyntaxException;
 
@@ -42,6 +46,7 @@ import com.varmateo.yawg.util.YamlParser;
     private static final String PARAM_PAGE_VARS = "pageVars";
     private static final String PARAM_PAGE_VARS_HERE = "pageVarsHere";
     private static final String PARAM_TEMPLATES_HERE = "templatesHere";
+    private static final String PARAM_EXTRA_DIRS_HERE = "extraDirsHere";
 
 
     /**
@@ -152,6 +157,9 @@ import com.varmateo.yawg.util.YamlParser;
 
         getTemplatesHere(map, PARAM_TEMPLATES_HERE)
                 .ifPresent(builder::setTemplatesHere);
+
+        getPathList(map, PARAM_EXTRA_DIRS_HERE)
+                .ifPresent(builder::setExtraDirsHere);
 
         DirBakerConf result = builder.build();
 
@@ -274,6 +282,46 @@ import com.varmateo.yawg.util.YamlParser;
                 builder.addTemplateName(templateName, globMatcher);
             }
             result = Optional.of(builder.build());
+        } else {
+            result = Optional.empty();
+        }
+
+        return result;
+    }
+
+
+    /**
+     *
+     */
+    private Optional<Collection<Path>> getPathList(
+            final SimpleMap map,
+            final String key)
+            throws YawgException {
+
+        Optional<Collection<Path>> result;
+        Optional<SimpleList<String>> itemListOpt =
+                map.getList(key, String.class);
+
+        if ( itemListOpt.isPresent() ) {
+            Collection<Path> pathList = new ArrayList<>();
+            SimpleList<String> itemList = itemListOpt.get();
+
+            for ( int i=0, count=itemList.size(); i<count; ++i ) {
+                String pathStr = itemList.get(i);
+
+                try {
+                    Path path = Paths.get(pathStr);
+                    pathList.add(path);
+                } catch ( InvalidPathException e ) {
+                    Exceptions.raise(
+                            e,
+                            "Invalid path \"{0}\" on item {1} of {2}",
+                            pathStr,
+                            i,
+                            key);
+                }
+            }
+            result = Optional.of(pathList);
         } else {
             result = Optional.empty();
         }

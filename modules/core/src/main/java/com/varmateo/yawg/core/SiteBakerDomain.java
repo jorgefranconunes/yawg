@@ -138,6 +138,7 @@ import com.varmateo.yawg.util.Services;
                 new DirBaker(
                         _log.get(),
                         _conf.getSourceDir(),
+                        _conf.getTargetDir(),
                         _fileBaker.get(),
                         _templateService.get(),
                         _dirBakerConfDao.get(),
@@ -163,11 +164,9 @@ import com.varmateo.yawg.util.Services;
     private FileBaker newFileBaker() {
 
         Log log = _log.get();
-        Path sourceRootDir = _conf.getSourceDir();
         Collection<Baker> bakers = _bakers.get();
         Baker defaultBaker = _copyBaker.get();
-        FileBaker result =
-                new FileBaker(log, sourceRootDir, bakers, defaultBaker);
+        FileBaker result = new FileBaker(log, bakers, defaultBaker);
 
         return result;
     }

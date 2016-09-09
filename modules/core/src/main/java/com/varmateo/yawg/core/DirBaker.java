@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.varmateo.yawg.DirBakeListener;
@@ -52,6 +51,9 @@ import com.varmateo.yawg.util.Exceptions;
      * @param sourceRootDir The top level directory being baked. This
      * is only used to improve logging messages.
      *
+     * @param targetRootDir The top level directory where the bake
+     * results are stored.
+     *
      * @param fileBaker Baker to be used on regular files.
      *
      * @param templateService Will provide the templates used in the
@@ -66,6 +68,7 @@ import com.varmateo.yawg.util.Exceptions;
     public DirBaker(
             final Log log,
             final Path sourceRootDir,
+            final Path targetRootDir,
             final FileBaker fileBaker,
             final TemplateService templateService,
             final DirBakerConfDao dirBakerConfDao,
@@ -77,7 +80,7 @@ import com.varmateo.yawg.util.Exceptions;
         _dirBakerConfDao = dirBakerConfDao;
         _listener = dirBakeListener;
         _dirPageContextBuilder =
-                new DirPageContextBuilder(sourceRootDir, templateService);
+                new DirPageContextBuilder(targetRootDir, templateService);
     }
 
 
@@ -121,7 +124,7 @@ import com.varmateo.yawg.util.Exceptions;
                 .mergeOnTopOf(parentDirBakerConf);
         PageContext context =
                 _dirPageContextBuilder.buildPageContext(
-                        sourceDir,
+                        targetDir,
                         dirBakerConf,
                         parentExtensionVars);
         PageVars thisDirExtensionVars = _listener.onDirBake(context);
@@ -137,6 +140,12 @@ import com.varmateo.yawg.util.Exceptions;
 
         bakeChildFiles(dirEntries, targetDir, dirBakerConf, extendedContext);
         bakeChildDirectories(dirEntries, targetDir, dirBakerConf, extensionVars);
+        bakeExtraDirectories(
+                sourceDir,
+                targetDir,
+                dirBakerConf,
+                extendedContext,
+                extensionVars);
     }
 
 
@@ -212,6 +221,48 @@ import com.varmateo.yawg.util.Exceptions;
                     childSourceDir,
                     childTargetDir,
                     dirBakerConf,
+                    extensionVars);
+        }
+    }
+
+
+    /**
+     *
+     */
+    private void bakeExtraDirectories(
+            final Path sourceDir,
+            final Path targetDir,
+            final DirBakerConf dirBakerConf,
+            final PageContext context,
+            final PageVars extensionVars) {
+
+        List<Path> extraDirPathList =
+                dirBakerConf.extraDirsHere.stream()
+                .map(path -> sourceDir.resolve(path))
+                .collect(Collectors.toList());
+
+        for ( Path extraSourceDir : extraDirPathList ) {
+            DirBakerConf extraDirBakerConf =
+                    _dirBakerConfDao
+                    .loadFromDir(extraSourceDir)
+                    .mergeOnTopOf(dirBakerConf);
+            List<Path> dirEntries =
+                    getDirEntries(extraSourceDir, extraDirBakerConf);
+            PageContext extraContext =
+                    _dirPageContextBuilder.buildPageContext(
+                            targetDir,
+                            extraDirBakerConf,
+                            extensionVars);
+
+            bakeChildFiles(
+                    dirEntries,
+                    targetDir,
+                    extraDirBakerConf,
+                    extraContext);
+            bakeChildDirectories(
+                    dirEntries,
+                    targetDir,
+                    extraDirBakerConf,
                     extensionVars);
         }
     }

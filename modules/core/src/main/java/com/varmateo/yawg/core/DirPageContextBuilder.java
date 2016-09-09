@@ -29,7 +29,7 @@ import com.varmateo.yawg.core.TemplateNameMatcher;
         extends Object {
 
 
-    private final Path _sourceRootDir;
+    private final Path _targetRootDir;
     private final TemplateService _templateService;
 
 
@@ -37,10 +37,10 @@ import com.varmateo.yawg.core.TemplateNameMatcher;
      *
      */
     public DirPageContextBuilder(
-            final Path sourceRootDir,
+            final Path targetRootDir,
             final TemplateService templateService) {
 
-        _sourceRootDir = sourceRootDir;
+        _targetRootDir = targetRootDir;
         _templateService = templateService;
     }
 
@@ -49,15 +49,15 @@ import com.varmateo.yawg.core.TemplateNameMatcher;
      *
      */
     public PageContext buildPageContext(
-            final Path sourceDir,
+            final Path targetDir,
             final DirBakerConf dirBakerConf,
             final PageVars extensionVars)
             throws YawgException {
 
         Function<Path,Optional<Template>> templateFetcher =
                 buildTemplateFetcher(dirBakerConf);
-        String dirUrl = buildRelativeUrl(sourceDir, _sourceRootDir);
-        String rootRelativeUrl = buildRelativeUrl(_sourceRootDir, sourceDir);
+        String dirUrl = buildRelativeUrl(targetDir, _targetRootDir);
+        String rootRelativeUrl = buildRelativeUrl(_targetRootDir, targetDir);
         PageVars allPageVars =
                 PageVars.builder()
                 .addPageVars(extensionVars)

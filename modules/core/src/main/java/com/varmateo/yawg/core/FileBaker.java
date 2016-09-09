@@ -27,7 +27,6 @@ import com.varmateo.yawg.util.Exceptions;
 
 
     private final Log _log;
-    private final Path _sourceRootDir;
     private final Collection<Baker> _bakers;
     private final Baker _defaultBaker;
 
@@ -38,17 +37,13 @@ import com.varmateo.yawg.util.Exceptions;
 
     /**
      * @param log The logger that will be used for logging.
-     *
-     * @param sourceRootDir The top level directory being baked.
      */
     public FileBaker(
             final Log log,
-            final Path sourceRootDir,
             final Collection<Baker> bakers,
             final Baker defaultBaker) {
 
         _log = log;
-        _sourceRootDir = sourceRootDir;
         _bakers = bakers;
         _defaultBaker = defaultBaker;
         _allBakersByType = new HashMap<>();
