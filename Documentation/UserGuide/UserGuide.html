@@ -15,7 +15,7 @@
 
     <link
        rel="stylesheet"
-       href="../../yawg-site.css?v=eaf344c9-b395-42ae-a3c5-7ff6a50cb67f" />
+       href="../../yawg-site.css?v=e7382132-4fc5-4887-9315-0053ba1a8619" />
     
     <script
        type="text/javascript"
@@ -342,15 +342,34 @@ types. The values are a list of glob patterns representing the files
 to be baked by that baker type.</p>
 </li>
 <li>
-<p><code>includeOnly</code> (<code>List&lt;String&gt;</code>)&#8201;&#8212;&#8201;List of glob patterns representing
+<p><code>exclude</code> (<code>List&lt;String&gt;</code>)&#8201;&#8212;&#8201;List of glob patterns representing the
+files in the directory that are to be excluded from the bake. These
+files will not be processed in any way.</p>
+</li>
+<li>
+<p><code>extraDirsHere</code> - List of additional directories to be baked
+into the current target directory. The elements of the list are file
+system paths of directories. If a path is relative it is taken as
+being relative to the directory currently being baked. Only the
+content of the extra source directories is baked into the current
+target directory. The target directory will not contain a directory
+with the same name as the extra directory.</p>
+</li>
+<li>
+<p><code>includeHere</code> (<code>List&lt;String&gt;</code>)&#8201;&#8212;&#8201;List of glob patterns representing
 the files in the directory that are to be baked. All other files in
 the directory will be skipped. This parameter takes precedence over
 the <code>exclude</code> parameter.</p>
 </li>
 <li>
-<p><code>exclude</code> (<code>List&lt;String&gt;</code>)&#8201;&#8212;&#8201;List of glob patterns representing the
-files in the directory that are to be excluded from the bake. These
-files will not be processed in any way.</p>
+<p><code>pageVars</code> (<code>Map</code>)&#8201;&#8212;&#8201;Set of additional variables to be added to the
+page template data model. These variables will be propagated to
+child directories. See <a href="#sec-PageTemplateDataModel">Page template data model</a>.</p>
+</li>
+<li>
+<p><code>pageVarsHere</code> (<code>Map</code>)&#8201;&#8212;&#8201;Set of additional variables to be added to the
+page template data model. These variables will not be propagated to
+child directories. See <a href="#sec-PageTemplateDataModel">Page template data model</a>.</p>
 </li>
 <li>
 <p><code>template</code> (<code>String</code>)&#8201;&#8212;&#8201;The name of the page template to use for
@@ -358,8 +377,10 @@ baking the files in the directory. If not specified it will default to
 <code>default.ftlh</code>.</p>
 </li>
 <li>
-<p><code>templateVars</code> (<code>Map</code>)&#8201;&#8212;&#8201;Set of additional variables to be added to
-the page template data model. See <a href="#sec-PageTemplateDataModel">Page template data model</a>.</p>
+<p><code>templatesHere</code> (<code>Map&lt;String,List&lt;String&gt;&gt;</code>)&#8201;&#8212;&#8201;Map that specifies
+the templates to be used for certain files. The keys are template
+names. The values are a list of glob patterns representing the files
+for which the corresponding template will be used.</p>
 </li>
 </ul>
 </div>
@@ -442,12 +463,13 @@ template variable is always the same, for a given Yawg release.</p>
 </div>
 </div>
 
-        <footer class="yawg-footer">
-          <p>&copy;2016 Yawg project contributors</p>
-          <p>Baked
-          with <a href="http://yawg.varmateo.com/">Yawg
-          0.9.2</a></p>
-        </footer>
+<footer class="yawg-footer">
+  <p>&copy;2016 Yawg project contributors</p>
+  <p>Mixed with
+    <a href="http://getbootstrap.com/" target="_blank">Bootstrap 3.3.6</a> |
+    Baked with
+    <a href="http://yawg.varmateo.com/">Yawg 0.9.3</a></p>
+</footer>
 
       </div>
       
