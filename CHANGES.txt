@@ -11,6 +11,22 @@ Yawg project.
 
 
 
+== 0.9.3
+
+#175 Add support for numbered section titles
+
+#177 Support specifying template only for some files
+
+#178 Rename dir bake parameter includeOnly to includeHere
+
+#179 Support specifying template vars only for the current directory
+
+#183 Support baking additional dirs outside root source dir
+
+
+
+
+
 == 0.9.2
 
 #157 Rename dir bake parameter "ignore" to "exclude"

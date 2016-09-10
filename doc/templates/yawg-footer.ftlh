@@ -1,6 +1,7 @@
 <footer class="yawg-footer">
   <p>&copy;2016 Yawg project contributors</p>
-  <p>Baked
-    with <a href="http://yawg.varmateo.com/">${productName}
-      ${version}</a></p>
+  <p>Mixed with
+    <a href="http://getbootstrap.com/" target="_blank">Bootstrap 3.3.6</a> |
+    Baked with
+    <a href="http://yawg.varmateo.com/">${productName} ${version}</a></p>
 </footer>

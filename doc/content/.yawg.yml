@@ -16,6 +16,8 @@ exclude:
   - "work"
   - ".*~$"
   - ".yawg.yml"
+  - ".travis.yml"
+  - ".gitignore"
 
 
 pageVars:
