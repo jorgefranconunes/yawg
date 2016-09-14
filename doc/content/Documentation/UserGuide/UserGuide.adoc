@@ -279,27 +279,29 @@ set of variables accessible to the page template.
 
 The variables composing the data model are described below.
 
-* `bakeId` -- Unique bake ID. Each bake will have a different
+* `yawg.bakeId` -- Unique bake ID. Each bake will have a different
   identifier.
 
-* `body` -- String containing the raw HTML resulting from converting the
-source document into HTML. This is an HTML snippet ready to be
-included a `<body>` element, or any other block level element.
+* `yawg.body` -- String containing the raw HTML resulting from
+  converting the source document into HTML. This is an HTML snippet
+  ready to be included a `<body>` element, or any other block level
+  element.
 
-* `pageUrl` -- The URL of the page being baked relative to the top URL
-  of the baked site.
+* `yawg.pageUrl` -- The URL of the page being baked relative to the
+  top URL of the baked site.
 
-* `productName` -- The name of the Yawg softare (i.e. "Yawg"). The value
-of this template variable is always the same, for a given Yawg release.
+* `yawg.productName` -- The name of the Yawg software
+  (i.e. "Yawg"). The value of this template variable is always the
+  same, for a given Yawg release.
 
-* `rootRelativeUrl` -- The relative URL for the top URL of the baked
-site. Useful for refering to resources at the top of the document
-tree.
+* `yawg.rootRelativeUrl` -- The relative URL for the top URL of the
+  baked site. Useful for refering to resources at the top of the
+  document tree.
 
-* `title` -- The document title. If the source document did not define a
-title, then the base name of the source document file will be used as
-title.
+* `yawg.title` -- The document title. If the source document did not
+  define a title, then the base name of the source document file will
+  be used as title.
 
-* `version` -- The version of the Yawg software. The value of this
-template variable is always the same, for a given Yawg release.
+* `yawg.version` -- The version of the Yawg software. The value of
+  this template variable is always the same, for a given Yawg release.
 

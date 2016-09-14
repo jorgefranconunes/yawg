@@ -1,7 +1,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="${rootRelativeUrl}/index.html">Yawg</a>
+          <a class="navbar-brand" href="${yawg.rootRelativeUrl}/index.html">Yawg</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
@@ -25,8 +25,8 @@
 
 <#macro navbarItem name url title>
   <#if (navbarSelectedItem!"") == name>
-    <li class="active"><a href="${rootRelativeUrl}/${url}">${title}</a></li>
+    <li class="active"><a href="${yawg.rootRelativeUrl}/${url}">${title}</a></li>
   <#else>
-    <li><a href="${rootRelativeUrl}/${url}">${title}</a></li>
+    <li><a href="${yawg.rootRelativeUrl}/${url}">${title}</a></li>
   </#if>
 </#macro>

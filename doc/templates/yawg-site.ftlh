@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>${title}</title>
+    <title>${yawg.title}</title>
 
     <link
        rel="stylesheet"
@@ -15,7 +15,7 @@
 
     <link
        rel="stylesheet"
-       href="${rootRelativeUrl}/yawg-site.css?v=${bakeId}" />
+       href="${yawg.rootRelativeUrl}/yawg-site.css?v=${yawg.bakeId}" />
     
     <script
        type="text/javascript"
@@ -45,8 +45,8 @@
 
         <#include "yawg-breadcrumbs.ftlh">
 
-        <h1>${title}</h1>
-        ${body?no_esc}
+        <h1>${yawg.title}</h1>
+        ${yawg.body?no_esc}
 
         <#include "yawg-footer.ftlh">
 

@@ -1,1 +1,1 @@
-Demo02: ${body}
+Demo02: ${yawg.body}
