@@ -18,6 +18,12 @@
                name="developers"
                url="Developers/index.html"
                title="Developers" />
+
+            <#if (isProduction!"false") != "true">
+              <li style="float: right">
+                <a href="#"><span style="background:red; color:white; padding:0.5em;">TEST ENVIRONMENT</span></a>
+              </li>
+            </#if>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

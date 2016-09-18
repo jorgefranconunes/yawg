@@ -17,6 +17,7 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.varmateo.yawg.PageVars;
 import com.varmateo.yawg.SiteBaker;
 import com.varmateo.yawg.SiteBakerConf;
 import com.varmateo.yawg.SiteBakerFactory;
@@ -139,20 +140,7 @@ public final class BakerCli
 
         setupLogging(cliOptions);
 
-        Path sourceDir = cliOptions.getPath(BakerCliOptions.SOURCE_DIR);
-        Path targetDir = cliOptions.getPath(BakerCliOptions.TARGET_DIR);
-        Path templatesDir =
-                cliOptions.getPath(BakerCliOptions.TEMPLATES_DIR, null);
-        Path assetsDir =
-                cliOptions.getPath(BakerCliOptions.ASSETS_DIR, null);
-
-        SiteBakerConf conf =
-                SiteBakerConf.builder()
-                .setSourceDir(sourceDir)
-                .setTargetDir(targetDir)
-                .setTemplatesDir(templatesDir)
-                .setAssetsDir(assetsDir)
-                .build();
+        SiteBakerConf conf = buildSiteBakerConf(cliOptions);
         SiteBakerFactory factory = SiteBakerFactory.get();
         SiteBaker siteBaker = factory.newSiteBaker();
 
@@ -187,6 +175,62 @@ public final class BakerCli
         logger.addHandler(handler);
         logger.setLevel(Level.FINEST);
         logger.setUseParentHandlers(false);
+    }
+
+
+    /**
+     *
+     */
+    private SiteBakerConf buildSiteBakerConf(final CliOptions cliOptions)
+            throws CliException {
+
+        Path sourceDir = cliOptions.getPath(BakerCliOptions.SOURCE_DIR);
+        Path targetDir = cliOptions.getPath(BakerCliOptions.TARGET_DIR);
+        Path templatesDir =
+                cliOptions.getPath(BakerCliOptions.TEMPLATES_DIR, null);
+        Path assetsDir =
+                cliOptions.getPath(BakerCliOptions.ASSETS_DIR, null);
+        PageVars externalPageVars = buildExternalPageVars(cliOptions);
+
+        SiteBakerConf conf =
+                SiteBakerConf.builder()
+                .setSourceDir(sourceDir)
+                .setTargetDir(targetDir)
+                .setTemplatesDir(templatesDir)
+                .setAssetsDir(assetsDir)
+                .setExternalPageVars(externalPageVars)
+                .build();
+
+        return conf;
+    }
+
+
+    /**
+     *
+     */
+    private PageVars buildExternalPageVars(final CliOptions cliOptions) {
+
+        PageVars.Builder builder = PageVars.builder();
+
+        for ( String optionValue : cliOptions.getAll(BakerCliOptions.PAGE_VAR)){
+            String varName = null;
+            String varValue = null;
+            int indexOfEqSign = optionValue.indexOf('=');
+
+            if ( indexOfEqSign < 0 ) {
+                varName = optionValue;
+                varValue = "";
+            } else {
+                varName = optionValue.substring(0, indexOfEqSign);
+                varValue = optionValue.substring(indexOfEqSign+1);
+            }
+
+            builder.addVar(varName, varValue);
+        }
+
+        PageVars result = builder.build();
+
+        return result;
     }
 
 

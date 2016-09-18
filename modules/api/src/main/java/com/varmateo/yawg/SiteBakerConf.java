@@ -10,6 +10,8 @@ import java.nio.file.Path;
 import java.util.Objects;
 import java.util.Optional;
 
+import com.varmateo.yawg.PageVars;
+
 
 /**
  * Set of configuration parameters for baking a site with a
@@ -25,6 +27,7 @@ public final class SiteBakerConf
     private final Path _sourceDir;
     private final Path _targetDir;
     private final Optional<Path> _templatesDir;
+    private final PageVars _externalPageVars;
 
 
     /**
@@ -36,6 +39,7 @@ public final class SiteBakerConf
         _sourceDir = Objects.requireNonNull(builder._sourceDir);
         _targetDir = Objects.requireNonNull(builder._targetDir);
         _templatesDir = builder._templatesDir;
+        _externalPageVars = builder._externalPageVars;
     }
 
 
@@ -74,6 +78,14 @@ public final class SiteBakerConf
 
 
     /**
+     * Set oa page variables provided externally.
+     */
+    public PageVars getExternalPageVars() {
+        return _externalPageVars;
+    }
+
+
+    /**
      * Creates a new builder with no initializations.
      *
      * @return A newly created <code>Builder</code> instance.
@@ -97,6 +109,7 @@ public final class SiteBakerConf
         private Path _sourceDir = null;
         private Path _targetDir = null;
         private Optional<Path> _templatesDir = Optional.empty();
+        private PageVars _externalPageVars = new PageVars();
 
 
         /**
@@ -144,6 +157,16 @@ public final class SiteBakerConf
         public Builder setTemplatesDir(final Path templatesDir) {
 
             _templatesDir = Optional.ofNullable(templatesDir);
+            return this;
+        }
+
+
+        /**
+         *
+         */
+        public Builder setExternalPageVars(final PageVars externalPageVars) {
+
+            _externalPageVars = externalPageVars;
             return this;
         }
 

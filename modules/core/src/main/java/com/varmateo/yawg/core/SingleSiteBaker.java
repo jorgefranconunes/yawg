@@ -15,6 +15,7 @@ import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Optional;
 
+import com.varmateo.yawg.PageVars;
 import com.varmateo.yawg.SiteBakerConf;
 import com.varmateo.yawg.YawgException;
 import com.varmateo.yawg.YawgInfo;
@@ -107,9 +108,11 @@ import com.varmateo.yawg.util.Exceptions;
 
         Path sourceDir = _conf.getSourceDir();
         Path targetDir = _conf.getTargetDir();
+        PageVars externalPageVars = _conf.getExternalPageVars();
         DirBakerConf dirBakerConf =
                 DirBakerConf.builder()
                 .setTemplateName(DEFAULT_TEMPLATE_NAME)
+                .setPageVars(externalPageVars)
                 .build();
 
         _dirBaker.bakeDirectory(sourceDir, targetDir, dirBakerConf);

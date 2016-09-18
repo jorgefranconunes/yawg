@@ -132,13 +132,14 @@ Usage: yawg [OPTION] ...
 Bakes a site from a directory tree.
  
 Options:
-    --assets <PATH>      path of assets directory
- -h,--help               show this help text and exit
-    --source <PATH>      path of source directory
-    --target <PATH>      path of target directory
-    --templates <PATH>   path of templates directory
- -v,--version            show version and exit
-    --verbose            show abundant logging
+    --assets <PATH>           path of assets directory
+ -h,--help                    show this help text and exit
+    --page-var <NAME=VALUE>   additional page variable
+    --source <PATH>           path of source directory
+    --target <PATH>           path of target directory
+    --templates <PATH>        path of templates directory
+ -v,--version                 show version and exit
+    --verbose                 show abundant logging
 
 Find additional information at http://yawg.varmateo.com/
 ----
@@ -149,6 +150,10 @@ The `bin/yawg` command supports the following command line options:
 this directory will be recursively copied to the target directory. The
 files under the assets directory are copied without any
 transformations.
+
+`--page-var <NAME=VALUE>` -- Defines a page variable that will be
+visible to the templates for all pages. The value of page variables
+defined through the option will always be strings.
 
 `--source <PATH>` -- Path to the directory containing the content
 source files to be baked.

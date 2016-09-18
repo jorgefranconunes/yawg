@@ -38,6 +38,13 @@ import com.varmateo.yawg.cli.util.CliOptions;
         .setShortName("h")
         .build();
 
+    public static final CliOption PAGE_VAR =
+        CliOption.builder()
+        .setLongName("page-var")
+        .setArgName("NAME=VALUE")
+        .setDescription("additional page variable")
+        .build();
+
     public static final CliOption SOURCE_DIR =
         CliOption.builder()
         .setLongName("source")
@@ -88,6 +95,7 @@ import com.varmateo.yawg.cli.util.CliOptions;
         CliOption[] allOptions = {
             ASSETS_DIR,
             HELP,
+            PAGE_VAR,
             SOURCE_DIR,
             TARGET_DIR,
             TEMPLATES_DIR,

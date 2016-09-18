@@ -30,6 +30,7 @@ DEFAULT_COMMIT_COMMENT="Doc updates"
 _workingArea=
 _isInit=false
 _isCommit=false
+_isProduction=false
 _yawgTool=${_yawgHome}/bin/yawg
 _commitComment=${DEFAULT_COMMIT_COMMENT}
 
@@ -75,6 +76,10 @@ function processCliArgs () {
                 ;;
             --commit )
                 _isCommit=true
+                _isProduction=true;
+                ;;
+            --production )
+                _isProduction=true;
                 ;;
             --yawg=* )
                 _yawgTool=$(expr "$option" : '--yawg=\(.*\)')
@@ -120,7 +125,12 @@ Available options:
 
 --commit
     Commit changes to the site branch and uploads to Git origin
-    repository.
+    repository. Implies --production
+
+--production
+    Generates the site ready for uploading to the production
+    location. If not specified a visual indicator is added to the site
+    to inform readers that it is not an official release.
 
 --yawg
     Path of the'yawg' tool to be used. By default it will use the
@@ -233,10 +243,11 @@ function doBaking () {
     fi
 
     ${_yawgTool} \
-        --source=$(yawgNormalizePath ${_yawgHome}/doc/content) \
-        --target=$(yawgNormalizePath ${_workingArea}) \
-        --templates=$(yawgNormalizePath ${_yawgHome}/doc/templates) \
-        --assets=$(yawgNormalizePath ${_yawgHome}/doc/assets) \
+        --source $(yawgNormalizePath ${_yawgHome}/doc/content) \
+        --target $(yawgNormalizePath ${_workingArea}) \
+        --templates $(yawgNormalizePath ${_yawgHome}/doc/templates) \
+        --assets $(yawgNormalizePath ${_yawgHome}/doc/assets) \
+        --page-var "isProduction=${_isProduction}" \
         --verbose
 }
 

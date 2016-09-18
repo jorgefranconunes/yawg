@@ -9,6 +9,7 @@ package com.varmateo.yawg.cli.util;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -162,10 +163,44 @@ public final class CliOptions
 
 
     /**
+     * Retrieves all the values for an option.
+     *
+     * <p>An option will have multiple values when it is given more
+     * than onde in the list of command line arguments.</p>
+     *
+     * @param option The name of the option whose values are to be
+     * returned.
+     *
+     * @return A list with the values of the given option, in the same
+     * order theay appeared in the command line. It will be empty if
+     * the option was not given in the command line.
+     */
+    public List<String> getAll(final CliOption option) {
+
+        List<String> result = null;
+        String   optionName   = option.getName();
+        String[] optionValues = _cmdLine.getOptionValues(optionName);
+
+        if ( optionValues != null ) {
+            result = Arrays.asList(optionValues);
+        } else {
+            result = Collections.emptyList();
+        }
+
+        return result;
+    }
+
+
+    /**
      * Retrieves the value of a mandatory option.
+     *
+     * <p>If the given option does not exist, then a
+     * <code>CliException</code> will be thrown.
      *
      * @param option The name (short or long) of the option whose
      * value is to be retrieved.
+     *
+     * @return The value of the given option.
      *
      * @exception CliException Thrown if the given command line does
      * not contain the option.
