@@ -4,6 +4,10 @@
 
 template: "yawg-site.ftlh"
 
+#
+# List of globs for files NOT to be included in the bake. This list is
+# tipically very similar to the .gitignore list.
+#
 exclude:
   - "*~"
   - "*.~"

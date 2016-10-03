@@ -1,0 +1,33 @@
+= Download
+
+
+
+
+
+== Binaries
+
+Releases:
+
+* Latest release:
+https://github.com/jorgefranconunes/yawg/releases/download/v0.9.3/yawg-0.9.3.tar.bz2[yawg-0.9.3.tar.bz2]
+
+* https://github.com/jorgefranconunes/yawg/releases[Older releases]
+
+See the link:../Documentation/UserGuide/index.html[Yawg user guide]
+for instruction on installing and running Yawg.
+
+
+
+
+
+== Source code
+
+You can obtain the source code by cloning the Git repository on the
+https://github.com/jorgefranconunes/yawg[Github project] with the
+following Git command:
+
+[source,sh]
+----
+git clone https://github.com/jorgefranconunes/yawg.git
+----
+

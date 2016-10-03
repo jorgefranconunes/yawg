@@ -1,0 +1,12 @@
+#
+#
+#
+
+pageVars:
+  navbarSelectedItem: "download"
+  
+
+pageVarsHere:
+  breadcrumb:
+    title: "Download"
+    url: "index.html"

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<#-- Freemarker template for the Yawg documentation site. -->
 <html>
   <head>
     <meta charset="utf-8">

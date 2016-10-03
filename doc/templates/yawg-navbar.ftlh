@@ -1,3 +1,5 @@
+<#-- Template for the navigation bar block. -->
+
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -9,7 +11,10 @@
                name="home"
                url="index.html"
                title="Home" />
-            <li><a href="https://github.com/jorgefranconunes/yawg/releases" target="_blank">Download</a></li>
+            <@navbarItem
+               name="download"
+               url="Download/index.html"
+               title="Download" />
             <@navbarItem
                name="documentation"
                url="Documentation/index.html"
@@ -29,6 +34,7 @@
       </div>
     </nav>
 
+<#-- Renderer for one item in the navigation bar. -->
 <#macro navbarItem name url title>
   <#if (navbarSelectedItem!"") == name>
     <li class="active"><a href="${yawg.rootRelativeUrl}/${url}">${title}</a></li>

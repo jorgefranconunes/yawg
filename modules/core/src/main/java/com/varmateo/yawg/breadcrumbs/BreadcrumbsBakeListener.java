@@ -27,7 +27,7 @@ public final class BreadcrumbsBakeListener
 
 
     private static final String VAR_BREADCRUMB = "breadcrumb";
-    private static final String VAR_BREADCRUMB_LIST = "breadcrumbList";
+    private static final String VAR_BREADCRUMB_LIST = "breadcrumbs";
 
     private static final String ATTR_TITLE = "title";
     private static final String ATTR_URL = "url";

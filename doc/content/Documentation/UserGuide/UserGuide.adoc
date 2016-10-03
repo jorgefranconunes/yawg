@@ -219,7 +219,7 @@ to be baked by that baker type.
 files in the directory that are to be excluded from the bake. These
 files will not be processed in any way.
 
-* `extraDirsHere` - List of additional directories to be baked
+* `extraDirsHere` (`List<String>`)- List of additional directories to be baked
 into the current target directory. The elements of the list are file
 system paths of directories. If a path is relative it is taken as
 being relative to the directory currently being baked. Only the
@@ -270,13 +270,6 @@ Yawg supports http://freemarker.org/[Freemarker] page templates.
 
 The page template files are read from the directory specified with the
 `--templates` command line option.
-
-
-
-
-
-[[sec-PageTemplateDataModel]]
-=== Page template data model
 
 The page template has access to a set of variables while it is being
 processed during the baking of a document. We call data model to the
