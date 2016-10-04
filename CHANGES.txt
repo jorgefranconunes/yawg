@@ -11,6 +11,17 @@ Yawg project.
 
 
 
+== 0.9.4
+
+#187 Move Yawg specific data to dedicated namespace in template data
+ model
+
+#188 Support providing template data model items from the command line
+
+
+
+
+
 == 0.9.3
 
 #175 Add support for numbered section titles
