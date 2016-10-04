@@ -15,7 +15,7 @@
 
     <link
        rel="stylesheet"
-       href="../../yawg-site.css?v=963b4f5a-87e4-4f98-8ebf-1f9c99a74efe" />
+       href="../../yawg-site.css?v=4fdddfd2-59de-47eb-8a29-3210a3d063ed" />
     
     <script
        type="text/javascript"
@@ -39,6 +39,7 @@
 
     <div class="yawg-body">
 
+
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -47,9 +48,10 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
     <li><a href="../../index.html">Home</a></li>
-            <li><a href="https://github.com/jorgefranconunes/yawg/releases" target="_blank">Download</a></li>
+    <li><a href="../../Download/index.html">Download</a></li>
     <li class="active"><a href="../../Documentation/index.html">Documentation</a></li>
     <li><a href="../../Developers/index.html">Developers</a></li>
+
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -57,6 +59,10 @@
 
 
       <div class="container yawg-content">
+
+
+  <!#-- The breadcrumb bar is only visible if there is more than
+        one bread crumb on this page.-->
 
     <ol class="breadcrumb">
           <li><a href="../.././index.html">Home</a></li>
@@ -73,11 +79,7 @@
 <li><a href="#sec-Running">3. Running Yawg</a></li>
 <li><a href="#sec-BakerTypes">4. Baker types</a></li>
 <li><a href="#sec-ConfiguringBaking">5. Configuring the baking process</a></li>
-<li><a href="#sec-PageTemplates">6. Page templates</a>
-<ul class="sectlevel2">
-<li><a href="#sec-PageTemplateDataModel">6.1. Page template data model</a></li>
-</ul>
-</li>
+<li><a href="#sec-PageTemplates">6. Page templates</a></li>
 </ul>
 </div>
 <div id="preamble">
@@ -245,13 +247,14 @@ Usage: yawg [OPTION] ...
 Bakes a site from a directory tree.
 
 Options:
-    --assets &lt;PATH&gt;      path of assets directory
- -h,--help               show this help text and exit
-    --source &lt;PATH&gt;      path of source directory
-    --target &lt;PATH&gt;      path of target directory
-    --templates &lt;PATH&gt;   path of templates directory
- -v,--version            show version and exit
-    --verbose            show abundant logging
+    --assets &lt;PATH&gt;           path of assets directory
+ -h,--help                    show this help text and exit
+    --page-var &lt;NAME=VALUE&gt;   additional page variable
+    --source &lt;PATH&gt;           path of source directory
+    --target &lt;PATH&gt;           path of target directory
+    --templates &lt;PATH&gt;        path of templates directory
+ -v,--version                 show version and exit
+    --verbose                 show abundant logging
 
 Find additional information at http://yawg.varmateo.com/</pre>
 </div>
@@ -264,6 +267,11 @@ Find additional information at http://yawg.varmateo.com/</pre>
 this directory will be recursively copied to the target directory. The
 files under the assets directory are copied without any
 transformations.</p>
+</div>
+<div class="paragraph">
+<p><code>--page-var &lt;NAME=VALUE&gt;</code>&#8201;&#8212;&#8201;Defines a page variable that will be
+visible to the templates for all pages. The value of page variables
+defined through the option will always be strings.</p>
 </div>
 <div class="paragraph">
 <p><code>--source &lt;PATH&gt;</code>&#8201;&#8212;&#8201;Path to the directory containing the content
@@ -364,12 +372,12 @@ the <code>exclude</code> parameter.</p>
 <li>
 <p><code>pageVars</code> (<code>Map</code>)&#8201;&#8212;&#8201;Set of additional variables to be added to the
 page template data model. These variables will be propagated to
-child directories. See <a href="#sec-PageTemplateDataModel">Page template data model</a>.</p>
+child directories. See <a href="#sec-PageTemplateDataModel">[sec-PageTemplateDataModel]</a>.</p>
 </li>
 <li>
 <p><code>pageVarsHere</code> (<code>Map</code>)&#8201;&#8212;&#8201;Set of additional variables to be added to the
 page template data model. These variables will not be propagated to
-child directories. See <a href="#sec-PageTemplateDataModel">Page template data model</a>.</p>
+child directories. See <a href="#sec-PageTemplateDataModel">[sec-PageTemplateDataModel]</a>.</p>
 </li>
 <li>
 <p><code>template</code> (<code>String</code>)&#8201;&#8212;&#8201;The name of the page template to use for
@@ -414,8 +422,6 @@ currently supported are the following:</p>
 <p>The page template files are read from the directory specified with the
 <code>--templates</code> command line option.</p>
 </div>
-<div class="sect2">
-<h3 id="sec-PageTemplateDataModel">6.1. Page template data model</h3>
 <div class="paragraph">
 <p>The page template has access to a set of variables while it is being
 processed during the baking of a document. We call data model to the
@@ -427,48 +433,53 @@ set of variables accessible to the page template.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>bakeId</code>&#8201;&#8212;&#8201;Unique bake ID. Each bake will have a different
+<p><code>yawg.bakeId</code>&#8201;&#8212;&#8201;Unique bake ID. Each bake will have a different
 identifier.</p>
 </li>
 <li>
-<p><code>body</code>&#8201;&#8212;&#8201;String containing the raw HTML resulting from converting the
-source document into HTML. This is an HTML snippet ready to be
-included a <code>&lt;body&gt;</code> element, or any other block level element.</p>
+<p><code>yawg.body</code>&#8201;&#8212;&#8201;String containing the raw HTML resulting from
+converting the source document into HTML. This is an HTML snippet
+ready to be included a <code>&lt;body&gt;</code> element, or any other block level
+element.</p>
 </li>
 <li>
-<p><code>pageUrl</code>&#8201;&#8212;&#8201;The URL of the page being baked relative to the top URL
-of the baked site.</p>
+<p><code>yawg.pageUrl</code>&#8201;&#8212;&#8201;The URL of the page being baked relative to the
+top URL of the baked site.</p>
 </li>
 <li>
-<p><code>productName</code>&#8201;&#8212;&#8201;The name of the Yawg softare (i.e. "Yawg"). The value
-of this template variable is always the same, for a given Yawg release.</p>
+<p><code>yawg.productName</code>&#8201;&#8212;&#8201;The name of the Yawg software
+(i.e. "Yawg"). The value of this template variable is always the
+same, for a given Yawg release.</p>
 </li>
 <li>
-<p><code>rootRelativeUrl</code>&#8201;&#8212;&#8201;The relative URL for the top URL of the baked
-site. Useful for refering to resources at the top of the document
-tree.</p>
+<p><code>yawg.rootRelativeUrl</code>&#8201;&#8212;&#8201;The relative URL for the top URL of the
+baked site. Useful for refering to resources at the top of the
+document tree.</p>
 </li>
 <li>
-<p><code>title</code>&#8201;&#8212;&#8201;The document title. If the source document did not define a
-title, then the base name of the source document file will be used as
-title.</p>
+<p><code>yawg.title</code>&#8201;&#8212;&#8201;The document title. If the source document did not
+define a title, then the base name of the source document file will
+be used as title.</p>
 </li>
 <li>
-<p><code>version</code>&#8201;&#8212;&#8201;The version of the Yawg software. The value of this
-template variable is always the same, for a given Yawg release.</p>
+<p><code>yawg.version</code>&#8201;&#8212;&#8201;The version of the Yawg software. The value of
+this template variable is always the same, for a given Yawg release.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
-</div>
+
 
 <footer class="yawg-footer">
   <p>&copy;2016 Yawg project contributors</p>
-  <p>Mixed with
-    <a href="http://getbootstrap.com/" target="_blank">Bootstrap 3.3.6</a> |
+  <p>
+    Mixed with
+    <a href="http://getbootstrap.com/" target="_blank">Bootstrap 3.3.6</a>
+    |
     Baked with
-    <a href="http://yawg.varmateo.com/">Yawg 0.9.3</a></p>
+    <a href="http://yawg.varmateo.com/">Yawg 0.9.4</a>
+  </p>
 </footer>
 
       </div>
