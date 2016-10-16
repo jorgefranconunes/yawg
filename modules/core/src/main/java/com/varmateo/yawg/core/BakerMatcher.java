@@ -115,7 +115,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         /**
          *
          */
-        public Entry(
+        Entry(
                 final String mapType,
                 final GlobMatcher matcher) {
 

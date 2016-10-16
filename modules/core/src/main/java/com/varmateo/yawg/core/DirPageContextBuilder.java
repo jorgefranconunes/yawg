@@ -36,7 +36,7 @@ import com.varmateo.yawg.core.TemplateNameMatcher;
     /**
      *
      */
-    public DirPageContextBuilder(
+    DirPageContextBuilder(
             final Path targetRootDir,
             final TemplateService templateService) {
 

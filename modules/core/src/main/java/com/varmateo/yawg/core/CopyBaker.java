@@ -32,7 +32,7 @@ import com.varmateo.yawg.util.FileUtils;
     /**
      * 
      */
-    public CopyBaker() {
+    CopyBaker() {
 
         // Nothing to do.
     }

@@ -38,7 +38,7 @@ import com.varmateo.yawg.util.Exceptions;
     /**
      * @param log The logger that will be used for logging.
      */
-    public FileBaker(
+    FileBaker(
             final Log log,
             final Collection<Baker> bakers,
             final Baker defaultBaker) {

@@ -3,6 +3,8 @@
 
 Copyright (c) 2016 Yawg project contributors.
 
+Maven POM for the "core" sub-project of the Yawg project.
+
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                        http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
@@ -129,7 +131,7 @@ Copyright (c) 2016 Yawg project contributors.
 
   <!-- More project information. -->
 
-  <name>Yawg core implementation</name>
+  <name>Yawg core</name>
 
   <description>Core Yawg classes.</description>
 

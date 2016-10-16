@@ -52,7 +52,7 @@ import com.varmateo.yawg.util.YamlParser;
     /**
      *
      */
-    public DirBakerConfDao() {
+    DirBakerConfDao() {
 
         // Nothing to do.
     }

@@ -77,6 +77,7 @@ public class Foo { 	// Should be declared with "extends Object".
   <rule ref="rulesets/java/design.xml">
     <exclude name="ConfusingTernary" /> <!-- Me not like it. -->
     <exclude name="ImmutableField" /> <!-- Me not like it. -->
+    <exclude name="AccessorClassGeneration" /> <!-- No warning needed. -->
   </rule>
 
 

@@ -31,7 +31,7 @@ import com.varmateo.yawg.util.FileUtils;
     /**
      *
      */
-    public HtmlBakerDataModelBuilder() {
+    HtmlBakerDataModelBuilder() {
         // Nothing to do.
     }
 

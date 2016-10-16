@@ -80,7 +80,7 @@ public final class FileUtils
      * @param source The path of the source file to be copied.
      *
      * @param target The path of the target file to be created. Its
-     * parent directory is suppoed to exist.
+     * parent directory is supposed to exist.
      *
      * @throws IOException If there were problems reading from the
      * source file, or writing to the target file.

@@ -52,7 +52,7 @@ import com.varmateo.yawg.util.FileUtils;
     /**
      * 
      */
-    public AsciidoctorBaker() {
+    AsciidoctorBaker() {
 
         Asciidoctor asciidoctor = Asciidoctor.Factory.create();
 

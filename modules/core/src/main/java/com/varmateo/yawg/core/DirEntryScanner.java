@@ -32,7 +32,7 @@ import com.varmateo.yawg.core.DirEntryChecker;
     /**
      *
      */
-    public DirEntryScanner(final DirBakerConf conf) {
+    DirEntryScanner(final DirBakerConf conf) {
 
         _entryFilter = new DirEntryChecker(conf).asPathPredicate();
     }

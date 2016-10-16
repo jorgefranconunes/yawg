@@ -73,7 +73,7 @@ import com.varmateo.yawg.util.Services;
     /**
      * @param conf Configuration parameters.
      */
-    public SiteBakerDomain(final SiteBakerConf conf) {
+    SiteBakerDomain(final SiteBakerConf conf) {
 
         _conf = conf;
     }

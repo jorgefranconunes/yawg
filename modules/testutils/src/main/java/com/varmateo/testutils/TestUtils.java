@@ -64,7 +64,7 @@ public final class TestUtils
 
     /**
      * Retrieves the directory containing the test input files for the
-     * given testuite class.
+     * given testsuite class.
      *
      * <p>By convention the path of directory with test input files is
      * obtained in the following way:</p>
@@ -84,6 +84,9 @@ public final class TestUtils
      *
      * @param testsuiteClass Class for which we will return in directory
      * with input files for the corresponding testsuite.
+     *
+     * @return The path for the directory continaining the test input
+     * files for the given testsuite class.
      */
     public static Path getInputsDir(final Class<?> testsuiteClass) {
 
@@ -99,7 +102,29 @@ public final class TestUtils
 
 
     /**
+     * Retrieves the directory to be used as temporary directory for
+     * the given testsuite class.
      *
+     * <p>The temporary directory will be created under the path
+     * specified by the <code>TestUtils.tmpTestFilesDir</code> system
+     * property. The base name of the temporary directory is generated
+     * automatically.</p>
+     *
+     * <p>The returned path will be different every time this method
+     * is called. This method is intended to be called from within
+     * test cases. Each test case should call this method to have its
+     * down dedicated temporary directory.</p>
+     *
+     * <p>When this method returns, the temporary directory is sure to
+     * exist.</p>
+     *
+     * @param testSuiteClass The Java class of the testsuite for
+     * which we are to return its dedicated temporary directory.
+     *
+     * @return The path to a newly created temporary directory.
+     *
+     * @throws IOException If there were any problems creating the
+     * temporary directory.
      */
     public static Path getTmpDir(final Class<?> testSuiteClass)
             throws IOException {
@@ -129,7 +154,7 @@ public final class TestUtils
      * #getInputsDir(Class)}</code> for a description on on how the
      * inputs directory is obtained.
      *
-     * @param testsuiteClass 
+     * @param testSuiteClass 
      *
      * @param pathName A path relative to the inputs directory for the
      * given testsuite class.
@@ -137,10 +162,10 @@ public final class TestUtils
      * @return The path for the desired test file of the testsuite.
      */
     public static Path getPath(
-            final Class<?> testsuiteClass,
+            final Class<?> testSuiteClass,
             final String   pathName) {
 
-        Path inputsDir = getInputsDir(testsuiteClass);
+        Path inputsDir = getInputsDir(testSuiteClass);
         Path inputPath = inputsDir.resolve(pathName);
 
         return inputPath;

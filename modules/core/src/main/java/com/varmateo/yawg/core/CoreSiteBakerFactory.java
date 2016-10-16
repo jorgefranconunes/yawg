@@ -55,7 +55,7 @@ public final class CoreSiteBakerFactory
         /**
          *
          */
-        public SiteBakerImpl() {
+        SiteBakerImpl() {
             // Nothing to do.
         }
 

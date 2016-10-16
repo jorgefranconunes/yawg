@@ -36,7 +36,7 @@ import com.varmateo.yawg.util.FileUtils;
     /**
      *
      */
-    public AsciidoctorBakerDataModelBuilder(final Asciidoctor asciidoctor) {
+    AsciidoctorBakerDataModelBuilder(final Asciidoctor asciidoctor) {
 
         _asciidoctor = asciidoctor;
     }

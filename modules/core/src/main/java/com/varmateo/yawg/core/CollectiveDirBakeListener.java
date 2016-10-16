@@ -18,7 +18,7 @@ import com.varmateo.yawg.util.Lists;
 /**
  *
  */
-final class CollectiveDirBakeListener
+/* package private */ final class CollectiveDirBakeListener
         extends Object
         implements DirBakeListener {
 
@@ -29,8 +29,7 @@ final class CollectiveDirBakeListener
     /**
      *
      */
-    public CollectiveDirBakeListener(
-            final Collection<DirBakeListener> listeners) {
+    CollectiveDirBakeListener(final Collection<DirBakeListener> listeners) {
 
         _listeners = Lists.readOnlyCopy(listeners);
     }

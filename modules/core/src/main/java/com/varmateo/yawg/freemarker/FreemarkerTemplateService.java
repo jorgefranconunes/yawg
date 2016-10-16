@@ -158,8 +158,7 @@ public final class FreemarkerTemplateService
         /**
          *
          */
-        public FreemarkerTemplate(
-                final freemarker.template.Template fmTemplate) {
+        FreemarkerTemplate(final freemarker.template.Template fmTemplate) {
 
             _fmTemplate = fmTemplate;
         }

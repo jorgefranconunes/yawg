@@ -65,7 +65,7 @@ import com.varmateo.yawg.util.Exceptions;
      * @param dirBakeListener Will be notified when the bake of a
      * directory starts.
      */
-    public DirBaker(
+    DirBaker(
             final Log log,
             final Path sourceRootDir,
             final Path targetRootDir,

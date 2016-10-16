@@ -169,10 +169,7 @@ Maven POM for the "release" sub-project of the Yawg project.
 
   <name>Yawg release builder</name>
 
-  <description>The purpose of this Maven sub-project is to create an
-  Yawg release bundle. By default a release bundle is not created. In
-  order to actually create an Yawg release bundle the system property
-  "yawg.release" needs to be defined.</description>
+  <description>Used for creating an Yawg release bundle.</description>
 
 
 </project>

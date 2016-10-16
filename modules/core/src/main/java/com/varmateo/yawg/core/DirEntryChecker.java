@@ -27,7 +27,7 @@ import com.varmateo.yawg.core.DirBakerConf;
     /**
      *
      */
-    public DirEntryChecker(final DirBakerConf conf) {
+    DirEntryChecker(final DirBakerConf conf) {
 
         _conf = conf;
         _isIncludeHere = conf.filesToIncludeHere.isPresent();

@@ -28,7 +28,7 @@ import com.varmateo.yawg.util.GlobMatcher;
     /**
      * Initializes an empty template name matcher.
      */
-    public TemplateNameMatcher() {
+    TemplateNameMatcher() {
 
         _matchersByName = Collections.emptyMap();
     }

@@ -78,7 +78,9 @@ public final class SiteBakerConf
 
 
     /**
-     * Set oa page variables provided externally.
+     * Set of page variables provided externally.
+     *
+     * <p>Page variables will intended to be used by templates.</p>
      */
     public PageVars getExternalPageVars() {
         return _externalPageVars;

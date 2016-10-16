@@ -31,8 +31,7 @@ import com.varmateo.yawg.util.Lists;
     /**
      *
      */
-    public CollectiveTemplateService(
-            final Collection<TemplateService> services) {
+    CollectiveTemplateService(final Collection<TemplateService> services) {
 
         _services = Lists.readOnlyCopy(services);
     }

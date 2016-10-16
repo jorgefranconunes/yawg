@@ -27,21 +27,21 @@ Copyright (c) 2015-2016 Yawg project contributors.
     <!-- Versions of dependencies and Maven plugins. -->
     <asciidoctorj.version>1.5.4</asciidoctorj.version>
     <asciidoctorj-diagram.version>1.3.1</asciidoctorj-diagram.version>
-    <findbugs-maven-plugin.version>3.0.3</findbugs-maven-plugin.version>
-    <jacoco-maven-plugin.version>0.7.6.201602180812</jacoco-maven-plugin.version>
+    <findbugs-maven-plugin.version>3.0.4</findbugs-maven-plugin.version>
+    <jacoco-maven-plugin.version>0.7.7.201606060606</jacoco-maven-plugin.version>
     <junit.version>4.11</junit.version>
     <commons-cli.version>1.2</commons-cli.version>
     <freemaker.version>2.3.24-incubating</freemaker.version>
     <jsoup.version>1.8.3</jsoup.version>
     <maven-assembly-plugin.version>2.5.3</maven-assembly-plugin.version>
-    <maven-checkstyle-plugin.version>2.16</maven-checkstyle-plugin.version>
+    <maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>
     <maven-clean-plugin.version>2.6.1</maven-clean-plugin.version>
     <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
     <maven-dependency-plugin.version>2.10</maven-dependency-plugin.version>
     <maven-jar-plugin.version>2.6</maven-jar-plugin.version>
     <maven-javadoc-plugin.version>2.10.2</maven-javadoc-plugin.version>
     <maven-jxr-plugin.version>2.5</maven-jxr-plugin.version>
-    <maven-pmd-plugin.version>3.6</maven-pmd-plugin.version>
+    <maven-pmd-plugin.version>3.7</maven-pmd-plugin.version>
     <maven-project-info-reports-plugin.version>2.8</maven-project-info-reports-plugin.version>
     <maven-surefire-plugin.version>2.18.1</maven-surefire-plugin.version>
     <maven-surefire-report-plugin.version>2.18.1</maven-surefire-report-plugin.version>
@@ -111,6 +111,7 @@ Copyright (c) 2015-2016 Yawg project contributors.
         </plugin>
 
 
+        <!-- -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-clean-plugin</artifactId>
@@ -120,6 +121,29 @@ Copyright (c) 2015-2016 Yawg project contributors.
       </plugins>
 
     </pluginManagement>
+
+
+    <plugins>
+
+      <!-- This is here because we want to spcify the exact CheckStyle
+           version to be used. It will not work if we put this plugin
+           inside <pluginManagement>. It will not work if we add the
+           <dependencies> block inside <reporting>. And this, fellow
+           coder, is why Maven is going the way of the dodo... -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>${maven-checkstyle-plugin.version}</version>
+        <dependencies>
+          <dependency>
+            <groupId>com.puppycrawl.tools</groupId>
+            <artifactId>checkstyle</artifactId>
+            <version>7.1.2</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+
+    </plugins>
 
 
   </build>
@@ -303,6 +327,13 @@ Copyright (c) 2015-2016 Yawg project contributors.
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>${jacoco-maven-plugin.version}</version>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
       </plugin>
       
       <!--
