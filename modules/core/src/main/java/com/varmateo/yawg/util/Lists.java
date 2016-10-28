@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -59,6 +60,26 @@ public final class Lists
             .collect(Collectors.toList());
 
         return mappedList;
+    }
+
+
+    /**
+     * Performs an action for each element in the given list,
+     * processing them in ordr.
+     *
+     * @param <T> The type of the elements in the input collection.
+     *
+     * @param inputCollection The elements to be processed by the
+     * given consumer.
+     *
+     * @param consumer The consumer to be applied to each element in
+     * the given collection.
+     */
+    public static <T> void forEach(
+            final Collection<T> inputCollection,
+            final Consumer<? super T> consumer) {
+
+        inputCollection.stream().forEach(consumer);
     }
 
 

@@ -8,12 +8,14 @@ package com.varmateo.yawg.asciidoctor;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
 
 import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.AttributesBuilder;
 import org.asciidoctor.OptionsBuilder;
 import org.asciidoctor.SafeMode;
+import org.asciidoctor.ast.Author;
 import org.asciidoctor.ast.DocumentHeader;
 import org.asciidoctor.internal.AsciidoctorCoreException;
 
@@ -21,6 +23,7 @@ import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.TemplateDataModel;
 
 import com.varmateo.yawg.util.FileUtils;
+import com.varmateo.yawg.util.Lists;
 
 
 /**
@@ -68,16 +71,47 @@ import com.varmateo.yawg.util.FileUtils;
                 .map(t -> t.getMain())
                 .orElseGet(() -> FileUtils.basename(sourcePath));
 
-        TemplateDataModel result =
+        TemplateDataModel.Builder modelBuilder =
                 TemplateDataModel.builder()
                 .setTitle(title)
                 .setBody(body)
                 .setPageUrl(pageUrl)
                 .setRootRelativeUrl(context.getRootRelativeUrl())
-                .setPageVars(context.getPageVars())
-                .build();
+                .setPageVars(context.getPageVars());
+        buildAuthors(modelBuilder, header);
+
+        TemplateDataModel result = modelBuilder.build();
 
         return result;
+    }
+
+
+    /**
+     *
+     */
+    private void buildAuthors(
+            final TemplateDataModel.Builder modelBuilder,
+            final DocumentHeader header) {
+
+        List<Author> authors = header.getAuthors();
+
+        // This convoluted logic is needed because
+        // DocumentHeader.getAuthor(), DocumentHeader.getAuthors() do
+        // not behave consistently with each other.
+
+        if ( authors.size() > 0 ) {
+            Lists.forEach(
+                    header.getAuthors(),
+                    a -> modelBuilder.addAuthor(a.getFullName(), a.getEmail()));
+        } else {
+            Author singleAuthor = header.getAuthor();
+
+            if ( (singleAuthor!=null) && (singleAuthor.getFullName()!=null) )  {
+                modelBuilder.addAuthor(
+                        singleAuthor.getFullName(),
+                        singleAuthor.getEmail());
+            }
+        }
     }
 
 

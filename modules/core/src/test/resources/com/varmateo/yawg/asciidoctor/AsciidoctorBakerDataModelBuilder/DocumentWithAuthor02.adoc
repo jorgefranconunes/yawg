@@ -1,0 +1,4 @@
+= Document with one author
+John Doe <john.doe@example.com>
+
+The body of the document with one author.

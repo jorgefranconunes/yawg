@@ -1,0 +1,3 @@
+= Document without an author
+
+The body of the document without an author.
