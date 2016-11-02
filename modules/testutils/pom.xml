@@ -38,37 +38,6 @@ Copyright (c) 2016 Yawg project contributors.
   </dependencies>
 
 
-  <build>
-
-    <plugins>
-
-      <!-- JUnit tests configuration -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>${maven-surefire-plugin.version}</version>
-        <configuration>
-
-          <!-- Some tests expect config parameters in the form of Java
-               system properties. -->
-          <systemProperties>
-
-            <!-- Required by com.varmateo.testutils.TestUtils -->
-            <property>
-              <name>TestUtils.inputTestFilesDir</name>
-              <value>${basedir}/src/test/resources</value>
-            </property>
-
-          </systemProperties>
-
-        </configuration>
-      </plugin>
-
-    </plugins>
-
-  </build>
-
-
   <!-- More project information. -->
 
   <name>Yawg test utilities</name>

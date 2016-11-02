@@ -85,7 +85,7 @@ TBD
 To run all unit tests:
 
 ----
-mvn -f ./modules/pom.xml -DskipTests=false
+mvn -f ./modules/pom.xml
 ----
 
 To run a single JUnit test suite, cd to the module directory and run:

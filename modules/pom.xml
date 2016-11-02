@@ -20,6 +20,7 @@ Copyright (c) 2015-2016 Yawg project contributors.
   <properties>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <!-- By default unit tests are run. -->
     <skipTests>false</skipTests>
@@ -38,6 +39,7 @@ Copyright (c) 2015-2016 Yawg project contributors.
     <maven-clean-plugin.version>2.6.1</maven-clean-plugin.version>
     <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
     <maven-dependency-plugin.version>2.10</maven-dependency-plugin.version>
+    <maven-failsafe-plugin.version>2.19.1</maven-failsafe-plugin.version>
     <maven-jar-plugin.version>2.6</maven-jar-plugin.version>
     <maven-javadoc-plugin.version>2.10.2</maven-javadoc-plugin.version>
     <maven-jxr-plugin.version>2.5</maven-jxr-plugin.version>
@@ -79,6 +81,14 @@ Copyright (c) 2015-2016 Yawg project contributors.
 
       <plugins>
 
+        <!-- -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>${maven-clean-plugin.version}</version>
+        </plugin>
+
+
         <!-- Compiler configuration. -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -94,29 +104,6 @@ Copyright (c) 2015-2016 Yawg project contributors.
             </compilerArgs>
           </configuration>
         </plugin>
-
-
-        <!-- JUnit tests configuration -->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>${maven-surefire-plugin.version}</version>
-          <configuration>
-
-            <!-- Show exception stack traces of tests in stdout. -->
-            <useFile>false</useFile>
-            <skipTests>${skipTests}</skipTests>
-
-          </configuration>
-        </plugin>
-
-
-        <!-- -->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-clean-plugin</artifactId>
-          <version>${maven-clean-plugin.version}</version>
-        </plugin>
         
       </plugins>
 
@@ -125,11 +112,13 @@ Copyright (c) 2015-2016 Yawg project contributors.
 
     <plugins>
 
-      <!-- This is here because we want to spcify the exact CheckStyle
-           version to be used. It will not work if we put this plugin
-           inside <pluginManagement>. It will not work if we add the
-           <dependencies> block inside <reporting>. And this, fellow
-           coder, is why Maven is going the way of the dodo... -->
+      <!-- This is here because we want to specify the exact
+           CheckStyle version to be used. It will not work if we put
+           this plugin inside <pluginManagement>. It will not work if
+           we add the
+           <dependencies> block inside <reporting>. And this, gentle
+           fellow coder, is why Maven is going the way of the
+           dodo... -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
@@ -141,6 +130,82 @@ Copyright (c) 2015-2016 Yawg project contributors.
             <version>7.1.2</version>
           </dependency>
         </dependencies>
+      </plugin>
+
+
+      <!-- Perform integration tests. -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>${maven-failsafe-plugin.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+
+          <!-- Show exception stack traces of tests in stdout. -->
+          <useFile>false</useFile>
+
+          <skipTests>${skipTests}</skipTests>
+
+          <!-- Some tests expect config parameters in the form of Java
+               system properties. -->
+          <systemProperties>
+
+            <!-- Required by com.varmateo.testutils.TestUtils -->
+            <property>
+              <name>TestUtils.inputTestFilesDir</name>
+              <value>${basedir}/src/test/resources</value>
+            </property>
+
+            <!-- Required by com.varmateo.testutils.TestUtils -->
+            <property>
+              <name>TestUtils.tmpTestFilesDir</name>
+              <value>${project.build.directory}/tmp</value>
+            </property>
+
+          </systemProperties>
+
+        </configuration>
+      </plugin>
+
+
+      <!-- JUnit tests configuration -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven-surefire-plugin.version}</version>
+        <configuration>
+
+          <!-- Show exception stack traces of tests in stdout. -->
+          <useFile>false</useFile>
+
+          <skipTests>${skipTests}</skipTests>
+
+          <!-- Some tests expect config parameters in the form of Java
+               system properties. -->
+          <systemProperties>
+
+            <!-- Required by com.varmateo.testutils.TestUtils -->
+            <property>
+              <name>TestUtils.inputTestFilesDir</name>
+              <value>${basedir}/src/test/resources</value>
+            </property>
+
+            <!-- Required by com.varmateo.testutils.TestUtils -->
+            <property>
+              <name>TestUtils.tmpTestFilesDir</name>
+              <value>${project.build.directory}/tmp</value>
+            </property>
+
+          </systemProperties>
+
+        </configuration>
       </plugin>
 
     </plugins>
@@ -229,15 +294,8 @@ Copyright (c) 2015-2016 Yawg project contributors.
               </execution>
               <execution>
                 <id>default-report</id>
-                <phase>prepare-package</phase>
                 <goals>
                   <goal>report</goal>
-                </goals>
-              </execution>
-              <execution>
-                <id>default-check</id>
-                <goals>
-                  <goal>check</goal>
                 </goals>
               </execution>
             </executions>

@@ -10,7 +10,7 @@ jdk:
   - oraclejdk8
 
 script:
-  - ./devtools/bin/build-create-bundle --with-unit-tests
+  - ./devtools/bin/build-create-bundle --with-tests
 
 cache:
   directories:

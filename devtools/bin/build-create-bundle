@@ -24,14 +24,14 @@ PRODUCT_HEADER="${YAWG_PRODUCT_NAME} ${YAWG_VERSION} - ${TOOL_NAME}"
 
 MAVEN_DEFAULT_TOOL=mvn
 MAVEN_DEFAULT_OPTIONS=""
-MAVEN_DEFAULT_GOALS="clean package"
+MAVEN_DEFAULT_GOALS="clean verify"
 
 _buildNumber=
 _jdkHome=
 _mavenTool=${MAVEN_DEFAULT_TOOL}
 _mavenHome=
 _mavenOptions=${MAVEN_DEFAULT_OPTIONS}
-_isWithUnitTests=false
+_isWithTests=false
 _isWithReports=false
 
 _mavenGoals=${MAVEN_DEFAULT_GOALS}
@@ -101,11 +101,11 @@ function processCliArgs () {
             --maven-options=* )
                 _mavenOptions=$(expr "$option" : '--maven-options=\(.*\)')
                 ;;
-            --with-unit-tests )
-                _isWithUnitTests=true
+            --with-tests )
+                _isWithTests=true
                 ;;
-            --with-unit-tests=* )
-                _isWithUnitTests=$(expr "$option" : '--with-unit-tests=\(.*\)')
+            --with-tests=* )
+                _isWithTests=$(expr "$option" : '--with-tests=\(.*\)')
                 ;;
             --with-reports )
                 _isWithReports=true
@@ -142,7 +142,7 @@ function processCliArgs () {
     fi
 
     if [ "${_isWithReports}" == true ] ; then
-        _isWithUnitTests=true
+        _isWithTests=true
     fi
 }
 
@@ -182,18 +182,18 @@ Available options:
 --maven-options=STRING
     Additional command line options passed to the Maven tool.
 
---with-unit-tests
---with-unit-tests=FLAG
-    Signals that unit tests should be executed (FLAG!=false) or not
-    (FLAG=false). If no flag is given then unit tests will be
-    executed.
+--with-tests
+--with-tests=FLAG
+    Signals that unit and integration tests should be executed
+    (FLAG!=false) or not (FLAG=false). If no flag is given then no
+    tests will be executed.
 
 --with-reports
 --with-reports=FLAG
     Signals that code quality reports should be generated
     (FLAG!=false) or not (FLAG=false). If no flag is given then code
     quality reports will be generated. Having FLAG==true implies
-    --with-unit-tests.
+    --with-tests.
 
 --help
     Prints this help text.
@@ -213,7 +213,7 @@ EOF
 
 function prepareForMaven () {
 
-    if [ "${_isWithUnitTests}" == false ] ; then
+    if [ "${_isWithTests}" == false ] ; then
         _mavenOptions="-DskipTests=true ${_mavenOptions}"
     else
         _mavenOptions="-DskipTests=false -Pyawg-jacoco ${_mavenOptions}"
@@ -222,7 +222,7 @@ function prepareForMaven () {
     if [ "${_isWithReports}" == true ] ; then
         local reportsDir=$(yawgNormalizePath ${_reportsDir})
         _mavenOptions="${_mavenOptions} -Dyawg.mavensite=${reportsDir}"
-        _mavenGoals="clean package site"
+        _mavenGoals="clean verify site"
 
         mkdir -p ${_reportsDir}
     fi

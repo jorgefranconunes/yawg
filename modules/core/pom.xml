@@ -85,46 +85,12 @@ Maven POM for the "core" sub-project of the Yawg project.
 
   <build>
 
-
     <resources>
       <resource>
         <directory>src/main/resources</directory>
         <filtering>true</filtering>
       </resource>
     </resources>
-
-
-    <plugins>
-
-      <!-- JUnit tests configuration -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>${maven-surefire-plugin.version}</version>
-        <configuration>
-
-          <!-- Some tests expect config parameters in the form of Java
-               system properties. -->
-          <systemProperties>
-
-            <!-- Required by com.varmateo.testutils.TestUtils -->
-            <property>
-              <name>TestUtils.inputTestFilesDir</name>
-              <value>${basedir}/src/test/resources</value>
-            </property>
-
-            <!-- Required by com.varmateo.testutils.TestUtils -->
-            <property>
-              <name>TestUtils.tmpTestFilesDir</name>
-              <value>${project.build.directory}/tmp</value>
-            </property>
-
-          </systemProperties>
-
-        </configuration>
-      </plugin>
-
-    </plugins>
 
   </build>
 
