@@ -45,6 +45,20 @@ body {
     }
 }
 
+.jumbotron {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.col-md-4 > ul {
+    list-style-position: inside;
+    padding: 0 0 0 1em;
+    text-indent: -1em;
+}
+.col-md-4 > h3 {
+    text-align: center;
+}
+
 
 /**
  * Asccidoctor classes.

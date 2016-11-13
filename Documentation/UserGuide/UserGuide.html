@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,8 +17,8 @@
 
     <link
        rel="stylesheet"
-       href="../../yawg-site.css?v=629eb338-b65a-4719-b731-ad10c31ecdf8" />
-    
+       href="../../yawg-site.css?v=65fae984-6fe4-4d90-ba57-1b1af0f4910c" />
+
     <script
        type="text/javascript"
        async
@@ -27,7 +29,8 @@
 
   <body>
 
-    <script>
+
+<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -35,7 +38,7 @@
 
   ga('create', 'UA-79615115-1', 'auto');
   ga('send', 'pageview');
-    </script>
+</script>
 
     <div class="yawg-body">
 
@@ -56,6 +59,7 @@
         </div><!--/.nav-collapse -->
       </div>
     </nav>
+
 
 
       <div class="container yawg-content">
@@ -271,7 +275,8 @@ transformations.</p>
 <div class="paragraph">
 <p><code>--page-var &lt;NAME=VALUE&gt;</code>&#8201;&#8212;&#8201;Defines a page variable that will be
 visible to the templates for all pages. The value of page variables
-defined through the option will always be strings.</p>
+defined through this option will always be strings. You can give this
+option multiple times to specify more than one page variable.</p>
 </div>
 <div class="paragraph">
 <p><code>--source &lt;PATH&gt;</code>&#8201;&#8212;&#8201;Path to the directory containing the content
@@ -372,12 +377,12 @@ the <code>exclude</code> parameter.</p>
 <li>
 <p><code>pageVars</code> (<code>Map</code>)&#8201;&#8212;&#8201;Set of additional variables to be added to the
 page template data model. These variables will be propagated to
-child directories. See <a href="#sec-PageTemplateDataModel">[sec-PageTemplateDataModel]</a>.</p>
+child directories. See <a href="#sec-PageTemplates">Page templates</a>.</p>
 </li>
 <li>
 <p><code>pageVarsHere</code> (<code>Map</code>)&#8201;&#8212;&#8201;Set of additional variables to be added to the
 page template data model. These variables will not be propagated to
-child directories. See <a href="#sec-PageTemplateDataModel">[sec-PageTemplateDataModel]</a>.</p>
+child directories. See <a href="#sec-PageTemplates">Page templates</a>.</p>
 </li>
 <li>
 <p><code>template</code> (<code>String</code>)&#8201;&#8212;&#8201;The name of the page template to use for
@@ -479,13 +484,15 @@ this template variable is always the same, for a given Yawg release.</p>
     |
     Baked with
     <a href="http://yawg.varmateo.com/">Yawg 0.9.4</a>
+    |
+    <a href="../../Acknowledgements.html">Acknowledgements</a>
   </p>
 </footer>
 
       </div>
-      
+
     </div>
-    
+
   </body>
-  
+
 </html>
