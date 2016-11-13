@@ -2,7 +2,17 @@
 #
 #
 
+#
+# Default template for the whole site.
+#
 template: "yawg-site.ftlh"
+
+#
+# The home page uses a dedicated template.
+#
+templatesHere:
+  "yawg-site-notitle.ftlh":
+    - "index.html"
 
 #
 # List of globs for files NOT to be included in the bake. This list is

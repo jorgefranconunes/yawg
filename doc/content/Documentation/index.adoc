@@ -1,4 +1,4 @@
-= YAWG Documentation
+= Yawg Documentation
 
 Here you can find information on using Yawg.
 

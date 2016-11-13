@@ -1,4 +1,6 @@
-<#-- Template for the navigation bar block. -->
+<#--
+  Template for the navigation bar block.
+-->
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
@@ -33,6 +35,7 @@
         </div><!--/.nav-collapse -->
       </div>
     </nav>
+
 
 <#-- Renderer for one item in the navigation bar. -->
 <#macro navbarItem name url title>

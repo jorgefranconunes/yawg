@@ -121,7 +121,7 @@ use in one of the following ways:
   message gently reminding you of the error in your ways.
 
 Running `bin/yawg` without any arguments will just print some
-information on how to use the tool. 
+information on how to use the tool.
 
 ----
 Yawg 1.0.0 - CLI Baker
@@ -130,7 +130,7 @@ Copyright (c) 2016 Yawg project contributors.
 Usage: yawg [OPTION] ...
 
 Bakes a site from a directory tree.
- 
+
 Options:
     --assets <PATH>           path of assets directory
  -h,--help                    show this help text and exit
@@ -153,7 +153,8 @@ transformations.
 
 `--page-var <NAME=VALUE>` -- Defines a page variable that will be
 visible to the templates for all pages. The value of page variables
-defined through the option will always be strings.
+defined through this option will always be strings. You can give this
+option multiple times to specify more than one page variable.
 
 `--source <PATH>` -- Path to the directory containing the content
 source files to be baked.
@@ -234,11 +235,11 @@ the `exclude` parameter.
 
 * `pageVars` (`Map`) -- Set of additional variables to be added to the
   page template data model. These variables will be propagated to
-  child directories. See <<sec-PageTemplateDataModel>>.
+  child directories. See <<sec-PageTemplates>>.
 
 * `pageVarsHere` (`Map`) -- Set of additional variables to be added to the
   page template data model. These variables will not be propagated to
-  child directories. See <<sec-PageTemplateDataModel>>.
+  child directories. See <<sec-PageTemplates>>.
 
 * `template` (`String`) -- The name of the page template to use for
 baking the files in the directory. If not specified it will default to
