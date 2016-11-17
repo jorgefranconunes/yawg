@@ -14,7 +14,6 @@ import static org.junit.Assert.*;
 
 import com.varmateo.yawg.core.DirBakerConf;
 import com.varmateo.yawg.util.GlobMatcher;
-import com.varmateo.yawg.util.Lists;
 
 
 /**

@@ -10,8 +10,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.varmateo.yawg.commons.util.Lists;
+
 import com.varmateo.yawg.breadcrumbs.BreadcrumbItem;
-import com.varmateo.yawg.util.Lists;
 
 
 /**

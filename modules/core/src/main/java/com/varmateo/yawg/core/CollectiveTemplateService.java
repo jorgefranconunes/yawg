@@ -13,8 +13,8 @@ import com.varmateo.yawg.Template;
 import com.varmateo.yawg.TemplateService;
 import com.varmateo.yawg.YawgException;
 
+import com.varmateo.yawg.commons.util.Lists;
 import com.varmateo.yawg.util.Exceptions;
-import com.varmateo.yawg.util.Lists;
 
 
 /**

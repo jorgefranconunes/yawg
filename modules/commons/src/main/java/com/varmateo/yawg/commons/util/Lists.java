@@ -4,7 +4,7 @@
  *
  **************************************************************************/
 
-package com.varmateo.yawg.util;
+package com.varmateo.yawg.commons.util;
 
 import java.util.ArrayList;
 import java.util.Collection;

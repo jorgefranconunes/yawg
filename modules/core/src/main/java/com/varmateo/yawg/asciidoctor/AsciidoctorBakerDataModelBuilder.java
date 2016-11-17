@@ -22,8 +22,8 @@ import org.asciidoctor.internal.AsciidoctorCoreException;
 import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.TemplateDataModel;
 
+import com.varmateo.yawg.commons.util.Lists;
 import com.varmateo.yawg.util.FileUtils;
-import com.varmateo.yawg.util.Lists;
 
 
 /**

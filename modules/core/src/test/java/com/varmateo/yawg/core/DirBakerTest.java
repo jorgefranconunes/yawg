@@ -35,7 +35,6 @@ import com.varmateo.yawg.core.DirBakerConf;
 import com.varmateo.yawg.core.FileBaker;
 import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogFactory;
-import com.varmateo.yawg.util.Lists;
 
 
 /**

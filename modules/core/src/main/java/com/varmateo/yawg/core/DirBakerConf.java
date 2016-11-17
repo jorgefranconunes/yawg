@@ -14,9 +14,9 @@ import java.util.Optional;
 
 import com.varmateo.yawg.PageVars;
 
+import com.varmateo.yawg.commons.util.Lists;
 import com.varmateo.yawg.core.TemplateNameMatcher;
 import com.varmateo.yawg.util.GlobMatcher;
-import com.varmateo.yawg.util.Lists;
 
 
 /**

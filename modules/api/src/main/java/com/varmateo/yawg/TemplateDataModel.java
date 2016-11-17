@@ -7,10 +7,11 @@
 package com.varmateo.yawg;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+
+import com.varmateo.yawg.commons.util.Lists;
 
 import com.varmateo.yawg.PageVars;
 import com.varmateo.yawg.YawgInfo;
@@ -39,8 +40,7 @@ public final class TemplateDataModel
      */
     private TemplateDataModel(final Builder builder) {
 
-        _authors =
-                Collections.unmodifiableList(new ArrayList<>(builder._authors));
+        _authors = Lists.readOnlyCopy(builder._authors);
         _bakeId = UUID.randomUUID().toString();
         _body = Objects.requireNonNull(builder._body);
         _pageUrl = Objects.requireNonNull(builder._pageUrl);

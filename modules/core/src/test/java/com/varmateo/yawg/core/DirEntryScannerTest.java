@@ -18,7 +18,7 @@ import com.varmateo.testutils.TestUtils;
 
 import com.varmateo.yawg.core.DirBakerConf;
 import com.varmateo.yawg.core.DirEntryScanner;
-import com.varmateo.yawg.util.Lists;
+import com.varmateo.yawg.commons.util.Lists;
 
 
 /**

@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.regex.PatternSyntaxException;
 
-import com.varmateo.yawg.util.Lists;
+import com.varmateo.yawg.commons.util.Lists;
 
 
 /**

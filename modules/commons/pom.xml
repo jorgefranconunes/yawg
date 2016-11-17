@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright (c) 2016 Yawg project contributors.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <packaging>jar</packaging>
+
+  <groupId>com.varmateo.yawg</groupId>
+  <artifactId>yawg-commons</artifactId>
+
+  <parent>
+    <groupId>com.varmateo.yawg</groupId>
+    <artifactId>yawg-main</artifactId>
+    <version>0.9.4-SNAPSHOT</version>
+    <relativePath>..</relativePath>
+  </parent>
+
+
+  <properties>
+    <yawg.projectRootDir>${basedir}/..</yawg.projectRootDir>
+  </properties>
+
+
+  <dependencies>
+
+    <!-- JUnit -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.varmateo.yawg</groupId>
+      <artifactId>yawg-testutils</artifactId>
+      <version>${project.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+
+  <!-- More project information. -->
+
+  <name>Yawg commons library</name>
+
+  <description>Common utility classes.</description>
+
+
+</project>

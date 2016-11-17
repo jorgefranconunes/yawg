@@ -19,6 +19,7 @@ import com.varmateo.yawg.SiteBakerConf;
 import com.varmateo.yawg.TemplateService;
 import com.varmateo.yawg.TemplateServiceFactory;
 
+import com.varmateo.yawg.commons.util.Lists;
 import com.varmateo.yawg.core.CollectiveDirBakeListener;
 import com.varmateo.yawg.core.CollectiveTemplateService;
 import com.varmateo.yawg.core.CopyBaker;
@@ -29,7 +30,6 @@ import com.varmateo.yawg.core.SingleSiteBaker;
 import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogFactory;
 import com.varmateo.yawg.util.Holder;
-import com.varmateo.yawg.util.Lists;
 import com.varmateo.yawg.util.Services;
 
 

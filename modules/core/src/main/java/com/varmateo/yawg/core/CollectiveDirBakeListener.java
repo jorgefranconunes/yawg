@@ -12,7 +12,7 @@ import com.varmateo.yawg.DirBakeListener;
 import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.PageVars;
 
-import com.varmateo.yawg.util.Lists;
+import com.varmateo.yawg.commons.util.Lists;
 
 
 /**

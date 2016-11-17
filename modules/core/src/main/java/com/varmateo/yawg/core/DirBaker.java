@@ -295,7 +295,10 @@ import com.varmateo.yawg.util.Exceptions;
 
 
     /**
+     * Utility interface to simplify creating lambdas whose body may
+     * throw exceptions.
      *
+     * @param <T> Type of the values returned by the function.
      */
     @FunctionalInterface
     private interface IoSupplier<T> {
