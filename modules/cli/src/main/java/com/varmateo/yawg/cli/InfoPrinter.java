@@ -20,8 +20,7 @@ import com.varmateo.yawg.cli.util.CliInfoPrinter;
  * Provides utility methods for printing help and varied info intended
  * for end users.
  */
-final class InfoPrinter
-    extends Object {
+/* package private */ final class InfoPrinter {
 
 
     private static final String TOOL_NAME = "CLI Baker";
@@ -116,7 +115,7 @@ final class InfoPrinter
      *
      */
     public static final class Builder
-        extends Object {
+ {
 
 
         private String      _argv0  = null;

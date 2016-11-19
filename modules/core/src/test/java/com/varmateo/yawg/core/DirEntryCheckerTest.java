@@ -21,7 +21,7 @@ import com.varmateo.yawg.core.DirEntryChecker;
  *
  */
 public final class DirEntryCheckerTest
-        extends Object {
+ {
 
 
     /**

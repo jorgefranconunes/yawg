@@ -14,8 +14,7 @@ import com.varmateo.yawg.logging.LoggerLog;
 /**
  * Provides utility methods for creating <code>Log</code> instances.
  */
-public final class LogFactory
-    extends Object {
+public final class LogFactory {
 
 
     /**

@@ -13,8 +13,7 @@ import org.apache.commons.cli.OptionBuilder;
 /**
  * A description of a command line option.
  */
-public final class CliOption
-    extends Object {
+public final class CliOption {
 
 
     private String  _shortName   = null;
@@ -175,7 +174,7 @@ public final class CliOption
      * A builder of <code>CliOption</code> instances.
      */
     public static final class Builder
-        extends Object {
+ {
 
 
         private String  _shortName   = null;

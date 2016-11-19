@@ -22,8 +22,7 @@ import com.varmateo.yawg.core.DirEntryChecker;
  * Used for obtaining the list of entries in a given directory that
  * should be baked.
  */
-/* package private */ final class DirEntryScanner
-        extends Object {
+/* package private */ final class DirEntryScanner {
 
 
     private final Predicate<Path> _entryFilter;

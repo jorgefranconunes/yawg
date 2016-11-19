@@ -25,7 +25,7 @@ import com.varmateo.yawg.html.HtmlBakerDataModelBuilder;
  *
  */
 public final class HtmlBakerDataModelBuilderTest
-        extends Object {
+ {
 
 
     private HtmlBakerDataModelBuilder _modelBuilder = null;

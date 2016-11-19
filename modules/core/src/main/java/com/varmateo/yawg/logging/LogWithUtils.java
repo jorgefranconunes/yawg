@@ -13,8 +13,7 @@ import java.util.function.Supplier;
  * Extends the logger interface with additional utility methods.
  */
 public final class LogWithUtils
-    extends Object
-    implements Log {
+        implements Log {
 
 
     private final Log _myLog;

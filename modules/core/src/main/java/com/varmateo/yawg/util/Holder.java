@@ -14,8 +14,7 @@ import java.util.function.Supplier;
  *
  * @param <T> The type of objects the holder will hold.
  */
-public final class Holder<T>
-    extends Object {
+public final class Holder<T> {
 
 
     private Supplier<T> _getter  = null;

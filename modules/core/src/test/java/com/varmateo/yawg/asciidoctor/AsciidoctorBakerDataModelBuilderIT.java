@@ -28,7 +28,7 @@ import com.varmateo.yawg.asciidoctor.AsciidoctorBakerDataModelBuilder;
  *
  */
 public final class AsciidoctorBakerDataModelBuilderIT
-        extends Object {
+ {
 
 
     private AsciidoctorBakerDataModelBuilder _modelBuilder = null;

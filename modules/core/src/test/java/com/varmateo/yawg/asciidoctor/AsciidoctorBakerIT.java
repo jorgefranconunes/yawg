@@ -30,7 +30,7 @@ import com.varmateo.yawg.asciidoctor.AsciidoctorBaker;
  *
  */
 public final class AsciidoctorBakerIT
-        extends Object {
+ {
 
 
     private AsciidoctorBaker _baker = null;

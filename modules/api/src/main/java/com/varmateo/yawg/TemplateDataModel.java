@@ -20,8 +20,7 @@ import com.varmateo.yawg.YawgInfo;
 /**
  * Data available to a template during processing.
  */
-public final class TemplateDataModel
-        extends Object {
+public final class TemplateDataModel {
 
 
     private final List<Author> _authors;
@@ -146,8 +145,7 @@ public final class TemplateDataModel
     /**
      * Builder of <code>TemplateDataModel</code> instances.
      */
-    public static final class Builder
-            extends Object {
+    public static final class Builder {
 
 
         private List<Author> _authors;
@@ -257,8 +255,7 @@ public final class TemplateDataModel
     }
 
 
-    public static final class Author
-            extends Object {
+    public static final class Author {
 
 
         private final String _name;

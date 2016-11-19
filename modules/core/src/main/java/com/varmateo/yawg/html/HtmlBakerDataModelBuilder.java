@@ -24,8 +24,7 @@ import com.varmateo.yawg.util.FileUtils;
  * Creates a <code>TemplateDataModel</code> from an input HTML
  * file.
  */
-/* package private */ final class HtmlBakerDataModelBuilder
-        extends Object {
+/* package private */ final class HtmlBakerDataModelBuilder {
 
 
     /**

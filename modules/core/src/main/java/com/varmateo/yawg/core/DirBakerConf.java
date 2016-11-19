@@ -23,8 +23,7 @@ import com.varmateo.yawg.util.GlobMatcher;
  * Set of configuration parameters used for baking the files in a
  * directory.
  */
-/* package private */ final class DirBakerConf
-        extends Object {
+/* package private */ final class DirBakerConf {
 
 
     /**
@@ -137,8 +136,7 @@ import com.varmateo.yawg.util.GlobMatcher;
     /**
      * A builder of <code>DirBakerConf</code> instances.
      */
-    public static final class Builder
-            extends Object {
+    public static final class Builder {
 
 
         // These always start empty.

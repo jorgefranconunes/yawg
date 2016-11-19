@@ -36,8 +36,7 @@ import com.varmateo.yawg.util.Services;
 /**
  * Factory for all the objects required by the main baker.
  */
-/* package private */ final class SiteBakerDomain
-        extends Object {
+/* package private */ final class SiteBakerDomain {
 
 
     private final SiteBakerConf _conf;

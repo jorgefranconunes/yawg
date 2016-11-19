@@ -12,8 +12,7 @@ import com.varmateo.yawg.cli.BakerCli;
 /**
  * Program for baking a site from a directory tree.
  */
-public final class Main
-    extends Object {
+public final class Main {
 
 
     private static final String DEFAULT_ARGV0 = "yawg";

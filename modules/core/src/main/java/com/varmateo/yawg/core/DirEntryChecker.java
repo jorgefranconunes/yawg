@@ -16,8 +16,7 @@ import com.varmateo.yawg.core.DirBakerConf;
 /**
  * Used for checking if a file should be used in a baking.
  */
-/* package private */ final class DirEntryChecker
-        extends Object {
+/* package private */ final class DirEntryChecker {
 
 
     private final DirBakerConf _conf;

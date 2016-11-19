@@ -25,8 +25,7 @@ import com.varmateo.yawg.core.TemplateNameMatcher;
  * Builds the <code>PageContext</code> to be used in the baking of
  * files in one given directory.
  */
-/* package private */ final class DirPageContextBuilder
-        extends Object {
+/* package private */ final class DirPageContextBuilder {
 
 
     private final Path _targetRootDir;

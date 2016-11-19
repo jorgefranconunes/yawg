@@ -19,7 +19,7 @@ import com.varmateo.yawg.util.FileUtils;
  *
  */
 public final class FileUtilsTest
-        extends Object {
+ {
 
 
     /**

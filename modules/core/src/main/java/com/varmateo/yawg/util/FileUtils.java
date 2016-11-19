@@ -19,8 +19,7 @@ import java.util.regex.Pattern;
 /**
  * Utility functions for managing files and directories.
  */
-public final class FileUtils
-        extends Object {
+public final class FileUtils {
 
 
     /**

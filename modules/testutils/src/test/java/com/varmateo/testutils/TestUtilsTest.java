@@ -19,7 +19,7 @@ import com.varmateo.testutils.TestUtils;
  *
  */
 public final class TestUtilsTest
-        extends Object {
+ {
 
 
     /**

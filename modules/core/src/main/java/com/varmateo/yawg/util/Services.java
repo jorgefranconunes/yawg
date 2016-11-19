@@ -17,8 +17,7 @@ import com.varmateo.yawg.commons.util.Lists;
  * Utility functions to support common use cases in the Java
  * service-provider loading facility.
  */
-public final class Services
-        extends Object {
+public final class Services {
 
     /**
      * No instances of this class are to be created.

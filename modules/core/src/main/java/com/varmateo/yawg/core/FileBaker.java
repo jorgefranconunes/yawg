@@ -22,8 +22,7 @@ import com.varmateo.yawg.util.Exceptions;
 /**
  * 
  */
-/* package private */ final class FileBaker
-        extends Object {
+/* package private */ final class FileBaker {
 
 
     private final Log _log;

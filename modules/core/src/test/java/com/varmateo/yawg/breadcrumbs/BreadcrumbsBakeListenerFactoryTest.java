@@ -21,7 +21,7 @@ import com.varmateo.yawg.util.Services;
  *
  */
 public final class BreadcrumbsBakeListenerFactoryTest
-        extends Object {
+ {
 
 
     /**

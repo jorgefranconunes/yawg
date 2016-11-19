@@ -12,8 +12,7 @@ import com.varmateo.yawg.TemplateDataModel;
 /**
  * Java bean for passing data to the Freemarker template engine.
  */
-public final class FreemarkerDataModel
-        extends Object {
+public final class FreemarkerDataModel {
 
 
     private static final String KEY_YAWG_DATA = "yawg";

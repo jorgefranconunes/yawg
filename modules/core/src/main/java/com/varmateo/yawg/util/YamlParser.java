@@ -19,8 +19,7 @@ import com.varmateo.yawg.util.SimpleMap;
 /**
  * A simple YAML parser.
  */
-public final class YamlParser
-        extends Object {
+public final class YamlParser {
 
 
     /**

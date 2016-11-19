@@ -19,8 +19,7 @@ import com.varmateo.yawg.util.SimpleMap;
 /**
  *
  */
-public final class SimpleList<T>
-        extends Object {
+public final class SimpleList<T> {
 
 
     private final List<Object> _list;

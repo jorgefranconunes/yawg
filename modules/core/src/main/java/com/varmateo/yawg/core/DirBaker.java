@@ -32,8 +32,7 @@ import com.varmateo.yawg.util.Exceptions;
  * Bakes the files contained in a directory, and recursively bake all
  * sub-directories.
  */
-/* package private */ final class DirBaker
-        extends Object {
+/* package private */ final class DirBaker {
 
 
     private final LogWithUtils _log;

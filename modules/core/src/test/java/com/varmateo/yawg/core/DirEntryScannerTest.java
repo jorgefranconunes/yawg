@@ -25,7 +25,7 @@ import com.varmateo.yawg.commons.util.Lists;
  *
  */
 public final class DirEntryScannerTest
-        extends Object {
+ {
 
 
     /**

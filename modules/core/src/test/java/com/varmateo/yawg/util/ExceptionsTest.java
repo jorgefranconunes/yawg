@@ -18,7 +18,7 @@ import com.varmateo.yawg.util.Exceptions;
  *
  */
 public final class ExceptionsTest
-        extends Object {
+ {
 
 
     /**

@@ -41,7 +41,7 @@ import com.varmateo.yawg.logging.LogFactory;
  *
  */
 public final class DirBakerTest
-        extends Object {
+ {
 
 
     private static DirBakerConf _emptyConf;

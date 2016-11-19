@@ -20,7 +20,7 @@ import com.varmateo.yawg.core.DirBakerConf;
  *
  */
 public final class DirBakerConfTest
-        extends Object {
+ {
 
 
     /**

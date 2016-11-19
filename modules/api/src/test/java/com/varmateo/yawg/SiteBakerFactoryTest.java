@@ -18,7 +18,7 @@ import com.varmateo.yawg.SiteBakerFactory;
  *
  */
 public final class SiteBakerFactoryTest
-        extends Object {
+ {
 
 
     /**

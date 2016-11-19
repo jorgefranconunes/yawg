@@ -19,7 +19,7 @@ import java.util.logging.LogRecord;
  * A log formatter that uses a sane format for the log lines.
  */
 public final class PlainFormatter
-    extends Formatter {
+        extends Formatter {
 
 
 
@@ -60,6 +60,9 @@ public final class PlainFormatter
      *   <li>2 - Log message.</li>
      *
      * </ul>
+     *
+     * @param logFmt The formatting string for the log message. See
+     * above for details.
      */
     public PlainFormatter(final String logFmt) {
 

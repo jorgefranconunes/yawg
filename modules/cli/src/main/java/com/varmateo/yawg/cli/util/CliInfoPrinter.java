@@ -21,8 +21,7 @@ import com.varmateo.yawg.cli.util.CliOption;
  * Provides utility methods for printing help and varied info intended
  * for end users.
  */
-public final class CliInfoPrinter
-    extends Object {
+public final class CliInfoPrinter {
 
 
     private static final String DEFAULT_ARGV0 = "";
@@ -138,7 +137,7 @@ public final class CliInfoPrinter
      * A builder of <code>CliInfoPrinter</code> instances.
      */
     public static final class Builder
-        extends Object {
+ {
 
 
         private String _argv0 = DEFAULT_ARGV0;

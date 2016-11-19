@@ -33,8 +33,7 @@ import com.varmateo.yawg.cli.util.CliOptions;
 /**
  * Command line interface for the baker utility.
  */
-public final class BakerCli
-    extends Object {
+public final class BakerCli {
 
 
     private static final int EXIT_STATUS_OK = 0;

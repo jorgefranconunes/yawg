@@ -16,8 +16,7 @@ import java.text.MessageFormat;
 /**
  * Utility functions intended for use in unit tests.
  */
-public final class TestUtils
-    extends Object {
+public final class TestUtils {
 
 
 
@@ -242,7 +241,7 @@ public final class TestUtils
 
 
         /**
-         * 
+         *
          */
         private UnexpectedExceptionTypeException(
                 final String message,

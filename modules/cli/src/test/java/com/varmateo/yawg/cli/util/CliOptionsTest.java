@@ -25,7 +25,7 @@ import com.varmateo.yawg.cli.util.CliOptions;
  *
  */
 public final class CliOptionsTest
-    extends Object {
+ {
 
 
     private static final CliOption OPT1 =

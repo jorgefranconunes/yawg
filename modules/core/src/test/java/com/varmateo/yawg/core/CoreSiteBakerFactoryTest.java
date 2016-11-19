@@ -18,7 +18,7 @@ import com.varmateo.yawg.core.CoreSiteBakerFactory;
  *
  */
 public final class CoreSiteBakerFactoryTest
-        extends Object {
+ {
 
 
     /**

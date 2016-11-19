@@ -12,8 +12,7 @@ import com.varmateo.yawg.util.Exceptions;
 /**
  * Utility methods for throwing <code>YawgException</code>.
  */
-public final class YawgExceptions
-    extends Object {
+public final class YawgExceptions {
 
 
     /**

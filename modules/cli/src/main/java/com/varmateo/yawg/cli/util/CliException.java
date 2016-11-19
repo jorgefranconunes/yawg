@@ -14,7 +14,7 @@ import com.varmateo.yawg.util.Exceptions;
  * the end user.
  */
 public final class CliException
-    extends Exception {
+        extends Exception {
 
 
     /**

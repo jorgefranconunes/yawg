@@ -20,8 +20,7 @@ import com.varmateo.yawg.YawgException;
 /**
  * Utility methods for generating exceptions.
  */
-public final class Exceptions
-    extends Object {
+public final class Exceptions {
 
 
     /**

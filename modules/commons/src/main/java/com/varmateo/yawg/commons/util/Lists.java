@@ -19,8 +19,7 @@ import java.util.stream.Collectors;
 /**
  * Utility functions for manipulating lists.
  */
-public final class Lists
-    extends Object {
+public final class Lists {
 
 
     /**

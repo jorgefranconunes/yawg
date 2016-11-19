@@ -16,7 +16,7 @@ import com.varmateo.yawg.util.Holder;
  *
  */
 public final class HolderTest
-        extends Object {
+ {
 
 
     /**
@@ -43,7 +43,7 @@ public final class HolderTest
      *
      */
     private static final class MySupplier
-            extends Object {
+ {
 
 
         private final Object _value;

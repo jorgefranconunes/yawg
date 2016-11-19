@@ -30,8 +30,7 @@ import com.varmateo.yawg.util.Exceptions;
 /**
  * Baker for one specific site.
  */
-/* package private */ final class SingleSiteBaker
-    extends Object {
+/* package private */ final class SingleSiteBaker {
 
 
     private static final String DEFAULT_TEMPLATE_NAME = "default.ftlh";

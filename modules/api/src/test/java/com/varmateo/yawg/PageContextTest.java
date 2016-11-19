@@ -20,7 +20,7 @@ import com.varmateo.yawg.PageContext;
  *
  */
 public final class PageContextTest
-        extends Object {
+ {
 
 
     /**

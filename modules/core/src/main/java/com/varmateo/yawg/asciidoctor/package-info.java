@@ -9,6 +9,7 @@
  * AsciidoctorJ library.
  *
  * <p>Documentation on the AsciidoctorJ library is available at
- * <a href="https://github.com/asciidoctor/asciidoctorj">https://github.com/asciidoctor/asciidoctorj</a>.
+ * <a href="https://github.com/asciidoctor/asciidoctorj">
+ * https://github.com/asciidoctor/asciidoctorj</a>.
  */
 package com.varmateo.yawg.asciidoctor;

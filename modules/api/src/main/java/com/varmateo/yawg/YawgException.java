@@ -16,7 +16,7 @@ public final class YawgException
 
 
     /**
-     *
+     * @param msg The exception message,
      */
     public YawgException(final String msg) {
 
@@ -25,7 +25,9 @@ public final class YawgException
 
 
     /**
+     * @param msg The exception message.
      *
+     * @param The underlying cause of the abnormal occurence.
      */
     public YawgException(
             final String msg,

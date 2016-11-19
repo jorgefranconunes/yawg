@@ -19,8 +19,7 @@ import com.varmateo.yawg.PageVars;
  *
  * <p>Objects of this class are immutable.</p>
  */
-public final class SiteBakerConf
-    extends Object {
+public final class SiteBakerConf {
 
 
     private final Optional<Path> _assetsDir;
@@ -103,8 +102,7 @@ public final class SiteBakerConf
     /**
      * A builder of <code>SiteBakerConf</code> instances.
      */
-    public static final class Builder
-        extends Object {
+    public static final class Builder {
 
 
         private Optional<Path> _assetsDir = Optional.empty();

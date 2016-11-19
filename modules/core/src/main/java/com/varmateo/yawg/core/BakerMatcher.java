@@ -19,8 +19,7 @@ import com.varmateo.yawg.util.GlobMatcher;
 /**
  *
  */
-/* package private */ final class BakerMatcher
-        extends Object {
+/* package private */ final class BakerMatcher {
 
 
     private Collection<Entry> _bakerTypes;
@@ -103,8 +102,7 @@ import com.varmateo.yawg.util.GlobMatcher;
     /**
      *
      */
-    private static final class Entry
-            extends Object {
+    private static final class Entry {
 
 
         public final String mapType;
@@ -130,8 +128,7 @@ import com.varmateo.yawg.util.GlobMatcher;
     /**
      *
      */
-    public static final class Builder
-            extends Object {
+    public static final class Builder {
 
 
         private final Map<String,GlobMatcher> _bakerTypes;

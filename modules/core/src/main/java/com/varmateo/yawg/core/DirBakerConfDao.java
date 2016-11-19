@@ -34,7 +34,7 @@ import com.varmateo.yawg.util.YamlParser;
  * Reads the baker configuration for one given directory.
  */
 /* package private */ final class DirBakerConfDao
-        extends Object {
+ {
 
 
     private static final String CONF_FILE_NAME = ".yawg.yml";

@@ -23,8 +23,7 @@ import com.varmateo.yawg.util.SimpleList;
  * Wrapper for an unmodifiable map with utility methods for retrieving
  * values.
  */
-public final class SimpleMap
-        extends Object {
+public final class SimpleMap {
 
 
     private final Map<String,Object> _map;

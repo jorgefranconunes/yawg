@@ -23,7 +23,7 @@ import com.varmateo.yawg.core.CollectiveDirBakeListener;
  *
  */
 public final class CollectiveDirBakeListenerTest
-        extends Object {
+ {
 
 
     /**

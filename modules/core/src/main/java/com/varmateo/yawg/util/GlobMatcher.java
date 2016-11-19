@@ -25,7 +25,6 @@ import com.varmateo.yawg.commons.util.Lists;
  * glob patterns.
  */
 public final class GlobMatcher
-        extends Object
         implements Predicate<Path> {
 
 
@@ -162,8 +161,7 @@ public final class GlobMatcher
     /**
      * A builder of <code>GlobMatcher</code> instances.
      */
-    public static final class Builder
-            extends Object {
+    public static final class Builder {
 
 
         private final List<String> _globPatterns;

@@ -29,8 +29,7 @@ import com.varmateo.yawg.util.FileUtils;
 /**
  *
  */
-/* package private */ final class AsciidoctorBakerDataModelBuilder
-        extends Object {
+/* package private */ final class AsciidoctorBakerDataModelBuilder {
 
 
     private final Asciidoctor _asciidoctor;

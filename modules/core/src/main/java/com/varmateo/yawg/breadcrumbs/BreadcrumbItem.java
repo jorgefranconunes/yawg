@@ -10,8 +10,7 @@ package com.varmateo.yawg.breadcrumbs;
 /**
  * Attributes of a breadcrumb item.
  */
-public final class BreadcrumbItem
-        extends Object {
+public final class BreadcrumbItem {
 
 
     private final String _title;

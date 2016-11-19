@@ -15,8 +15,7 @@ import java.util.Properties;
  * Provides static information about the Yawg software.
  *
  */
-public final class YawgInfo
-    extends Object {
+public final class YawgInfo {
 
 
 

@@ -22,38 +22,11 @@ http://pmd.sourceforge.net/howtomakearuleset.html
      for a description of available rulesets and rules.
   -->
 
-  <rule ref="rulesets/java/basic.xml">
-    <exclude name="ExtendsObject" /> <!-- Me not like it. -->
-  </rule>
+  <rule ref="rulesets/java/basic.xml"/>
 
 
   <rule ref="rulesets/java/empty.xml">
     <exclude name="EmptyCatchBlock" /> <!-- Needs config. -->
-  </rule>
-
-  <!-- And some of our own, to ensure Java coding conventions are
-       followed. -->
-  <rule name="ShouldExtendObject"
-  	language="java"
-        message="Explicitly declare class to extend Object."
-        class="net.sourceforge.pmd.lang.rule.XPathRule">
-    <description>All classes should have an extends declaration.</description>
-    <priority>4</priority>
-    <properties>
-       <property name="xpath">
-          <value>
-          <![CDATA[
-//ClassOrInterfaceDeclaration[@Interface!='true' and count(ExtendsList)=0]
-          ]]>
-          </value>
-       </property>
-    </properties>
-    <example>
-    <![CDATA[
-public class Foo { 	// Should be declared with "extends Object".
-}
-    ]]>
-    </example>
   </rule>
 
 
@@ -64,7 +37,7 @@ public class Foo { 	// Should be declared with "extends Object".
     </properties>
   </rule>
 
-  
+
   <rule ref="rulesets/java/braces.xml" />
 
 

@@ -31,7 +31,7 @@ import com.varmateo.yawg.PageVars;
  *
  */
 public final class DirBakerConfDaoTest
-        extends Object {
+ {
 
 
     private final DirBakerConf _emptyConf = DirBakerConf.builder().build();

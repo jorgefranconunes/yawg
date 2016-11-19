@@ -18,8 +18,7 @@ import com.varmateo.yawg.breadcrumbs.BreadcrumbItem;
 /**
  *
  */
-public final class Breadcrumbs
-        extends Object {
+public final class Breadcrumbs {
 
 
     private final List<BreadcrumbItem> _items;
@@ -84,8 +83,7 @@ public final class Breadcrumbs
     /**
      *
      */
-    public static final class Builder
-            extends Object {
+    public static final class Builder {
 
 
         private List<BreadcrumbItem> _items;

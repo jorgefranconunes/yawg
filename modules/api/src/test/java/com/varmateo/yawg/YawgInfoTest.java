@@ -18,7 +18,7 @@ import com.varmateo.yawg.YawgInfo;
  *
  */
 public final class YawgInfoTest
-    extends Object {
+ {
 
 
     /**

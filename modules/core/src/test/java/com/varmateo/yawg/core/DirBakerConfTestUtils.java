@@ -20,7 +20,7 @@ import com.varmateo.yawg.util.GlobMatcher;
  * Utility methods used by unit tests.
  */
 /* package private */ final class DirBakerConfTestUtils
-        extends Object {
+ {
 
 
     /**

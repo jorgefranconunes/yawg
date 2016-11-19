@@ -30,7 +30,7 @@ import com.varmateo.yawg.freemarker.FreemarkerTemplateService;
  *
  */
 public final class FreemarkerTemplateServiceTest
-        extends Object {
+ {
 
 
     private static final String TEMPLATE_NAME_OK = "template01.ftlh";

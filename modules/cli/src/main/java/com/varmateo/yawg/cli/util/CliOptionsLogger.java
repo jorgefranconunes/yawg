@@ -18,8 +18,7 @@ import com.varmateo.yawg.cli.util.CliOptions;
  * Provides utility methods for logging info related with command line
  * options.
  */
-final class CliOptionsLogger
-    extends Object {
+/* package private */ final class CliOptionsLogger {
 
 
     /**

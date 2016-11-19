@@ -18,8 +18,7 @@ import com.varmateo.yawg.util.GlobMatcher;
 /**
  *
  */
-/* package private */ final class TemplateNameMatcher
-        extends Object {
+/* package private */ final class TemplateNameMatcher {
 
 
     private final Map<String,GlobMatcher> _matchersByName;
@@ -72,8 +71,7 @@ import com.varmateo.yawg.util.GlobMatcher;
     /**
      *
      */
-    public static final class Builder
-            extends Object {
+    public static final class Builder {
 
 
         private final Map<String,GlobMatcher> _matchersByName;

@@ -18,8 +18,7 @@ import com.varmateo.yawg.Template;
 /**
  * Information to be used by a baker when baking a file.
  */
-public final class PageContext 
-        extends Object {
+public final class PageContext {
 
 
     private final String _dirUrl;
@@ -109,8 +108,7 @@ public final class PageContext
     /**
      * A builder of <code>PageContext</code> instances.
      */
-    public static final class Builder
-        extends Object {
+    public static final class Builder {
 
 
         private String _dirUrl;

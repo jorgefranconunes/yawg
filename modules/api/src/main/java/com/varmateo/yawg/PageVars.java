@@ -18,8 +18,7 @@ import java.util.Optional;
  *
  * <p>The meaning of this variables is template specific.</p>
  */
-public final class PageVars
-        extends Object {
+public final class PageVars {
 
 
     private final Map<String,Object> _map;
@@ -122,8 +121,7 @@ public final class PageVars
     /**
      * A builder of <code>PageVars</code> instances.
      */
-    public static final class Builder
-            extends Object {
+    public static final class Builder {
 
 
         private Map<String,Object> _map;
