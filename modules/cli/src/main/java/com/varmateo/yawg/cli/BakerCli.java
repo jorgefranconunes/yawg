@@ -6,11 +6,14 @@
 
 package com.varmateo.yawg.cli;
 
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Formatter;
 import java.util.logging.Handler;
@@ -22,6 +25,7 @@ import com.varmateo.yawg.SiteBaker;
 import com.varmateo.yawg.SiteBakerConf;
 import com.varmateo.yawg.SiteBakerFactory;
 import com.varmateo.yawg.YawgException;
+import com.varmateo.yawg.commons.util.Lists;
 import com.varmateo.yawg.logging.PlainFormatter;
 
 import com.varmateo.yawg.cli.InfoPrinter;
@@ -42,35 +46,52 @@ public final class BakerCli {
     private static final String LOG_FMT_CONSOLE =
             "{0,date,yyyy-MM.dd HH:mm:ss.SSS} {1} {2}\n";
 
+    private static final String DEFAULT_ARGV0 = "yawg";
+
+
+    private final String _argv0;
+    private final String[] _args;
+    private final OutputStream _output;
+
+
+    /**
+     * Creates a newly initialized builder for creating a
+     * <code>BakerCli</code> instance.
+     *
+     * @return A new builder.
+     */
+    public static Builder builder() {
+
+        Builder result = new Builder();
+
+        return result;
+    }
+
 
     /**
      *
      */
-    public BakerCli() {
-        // Nothing to do.
+    private BakerCli(final Builder builder) {
+
+        _argv0 = builder._argv0;
+        _args = Lists.toArray(builder._args, String.class);
+        _output = builder._output;
     }
 
 
     /**
      * The utility entry point.
      *
-     * @param argv0 The name the utility was launched with on the
-     * command line. It will be used in informative or error messages.
-     *
-     * @param args The command line arguments passed to the utility.
-     *
      * @return The utility exit status. Zero means all went
      * well. Non-zero means something failed.
      */
-    public int main(
-            final String   argv0,
-            final String[] args) {
+    public int run() {
 
-        InfoPrinter infoPrinter = buildInfoPrinter(argv0);
+        InfoPrinter infoPrinter = buildInfoPrinter(_argv0, _output);
         CliException error = null;
 
         try {
-            doEverything(infoPrinter, args);
+            doEverything(infoPrinter, _args);
         } catch ( CliException e ) {
             error = e;
         }
@@ -89,11 +110,13 @@ public final class BakerCli {
     /**
      *
      */
-    private InfoPrinter buildInfoPrinter(final String argv0) {
+    private InfoPrinter buildInfoPrinter(
+            final String argv0,
+            final OutputStream output) {
 
         boolean autoFlush = true;
         Writer stdoutWriter =
-                new OutputStreamWriter(System.out, Charset.defaultCharset());
+                new OutputStreamWriter(output, Charset.defaultCharset());
         PrintWriter stdout =
                 new PrintWriter(stdoutWriter, autoFlush);
 
@@ -230,6 +253,80 @@ public final class BakerCli {
         PageVars result = builder.build();
 
         return result;
+    }
+
+
+    /**
+     *
+     */
+    public static final class Builder {
+
+
+        private String _argv0;
+        private List<String> _args;
+        private OutputStream _output;
+
+
+        /**
+         *
+         */
+        private Builder() {
+
+            _argv0 = DEFAULT_ARGV0;
+            _args = new ArrayList<>();
+            _output = System.out;
+        }
+
+
+        /**
+         * @param argv0 The name the utility was launched with on the
+         * command line. It will be used in informative or error
+         * messages.
+         */
+        public Builder setArgv0(final String argv0) {
+
+            _argv0 = argv0;
+
+            return this;
+        }
+
+
+        /**
+         * @param args The command line arguments passed to the
+         * utility.
+         */
+        public Builder addArgs(final String... args) {
+
+            for ( String arg : args ) {
+                _args.add(arg);
+            }
+
+            return this;
+        }
+
+
+        /**
+         *
+         */
+        public Builder setOutput(final OutputStream output) {
+
+            _output = output;
+
+            return this;
+        }
+
+
+        /**
+         *
+         */
+        public BakerCli build() {
+
+            BakerCli result = new BakerCli(this);
+
+            return result;
+        }
+
+
     }
 
 

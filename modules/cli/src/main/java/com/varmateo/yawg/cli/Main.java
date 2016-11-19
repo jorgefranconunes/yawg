@@ -36,10 +36,14 @@ public final class Main {
      */
      public static void main(final String[] args) {
 
-         BakerCli bakerCli = new BakerCli();
-
-         String argv0      = System.getProperty(PROP_ARGV, DEFAULT_ARGV0);
-         int    exitStatus = bakerCli.main(argv0, args);
+         String argv0 = System.getProperty(PROP_ARGV, DEFAULT_ARGV0);
+         BakerCli bakerCli =
+                 BakerCli.builder()
+                 .setArgv0(argv0)
+                 .addArgs(args)
+                 .setOutput(System.out)
+                 .build();
+         int    exitStatus = bakerCli.run();
 
          System.exit(exitStatus);
     }

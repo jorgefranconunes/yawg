@@ -6,6 +6,7 @@
 
 package com.varmateo.yawg.commons.util;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -129,6 +130,33 @@ public final class Lists {
 
         List<T> copy = new ArrayList<T>(inputCollection);
         List<T> result = Collections.unmodifiableList(copy);
+
+        return result;
+    }
+
+
+    /**
+     * Converts a collection into an array containing the same
+     * elements in the same order.
+     *
+     * @param collection The collection of elements to be placed into
+     * the array to be returned.
+     *
+     * @param componentClass The type of the elements in the array to
+     * be returned. Unfortunately Java's type erasure forces us to
+     * include this argument.
+     *
+     * @return A newly created array containing the elements of the
+     * give collection.
+     */
+    public static <T> T[] toArray(
+            final Collection<T> collection,
+            final Class<T> componentClass) {
+
+        int size = collection.size();
+        T[] result = (T[])Array.newInstance(componentClass, size);
+
+        collection.toArray(result);
 
         return result;
     }
