@@ -57,6 +57,7 @@ Copyright (c) 2015-2016 Yawg project contributors.
 
   <!-- The project Maven modules. -->
   <modules>
+    <module>acceptance</module>
     <module>api</module>
     <module>cli</module>
     <module>commons</module>
@@ -261,7 +262,7 @@ Copyright (c) 2015-2016 Yawg project contributors.
               </execution>
             </executions>
           </plugin>
-        
+
         </plugins>
       </build>
 
@@ -369,7 +370,7 @@ Copyright (c) 2015-2016 Yawg project contributors.
           </reportSet>
         </reportSets>
       </plugin>
-      
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
@@ -394,7 +395,7 @@ Copyright (c) 2015-2016 Yawg project contributors.
           </reportSet>
         </reportSets>
       </plugin>
-      
+
       <!--
          See http://maven.apache.org/plugins/maven-checkstyle-plugin/
          for documentation.

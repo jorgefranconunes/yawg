@@ -28,7 +28,7 @@ Maven POM for the "core" sub-project of the Yawg project.
 
 
   <dependencies>
-        
+
     <!-- JUnit -->
     <dependency>
       <groupId>junit</groupId>
@@ -36,14 +36,14 @@ Maven POM for the "core" sub-project of the Yawg project.
       <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
-        
+
     <dependency>
       <groupId>com.varmateo.yawg</groupId>
       <artifactId>yawg-testutils</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
-        
+
     <dependency>
       <groupId>com.varmateo.yawg</groupId>
       <artifactId>yawg-api</artifactId>

@@ -51,7 +51,7 @@ Maven POM for the "release" sub-project of the Yawg project.
   <build>
 
     <plugins>
-      
+
 
       <!-- Copy the final JARs and their dependencies to the location
            expected by the command line tools and by the application

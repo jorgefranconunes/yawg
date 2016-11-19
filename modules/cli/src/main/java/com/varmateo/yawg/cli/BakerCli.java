@@ -10,7 +10,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -116,7 +116,7 @@ public final class BakerCli {
 
         boolean autoFlush = true;
         Writer stdoutWriter =
-                new OutputStreamWriter(output, Charset.defaultCharset());
+                new OutputStreamWriter(output, StandardCharsets.UTF_8);
         PrintWriter stdout =
                 new PrintWriter(stdoutWriter, autoFlush);
 
