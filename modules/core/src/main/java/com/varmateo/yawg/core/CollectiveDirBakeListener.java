@@ -19,7 +19,6 @@ import com.varmateo.yawg.commons.util.Lists;
  *
  */
 /* package private */ final class CollectiveDirBakeListener
-        extends Object
         implements DirBakeListener {
 
 

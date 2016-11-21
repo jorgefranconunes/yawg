@@ -174,7 +174,6 @@ public final class DirBakerTest
      * baking.
      */
     private static final class MockBaker
-            extends Object
             implements Baker {
 
 
@@ -231,7 +230,6 @@ public final class DirBakerTest
      *
      */
     private static final class MockDirBakeListener
-            extends Object
             implements DirBakeListener {
 
 
@@ -276,7 +274,6 @@ public final class DirBakerTest
      *
      */
     private static final class MockTemplateService
-            extends Object
             implements TemplateService {
 
 

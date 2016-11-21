@@ -15,7 +15,6 @@ import com.varmateo.yawg.asciidoctor.AsciidoctorBaker;
  *
  */
 public final class AsciidoctorBakerFactory
-        extends Object
         implements BakerFactory {
 
 

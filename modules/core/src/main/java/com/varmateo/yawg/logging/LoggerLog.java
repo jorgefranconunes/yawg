@@ -19,7 +19,6 @@ import com.varmateo.yawg.logging.Log;
  * com.varmateo.yawg.logging.
  */
 final class LoggerLog
-    extends Object
     implements Log {
 
 

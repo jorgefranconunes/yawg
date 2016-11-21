@@ -27,7 +27,6 @@ import com.varmateo.yawg.util.FileUtils;
  * files.
  */
 public final class HtmlBaker
-        extends Object
         implements Baker {
 
 

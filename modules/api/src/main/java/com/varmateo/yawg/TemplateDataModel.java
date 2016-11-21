@@ -255,6 +255,9 @@ public final class TemplateDataModel {
     }
 
 
+    /**
+     * Document author data.
+     */
     public static final class Author {
 
 
@@ -275,7 +278,7 @@ public final class TemplateDataModel {
 
 
         /**
-         *
+         * @return Author's name. It is never null.
          */
         public String getName() {
 
@@ -284,7 +287,7 @@ public final class TemplateDataModel {
 
 
         /**
-         *
+         * @return Author's email. It might be null.
          */
         public String getEmail() {
 

@@ -18,7 +18,6 @@ import com.varmateo.yawg.core.SiteBakerDomain;
  * Factory for <code>SiteBaker</code> objects.
  */
 public final class CoreSiteBakerFactory
-        extends Object
         implements SiteBakerFactory {
 
 
@@ -48,7 +47,6 @@ public final class CoreSiteBakerFactory
      *
      */
     private static final class SiteBakerImpl
-            extends Object
             implements SiteBaker {
 
 

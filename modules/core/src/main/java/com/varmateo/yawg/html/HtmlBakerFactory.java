@@ -14,7 +14,6 @@ import com.varmateo.yawg.BakerFactory;
  *
  */
 public final class HtmlBakerFactory
-        extends Object
         implements BakerFactory {
 
 

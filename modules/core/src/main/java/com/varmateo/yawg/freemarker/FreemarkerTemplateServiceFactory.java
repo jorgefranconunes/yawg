@@ -17,7 +17,6 @@ import com.varmateo.yawg.freemarker.FreemarkerTemplateService;
  *
  */
 public final class FreemarkerTemplateServiceFactory
-        extends Object
         implements TemplateServiceFactory {
 
 

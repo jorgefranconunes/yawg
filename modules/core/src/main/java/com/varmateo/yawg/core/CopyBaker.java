@@ -22,7 +22,6 @@ import com.varmateo.yawg.util.FileUtils;
  * location.
  */
 /* package private */ final class CopyBaker
-        extends Object
         implements Baker {
 
 

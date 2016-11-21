@@ -6,6 +6,7 @@
 
 package com.varmateo.yawg.atests;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +17,7 @@ import com.varmateo.yawg.cli.BakerCli;
 /**
  *
  */
-public final class BakerRunner
-        extends Object {
+public final class BakerRunner {
 
 
     private final String[] _args;
@@ -46,23 +46,29 @@ public final class BakerRunner
     /**
      *
      */
-    public int run() {
+    public BakerRunnerResult run() {
 
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
         BakerCli bakerCli =
                 BakerCli.builder()
                 .addArgs(_args)
+                .setOutput(output)
                 .build();
         int exitStatus = bakerCli.run();
+        BakerRunnerResult result =
+                BakerRunnerResult.builder()
+                .setOutput(output.toByteArray())
+                .setExitStatus(exitStatus)
+                .build();
 
-        return exitStatus;
+        return result;
     }
 
 
     /**
      *
      */
-    public static final class Builder
-            extends Object {
+    public static final class Builder {
 
 
         private List<String> _args;

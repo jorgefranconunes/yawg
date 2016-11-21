@@ -21,7 +21,6 @@ import com.varmateo.yawg.util.Exceptions;
  * 
  */
 /* package private */ final class CollectiveTemplateService
-        extends Object
         implements TemplateService {
 
 

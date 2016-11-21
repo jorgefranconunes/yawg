@@ -20,7 +20,6 @@ import com.varmateo.yawg.util.Exceptions;
  *
  */
 public final class MockTemplate
-        extends Object
         implements Template {
 
 

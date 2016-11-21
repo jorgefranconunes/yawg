@@ -35,7 +35,6 @@ import com.varmateo.yawg.util.FileUtils;
  * into HTML files.
  */
 /* package private */ final class AsciidoctorBaker
-        extends Object
         implements Baker {
 
 

@@ -30,7 +30,6 @@ import com.varmateo.yawg.util.Exceptions;
  * href="http://freemarker.org/">Freemarker</a> template engine.
  */
 public final class FreemarkerTemplateService
-        extends Object
         implements TemplateService {
 
 
@@ -148,7 +147,6 @@ public final class FreemarkerTemplateService
      *
      */
     private static final class FreemarkerTemplate
-            extends Object
             implements Template {
 
 

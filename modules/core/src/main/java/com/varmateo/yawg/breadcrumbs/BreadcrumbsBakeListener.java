@@ -22,7 +22,6 @@ import com.varmateo.yawg.util.SimpleMap;
  *
  */
 public final class BreadcrumbsBakeListener
-        extends Object
         implements DirBakeListener {
 
 

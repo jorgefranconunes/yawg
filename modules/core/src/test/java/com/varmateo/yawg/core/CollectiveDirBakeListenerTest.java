@@ -165,7 +165,6 @@ public final class CollectiveDirBakeListenerTest
      *
      */
     private static final class MyListener
-            extends Object
             implements DirBakeListener {
 
 

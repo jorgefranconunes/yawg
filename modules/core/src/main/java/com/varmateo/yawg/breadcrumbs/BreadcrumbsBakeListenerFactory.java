@@ -15,7 +15,6 @@ import com.varmateo.yawg.breadcrumbs.BreadcrumbsBakeListener;
  *
  */
 public final class BreadcrumbsBakeListenerFactory
-        extends Object
         implements DirBakeListenerFactory {
 
 

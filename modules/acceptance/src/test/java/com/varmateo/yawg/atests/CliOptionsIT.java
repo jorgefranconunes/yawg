@@ -6,17 +6,20 @@
 
 package com.varmateo.yawg.atests;
 
+import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import com.varmateo.yawg.YawgInfo;
+
 import com.varmateo.yawg.atests.BakerRunner;
+import com.varmateo.yawg.atests.BakerRunnerResult;
 
 
 /**
  *
  */
-public final class CliOptionsIT
-        extends Object {
+public final class CliOptionsIT {
 
 
     /**
@@ -26,10 +29,16 @@ public final class CliOptionsIT
     public void noArgs() {
 
         BakerRunner baker = BakerRunner.builder().build();
-        int actualExitStatus = baker.run();
+        BakerRunnerResult bakerResult = baker.run();
 
+        int actualExitStatus = bakerResult.getExitStatus();
         assertEquals(0, actualExitStatus);
-        // TBD - Check the first non-empty line contains the version number.
+
+        String actualFirstLine = bakerResult.outputLine(1);
+        assertThat(
+                "Contains version string",
+                actualFirstLine,
+                containsString(YawgInfo.VERSION));
     }
 
 
@@ -43,10 +52,16 @@ public final class CliOptionsIT
                 BakerRunner.builder()
                 .addArgs("--this-is-an-unknown-option")
                 .build();
-        int actualExitStatus = baker.run();
+        BakerRunnerResult bakerResult = baker.run();
 
+        int actualExitStatus = bakerResult.getExitStatus();
         assertNotEquals(0, actualExitStatus);
-        // TBD - Check the error message contains "unknown option"
+
+        String actualFirstLine = bakerResult.outputLine(1);
+        assertThat(
+                "Contains unknown option message",
+                actualFirstLine,
+                containsString("unknown option"));
     }
 
 
