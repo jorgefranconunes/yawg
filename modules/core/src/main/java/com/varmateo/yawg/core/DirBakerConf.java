@@ -68,7 +68,9 @@ import com.varmateo.yawg.util.GlobMatcher;
 
 
     /**
-     *
+     * Collection of additional directories with content to be baked. The bake results
+     * from those directories will be placed in the same location as the bake results from
+     * the directory currently being baked.
      */
     public final Collection<Path> extraDirsHere;
 
@@ -97,6 +99,17 @@ import com.varmateo.yawg.util.GlobMatcher;
     public static Builder builder() {
 
         Builder result = new Builder();
+
+        return result;
+    }
+
+
+    /**
+     *
+     */
+    public static DirBakerConf empty() {
+
+        DirBakerConf result = DirBakerConf.builder().build();
 
         return result;
     }

@@ -19,12 +19,13 @@ import java.text.MessageFormat;
 public final class TestUtils {
 
 
-
-
-
+    // Name of system property with the path of the base directory containting input files
+    // to be used in testing.
     private static final String PROP_INPUTS_DIR_PREFIX =
             TestUtils.class.getSimpleName() + ".inputTestFilesDir";
 
+    // Name of system property with the path of the directory to be used for creating
+    // temporary files during testing.
     private static final String PROP_TMP_DIR_PREFIX =
             TestUtils.class.getSimpleName() + ".tmpTestFilesDir";
 

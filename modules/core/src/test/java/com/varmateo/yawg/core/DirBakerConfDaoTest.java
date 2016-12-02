@@ -14,7 +14,9 @@ import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,7 +36,7 @@ public final class DirBakerConfDaoTest
  {
 
 
-    private final DirBakerConf _emptyConf = DirBakerConf.builder().build();
+    private final DirBakerConf _emptyConf = DirBakerConf.empty();
     private DirBakerConfDao _dao = null;
 
 
@@ -86,7 +88,7 @@ public final class DirBakerConfDaoTest
     @Test
     public void withTemplateParamMissing() {
 
-        assertFalse(_emptyConf.templateName.isPresent());
+        assertThat(_emptyConf.templateName).isNotPresent();
     }
 
 
@@ -101,9 +103,8 @@ public final class DirBakerConfDaoTest
                 + "template: \n"
                 + "  - something: wrong";
 
-        TestUtils.assertThrows(
-                YawgException.class,
-                () -> readFromString(confContents));
+        assertThatThrownBy(() -> readFromString(confContents))
+                .isInstanceOf(YawgException.class);
     }
 
 
@@ -135,7 +136,7 @@ public final class DirBakerConfDaoTest
     public void withExcludeParamMissing()
             throws IOException {
 
-        assertFalse(_emptyConf.filesToExclude.isPresent());
+        assertThat(_emptyConf.filesToExclude).isNotPresent();
     }
 
 
@@ -148,11 +149,10 @@ public final class DirBakerConfDaoTest
 
         String confContents = ""
                 + "exclude: \n"
-                + "  - something: wrong"; 
+                + "  - something: wrong";
 
-        TestUtils.assertThrows(
-                YawgException.class,
-                () -> readFromString(confContents));
+        assertThatThrownBy(() -> readFromString(confContents))
+                .isInstanceOf(YawgException.class);
     }
 
 
@@ -167,9 +167,8 @@ public final class DirBakerConfDaoTest
                 + "exclude: \n"
                 + "  - \"[\""; 
 
-        TestUtils.assertThrows(
-                YawgException.class,
-                () -> readFromString(confContents));
+        assertThatThrownBy(() -> readFromString(confContents))
+                .isInstanceOf(YawgException.class);
     }
 
 
@@ -200,7 +199,7 @@ public final class DirBakerConfDaoTest
     @Test
     public void withIncludeHereParamMissing() {
 
-        assertFalse(_emptyConf.filesToIncludeHere.isPresent());
+        assertThat(_emptyConf.filesToIncludeHere).isNotPresent();
     }
 
 
@@ -243,9 +242,9 @@ public final class DirBakerConfDaoTest
         PageVars vars = actualConf.pageVars;
         Optional<Object> value = vars.get("hello");
 
-        assertTrue(value.isPresent());
-        assertTrue(value.get() instanceof String);
-        assertEquals("world", value.get());
+        assertThat(value).isPresent();
+        assertThat(value).containsInstanceOf(String.class);
+        assertThat(value).hasValue("world");
     }
 
 
@@ -263,9 +262,9 @@ public final class DirBakerConfDaoTest
         PageVars vars = actualConf.pageVarsHere;
         Optional<Object> value = vars.get("hello");
 
-        assertTrue(value.isPresent());
-        assertTrue(value.get() instanceof String);
-        assertEquals("world", value.get());
+        assertThat(value).isPresent();
+        assertThat(value).containsInstanceOf(String.class);
+        assertThat(value).hasValue("world");
     }
 
 
@@ -297,9 +296,8 @@ public final class DirBakerConfDaoTest
 
         Path noSuchPath = Paths.get("this/file/does/not/exist");
 
-        TestUtils.assertThrows(
-                YawgException.class,
-                () -> _dao.loadFromFile(noSuchPath));
+        assertThatThrownBy(() -> _dao.loadFromFile(noSuchPath))
+                .isInstanceOf(YawgException.class);
     }
 
 

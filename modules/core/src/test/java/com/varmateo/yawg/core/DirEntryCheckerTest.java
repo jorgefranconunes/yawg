@@ -10,7 +10,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.function.Predicate;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.Test;
 
 import com.varmateo.yawg.core.DirBakerConf;
@@ -30,10 +31,11 @@ public final class DirEntryCheckerTest
     @Test
     public void withEmptyConf() {
 
-        DirBakerConf conf = DirBakerConf.builder().build();
+        DirBakerConf conf = DirBakerConf.empty();
         DirEntryChecker checker = new DirEntryChecker(conf);
+        Predicate<String> predicate = checker.asStringPredicate();
 
-        assertTrue(checker.asStringPredicate().test("anything"));
+        assertThat(predicate).accepts("anything");
     }
 
 
@@ -50,8 +52,9 @@ public final class DirEntryCheckerTest
         DirEntryChecker checker = new DirEntryChecker(conf);
         Predicate<String> predicate = checker.asStringPredicate();
 
-        assertTrue(predicate.test("something.adoc"));
-        assertFalse(predicate.test("something.txt"));
+        assertThat(predicate)
+                .accepts("something.adoc")
+                .rejects("something.txt");
     }
 
 
@@ -68,10 +71,12 @@ public final class DirEntryCheckerTest
         DirEntryChecker checker = new DirEntryChecker(conf);
         Predicate<String> predicate = checker.asStringPredicate();
 
-        assertTrue(predicate.test("something.adoc"));
-        assertFalse(predicate.test("something.adoc~"));
-        assertFalse(predicate.test("something.txt"));
-        assertFalse(predicate.test("something.puml"));
+        assertThat(predicate)
+                .accepts("something.adoc")
+                .rejects(
+                        "something.adoc~",
+                        "something.txt",
+                        "something.puml");
     }
 
 
@@ -88,8 +93,9 @@ public final class DirEntryCheckerTest
         DirEntryChecker checker = new DirEntryChecker(conf);
         Predicate<String> predicate = checker.asStringPredicate();
 
-        assertTrue(predicate.test("something.adoc"));
-        assertFalse(predicate.test("something.txt"));
+        assertThat(predicate)
+                .accepts("something.adoc")
+                .rejects("something.txt");
     }
 
 
@@ -106,10 +112,13 @@ public final class DirEntryCheckerTest
         DirEntryChecker checker = new DirEntryChecker(conf);
         Predicate<String> predicate = checker.asStringPredicate();
 
-        assertTrue(predicate.test("something.adoc"));
-        assertTrue(predicate.test("something.svg"));
-        assertFalse(predicate.test("something.txt"));
-        assertFalse(predicate.test("something.puml"));
+        assertThat(predicate)
+                .accepts(
+                        "something.adoc",
+                        "something.svg")
+                .rejects(
+                        "something.txt",
+                        "something.puml");
     }
 
 
@@ -127,9 +136,11 @@ public final class DirEntryCheckerTest
         DirEntryChecker checker = new DirEntryChecker(conf);
         Predicate<String> predicate = checker.asStringPredicate();
 
-        assertTrue(predicate.test("something.adoc"));
-        assertFalse(predicate.test("something.txt"));
-        assertFalse(predicate.test("something.svg"));
+        assertThat(predicate)
+                .accepts("something.adoc")
+                .rejects(
+                        "something.txt",
+                        "something.svg");
     }
 
 
@@ -146,10 +157,13 @@ public final class DirEntryCheckerTest
         DirEntryChecker checker = new DirEntryChecker(conf);
         Predicate<Path> predicate = checker.asPathPredicate();
 
-        assertTrue(predicate.test(Paths.get("something.adoc")));
-        assertFalse(predicate.test(Paths.get("something.adoc/else.txt")));
-        assertFalse(predicate.test(Paths.get("something.txt")));
-        assertTrue(predicate.test(Paths.get("something.txt/else.adoc")));
+        assertThat(predicate)
+                .accepts(
+                        Paths.get("something.adoc"),
+                        Paths.get("something.txt/else.adoc"))
+                .rejects(
+                        Paths.get("something.adoc/else.txt"),
+                        Paths.get("something.txt"));
     }
 
 

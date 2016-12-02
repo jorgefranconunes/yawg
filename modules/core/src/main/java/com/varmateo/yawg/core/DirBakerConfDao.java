@@ -80,7 +80,7 @@ import com.varmateo.yawg.util.YamlParser;
         if ( Files.isRegularFile(confFile) ) {
             result = loadFromFile(confFile);
         } else {
-            result = DirBakerConf.builder().build();
+            result = DirBakerConf.empty();
         }
 
         return result;

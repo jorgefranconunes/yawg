@@ -16,7 +16,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -165,7 +166,7 @@ public final class DirBakerTest
                 .map(Path::toString)
                 .collect(Collectors.toList());
 
-        assertEquals(expectedRelFiles, actualRelFiles);
+        assertThat(actualRelFiles).isEqualTo(expectedRelFiles);
     }
 
 

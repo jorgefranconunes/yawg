@@ -6,12 +6,11 @@
 
 package com.varmateo.yawg.atests;
 
-import static org.hamcrest.core.StringContains.containsString;
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.Test;
 
 import com.varmateo.yawg.YawgInfo;
-
 import com.varmateo.yawg.atests.BakerRunner;
 import com.varmateo.yawg.atests.BakerRunnerResult;
 
@@ -28,17 +27,14 @@ public final class CliOptionsIT {
     @Test
     public void noArgs() {
 
-        BakerRunner baker = BakerRunner.builder().build();
+        BakerRunner baker = BakerRunner.empty();
         BakerRunnerResult bakerResult = baker.run();
 
         int actualExitStatus = bakerResult.getExitStatus();
-        assertEquals(0, actualExitStatus);
+        assertThat(0).isEqualTo(actualExitStatus);
 
         String actualFirstLine = bakerResult.outputLine(1);
-        assertThat(
-                "Contains version string",
-                actualFirstLine,
-                containsString(YawgInfo.VERSION));
+        assertThat(actualFirstLine).contains(YawgInfo.VERSION);
     }
 
 
@@ -55,13 +51,10 @@ public final class CliOptionsIT {
         BakerRunnerResult bakerResult = baker.run();
 
         int actualExitStatus = bakerResult.getExitStatus();
-        assertNotEquals(0, actualExitStatus);
+        assertThat(0).isNotEqualTo(actualExitStatus);
 
         String actualFirstLine = bakerResult.outputLine(1);
-        assertThat(
-                "Contains unknown option message",
-                actualFirstLine,
-                containsString("unknown option"));
+        assertThat(actualFirstLine).contains("unknown option");
     }
 
 

@@ -37,6 +37,17 @@ public final class BakerRunner {
     /**
      *
      */
+    public static BakerRunner empty() {
+
+        BakerRunner result = BakerRunner.builder().build();
+
+        return result;
+    }
+
+
+    /**
+     *
+     */
     private BakerRunner(final Builder builder) {
 
         _args = Lists.toArray(builder._args, String.class);

@@ -11,7 +11,8 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.Test;
 
 import com.varmateo.testutils.TestUtils;
@@ -24,8 +25,7 @@ import com.varmateo.yawg.commons.util.Lists;
 /**
  *
  */
-public final class DirEntryScannerTest
- {
+public final class DirEntryScannerTest {
 
 
     /**
@@ -35,7 +35,7 @@ public final class DirEntryScannerTest
     public void allFiles()
             throws IOException {
 
-        DirBakerConf conf = DirBakerConf.builder().build();
+        DirBakerConf conf = DirBakerConf.empty();
         Path dirPath = TestUtils.getInputsDir(DirEntryScanner.class);
         DirEntryScanner scanner = new DirEntryScanner(conf);
         List<Path> actualEntries = scanner.getDirEntries(dirPath);
@@ -81,10 +81,10 @@ public final class DirEntryScannerTest
             final List<String> expectedNames,
             final List<Path> actualEntries) {
 
-        List<String> actualNames =
+        List<String> actualNames = 
                 Lists.map(actualEntries, p -> p.getFileName().toString());
 
-        assertEquals(actualNames, expectedNames);
+        assertThat(actualNames).isEqualTo(expectedNames);
     }
 
 

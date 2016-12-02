@@ -28,6 +28,19 @@ public final class PageContext {
 
 
     /**
+     * Creates a new builder with an empty initialization.
+     *
+     * @return The new <code>Builder</code> object.
+     */
+    public static Builder builder() {
+
+        Builder result = new Builder();
+
+        return result;
+    }
+
+
+    /**
      *
      */
     private PageContext(final Builder builder) {
@@ -74,19 +87,6 @@ public final class PageContext {
      */
     public String getRootRelativeUrl() {
         return _rootRelativeUrl;
-    }
-
-
-    /**
-     * Creates a new builder with an empty initialization.
-     *
-     * @return The new <code>Builder</code> object.
-     */
-    public static Builder builder() {
-
-        Builder result = new Builder();
-
-        return result;
     }
 
 

@@ -8,7 +8,9 @@ package com.varmateo.yawg;
 
 import java.nio.file.Paths;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import org.junit.Test;
 
 import com.varmateo.testutils.TestUtils;
@@ -29,9 +31,8 @@ public final class PageContextTest
     @Test
     public void missingMandatoryAttrs() {
 
-        TestUtils.assertThrows(
-                NullPointerException.class,
-                () -> PageContext.builder().build());
+        assertThatThrownBy(() -> PageContext.builder().build())
+                .isInstanceOf(NullPointerException.class);
     }
 
 
@@ -47,10 +48,10 @@ public final class PageContextTest
                 .setRootRelativeUrl("whatever")
                 .build();
 
-        assertEquals("something", context.getDirUrl());
-        assertEquals("whatever", context.getRootRelativeUrl());
-        assertFalse(context.getTemplateFor(Paths.get("xxx")).isPresent());
-        assertTrue(context.getPageVars().asMap().isEmpty());
+        assertThat(context.getDirUrl()).isEqualTo("something");
+        assertThat(context.getRootRelativeUrl()).isEqualTo("whatever");
+        assertThat(context.getTemplateFor(Paths.get("xxx"))).isNotPresent();
+        assertThat(context.getPageVars().asMap()).isEmpty();
     }
 
 

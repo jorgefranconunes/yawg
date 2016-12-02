@@ -22,7 +22,6 @@ import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.Template;
 import com.varmateo.yawg.YawgException;
 
-import com.varmateo.yawg.MockTemplate;
 import com.varmateo.yawg.asciidoctor.AsciidoctorBaker;
 
 

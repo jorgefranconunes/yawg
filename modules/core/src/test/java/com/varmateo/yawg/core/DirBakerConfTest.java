@@ -6,9 +6,6 @@
 
 package com.varmateo.yawg.core;
 
-import java.util.Arrays;
-
-import static org.junit.Assert.*;
 import org.junit.Test;
 
 import static com.varmateo.yawg.core.DirBakerConfTestUtils.assertConfEquals;
@@ -29,7 +26,7 @@ public final class DirBakerConfTest
     @Test
     public void mergeFromEmpty() {
 
-        DirBakerConf confEmpty = DirBakerConf.builder().build();
+        DirBakerConf confEmpty = DirBakerConf.empty();
         DirBakerConf conf =
                 DirBakerConf.builder()
                 .setFilesToExclude("hello")

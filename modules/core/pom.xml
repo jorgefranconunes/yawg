@@ -29,7 +29,13 @@ Maven POM for the "core" sub-project of the Yawg project.
 
   <dependencies>
 
-    <!-- JUnit -->
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>${assertj-core.version}</version>
+      <scope>test</scope>
+    </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
