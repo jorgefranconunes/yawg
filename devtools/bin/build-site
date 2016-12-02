@@ -49,7 +49,7 @@ function main () {
     processCliArgs "$@"
 
     _workingArea=${_yawgHome}/../yawg.${SITE_BRANCH}
-    
+
     yawgLog "Building site..."
 
     doBakeSite || yawgError "Failed building site."
@@ -116,7 +116,7 @@ function displayHelp () {
 ${PRODUCT_HEADER}
 ${YAWG_COPYRIGHT_HEADER}
 
-Builds the Yawg site and optionally uploads it to Github.
+Builds the Yawg site and optionally publishs it to Github.
 
 Available options:
 
@@ -129,8 +129,8 @@ Available options:
 
 --production
     Generates the site ready for uploading to the production
-    location. If not specified a visual indicator is added to the site
-    to inform readers that it is not an official release.
+    location. If not specified then a visual indicator is added to the
+    site to inform readers that it is not an official release.
 
 --yawg
     Path of the'yawg' tool to be used. By default it will use the

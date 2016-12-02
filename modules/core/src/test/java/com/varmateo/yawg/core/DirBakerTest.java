@@ -22,6 +22,12 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import com.varmateo.testutils.TestUtils;
 
 import com.varmateo.yawg.Baker;
@@ -41,15 +47,16 @@ import com.varmateo.yawg.logging.LogFactory;
 /**
  *
  */
-public final class DirBakerTest
- {
+public final class DirBakerTest {
 
 
     private static DirBakerConf _emptyConf;
     private static DirBakerConfDao _confDao;
 
-    private TemplateService _templateService;
-    private DirBakeListener _dirBakeListener;
+    private TemplateService _templateServiceMock;
+    private DirBakeListener _dirBakeListenerMock;
+    private Baker _bakerMock;
+    private List<Path> _bakedFiles;
 
 
     /**
@@ -69,8 +76,25 @@ public final class DirBakerTest
     @Before
     public void setUp() {
 
-        _templateService = new MockTemplateService();
-        _dirBakeListener = new MockDirBakeListener();
+        _templateServiceMock = mock(TemplateService.class);
+        when(_templateServiceMock.getTemplate(anyString()))
+                .thenReturn(Optional.empty());
+
+        _dirBakeListenerMock = mock(DirBakeListener.class);
+        when(_dirBakeListenerMock.onDirBake(any(PageContext.class)))
+                .thenAnswer(
+                        invocation -> ((PageContext)invocation.getArguments()[0]).getPageVars());
+
+        _bakedFiles = new ArrayList<>();
+        _bakerMock = mock(Baker.class);
+        when(_bakerMock.getShortName()).thenReturn("mock");
+        when(_bakerMock.isBakeable(any())).thenReturn(true);
+        doAnswer(
+                invocation -> {
+                    _bakedFiles.add((Path)invocation.getArguments()[0]);
+                    return null;
+                })
+                .when(_bakerMock).bake(any(), any(), any());
     }
 
 
@@ -87,18 +111,17 @@ public final class DirBakerTest
 
         Path sourceDir = TestUtils.getPath(DirBaker.class, "source01");
         Path targetDir = Paths.get(".");
-        MockBaker mockBaker = new MockBaker();
-        DirBaker baker = buildDirBaker(sourceDir, targetDir, mockBaker);
+        DirBaker baker = buildDirBaker(sourceDir, targetDir, _bakerMock);
 
         baker.bakeDirectory(sourceDir, targetDir, conf);
 
-        List<Path> bakedFiles = mockBaker.getBakedFiles();
-        List<String> expectedFiles =
+        List<Path> actualBakedFiles = _bakedFiles;
+        List<String> expectedBakedFiles =
                 Arrays.asList(
                         "file02.adoc",
                         "file04.adoc");
 
-        assertFileNameEquals(sourceDir, expectedFiles, bakedFiles);
+        assertFileNameEquals(sourceDir, expectedBakedFiles, actualBakedFiles);
     }
 
 
@@ -110,18 +133,17 @@ public final class DirBakerTest
 
         Path sourceDir = TestUtils.getPath(DirBaker.class, "source02");
         Path targetDir = Paths.get(".");
-        MockBaker mockBaker = new MockBaker();
-        DirBaker baker = buildDirBaker(sourceDir, targetDir, mockBaker);
+        DirBaker baker = buildDirBaker(sourceDir, targetDir, _bakerMock);
 
         baker.bakeDirectory(sourceDir, targetDir, _emptyConf);
 
-        List<Path> bakedFiles = mockBaker.getBakedFiles();
-        List<String> expectedFiles =
+        List<Path> actualBakedFiles = _bakedFiles;
+        List<String> expectedBakedFiles =
                 Arrays.asList(
                         "file02.adoc",
                         "file04.adoc");
 
-        assertFileNameEquals(sourceDir, expectedFiles, bakedFiles);
+        assertFileNameEquals(sourceDir, expectedBakedFiles, actualBakedFiles);
     }
 
 
@@ -145,9 +167,9 @@ public final class DirBakerTest
                         sourceRootDir,
                         targetRootDir,
                         fileBaker,
-                        _templateService,
+                        _templateServiceMock,
                         _confDao,
-                        _dirBakeListener);
+                        _dirBakeListenerMock);
         return result;
     }
 
@@ -167,137 +189,6 @@ public final class DirBakerTest
                 .collect(Collectors.toList());
 
         assertThat(actualRelFiles).isEqualTo(expectedRelFiles);
-    }
-
-
-    /**
-     * Does nothing apart from keeping a list of files submitted for
-     * baking.
-     */
-    private static final class MockBaker
-            implements Baker {
-
-
-        final List<Path> _bakedFiles = new ArrayList<>();
-
-
-        /**
-         *
-         */
-        @Override
-        public String getShortName() {
-
-            return "mock";
-        }
-
-
-        /**
-         *
-         */
-        @Override
-        public boolean isBakeable(final Path Path) {
-
-            return true;
-        }
-
-
-        /**
-         *
-         */
-        @Override
-        public void bake(
-                final Path sourcePath,
-                final PageContext context,
-                final Path targetDir) {
-
-            _bakedFiles.add(sourcePath);
-        }
-
-
-        /**
-         *
-         */
-        public List<Path> getBakedFiles() {
-
-            return _bakedFiles;
-        }
-
-
-
-    }
-
-
-    /**
-     *
-     */
-    private static final class MockDirBakeListener
-            implements DirBakeListener {
-
-
-        private int _eventCount;
-
-
-        /**
-         *
-         */
-        public MockDirBakeListener() {
-            _eventCount = 0;
-        }
-
-
-        /**
-         *
-         */
-        @Override
-        public PageVars onDirBake(final PageContext context) {
-
-            PageVars newVars = context.getPageVars();
-
-            ++_eventCount;
-
-            return newVars;
-        }
-
-
-        /**
-         *
-         */
-        public int getEventCount() {
-
-            return _eventCount;
-        }
-
-
-    }
-
-
-    /**
-     *
-     */
-    private static final class MockTemplateService
-            implements TemplateService {
-
-
-        /**
-         *
-         */
-        public MockTemplateService() {
-            // Nothing to do.
-        }
-
-
-        /**
-         *
-         */
-        @Override
-        public Optional<Template> getTemplate(final String name) {
-
-            Optional<Template> result = Optional.empty();
-
-            return result;
-        }
-
-
     }
 
 
