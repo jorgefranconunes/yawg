@@ -281,8 +281,10 @@ Copyright (c) 2015-2016 Yawg project contributors.
     <profile>
       <id>yawg-jacoco</id>
 
-      <!-- Activate JaCoCo code coverage analysis only when generating
-           the Maven site with all the code quality reports. -->
+      <!--
+          Activate JaCoCo code coverage analysis only when generating
+          the Maven site with all the code quality reports.
+      -->
       <activation>
         <property>
           <name>yawg.mavensite</name>
@@ -301,6 +303,13 @@ Copyright (c) 2015-2016 Yawg project contributors.
                 <id>default-prepare-agent</id>
                 <goals>
                   <goal>prepare-agent</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>default-report</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>report</goal>
                 </goals>
               </execution>
             </executions>
