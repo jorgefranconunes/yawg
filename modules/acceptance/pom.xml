@@ -43,9 +43,8 @@ Copyright (c) 2016 Yawg project contributors.
 
     <dependency>
       <groupId>com.varmateo.yawg</groupId>
-      <artifactId>yawg-testutils</artifactId>
+      <artifactId>yawg-api</artifactId>
       <version>${project.version}</version>
-      <scope>test</scope>
     </dependency>
 
     <dependency>
@@ -54,7 +53,46 @@ Copyright (c) 2016 Yawg project contributors.
       <version>${project.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>com.varmateo.yawg</groupId>
+      <artifactId>yawg-commons</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.varmateo.yawg</groupId>
+      <artifactId>yawg-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.varmateo.yawg</groupId>
+      <artifactId>yawg-testutils</artifactId>
+      <version>${project.version}</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
+
+
+  <reporting>
+    <plugins>
+
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${jacoco-maven-plugin.version}</version>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>report-aggregate</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+
+    </plugins>
+  </reporting>
 
 
   <!-- More project information. -->

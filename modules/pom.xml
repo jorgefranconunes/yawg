@@ -108,7 +108,7 @@ Copyright (c) 2015-2016 Yawg project contributors.
             </compilerArgs>
           </configuration>
         </plugin>
-        
+
       </plugins>
 
     </pluginManagement>
@@ -116,13 +116,13 @@ Copyright (c) 2015-2016 Yawg project contributors.
 
     <plugins>
 
-      <!-- This is here because we want to specify the exact
-           CheckStyle version to be used. It will not work if we put
-           this plugin inside <pluginManagement>. It will not work if
-           we add the
-           <dependencies> block inside <reporting>. And this, gentle
-           fellow coder, is why Maven is going the way of the
-           dodo... -->
+      <!--
+          This is here because we want to specify the exact CheckStyle
+          version to be used. It will not work if we put this plugin
+          inside <pluginManagement>. It will not work if we add the
+          <dependencies> block inside <reporting>. And this, gentle
+          fellow coder, is why Maven is going the way of the dodo...
+      -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
@@ -221,13 +221,27 @@ Copyright (c) 2015-2016 Yawg project contributors.
 
 
 
+  <distributionManagement>
+    <site>
+      <id>yawg.mavensite</id>
+      <name>Yawg Project Maven Reports</name>
+      <url>file:///${yawg.mavensite}/</url>
+    </site>
+  </distributionManagement>
+
+
+
+
+
   <!-- -->
   <profiles>
 
 
-    <!-- Used for creating the Maven site. The system property
-         "yawg.mavensite" defines the path of the directory where the
-         site files are created. -->
+    <!--
+        Used for creating the Maven site. The system property
+        "yawg.mavensite" defines the path of the directory where the
+        site files are created.
+    -->
     <profile>
       <id>yawg-mavensite</id>
       <activation>
@@ -235,13 +249,6 @@ Copyright (c) 2015-2016 Yawg project contributors.
           <name>yawg.mavensite</name>
         </property>
       </activation>
-      <distributionManagement>
-	    <site>
-	      <id>yawg.mavensite</id>
-	      <name>Yawg Project Maven Reports</name>
-	      <url>file:///${yawg.mavensite}/</url>
-	    </site>
-      </distributionManagement>
 
       <properties>
         <skipTests>false</skipTests>
@@ -296,12 +303,6 @@ Copyright (c) 2015-2016 Yawg project contributors.
                   <goal>prepare-agent</goal>
                 </goals>
               </execution>
-              <execution>
-                <id>default-report</id>
-                <goals>
-                  <goal>report</goal>
-                </goals>
-              </execution>
             </executions>
           </plugin>
 
@@ -317,10 +318,11 @@ Copyright (c) 2015-2016 Yawg project contributors.
 
 
 
-  <!-- Report configuration. This refers to the reports that are
-       included in the Maven generated site. The information on that
-       site is only relevant to developers. -->
-
+  <!--
+      Report configuration. This refers to the reports that are
+      included in the Maven generated site. The information on that
+      site is only relevant to developers.
+  -->
   <reporting>
 
     <plugins>
@@ -365,7 +367,7 @@ Copyright (c) 2015-2016 Yawg project contributors.
         </configuration>
         <reportSets>
           <reportSet>
-            <id>default</id>
+            <id>javadoc-default</id>
             <reports>
               <report>javadoc</report>
             </reports>
@@ -445,7 +447,7 @@ Copyright (c) 2015-2016 Yawg project contributors.
           <targetJdk>1.8</targetJdk>
           <verbose>true</verbose>
           <rulesets>
-            <ruleset>../src/main/config/pmd/pmd-rulesets.xml</ruleset>
+            <ruleset>${yawg.projectRootDir}/src/main/config/pmd/pmd-rulesets.xml</ruleset>
           </rulesets>
         </configuration>
       </plugin>
@@ -460,9 +462,9 @@ Copyright (c) 2015-2016 Yawg project contributors.
 
   <!-- More project information. -->
 
-  <name>Yet Another Wiki Generator</name>
+  <name>Yawg Project</name>
 
-  <description>Wiki builder.</description>
+  <description>Yawg is a static site generator.</description>
 
   <inceptionYear>2015</inceptionYear>
 
