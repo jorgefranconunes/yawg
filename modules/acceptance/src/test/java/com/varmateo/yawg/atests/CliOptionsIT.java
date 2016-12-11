@@ -31,7 +31,7 @@ public final class CliOptionsIT {
         BakerRunnerResult bakerResult = baker.run();
 
         int actualExitStatus = bakerResult.getExitStatus();
-        assertThat(0).isEqualTo(actualExitStatus);
+        assertThat(actualExitStatus).isEqualTo(0);
 
         String actualFirstLine = bakerResult.outputLine(1);
         assertThat(actualFirstLine).contains(YawgInfo.VERSION);
@@ -51,10 +51,30 @@ public final class CliOptionsIT {
         BakerRunnerResult bakerResult = baker.run();
 
         int actualExitStatus = bakerResult.getExitStatus();
-        assertThat(0).isNotEqualTo(actualExitStatus);
+        assertThat(actualExitStatus).isNotEqualTo(0);
 
         String actualFirstLine = bakerResult.outputLine(1);
         assertThat(actualFirstLine).contains("unknown option");
+    }
+
+
+    /**
+     *
+     */
+    @Test
+    public void helpOption() {
+
+        BakerRunner baker =
+                BakerRunner.builder()
+                .addArg("--version")
+                .build();
+        BakerRunnerResult bakerResult = baker.run();
+
+        int actualExitStatus = bakerResult.getExitStatus();
+        assertThat(actualExitStatus).isEqualTo(0);
+
+        String actualFirstLine = bakerResult.outputLine(1);
+        assertThat(actualFirstLine).contains(YawgInfo.VERSION);
     }
 
 

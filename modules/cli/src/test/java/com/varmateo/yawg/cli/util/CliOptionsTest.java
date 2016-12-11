@@ -12,8 +12,10 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 import com.varmateo.testutils.TestUtils;
 
@@ -61,7 +63,7 @@ public final class CliOptionsTest
         String[] args = {};
         CliOptions cliOptions = CliOptions.parse(options, args);
 
-        assertEquals(0, cliOptions.supportedOptions().size());
+        assertThat(cliOptions.supportedOptions()).isEmpty();
     }
 
 
@@ -71,8 +73,8 @@ public final class CliOptionsTest
         Collection<CliOption> options = Collections.emptyList();
         String[] args = { "--something" };
 
-        TestUtils.assertThrows(CliException.class,
-                               () -> CliOptions.parse(options, args));
+        assertThatThrownBy(() -> CliOptions.parse(options, args))
+                .isInstanceOf(CliException.class);
     }
 
 
@@ -82,8 +84,8 @@ public final class CliOptionsTest
         Collection<CliOption> options = Arrays.asList(OPT_WITH_ARG);
         String[] args = { OPT_WITH_ARG_OPT };
 
-        TestUtils.assertThrows(CliException.class,
-                               () -> CliOptions.parse(options, args));
+        assertThatThrownBy(() -> CliOptions.parse(options, args))
+                .isInstanceOf(CliException.class);
     }
 
 
@@ -93,8 +95,8 @@ public final class CliOptionsTest
         Collection<CliOption> options = Arrays.asList(OPT_WITH_ARG);
         String[] args = { OPT_WITH_ARG_OPT, "something", "else" };
 
-        TestUtils.assertThrows(CliException.class,
-                               () -> CliOptions.parse(options, args));
+        assertThatThrownBy(() -> CliOptions.parse(options, args))
+                .isInstanceOf(CliException.class);
     }
 
 
@@ -107,7 +109,7 @@ public final class CliOptionsTest
         CliOptions cliOptions = CliOptions.parse(options, args);
         String actualValue = cliOptions.get(OPT_WITH_ARG);
 
-        assertEquals("something", actualValue);
+        assertThat(actualValue).isEqualTo("something");
     }
 
 
@@ -119,8 +121,8 @@ public final class CliOptionsTest
         String[] args = {};
         CliOptions cliOptions = CliOptions.parse(options, args);
 
-        TestUtils.assertThrows(CliException.class,
-                               () -> cliOptions.get(OPT_WITH_ARG));
+        assertThatThrownBy(() -> cliOptions.get(OPT_WITH_ARG))
+                .isInstanceOf(CliException.class);
     }
 
 
@@ -133,7 +135,7 @@ public final class CliOptionsTest
         CliOptions cliOptions = CliOptions.parse(options, args);
         String actualValue = cliOptions.get(OPT_WITH_ARG, "whatever");
 
-        assertEquals("something", actualValue);
+        assertThat(actualValue).isEqualTo("something");
     }
 
 
@@ -146,7 +148,7 @@ public final class CliOptionsTest
         CliOptions cliOptions = CliOptions.parse(options, args);
         String actualValue = cliOptions.get(OPT_WITH_ARG, "whatever");
 
-        assertEquals("whatever", actualValue);
+        assertThat(actualValue).isEqualTo("whatever");
     }
 
 
@@ -160,7 +162,7 @@ public final class CliOptionsTest
         Path actualPath = cliOptions.getPath(OPT_WITH_ARG);
         Path expectedPath = Paths.get("this", "is", "a", "path");
 
-        assertEquals(expectedPath, actualPath);
+        assertThat(actualPath).isEqualTo(expectedPath);
     }
 
 
@@ -172,7 +174,7 @@ public final class CliOptionsTest
         String[] args = { OPT_WITH_ARG_OPT, "true" };
         CliOptions cliOptions = CliOptions.parse(options, args);
 
-        assertTrue(cliOptions.isTrue(OPT_WITH_ARG));
+        assertThat(cliOptions.isTrue(OPT_WITH_ARG)).isTrue();
     }
 
 
@@ -184,7 +186,7 @@ public final class CliOptionsTest
         String[] args = { OPT_WITH_ARG_OPT, "false" };
         CliOptions cliOptions = CliOptions.parse(options, args);
 
-        assertFalse(cliOptions.isTrue(OPT_WITH_ARG));
+        assertThat(cliOptions.isTrue(OPT_WITH_ARG)).isFalse();
     }
 
 
@@ -196,7 +198,7 @@ public final class CliOptionsTest
         String[] args = { OPT_NO_ARG_OPT };
         CliOptions cliOptions = CliOptions.parse(options, args);
 
-        assertTrue(cliOptions.isTrue(OPT_NO_ARG));
+        assertThat(cliOptions.isTrue(OPT_NO_ARG)).isTrue();
     }
 
 
@@ -208,7 +210,7 @@ public final class CliOptionsTest
         String[] args = {};
         CliOptions cliOptions = CliOptions.parse(options, args);
 
-        assertFalse(cliOptions.isTrue(OPT_NO_ARG));
+        assertThat(cliOptions.isTrue(OPT_NO_ARG)).isFalse();
     }
 
 

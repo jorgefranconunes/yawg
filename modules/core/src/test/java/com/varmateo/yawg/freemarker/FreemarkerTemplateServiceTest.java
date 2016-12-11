@@ -11,7 +11,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import org.junit.Test;
 
 import freemarker.template.TemplateException;
@@ -47,9 +49,8 @@ public final class FreemarkerTemplateServiceTest
         TemplateService service =
                 new FreemarkerTemplateService(templatesDir);
 
-        TestUtils.assertThrows(
-                YawgException.class,
-                () -> service.getTemplate(TEMPLATE_NAME_OK));
+        assertThatThrownBy(() -> service.getTemplate(TEMPLATE_NAME_OK))
+                .isInstanceOf(YawgException.class);
     }
 
 
@@ -67,7 +68,7 @@ public final class FreemarkerTemplateServiceTest
                 new FreemarkerTemplateService(templatesDir);
         Optional<Template> template = service.getTemplate(TEMPLATE_NAME_OK);
 
-        assertTrue(template.isPresent());
+        assertThat(template).isPresent();
     }
 
 
@@ -84,9 +85,8 @@ public final class FreemarkerTemplateServiceTest
         TemplateService service =
                 new FreemarkerTemplateService(templatesDir);
 
-        TestUtils.assertThrows(
-                YawgException.class,
-                () -> service.getTemplate("NoSuchTemplate.ftlh"));
+        assertThatThrownBy(() -> service.getTemplate("NoSuchTemplate.ftlh"))
+                .isInstanceOf(YawgException.class);
     }
 
 
@@ -120,7 +120,7 @@ public final class FreemarkerTemplateServiceTest
         String actualBakedContents = buffer.toString();
         String expectedBakedContents = "Demo02: " + body + "\n";
 
-        assertEquals(expectedBakedContents, actualBakedContents);
+        assertThat(actualBakedContents).isEqualTo(expectedBakedContents);
     }
 
 
@@ -149,13 +149,8 @@ public final class FreemarkerTemplateServiceTest
                 .build();
         StringWriter buffer = new StringWriter();
 
-        Exception error =
-                TestUtils.assertThrows(
-                        YawgException.class,
-                        () -> template.process(model, buffer));
-        Throwable causeError = error.getCause();
-
-        assertTrue(causeError instanceof TemplateException);
+        assertThatThrownBy(() -> template.process(model, buffer))
+                .hasCauseInstanceOf(TemplateException.class);
     }
 
 

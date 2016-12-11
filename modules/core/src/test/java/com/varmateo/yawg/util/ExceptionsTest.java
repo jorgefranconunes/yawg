@@ -6,10 +6,9 @@
 
 package com.varmateo.yawg.util;
 
-import static org.junit.Assert.*;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import com.varmateo.testutils.TestUtils;
+import org.junit.Test;
 
 import com.varmateo.yawg.util.Exceptions;
 
@@ -27,20 +26,11 @@ public final class ExceptionsTest
     @Test
     public void withFmtArgs() {
 
-        ExceptionOk exception = null;
-
-        try {
-            Exceptions.raise(
-                    ExceptionOk.class,
-                    "All is {0}",
-                    "well");
-            fail("No exception was thrown");
-        } catch ( ExceptionOk e ) {
-            exception = e;
-        }
-
-        assertEquals("All is well", exception.getMessage());
-        assertNull(exception.getCause());
+        assertThatThrownBy(
+                () -> Exceptions.raise(ExceptionOk.class, "All is {0}", "well"))
+                .isInstanceOf(ExceptionOk.class)
+                .hasMessage("All is well")
+                .hasNoCause();
     }
 
 
@@ -50,19 +40,11 @@ public final class ExceptionsTest
     @Test
     public void withNoFmtArgs() {
 
-        ExceptionOk exception = null;
-
-        try {
-            Exceptions.raise(
-                    ExceptionOk.class,
-                    "All is {0}");
-            fail("No exception was thrown");
-        } catch ( ExceptionOk e ) {
-            exception = e;
-        }
-
-        assertEquals("All is {0}", exception.getMessage());
-        assertNull(exception.getCause());
+        assertThatThrownBy(
+                () -> Exceptions.raise(ExceptionOk.class, "All is {0}"))
+                .isInstanceOf(ExceptionOk.class)
+                .hasMessage("All is {0}")
+                .hasNoCause();
     }
 
 
@@ -72,22 +54,16 @@ public final class ExceptionsTest
     @Test
     public void withCause() {
 
-        ExceptionOk exception = null;
         Exception cause = new RuntimeException("The Cause");
 
-        try {
-            Exceptions.raise(
-                    ExceptionOk.class,
-                    cause,
-                    "All is {0}",
-                    "well");
-            fail("No exception was thrown");
-        } catch ( ExceptionOk e ) {
-            exception = e;
-        }
-
-        assertEquals("All is well", exception.getMessage());
-        assertSame(cause, exception.getCause());
+        assertThatThrownBy(
+                () -> Exceptions.raise(
+                        ExceptionOk.class,
+                        cause,
+                        "All is {0}", "well"))
+                .isInstanceOf(ExceptionOk.class)
+                .hasMessage("All is well")
+                .hasCause(cause);
     }
 
 
@@ -97,13 +73,11 @@ public final class ExceptionsTest
     @Test
     public void noConstructorWithMessage() {
 
-        TestUtils.assertThrows(
-                IllegalArgumentException.class,
-                () -> {
-                    Exceptions.raise(
-                            ExceptionNoConstructorWithMessage.class,
-                            "Fail");
-                });
+        assertThatThrownBy(
+                () -> Exceptions.raise(
+                        ExceptionNoConstructorWithMessage.class,
+                        "Fail"))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
 

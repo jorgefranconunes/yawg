@@ -6,10 +6,9 @@
 
 package com.varmateo.yawg;
 
-import static org.junit.Assert.*;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import com.varmateo.testutils.TestUtils;
+import org.junit.Test;
 
 import com.varmateo.yawg.SiteBakerFactory;
 
@@ -33,9 +32,8 @@ public final class SiteBakerFactoryTest
         // supposed to fail the specific environment where this unit
         // test is run.
 
-        TestUtils.assertThrows(
-                IllegalStateException.class,
-                () -> SiteBakerFactory.get());
+        assertThatThrownBy(() -> SiteBakerFactory.get())
+                .isInstanceOf(IllegalStateException.class);
     }
 
 

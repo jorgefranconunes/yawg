@@ -12,7 +12,9 @@ import java.util.List;
 
 import org.asciidoctor.Asciidoctor;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -55,9 +57,9 @@ public final class AsciidoctorBakerDataModelBuilderIT
 
         TemplateDataModel model = buildModel("DocumentWithTitle.adoc");
 
-        assertEquals("Document with Title", model.getTitle());
-        assertTrue(model.getBody().contains(
-                "The body of the document with a title."));
+        assertThat(model.getTitle()).isEqualTo("Document with Title");
+        assertThat(model.getBody()).contains(
+                "The body of the document with a title.");
     }
 
 
@@ -70,9 +72,9 @@ public final class AsciidoctorBakerDataModelBuilderIT
 
         TemplateDataModel model = buildModel("DocumentWithoutTitle.adoc");
 
-        assertEquals("DocumentWithoutTitle", model.getTitle());
-        assertTrue(model.getBody().contains(
-                "The body of the document without a title."));
+        assertThat(model.getTitle()).isEqualTo("DocumentWithoutTitle");
+        assertThat(model.getBody()).contains(
+                "The body of the document without a title.");
     }
 
 
@@ -86,7 +88,7 @@ public final class AsciidoctorBakerDataModelBuilderIT
         TemplateDataModel model = buildModel("DocumentWithAuthor00.adoc");
         List<TemplateDataModel.Author> authors = model.getAuthors();
 
-        assertEquals(0, authors.size());
+        assertThat(authors).isEmpty();
     }
 
 
@@ -100,9 +102,10 @@ public final class AsciidoctorBakerDataModelBuilderIT
         TemplateDataModel model = buildModel("DocumentWithAuthor01.adoc");
         List<TemplateDataModel.Author> authors = model.getAuthors();
 
-        assertEquals(1, authors.size());
-        assertEquals("John Doe", authors.get(0).getName());
-        assertEquals("john.doe@example.com", authors.get(0).getEmail());
+        assertThat(authors)
+                .extracting("name", "email")
+                .containsExactly(
+                        tuple("John Doe", "john.doe@example.com"));
     }
 
 
@@ -116,9 +119,10 @@ public final class AsciidoctorBakerDataModelBuilderIT
         TemplateDataModel model = buildModel("DocumentWithAuthor02.adoc");
         List<TemplateDataModel.Author> authors = model.getAuthors();
 
-        assertEquals(1, authors.size());
-        assertEquals("John Doe", authors.get(0).getName());
-        assertEquals("john.doe@example.com", authors.get(0).getEmail());
+        assertThat(authors)
+                .extracting("name", "email")
+                .containsExactly(
+                        tuple("John Doe", "john.doe@example.com"));
     }
 
 
@@ -132,11 +136,11 @@ public final class AsciidoctorBakerDataModelBuilderIT
         TemplateDataModel model = buildModel("DocumentWithAuthor03.adoc");
         List<TemplateDataModel.Author> authors = model.getAuthors();
 
-        assertEquals(2, authors.size());
-        assertEquals("John Doe", authors.get(0).getName());
-        assertEquals("john.doe@example.com", authors.get(0).getEmail());
-        assertEquals("Jane Doe", authors.get(1).getName());
-        assertEquals("jane.doe@example.com", authors.get(1).getEmail());
+        assertThat(authors)
+                .extracting("name", "email")
+                .containsExactly(
+                        tuple("John Doe", "john.doe@example.com"),
+                        tuple("Jane Doe", "jane.doe@example.com"));
     }
 
 
