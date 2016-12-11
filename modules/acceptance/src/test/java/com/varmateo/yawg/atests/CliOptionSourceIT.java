@@ -6,54 +6,44 @@
 
 package com.varmateo.yawg.atests;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
-import com.varmateo.yawg.YawgInfo;
+import com.varmateo.testutils.TestUtils;
 import com.varmateo.yawg.atests.BakerRunner;
 import com.varmateo.yawg.atests.BakerRunnerResult;
 import static com.varmateo.yawg.atests.BakerRunnerResultAssert.assertThat;
 
 
 /**
- *
+ * Acceptance tests related with the --source command line option.
  */
-public final class CliOptionsIT {
+public final class CliOptionSourceIT {
 
 
     /**
      *
      */
     @Test
-    public void noArgs() {
+    public void sourceWithNoTarget()
+            throws IOException {
 
-        BakerRunner baker = BakerRunner.empty();
-        BakerRunnerResult bakerResult = baker.run();
-
-        assertThat(bakerResult)
-                .hasExitStatusSuccess()
-                .outputLine(1)
-                .contains(YawgInfo.VERSION);
-    }
-
-
-    /**
-     *
-     */
-    @Test
-    public void unknownOption() {
-
+        Path sourcePath = TestUtils.getTmpDir(CliOptionSourceIT.class);
         BakerRunner baker =
                 BakerRunner.builder()
-                .addArgs("--this-is-an-unknown-option")
+                .addSourcePath(sourcePath)
                 .build();
         BakerRunnerResult bakerResult = baker.run();
 
         assertThat(bakerResult)
                 .hasExitStatusFailure()
                 .outputLine(1)
-                .contains("unknown option");
+                .contains("missing mandatory option");
     }
 
 
@@ -61,28 +51,22 @@ public final class CliOptionsIT {
      *
      */
     @Test
-    public void helpOption() {
+    public void sourceNonExisting()
+            throws IOException {
 
-        helpOptionTest("--version");
-        helpOptionTest("-v");
-    }
-
-
-    /**
-     *
-     */
-    private void helpOptionTest(final String option) {
-
+        Path sourcePath = Paths.get("this-directory-does-not-exist-for-sure");
+        Path targetPath = TestUtils.getTmpDir(CliOptionSourceIT.class);
         BakerRunner baker =
                 BakerRunner.builder()
-                .addArg(option)
+                .addSourcePath(sourcePath)
+                .addTargetPath(targetPath)
                 .build();
         BakerRunnerResult bakerResult = baker.run();
 
         assertThat(bakerResult)
-                .hasExitStatusSuccess()
-                .outputLine(1)
-                .contains(YawgInfo.VERSION);
+                .hasExitStatusFailure()
+                .outputLineFromEnd(1)
+                .contains("NoSuchFileException");
     }
 
 

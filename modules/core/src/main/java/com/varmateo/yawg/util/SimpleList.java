@@ -17,7 +17,9 @@ import com.varmateo.yawg.util.SimpleMap;
 
 
 /**
+ * Simple list intended for use in deserialization.
  *
+ * @param <T> The type of elements in the list.
  */
 public final class SimpleList<T> {
 

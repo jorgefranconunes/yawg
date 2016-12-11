@@ -153,6 +153,8 @@ public final class FileUtils {
      * throws <code>IOException</code>. Intended for simplifying the
      * use of lambdas when calling the <code>newWriter(...)</code>
      * method.
+     *
+     * @param <T> The input type for the consumer.
      */
     @FunctionalInterface
     public interface ConsumerWithIOException<T> {

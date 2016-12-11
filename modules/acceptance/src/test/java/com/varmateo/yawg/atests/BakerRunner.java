@@ -7,6 +7,7 @@
 package com.varmateo.yawg.atests;
 
 import java.io.ByteArrayOutputStream;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,6 +114,28 @@ public final class BakerRunner {
             for ( String arg : args ) {
                 _args.add(arg);
             }
+
+            return this;
+        }
+
+
+        /**
+         *
+         */
+        public Builder addSourcePath(final Path sourcePath) {
+
+            addArgs("--source", sourcePath.toString());
+
+            return this;
+        }
+
+
+        /**
+         *
+         */
+        public Builder addTargetPath(final Path targetPath) {
+
+            addArgs("--target", targetPath.toString());
 
             return this;
         }

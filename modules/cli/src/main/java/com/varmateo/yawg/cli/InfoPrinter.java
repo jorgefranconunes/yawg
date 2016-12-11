@@ -114,8 +114,7 @@ import com.varmateo.yawg.cli.util.CliInfoPrinter;
     /**
      *
      */
-    public static final class Builder
- {
+    public static final class Builder {
 
 
         private String      _argv0  = null;

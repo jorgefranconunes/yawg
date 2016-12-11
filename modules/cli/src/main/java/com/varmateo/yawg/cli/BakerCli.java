@@ -14,11 +14,12 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.ConsoleHandler;
 import java.util.logging.Formatter;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.LogManager;
+import java.util.logging.StreamHandler;
 
 import com.varmateo.yawg.PageVars;
 import com.varmateo.yawg.SiteBaker;
@@ -99,6 +100,7 @@ public final class BakerCli {
         int exitStatus = EXIT_STATUS_OK;
 
         if ( error != null ) {
+            flushLogging();
             infoPrinter.printError(error);
             exitStatus = EXIT_STATUS_FAILURE;
         }
@@ -179,6 +181,8 @@ public final class BakerCli {
      */
     private void setupLogging(final CliOptions cliOptions) {
 
+        LogManager.getLogManager().reset();
+
         Level loggerLevel = null;
         if ( cliOptions.hasOption(BakerCliOptions.VERBOSE) ) {
             loggerLevel = Level.FINEST;
@@ -188,8 +192,7 @@ public final class BakerCli {
 
         Formatter formatter = new PlainFormatter(LOG_FMT_CONSOLE);
 
-        Handler handler = new ConsoleHandler();
-        handler.setFormatter(formatter);
+        Handler handler = new StreamHandler(_output, formatter);
         handler.setLevel(loggerLevel);
 
         String loggerName = "com.varmateo";
@@ -197,6 +200,20 @@ public final class BakerCli {
         logger.addHandler(handler);
         logger.setLevel(Level.FINEST);
         logger.setUseParentHandlers(false);
+    }
+
+
+    /**
+     *
+     */
+    private void flushLogging() {
+
+        String loggerName = "com.varmateo";
+        Logger logger = Logger.getLogger(loggerName);
+
+        for (Handler handler : logger.getHandlers() ) {
+            handler.flush();
+        }
     }
 
 

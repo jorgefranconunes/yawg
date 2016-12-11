@@ -136,8 +136,7 @@ public final class CliInfoPrinter {
     /**
      * A builder of <code>CliInfoPrinter</code> instances.
      */
-    public static final class Builder
- {
+    public static final class Builder {
 
 
         private String _argv0 = DEFAULT_ARGV0;

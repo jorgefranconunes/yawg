@@ -173,8 +173,7 @@ public final class CliOption {
     /**
      * A builder of <code>CliOption</code> instances.
      */
-    public static final class Builder
- {
+    public static final class Builder {
 
 
         private String  _shortName   = null;

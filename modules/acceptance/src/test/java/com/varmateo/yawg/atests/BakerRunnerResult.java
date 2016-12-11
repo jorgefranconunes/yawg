@@ -10,6 +10,8 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
@@ -70,6 +72,18 @@ public final class BakerRunnerResult {
                 .skip(index)
                 .findFirst()
                 .get();
+
+        return result;
+    }
+
+
+    /**
+     *
+     */
+    public String outputLineFromEnd(final int index) {
+
+        List<String> lines = outputLines().collect(Collectors.toList());
+        String result = lines.get(lines.size()-1-index);
 
         return result;
     }
