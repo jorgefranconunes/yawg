@@ -17,7 +17,7 @@
 
     <link
        rel="stylesheet"
-       href="../yawg-site.css?v=7be73e84-334e-4133-860b-6ecfe59a318c" />
+       href="../yawg-site.css?v=bbe19c8a-7f87-44bc-9f45-70fa3f6d855b" />
 
     <script
        type="text/javascript"
@@ -74,7 +74,9 @@
     </ol>
 
         <h1>Auto-publishing the Yawg site</h1>
-        <div class="paragraph">
+        <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
 <p>This document describes the setup and tools for auto-publishing the
 Yawg site.</p>
 </div>
@@ -110,9 +112,11 @@ important to strictly follow the workflow convention that the mainline
 branch (i.e. the <code>master</code> branch) only receives merges from feature
 branches.</p>
 </div>
-<div class="paragraph">
-<p>Steps in the auto-publishing procedure run within Travis CI:</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_steps_in_the_auto_publishing_procedure_run_within_travis_ci">Steps in the auto-publishing procedure run within Travis CI</h2>
+<div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
@@ -143,9 +147,11 @@ site. The exact version to be used is a configuration parameter.</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>Implementation steps:</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_implementation_steps">Implementation steps</h2>
+<div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
@@ -163,7 +169,7 @@ area for the <code>gh-pages</code> branch. DONE</p>
 <li>
 <p>Update <code>build-site</code> to use a configured version of Yawg. This
 involves downloading and installing it. The Yawg installation should
-be placed under <code>target/tools</code>.</p>
+be placed under <code>target/tools</code>. DONE</p>
 </li>
 <li>
 <p>Created new tool <code>devtools/bin/build-travisci-publish-site</code> To
@@ -173,12 +179,105 @@ perform most of the work.</p>
 </li>
 </ul>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_travis_ci_configuration">Travis CI configuration:</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>cache:
+  directories:
+    - $HOME/.yawgdevtools
+
+before_deploy:
+  - eval "$(ssh-agent -s)"
+  - openssl aes-256-cbc -K $encrypted_9f5a14dc3874_key -iv $encrypted_9f5a14dc3874_iv -in ./devtools/conf/id_rsa-travisci.enc -out ./devtools/conf/id_rsa-travisci -d
+  - chmod 600 ./devtools/conf/id_rsa-travisci
+  - ssh-add ./devtools/conf/id_rsa-travisci
+
+deploy:
+  skip_cleanup: true
+  on:
+    branch: master
+  provider: script
+  script: ./devtools/bin/build-site --yawg-install-root=$HOME/.yawgdevtools --upload</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_preparing_the_ssh_key_for_deploying_on_github">Preparing the SSH key for deploying on GitHub</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section describes how to prepare the SSH key and other files for
+deploying the Yawg site to GitHub from within a Travis CI job.</p>
+</div>
+<div class="paragraph">
+<p>Install Travis CI command line client:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>apt-get install ruby-dev
+gem install travis</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Generate the SSH key for uploading the site to GitHub:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>ssh-keygen \
+    -t rsa \
+    -N '' \
+    -C 'yawg-site-upload@travisci' \
+    -f ~/.ssh/id_rsa-travisci
+
+travis login --org
+travis encrypt-file \
+    ~/.ssh/id_rsa-travisci \
+    ./devtools/conf/id_rsa-travisci.enc \
+    --repo jorgefranconunes/yawg</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>travis encrypt-file</code> command will output the command that is to
+be used for decripting the file. That command must be added to the
+<code>.travis.yml</code> file.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_define_new_ssh_key_in_github_account">Define new SSH key in GitHub account</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Login to your GitHub account</p>
+</li>
+<li>
+<p>Go to "Settings" &#8594; "SSH and and GPG keys" (<code>settings/keys</code>).</p>
+</li>
+<li>
+<p>Click 'New SSH key'.</p>
+</li>
+<li>
+<p>Paste into the form the contents of the <code>~/.ssh/id_rsa-travisci.pub</code>
+file you created in a previous step.</p>
+</li>
+<li>
+<p>And it&#8217;s done.</p>
+</li>
+</ul>
+</div>
 <div class="paragraph">
 <p>Tools:</p>
 </div>
 <div class="paragraph">
 <p><code>devtools/bin/build-site</code>&#8201;&#8212;&#8201;Bakes the site and uploads it to the
 <code>gh-pages</code> branch of the project Github Git repository.</p>
+</div>
+</div>
 </div>
 
 
