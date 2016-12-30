@@ -33,7 +33,10 @@ branch (i.e. the `master` branch) only receives merges from feature
 branches.
 
 
-Steps in the auto-publishing procedure run within Travis CI:
+
+
+
+== Steps in the auto-publishing procedure run within Travis CI
 
 * If the build is not for a merge into the mainline, then there are no
   more actions to perform.
@@ -58,7 +61,7 @@ Steps in the auto-publishing procedure run within Travis CI:
 
 
 
-Implementation steps:
+== Implementation steps
 
 * Update `build-create-bundle` to place the `.tar.gz` and the code
   quality reports into a `target` folder. This is because we want the
@@ -78,6 +81,86 @@ Implementation steps:
   perform the actions specific to Travis CI. This new
   `build-travisci-publish-site`tool will in turn call `build-site` to
   perform most of the work.
+
+
+
+
+
+== Travis CI configuration:
+
+----
+cache:
+  directories:
+    - $HOME/.yawgdevtools
+
+before_deploy:
+  - eval "$(ssh-agent -s)"
+  - openssl aes-256-cbc -K $encrypted_9f5a14dc3874_key -iv $encrypted_9f5a14dc3874_iv -in ./devtools/conf/id_rsa-travisci.enc -out ./devtools/conf/id_rsa-travisci -d
+  - chmod 600 ./devtools/conf/id_rsa-travisci
+  - ssh-add ./devtools/conf/id_rsa-travisci
+
+deploy:
+  skip_cleanup: true
+  on:
+    branch: master
+  provider: script
+  script: ./devtools/bin/build-site --yawg-latest --yawg-install-root=$HOME/.yawgdevtools
+----
+
+
+
+
+
+== Preparing the SSH key for deploying on GitHub
+
+This section describes how to prepare the SSH key and other files for
+deploying the Yawg site to GitHub from within a Travis CI job.
+
+
+Install Travis CI command line client:
+
+----
+apt-get install ruby-dev
+gem install travis
+----
+
+
+Generate the SSH key for uploading the site to GitHub:
+
+----
+ssh-keygen \
+    -t rsa \
+    -N '' \
+    -C 'yawg-site-upload@travisci' \
+    -f ~/.ssh/id_rsa-travisci
+
+travis login --org
+travis encrypt-file \
+    ~/.ssh/id_rsa-travisci \
+    ./devtools/conf/id_rsa-travisci.enc \
+    --repo jorgefranconunes/yawg
+----
+
+The `travis encrypt-file` command will output the command that is to
+be used for decripting the file. That command must be added to the
+`.travis.yml` file.
+
+
+
+
+
+== Define new SSH key in GitHub account
+
+* Login to your GitHub account
+
+* Go to "Settings" -> "SSH and and GPG keys" (`settings/keys`).
+
+* Click 'New SSH key'.
+
+* Paste into the form the contents of the `~/.ssh/id_rsa-travisci.pub`
+  file you created in a previous step.
+
+* And it's done.
 
 
 
