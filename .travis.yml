@@ -44,4 +44,4 @@ deploy:
   on:
     branch: master
   provider: script
-  script: ./devtools/bin/build-site --yawg-latest --yawg-install-root=$HOME/.yawgdevtools
+  script: ./devtools/bin/build-site --yawg-install-root=$HOME/.yawgdevtools --upload
