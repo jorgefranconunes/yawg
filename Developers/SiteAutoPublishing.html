@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Auto-publishing the Yawg site</title>
+
+    <link
+       rel="stylesheet"
+       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+       integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+       crossorigin="anonymous" />
+
+    <link
+       rel="stylesheet"
+       href="../yawg-site.css?v=f6b950cf-3e28-4a00-b0cf-42e19645208f" />
+
+    <script
+       type="text/javascript"
+       async
+       src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+  </head>
+
+  <body>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-79615115-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+    <div class="yawg-body">
+
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="../index.html">Yawg</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../Download/index.html">Download</a></li>
+    <li><a href="../Documentation/index.html">Documentation</a></li>
+    <li class="active"><a href="../Developers/index.html">Developers</a></li>
+
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+
+
+      <div class="container yawg-content">
+
+
+  <!#-- The breadcrumb bar is only visible if there is more than
+        one bread crumb on this page.-->
+
+    <ol class="breadcrumb">
+          <li><a href=".././index.html">Home</a></li>
+          <li><a href="../Developers/index.html">Developers</a></li>
+    </ol>
+
+        <h1>Auto-publishing the Yawg site</h1>
+        <div class="paragraph">
+<p>This document describes the setup and tools for auto-publishing the
+Yawg site.</p>
+</div>
+<div class="paragraph">
+<p>The Yawg site is hosted through the <a href="https://pages.github.com/">GitHub
+Pages</a> service provided by GitHub.</p>
+</div>
+<div class="paragraph">
+<p>To publish new content the changes must be commited to the <code>gh-pages</code>
+branch of the project. And then pushed to GitHub.</p>
+</div>
+<div class="paragraph">
+<p>The continuous integration build jobs are under the control of Travis
+CI.</p>
+</div>
+<div class="paragraph">
+<p>We will create a tool to perform the actions for publishing the Yawg
+site. This tool will be invoked in the build job run by Travis CI.</p>
+</div>
+<div class="paragraph">
+<p>The Yawg version to be used for baking the Yawg site will be a
+previously released version.</p>
+</div>
+<div class="paragraph">
+<p>The bake and publishing will only occur for merges into the
+mainline. This means only commits into the <code>master</code> branch will
+trigger the auto-publishing. Commits into feature branches and
+pull-requests will not trigger the auto-publishing.</p>
+</div>
+<div class="paragraph">
+<p>To ensure the auto-publishing is performed in the right context, it is
+important to strictly follow the workflow convention that the mainline
+branch (i.e. the <code>master</code> branch) only receives merges from feature
+branches.</p>
+</div>
+<div class="paragraph">
+<p>Steps in the auto-publishing procedure run within Travis CI:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If the build is not for a merge into the mainline, then there are no
+more actions to perform.</p>
+</li>
+<li>
+<p>If there are no changes in the current commit related with the site
+(i.e. changes below <code>doc</code>) then there are no more actions to
+perform.</p>
+</li>
+<li>
+<p>Prepare the SSH key for access to GitHub
+(cf. <a href="https://docs.travis-ci.com/user/deployment/custom/#Git" class="bare">https://docs.travis-ci.com/user/deployment/custom/#Git</a>).</p>
+</li>
+<li>
+<p>Download and install the desired version of Yawg for baking the
+site. The exact version to be used is a configuration parameter.</p>
+</li>
+<li>
+<p>Create a workspace with the contents of the <code>gh-branch</code>.</p>
+</li>
+<li>
+<p>Bake the Yawg site.</p>
+</li>
+<li>
+<p>Commit and push the changes to GitHub, still in the <code>gh-granch</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Implementation steps:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Update <code>build-create-bundle</code> to place the <code>.tar.gz</code> and the code
+quality reports into a <code>target</code> folder. This is because we want the
+publishing related tools to also have their working directories
+under <code>target</code>. The name <code>target</code> is chosen to follow Maven
+conventions. OPTIONAL</p>
+</li>
+<li>
+<p>Update <code>build-site</code> to use <code>target/site</code> as the target directory for
+the baked site.  This will also be the directory with the working
+area for the <code>gh-pages</code> branch.</p>
+</li>
+<li>
+<p>Update <code>build-site</code> to use a configured version of Yawg. This
+involves downloading and installing it. The Yawg installation should
+be placed under <code>target/tools</code>.</p>
+</li>
+<li>
+<p>Created new tool <code>devtools/bin/build-travisci-publish-site</code> To
+perform the actions specific to Travis CI. This new
+<code>build-travisci-publish-site`tool will in turn call `build-site</code> to
+perform most of the work.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Tools:</p>
+</div>
+<div class="paragraph">
+<p><code>devtools/bin/build-site</code>&#8201;&#8212;&#8201;Bakes the site and uploads it to the
+<code>gh-pages</code> branch of the project Github Git repository.</p>
+</div>
+
+
+<footer class="yawg-footer">
+  <p>&copy;2016 Yawg project contributors</p>
+  <p>
+    Mixed with
+    <a href="http://getbootstrap.com/" target="_blank">Bootstrap 3.3.6</a>
+    |
+    Baked with
+    <a href="http://yawg.varmateo.com/">Yawg 0.9.4</a>
+    |
+    <a href="../Acknowledgements.html">Acknowledgements</a>
+  </p>
+</footer>
+
+      </div>
+
+    </div>
+
+  </body>
+
+</html>
