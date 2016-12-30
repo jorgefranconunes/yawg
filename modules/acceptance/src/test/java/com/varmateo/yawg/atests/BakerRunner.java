@@ -152,6 +152,18 @@ public final class BakerRunner {
         }
 
 
+        /**
+         *
+         */
+        public BakerRunnerResult run() {
+
+            BakerRunner baker = new BakerRunner(this);
+            BakerRunnerResult result = baker.run();
+
+            return result;
+        }
+
+
     }
 
 

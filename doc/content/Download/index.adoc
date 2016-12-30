@@ -13,7 +13,7 @@ https://github.com/jorgefranconunes/yawg/releases/download/v0.9.4/yawg-0.9.4.tar
 
 * https://github.com/jorgefranconunes/yawg/releases[Older releases]
 
-See the link:../Documentation/UserGuide/index.html[Yawg user guide]
+See the link:../Documentation/UserGuide/UserGuide.html[Yawg user guide]
 for instruction on installing and running Yawg.
 
 

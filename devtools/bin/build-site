@@ -29,10 +29,11 @@ DEFAULT_COMMIT_COMMENT="Doc updates"
 
 _workingArea=
 _isInit=false
-_isCommit=false
+_isUpload=false
 _isProduction=false
 _yawgTool=${_yawgHome}/bin/yawg
 _commitComment=${DEFAULT_COMMIT_COMMENT}
+_outputDir=${_yawgHome}/target
 
 
 
@@ -48,7 +49,8 @@ function main () {
 
     processCliArgs "$@"
 
-    _workingArea=${_yawgHome}/../yawg.${SITE_BRANCH}
+    _workingArea=${_outputDir}/site
+    mkdir -p ${_workingArea}
 
     yawgLog "Building site..."
 
@@ -74,11 +76,12 @@ function processCliArgs () {
             --init )
                 _isInit=true
                 ;;
-            --commit )
-                _isCommit=true
+            --upload )
+                _isInit=true
+                _isUpload=true
                 _isProduction=true;
                 ;;
-            --production )
+            --final )
                 _isProduction=true;
                 ;;
             --yawg=* )
@@ -123,12 +126,12 @@ Available options:
 --init
     Initialize directory to be used as working area for site files.
 
---commit
-    Commit changes to the site branch and uploads to Git origin
-    repository. Implies --production
+--upload
+    Uploads the bake result to the Yawg site, replacing the previous
+    contents with the bake result. Implies --init and --final
 
---production
-    Generates the site ready for uploading to the production
+--final
+    Generates the site ready for uploading to the final production
     location. If not specified then a visual indicator is added to the
     site to inform readers that it is not an official release.
 
@@ -172,7 +175,7 @@ function doBakeSite () {
 
 function setupWorkingArea () {
 
-    if [ ${_isInit} == true -o ${_isCommit} == true ] ; then
+    if [ ${_isInit} == true -o ${_isUpload} == true ] ; then
         doSetupWorkingArea
     fi
 }
@@ -193,17 +196,17 @@ function doSetupWorkingArea () {
 
     local exitStatus=0
 
-    if [ ! -d ${_workingArea} ] ; then
+    if [ ! -d ${_workingArea}/.git ] ; then
+        rm -rf ${_workingArea}
         local username=$(git --git-dir ${_yawgHome}/.git config user.name)
         local email=$(git --git-dir ${_yawgHome}/.git config user.email)
 
-        mkdir ${_workingArea} || yawgError "Unable to created ${_workingArea}"
+        mkdir ${_workingArea} || yawgError "Unable to create ${_workingArea}"
         pushd ${_workingArea} > /dev/null
         true \
             && git clone -b ${SITE_BRANCH} ${SITE_REPO} . \
             && git config user.name ${username} \
-            && git config user.email ${email} \
-            && rm -rf ./*
+            && git config user.email ${email}
 
         exitStatus=$?
         popd  > /dev/null
@@ -239,7 +242,7 @@ function doBaking () {
             rm -rf ${_workingArea}/*
         fi
     else
-        yawgError "Directory \"${_workingArea}\" does not exist. Use --init."
+        mkdir ${_workingArea} || yawgError "Unable to create ${_workingArea}"
     fi
 
     ${_yawgTool} \
@@ -263,7 +266,7 @@ function doBaking () {
 
 function finalizeWorkingArea () {
 
-    if [ ${_isCommit} == true ] ; then
+    if [ ${_isUpload} == true ] ; then
         doFinalizeWorkingArea
     fi
 }

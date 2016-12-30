@@ -28,8 +28,7 @@ public final class CliOptionsIT {
     @Test
     public void noArgs() {
 
-        BakerRunner baker = BakerRunner.empty();
-        BakerRunnerResult bakerResult = baker.run();
+        BakerRunnerResult bakerResult = BakerRunner.builder().run();
 
         assertThat(bakerResult)
                 .hasExitStatusSuccess()
@@ -44,11 +43,10 @@ public final class CliOptionsIT {
     @Test
     public void unknownOption() {
 
-        BakerRunner baker =
+        BakerRunnerResult bakerResult =
                 BakerRunner.builder()
                 .addArgs("--this-is-an-unknown-option")
-                .build();
-        BakerRunnerResult bakerResult = baker.run();
+                .run();
 
         assertThat(bakerResult)
                 .hasExitStatusFailure()
@@ -73,11 +71,10 @@ public final class CliOptionsIT {
      */
     private void helpOptionTest(final String option) {
 
-        BakerRunner baker =
+        BakerRunnerResult bakerResult =
                 BakerRunner.builder()
                 .addArg(option)
-                .build();
-        BakerRunnerResult bakerResult = baker.run();
+                .run();
 
         assertThat(bakerResult)
                 .hasExitStatusSuccess()

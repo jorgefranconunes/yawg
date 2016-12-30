@@ -1,0 +1,90 @@
+= Auto-publishing the Yawg site
+
+
+
+
+
+This document describes the setup and tools for auto-publishing the
+Yawg site.
+
+The Yawg site is hosted through the https://pages.github.com/[GitHub
+Pages] service provided by GitHub.
+
+To publish new content the changes must be commited to the `gh-pages`
+branch of the project. And then pushed to GitHub.
+
+The continuous integration build jobs are under the control of Travis
+CI.
+
+We will create a tool to perform the actions for publishing the Yawg
+site. This tool will be invoked in the build job run by Travis CI.
+
+The Yawg version to be used for baking the Yawg site will be a
+previously released version.
+
+The bake and publishing will only occur for merges into the
+mainline. This means only commits into the `master` branch will
+trigger the auto-publishing. Commits into feature branches and
+pull-requests will not trigger the auto-publishing.
+
+To ensure the auto-publishing is performed in the right context, it is
+important to strictly follow the workflow convention that the mainline
+branch (i.e. the `master` branch) only receives merges from feature
+branches.
+
+
+Steps in the auto-publishing procedure run within Travis CI:
+
+* If the build is not for a merge into the mainline, then there are no
+  more actions to perform.
+
+* If there are no changes in the current commit related with the site
+  (i.e. changes below `doc`) then there are no more actions to
+  perform.
+
+* Prepare the SSH key for access to GitHub
+  (cf. https://docs.travis-ci.com/user/deployment/custom/#Git).
+
+* Download and install the desired version of Yawg for baking the
+  site. The exact version to be used is a configuration parameter.
+
+* Create a workspace with the contents of the `gh-branch`.
+
+* Bake the Yawg site.
+
+* Commit and push the changes to GitHub, still in the `gh-granch`.
+
+
+
+
+
+Implementation steps:
+
+* Update `build-create-bundle` to place the `.tar.gz` and the code
+  quality reports into a `target` folder. This is because we want the
+  publishing related tools to also have their working directories
+  under `target`. The name `target` is chosen to follow Maven
+  conventions. OPTIONAL
+
+* Update `build-site` to use `target/site` as the target directory for
+  the baked site.  This will also be the directory with the working
+  area for the `gh-pages` branch.
+
+* Update `build-site` to use a configured version of Yawg. This
+  involves downloading and installing it. The Yawg installation should
+  be placed under `target/tools`.
+
+* Created new tool `devtools/bin/build-travisci-publish-site` To
+  perform the actions specific to Travis CI. This new
+  `build-travisci-publish-site`tool will in turn call `build-site` to
+  perform most of the work.
+
+
+
+
+
+Tools:
+
+`devtools/bin/build-site` -- Bakes the site and uploads it to the
+`gh-pages` branch of the project Github Git repository.
+

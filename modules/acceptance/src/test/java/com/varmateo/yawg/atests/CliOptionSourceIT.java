@@ -34,11 +34,10 @@ public final class CliOptionSourceIT {
             throws IOException {
 
         Path sourcePath = TestUtils.getTmpDir(CliOptionSourceIT.class);
-        BakerRunner baker =
+        BakerRunnerResult bakerResult =
                 BakerRunner.builder()
                 .addSourcePath(sourcePath)
-                .build();
-        BakerRunnerResult bakerResult = baker.run();
+                .run();
 
         assertThat(bakerResult)
                 .hasExitStatusFailure()
@@ -56,12 +55,11 @@ public final class CliOptionSourceIT {
 
         Path sourcePath = Paths.get("this-directory-does-not-exist-for-sure");
         Path targetPath = TestUtils.getTmpDir(CliOptionSourceIT.class);
-        BakerRunner baker =
+        BakerRunnerResult bakerResult =
                 BakerRunner.builder()
                 .addSourcePath(sourcePath)
                 .addTargetPath(targetPath)
-                .build();
-        BakerRunnerResult bakerResult = baker.run();
+                .run();
 
         assertThat(bakerResult)
                 .hasExitStatusFailure()
