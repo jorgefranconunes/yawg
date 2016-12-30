@@ -68,11 +68,11 @@ Implementation steps:
 
 * Update `build-site` to use `target/site` as the target directory for
   the baked site.  This will also be the directory with the working
-  area for the `gh-pages` branch.
+  area for the `gh-pages` branch. DONE
 
 * Update `build-site` to use a configured version of Yawg. This
   involves downloading and installing it. The Yawg installation should
-  be placed under `target/tools`.
+  be placed under `target/tools`. DONE
 
 * Created new tool `devtools/bin/build-travisci-publish-site` To
   perform the actions specific to Travis CI. This new
