@@ -25,6 +25,7 @@
                name="developers"
                url="Developers/index.html"
                title="Developers" />
+            <li><a href="https://github.com/jorgefranconunes/yawg">GitHub repository</a></li>
 
             <#if (isProduction!"false") != "true">
               <li style="float: right">

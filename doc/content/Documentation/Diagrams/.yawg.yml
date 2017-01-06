@@ -9,3 +9,8 @@ pageVarsHere:
 
 includeHere:
   - "*.adoc"
+  - "Diagram-Example.puml"
+
+bakerTypes:
+  copy:
+    - "Diagram-Example.puml"

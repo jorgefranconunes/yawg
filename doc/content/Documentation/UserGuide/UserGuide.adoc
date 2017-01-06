@@ -67,8 +67,8 @@ just fine under Cygwin.
 [[sec-DownloadAnsInstall]]
 == Downloading and installing Yawg
 
-Tarballs of Yawg releases are available for download from
-https://github.com/jorgefranconunes/yawg/releases
+Tarballs of Yawg releases are hosted on
+https://github.com/jorgefranconunes/yawg/releases[GitHub].
 
 After downloading the tarball, the installation consists simply of
 untaring said tarball. An example combining download and untaring

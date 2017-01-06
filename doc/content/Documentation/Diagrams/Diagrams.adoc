@@ -50,7 +50,7 @@ The AsciiDoc markup that resulted in the above diagram follows.
 
 [source,asciidoc]
 ----
-[plantuml,Diagram-InlineExample,format=svg]     
+[plantuml,Diagram-InlineExample,format=svg]
 ....
 class Car
 
@@ -95,4 +95,6 @@ The main argument for the `plantuml` block macro is the name of the
 file containing the PlantUML diagram definition. That is actually a
 file system path relative to the AsciiDoc source file. In our example
 the `Diagram-Example.puml` file is contained in the same directory as
-the AsciiDoc source file with the content of this page.
+the AsciiDoc source file with the content of this page. You can
+download that file to inspect its contents from
+link:Diagram-Example.puml[here].

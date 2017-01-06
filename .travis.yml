@@ -37,7 +37,8 @@ before_deploy:
   - ssh-add ./devtools/conf/id_rsa-travisci
 
 #
-# Bakes a new release of the Yawg site and uploads changes.
+# Bakes a new release of the Yawg site and uploads the changes to the
+# GitHub pages repo.
 #
 deploy:
   skip_cleanup: true
