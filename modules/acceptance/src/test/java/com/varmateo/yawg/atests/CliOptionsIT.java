@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -51,7 +51,8 @@ public final class CliOptionsIT {
         assertThat(bakerResult)
                 .hasExitStatusFailure()
                 .outputLine(1)
-                .contains("unknown option");
+                .contains("unknown option")
+                .contains("--this-is-an-unknown-option");
     }
 
 

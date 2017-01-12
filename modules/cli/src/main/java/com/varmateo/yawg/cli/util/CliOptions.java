@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2015-2016 Yawg project contributors.
+ * Copyright (c) 2015-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -120,23 +120,44 @@ public final class CliOptions {
             MissingOptionException ex = (MissingOptionException)e;
             String shortOpt = (String)ex.getMissingOptions().get(0);
             Option option   = options.getOption(shortOpt);
-            String longOpt  = "--" + option.getLongOpt();
+            String optionName = getOptionName(option);
             msg     = "missing mandatory option {0}";
-            fmtArgs = new Object[]{ longOpt };
+            fmtArgs = new Object[]{ optionName };
         } else if ( e instanceof UnrecognizedOptionException ) {
             UnrecognizedOptionException ex = (UnrecognizedOptionException)e;
+            String optionName = ex.getOption();
             msg     = "unknown option {0}";
-            fmtArgs = new Object[]{ ex.getOption() };
+            fmtArgs = new Object[]{ optionName };
         } else if ( e instanceof MissingArgumentException ) {
             MissingArgumentException ex = (MissingArgumentException)e;
+            String optionName = getOptionName(ex.getOption());
             msg     = "argument for option {0} is missing";
-            fmtArgs = new Object[]{ ex.getOption() };
+            fmtArgs = new Object[]{ optionName };
         } else {
             msg     = "failed to parse options - {0} - {1}";
             fmtArgs = new Object[]{ e.getClass().getName(), e.getMessage() };
         }
 
         CliException.raise(msg, fmtArgs);
+    }
+
+
+    /**
+     *
+     */
+    private static String getOptionName(final Option apacheOption) {
+
+        final String result;
+
+        String longName = apacheOption.getLongOpt();
+        if ( longName != null ) {
+            result = "--" + longName;
+        } else {
+            String shortName = apacheOption.getOpt();
+            result = "-" + shortName;
+        }
+
+        return result;
     }
 
 
@@ -326,14 +347,3 @@ public final class CliOptions {
 
 
 }
-
-
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-

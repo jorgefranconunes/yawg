@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -42,7 +42,8 @@ public final class CliOptionSourceIT {
         assertThat(bakerResult)
                 .hasExitStatusFailure()
                 .outputLine(1)
-                .contains("missing mandatory option");
+                .contains("missing mandatory option")
+                .contains("--target");
     }
 
 
@@ -65,6 +66,25 @@ public final class CliOptionSourceIT {
                 .hasExitStatusFailure()
                 .outputLineFromEnd(1)
                 .contains("NoSuchFileException");
+    }
+
+
+    /**
+     *
+     */
+    @Test
+    public void sourceMissingValue()
+            throws IOException {
+
+        BakerRunnerResult bakerResult =
+                BakerRunner.builder()
+                .addArg("--source")
+                .run();
+
+        assertThat(bakerResult)
+                .hasExitStatusFailure()
+                .outputLineFromEnd(1)
+                .contains("argument for option --source is missing");
     }
 
 

@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2015-2016 Yawg project contributors.
+ * Copyright (c) 2015-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -43,7 +43,7 @@ public final class Main {
                  .addArgs(args)
                  .setOutput(System.out)
                  .build();
-         int    exitStatus = bakerCli.run();
+         int exitStatus = bakerCli.run();
 
          System.exit(exitStatus);
     }
