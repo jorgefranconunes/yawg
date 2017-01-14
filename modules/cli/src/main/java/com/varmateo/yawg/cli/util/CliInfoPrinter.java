@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2015-2016 Yawg project contributors.
+ * Copyright (c) 2015-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -8,7 +8,8 @@ package com.varmateo.yawg.cli.util;
 
 import java.io.PrintWriter;
 import java.text.MessageFormat;
-import java.util.Collection;
+
+import javaslang.collection.Set;
 
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
@@ -71,7 +72,7 @@ public final class CliInfoPrinter {
      */
     public void printUsage(
             final PrintWriter output,
-            final Collection<CliOption> options) {
+            final Set<CliOption> options) {
 
         String header = MessageFormat.format(_usageMessageHeader, _argv0);
         String footer = _usageMessageFooter;
@@ -96,15 +97,13 @@ public final class CliInfoPrinter {
      *
      */
     private static Options
-        buildApacheOptions(final Collection<CliOption> options) {
+        buildApacheOptions(final Set<CliOption> options) {
 
-        Options apacheOptions = new Options();
-
-        options.stream()
-            .map(CliOption::apacheOption)
-            .forEach(o -> apacheOptions.addOption(o));
-
-        return apacheOptions;
+        return options
+                .map(CliOption::apacheOption)
+                .foldLeft(
+                        new Options(),
+                        (xs, x) -> xs.addOption(x));
     }
 
 
@@ -113,9 +112,7 @@ public final class CliInfoPrinter {
      */
     public void printVersion(final PrintWriter output) {
 
-        String version = _versionMessage;
-
-        output.println(version);
+        output.println(_versionMessage);
     }
 
 

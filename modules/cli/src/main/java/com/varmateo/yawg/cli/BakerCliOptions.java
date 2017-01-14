@@ -1,13 +1,13 @@
 /**************************************************************************
  *
- * Copyright (c) 2015-2016 Yawg project contributors.
+ * Copyright (c) 2015-2017 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.cli;
 
-import java.util.Arrays;
-import java.util.Collection;
+import javaslang.collection.HashSet;
+import javaslang.collection.Set;
 
 import com.varmateo.yawg.cli.util.CliException;
 import com.varmateo.yawg.cli.util.CliOption;
@@ -79,28 +79,22 @@ import com.varmateo.yawg.cli.util.CliOptions;
     /**
      *
      */
-    private static final Collection<CliOption> OPTIONS;
-
-    static {
-        CliOption[] allOptions = {
-            ASSETS_DIR,
-            HELP,
-            PAGE_VAR,
-            SOURCE_DIR,
-            TARGET_DIR,
-            TEMPLATES_DIR,
-            VERBOSE,
-            VERSION,
-        };
-
-        OPTIONS = Arrays.asList(allOptions);
-    }
+    private static final Set<CliOption> OPTIONS =
+            HashSet.of(
+                    ASSETS_DIR,
+                    HELP,
+                    PAGE_VAR,
+                    SOURCE_DIR,
+                    TARGET_DIR,
+                    TEMPLATES_DIR,
+                    VERBOSE,
+                    VERSION);
 
 
     /**
      *
      */
-    public static Collection<CliOption> options() {
+    public static Set<CliOption> options() {
 
         return OPTIONS;
     }

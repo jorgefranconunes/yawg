@@ -12,6 +12,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
+import javaslang.collection.HashSet;
+import javaslang.collection.Set;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -59,7 +62,7 @@ public final class CliOptionsTest
     public void parseNoArgsNoOptions()
         throws CliException {
 
-        Collection<CliOption> options = Collections.emptyList();
+        Set<CliOption> options = HashSet.of();
         String[] args = {};
         CliOptions cliOptions = CliOptions.parse(options, args);
 
@@ -70,7 +73,7 @@ public final class CliOptionsTest
     @Test
     public void parseArgsNoOptions() {
 
-        Collection<CliOption> options = Collections.emptyList();
+        Set<CliOption> options = HashSet.of();
         String[] args = { "--something" };
 
         assertThatThrownBy(() -> CliOptions.parse(options, args))
@@ -81,7 +84,7 @@ public final class CliOptionsTest
     @Test
     public void parseMissingOptionArg() {
 
-        Collection<CliOption> options = Arrays.asList(OPT_WITH_ARG);
+        Set<CliOption> options = HashSet.of(OPT_WITH_ARG);
         String[] args = { OPT_WITH_ARG_OPT };
 
         assertThatThrownBy(() -> CliOptions.parse(options, args))
@@ -92,7 +95,7 @@ public final class CliOptionsTest
     @Test
     public void parseTooMany() {
 
-        Collection<CliOption> options = Arrays.asList(OPT_WITH_ARG);
+        Set<CliOption> options = HashSet.of(OPT_WITH_ARG);
         String[] args = { OPT_WITH_ARG_OPT, "something", "else" };
 
         assertThatThrownBy(() -> CliOptions.parse(options, args))
@@ -104,7 +107,7 @@ public final class CliOptionsTest
     public void getStringMandatoryOk()
         throws CliException {
 
-        Collection<CliOption> options = Arrays.asList(OPT_WITH_ARG);
+        Set<CliOption> options = HashSet.of(OPT_WITH_ARG);
         String[] args = { OPT_WITH_ARG_OPT, "something" };
         CliOptions cliOptions = CliOptions.parse(options, args);
         String actualValue = cliOptions.get(OPT_WITH_ARG);
@@ -117,7 +120,7 @@ public final class CliOptionsTest
     public void getStringMandatoryMissing()
         throws CliException {
 
-        Collection<CliOption> options = Arrays.asList(OPT_WITH_ARG);
+        Set<CliOption> options = HashSet.of(OPT_WITH_ARG);
         String[] args = {};
         CliOptions cliOptions = CliOptions.parse(options, args);
 
@@ -130,7 +133,7 @@ public final class CliOptionsTest
     public void getDefaultWithValue()
         throws CliException {
 
-        Collection<CliOption> options = Arrays.asList(OPT_WITH_ARG);
+        Set<CliOption> options = HashSet.of(OPT_WITH_ARG);
         String[] args = { OPT_WITH_ARG_OPT, "something" };
         CliOptions cliOptions = CliOptions.parse(options, args);
         String actualValue = cliOptions.get(OPT_WITH_ARG, "whatever");
@@ -143,7 +146,7 @@ public final class CliOptionsTest
     public void getDefaultWithoutValue()
         throws CliException {
 
-        Collection<CliOption> options = Arrays.asList(OPT_WITH_ARG);
+        Set<CliOption> options = HashSet.of(OPT_WITH_ARG);
         String[] args = {};
         CliOptions cliOptions = CliOptions.parse(options, args);
         String actualValue = cliOptions.get(OPT_WITH_ARG, "whatever");
@@ -156,7 +159,7 @@ public final class CliOptionsTest
     public void getPath()
         throws CliException {
 
-        Collection<CliOption> options = Arrays.asList(OPT_WITH_ARG);
+        Set<CliOption> options = HashSet.of(OPT_WITH_ARG);
         String[] args = { OPT_WITH_ARG_OPT, "this/is/a/path" };
         CliOptions cliOptions = CliOptions.parse(options, args);
         Path actualPath = cliOptions.getPath(OPT_WITH_ARG);
@@ -170,7 +173,7 @@ public final class CliOptionsTest
     public void isTrueWithArg()
         throws CliException {
 
-        Collection<CliOption> options = Arrays.asList(OPT_WITH_ARG);
+        Set<CliOption> options = HashSet.of(OPT_WITH_ARG);
         String[] args = { OPT_WITH_ARG_OPT, "true" };
         CliOptions cliOptions = CliOptions.parse(options, args);
 
@@ -182,7 +185,7 @@ public final class CliOptionsTest
     public void isFalseWithArg()
         throws CliException {
 
-        Collection<CliOption> options = Arrays.asList(OPT_WITH_ARG);
+        Set<CliOption> options = HashSet.of(OPT_WITH_ARG);
         String[] args = { OPT_WITH_ARG_OPT, "false" };
         CliOptions cliOptions = CliOptions.parse(options, args);
 
@@ -194,7 +197,7 @@ public final class CliOptionsTest
     public void isTrueNoArg()
         throws CliException {
 
-        Collection<CliOption> options = Arrays.asList(OPT_NO_ARG);
+        Set<CliOption> options = HashSet.of(OPT_NO_ARG);
         String[] args = { OPT_NO_ARG_OPT };
         CliOptions cliOptions = CliOptions.parse(options, args);
 
@@ -206,7 +209,7 @@ public final class CliOptionsTest
     public void isFalseNoArg()
         throws CliException {
 
-        Collection<CliOption> options = Arrays.asList(OPT_NO_ARG);
+        Set<CliOption> options = HashSet.of(OPT_NO_ARG);
         String[] args = {};
         CliOptions cliOptions = CliOptions.parse(options, args);
 

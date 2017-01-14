@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2015-2016 Yawg project contributors.
+ * Copyright (c) 2015-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -10,7 +10,6 @@ import java.io.PrintWriter;
 import java.text.MessageFormat;
 
 import com.varmateo.yawg.YawgInfo;
-
 import com.varmateo.yawg.cli.BakerCliOptions;
 import com.varmateo.yawg.cli.util.CliException;
 import com.varmateo.yawg.cli.util.CliInfoPrinter;

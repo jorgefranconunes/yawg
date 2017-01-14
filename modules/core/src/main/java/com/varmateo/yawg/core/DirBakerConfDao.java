@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -13,10 +13,11 @@ import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Optional;
 import java.util.regex.PatternSyntaxException;
+
+import javaslang.collection.Seq;
+import javaslang.collection.Stream;
 
 import com.varmateo.yawg.PageVars;
 import com.varmateo.yawg.YawgException;
@@ -51,8 +52,7 @@ import com.varmateo.yawg.util.YamlParser;
     /**
      *
      */
-    DirBakerConfDao() {
-
+    /* package private */ DirBakerConfDao() {
         // Nothing to do.
     }
 
@@ -133,31 +133,31 @@ import com.varmateo.yawg.util.YamlParser;
     /* package private */ DirBakerConf read(final Reader reader)
             throws IOException, YawgException {
 
-        SimpleMap map = new YamlParser().parse(reader);
+        SimpleMap confMap = new YamlParser().parse(reader);
         DirBakerConf.Builder builder = DirBakerConf.builder();
 
-        map.getString(PARAM_TEMPLATE)
+        confMap.getString(PARAM_TEMPLATE)
                 .ifPresent(builder::setTemplateName);
 
-        getPatternList(map, PARAM_EXCLUDE)
+        getPatternList(confMap, PARAM_EXCLUDE)
                 .ifPresent(builder::setFilesToExclude);
 
-        getPatternList(map, PARAM_INCLUDE_HERE)
+        getPatternList(confMap, PARAM_INCLUDE_HERE)
                 .ifPresent(builder::setFilesToIncludeHere);
 
-        getBakerTypes(map, PARAM_BAKER_TYPES)
+        getBakerTypes(confMap, PARAM_BAKER_TYPES)
                 .ifPresent(builder::setBakerTypes);
 
-        getPageVars(map, PARAM_PAGE_VARS)
+        getPageVars(confMap, PARAM_PAGE_VARS)
                 .ifPresent(builder::setPageVars);
 
-        getPageVars(map, PARAM_PAGE_VARS_HERE)
+        getPageVars(confMap, PARAM_PAGE_VARS_HERE)
                 .ifPresent(builder::setPageVarsHere);
 
-        getTemplatesHere(map, PARAM_TEMPLATES_HERE)
+        getTemplatesHere(confMap, PARAM_TEMPLATES_HERE)
                 .ifPresent(builder::setTemplatesHere);
 
-        getPathList(map, PARAM_EXTRA_DIRS_HERE)
+        getPathList(confMap, PARAM_EXTRA_DIRS_HERE)
                 .ifPresent(builder::setExtraDirsHere);
 
         DirBakerConf result = builder.build();
@@ -170,38 +170,37 @@ import com.varmateo.yawg.util.YamlParser;
      *
      */
     private Optional<GlobMatcher> getPatternList(
-            final SimpleMap map,
+            final SimpleMap confMap,
             final String key)
             throws YawgException {
 
-        Optional<GlobMatcher> result;
-        Optional<SimpleList<String>> itemListOpt =
-                map.getList(key, String.class);
+        return confMap.getList(key, String.class)
+                .map(itemList ->
+                     Stream.ofAll(itemList)
+                     .zipWithIndex()
+                     .foldLeft(
+                             GlobMatcher.builder(),
+                             (xs,x) -> addToGlobBuilder(xs, x._1(), x._2(), key))
+                     .build());
+    }
 
-        if ( itemListOpt.isPresent() ) {
-            SimpleList<String> itemList = itemListOpt.get();
-            GlobMatcher.Builder builder = GlobMatcher.builder();
 
-            for ( int i=0, count=itemList.size(); i<count; ++i ) {
-                String glob = itemList.get(i);
+    private static GlobMatcher.Builder addToGlobBuilder(
+            final GlobMatcher.Builder builder,
+            final String glob,
+            final Long index,
+            final String key) {
 
-                try {
-                    builder.addGlobPattern(glob);
-                } catch ( PatternSyntaxException e ) {
-                    Exceptions.raise(
-                            e,
-                            "Invalid glob \"{0}\" on item {1} of {2}",
-                            glob,
-                            i,
-                            key);
-                }
-            }
-            result = Optional.of(builder.build());
-        } else {
-            result = Optional.empty();
+        try {
+            return builder.addGlobPattern(glob);
+        } catch ( PatternSyntaxException e ) {
+            throw Exceptions.raise(
+                    e,
+                    "Invalid glob \"{0}\" on item {1} of {2}",
+                    glob,
+                    index,
+                    key);
         }
-
-        return result;
     }
 
 
@@ -237,25 +236,14 @@ import com.varmateo.yawg.util.YamlParser;
      *
      */
     private Optional<PageVars> getPageVars(
-            final SimpleMap map,
+            final SimpleMap confMap,
             final String key)
             throws YawgException {
 
-        Optional<PageVars> result;
-        Optional<SimpleMap> pageVarsMapOpt = map.getMap(key);
-
-        if ( pageVarsMapOpt.isPresent() ) {
-            SimpleMap pageVarsMap = pageVarsMapOpt.get();
-            PageVars pageVars =
-                    PageVars.builder(pageVarsMap.asMap())
-                    .build();
-
-            result = Optional.of(pageVars);
-        } else {
-            result = Optional.empty();
-        }
-
-        return result;
+        return confMap
+                .getMap(key)
+                .map(pageVarsMap ->
+                     PageVars.builder(pageVarsMap.asMap()).build());
     }
 
 
@@ -292,40 +280,35 @@ import com.varmateo.yawg.util.YamlParser;
     /**
      *
      */
-    private Optional<Collection<Path>> getPathList(
-            final SimpleMap map,
+    private Optional<Seq<Path>> getPathList(
+            final SimpleMap confMap,
             final String key)
             throws YawgException {
 
-        Optional<Collection<Path>> result;
-        Optional<SimpleList<String>> itemListOpt =
-                map.getList(key, String.class);
+        return confMap
+                .getList(key, String.class)
+                .map(itemList ->
+                     Stream.ofAll(itemList)
+                     .zipWithIndex()
+                     .map(tuple -> buildPath(tuple._1(), tuple._2(), key)));
+    }
 
-        if ( itemListOpt.isPresent() ) {
-            Collection<Path> pathList = new ArrayList<>();
-            SimpleList<String> itemList = itemListOpt.get();
 
-            for ( int i=0, count=itemList.size(); i<count; ++i ) {
-                String pathStr = itemList.get(i);
+    private static Path buildPath(
+            final String pathStr,
+            final Long index,
+            final String key) {
 
-                try {
-                    Path path = Paths.get(pathStr);
-                    pathList.add(path);
-                } catch ( InvalidPathException e ) {
-                    Exceptions.raise(
-                            e,
-                            "Invalid path \"{0}\" on item {1} of {2}",
-                            pathStr,
-                            i,
-                            key);
-                }
-            }
-            result = Optional.of(pathList);
-        } else {
-            result = Optional.empty();
+        try {
+            return Paths.get(pathStr);
+        } catch ( InvalidPathException e ) {
+            throw Exceptions.raise(
+                    e,
+                    "Invalid path \"{0}\" on item {1} of {2}",
+                    pathStr,
+                    index,
+                    key);
         }
-
-        return result;
     }
 
 

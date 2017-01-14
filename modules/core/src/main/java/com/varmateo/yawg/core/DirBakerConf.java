@@ -1,20 +1,18 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.core;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Optional;
 
-import com.varmateo.yawg.PageVars;
+import javaslang.collection.List;
+import javaslang.collection.Seq;
 
-import com.varmateo.yawg.commons.util.Lists;
+import com.varmateo.yawg.PageVars;
 import com.varmateo.yawg.core.TemplateNameMatcher;
 import com.varmateo.yawg.util.GlobMatcher;
 
@@ -68,11 +66,12 @@ import com.varmateo.yawg.util.GlobMatcher;
 
 
     /**
-     * Collection of additional directories with content to be baked. The bake results
-     * from those directories will be placed in the same location as the bake results from
-     * the directory currently being baked.
+     * Collection of additional directories with content to be
+     * baked. The bake results from those directories will be placed
+     * in the same location as the bake results from the directory
+     * currently being baked.
      */
-    public final Collection<Path> extraDirsHere;
+    public final Seq<Path> extraDirsHere;
 
 
     /**
@@ -87,7 +86,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         this.pageVars = builder._pageVarsBuilder.build();
         this.pageVarsHere = builder._pageVarsHere;
         this.templatesHere = builder._templatesHere;
-        this.extraDirsHere = Lists.readOnlyCopy(builder._extraDirsHere);
+        this.extraDirsHere = builder._extraDirsHere;
     }
 
 
@@ -163,7 +162,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         private Optional<GlobMatcher> _filesToExclude;
         private Optional<BakerMatcher> _bakerTypes;
         private PageVars.Builder _pageVarsBuilder;
-        private Collection<Path> _extraDirsHere;
+        private Seq<Path> _extraDirsHere;
 
 
         /**
@@ -175,7 +174,7 @@ import com.varmateo.yawg.util.GlobMatcher;
             _filesToExclude = Optional.empty();
             _bakerTypes = Optional.empty();
             _pageVarsBuilder = PageVars.builder();
-            _extraDirsHere = new ArrayList<>();
+            _extraDirsHere = List.of();
         }
 
 
@@ -188,7 +187,7 @@ import com.varmateo.yawg.util.GlobMatcher;
             _filesToExclude = defaults.filesToExclude;
             _bakerTypes = defaults.bakerTypes;
             _pageVarsBuilder = PageVars.builder(defaults.pageVars);
-            _extraDirsHere = new ArrayList<>(defaults.extraDirsHere);
+            _extraDirsHere = defaults.extraDirsHere;
         }
 
 
@@ -220,7 +219,7 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public Builder setFilesToExclude(final String... fileNames) {
 
-            GlobMatcher patterns = new GlobMatcher(Arrays.asList(fileNames));
+            GlobMatcher patterns = new GlobMatcher(fileNames);
 
             setFilesToExclude(patterns);
 
@@ -375,9 +374,9 @@ import com.varmateo.yawg.util.GlobMatcher;
          *
          */
         public Builder setExtraDirsHere(
-                final Collection<Path> extraDirsHere) {
+                final Seq<Path> extraDirsHere) {
 
-            _extraDirsHere = new ArrayList<>(extraDirsHere);
+            _extraDirsHere = extraDirsHere;
 
             return this;
         }

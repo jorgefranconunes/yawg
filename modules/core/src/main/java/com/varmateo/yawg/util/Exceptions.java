@@ -33,25 +33,25 @@ public final class Exceptions {
     /**
      *
      */
-    public static void raise(
+    public static YawgException raise(
             final Throwable cause,
             final String    msgFmt,
             final Object... fmtArgs)
             throws YawgException {
 
-        Exceptions.raise(YawgException.class, cause, msgFmt, fmtArgs);
+        return Exceptions.raise(YawgException.class, cause, msgFmt, fmtArgs);
     }
 
 
     /**
      *
      */
-    public static void raise(
+    public static YawgException raise(
             final String    msgFmt,
             final Object... fmtArgs)
             throws YawgException {
 
-        Exceptions.raise(YawgException.class, msgFmt, fmtArgs);
+        return Exceptions.raise(YawgException.class, msgFmt, fmtArgs);
     }
 
 
@@ -72,14 +72,14 @@ public final class Exceptions {
      * message according to <code>java.text.MessageForma</code>
      * conventions.
      */
-    public static <T extends RuntimeException> void
-        raise(final Class<T>  exceptionClass,
-              final String    msgFmt,
-              final Object... fmtArgs) {
+    public static <T extends RuntimeException> T raise(
+            final Class<T>  exceptionClass,
+            final String    msgFmt,
+            final Object... fmtArgs) {
 
         Throwable cause = null;
 
-        raise(exceptionClass, cause, msgFmt, fmtArgs);
+        return raise(exceptionClass, cause, msgFmt, fmtArgs);
     }
 
 
@@ -103,14 +103,13 @@ public final class Exceptions {
      * message according to <code>java.text.MessageForma</code>
      * conventions.
      */
-    public static <T extends RuntimeException> void
-        raise(final Class<T>  exceptionClass,
-              final Throwable cause,
-              final String    msgFmt,
-              final Object... fmtArgs) {
+    public static <T extends RuntimeException> T raise(
+            final Class<T>  exceptionClass,
+            final Throwable cause,
+            final String    msgFmt,
+            final Object... fmtArgs) {
 
-        RuntimeException exception =
-            newException(exceptionClass, cause, msgFmt, fmtArgs);
+        T exception = newException(exceptionClass, cause, msgFmt, fmtArgs);
 
         throw exception;
     }
@@ -188,11 +187,11 @@ public final class Exceptions {
     /**
      *
      */
-    private static <T extends Exception> T
-        newException(final Class<T>  exceptionClass,
-                     final Throwable cause,
-                     final String msgFmt,
-                     final Object... fmtArgs) {
+    private static <T extends Exception> T newException(
+            final Class<T>  exceptionClass,
+            final Throwable cause,
+            final String msgFmt,
+            final Object... fmtArgs) {
 
         Constructor<T> constructor = null;
 

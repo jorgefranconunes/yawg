@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2015-2016 Yawg project contributors.
+ * Copyright (c) 2015-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -20,6 +20,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.LogManager;
 import java.util.logging.StreamHandler;
+
+import javaslang.Tuple;
+import javaslang.Tuple2;
 
 import com.varmateo.yawg.PageVars;
 import com.varmateo.yawg.SiteBaker;
@@ -223,8 +226,10 @@ public final class BakerCli {
     private SiteBakerConf buildSiteBakerConf(final CliOptions cliOptions)
             throws CliException {
 
-        Path sourceDir = cliOptions.getPath(BakerCliOptions.SOURCE_DIR);
-        Path targetDir = cliOptions.getPath(BakerCliOptions.TARGET_DIR);
+        Path sourceDir =
+                cliOptions.getPath(BakerCliOptions.SOURCE_DIR);
+        Path targetDir =
+                cliOptions.getPath(BakerCliOptions.TARGET_DIR);
         Path templatesDir =
                 cliOptions.getPath(BakerCliOptions.TEMPLATES_DIR, null);
         Path assetsDir =
@@ -249,27 +254,32 @@ public final class BakerCli {
      */
     private PageVars buildExternalPageVars(final CliOptions cliOptions) {
 
-        PageVars.Builder builder = PageVars.builder();
+        return cliOptions
+                .getAll(BakerCliOptions.PAGE_VAR)
+                .map(BakerCli::getVarNameAndValueFromOptionValue)
+                .foldLeft(
+                        PageVars.builder(),
+                        (builder, t) -> builder.addVar(t._1(), t._2()))
+                .build();
+    }
 
-        for ( String optionValue : cliOptions.getAll(BakerCliOptions.PAGE_VAR)){
-            String varName = null;
-            String varValue = null;
-            int indexOfEqSign = optionValue.indexOf('=');
 
-            if ( indexOfEqSign < 0 ) {
-                varName = optionValue;
-                varValue = "";
-            } else {
-                varName = optionValue.substring(0, indexOfEqSign);
-                varValue = optionValue.substring(indexOfEqSign+1);
-            }
+    private static Tuple2<String,String> getVarNameAndValueFromOptionValue(
+            final String optionValue) {
 
-            builder.addVar(varName, varValue);
+        final String varName;
+        final String varValue;
+        int indexOfEqSign = optionValue.indexOf('=');
+
+        if ( indexOfEqSign < 0 ) {
+            varName = optionValue;
+            varValue = "";
+        } else {
+            varName = optionValue.substring(0, indexOfEqSign);
+            varValue = optionValue.substring(indexOfEqSign+1);
         }
 
-        PageVars result = builder.build();
-
-        return result;
+        return Tuple.of(varName, varValue);
     }
 
 

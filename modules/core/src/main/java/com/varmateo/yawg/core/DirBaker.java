@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -11,6 +11,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javaslang.collection.Seq;
 
 import com.varmateo.yawg.DirBakeListener;
 import com.varmateo.yawg.PageContext;
@@ -235,10 +237,9 @@ import com.varmateo.yawg.util.Exceptions;
             final PageContext context,
             final PageVars extensionVars) {
 
-        List<Path> extraDirPathList =
-                dirBakerConf.extraDirsHere.stream()
-                .map(path -> sourceDir.resolve(path))
-                .collect(Collectors.toList());
+        Seq<Path> extraDirPathList =
+                dirBakerConf.extraDirsHere
+                .map(path -> sourceDir.resolve(path));
 
         for ( Path extraSourceDir : extraDirPathList ) {
             DirBakerConf extraDirBakerConf =

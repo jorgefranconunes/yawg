@@ -1,7 +1,7 @@
 #!/bin/bash
 ###########################################################################
 #
-# Copyright (c) 2016 Yawg project contributors.
+# Copyright (c) 2016-2017 Yawg project contributors.
 #
 #
 # Launches the yawg CLI application.
@@ -38,8 +38,9 @@ function main () {
     local mainJar=$(yawgNormalizePath ${_yawgHome}/lib/jars/${mainJarBasename})
 
     exec "${_yawgJre}" \
-        -jar "${mainJar}" \
-        "$@"
+         "-Dcom.varmateo.yawg.cli.Main.argv0=${_scriptName}" \
+         -jar "${mainJar}" \
+         "$@"
 }
 
 

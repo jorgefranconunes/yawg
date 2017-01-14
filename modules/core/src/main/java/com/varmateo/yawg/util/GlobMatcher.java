@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -10,14 +10,11 @@ import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.PathMatcher;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 import java.util.function.Predicate;
 import java.util.regex.PatternSyntaxException;
 
-import com.varmateo.yawg.commons.util.Lists;
+import javaslang.collection.Array;
+import javaslang.collection.Seq;
 
 
 /**
@@ -32,8 +29,8 @@ public final class GlobMatcher
             FileSystems.getDefault();
 
 
-    private final List<String> _globPatterns;
-    private final List<PathMatcher> _matchers;
+    private final Seq<String> _globPatterns;
+    private final Seq<PathMatcher> _matchers;
 
 
     /**
@@ -42,14 +39,13 @@ public final class GlobMatcher
      * @throws PatternSyntaxException If any of the given glob
      * patterns is invalid.
      */
-    public GlobMatcher(final Collection<String> globPatterns)
+    public GlobMatcher(final Seq<String> globPatterns)
             throws PatternSyntaxException {
 
-        _globPatterns = Lists.readOnlyCopy(globPatterns);
-        _matchers =
-                Lists.map(
-                        globPatterns,
-                        p -> DEFAULT_FILESYSTEM.getPathMatcher("glob:" + p));
+        _globPatterns = globPatterns;
+        _matchers = globPatterns
+                .map(p -> "glob:" + p)
+                .map(DEFAULT_FILESYSTEM::getPathMatcher);
     }
 
 
@@ -59,7 +55,7 @@ public final class GlobMatcher
     public GlobMatcher(final String... globPatterns)
             throws PatternSyntaxException {
 
-        this(Arrays.asList(globPatterns));
+        this(Array.of(globPatterns));
     }
 
 
@@ -68,8 +64,8 @@ public final class GlobMatcher
      */
     private GlobMatcher(final Builder builder) {
 
-        _globPatterns = Lists.readOnlyCopy(builder._globPatterns);
-        _matchers = Lists.readOnlyCopy(builder._matchers);
+        _globPatterns = builder._globPatterns;
+        _matchers = builder._matchers;
     }
 
 
@@ -77,8 +73,8 @@ public final class GlobMatcher
      *
      */
     private GlobMatcher(
-            final List<String> globPatterns,
-            final List<PathMatcher> matchers) {
+            final Seq<String> globPatterns,
+            final Seq<PathMatcher> matchers) {
 
         _globPatterns = globPatterns;
         _matchers = matchers;
@@ -127,11 +123,11 @@ public final class GlobMatcher
     public boolean test(final Path path) {
 
         Path name = path.getFileName();
-        boolean result =
-                _matchers.stream()
-                .filter(matcher -> matcher.matches(name))
-                .findFirst()
-                .isPresent();
+        Predicate<PathMatcher> isMatch = matcher -> matcher.matches(name);
+        boolean result = _matchers
+                .filter(isMatch)
+                .headOption()
+                .isDefined();
 
         return result;
     }
@@ -164,8 +160,8 @@ public final class GlobMatcher
     public static final class Builder {
 
 
-        private final List<String> _globPatterns;
-        private final List<PathMatcher> _matchers;
+        private Seq<String> _globPatterns;
+        private Seq<PathMatcher> _matchers;
 
 
         /**
@@ -173,8 +169,8 @@ public final class GlobMatcher
          */
         private Builder() {
 
-            _globPatterns = new ArrayList<>();
-            _matchers = new ArrayList<>();
+            _globPatterns = Array.of();
+            _matchers = Array.of();
         }
 
 
@@ -183,8 +179,8 @@ public final class GlobMatcher
          */
         private Builder(final GlobMatcher globMatcher) {
 
-            _globPatterns = new ArrayList<>(globMatcher._globPatterns);
-            _matchers = new ArrayList<>(globMatcher._matchers);
+            _globPatterns = globMatcher._globPatterns;
+            _matchers = globMatcher._matchers;
         }
 
 
@@ -199,8 +195,8 @@ public final class GlobMatcher
             PathMatcher matcher =
                     DEFAULT_FILESYSTEM.getPathMatcher("glob:" + globPattern);
 
-            _globPatterns.add(globPattern);
-            _matchers.add(matcher);
+            _globPatterns = _globPatterns.append(globPattern);
+            _matchers = _matchers.append(matcher);
 
             return this;
         }
@@ -211,8 +207,8 @@ public final class GlobMatcher
          */
         public Builder addGlobMatcher(final GlobMatcher globMatcher) {
 
-            _globPatterns.addAll(globMatcher._globPatterns);
-            _matchers.addAll(globMatcher._matchers);
+            _globPatterns = _globPatterns.appendAll(globMatcher._globPatterns);
+            _matchers = _matchers.appendAll(globMatcher._matchers);
 
             return this;
         }

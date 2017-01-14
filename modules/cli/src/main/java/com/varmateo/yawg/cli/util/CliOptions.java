@@ -9,18 +9,17 @@ package com.varmateo.yawg.cli.util;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
+
+import javaslang.collection.Array;
+import javaslang.collection.Seq;
+import javaslang.collection.Set;
+import javaslang.control.Option;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.GnuParser;
 import org.apache.commons.cli.MissingArgumentException;
 import org.apache.commons.cli.MissingOptionException;
-import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.UnrecognizedOptionException;
@@ -38,22 +37,19 @@ public final class CliOptions {
     private static final String FLAG_TRUE  = "true";
     private static final String FLAG_FALSE = "false";
 
-    private Collection<CliOption> _allOptions = null;
-    private CommandLine           _cmdLine    = null;
+    private Set<CliOption> _allOptions = null;
+    private CommandLine _cmdLine    = null;
 
 
     /**
      * Only used internally.
      */
     private CliOptions(
-            final Collection<CliOption> allOptions,
+            final Set<CliOption> allOptions,
             final CommandLine cmdLine) {
 
-        Collection<CliOption> allOptionsCopy =
-                new HashSet<CliOption>(allOptions);
-
-        _allOptions = Collections.unmodifiableCollection(allOptionsCopy);
-        _cmdLine    = cmdLine;
+        _allOptions = allOptions;
+        _cmdLine = cmdLine;
     }
 
 
@@ -61,7 +57,7 @@ public final class CliOptions {
      *
      */
     public static CliOptions parse(
-            final Collection<CliOption> options,
+            final Set<CliOption> options,
             final String[] args)
             throws CliException {
 
@@ -75,7 +71,7 @@ public final class CliOptions {
             raiseCliException(apacheOptions, e);
         }
 
-        List<String> argList = cmdLine.getArgList();
+        java.util.List<String> argList = cmdLine.getArgList();
         if ( (argList!=null) && (argList.size()>0) ) {
             // There were arguments that were not options. We require
             // all arguments to be options, thus this is an invalid
@@ -92,16 +88,14 @@ public final class CliOptions {
     /**
      *
      */
-    private static Options buildApacheOptions(
-            final Collection<CliOption> options) {
+    private static Options buildApacheOptions(final Set<CliOption> options) {
 
-        Options apacheOptions = new Options();
-
-        options.stream()
-            .map(CliOption::apacheOption)
-            .forEach(o -> apacheOptions.addOption(o));
-
-        return apacheOptions;
+        return
+                options
+                .map(CliOption::apacheOption)
+                .foldLeft(
+                        new Options(),
+                        (xs, x) -> xs.addOption(x));
     }
 
 
@@ -119,8 +113,8 @@ public final class CliOptions {
         if ( e instanceof MissingOptionException ) {
             MissingOptionException ex = (MissingOptionException)e;
             String shortOpt = (String)ex.getMissingOptions().get(0);
-            Option option   = options.getOption(shortOpt);
-            String optionName = getOptionName(option);
+            org.apache.commons.cli.Option option   = options.getOption(shortOpt);
+            String optionName = getApacheOptionName(option);
             msg     = "missing mandatory option {0}";
             fmtArgs = new Object[]{ optionName };
         } else if ( e instanceof UnrecognizedOptionException ) {
@@ -130,7 +124,7 @@ public final class CliOptions {
             fmtArgs = new Object[]{ optionName };
         } else if ( e instanceof MissingArgumentException ) {
             MissingArgumentException ex = (MissingArgumentException)e;
-            String optionName = getOptionName(ex.getOption());
+            String optionName = getApacheOptionName(ex.getOption());
             msg     = "argument for option {0} is missing";
             fmtArgs = new Object[]{ optionName };
         } else {
@@ -145,7 +139,8 @@ public final class CliOptions {
     /**
      *
      */
-    private static String getOptionName(final Option apacheOption) {
+    private static String getApacheOptionName(
+            final org.apache.commons.cli.Option apacheOption) {
 
         final String result;
 
@@ -164,7 +159,7 @@ public final class CliOptions {
     /**
      *
      */
-    public Collection<CliOption> supportedOptions() {
+    public Set<CliOption> supportedOptions() {
 
         return _allOptions;
     }
@@ -195,17 +190,14 @@ public final class CliOptions {
      * order theay appeared in the command line. It will be empty if
      * the option was not given in the command line.
      */
-    public List<String> getAll(final CliOption option) {
+    public Seq<String> getAll(final CliOption option) {
 
-        List<String> result = null;
         String   optionName   = option.getName();
         String[] optionValues = _cmdLine.getOptionValues(optionName);
-
-        if ( optionValues != null ) {
-            result = Arrays.asList(optionValues);
-        } else {
-            result = Collections.emptyList();
-        }
+        Seq<String> result =
+                Option.of(optionValues)
+                .map(Array::of)
+                .getOrElse(Array::of);
 
         return result;
     }

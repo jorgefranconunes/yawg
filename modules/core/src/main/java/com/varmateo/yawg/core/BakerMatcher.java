@@ -106,7 +106,6 @@ import com.varmateo.yawg.util.GlobMatcher;
 
 
         public final String mapType;
-
         public final GlobMatcher matcher;
 
 

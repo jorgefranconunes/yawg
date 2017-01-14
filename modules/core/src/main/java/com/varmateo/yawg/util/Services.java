@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -29,6 +29,8 @@ public final class Services {
 
     /**
      * Retrieves all available services of the given class.
+     *
+     * @param <T> The type os services to retrieve.
      *
      * @param klass The class of the services we are searching for.
      *
