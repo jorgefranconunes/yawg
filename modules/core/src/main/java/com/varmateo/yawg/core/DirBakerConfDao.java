@@ -27,7 +27,6 @@ import com.varmateo.yawg.core.TemplateNameMatcher;
 import com.varmateo.yawg.util.Exceptions;
 import com.varmateo.yawg.util.GlobMatcher;
 import com.varmateo.yawg.util.SimpleMap;
-import com.varmateo.yawg.util.SimpleList;
 import com.varmateo.yawg.util.YamlParser;
 
 

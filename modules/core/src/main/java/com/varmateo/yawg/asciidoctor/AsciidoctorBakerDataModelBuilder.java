@@ -98,7 +98,7 @@ import com.varmateo.yawg.util.FileUtils;
         // DocumentHeader.getAuthor(), DocumentHeader.getAuthors() do
         // not behave consistently with each other.
 
-        if ( authors.size() > 0 ) {
+        if ( !authors.isEmpty() ) {
             Lists.forEach(
                     header.getAuthors(),
                     a -> modelBuilder.addAuthor(a.getFullName(), a.getEmail()));

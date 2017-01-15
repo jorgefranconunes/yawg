@@ -12,8 +12,6 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Formatter;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -23,13 +21,14 @@ import java.util.logging.StreamHandler;
 
 import javaslang.Tuple;
 import javaslang.Tuple2;
+import javaslang.collection.List;
+import javaslang.collection.Seq;
 
 import com.varmateo.yawg.PageVars;
 import com.varmateo.yawg.SiteBaker;
 import com.varmateo.yawg.SiteBakerConf;
 import com.varmateo.yawg.SiteBakerFactory;
 import com.varmateo.yawg.YawgException;
-import com.varmateo.yawg.commons.util.Lists;
 import com.varmateo.yawg.logging.PlainFormatter;
 
 import com.varmateo.yawg.cli.InfoPrinter;
@@ -78,7 +77,7 @@ public final class BakerCli {
     private BakerCli(final Builder builder) {
 
         _argv0 = builder._argv0;
-        _args = Lists.toArray(builder._args, String.class);
+        _args = builder._args.toJavaArray(String.class);
         _output = builder._output;
     }
 
@@ -290,7 +289,7 @@ public final class BakerCli {
 
 
         private String _argv0;
-        private List<String> _args;
+        private Seq<String> _args;
         private OutputStream _output;
 
 
@@ -300,7 +299,7 @@ public final class BakerCli {
         private Builder() {
 
             _argv0 = DEFAULT_ARGV0;
-            _args = new ArrayList<>();
+            _args = List.of();
             _output = System.out;
         }
 
@@ -324,9 +323,7 @@ public final class BakerCli {
          */
         public Builder addArgs(final String... args) {
 
-            for ( String arg : args ) {
-                _args.add(arg);
-            }
+            _args = _args.appendAll(List.of(args));
 
             return this;
         }

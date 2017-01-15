@@ -139,6 +139,9 @@ public final class Lists {
      * Converts a collection into an array containing the same
      * elements in the same order.
      *
+     * @param <T> The type of the elements in the given collection and
+     * returned array.
+     *
      * @param collection The collection of elements to be placed into
      * the array to be returned.
      *

@@ -8,7 +8,6 @@ package com.varmateo.yawg.core;
 
 import java.nio.file.Path;
 
-import javaslang.Function2;
 import javaslang.Tuple;
 import javaslang.collection.HashMap;
 import javaslang.collection.Map;

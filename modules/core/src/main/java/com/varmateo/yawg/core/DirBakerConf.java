@@ -371,8 +371,7 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public DirBakerConf build() {
 
-            DirBakerConf result = new DirBakerConf(this);
-            return result;
+            return new DirBakerConf(this);
         }
 
 

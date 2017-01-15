@@ -72,7 +72,7 @@ public final class CliOptions {
         }
 
         java.util.List<String> argList = cmdLine.getArgList();
-        if ( (argList!=null) && (argList.size()>0) ) {
+        if ( (argList!=null) && !argList.isEmpty() ) {
             // There were arguments that were not options. We require
             // all arguments to be options, thus this is an invalid
             // command line.
@@ -113,7 +113,7 @@ public final class CliOptions {
         if ( e instanceof MissingOptionException ) {
             MissingOptionException ex = (MissingOptionException)e;
             String shortOpt = (String)ex.getMissingOptions().get(0);
-            org.apache.commons.cli.Option option   = options.getOption(shortOpt);
+            org.apache.commons.cli.Option option = options.getOption(shortOpt);
             String optionName = getApacheOptionName(option);
             msg     = "missing mandatory option {0}";
             fmtArgs = new Object[]{ optionName };

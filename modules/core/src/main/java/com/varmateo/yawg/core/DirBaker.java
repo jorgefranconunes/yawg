@@ -138,12 +138,11 @@ import com.varmateo.yawg.util.Exceptions;
         Seq<Path> dirEntries = getDirEntries(sourceDir, dirBakerConf);
 
         bakeChildFiles(dirEntries, targetDir, dirBakerConf, extendedContext);
-        bakeChildDirectories(dirEntries, targetDir, dirBakerConf, extensionVars);
+        bakeChildDirectories(dirEntries, targetDir, dirBakerConf,extensionVars);
         bakeExtraDirectories(
                 sourceDir,
                 targetDir,
                 dirBakerConf,
-                extendedContext,
                 extensionVars);
     }
 
@@ -226,7 +225,6 @@ import com.varmateo.yawg.util.Exceptions;
             final Path sourceDir,
             final Path targetDir,
             final DirBakerConf dirBakerConf,
-            final PageContext context,
             final PageVars extensionVars) {
 
         Seq<Path> extraDirPathList =

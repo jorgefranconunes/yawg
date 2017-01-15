@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -8,10 +8,10 @@ package com.varmateo.yawg.atests;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
 
-import com.varmateo.yawg.commons.util.Lists;
+import javaslang.collection.List;
+import javaslang.collection.Seq;
+
 import com.varmateo.yawg.cli.BakerCli;
 
 
@@ -51,7 +51,7 @@ public final class BakerRunner {
      */
     private BakerRunner(final Builder builder) {
 
-        _args = Lists.toArray(builder._args, String.class);
+        _args = builder._args.toJavaArray(String.class);
     }
 
 
@@ -83,7 +83,7 @@ public final class BakerRunner {
     public static final class Builder {
 
 
-        private List<String> _args;
+        private Seq<String> _args;
 
 
         /**
@@ -91,7 +91,7 @@ public final class BakerRunner {
          */
         private Builder() {
 
-            _args = new ArrayList<>();
+            _args = List.of();
         }
 
 
@@ -100,7 +100,7 @@ public final class BakerRunner {
          */
         public Builder addArg(final String arg) {
 
-            _args.add(arg);
+            _args = _args.append(arg);
 
             return this;
         }
@@ -111,9 +111,7 @@ public final class BakerRunner {
          */
         public Builder addArgs(final String... args) {
 
-            for ( String arg : args ) {
-                _args.add(arg);
-            }
+            _args = _args.appendAll(List.of(args));
 
             return this;
         }

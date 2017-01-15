@@ -6,8 +6,6 @@
 
 package com.varmateo.yawg.core;
 
-import java.nio.file.Path;
-
 import javaslang.collection.List;
 import javaslang.collection.Seq;
 import javaslang.control.Option;
@@ -20,7 +18,6 @@ import com.varmateo.yawg.SiteBakerConf;
 import com.varmateo.yawg.TemplateService;
 import com.varmateo.yawg.TemplateServiceFactory;
 
-import com.varmateo.yawg.commons.util.Lists;
 import com.varmateo.yawg.core.CollectiveDirBakeListener;
 import com.varmateo.yawg.core.CollectiveTemplateService;
 import com.varmateo.yawg.core.CopyBaker;
