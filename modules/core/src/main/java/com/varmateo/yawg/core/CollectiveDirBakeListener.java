@@ -1,18 +1,16 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.core;
 
-import java.util.Collection;
+import javaslang.collection.Seq;
 
 import com.varmateo.yawg.DirBakeListener;
 import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.PageVars;
-
-import com.varmateo.yawg.commons.util.Lists;
 
 
 /**
@@ -22,15 +20,15 @@ import com.varmateo.yawg.commons.util.Lists;
         implements DirBakeListener {
 
 
-    private final Collection<DirBakeListener> _listeners;
+    private final Seq<DirBakeListener> _listeners;
 
 
     /**
      *
      */
-    CollectiveDirBakeListener(final Collection<DirBakeListener> listeners) {
+    CollectiveDirBakeListener(final Seq<DirBakeListener> listeners) {
 
-        _listeners = Lists.readOnlyCopy(listeners);
+        _listeners = listeners;
     }
 
 
@@ -40,30 +38,24 @@ import com.varmateo.yawg.commons.util.Lists;
     @Override
     public PageVars onDirBake(final PageContext context) {
 
-        PageContext result = context;
-
-        for ( DirBakeListener listener : _listeners ) {
-            PageVars newVars = listener.onDirBake(result);
-            result = buildContext(result, newVars);
-        }
-
-        return result.getPageVars();
+        return _listeners
+                .foldLeft(
+                        context,
+                        (xs, listener) -> augmentContext(xs, listener))
+                .getPageVars();
     }
 
 
-    /**
-     *
-     */
-    private static PageContext buildContext(
-            final PageContext oldData,
-            final PageVars newVars) {
+    private static PageContext augmentContext(
+            final PageContext context,
+            final DirBakeListener listener) {
 
-        PageContext result =
-                PageContext.builder(oldData)
+        PageVars newVars = listener.onDirBake(context);
+        PageContext newContext = PageContext.builder(context)
                 .setPageVars(newVars)
                 .build();
 
-        return result;
+        return newContext;
     }
 
 

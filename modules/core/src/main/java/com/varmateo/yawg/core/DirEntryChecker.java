@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -29,7 +29,7 @@ import com.varmateo.yawg.core.DirBakerConf;
     DirEntryChecker(final DirBakerConf conf) {
 
         _conf = conf;
-        _isIncludeHere = conf.filesToIncludeHere.isPresent();
+        _isIncludeHere = conf.filesToIncludeHere.isDefined();
     }
 
 
@@ -82,12 +82,9 @@ import com.varmateo.yawg.core.DirBakerConf;
      */
     private boolean testForIncludeHere(final Path path) {
 
-        boolean result =
-                _conf.filesToIncludeHere
+        return _conf.filesToIncludeHere
                 .map(matcher -> matcher.test(path))
-                .orElse(false);
-
-        return result;
+                .getOrElse(false);
     }
 
 
@@ -96,12 +93,9 @@ import com.varmateo.yawg.core.DirBakerConf;
      */
     private boolean testForExclude(final Path path) {
 
-        boolean result =
-                _conf.filesToExclude
+        return _conf.filesToExclude
                 .map(matcher -> matcher.test(path))
-                .orElse(false);
-
-        return result;
+                .getOrElse(false);
     }
 
 

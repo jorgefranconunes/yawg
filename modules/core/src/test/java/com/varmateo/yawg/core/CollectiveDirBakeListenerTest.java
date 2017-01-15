@@ -6,7 +6,7 @@
 
 package com.varmateo.yawg.core;
 
-import java.util.Arrays;
+import javaslang.collection.List;
 
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
@@ -34,7 +34,7 @@ public final class CollectiveDirBakeListenerTest
 
         MyListener listener01 = new MyListener("var01", "hello");
         CollectiveDirBakeListener listener =
-                new CollectiveDirBakeListener(Arrays.asList(listener01));
+                new CollectiveDirBakeListener(List.of(listener01));
         PageContext context = buildContext("var02", "world");
 
         assertEquals(0, listener01.getEventCount());
@@ -55,7 +55,7 @@ public final class CollectiveDirBakeListenerTest
 
         MyListener listener01 = new MyListener("var01", "hello");
         CollectiveDirBakeListener listener =
-                new CollectiveDirBakeListener(Arrays.asList(listener01));
+                new CollectiveDirBakeListener(List.of(listener01));
         PageContext context = buildContext("var01", "world");
 
         assertEquals(0, listener01.getEventCount());
@@ -77,7 +77,7 @@ public final class CollectiveDirBakeListenerTest
         MyListener listener02 = new MyListener("var02", "world");
         CollectiveDirBakeListener listener =
                 new CollectiveDirBakeListener(
-                        Arrays.asList(listener01, listener02));
+                        List.of(listener01, listener02));
         PageContext context = buildContext("var03", "VALUE03");
 
         assertEquals(0, listener01.getEventCount());
@@ -103,7 +103,7 @@ public final class CollectiveDirBakeListenerTest
         MyListener listener02 = new MyListener("var01", "world");
         CollectiveDirBakeListener listener =
                 new CollectiveDirBakeListener(
-                        Arrays.asList(listener01, listener02));
+                        List.of(listener01, listener02));
         PageContext context = buildContext("var03", "VALUE03");
 
         assertEquals(0, listener01.getEventCount());
@@ -128,7 +128,7 @@ public final class CollectiveDirBakeListenerTest
         MyListener listener02 = new MyListener("var03", "world");
         CollectiveDirBakeListener listener =
                 new CollectiveDirBakeListener(
-                        Arrays.asList(listener01, listener02));
+                        List.of(listener01, listener02));
         PageContext context = buildContext("var03", "VALUE03");
 
         assertEquals(0, listener01.getEventCount());

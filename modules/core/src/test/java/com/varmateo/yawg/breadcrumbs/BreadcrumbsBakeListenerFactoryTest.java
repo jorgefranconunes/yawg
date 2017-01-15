@@ -1,12 +1,12 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.breadcrumbs;
 
-import java.util.Collection;
+import javaslang.collection.Seq;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -30,7 +30,7 @@ public final class BreadcrumbsBakeListenerFactoryTest
     @Test
     public void loadAsSpi() {
 
-        Collection<DirBakeListenerFactory> allFactories =
+        Seq<DirBakeListenerFactory> allFactories =
                 Services.getAll(DirBakeListenerFactory.class);
         boolean isFound = false;
 

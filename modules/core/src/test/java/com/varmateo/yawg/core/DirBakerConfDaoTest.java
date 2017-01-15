@@ -88,7 +88,7 @@ public final class DirBakerConfDaoTest
     @Test
     public void withTemplateParamMissing() {
 
-        assertThat(_emptyConf.templateName).isNotPresent();
+        assertThat(_emptyConf.templateName.toJavaOptional()).isNotPresent();
     }
 
 
@@ -136,7 +136,7 @@ public final class DirBakerConfDaoTest
     public void withExcludeParamMissing()
             throws IOException {
 
-        assertThat(_emptyConf.filesToExclude).isNotPresent();
+        assertThat(_emptyConf.filesToExclude.toJavaOptional()).isNotPresent();
     }
 
 
@@ -199,7 +199,8 @@ public final class DirBakerConfDaoTest
     @Test
     public void withIncludeHereParamMissing() {
 
-        assertThat(_emptyConf.filesToIncludeHere).isNotPresent();
+        assertThat(_emptyConf.filesToIncludeHere.toJavaOptional())
+                .isNotPresent();
     }
 
 

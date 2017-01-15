@@ -1,15 +1,16 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.core;
 
 import java.nio.file.Path;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
+
+import javaslang.collection.List;
+import javaslang.collection.Seq;
+import javaslang.control.Option;
 
 import com.varmateo.yawg.Baker;
 import com.varmateo.yawg.BakerFactory;
@@ -41,7 +42,7 @@ import com.varmateo.yawg.util.Services;
 
     private final SiteBakerConf _conf;
 
-    private final Holder<Collection<Baker>> _bakers =
+    private final Holder<Seq<Baker>> _bakers =
             Holder.of(this::newBakers);
 
     private final Holder<Baker> _copyBaker =
@@ -90,14 +91,10 @@ import com.varmateo.yawg.util.Services;
     /**
      *
      */
-    private Collection<Baker> newBakers() {
+    private Seq<Baker> newBakers() {
 
-        Collection<Baker> result =
-                Lists.map(
-                        getAllServices(BakerFactory.class),
-                        BakerFactory::newBaker);
-
-        return result;
+        return getAllServices(BakerFactory.class)
+                .map(BakerFactory::newBaker);
     }
 
 
@@ -117,10 +114,9 @@ import com.varmateo.yawg.util.Services;
      */
     private DirBakeListener newDirBakeListener() {
 
-        Collection<DirBakeListener> allListeners =
-                Lists.map(
-                        getAllServices(DirBakeListenerFactory.class),
-                        f -> f.newDirBakeListener());
+        Seq<DirBakeListener> allListeners =
+                getAllServices(DirBakeListenerFactory.class)
+                .map(DirBakeListenerFactory::newDirBakeListener);
         DirBakeListener result =
                 new CollectiveDirBakeListener(allListeners);
 
@@ -163,7 +159,7 @@ import com.varmateo.yawg.util.Services;
     private FileBaker newFileBaker() {
 
         Log log = _log.get();
-        Collection<Baker> bakers = _bakers.get();
+        Seq<Baker> bakers = _bakers.get();
         Baker defaultBaker = _copyBaker.get();
         FileBaker result = new FileBaker(log, bakers, defaultBaker);
 
@@ -176,18 +172,12 @@ import com.varmateo.yawg.util.Services;
      */
     private TemplateService newTemplateService() {
 
-        Collection<TemplateService> allServices = null;
-        Optional<Path> dirPath = _conf.getTemplatesDir();
-
-        if ( dirPath.isPresent() ) {
-            allServices =
-                    Lists.map(
-                            getAllServices(TemplateServiceFactory.class),
-                            f -> f.newTemplateService(dirPath.get()));
-        } else {
-            allServices = Collections.emptyList();
-        }
-
+        Seq<TemplateService> allServices =
+                Option.ofOptional(_conf.getTemplatesDir())
+                .map(dirPath ->
+                     getAllServices(TemplateServiceFactory.class)
+                     .map(f -> f.newTemplateService(dirPath)))
+                .getOrElse(List::of);
         TemplateService result = new CollectiveTemplateService(allServices);
 
         return result;
@@ -220,11 +210,9 @@ import com.varmateo.yawg.util.Services;
     /**
      *
      */
-    private <T> Collection<T> getAllServices(final Class<T> klass) {
+    private <T> Seq<T> getAllServices(final Class<T> klass) {
 
-        Collection<T> result = Services.getAll(klass);
-
-        return result;
+        return Services.getAll(klass);
     }
 
 

@@ -1,15 +1,18 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.core;
 
 import java.nio.file.Path;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+
+import javaslang.Tuple;
+import javaslang.collection.HashMap;
+import javaslang.collection.Map;
+import javaslang.collection.Seq;
+import javaslang.control.Option;
 
 import com.varmateo.yawg.Baker;
 import com.varmateo.yawg.PageContext;
@@ -26,7 +29,7 @@ import com.varmateo.yawg.util.Exceptions;
 
 
     private final Log _log;
-    private final Collection<Baker> _bakers;
+    private final Seq<Baker> _bakers;
     private final Baker _defaultBaker;
 
     // Keys are baker names (aka baker types), values are the
@@ -39,16 +42,16 @@ import com.varmateo.yawg.util.Exceptions;
      */
     FileBaker(
             final Log log,
-            final Collection<Baker> bakers,
+            final Seq<Baker> bakers,
             final Baker defaultBaker) {
 
         _log = log;
         _bakers = bakers;
         _defaultBaker = defaultBaker;
-        _allBakersByType = new HashMap<>();
-
-        bakers.stream().forEach(b -> _allBakersByType.put(b.getShortName(), b));
-        _allBakersByType.put(defaultBaker.getShortName(), defaultBaker);
+        _allBakersByType =
+                HashMap.ofEntries(
+                        bakers.map(b -> Tuple.of(b.getShortName(), b)))
+                .put(defaultBaker.getShortName(), defaultBaker);
     }
 
 
@@ -90,7 +93,7 @@ import com.varmateo.yawg.util.Exceptions;
                 dirBakerConf.bakerTypes
                 .flatMap(bakerTypes -> bakerTypes.getBakerTypeFor(sourcePath))
                 .map(bakerType -> findBakerWithType(bakerType))
-                .orElseGet(() -> findBakerFromAll(sourcePath));
+                .getOrElse(() -> findBakerFromAll(sourcePath));
 
         return baker;
     }
@@ -102,13 +105,13 @@ import com.varmateo.yawg.util.Exceptions;
     private Baker findBakerWithType(final String bakerType)
             throws YawgException {
 
-        Baker baker = _allBakersByType.get(bakerType);
+        Option<Baker> baker = _allBakersByType.get(bakerType);
 
-        if ( baker == null ) {
-            Exceptions.raise("Unknown baker type \"{0}\"", bakerType);
+        if ( !baker.isDefined() ) {
+            throw Exceptions.raise("Unknown baker type \"{0}\"", bakerType);
         }
 
-        return baker;
+        return baker.get();
     }
 
 
@@ -117,13 +120,10 @@ import com.varmateo.yawg.util.Exceptions;
      */
     private Baker findBakerFromAll(final Path sourcePath) {
 
-        Baker baker =
-                _bakers.stream()
+        return _bakers
                 .filter(candidate -> candidate.isBakeable(sourcePath))
-                .findFirst()
-                .orElse(_defaultBaker);
-
-        return baker;
+                .headOption()
+                .getOrElse(_defaultBaker);
     }
 
 

@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -8,8 +8,9 @@ package com.varmateo.yawg.core;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.List;
+
+import javaslang.collection.List;
+import javaslang.collection.Seq;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,7 +20,6 @@ import com.varmateo.testutils.TestUtils;
 
 import com.varmateo.yawg.core.DirBakerConf;
 import com.varmateo.yawg.core.DirEntryScanner;
-import com.varmateo.yawg.commons.util.Lists;
 
 
 /**
@@ -38,9 +38,9 @@ public final class DirEntryScannerTest {
         DirBakerConf conf = DirBakerConf.empty();
         Path dirPath = TestUtils.getInputsDir(DirEntryScanner.class);
         DirEntryScanner scanner = new DirEntryScanner(conf);
-        List<Path> actualEntries = scanner.getDirEntries(dirPath);
-        List<String> expectedEntries =
-                Arrays.asList(
+        Seq<Path> actualEntries = scanner.getDirEntries(dirPath);
+        Seq<String> expectedEntries =
+                List.of(
                         "file01.txt",
                         "file02.adoc",
                         "file03.txt",
@@ -64,9 +64,9 @@ public final class DirEntryScannerTest {
                 .build();
         Path dirPath = TestUtils.getInputsDir(DirEntryScanner.class);
         DirEntryScanner scanner = new DirEntryScanner(conf);
-        List<Path> actualEntries = scanner.getDirEntries(dirPath);
-        List<String> expectedEntries =
-                Arrays.asList(
+        Seq<Path> actualEntries = scanner.getDirEntries(dirPath);
+        Seq<String> expectedEntries =
+                List.of(
                         "file02.adoc",
                         "file04.adoc");
 
@@ -78,11 +78,12 @@ public final class DirEntryScannerTest {
      *
      */
     private void assertFilenameEquals(
-            final List<String> expectedNames,
-            final List<Path> actualEntries) {
+            final Seq<String> expectedNames,
+            final Seq<Path> actualEntries) {
 
-        List<String> actualNames = 
-                Lists.map(actualEntries, p -> p.getFileName().toString());
+        Seq<String> actualNames = actualEntries
+                .map(Path::getFileName)
+                .map(Object::toString);
 
         assertThat(actualNames).isEqualTo(expectedNames);
     }

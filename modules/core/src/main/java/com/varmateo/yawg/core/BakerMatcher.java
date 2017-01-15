@@ -1,17 +1,19 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.core;
 
 import java.nio.file.Path;
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.Optional;
-import java.util.Map;
-import java.util.stream.Collectors;
+
+import javaslang.Function2;
+import javaslang.Tuple;
+import javaslang.collection.HashMap;
+import javaslang.collection.Map;
+import javaslang.collection.Seq;
+import javaslang.control.Option;
 
 import com.varmateo.yawg.util.GlobMatcher;
 
@@ -22,7 +24,7 @@ import com.varmateo.yawg.util.GlobMatcher;
 /* package private */ final class BakerMatcher {
 
 
-    private Collection<Entry> _bakerTypes;
+    private Seq<Entry> _bakerTypes;
 
 
     /**
@@ -30,10 +32,8 @@ import com.varmateo.yawg.util.GlobMatcher;
      */
     private BakerMatcher(final Builder builder) {
 
-        _bakerTypes =
-                builder._bakerTypes.entrySet().stream()
-                .map(e -> new Entry(e.getKey(), e.getValue()))
-                .collect(Collectors.toList());
+        _bakerTypes = builder._bakerTypes
+                .traverse(Entry::new);
     }
 
 
@@ -44,9 +44,7 @@ import com.varmateo.yawg.util.GlobMatcher;
      */
     public static Builder builder() {
 
-        Builder result = new Builder();
-
-        return result;
+        return new Builder();
     }
 
 
@@ -60,24 +58,19 @@ import com.varmateo.yawg.util.GlobMatcher;
      */
     public static Builder builder(final BakerMatcher data) {
 
-        Builder result = new Builder(data);
-
-        return result;
+        return new Builder(data);
     }
 
 
     /**
      *
      */
-    public Optional<String> getBakerTypeFor(final Path path) {
+    public Option<String> getBakerTypeFor(final Path path) {
 
-        Optional<String> bakerType =
-                _bakerTypes.stream()
+        return _bakerTypes
                 .filter(entry -> entry.matcher.test(path))
                 .map(entry -> entry.mapType)
-                .findFirst();
-
-        return bakerType;
+                .headOption();
     }
 
 
@@ -89,13 +82,10 @@ import com.varmateo.yawg.util.GlobMatcher;
     @Override
     public String toString() {
 
-        String result =
-                _bakerTypes.stream()
+        return _bakerTypes
                 .sorted((o1, o2) -> o1.mapType.compareTo(o2.mapType))
                 .map(e -> e.mapType + ":" + e.matcher.toString())
-                .collect(Collectors.joining(";"));
-
-        return result;
+                .mkString(";");
     }
 
 
@@ -130,7 +120,7 @@ import com.varmateo.yawg.util.GlobMatcher;
     public static final class Builder {
 
 
-        private final Map<String,GlobMatcher> _bakerTypes;
+        private Map<String,GlobMatcher> _bakerTypes;
 
 
         /**
@@ -138,7 +128,7 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         private Builder() {
 
-            _bakerTypes = new LinkedHashMap<>();
+            _bakerTypes = HashMap.of();
         }
 
 
@@ -147,10 +137,8 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         private Builder(final BakerMatcher data) {
 
-            _bakerTypes = new LinkedHashMap<>();
-            data._bakerTypes
-                    .stream()
-                    .forEach(e -> _bakerTypes.put(e.mapType, e.matcher));
+            _bakerTypes = HashMap.ofEntries(
+                    data._bakerTypes.map(e -> Tuple.of(e.mapType, e.matcher)));
         }
 
 
@@ -161,15 +149,21 @@ import com.varmateo.yawg.util.GlobMatcher;
                 final String bakerType,
                 final GlobMatcher matcher) {
 
-            _bakerTypes.merge(
-                    bakerType,
-                    matcher,
-                    (oldMatcher, newMatcher) ->
-                    GlobMatcher.builder(oldMatcher)
-                    .addGlobMatcher(newMatcher)
-                    .build());
+            _bakerTypes = _bakerTypes.merge(
+                    HashMap.of(bakerType, matcher),
+                    Builder::extendGlobMatcher);
 
             return this;
+        }
+
+
+        private static GlobMatcher extendGlobMatcher(
+                final GlobMatcher oldMatcher,
+                final GlobMatcher newMatcher) {
+
+            return GlobMatcher.builder(oldMatcher)
+                    .addGlobMatcher(newMatcher)
+                    .build();
         }
 
 
@@ -194,7 +188,6 @@ import com.varmateo.yawg.util.GlobMatcher;
         public Builder addBakerTypes(final BakerMatcher that) {
 
             that._bakerTypes
-                    .stream()
                     .forEach(e -> addBakerType(e.mapType, e.matcher));
 
             return this;

@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -10,6 +10,8 @@ import java.io.File;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.function.Function;
+
+import javaslang.control.Option;
 
 import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.PageVars;
@@ -83,7 +85,7 @@ import com.varmateo.yawg.core.TemplateNameMatcher;
             final DirBakerConf dirBakerConf)
             throws YawgException {
 
-        Optional<String> templateName = dirBakerConf.templateName;
+        Option<String> templateName = dirBakerConf.templateName;
         TemplateNameMatcher templateNameMatcher = dirBakerConf.templatesHere;
         TemplateService templateService = _templateService;
 
@@ -93,7 +95,8 @@ import com.varmateo.yawg.core.TemplateNameMatcher;
                         path,
                         templateNameMatcher,
                         templateName,
-                        templateService);
+                        templateService)
+                .toJavaOptional();
 
         return fetcher;
     }
@@ -102,51 +105,41 @@ import com.varmateo.yawg.core.TemplateNameMatcher;
     /**
      *
      */
-    private static Optional<Template> getTemplate(
+    private static Option<Template> getTemplate(
             final Path path,
             final TemplateNameMatcher templateNameMatcher,
-            final Optional<String> templateName,
+            final Option<String> templateName,
             final TemplateService templateService) {
 
-        Optional<Template> template =
-                getTemplateForPath(path, templateNameMatcher, templateService);
-
-        if ( !template.isPresent() ) {
-            template = getDefaultTemplate(templateName, templateService);
-        }
-
-        return template;
+        return getTemplateForPath(path, templateNameMatcher, templateService)
+                .orElse(() -> getDefaultTemplate(templateName, templateService));
     }
 
 
     /**
      *
      */
-    private static Optional<Template> getDefaultTemplate(
-            final Optional<String> templateName,
-            final TemplateService templateService) {
-
-        Optional<Template> template =
-                templateName.flatMap(name -> templateService.getTemplate(name));
-
-        return template;
-    }
-
-
-    /**
-     *
-     */
-    private static Optional<Template> getTemplateForPath(
+    private static Option<Template> getTemplateForPath(
             final Path path,
             final TemplateNameMatcher templateNameMatcher,
             final TemplateService templateService) {
 
-        Optional<Template> template =
-                templateNameMatcher
+        return templateNameMatcher
                 .getTemplateNameFor(path)
-                .flatMap(name -> templateService.getTemplate(name));
+                .flatMap(name ->
+                         Option.ofOptional(templateService.getTemplate(name)));
+    }
 
-        return template;
+
+    /**
+     *
+     */
+    private static Option<Template> getDefaultTemplate(
+            final Option<String> templateName,
+            final TemplateService templateService) {
+
+        return templateName.flatMap(
+                name -> Option.ofOptional(templateService.getTemplate(name)));
     }
 
 

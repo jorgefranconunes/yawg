@@ -6,11 +6,11 @@
 
 package com.varmateo.yawg.util;
 
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.ServiceLoader;
 
-import com.varmateo.yawg.commons.util.Lists;
+import javaslang.collection.List;
+import javaslang.collection.Seq;
 
 
 /**
@@ -36,11 +36,17 @@ public final class Services {
      *
      * @return All available services of the given class.
      */
-    public static <T> Collection<T> getAll(final Class<T> klass) {
+    public static <T> Seq<T> getAll(final Class<T> klass) {
 
         ServiceLoader<T> loader = ServiceLoader.load(klass);
         Iterator<T> allServices = loader.iterator();
-        Collection<T> result = Lists.newList(allServices);
+        Iterable<T> iterable = new Iterable() {
+                @Override
+                public Iterator iterator() {
+                    return allServices;
+                }
+            };
+        Seq<T> result = List.ofAll(iterable);
 
         return result;
     }

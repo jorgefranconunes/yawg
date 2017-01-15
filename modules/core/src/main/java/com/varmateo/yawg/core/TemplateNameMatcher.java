@@ -1,16 +1,17 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.core;
 
 import java.nio.file.Path;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+
+import javaslang.Tuple2;
+import javaslang.collection.HashMap;
+import javaslang.collection.Map;
+import javaslang.control.Option;
 
 import com.varmateo.yawg.util.GlobMatcher;
 
@@ -29,7 +30,7 @@ import com.varmateo.yawg.util.GlobMatcher;
      */
     TemplateNameMatcher() {
 
-        _matchersByName = Collections.emptyMap();
+        _matchersByName = HashMap.of();
     }
 
 
@@ -38,7 +39,7 @@ import com.varmateo.yawg.util.GlobMatcher;
      */
     private TemplateNameMatcher(final Builder builder) {
 
-        _matchersByName = new HashMap<>(builder._matchersByName);
+        _matchersByName = builder._matchersByName;
     }
 
 
@@ -56,15 +57,12 @@ import com.varmateo.yawg.util.GlobMatcher;
     /**
      *
      */
-    public Optional<String> getTemplateNameFor(final Path path) {
+    public Option<String> getTemplateNameFor(final Path path) {
 
-        Optional<String> name =
-                _matchersByName.entrySet().stream()
-                .filter(entry -> entry.getValue().test(path))
-                .findFirst()
-                .map(entry -> entry.getKey());
-
-        return name;
+        return _matchersByName
+                .filter(entry -> entry._2().test(path))
+                .headOption()
+                .map(Tuple2::_1);
     }
 
 
@@ -74,7 +72,7 @@ import com.varmateo.yawg.util.GlobMatcher;
     public static final class Builder {
 
 
-        private final Map<String,GlobMatcher> _matchersByName;
+        private Map<String,GlobMatcher> _matchersByName;
 
 
         /**
@@ -82,7 +80,7 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         private Builder() {
 
-            _matchersByName = new HashMap<>();
+            _matchersByName = HashMap.of();
         }
 
 
@@ -93,7 +91,7 @@ import com.varmateo.yawg.util.GlobMatcher;
                 final String templateName,
                 final GlobMatcher globMatcher) {
 
-            _matchersByName.put(templateName, globMatcher);
+            _matchersByName = _matchersByName.put(templateName, globMatcher);
 
             return this;
         }
@@ -104,9 +102,7 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public TemplateNameMatcher build() {
 
-            TemplateNameMatcher result = new TemplateNameMatcher(this);
-
-            return result;
+            return new TemplateNameMatcher(this);
         }
 
 

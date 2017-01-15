@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -9,10 +9,12 @@ package com.varmateo.yawg.core;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
+import java.util.Iterator;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import javaslang.collection.List;
+import javaslang.collection.Seq;
 
 import com.varmateo.yawg.core.DirBakerConf;
 import com.varmateo.yawg.core.DirEntryChecker;
@@ -40,17 +42,22 @@ import com.varmateo.yawg.core.DirEntryChecker;
     /**
      *
      */
-    public List<Path> getDirEntries(final Path dirPath)
+    public Seq<Path> getDirEntries(final Path dirPath)
             throws IOException {
 
-        List<Path> result = null;
+        final Seq<Path> result;
 
         try ( Stream<Path> entries = Files.list(dirPath) ) {
-            result =
+            Stream<Path> stream =
                     entries
                     .filter(_entryFilter)
-                    .sorted()
-                    .collect(Collectors.toList());
+                    .sorted();
+            result = List.ofAll(new Iterable<Path>() {
+                    @Override
+                    public Iterator<Path> iterator() {
+                        return stream.iterator();
+                    }
+                });
         }
 
         return result;

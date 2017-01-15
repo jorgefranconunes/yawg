@@ -7,10 +7,10 @@
 package com.varmateo.yawg.core;
 
 import java.nio.file.Path;
-import java.util.Optional;
 
 import javaslang.collection.List;
 import javaslang.collection.Seq;
+import javaslang.control.Option;
 
 import com.varmateo.yawg.PageVars;
 import com.varmateo.yawg.core.TemplateNameMatcher;
@@ -28,22 +28,22 @@ import com.varmateo.yawg.util.GlobMatcher;
      * Name of template to use when baking a directory and all its
      * sub-directories.
      */
-    public final Optional<String> templateName;
+    public final Option<String> templateName;
 
     /**
      * List of files to exclude when baking a directory.
      */
-    public final Optional<GlobMatcher> filesToExclude;
+    public final Option<GlobMatcher> filesToExclude;
 
     /**
      * Strict list of files to include when baking a directory.
      */
-    public final Optional<GlobMatcher> filesToIncludeHere;
+    public final Option<GlobMatcher> filesToIncludeHere;
 
     /**
      * Association of baker types to some lists of files.
      */
-    public final Optional<BakerMatcher> bakerTypes;
+    public final Option<BakerMatcher> bakerTypes;
 
     /**
      * Set of variables to be made available to the template that will
@@ -128,10 +128,10 @@ import com.varmateo.yawg.util.GlobMatcher;
 
         Builder builder = new Builder(that);
 
-        this.templateName.ifPresent(builder::setTemplateName);
-        this.filesToExclude.ifPresent(builder::addFilesToExclude);
-        this.filesToIncludeHere.ifPresent(builder::setFilesToIncludeHere);
-        this.bakerTypes.ifPresent(builder::addBakerTypes);
+        this.templateName.forEach(builder::setTemplateName);
+        this.filesToExclude.forEach(builder::addFilesToExclude);
+        this.filesToIncludeHere.forEach(builder::setFilesToIncludeHere);
+        this.bakerTypes.forEach(builder::addBakerTypes);
         builder
                 .addPageVars(this.pageVars)
                 .setPageVarsHere(this.pageVarsHere)
@@ -152,15 +152,15 @@ import com.varmateo.yawg.util.GlobMatcher;
 
 
         // These always start empty.
-        private Optional<GlobMatcher> _filesToIncludeHere = Optional.empty();;
+        private Option<GlobMatcher> _filesToIncludeHere = Option.none();
         private PageVars _pageVarsHere = new PageVars();
         private TemplateNameMatcher _templatesHere = new TemplateNameMatcher();
 
         // These adopt the values from externally provided
         // initialization data.
-        private Optional<String> _templateName;
-        private Optional<GlobMatcher> _filesToExclude;
-        private Optional<BakerMatcher> _bakerTypes;
+        private Option<String> _templateName;
+        private Option<GlobMatcher> _filesToExclude;
+        private Option<BakerMatcher> _bakerTypes;
         private PageVars.Builder _pageVarsBuilder;
         private Seq<Path> _extraDirsHere;
 
@@ -170,9 +170,9 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         private Builder() {
 
-            _templateName = Optional.empty();
-            _filesToExclude = Optional.empty();
-            _bakerTypes = Optional.empty();
+            _templateName = Option.none();
+            _filesToExclude = Option.none();
+            _bakerTypes = Option.none();
             _pageVarsBuilder = PageVars.builder();
             _extraDirsHere = List.of();
         }
@@ -196,7 +196,7 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public Builder setTemplateName(final String templateName) {
 
-            _templateName = Optional.of(templateName);
+            _templateName = Option.of(templateName);
 
             return this;
         }
@@ -207,7 +207,7 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public Builder setFilesToExclude(final GlobMatcher fileNames) {
 
-            _filesToExclude = Optional.of(fileNames);
+            _filesToExclude = Option.of(fileNames);
 
             return this;
         }
@@ -232,18 +232,10 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         private Builder addFilesToExclude(final GlobMatcher fileNames) {
 
-            GlobMatcher newFilesToExclude = null;
-
-            if ( _filesToExclude.isPresent() ) {
-                newFilesToExclude =
-                        GlobMatcher.builder(_filesToExclude.get())
-                        .addGlobMatcher(fileNames)
-                        .build();
-            } else {
-                newFilesToExclude = fileNames;
-            }
-
-            _filesToExclude = Optional.of(newFilesToExclude);
+            _filesToExclude = _filesToExclude
+                    .map(x ->
+                         GlobMatcher.builder(x).addGlobMatcher(fileNames).build())
+                    .orElse(() -> Option.some(fileNames));
 
             return this;
         }
@@ -254,7 +246,7 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public Builder setFilesToIncludeHere(final GlobMatcher fileNames) {
 
-            _filesToIncludeHere = Optional.of(fileNames);
+            _filesToIncludeHere = Option.of(fileNames);
 
             return this;
         }
@@ -279,7 +271,7 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public Builder setBakerTypes(final BakerMatcher bakerTypes) {
 
-            _bakerTypes = Optional.of(bakerTypes);
+            _bakerTypes = Option.of(bakerTypes);
 
             return this;
         }
@@ -308,18 +300,10 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         private Builder addBakerTypes(final BakerMatcher bakerTypes) {
 
-            BakerMatcher newBakerTypes = null;
-
-            if ( _bakerTypes.isPresent() ) {
-                newBakerTypes =
-                        BakerMatcher.builder(_bakerTypes.get())
-                        .addBakerTypes(bakerTypes)
-                        .build();
-            } else {
-                newBakerTypes = bakerTypes;
-            }
-
-            _bakerTypes = Optional.of(newBakerTypes);
+            _bakerTypes = _bakerTypes
+                    .map(x ->
+                         BakerMatcher.builder(x).addBakerTypes(bakerTypes).build())
+                    .orElse(() -> Option.of(bakerTypes));
 
             return this;
         }

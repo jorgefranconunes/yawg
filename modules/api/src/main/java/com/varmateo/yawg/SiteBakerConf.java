@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -44,7 +44,7 @@ public final class SiteBakerConf {
 
     /**
      * Path of directory containing the assets files. These files will
-     * be copied without any changes to teh target directory.
+     * be copied without any changes to the target directory.
      */
     public Optional<Path> getAssetsDir() {
         return _assetsDir;

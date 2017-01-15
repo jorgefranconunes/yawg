@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -85,7 +85,7 @@ import com.varmateo.yawg.util.FileUtils;
         try {
             doBake(sourcePath, targetDir);
         } catch ( IOException e ) {
-            Exceptions.raise(
+            throw Exceptions.raise(
                     e,
                     "Failed copying {0} - {1} - {2}",
                     sourcePath,
