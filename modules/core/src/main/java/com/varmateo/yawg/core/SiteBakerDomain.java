@@ -100,9 +100,7 @@ import com.varmateo.yawg.util.Services;
      */
     private Baker newCopyBaker() {
 
-        Baker result = new CopyBaker();
-
-        return result;
+        return new CopyBaker();
     }
 
 
@@ -114,8 +112,7 @@ import com.varmateo.yawg.util.Services;
         Seq<DirBakeListener> allListeners =
                 getAllServices(DirBakeListenerFactory.class)
                 .map(DirBakeListenerFactory::newDirBakeListener);
-        DirBakeListener result =
-                new CollectiveDirBakeListener(allListeners);
+        DirBakeListener result = new CollectiveDirBakeListener(allListeners);
 
         return result;
     }
@@ -126,16 +123,14 @@ import com.varmateo.yawg.util.Services;
      */
     private DirBaker newDirBaker() {
 
-        DirBaker result =
-                new DirBaker(
-                        _log.get(),
-                        _conf.getSourceDir(),
-                        _conf.getTargetDir(),
-                        _fileBaker.get(),
-                        _templateService.get(),
-                        _dirBakerConfDao.get(),
-                        _dirBakeListener.get());
-        return result;
+        return new DirBaker(
+                _log.get(),
+                _conf.getSourceDir(),
+                _conf.getTargetDir(),
+                _fileBaker.get(),
+                _templateService.get(),
+                _dirBakerConfDao.get(),
+                _dirBakeListener.get());
     }
 
 
@@ -144,9 +139,7 @@ import com.varmateo.yawg.util.Services;
      */
     private DirBakerConfDao newDirBakerConfDao() {
 
-        DirBakerConfDao result = new DirBakerConfDao();
-
-        return result;
+        return new DirBakerConfDao();
     }
 
 
@@ -197,10 +190,7 @@ import com.varmateo.yawg.util.Services;
      */
     private SingleSiteBaker newSiteBaker() {
 
-        SingleSiteBaker result =
-                new SingleSiteBaker(_log.get(), _conf, _dirBaker.get());
-
-        return result;
+        return new SingleSiteBaker(_log.get(), _conf, _dirBaker.get());
     }
 
 

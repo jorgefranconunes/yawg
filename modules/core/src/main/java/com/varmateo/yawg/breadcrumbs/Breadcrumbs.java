@@ -1,16 +1,12 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.breadcrumbs;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import com.varmateo.yawg.commons.util.Lists;
+import javaslang.collection.List;
 
 import com.varmateo.yawg.breadcrumbs.BreadcrumbItem;
 
@@ -27,9 +23,9 @@ public final class Breadcrumbs {
     /**
      *
      */
-    public Breadcrumbs() {
+    private Breadcrumbs() {
 
-        _items = Collections.emptyList();
+        _items = List.of();
     }
 
 
@@ -38,7 +34,16 @@ public final class Breadcrumbs {
      */
     private Breadcrumbs(final Builder builder) {
 
-        _items = Lists.readOnlyCopy(builder._items);
+        _items = builder._items;
+    }
+
+
+    /**
+     *
+     */
+    public static Breadcrumbs empty() {
+
+        return new Breadcrumbs();
     }
 
 
@@ -49,9 +54,7 @@ public final class Breadcrumbs {
      */
     public static Builder builder() {
 
-        Builder result = new Builder();
-
-        return result;
+        return new Builder();
     }
 
 
@@ -65,16 +68,14 @@ public final class Breadcrumbs {
      */
     public static Builder builder(final Breadcrumbs data) {
 
-        Builder result = new Builder(data);
-
-        return result;
+        return new Builder(data);
     }
 
 
     /**
      *
      */
-    public List<BreadcrumbItem> getItems() {
+    public Iterable<BreadcrumbItem> getItems() {
 
         return _items;
     }
@@ -94,7 +95,7 @@ public final class Breadcrumbs {
          */
         private Builder() {
 
-            _items = new ArrayList<>();
+            _items = List.of();
         }
 
 
@@ -103,7 +104,7 @@ public final class Breadcrumbs {
          */
         private Builder(final Breadcrumbs data) {
 
-            _items = new ArrayList<>(data._items);
+            _items = data._items;
         }
 
 
@@ -112,7 +113,7 @@ public final class Breadcrumbs {
          */
         public Builder addBreadcrumbItem(final BreadcrumbItem item) {
 
-            _items.add(item);
+            _items = _items.append(item);
 
             return this;
         }
@@ -123,9 +124,7 @@ public final class Breadcrumbs {
          */
         public Breadcrumbs build() {
 
-            Breadcrumbs result = new Breadcrumbs(this);
-
-            return result;
+            return new Breadcrumbs(this);
         }
 
 

@@ -100,7 +100,7 @@ import com.varmateo.yawg.util.FileUtils;
 
         if ( !authors.isEmpty() ) {
             Lists.forEach(
-                    header.getAuthors(),
+                    authors,
                     a -> modelBuilder.addAuthor(a.getFullName(), a.getEmail()));
         } else {
             Author singleAuthor = header.getAuthor();

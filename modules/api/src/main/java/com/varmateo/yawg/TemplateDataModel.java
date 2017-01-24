@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -55,7 +55,7 @@ public final class TemplateDataModel {
     /**
      * The authors of the document. It may be an empty list.
      */
-    public List<Author> getAuthors() {
+    public Iterable<Author> getAuthors() {
         return _authors;
     }
 

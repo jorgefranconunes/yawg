@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -66,7 +66,7 @@ public final class BreadcrumbsBakeListener
 
         Optional<Breadcrumbs> optBreadcrumbs =
                 vars.get(VAR_BREADCRUMB_LIST, Breadcrumbs.class);
-        Breadcrumbs result = optBreadcrumbs.orElse(new Breadcrumbs());
+        Breadcrumbs result = optBreadcrumbs.orElseGet(Breadcrumbs::empty);
 
         return result;
     }

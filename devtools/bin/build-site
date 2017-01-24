@@ -1,10 +1,11 @@
 #!/bin/bash
 ###########################################################################
 #
-# Copyright (c) 2016 Yawg project contributors.
+# Copyright (c) 2016-2017 Yawg project contributors.
 #
 #
-# Generates the Yawg static site.
+# Generates the Yawg static site and optionally uploads it to the
+# GithHub pages repository.
 #
 ###########################################################################
 
@@ -143,12 +144,13 @@ Available options:
 --upload
     Uploads the bake result to the Yawg site, replacing the previous
     contents with the bake result. Implies --init, --final, and
-    --with-latest-yawg
+    --with-latest
 
 --final
     Generates the site ready for uploading to the final production
-    location. If not specified then a visual indicator is added to the
-    site to inform readers that it is not an official release.
+    location. If this option not specified then a visual indicator is
+    added to the site to inform readers that it is not an official
+    release.
 
 --yawg=PATH
     Path of the'yawg' tool to be used. By default it will use the
@@ -185,7 +187,7 @@ function doBakeSite () {
         && setupYawgTool \
         && setupWorkingArea \
         && doBaking \
-        && finalizeWorkingArea
+        && uploadChangesIfDesired
 }
 
 
@@ -350,10 +352,10 @@ function doBaking () {
 #
 #######################################################################
 
-function finalizeWorkingArea () {
+function uploadChangesIfDesired () {
 
     if [ ${_isUpload} == true ] ; then
-        doFinalizeWorkingArea
+        doUploadChanges
     fi
 }
 
@@ -367,7 +369,7 @@ function finalizeWorkingArea () {
 #
 #######################################################################
 
-function doFinalizeWorkingArea () {
+function doUploadChanges () {
 
     yawgLog "Uploading changes to origin Git repo..."
 

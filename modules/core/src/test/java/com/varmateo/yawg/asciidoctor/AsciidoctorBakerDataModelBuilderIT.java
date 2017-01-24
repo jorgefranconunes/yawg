@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -8,7 +8,6 @@ package com.varmateo.yawg.asciidoctor;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.List;
 
 import org.asciidoctor.Asciidoctor;
 
@@ -86,7 +85,7 @@ public final class AsciidoctorBakerDataModelBuilderIT
             throws IOException {
 
         TemplateDataModel model = buildModel("DocumentWithAuthor00.adoc");
-        List<TemplateDataModel.Author> authors = model.getAuthors();
+        Iterable<TemplateDataModel.Author> authors = model.getAuthors();
 
         assertThat(authors).isEmpty();
     }
@@ -100,7 +99,7 @@ public final class AsciidoctorBakerDataModelBuilderIT
             throws IOException {
 
         TemplateDataModel model = buildModel("DocumentWithAuthor01.adoc");
-        List<TemplateDataModel.Author> authors = model.getAuthors();
+        Iterable<TemplateDataModel.Author> authors = model.getAuthors();
 
         assertThat(authors)
                 .extracting("name", "email")
@@ -117,7 +116,7 @@ public final class AsciidoctorBakerDataModelBuilderIT
             throws IOException {
 
         TemplateDataModel model = buildModel("DocumentWithAuthor02.adoc");
-        List<TemplateDataModel.Author> authors = model.getAuthors();
+        Iterable<TemplateDataModel.Author> authors = model.getAuthors();
 
         assertThat(authors)
                 .extracting("name", "email")
@@ -134,7 +133,7 @@ public final class AsciidoctorBakerDataModelBuilderIT
             throws IOException {
 
         TemplateDataModel model = buildModel("DocumentWithAuthor03.adoc");
-        List<TemplateDataModel.Author> authors = model.getAuthors();
+        Iterable<TemplateDataModel.Author> authors = model.getAuthors();
 
         assertThat(authors)
                 .extracting("name", "email")
