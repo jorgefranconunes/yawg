@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -10,9 +10,9 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Iterator;
+
+import javaslang.collection.Stream;
 
 
 /**
@@ -51,14 +51,21 @@ public final class BakerRunnerResult {
      */
     public Stream<String> outputLines() {
 
-        Stream<String> lines =
+        java.util.stream.Stream<String> lines =
                 new BufferedReader(
                         new InputStreamReader(
                                 new ByteArrayInputStream(_output),
                                 StandardCharsets.UTF_8))
                 .lines();
+        Stream<String> result = Stream.ofAll(
+                new Iterable<String>() {
+                    @Override
+                    public Iterator<String> iterator() {
+                        return lines.iterator();
+                    }
+                });
 
-        return lines;
+        return result;
     }
 
 
@@ -67,13 +74,7 @@ public final class BakerRunnerResult {
      */
     public String outputLine(final int index) {
 
-        String result =
-                outputLines()
-                .skip(index)
-                .findFirst()
-                .get();
-
-        return result;
+        return outputLines().get(index);
     }
 
 
@@ -82,10 +83,7 @@ public final class BakerRunnerResult {
      */
     public String outputLineFromEnd(final int index) {
 
-        List<String> lines = outputLines().collect(Collectors.toList());
-        String result = lines.get(lines.size()-1-index);
-
-        return result;
+        return outputLines().reverse().get(index);
     }
 
 

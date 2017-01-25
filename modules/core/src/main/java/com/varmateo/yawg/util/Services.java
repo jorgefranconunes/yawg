@@ -40,9 +40,9 @@ public final class Services {
 
         ServiceLoader<T> loader = ServiceLoader.load(klass);
         Iterator<T> allServices = loader.iterator();
-        Iterable<T> iterable = new Iterable() {
+        Iterable<T> iterable = new Iterable<T>() {
                 @Override
-                public Iterator iterator() {
+                public Iterator<T> iterator() {
                     return allServices;
                 }
             };
