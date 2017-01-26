@@ -17,16 +17,9 @@ import com.varmateo.yawg.breadcrumbs.BreadcrumbItem;
 public final class Breadcrumbs {
 
 
-    private final List<BreadcrumbItem> _items;
-
-
-    /**
-     *
-     */
-    private Breadcrumbs() {
-
-        _items = List.of();
-    }
+    // We really need to use a j.u.List because this POJO is used as
+    // part of a Freemarker model.
+    private final java.util.List<BreadcrumbItem> _items;
 
 
     /**
@@ -34,7 +27,7 @@ public final class Breadcrumbs {
      */
     private Breadcrumbs(final Builder builder) {
 
-        _items = builder._items;
+        _items = builder._items.toJavaList();
     }
 
 
@@ -43,7 +36,7 @@ public final class Breadcrumbs {
      */
     public static Breadcrumbs empty() {
 
-        return new Breadcrumbs();
+        return builder().build();
     }
 
 
@@ -75,7 +68,7 @@ public final class Breadcrumbs {
     /**
      *
      */
-    public Iterable<BreadcrumbItem> getItems() {
+    public java.util.List<BreadcrumbItem> getItems() {
 
         return _items;
     }
@@ -104,7 +97,7 @@ public final class Breadcrumbs {
          */
         private Builder(final Breadcrumbs data) {
 
-            _items = data._items;
+            _items = List.ofAll(data._items);
         }
 
 

@@ -4,9 +4,13 @@
 
 pageVars:
   navbarSelectedItem: "documentation"
-  
+
 
 pageVarsHere:
   breadcrumb:
     title: "Documentation"
     url: "index.html"
+
+bakerTypes:
+  copy:
+    - "Diagram-Example.puml"

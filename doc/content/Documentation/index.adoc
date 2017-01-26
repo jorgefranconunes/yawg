@@ -17,6 +17,6 @@ static sites.
 
 link:Equations.html[Equations and mathematical formulas]
 
-link:Diagrams/Diagrams.html[Diagrams]
+link:Diagrams.html[Diagrams]
 
 link:TablesOfContents.html[Tables of contents]

@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -9,7 +9,8 @@ package com.varmateo.yawg.asciidoctor;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.Optional;
+
+import javaslang.control.Option;
 
 import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.AttributesBuilder;
@@ -64,11 +65,10 @@ import com.varmateo.yawg.util.FileUtils;
         String body = _asciidoctor.render(sourceContent, options);
         String pageUrl = context.getDirUrl() + "/" + targetPath.getFileName();
         DocumentHeader header = _asciidoctor.readDocumentHeader(sourceContent);
-        String title =
-                Optional.ofNullable(header)
-                .map(h -> h.getDocumentTitle())
-                .map(t -> t.getMain())
-                .orElseGet(() -> FileUtils.basename(sourcePath));
+        String title = Option.of(header)
+                .flatMap(h -> Option.of(h.getDocumentTitle()))
+                .flatMap(t -> Option.of(t.getMain()))
+                .getOrElse(() -> FileUtils.basename(sourcePath));
 
         TemplateDataModel.Builder modelBuilder =
                 TemplateDataModel.builder()

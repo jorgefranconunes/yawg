@@ -1,4 +1,4 @@
-= YAWG User Guide
+= Yawg User Guide
 :author: Jorge Nunes
 :toc:
 :sectnums:
