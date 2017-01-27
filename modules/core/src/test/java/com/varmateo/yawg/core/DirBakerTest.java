@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -28,7 +28,7 @@ import static org.mockito.Mockito.when;
 
 import com.varmateo.testutils.TestUtils;
 
-import com.varmateo.yawg.Baker;
+import com.varmateo.yawg.BakerService;
 import com.varmateo.yawg.DirBakeListener;
 import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.PageVars;
@@ -53,7 +53,7 @@ public final class DirBakerTest {
 
     private TemplateService _templateServiceMock;
     private DirBakeListener _dirBakeListenerMock;
-    private Baker _bakerMock;
+    private BakerService _bakerMock;
     private Seq<Path> _bakedFiles;
 
 
@@ -84,7 +84,7 @@ public final class DirBakerTest {
                         invocation -> ((PageContext)invocation.getArguments()[0]).getPageVars());
 
         _bakedFiles = List.of();
-        _bakerMock = mock(Baker.class);
+        _bakerMock = mock(BakerService.class);
         when(_bakerMock.getShortName()).thenReturn("mock");
         when(_bakerMock.isBakeable(any())).thenReturn(true);
         doAnswer(
@@ -157,7 +157,7 @@ public final class DirBakerTest {
     private DirBaker buildDirBaker(
             final Path sourceRootDir,
             final Path targetRootDir,
-            final Baker baker) {
+            final BakerService baker) {
 
         Log log = LogFactory.createFor(DirBaker.class);
         FileBaker fileBaker =

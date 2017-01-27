@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -19,7 +19,7 @@ import org.asciidoctor.OptionsBuilder;
 import org.asciidoctor.SafeMode;
 import org.asciidoctor.internal.AsciidoctorCoreException;
 
-import com.varmateo.yawg.Baker;
+import com.varmateo.yawg.BakerService;
 import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.Template;
 import com.varmateo.yawg.TemplateDataModel;
@@ -34,8 +34,8 @@ import com.varmateo.yawg.util.FileUtils;
  * A <code>Baker</code> that translates text files in Asciidoc format
  * into HTML files.
  */
-/* package private */ final class AsciidoctorBaker
-        implements Baker {
+/* package private */ final class AsciidoctorBakerService
+        implements BakerService {
 
 
     private static final String NAME = "asciidoc";
@@ -51,7 +51,7 @@ import com.varmateo.yawg.util.FileUtils;
     /**
      * 
      */
-    AsciidoctorBaker() {
+    AsciidoctorBakerService() {
 
         Asciidoctor asciidoctor = Asciidoctor.Factory.create();
 

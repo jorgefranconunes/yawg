@@ -1,9 +1,9 @@
 ###########################################################################
 #
-# Copyright (C) 2016 Yawg project contributors.
+# Copyright (C) 2016-2017 Yawg project contributors.
 #
 #
-# Names of classes implementig the
+# Names of classes implementing the
 # com.varmateo.yawg.TemplateSericeFactory interface. Instances of
 # these classes will be created through the Java service provider
 # facility

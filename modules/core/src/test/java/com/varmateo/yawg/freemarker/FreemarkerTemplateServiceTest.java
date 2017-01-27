@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -46,10 +46,8 @@ public final class FreemarkerTemplateServiceTest
     public void wrongTemplatesDir() {
 
         Path templatesDir = Paths.get("this/directory/does/not/exist");
-        TemplateService service =
-                new FreemarkerTemplateService(templatesDir);
 
-        assertThatThrownBy(() -> service.getTemplate(TEMPLATE_NAME_OK))
+        assertThatThrownBy(() -> FreemarkerTemplateService.build(templatesDir))
                 .isInstanceOf(YawgException.class);
     }
 
@@ -64,8 +62,7 @@ public final class FreemarkerTemplateServiceTest
                 TestUtils.getPath(
                         FreemarkerTemplateService.class,
                         TEMPLATE_DIR_OK);
-        TemplateService service =
-                new FreemarkerTemplateService(templatesDir);
+        TemplateService service = FreemarkerTemplateService.build(templatesDir);
         Optional<Template> template = service.getTemplate(TEMPLATE_NAME_OK);
 
         assertThat(template).isPresent();
@@ -82,8 +79,7 @@ public final class FreemarkerTemplateServiceTest
                 TestUtils.getPath(
                         FreemarkerTemplateService.class,
                         TEMPLATE_DIR_OK);
-        TemplateService service =
-                new FreemarkerTemplateService(templatesDir);
+        TemplateService service = FreemarkerTemplateService.build(templatesDir);
 
         assertThatThrownBy(() -> service.getTemplate("NoSuchTemplate.ftlh"))
                 .isInstanceOf(YawgException.class);
@@ -100,8 +96,7 @@ public final class FreemarkerTemplateServiceTest
                 TestUtils.getPath(
                         FreemarkerTemplateService.class,
                         TEMPLATE_DIR_OK);
-        TemplateService service =
-                new FreemarkerTemplateService(templatesDir);
+        TemplateService service = FreemarkerTemplateService.build(templatesDir);
         Template template = service.getTemplate("template02.ftlh").get();
 
         String title = "Simple title";
@@ -134,8 +129,7 @@ public final class FreemarkerTemplateServiceTest
                 TestUtils.getPath(
                         FreemarkerTemplateService.class,
                         TEMPLATE_DIR_OK);
-        TemplateService service =
-                new FreemarkerTemplateService(templatesDir);
+        TemplateService service = FreemarkerTemplateService.build(templatesDir);
         Template template = service.getTemplate("template03.ftlh").get();
 
         String title = "Simple title";

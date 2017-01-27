@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -15,7 +15,7 @@ import com.varmateo.yawg.YawgException;
 /**
  * A baker of files.
  */
-public interface Baker {
+public interface BakerService {
 
 
     /**

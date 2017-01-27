@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -22,17 +22,16 @@ import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.Template;
 import com.varmateo.yawg.YawgException;
 
-import com.varmateo.yawg.asciidoctor.AsciidoctorBaker;
+import com.varmateo.yawg.asciidoctor.AsciidoctorBakerService;
 
 
 /**
  *
  */
-public final class AsciidoctorBakerIT
- {
+public final class AsciidoctorBakerServiceIT {
 
 
-    private AsciidoctorBaker _baker = null;
+    private AsciidoctorBakerService _baker = null;
 
 
     /**
@@ -41,7 +40,7 @@ public final class AsciidoctorBakerIT
     @Before
     public void setUp() {
 
-        _baker = new AsciidoctorBaker();
+        _baker = new AsciidoctorBakerService();
     }
 
 

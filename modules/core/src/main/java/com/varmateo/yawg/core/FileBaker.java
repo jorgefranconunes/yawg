@@ -14,7 +14,7 @@ import javaslang.collection.Map;
 import javaslang.collection.Seq;
 import javaslang.control.Option;
 
-import com.varmateo.yawg.Baker;
+import com.varmateo.yawg.BakerService;
 import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.YawgException;
 
@@ -29,12 +29,12 @@ import com.varmateo.yawg.util.Exceptions;
 
 
     private final Log _log;
-    private final Seq<Baker> _bakers;
-    private final Baker _defaultBaker;
+    private final Seq<BakerService> _bakers;
+    private final BakerService _defaultBaker;
 
     // Keys are baker names (aka baker types), values are the
     // corresponding bakers. This map also includes the default baker.
-    private final Map<String, Baker> _allBakersByType;
+    private final Map<String, BakerService> _allBakersByType;
 
 
     /**
@@ -42,8 +42,8 @@ import com.varmateo.yawg.util.Exceptions;
      */
     FileBaker(
             final Log log,
-            final Seq<Baker> bakers,
-            final Baker defaultBaker) {
+            final Seq<BakerService> bakers,
+            final BakerService defaultBaker) {
 
         _log = log;
         _bakers = bakers;
@@ -65,7 +65,7 @@ import com.varmateo.yawg.util.Exceptions;
             final DirBakerConf dirBakerConf)
             throws YawgException {
 
-        Baker baker = findBaker(sourcePath, dirBakerConf);
+        BakerService baker = findBaker(sourcePath, dirBakerConf);
         long startTime = System.currentTimeMillis();
 
         baker.bake(sourcePath, context, targetDir);
@@ -84,12 +84,12 @@ import com.varmateo.yawg.util.Exceptions;
      * @throws YawgException Thrown if the directory configuration
      * specifies a baker type that is unknown.
      */
-    private Baker findBaker(
+    private BakerService findBaker(
             final Path sourcePath,
             final DirBakerConf dirBakerConf)
             throws YawgException {
 
-        Baker baker =
+        BakerService baker =
                 dirBakerConf.bakerTypes
                 .flatMap(bakerTypes -> bakerTypes.getBakerTypeFor(sourcePath))
                 .map(bakerType -> findBakerWithType(bakerType))
@@ -102,10 +102,10 @@ import com.varmateo.yawg.util.Exceptions;
     /**
      *
      */
-    private Baker findBakerWithType(final String bakerType)
+    private BakerService findBakerWithType(final String bakerType)
             throws YawgException {
 
-        Option<Baker> baker = _allBakersByType.get(bakerType);
+        Option<BakerService> baker = _allBakersByType.get(bakerType);
 
         if ( !baker.isDefined() ) {
             throw Exceptions.raise("Unknown baker type \"{0}\"", bakerType);
@@ -118,7 +118,7 @@ import com.varmateo.yawg.util.Exceptions;
     /**
      *
      */
-    private Baker findBakerFromAll(final Path sourcePath) {
+    private BakerService findBakerFromAll(final Path sourcePath) {
 
         return _bakers
                 .filter(candidate -> candidate.isBakeable(sourcePath))

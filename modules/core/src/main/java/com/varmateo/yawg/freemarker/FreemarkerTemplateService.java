@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -11,6 +11,8 @@ import java.io.Writer;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.regex.Pattern;
+
+import javaslang.control.Option;
 
 import freemarker.template.Configuration;
 import freemarker.template.TemplateExceptionHandler;
@@ -26,7 +28,7 @@ import com.varmateo.yawg.util.Exceptions;
 
 
 /**
- * Creates templates based on <a
+ * Creates templates based on the <a
  * href="http://freemarker.org/">Freemarker</a> template engine.
  */
 public final class FreemarkerTemplateService
@@ -36,26 +38,39 @@ public final class FreemarkerTemplateService
     private static final Pattern RE_FTLH = Pattern.compile(".*\\.ftlh$");
 
     private final Configuration _fmConfig;
-    private final IOException _initializationError;
 
 
     /**
      * @param templatesDir The directory containing the Freemarker
      * template files.
      */
-    public FreemarkerTemplateService(final Path templatesDir) {
+    private FreemarkerTemplateService(final Configuration fmConfig) {
+
+        _fmConfig = fmConfig;
+    }
+
+
+    /**
+     *
+     */
+    /* package private */ static FreemarkerTemplateService build(
+            final Path templatesDir)
+            throws YawgException {
 
         Configuration fmConfig = null;
-        IOException initializationError = null;
 
         try {
             fmConfig = buildConfiguration(templatesDir);
         } catch ( IOException e ) {
-            initializationError = e;
+            Exceptions.raise(
+                    e,
+                    "Failed to initialize {0} - {1} - {2}",
+                    FreemarkerTemplateService.class.getSimpleName(),
+                    e.getClass().getSimpleName(),
+                    e.getMessage());
         }
 
-        _fmConfig = fmConfig;
-        _initializationError = initializationError;
+        return new FreemarkerTemplateService(fmConfig);
     }
 
 
@@ -79,43 +94,18 @@ public final class FreemarkerTemplateService
 
 
     /**
-     *
-     */
-    private void checkInitialization()
-            throws YawgException {
-
-        if ( _initializationError != null ) {
-            Exceptions.raise(
-                    _initializationError,
-                    "Failed to initialize template service - {0} - {1}",
-                    _initializationError.getClass().getSimpleName(),
-                    _initializationError.getMessage());
-        }
-    }
-
-
-    /**
      * {@inheritDoc}
      */
     @Override
     public Optional<Template> getTemplate(final String name)
             throws YawgException {
 
-        checkInitialization();
-
-        Optional<Template> result = null;
-
-        if ( RE_FTLH.matcher(name).matches() ) {
-            freemarker.template.Template fmTemplate =
-                    getFreemarkerTemplate(name);
-            Template template =
-                    new FreemarkerTemplate(fmTemplate);
-            result = Optional.of(template);
-        } else {
-            result = Optional.empty();
-        }
-
-        return result;
+        return Option.of(name)
+                .filter(x -> RE_FTLH.matcher(x).matches())
+                .map(this::getFreemarkerTemplate)
+                .map(FreemarkerTemplate::new)
+                .map(FreemarkerTemplate::asTemplate) // HACK
+                .toJavaOptional();
     }
 
 
@@ -184,6 +174,15 @@ public final class FreemarkerTemplateService
                         e.getClass().getSimpleName(),
                         e.getMessage());
             }
+        }
+
+
+        /**
+         * HACK
+         */
+        public Template asTemplate() {
+
+            return this;
         }
 
 

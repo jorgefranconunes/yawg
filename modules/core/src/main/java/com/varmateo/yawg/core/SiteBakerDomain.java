@@ -10,8 +10,8 @@ import javaslang.collection.List;
 import javaslang.collection.Seq;
 import javaslang.control.Option;
 
-import com.varmateo.yawg.Baker;
-import com.varmateo.yawg.BakerFactory;
+import com.varmateo.yawg.BakerService;
+import com.varmateo.yawg.BakerServiceFactory;
 import com.varmateo.yawg.DirBakeListener;
 import com.varmateo.yawg.DirBakeListenerFactory;
 import com.varmateo.yawg.SiteBakerConf;
@@ -20,7 +20,7 @@ import com.varmateo.yawg.TemplateServiceFactory;
 
 import com.varmateo.yawg.core.CollectiveDirBakeListener;
 import com.varmateo.yawg.core.CollectiveTemplateService;
-import com.varmateo.yawg.core.CopyBaker;
+import com.varmateo.yawg.core.CopyBakerService;
 import com.varmateo.yawg.core.DirBaker;
 import com.varmateo.yawg.core.DirBakerConfDao;
 import com.varmateo.yawg.core.FileBaker;
@@ -39,11 +39,11 @@ import com.varmateo.yawg.util.Services;
 
     private final SiteBakerConf _conf;
 
-    private final Holder<Seq<Baker>> _bakers =
+    private final Holder<Seq<BakerService>> _bakers =
             Holder.of(this::newBakers);
 
-    private final Holder<Baker> _copyBaker =
-            Holder.of(this::newCopyBaker);
+    private final Holder<BakerService> _copyBaker =
+            Holder.of(this::newCopyBakerService);
 
     private final Holder<DirBakeListener> _dirBakeListener =
             Holder.of(this::newDirBakeListener);
@@ -88,19 +88,19 @@ import com.varmateo.yawg.util.Services;
     /**
      *
      */
-    private Seq<Baker> newBakers() {
+    private Seq<BakerService> newBakers() {
 
-        return getAllServices(BakerFactory.class)
-                .map(BakerFactory::newBaker);
+        return getAllServices(BakerServiceFactory.class)
+                .map(BakerServiceFactory::newBakerService);
     }
 
 
     /**
      *
      */
-    private Baker newCopyBaker() {
+    private BakerService newCopyBakerService() {
 
-        return new CopyBaker();
+        return new CopyBakerService();
     }
 
 
@@ -149,8 +149,8 @@ import com.varmateo.yawg.util.Services;
     private FileBaker newFileBaker() {
 
         Log log = _log.get();
-        Seq<Baker> bakers = _bakers.get();
-        Baker defaultBaker = _copyBaker.get();
+        Seq<BakerService> bakers = _bakers.get();
+        BakerService defaultBaker = _copyBaker.get();
         FileBaker result = new FileBaker(log, bakers, defaultBaker);
 
         return result;

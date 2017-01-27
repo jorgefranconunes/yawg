@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -11,7 +11,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
-import com.varmateo.yawg.Baker;
+import com.varmateo.yawg.BakerService;
 import com.varmateo.yawg.PageContext;
 import com.varmateo.yawg.Template;
 import com.varmateo.yawg.TemplateDataModel;
@@ -26,8 +26,8 @@ import com.varmateo.yawg.util.FileUtils;
  * A <code>Baker</code> that transforms HTML files into other HTML
  * files.
  */
-public final class HtmlBaker
-        implements Baker {
+public final class HtmlBakerService
+        implements BakerService {
 
 
     private static final String NAME = "html";
@@ -42,7 +42,7 @@ public final class HtmlBaker
     /**
      * 
      */
-    public HtmlBaker() {
+    public HtmlBakerService() {
 
         _modelBuilder = new HtmlBakerDataModelBuilder();
     }
