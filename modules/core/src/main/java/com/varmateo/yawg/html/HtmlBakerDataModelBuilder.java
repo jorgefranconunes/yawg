@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -27,6 +27,10 @@ import com.varmateo.yawg.util.FileUtils;
 /* package private */ final class HtmlBakerDataModelBuilder {
 
 
+    private static final String TAG_BODY = "body";
+    private static final String TAG_TITLE = "title";
+
+
     /**
      *
      */
@@ -48,14 +52,14 @@ import com.varmateo.yawg.util.FileUtils;
                 Optional.of(Jsoup.parse(sourcePath.toFile(), null));
         String body =
                 document
-                .map(doc -> doc.getElementsByTag("body"))
+                .map(doc -> doc.getElementsByTag(TAG_BODY))
                 .flatMap(elems -> Optional.ofNullable(elems.first()))
                 .map(Element::html)
                 .orElse("");
         String pageUrl = context.getDirUrl() + "/" + targetPath.getFileName();
         String title =
                 document
-                .map(doc -> doc.getElementsByTag("title"))
+                .map(doc -> doc.getElementsByTag(TAG_TITLE))
                 .flatMap(elems -> Optional.ofNullable(elems.first()))
                 .map(Element::text)
                 .orElseGet(() -> FileUtils.basename(sourcePath));

@@ -9,7 +9,6 @@ package com.varmateo.yawg.atests;
 import org.assertj.core.api.AbstractAssert;
 import org.assertj.core.api.AbstractCharSequenceAssert;
 import org.assertj.core.api.Assertions;
-import org.assertj.core.api.ObjectAssert;
 
 import com.varmateo.yawg.atests.BakerRunnerResult;
 

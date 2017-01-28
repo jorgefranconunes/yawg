@@ -213,7 +213,7 @@ public final class BakerCli {
         String loggerName = "com.varmateo";
         Logger logger = Logger.getLogger(loggerName);
 
-        for (Handler handler : logger.getHandlers() ) {
+        for ( Handler handler : logger.getHandlers() ) {
             handler.flush();
         }
     }

@@ -8,7 +8,7 @@ package com.varmateo.yawg;
 
 
 /**
- * A factory of <code>Baker</code> instances.
+ * A factory of <code>BakerService</code> instances.
  *
  * <p>Concrete implementations of this interface are not required to
  * be thread safe.</p>

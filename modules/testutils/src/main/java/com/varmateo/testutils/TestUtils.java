@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -126,7 +126,7 @@ public final class TestUtils {
      * @throws IOException If there were any problems creating the
      * temporary directory.
      */
-    public static Path getTmpDir(final Class<?> testSuiteClass)
+    public static Path newTempDir(final Class<?> testSuiteClass)
             throws IOException {
 
         String tmpDirRoot =

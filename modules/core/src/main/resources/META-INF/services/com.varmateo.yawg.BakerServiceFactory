@@ -3,7 +3,7 @@
 # Copyright (C) 2016-2017 Yawg project contributors.
 #
 #
-# Names of classes implementing the com.varmateo.yawg.BakerFactory
+# Names of classes implementing the com.varmateo.yawg.BakerviceFactory
 # interface. Instances of these classes will be created through the
 # Java service provider facility
 # (https://docs.oracle.com/javase/tutorial/ext/basics/spi.html).

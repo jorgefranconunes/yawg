@@ -30,16 +30,14 @@ public final class CoreSiteBakerFactory
 
 
     /**
-     * Creates a new <code>SiteBake</code> instance.
+     * Creates a new <code>SiteBaker</code> instance.
      *
      * @return The baker object.
      */
     @Override
     public SiteBaker newSiteBaker() {
 
-        SiteBaker result = new SiteBakerImpl();
-
-        return result;
+        return new SiteBakerImpl();
     }
 
 
@@ -48,14 +46,6 @@ public final class CoreSiteBakerFactory
      */
     private static final class SiteBakerImpl
             implements SiteBaker {
-
-
-        /**
-         *
-         */
-        SiteBakerImpl() {
-            // Nothing to do.
-        }
 
 
         /**

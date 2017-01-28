@@ -90,7 +90,7 @@ import com.varmateo.yawg.util.Services;
      */
     private Seq<BakerService> newBakers() {
 
-        return getAllServices(BakerServiceFactory.class)
+        return Services.getAll(BakerServiceFactory.class)
                 .map(BakerServiceFactory::newBakerService);
     }
 
@@ -110,7 +110,7 @@ import com.varmateo.yawg.util.Services;
     private DirBakeListener newDirBakeListener() {
 
         Seq<DirBakeListener> allListeners =
-                getAllServices(DirBakeListenerFactory.class)
+                Services.getAll(DirBakeListenerFactory.class)
                 .map(DirBakeListenerFactory::newDirBakeListener);
         DirBakeListener result = new CollectiveDirBakeListener(allListeners);
 
@@ -165,7 +165,7 @@ import com.varmateo.yawg.util.Services;
         Seq<TemplateService> allServices =
                 Option.ofOptional(_conf.getTemplatesDir())
                 .map(dirPath ->
-                     getAllServices(TemplateServiceFactory.class)
+                     Services.getAll(TemplateServiceFactory.class)
                      .map(f -> f.newTemplateService(dirPath)))
                 .getOrElse(List::of);
         TemplateService result = new CollectiveTemplateService(allServices);
@@ -191,15 +191,6 @@ import com.varmateo.yawg.util.Services;
     private SingleSiteBaker newSiteBaker() {
 
         return new SingleSiteBaker(_log.get(), _conf, _dirBaker.get());
-    }
-
-
-    /**
-     *
-     */
-    private <T> Seq<T> getAllServices(final Class<T> klass) {
-
-        return Services.getAll(klass);
     }
 
 

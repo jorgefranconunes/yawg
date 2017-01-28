@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -96,7 +96,7 @@ public final class Lists {
      * @return An immutable list containing all the elements in the
      * given iterator, in the same order.
      */
-    public static <T> List<T> newList(final Iterator<T> iterator) {
+    public static <T> List<T> ofAll(final Iterator<T> iterator) {
 
         List<T> newList = new ArrayList<T>();
 

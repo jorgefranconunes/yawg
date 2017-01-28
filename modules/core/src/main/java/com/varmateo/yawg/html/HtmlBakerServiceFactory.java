@@ -17,15 +17,11 @@ public final class HtmlBakerServiceFactory
         implements BakerServiceFactory {
 
 
-    private final HtmlBakerService _baker;
-
-
     /**
      *
      */
     public HtmlBakerServiceFactory() {
-
-        _baker = new HtmlBakerService();
+        // Nothing to do.
     }
 
 
@@ -35,7 +31,7 @@ public final class HtmlBakerServiceFactory
     @Override
     public BakerService newBakerService() {
 
-        return _baker;
+        return new HtmlBakerService();
     }
 
 

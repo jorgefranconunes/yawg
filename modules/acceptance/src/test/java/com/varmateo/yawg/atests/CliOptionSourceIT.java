@@ -7,6 +7,7 @@
 package com.varmateo.yawg.atests;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -15,6 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
 
 import com.varmateo.testutils.TestUtils;
+import com.varmateo.testutils.PathAssert;
 import com.varmateo.yawg.atests.BakerRunner;
 import com.varmateo.yawg.atests.BakerRunnerResult;
 import static com.varmateo.yawg.atests.BakerRunnerResultAssert.assertThat;
@@ -33,7 +35,7 @@ public final class CliOptionSourceIT {
     public void sourceWithNoTarget()
             throws IOException {
 
-        Path sourcePath = TestUtils.getTmpDir(CliOptionSourceIT.class);
+        Path sourcePath = TestUtils.newTempDir(CliOptionSourceIT.class);
         BakerRunnerResult bakerResult =
                 BakerRunner.builder()
                 .addSourcePath(sourcePath)
@@ -55,7 +57,7 @@ public final class CliOptionSourceIT {
             throws IOException {
 
         Path sourcePath = Paths.get("this-directory-does-not-exist-for-sure");
-        Path targetPath = TestUtils.getTmpDir(CliOptionSourceIT.class);
+        Path targetPath = TestUtils.newTempDir(CliOptionSourceIT.class);
         BakerRunnerResult bakerResult =
                 BakerRunner.builder()
                 .addSourcePath(sourcePath)
@@ -85,6 +87,65 @@ public final class CliOptionSourceIT {
                 .hasExitStatusFailure()
                 .outputLineFromEnd(1)
                 .contains("argument for option --source is missing");
+    }
+
+
+    /**
+     *
+     */
+    @Test
+    public void givenSourceDirIsEmpty_whenBake_thenTargetDirIsEmpty()
+            throws IOException {
+
+        // GIVEN
+        Path sourceDirParent = TestUtils.newTempDir(CliOptionSourceIT.class);
+        Path sourceDir = sourceDirParent.resolve("emptySourceDir");
+        Files.createDirectory(sourceDir);
+
+        // WHEN
+        Path targetDir = TestUtils.newTempDir(CliOptionSourceIT.class);
+        BakerRunnerResult bakerResult =
+                BakerRunner.builder()
+                .addSourcePath(sourceDir)
+                .addTargetPath(targetDir)
+                .run();
+
+        // THEN
+        assertThat(bakerResult)
+                .hasExitStatusSuccess();
+        PathAssert.assertThat(targetDir)
+                .isEmptyDirectory();
+    }
+
+
+    /**
+     *
+     */
+    @Test
+    public void givenSourceDirHasEntries_whenBake_thenTargetDirHasSameEntries()
+            throws IOException {
+
+        // GIVEN
+        Path sourceDir = TestUtils.getPath(
+                CliOptionSourceIT.class,
+                "sourceDirWithEntries");
+
+        // WHEN
+        Path targetDir = TestUtils.newTempDir(CliOptionSourceIT.class);
+        BakerRunnerResult bakerResult =
+                BakerRunner.builder()
+                .addSourcePath(sourceDir)
+                .addTargetPath(targetDir)
+                .run();
+
+        // THEN
+        assertThat(bakerResult)
+                .hasExitStatusSuccess();
+        PathAssert.assertThat(targetDir)
+                .sortedEntries()
+                .containsExactly(
+                        "file01.txt",
+                        "file02.txt");
     }
 
 

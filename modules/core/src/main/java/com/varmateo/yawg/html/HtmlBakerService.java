@@ -26,7 +26,7 @@ import com.varmateo.yawg.util.FileUtils;
  * A <code>Baker</code> that transforms HTML files into other HTML
  * files.
  */
-public final class HtmlBakerService
+/* package private */ final class HtmlBakerService
         implements BakerService {
 
 
@@ -36,15 +36,12 @@ public final class HtmlBakerService
 
     private static final String TARGET_EXTENSION = ".html";
 
-    private final HtmlBakerDataModelBuilder _modelBuilder;
-
 
     /**
      * 
      */
     public HtmlBakerService() {
-
-        _modelBuilder = new HtmlBakerDataModelBuilder();
+        // Nothing to do.
     }
 
 
@@ -175,8 +172,10 @@ public final class HtmlBakerService
             final Template template)
             throws IOException {
 
+        HtmlBakerDataModelBuilder modelBuilder =
+                new HtmlBakerDataModelBuilder();
         TemplateDataModel dataModel =
-                _modelBuilder.build(sourcePath, targetPath, context);
+                modelBuilder.build(sourcePath, targetPath, context);
 
         FileUtils.newWriter(
                 targetPath,
