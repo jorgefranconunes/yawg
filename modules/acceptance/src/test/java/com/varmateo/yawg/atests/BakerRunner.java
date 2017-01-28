@@ -120,9 +120,9 @@ public final class BakerRunner {
         /**
          *
          */
-        public Builder addSourcePath(final Path sourcePath) {
+        public Builder addSourcePath(final Path path) {
 
-            addArgs("--source", sourcePath.toString());
+            addArgs("--source", path.toString());
 
             return this;
         }
@@ -131,9 +131,20 @@ public final class BakerRunner {
         /**
          *
          */
-        public Builder addTargetPath(final Path targetPath) {
+        public Builder addTargetPath(final Path path) {
 
-            addArgs("--target", targetPath.toString());
+            addArgs("--target", path.toString());
+
+            return this;
+        }
+
+
+        /**
+         *
+         */
+        public Builder addTemplatesPath(final Path path) {
+
+            addArgs("--templates", path.toString());
 
             return this;
         }

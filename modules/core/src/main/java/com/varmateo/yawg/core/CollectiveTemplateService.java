@@ -7,6 +7,7 @@
 package com.varmateo.yawg.core;
 
 import java.util.Optional;
+import java.util.function.Function;
 
 import javaslang.collection.Seq;
 import javaslang.control.Option;
@@ -25,7 +26,7 @@ import com.varmateo.yawg.util.Exceptions;
         implements TemplateService {
 
 
-    private final Seq<TemplateService> _services;
+    private final Function<String,Optional<Template>> _templateFetcher;
 
 
     /**
@@ -33,7 +34,11 @@ import com.varmateo.yawg.util.Exceptions;
      */
     CollectiveTemplateService(final Seq<TemplateService> services) {
 
-        _services = services;
+        if ( services.isEmpty() ) {
+            _templateFetcher = name -> Optional.empty();
+        } else {
+            _templateFetcher = name -> getTemplateFromServices(services, name);
+        }
     }
 
 
@@ -43,7 +48,19 @@ import com.varmateo.yawg.util.Exceptions;
     public Optional<Template> getTemplate(final String name)
             throws YawgException {
 
-        Option<Template> result = _services
+        return _templateFetcher.apply(name);
+    }
+
+
+    /**
+     *
+     */
+    private static Optional<Template> getTemplateFromServices(
+            final Seq<TemplateService> services,
+            final String name)
+            throws YawgException {
+
+        Option<Template> result = services
                 .map(service -> service.getTemplate(name))
                 .map(Option::ofOptional)
                 .filter(Option::isDefined)

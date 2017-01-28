@@ -12,40 +12,39 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.assertj.core.api.AbstractAssert;
-import org.assertj.core.api.Assertions;
 import org.assertj.core.api.ListAssert;
+import org.assertj.core.api.PathAssert;
 
 
 /**
- *
+ * Assertions for paths that are directories.
  */
-public final class PathAssert
-        extends AbstractAssert<PathAssert, Path> {
+public final class DirPathAssert
+        extends PathAssert {
 
 
     /**
      *
      */
-    public static PathAssert assertThat(final Path actual) {
+    public static DirPathAssert assertThatDir(final Path actual) {
 
-        return new PathAssert(actual);
+        return new DirPathAssert(actual);
     }
 
 
     /**
      *
      */
-    public PathAssert(final Path actual) {
+    public DirPathAssert(final Path actual) {
 
-        super(actual, PathAssert.class);
+        super(actual);
     }
 
 
     /**
      *
      */
-    public PathAssert isEmptyDirectory()
+    public DirPathAssert isEmptyDirectory()
             throws IOException {
 
         isNotNull();
@@ -65,7 +64,25 @@ public final class PathAssert
     /**
      *
      */
-    public ListAssert<String> sortedEntries()
+    public ListAssert<String> entryNames()
+            throws IOException {
+
+        isNotNull();
+
+        List<String> entries =
+                Files.list(actual)
+                .map(Path::getFileName)
+                .map(Object::toString)
+                .collect(Collectors.toList());
+
+        return new ListAssert<String>(entries);
+    }
+
+
+    /**
+     *
+     */
+    public ListAssert<String> sortedEntryNames()
             throws IOException {
 
         isNotNull();

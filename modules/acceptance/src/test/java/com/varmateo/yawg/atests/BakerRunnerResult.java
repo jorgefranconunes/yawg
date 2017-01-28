@@ -99,6 +99,15 @@ public final class BakerRunnerResult {
     /**
      *
      */
+    public String getOutputAsString() {
+
+        return new String(_output, StandardCharsets.UTF_8);
+    }
+
+
+    /**
+     *
+     */
     public static final class Builder {
 
         private byte[] _output;

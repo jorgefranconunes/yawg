@@ -40,7 +40,7 @@ import com.varmateo.yawg.util.FileUtils;
     /**
      * 
      */
-    public HtmlBakerService() {
+    HtmlBakerService() {
         // Nothing to do.
     }
 

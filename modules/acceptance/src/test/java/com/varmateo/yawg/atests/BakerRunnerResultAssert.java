@@ -48,8 +48,9 @@ public final class BakerRunnerResultAssert
 
         if ( actual.getExitStatus() != 0 ) {
             failWithMessage(
-                    "Expected exit status to be zero but was %d",
-                    actual.getExitStatus());
+                    "Expected exit status to be zero but was %d - %s",
+                    actual.getExitStatus(),
+                    actual.getOutputAsString());
         }
 
         return this;

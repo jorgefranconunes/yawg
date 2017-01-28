@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
 
 import com.varmateo.testutils.TestUtils;
-import com.varmateo.testutils.PathAssert;
+import static com.varmateo.testutils.DirPathAssert.assertThatDir;
 import com.varmateo.yawg.atests.BakerRunner;
 import com.varmateo.yawg.atests.BakerRunnerResult;
 import static com.varmateo.yawg.atests.BakerRunnerResultAssert.assertThat;
@@ -113,7 +113,7 @@ public final class CliOptionSourceIT {
         // THEN
         assertThat(bakerResult)
                 .hasExitStatusSuccess();
-        PathAssert.assertThat(targetDir)
+        assertThatDir(targetDir)
                 .isEmptyDirectory();
     }
 
@@ -141,9 +141,9 @@ public final class CliOptionSourceIT {
         // THEN
         assertThat(bakerResult)
                 .hasExitStatusSuccess();
-        PathAssert.assertThat(targetDir)
-                .sortedEntries()
-                .containsExactly(
+        assertThatDir(targetDir)
+                .entryNames()
+                .containsExactlyInAnyOrder(
                         "file01.txt",
                         "file02.txt");
     }
