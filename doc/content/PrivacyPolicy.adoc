@@ -1,0 +1,65 @@
+= Yawg Site Privacy Policy
+
+This document describes the privacy policy for the
+http://yawg.varmateo.com[Yawg site].
+
+The short version of this privacy policy is that no personal
+information is collected or used by the Yawg site. Some non-personally
+identifying data is collected through Google Analytics. The use of
+Google Analytics in the Yawg site follows the
+https://www.google.com/intl/en/analytics/tos.html[Google Analytics
+Terms of Service].
+
+
+
+
+
+== Collected Information
+
+The Yawg site does not collect any personal information.
+
+Some non-personally identifying data is collected by the Yawg
+site. This is data that your browser automatically sends whenever you
+visit a page in the Yawg site. This data may include information such
+as your computer's Internet Protocol address, browser type, browser
+version, the pages of the Yawg site that you visit, the time and date
+of your visit, the time spent on those pages, and other statistics.
+
+Some non-personally identifying data is also collected by the Google
+Analytics services used by the Yawg site. Additional details on how
+Google Analytics collects and processes data can be found
+https://www.google.com/policies/privacy/partners/[here].
+
+
+
+
+
+== Information Usage
+
+The collected information takes the form of aggregated usage
+statistics of the Yawg site. This information is used by the owner of
+the site to understand usage patterns of the site. This in turn will
+guide the owner of the site on making changes and improvements to it.
+
+None of the collected information is shared with any third-party. This
+also applies to the information gathered through Google Analytics.
+
+
+
+
+
+== Cookie Data
+
+The Yawg site makes use of browser cookies as part of the services
+provided by Google Analytics.
+
+
+
+
+
+== Contact
+
+If you wish to contact the owner of this site regarding this privacy
+policy you can https://github.com/jorgefranconunes/yawg/issues[open an
+issue] on the https://github.com/jorgefranconunes/yawg/[Yawg Github
+project site].

@@ -1,4 +1,4 @@
-= Equations and mathematical formulas
+= Equations and Mathematical Formulas
 
 It is easy to have LaTeX math formulas inside AsciiDoc documents and Yawg
 supports it out of the box. In this section we describe how to include

@@ -10,5 +10,7 @@
     <a href="http://yawg.varmateo.com/">${yawg.productName} ${yawg.version}</a>
     |
     <a href="${yawg.rootRelativeUrl}/Acknowledgements.html">Acknowledgements</a>
+    |
+    <a href="${yawg.rootRelativeUrl}/PrivacyPolicy.html">Privacy</a>
   </p>
 </footer>

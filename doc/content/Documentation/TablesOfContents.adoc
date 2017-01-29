@@ -1,4 +1,4 @@
-= Including a table of contents
+= Including a Table of Contents
 :toc:
 :sectnums:
 

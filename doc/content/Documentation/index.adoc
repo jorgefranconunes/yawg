@@ -5,7 +5,7 @@ Here you can find information on using Yawg.
 
 == Reference documentation
 
-link:UserGuide/UserGuide.html[Yawg user guide] -- The user guide tells
+link:UserGuide/UserGuide.html[Yawg User Guide] -- The user guide tells
 you everything you need to know to run Yawg to generate your beautiful
 static sites.
 
@@ -15,8 +15,8 @@ static sites.
 
 == Tips & tricks
 
-link:Equations.html[Equations and mathematical formulas]
+link:Equations.html[Equations and Mathematical Formulas]
 
 link:Diagrams.html[Diagrams]
 
-link:TablesOfContents.html[Tables of contents]
+link:TablesOfContents.html[Including a Table of Contents]
