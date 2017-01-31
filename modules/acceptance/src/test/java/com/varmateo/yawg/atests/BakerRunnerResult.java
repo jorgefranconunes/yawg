@@ -49,6 +49,15 @@ public final class BakerRunnerResult {
     /**
      *
      */
+    public String outputAsString() {
+
+        return new String(_output, StandardCharsets.UTF_8);
+    }
+
+
+    /**
+     *
+     */
     public Stream<String> outputLines() {
 
         java.util.stream.Stream<String> lines =

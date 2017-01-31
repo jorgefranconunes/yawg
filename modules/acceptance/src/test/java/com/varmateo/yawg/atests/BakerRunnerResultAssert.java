@@ -75,6 +75,17 @@ public final class BakerRunnerResultAssert
     /**
      *
      */
+    public AbstractCharSequenceAssert<?,String> outputAsString() {
+
+        isNotNull();
+
+        return Assertions.assertThat(actual.outputAsString());
+    }
+
+
+    /**
+     *
+     */
     public AbstractCharSequenceAssert<?,String> outputLine(final int index) {
 
         isNotNull();
