@@ -191,8 +191,8 @@ Available options:
 --with-reports
 --with-reports=FLAG
     Signals that code quality reports should be generated
-    (FLAG!=false) or not (FLAG=false). If no flag is given then code
-    quality reports will be generated. Having FLAG==true implies
+    (FLAG!=false) or not (FLAG=false). If no flag is given then no
+    code quality reports will be generated. Having FLAG==true implies
     --with-tests.
 
 --help

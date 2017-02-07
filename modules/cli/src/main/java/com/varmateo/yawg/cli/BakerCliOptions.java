@@ -9,9 +9,9 @@ package com.varmateo.yawg.cli;
 import javaslang.collection.HashSet;
 import javaslang.collection.Set;
 
-import com.varmateo.yawg.cli.util.CliException;
-import com.varmateo.yawg.cli.util.CliOption;
-import com.varmateo.yawg.cli.util.CliOptions;
+import com.varmateo.yawg.cli.CliException;
+import com.varmateo.yawg.cli.CliOption;
+import com.varmateo.yawg.cli.CliOptions;
 
 
 /**

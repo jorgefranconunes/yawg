@@ -4,7 +4,7 @@
  *
  **************************************************************************/
 
-package com.varmateo.yawg.cli.util;
+package com.varmateo.yawg.cli;
 
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
@@ -24,8 +24,8 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.UnrecognizedOptionException;
 
-import com.varmateo.yawg.cli.util.CliException;
-import com.varmateo.yawg.cli.util.CliOption;
+import com.varmateo.yawg.cli.CliException;
+import com.varmateo.yawg.cli.CliOption;
 
 
 /**

@@ -3,7 +3,7 @@ image:https://codecov.io/gh/jorgefranconunes/yawg/branch/master/graph/badge.svg[
 
 
 
-== Yawg - Yet Another Wiki Generator
+== Yawg - Your Awsome Wiki Generator
 
 Yawg is a tool for generating static sites.
 

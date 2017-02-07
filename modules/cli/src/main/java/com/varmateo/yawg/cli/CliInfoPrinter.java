@@ -4,7 +4,7 @@
  *
  **************************************************************************/
 
-package com.varmateo.yawg.cli.util;
+package com.varmateo.yawg.cli;
 
 import java.io.PrintWriter;
 import java.text.MessageFormat;
@@ -14,15 +14,15 @@ import javaslang.collection.Set;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 
-import com.varmateo.yawg.cli.util.CliException;
-import com.varmateo.yawg.cli.util.CliOption;
+import com.varmateo.yawg.cli.CliException;
+import com.varmateo.yawg.cli.CliOption;
 
 
 /**
  * Provides utility methods for printing help and varied info intended
  * for end users.
  */
-public final class CliInfoPrinter {
+/* package private */ final class CliInfoPrinter {
 
 
     private static final String DEFAULT_ARGV0 = "";

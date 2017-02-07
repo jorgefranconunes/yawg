@@ -23,6 +23,7 @@ import javaslang.Tuple;
 import javaslang.Tuple2;
 import javaslang.collection.List;
 import javaslang.collection.Seq;
+import javaslang.control.Try;
 
 import com.varmateo.yawg.PageVars;
 import com.varmateo.yawg.SiteBaker;
@@ -33,8 +34,8 @@ import com.varmateo.yawg.logging.PlainFormatter;
 
 import com.varmateo.yawg.cli.InfoPrinter;
 import com.varmateo.yawg.cli.BakerCliOptions;
-import com.varmateo.yawg.cli.util.CliException;
-import com.varmateo.yawg.cli.util.CliOptions;
+import com.varmateo.yawg.cli.CliException;
+import com.varmateo.yawg.cli.CliOptions;
 
 
 /**
@@ -99,12 +100,13 @@ public final class BakerCli {
             error = e;
         }
 
-        int exitStatus = EXIT_STATUS_OK;
+        final int exitStatus;
 
         if ( error != null ) {
-            flushLogging();
             infoPrinter.printError(error);
             exitStatus = EXIT_STATUS_FAILURE;
+        } else {
+            exitStatus = EXIT_STATUS_OK;
         }
 
         return exitStatus;
@@ -152,7 +154,12 @@ public final class BakerCli {
             } else if ( cliOptions.hasOption(BakerCliOptions.VERSION) ) {
                 infoPrinter.printVersion();
             } else {
-                doBake(cliOptions);
+                Try<Void> result = doBake(cliOptions);
+
+                if ( result.isFailure() ) {
+                    Throwable e = result.getCause();
+                    CliException.raise(e, "Baking failed - {0}", e.getMessage());
+                }
             }
         }
     }
@@ -161,20 +168,19 @@ public final class BakerCli {
     /**
      *
      */
-    private void doBake(final CliOptions cliOptions)
-        throws CliException {
+    private Try<Void> doBake(final CliOptions cliOptions)
+            throws CliException {
 
         setupLogging(cliOptions);
 
         SiteBakerConf conf = buildSiteBakerConf(cliOptions);
         SiteBakerFactory factory = SiteBakerFactory.get();
         SiteBaker siteBaker = factory.newSiteBaker();
+        Try<Void> result = Try.run(() -> siteBaker.bake(conf));
 
-        try {
-            siteBaker.bake(conf);
-        } catch ( YawgException e ) {
-            CliException.raise(e, "Baking failed - {0}", e.getMessage());
-        }
+        flushLogging();
+
+        return result;
     }
 
 

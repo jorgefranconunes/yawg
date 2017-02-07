@@ -1,10 +1,10 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
-package com.varmateo.yawg.cli.util;
+package com.varmateo.yawg.cli;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -22,8 +22,8 @@ import org.junit.Test;
 
 import com.varmateo.testutils.TestUtils;
 
-import com.varmateo.yawg.cli.util.CliOption;
-import com.varmateo.yawg.cli.util.CliOptions;
+import com.varmateo.yawg.cli.CliOption;
+import com.varmateo.yawg.cli.CliOptions;
 
 
 /**

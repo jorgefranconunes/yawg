@@ -1,10 +1,10 @@
 /**************************************************************************
  *
- * Copyright (c) 2015-2016 Yawg project contributors.
+ * Copyright (c) 2015-2017 Yawg project contributors.
  *
  **************************************************************************/
 
-package com.varmateo.yawg.cli.util;
+package com.varmateo.yawg.cli;
 
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionBuilder;

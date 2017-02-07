@@ -1,0 +1,6 @@
+= Developers
+
+Here you will find information intended for the developers of the Yawg
+project.
+
+link:CreatingRelease.html[Creating a release of the Yawg software].

@@ -1,15 +1,15 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
-package com.varmateo.yawg.cli.util;
+package com.varmateo.yawg.cli;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import com.varmateo.yawg.cli.util.CliOption;
+import com.varmateo.yawg.cli.CliOption;
 
 
 /**

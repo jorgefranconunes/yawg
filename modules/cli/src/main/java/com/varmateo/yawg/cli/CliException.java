@@ -1,10 +1,10 @@
 /**************************************************************************
  *
- * Copyright (c) 2015-2016 Yawg project contributors.
+ * Copyright (c) 2015-2017 Yawg project contributors.
  *
  **************************************************************************/
 
-package com.varmateo.yawg.cli.util;
+package com.varmateo.yawg.cli;
 
 import com.varmateo.yawg.util.Exceptions;
 
@@ -29,8 +29,9 @@ public final class CliException
     /**
      *
      */
-    public CliException(final String msg,
-                        final Throwable cause) {
+    public CliException(
+            final String msg,
+            final Throwable cause) {
 
         super(msg, cause);
     }
@@ -39,9 +40,10 @@ public final class CliException
     /**
      * Throws a newly created <code>CliException</code>.
      */
-    public static void raise(final String    msgFmt,
-                             final Object... fmtArgs)
-        throws CliException {
+    public static void raise(
+            final String    msgFmt,
+            final Object... fmtArgs)
+            throws CliException {
 
         Exceptions.raiseChecked(CliException.class, msgFmt, fmtArgs);
     }
@@ -50,14 +52,14 @@ public final class CliException
     /**
      * Throws a newly created <code>CliException</code>.
      */
-    public static void raise(final Throwable cause,
-                             final String    msgFmt,
-                             final Object... fmtArgs)
-        throws CliException {
+    public static void raise(
+            final Throwable cause,
+            final String    msgFmt,
+            final Object... fmtArgs)
+            throws CliException {
 
         Exceptions.raiseChecked(CliException.class, msgFmt, fmtArgs);
     }
 
 
 }
-
