@@ -12,12 +12,6 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
-import java.util.logging.Formatter;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.LogManager;
-import java.util.logging.StreamHandler;
 
 import javaslang.Tuple;
 import javaslang.Tuple2;
@@ -46,9 +40,6 @@ public final class BakerCli {
 
     private static final int EXIT_STATUS_OK = 0;
     private static final int EXIT_STATUS_FAILURE = 1;
-
-    private static final String LOG_FMT_CONSOLE =
-            "{0,date,yyyy-MM.dd HH:mm:ss.SSS} {1} {2}\n";
 
     private static final String DEFAULT_ARGV0 = "yawg";
 
@@ -171,14 +162,13 @@ public final class BakerCli {
     private Try<Void> doBake(final CliOptions cliOptions)
             throws CliException {
 
-        setupLogging(cliOptions);
-
+        LogInitializer logInitializer = initLogInitializer(cliOptions);
         SiteBakerConf conf = buildSiteBakerConf(cliOptions);
         SiteBakerFactory factory = SiteBakerFactory.get();
         SiteBaker siteBaker = factory.newSiteBaker();
         Try<Void> result = Try.run(() -> siteBaker.bake(conf));
 
-        flushLogging();
+        logInitializer.close();
 
         return result;
     }
@@ -187,41 +177,16 @@ public final class BakerCli {
     /**
      *
      */
-    private void setupLogging(final CliOptions cliOptions) {
+    private LogInitializer initLogInitializer(final CliOptions cliOptions) {
 
-        LogManager.getLogManager().reset();
+        LogInitializer logInitializer = JulLogInitializer.builder()
+                .setVerbose(cliOptions.hasOption(BakerCliOptions.VERBOSE))
+                .setOutput(_output)
+                .build();
 
-        Level loggerLevel = null;
-        if ( cliOptions.hasOption(BakerCliOptions.VERBOSE) ) {
-            loggerLevel = Level.FINEST;
-        } else {
-            loggerLevel = Level.INFO;
-        }
+        logInitializer.init();
 
-        Formatter formatter = new PlainFormatter(LOG_FMT_CONSOLE);
-
-        Handler handler = new StreamHandler(_output, formatter);
-        handler.setLevel(loggerLevel);
-
-        String loggerName = "com.varmateo";
-        Logger logger = Logger.getLogger(loggerName);
-        logger.addHandler(handler);
-        logger.setLevel(Level.FINEST);
-        logger.setUseParentHandlers(false);
-    }
-
-
-    /**
-     *
-     */
-    private void flushLogging() {
-
-        String loggerName = "com.varmateo";
-        Logger logger = Logger.getLogger(loggerName);
-
-        for ( Handler handler : logger.getHandlers() ) {
-            handler.flush();
-        }
+        return logInitializer;
     }
 
 
