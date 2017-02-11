@@ -48,12 +48,6 @@ Copyright (c) 2016 Yawg project contributors.
       <scope>test</scope>
     </dependency>
 
-    <dependency>
-      <groupId>com.varmateo.yawg</groupId>
-      <artifactId>yawg-commons</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
   </dependencies>
 
 
@@ -99,9 +93,10 @@ Copyright (c) 2016 Yawg project contributors.
 
   <!-- More project information. -->
 
-  <name>Yawg extension API</name>
+  <name>Yawg API</name>
 
-  <description>Yawg API classes needed by extensions.</description>
+  <description>Yawg API classes required for implementing
+  extensions.</description>
 
 
 </project>

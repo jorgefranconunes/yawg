@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -15,9 +15,8 @@ import org.junit.Test;
 
 import com.varmateo.testutils.TestUtils;
 
-import com.varmateo.yawg.PageContext;
-import com.varmateo.yawg.TemplateDataModel;
-
+import com.varmateo.yawg.api.PageContext;
+import com.varmateo.yawg.api.TemplateDataModel;
 import com.varmateo.yawg.html.HtmlBakerDataModelBuilder;
 
 

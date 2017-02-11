@@ -6,8 +6,8 @@
 
 package com.varmateo.yawg.asciidoctor;
 
-import com.varmateo.yawg.BakerService;
-import com.varmateo.yawg.BakerServiceFactory;
+import com.varmateo.yawg.api.BakerService;
+import com.varmateo.yawg.api.BakerServiceFactory;
 import com.varmateo.yawg.asciidoctor.AsciidoctorBakerService;
 
 

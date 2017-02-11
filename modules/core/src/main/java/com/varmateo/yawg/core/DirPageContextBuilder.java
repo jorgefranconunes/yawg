@@ -13,11 +13,11 @@ import java.util.function.Function;
 
 import javaslang.control.Option;
 
-import com.varmateo.yawg.PageContext;
-import com.varmateo.yawg.PageVars;
-import com.varmateo.yawg.Template;
-import com.varmateo.yawg.TemplateService;
-import com.varmateo.yawg.YawgException;
+import com.varmateo.yawg.api.PageContext;
+import com.varmateo.yawg.api.PageVars;
+import com.varmateo.yawg.api.Template;
+import com.varmateo.yawg.api.TemplateService;
+import com.varmateo.yawg.api.YawgException;
 
 import com.varmateo.yawg.core.DirBakerConf;
 import com.varmateo.yawg.core.TemplateNameMatcher;
@@ -27,7 +27,7 @@ import com.varmateo.yawg.core.TemplateNameMatcher;
  * Builds the <code>PageContext</code> to be used in the baking of
  * files in one given directory.
  */
-/* package private */ final class DirPageContextBuilder {
+final class DirPageContextBuilder {
 
 
     private final Path _targetRootDir;

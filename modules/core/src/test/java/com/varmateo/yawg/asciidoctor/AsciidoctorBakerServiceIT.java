@@ -18,10 +18,9 @@ import org.junit.Test;
 
 import com.varmateo.testutils.TestUtils;
 
-import com.varmateo.yawg.PageContext;
-import com.varmateo.yawg.Template;
-import com.varmateo.yawg.YawgException;
-
+import com.varmateo.yawg.api.PageContext;
+import com.varmateo.yawg.api.Template;
+import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.asciidoctor.AsciidoctorBakerService;
 
 

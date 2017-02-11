@@ -55,13 +55,13 @@ Copyright (c) 2016 Yawg project contributors.
 
     <dependency>
       <groupId>com.varmateo.yawg</groupId>
-      <artifactId>yawg-commons</artifactId>
+      <artifactId>yawg-core</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>com.varmateo.yawg</groupId>
-      <artifactId>yawg-core</artifactId>
+      <artifactId>yawg-spi</artifactId>
       <version>${project.version}</version>
     </dependency>
 

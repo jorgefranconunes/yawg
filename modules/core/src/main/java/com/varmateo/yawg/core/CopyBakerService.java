@@ -9,10 +9,9 @@ package com.varmateo.yawg.core;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import com.varmateo.yawg.BakerService;
-import com.varmateo.yawg.PageContext;
-import com.varmateo.yawg.YawgException;
-
+import com.varmateo.yawg.api.BakerService;
+import com.varmateo.yawg.api.PageContext;
+import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.util.Exceptions;
 import com.varmateo.yawg.util.FileUtils;
 

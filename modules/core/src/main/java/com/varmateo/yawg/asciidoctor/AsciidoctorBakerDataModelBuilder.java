@@ -20,10 +20,9 @@ import org.asciidoctor.ast.Author;
 import org.asciidoctor.ast.DocumentHeader;
 import org.asciidoctor.internal.AsciidoctorCoreException;
 
-import com.varmateo.yawg.PageContext;
-import com.varmateo.yawg.TemplateDataModel;
-
-import com.varmateo.yawg.commons.util.Lists;
+import com.varmateo.yawg.api.PageContext;
+import com.varmateo.yawg.api.TemplateDataModel;
+import com.varmateo.yawg.util.Lists;
 import com.varmateo.yawg.util.FileUtils;
 
 

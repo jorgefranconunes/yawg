@@ -63,9 +63,9 @@ Copyright (c) 2015-2017 Yawg project contributors.
     <module>acceptance</module>
     <module>api</module>
     <module>cli</module>
-    <module>commons</module>
     <module>core</module>
     <module>release</module>
+    <module>spi</module>
     <module>testutils</module>
   </modules>
 

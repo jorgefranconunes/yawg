@@ -9,7 +9,7 @@ package com.varmateo.yawg.cli;
 import java.io.PrintWriter;
 import java.text.MessageFormat;
 
-import com.varmateo.yawg.YawgInfo;
+import com.varmateo.yawg.api.YawgInfo;
 import com.varmateo.yawg.cli.BakerCliOptions;
 import com.varmateo.yawg.cli.CliException;
 import com.varmateo.yawg.cli.CliInfoPrinter;

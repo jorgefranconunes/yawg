@@ -14,8 +14,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import com.varmateo.yawg.PageContext;
-import com.varmateo.yawg.TemplateDataModel;
+import com.varmateo.yawg.api.PageContext;
+import com.varmateo.yawg.api.TemplateDataModel;
 
 import com.varmateo.yawg.util.FileUtils;
 
@@ -24,7 +24,7 @@ import com.varmateo.yawg.util.FileUtils;
  * Creates a <code>TemplateDataModel</code> from an input HTML
  * file.
  */
-/* package private */ final class HtmlBakerDataModelBuilder {
+final class HtmlBakerDataModelBuilder {
 
 
     private static final String TAG_BODY = "body";

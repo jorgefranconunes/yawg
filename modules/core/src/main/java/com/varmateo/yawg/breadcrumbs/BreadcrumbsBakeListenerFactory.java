@@ -1,13 +1,13 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.breadcrumbs;
 
-import com.varmateo.yawg.DirBakeListener;
-import com.varmateo.yawg.DirBakeListenerFactory;
+import com.varmateo.yawg.api.DirBakeListener;
+import com.varmateo.yawg.api.DirBakeListenerFactory;
 import com.varmateo.yawg.breadcrumbs.BreadcrumbsBakeListener;
 
 

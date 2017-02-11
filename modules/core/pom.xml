@@ -70,6 +70,12 @@ Maven POM for the "core" sub-project of the Yawg project.
     </dependency>
 
     <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>yawg-spi</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
       <groupId>org.asciidoctor</groupId>
       <artifactId>asciidoctorj</artifactId>
       <version>${asciidoctorj.version}</version>

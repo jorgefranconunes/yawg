@@ -19,9 +19,8 @@ import java.util.regex.PatternSyntaxException;
 import javaslang.collection.Seq;
 import javaslang.collection.Stream;
 
-import com.varmateo.yawg.PageVars;
-import com.varmateo.yawg.YawgException;
-
+import com.varmateo.yawg.api.PageVars;
+import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.core.DirBakerConf;
 import com.varmateo.yawg.core.TemplateNameMatcher;
 import com.varmateo.yawg.util.Exceptions;

@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -15,15 +15,14 @@ import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Optional;
 
-import com.varmateo.yawg.PageVars;
-import com.varmateo.yawg.SiteBakerConf;
-import com.varmateo.yawg.YawgException;
-import com.varmateo.yawg.YawgInfo;
-
+import com.varmateo.yawg.api.PageVars;
+import com.varmateo.yawg.api.YawgException;
+import com.varmateo.yawg.api.YawgInfo;
 import com.varmateo.yawg.core.DirBaker;
 import com.varmateo.yawg.core.DirBakerConf;
 import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogWithUtils;
+import com.varmateo.yawg.spi.SiteBakerConf;
 import com.varmateo.yawg.util.Exceptions;
 
 

@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -9,10 +9,9 @@ package com.varmateo.yawg;
 import java.io.IOException;
 import java.io.Writer;
 
-import com.varmateo.yawg.Template;
-import com.varmateo.yawg.TemplateDataModel;
-import com.varmateo.yawg.YawgException;
-
+import com.varmateo.yawg.api.Template;
+import com.varmateo.yawg.api.TemplateDataModel;
+import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.util.Exceptions;
 
 

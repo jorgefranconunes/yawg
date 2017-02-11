@@ -22,11 +22,10 @@ import org.junit.Test;
 
 import com.varmateo.testutils.TestUtils;
 
-import com.varmateo.yawg.YawgException;
-
+import com.varmateo.yawg.api.PageVars;
+import com.varmateo.yawg.api.YawgException;
 import static com.varmateo.yawg.core.DirBakerConfTestUtils.assertConfEquals;
 import com.varmateo.yawg.core.DirBakerConfDao;
-import com.varmateo.yawg.PageVars;
 
 
 /**

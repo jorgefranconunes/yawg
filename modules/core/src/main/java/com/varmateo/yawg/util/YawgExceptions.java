@@ -1,11 +1,12 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
-package com.varmateo.yawg;
+package com.varmateo.yawg.util;
 
+import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.util.Exceptions;
 
 

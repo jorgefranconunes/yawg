@@ -6,7 +6,7 @@
 
 package com.varmateo.yawg.cli;
 
-import com.varmateo.yawg.util.Exceptions;
+import java.text.MessageFormat;
 
 
 /**
@@ -45,7 +45,9 @@ public final class CliException
             final Object... fmtArgs)
             throws CliException {
 
-        Exceptions.raiseChecked(CliException.class, msgFmt, fmtArgs);
+        String message = MessageFormat.format(msgFmt, fmtArgs);
+
+        throw new CliException(message);
     }
 
 
@@ -58,7 +60,9 @@ public final class CliException
             final Object... fmtArgs)
             throws CliException {
 
-        Exceptions.raiseChecked(CliException.class, msgFmt, fmtArgs);
+        String message = MessageFormat.format(msgFmt, fmtArgs);
+
+        throw new CliException(message, cause);
     }
 
 

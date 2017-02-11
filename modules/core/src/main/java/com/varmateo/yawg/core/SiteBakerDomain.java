@@ -10,14 +10,13 @@ import javaslang.collection.List;
 import javaslang.collection.Seq;
 import javaslang.control.Option;
 
-import com.varmateo.yawg.BakerService;
-import com.varmateo.yawg.BakerServiceFactory;
-import com.varmateo.yawg.DirBakeListener;
-import com.varmateo.yawg.DirBakeListenerFactory;
-import com.varmateo.yawg.SiteBakerConf;
-import com.varmateo.yawg.TemplateService;
-import com.varmateo.yawg.TemplateServiceFactory;
-
+import com.varmateo.yawg.api.BakerService;
+import com.varmateo.yawg.api.BakerServiceFactory;
+import com.varmateo.yawg.api.DirBakeListener;
+import com.varmateo.yawg.api.DirBakeListenerFactory;
+import com.varmateo.yawg.api.TemplateService;
+import com.varmateo.yawg.api.TemplateServiceFactory;
+import com.varmateo.yawg.spi.SiteBakerConf;
 import com.varmateo.yawg.core.CollectiveDirBakeListener;
 import com.varmateo.yawg.core.CollectiveTemplateService;
 import com.varmateo.yawg.core.CopyBakerService;

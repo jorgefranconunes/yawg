@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -11,7 +11,7 @@ import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.text.MessageFormat;
 
-import com.varmateo.yawg.YawgException;
+import com.varmateo.yawg.api.YawgException;
 
 
 

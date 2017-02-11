@@ -19,12 +19,11 @@ import javaslang.collection.List;
 import javaslang.collection.Seq;
 import javaslang.control.Try;
 
-import com.varmateo.yawg.PageVars;
-import com.varmateo.yawg.SiteBaker;
-import com.varmateo.yawg.SiteBakerConf;
-import com.varmateo.yawg.SiteBakerFactory;
-import com.varmateo.yawg.YawgException;
-import com.varmateo.yawg.logging.PlainFormatter;
+import com.varmateo.yawg.api.PageVars;
+import com.varmateo.yawg.api.YawgException;
+import com.varmateo.yawg.spi.SiteBaker;
+import com.varmateo.yawg.spi.SiteBakerConf;
+import com.varmateo.yawg.spi.SiteBakerFactory;
 
 import com.varmateo.yawg.cli.InfoPrinter;
 import com.varmateo.yawg.cli.BakerCliOptions;

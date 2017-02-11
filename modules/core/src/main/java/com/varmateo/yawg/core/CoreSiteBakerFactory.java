@@ -1,17 +1,16 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.core;
 
-import com.varmateo.yawg.SiteBaker;
-import com.varmateo.yawg.SiteBakerConf;
-import com.varmateo.yawg.SiteBakerFactory;
-
 import com.varmateo.yawg.core.SingleSiteBaker;
 import com.varmateo.yawg.core.SiteBakerDomain;
+import com.varmateo.yawg.spi.SiteBaker;
+import com.varmateo.yawg.spi.SiteBakerConf;
+import com.varmateo.yawg.spi.SiteBakerFactory;
 
 
 /**

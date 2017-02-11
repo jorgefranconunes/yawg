@@ -12,7 +12,7 @@ import javaslang.collection.List;
 import javaslang.collection.Seq;
 import javaslang.control.Option;
 
-import com.varmateo.yawg.PageVars;
+import com.varmateo.yawg.api.PageVars;
 import com.varmateo.yawg.core.TemplateNameMatcher;
 import com.varmateo.yawg.util.GlobMatcher;
 

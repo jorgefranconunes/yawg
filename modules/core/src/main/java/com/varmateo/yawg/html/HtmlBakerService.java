@@ -11,12 +11,11 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
-import com.varmateo.yawg.BakerService;
-import com.varmateo.yawg.PageContext;
-import com.varmateo.yawg.Template;
-import com.varmateo.yawg.TemplateDataModel;
-import com.varmateo.yawg.YawgException;
-
+import com.varmateo.yawg.api.BakerService;
+import com.varmateo.yawg.api.PageContext;
+import com.varmateo.yawg.api.Template;
+import com.varmateo.yawg.api.TemplateDataModel;
+import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.html.HtmlBakerDataModelBuilder;
 import com.varmateo.yawg.util.Exceptions;
 import com.varmateo.yawg.util.FileUtils;

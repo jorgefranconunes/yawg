@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -13,8 +13,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
-import com.varmateo.yawg.YawgException;
-
+import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.util.Exceptions;
 import com.varmateo.yawg.util.SimpleList;
 

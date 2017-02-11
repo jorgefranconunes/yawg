@@ -12,9 +12,9 @@ import java.util.function.Function;
 import javaslang.collection.Seq;
 import javaslang.control.Option;
 
-import com.varmateo.yawg.Template;
-import com.varmateo.yawg.TemplateService;
-import com.varmateo.yawg.YawgException;
+import com.varmateo.yawg.api.Template;
+import com.varmateo.yawg.api.TemplateService;
+import com.varmateo.yawg.api.YawgException;
 
 import com.varmateo.yawg.util.Exceptions;
 

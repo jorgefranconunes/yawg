@@ -28,13 +28,12 @@ import static org.mockito.Mockito.when;
 
 import com.varmateo.testutils.TestUtils;
 
-import com.varmateo.yawg.BakerService;
-import com.varmateo.yawg.DirBakeListener;
-import com.varmateo.yawg.PageContext;
-import com.varmateo.yawg.PageVars;
-import com.varmateo.yawg.Template;
-import com.varmateo.yawg.TemplateService;
-
+import com.varmateo.yawg.api.BakerService;
+import com.varmateo.yawg.api.DirBakeListener;
+import com.varmateo.yawg.api.PageContext;
+import com.varmateo.yawg.api.PageVars;
+import com.varmateo.yawg.api.Template;
+import com.varmateo.yawg.api.TemplateService;
 import com.varmateo.yawg.core.DirBaker;
 import com.varmateo.yawg.core.DirBakerConf;
 import com.varmateo.yawg.core.FileBaker;

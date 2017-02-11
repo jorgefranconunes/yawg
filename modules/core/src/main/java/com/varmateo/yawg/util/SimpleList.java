@@ -12,8 +12,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-import com.varmateo.yawg.YawgException;
-
+import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.util.Exceptions;
 import com.varmateo.yawg.util.SimpleMap;
 

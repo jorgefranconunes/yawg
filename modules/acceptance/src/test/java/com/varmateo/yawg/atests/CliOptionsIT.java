@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
-import com.varmateo.yawg.YawgInfo;
+import com.varmateo.yawg.api.YawgInfo;
 import com.varmateo.yawg.atests.BakerRunner;
 import com.varmateo.yawg.atests.BakerRunnerResult;
 import static com.varmateo.yawg.atests.BakerRunnerResultAssert.assertThat;

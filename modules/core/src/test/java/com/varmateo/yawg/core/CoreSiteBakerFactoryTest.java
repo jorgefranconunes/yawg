@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -9,9 +9,8 @@ package com.varmateo.yawg.core;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-import com.varmateo.yawg.SiteBakerFactory;
-
 import com.varmateo.yawg.core.CoreSiteBakerFactory;
+import com.varmateo.yawg.spi.SiteBakerFactory;
 
 
 /**

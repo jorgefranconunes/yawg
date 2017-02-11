@@ -15,7 +15,7 @@ import java.util.logging.LogManager;
 import java.util.logging.StreamHandler;
 
 import com.varmateo.yawg.cli.LogInitializer;
-import com.varmateo.yawg.logging.PlainFormatter;
+import com.varmateo.yawg.cli.PlainFormatter;
 
 
 /**
