@@ -16,9 +16,9 @@ import org.junit.Test;
 
 import com.varmateo.testutils.TestUtils;
 import static com.varmateo.testutils.DirPathAssert.assertThatDir;
-import com.varmateo.yawg.atests.BakerRunner;
-import com.varmateo.yawg.atests.BakerRunnerResult;
-import static com.varmateo.yawg.atests.BakerRunnerResultAssert.assertThat;
+import com.varmateo.yawg.atests.BakerCliRunner;
+import com.varmateo.yawg.atests.BakerCliResult;
+import static com.varmateo.yawg.atests.BakerCliResultAssert.assertThat;
 
 
 /**
@@ -35,19 +35,14 @@ public final class TemplateParamIT {
             throws IOException {
 
         // GIVEN
-        Path sourceDir = TestUtils.getPath(
+        BakerCliScenario scenario = BakerCliScenario.builder(
                 TemplateParamIT.class,
-                "sourceDirWithNoTemplateParam");
-        Path targetDir = TestUtils.newTempDir(TemplateParamIT.class);
-        Path emptyDir = TestUtils.newTempDir(TemplateParamIT.class);
-        BakerRunner.Builder bakerRunnerBuilder =
-                BakerRunner.builder()
-                .addSourcePath(sourceDir)
-                .addTargetPath(targetDir)
-                .addTemplatesPath(emptyDir);
+                "givenEmptyTemplatesDir_whenBaking_thenErrorDueToMissingDefaultTemplate")
+                .addTemplatesPath()
+                .build();
 
         // WHEN
-        BakerRunnerResult bakerResult = bakerRunnerBuilder.run();
+        BakerCliResult bakerResult = scenario.run();
 
         // THEN
         assertThat(bakerResult)
@@ -65,31 +60,19 @@ public final class TemplateParamIT {
             throws IOException {
 
         // GIVEN
-        Path baseDir = TestUtils.getPath(
+        BakerCliScenario scenario = BakerCliScenario.builder(
                 TemplateParamIT.class,
-                "sourceDirWithDefaultTemplate");
-        Path sourceDir = baseDir.resolve("content");
-        Path targetDir = TestUtils.newTempDir(TemplateParamIT.class);
-        Path templatesDir = baseDir.resolve("templates");
-        BakerRunner.Builder bakerRunnerBuilder =
-                BakerRunner.builder()
-                .addSourcePath(sourceDir)
-                .addTargetPath(targetDir)
-                .addTemplatesPath(templatesDir);
+                "givenTemplatesDirWithoutTemplateParam_whenBaking_thenDefaultTemplateIsUsed")
+                .addTemplatesPath()
+                .build();
 
         // WHEN
-        BakerRunnerResult bakerResult = bakerRunnerBuilder.run();
+        BakerCliResult bakerResult = scenario.run();
 
         // THEN
-        assertThatDir(targetDir)
-                .entryNames()
-                .containsExactlyInAnyOrder("file01.html");
-
-        Path expectedHtmlFile = baseDir.resolve("file01-expected.html");
-        Path targetHtmlFile = targetDir.resolve("file01.html");
-        assertThat(targetHtmlFile)
-                .usingCharset(StandardCharsets.UTF_8)
-                .hasSameContentAs(expectedHtmlFile);
+        assertThat(bakerResult)
+                .hasExitStatusSuccess()
+                .targetDirContainsExpectedContent(scenario);
     }
 
 

@@ -18,9 +18,11 @@ import com.varmateo.yawg.cli.BakerCli;
 /**
  *
  */
-public final class BakerRunner {
+public final class BakerCliRunner {
 
 
+    private final Path _sourcePath;
+    private final Path _targetPath;
     private final String[] _args;
 
 
@@ -38,9 +40,9 @@ public final class BakerRunner {
     /**
      *
      */
-    public static BakerRunner empty() {
+    public static BakerCliRunner empty() {
 
-        BakerRunner result = BakerRunner.builder().build();
+        BakerCliRunner result = BakerCliRunner.builder().build();
 
         return result;
     }
@@ -49,8 +51,10 @@ public final class BakerRunner {
     /**
      *
      */
-    private BakerRunner(final Builder builder) {
+    private BakerCliRunner(final Builder builder) {
 
+        _sourcePath = builder._sourcePath;
+        _targetPath = builder._targetPath;
         _args = builder._args.toJavaArray(String.class);
     }
 
@@ -58,7 +62,7 @@ public final class BakerRunner {
     /**
      *
      */
-    public BakerRunnerResult run() {
+    public BakerCliResult run() {
 
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         BakerCli bakerCli =
@@ -67,8 +71,10 @@ public final class BakerRunner {
                 .setOutput(output)
                 .build();
         int exitStatus = bakerCli.run();
-        BakerRunnerResult result =
-                BakerRunnerResult.builder()
+        BakerCliResult result =
+                BakerCliResult.builder()
+                .setSourcePath(_sourcePath)
+                .setTargetPath(_targetPath)
                 .setOutput(output.toByteArray())
                 .setExitStatus(exitStatus)
                 .build();
@@ -83,6 +89,8 @@ public final class BakerRunner {
     public static final class Builder {
 
 
+        private Path _sourcePath;
+        private Path _targetPath;
         private Seq<String> _args;
 
 
@@ -91,6 +99,8 @@ public final class BakerRunner {
          */
         private Builder() {
 
+            _sourcePath = null;
+            _targetPath = null;
             _args = List.of();
         }
 
@@ -122,6 +132,7 @@ public final class BakerRunner {
          */
         public Builder addSourcePath(final Path path) {
 
+            _sourcePath = path;
             addArgs("--source", path.toString());
 
             return this;
@@ -133,6 +144,7 @@ public final class BakerRunner {
          */
         public Builder addTargetPath(final Path path) {
 
+            _targetPath = path;
             addArgs("--target", path.toString());
 
             return this;
@@ -153,9 +165,9 @@ public final class BakerRunner {
         /**
          *
          */
-        public BakerRunner build() {
+        public BakerCliRunner build() {
 
-            BakerRunner result = new BakerRunner(this);
+            BakerCliRunner result = new BakerCliRunner(this);
 
             return result;
         }
@@ -164,10 +176,10 @@ public final class BakerRunner {
         /**
          *
          */
-        public BakerRunnerResult run() {
+        public BakerCliResult run() {
 
-            BakerRunner baker = new BakerRunner(this);
-            BakerRunnerResult result = baker.run();
+            BakerCliRunner baker = new BakerCliRunner(this);
+            BakerCliResult result = baker.run();
 
             return result;
         }

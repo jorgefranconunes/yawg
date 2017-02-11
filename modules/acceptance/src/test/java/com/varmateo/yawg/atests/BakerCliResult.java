@@ -10,7 +10,9 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 import java.util.Iterator;
+import java.util.Objects;
 
 import javaslang.collection.Stream;
 
@@ -18,9 +20,11 @@ import javaslang.collection.Stream;
 /**
  *
  */
-public final class BakerRunnerResult {
+public final class BakerCliResult {
 
 
+    private final Path _sourcePath;
+    private final Path _targetPath;
     private final byte[] _output;
     private final int _exitStatus;
 
@@ -39,10 +43,30 @@ public final class BakerRunnerResult {
     /**
      *
      */
-    private BakerRunnerResult(final Builder builder) {
+    private BakerCliResult(final Builder builder) {
 
+        _sourcePath = builder._sourcePath;
+        _targetPath = builder._targetPath;
         _output = builder._output;
         _exitStatus = builder._exitStatus;
+    }
+
+
+    /**
+     *
+     */
+    public Path getSourcePath() {
+
+        return Objects.requireNonNull(_sourcePath);
+    }
+
+
+    /**
+     *
+     */
+    public Path getTargetPath() {
+
+        return Objects.requireNonNull(_targetPath);
     }
 
 
@@ -119,6 +143,8 @@ public final class BakerRunnerResult {
      */
     public static final class Builder {
 
+        private Path _sourcePath;
+        private Path _targetPath;
         private byte[] _output;
         private int _exitStatus;
 
@@ -128,8 +154,32 @@ public final class BakerRunnerResult {
          */
         private Builder() {
 
+            _sourcePath = null;
+            _targetPath = null;
             _output = new byte[0];
             _exitStatus = 0;
+        }
+
+
+        /**
+         *
+         */
+        public Builder setSourcePath(final Path sourcePath) {
+
+            _sourcePath = sourcePath;
+
+            return this;
+        }
+
+
+        /**
+         *
+         */
+        public Builder setTargetPath(final Path targetPath) {
+
+            _targetPath = targetPath;
+
+            return this;
         }
 
 
@@ -158,9 +208,9 @@ public final class BakerRunnerResult {
         /**
          *
          */
-        public BakerRunnerResult build() {
+        public BakerCliResult build() {
 
-            BakerRunnerResult result = new BakerRunnerResult(this);
+            BakerCliResult result = new BakerCliResult(this);
 
             return result;
         }

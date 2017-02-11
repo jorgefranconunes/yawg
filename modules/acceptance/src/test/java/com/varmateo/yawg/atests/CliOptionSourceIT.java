@@ -17,9 +17,9 @@ import org.junit.Test;
 
 import com.varmateo.testutils.TestUtils;
 import static com.varmateo.testutils.DirPathAssert.assertThatDir;
-import com.varmateo.yawg.atests.BakerRunner;
-import com.varmateo.yawg.atests.BakerRunnerResult;
-import static com.varmateo.yawg.atests.BakerRunnerResultAssert.assertThat;
+import com.varmateo.yawg.atests.BakerCliRunner;
+import com.varmateo.yawg.atests.BakerCliResult;
+import static com.varmateo.yawg.atests.BakerCliResultAssert.assertThat;
 
 
 /**
@@ -36,8 +36,8 @@ public final class CliOptionSourceIT {
             throws IOException {
 
         Path sourcePath = TestUtils.newTempDir(CliOptionSourceIT.class);
-        BakerRunnerResult bakerResult =
-                BakerRunner.builder()
+        BakerCliResult bakerResult =
+                BakerCliRunner.builder()
                 .addSourcePath(sourcePath)
                 .run();
 
@@ -58,8 +58,8 @@ public final class CliOptionSourceIT {
 
         Path sourcePath = Paths.get("this-directory-does-not-exist-for-sure");
         Path targetPath = TestUtils.newTempDir(CliOptionSourceIT.class);
-        BakerRunnerResult bakerResult =
-                BakerRunner.builder()
+        BakerCliResult bakerResult =
+                BakerCliRunner.builder()
                 .addSourcePath(sourcePath)
                 .addTargetPath(targetPath)
                 .run();
@@ -78,8 +78,8 @@ public final class CliOptionSourceIT {
     public void sourceMissingValue()
             throws IOException {
 
-        BakerRunnerResult bakerResult =
-                BakerRunner.builder()
+        BakerCliResult bakerResult =
+                BakerCliRunner.builder()
                 .addArg("--source")
                 .run();
 
@@ -104,8 +104,8 @@ public final class CliOptionSourceIT {
 
         // WHEN
         Path targetDir = TestUtils.newTempDir(CliOptionSourceIT.class);
-        BakerRunnerResult bakerResult =
-                BakerRunner.builder()
+        BakerCliResult bakerResult =
+                BakerCliRunner.builder()
                 .addSourcePath(sourceDir)
                 .addTargetPath(targetDir)
                 .run();
@@ -126,24 +126,18 @@ public final class CliOptionSourceIT {
             throws IOException {
 
         // GIVEN
-        Path sourceDir = TestUtils.getPath(
+        BakerCliScenario scenario = BakerCliScenario.builder(
                 CliOptionSourceIT.class,
-                "sourceDirWithEntries");
+                "givenSourceDirHasEntries_whenBake_thenTargetDirHasSameEntries")
+                .build();
 
         // WHEN
-        Path targetDir = TestUtils.newTempDir(CliOptionSourceIT.class);
-        BakerRunnerResult bakerResult =
-                BakerRunner.builder()
-                .addSourcePath(sourceDir)
-                .addTargetPath(targetDir)
-                .run();
+        BakerCliResult bakerResult = scenario.run();
 
         // THEN
         assertThat(bakerResult)
-                .hasExitStatusSuccess();
-        assertThatDir(targetDir)
-                .entryNames()
-                .containsExactlyInAnyOrder(
+                .hasExitStatusSuccess()
+                .targetDirContainsExactly(
                         "file01.txt",
                         "file02.txt");
     }

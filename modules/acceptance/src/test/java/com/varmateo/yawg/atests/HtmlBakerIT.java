@@ -16,9 +16,9 @@ import org.junit.Test;
 
 import com.varmateo.testutils.TestUtils;
 import static com.varmateo.testutils.DirPathAssert.assertThatDir;
-import com.varmateo.yawg.atests.BakerRunner;
-import com.varmateo.yawg.atests.BakerRunnerResult;
-import static com.varmateo.yawg.atests.BakerRunnerResultAssert.assertThat;
+import com.varmateo.yawg.atests.BakerCliRunner;
+import com.varmateo.yawg.atests.BakerCliResult;
+import static com.varmateo.yawg.atests.BakerCliResultAssert.assertThat;
 
 
 /**
@@ -35,30 +35,18 @@ public final class HtmlBakerIT {
             throws IOException {
 
         // GIVEN
-        Path sourceDir = TestUtils.getPath(
+        BakerCliScenario scenario = BakerCliScenario.builder(
                 HtmlBakerIT.class,
-                "sourceDirWithNoTemplate");
-        Path targetDir = TestUtils.newTempDir(CliOptionSourceIT.class);
-        BakerRunner.Builder bakerRunnerBuilder =
-                BakerRunner.builder()
-                .addSourcePath(sourceDir)
-                .addTargetPath(targetDir);
+                "givenNoTemplate_whenBakingHtmlSource_thenTargetIsCopy")
+                .build();
 
         // WHEN
-        BakerRunnerResult bakerResult = bakerRunnerBuilder.run();
+        BakerCliResult bakerResult = scenario.run();
 
         // THEN
         assertThat(bakerResult)
-                .hasExitStatusSuccess();
-        assertThatDir(targetDir)
-                .entryNames()
-                .containsExactlyInAnyOrder("file01.html");
-
-        Path sourceHtmlFile = sourceDir.resolve("file01.html");
-        Path targetHtmlFile = targetDir.resolve("file01.html");
-        assertThat(targetHtmlFile)
-                .usingCharset(StandardCharsets.UTF_8)
-                .hasSameContentAs(sourceHtmlFile);
+                .hasExitStatusSuccess()
+                .targetDirContainsExpectedContent(scenario);
     }
 
 
@@ -70,33 +58,19 @@ public final class HtmlBakerIT {
             throws IOException {
 
         // GIVEN
-        Path baseDir = TestUtils.getPath(
+        BakerCliScenario scenario = BakerCliScenario.builder(
                 HtmlBakerIT.class,
-                "sourceDirWithTemplate");
-        Path sourceDir = baseDir.resolve("content");
-        Path targetDir = TestUtils.newTempDir(CliOptionSourceIT.class);
-        Path templatesDir = baseDir.resolve("templates");
-        BakerRunner.Builder bakerRunnerBuilder =
-                BakerRunner.builder()
-                .addSourcePath(sourceDir)
-                .addTargetPath(targetDir)
-                .addTemplatesPath(templatesDir);
+                "givenTemplate_whenBakingHtmlSource_thenTargetIsTemplated")
+                .addTemplatesPath()
+                .build();
 
         // WHEN
-        BakerRunnerResult bakerResult = bakerRunnerBuilder.run();
+        BakerCliResult bakerResult = scenario.run();
 
         // THEN
         assertThat(bakerResult)
-                .hasExitStatusSuccess();
-        assertThatDir(targetDir)
-                .entryNames()
-                .containsExactlyInAnyOrder("file01.html");
-
-        Path expectedHtmlFile = baseDir.resolve("file01-expected.html");
-        Path targetHtmlFile = targetDir.resolve("file01.html");
-        assertThat(targetHtmlFile)
-                .usingCharset(StandardCharsets.UTF_8)
-                .hasSameContentAs(expectedHtmlFile);
+                .hasExitStatusSuccess()
+                .targetDirContainsExpectedContent(scenario);
     }
 
 

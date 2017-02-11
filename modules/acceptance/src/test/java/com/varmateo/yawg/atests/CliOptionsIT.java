@@ -11,9 +11,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
 
 import com.varmateo.yawg.api.YawgInfo;
-import com.varmateo.yawg.atests.BakerRunner;
-import com.varmateo.yawg.atests.BakerRunnerResult;
-import static com.varmateo.yawg.atests.BakerRunnerResultAssert.assertThat;
+import com.varmateo.yawg.atests.BakerCliRunner;
+import com.varmateo.yawg.atests.BakerCliResult;
+import static com.varmateo.yawg.atests.BakerCliResultAssert.assertThat;
 
 
 /**
@@ -28,7 +28,7 @@ public final class CliOptionsIT {
     @Test
     public void noArgs() {
 
-        BakerRunnerResult bakerResult = BakerRunner.builder().run();
+        BakerCliResult bakerResult = BakerCliRunner.builder().run();
 
         assertThat(bakerResult)
                 .hasExitStatusSuccess()
@@ -43,8 +43,8 @@ public final class CliOptionsIT {
     @Test
     public void unknownOption() {
 
-        BakerRunnerResult bakerResult =
-                BakerRunner.builder()
+        BakerCliResult bakerResult =
+                BakerCliRunner.builder()
                 .addArgs("--this-is-an-unknown-option")
                 .run();
 
@@ -72,8 +72,8 @@ public final class CliOptionsIT {
      */
     private void helpOptionTest(final String option) {
 
-        BakerRunnerResult bakerResult =
-                BakerRunner.builder()
+        BakerCliResult bakerResult =
+                BakerCliRunner.builder()
                 .addArg(option)
                 .run();
 

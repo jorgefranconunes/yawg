@@ -27,6 +27,7 @@ import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.asciidoctor.AsciidoctorBakerDataModelBuilder;
 import com.varmateo.yawg.util.Exceptions;
 import com.varmateo.yawg.util.FileUtils;
+import com.varmateo.yawg.util.Holder;
 
 
 /**
@@ -43,23 +44,18 @@ import com.varmateo.yawg.util.FileUtils;
 
     private static final String TARGET_EXTENSION = ".html";
 
-    private final Asciidoctor _asciidoctor;
-    private final AsciidoctorBakerDataModelBuilder _modelBuilder;
+    private final Holder<Asciidoctor> _asciidoctor =
+            Holder.of(this::newAsciidoctor);
+
+    private final Holder<AsciidoctorBakerDataModelBuilder> _modelBuilder =
+            Holder.of(this::newAsciidoctorBakerDataModelBuilder);
 
 
     /**
      * 
      */
     AsciidoctorBakerService() {
-
-        Asciidoctor asciidoctor = Asciidoctor.Factory.create();
-
-        // The following is required for supporting PlantUML diagrams
-        // (cf. http://asciidoctor.org/docs/asciidoctor-diagram/).
-        asciidoctor.requireLibrary("asciidoctor-diagram/plantuml");
-
-        _asciidoctor = asciidoctor;
-        _modelBuilder = new AsciidoctorBakerDataModelBuilder(asciidoctor);
+        // Nothing to do. Really.
     }
 
 
@@ -194,7 +190,7 @@ import com.varmateo.yawg.util.FileUtils;
                 .toFile(targetFile)
                 .safe(SafeMode.UNSAFE);
 
-        _asciidoctor.convertFile(sourceFile, options);
+        _asciidoctor.get().convertFile(sourceFile, options);
     }
 
 
@@ -209,8 +205,8 @@ import com.varmateo.yawg.util.FileUtils;
             final Template template)
             throws AsciidoctorCoreException, IOException {
 
-        TemplateDataModel dataModel =
-                _modelBuilder.build(sourcePath, targetDir, targetPath, context);
+        TemplateDataModel dataModel = _modelBuilder.get().build(
+                sourcePath, targetDir, targetPath, context);
         StringWriter buffer = new StringWriter();
 
         template.process(dataModel, buffer);
@@ -220,6 +216,30 @@ import com.varmateo.yawg.util.FileUtils;
         FileUtils.newWriter(
                 targetPath,
                 writer -> writer.write(content));
+    }
+
+
+    /**
+     *
+     */
+    private Asciidoctor newAsciidoctor() {
+
+        Asciidoctor asciidoctor = Asciidoctor.Factory.create();
+
+        // The following is required for supporting PlantUML diagrams
+        // (cf. http://asciidoctor.org/docs/asciidoctor-diagram/).
+        asciidoctor.requireLibrary("asciidoctor-diagram/plantuml");
+
+        return asciidoctor;
+    }
+
+
+    /**
+     *
+     */
+    private AsciidoctorBakerDataModelBuilder newAsciidoctorBakerDataModelBuilder() {
+        return new AsciidoctorBakerDataModelBuilder(_asciidoctor.get());
+                
     }
 
 
