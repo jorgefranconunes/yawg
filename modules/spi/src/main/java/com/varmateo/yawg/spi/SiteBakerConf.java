@@ -92,10 +92,7 @@ public final class SiteBakerConf {
      * @return A newly created <code>Builder</code> instance.
      */
     public static Builder builder() {
-
-        Builder result = new Builder();
-
-        return result;
+        return new Builder();
     }
 
 
@@ -116,7 +113,6 @@ public final class SiteBakerConf {
          * 
          */
         private Builder() {
-
             // Nothing to do.
         }
 
@@ -176,8 +172,7 @@ public final class SiteBakerConf {
          */
         public SiteBakerConf build() {
 
-            SiteBakerConf result = new SiteBakerConf(this);
-            return result;
+            return new SiteBakerConf(this);
         }
 
     }

@@ -239,7 +239,6 @@ import com.varmateo.yawg.util.Holder;
      */
     private AsciidoctorBakerDataModelBuilder newAsciidoctorBakerDataModelBuilder() {
         return new AsciidoctorBakerDataModelBuilder(_asciidoctor.get());
-                
     }
 
 

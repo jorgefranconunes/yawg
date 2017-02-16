@@ -31,11 +31,10 @@ import com.varmateo.yawg.cli.CliOption;
 /**
  * Represents the set of options provided in a command line.
  */
-public final class CliOptions {
+final class CliOptions {
 
 
     private static final String FLAG_TRUE  = "true";
-    private static final String FLAG_FALSE = "false";
 
     private Set<CliOption> _allOptions = null;
     private CommandLine _cmdLine    = null;
@@ -61,14 +60,14 @@ public final class CliOptions {
             final String[] args)
             throws CliException {
 
-        Options           apacheOptions = buildApacheOptions(options);
-        CommandLineParser cliParser     = new GnuParser();
-        CommandLine       cmdLine       = null;
+        Options apacheOptions = buildApacheOptions(options);
+        CommandLineParser cliParser = new GnuParser();
+        final CommandLine cmdLine;
 
         try {
             cmdLine = cliParser.parse(apacheOptions, args, false);
         } catch ( ParseException e ) {
-            raiseCliException(apacheOptions, e);
+            throw raiseCliException(apacheOptions, e);
         }
 
         java.util.List<String> argList = cmdLine.getArgList();
@@ -76,12 +75,10 @@ public final class CliOptions {
             // There were arguments that were not options. We require
             // all arguments to be options, thus this is an invalid
             // command line.
-            CliException.raise("unknown option {0}", argList.get(0));
+            throw CliException.raise("unknown option {0}", argList.get(0));
         }
 
-        CliOptions result = new CliOptions(options, cmdLine);
-
-        return result;
+        return new CliOptions(options, cmdLine);
     }
 
 
@@ -90,8 +87,7 @@ public final class CliOptions {
      */
     private static Options buildApacheOptions(final Set<CliOption> options) {
 
-        return
-                options
+        return options
                 .map(CliOption::apacheOption)
                 .foldLeft(
                         new Options(),
@@ -102,13 +98,13 @@ public final class CliOptions {
     /**
      *
      */
-    private static void raiseCliException(
+    private static CliException raiseCliException(
             final Options options,
             final ParseException e)
             throws CliException {
 
-        String   msg     = null;
-        Object[] fmtArgs = null;
+        final String msg;
+        final Object[] fmtArgs;
 
         if ( e instanceof MissingOptionException ) {
             MissingOptionException ex = (MissingOptionException)e;
@@ -132,7 +128,7 @@ public final class CliOptions {
             fmtArgs = new Object[]{ e.getClass().getName(), e.getMessage() };
         }
 
-        CliException.raise(msg, fmtArgs);
+        throw CliException.raise(msg, fmtArgs);
     }
 
 

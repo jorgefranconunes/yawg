@@ -37,7 +37,7 @@ final class PlainFormatter
     /**
      * Initializes the formatter with a default format string.
      */
-    public PlainFormatter() {
+    PlainFormatter() {
 
         _logFmt = new MessageFormat(DEFAULT_LOG_FMT);
     }
@@ -64,7 +64,7 @@ final class PlainFormatter
      * @param logFmt The formatting string for the log message. See
      * above for details.
      */
-    public PlainFormatter(final String logFmt) {
+    PlainFormatter(final String logFmt) {
 
         _logFmt = new MessageFormat(logFmt);
     }
@@ -76,9 +76,7 @@ final class PlainFormatter
     @Override
     public String format(final LogRecord record) {
 
-        String result = formatLogMessage(record);
-
-        return result;
+        return formatLogMessage(record);
     }
 
 

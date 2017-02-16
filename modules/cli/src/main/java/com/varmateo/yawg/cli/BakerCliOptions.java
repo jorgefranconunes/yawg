@@ -17,7 +17,7 @@ import com.varmateo.yawg.cli.CliOptions;
 /**
  * Represents the set of supported command line options.
  */
-/* package private */ final class BakerCliOptions {
+final class BakerCliOptions {
 
 
     public static final CliOption ASSETS_DIR =
@@ -113,9 +113,7 @@ import com.varmateo.yawg.cli.CliOptions;
     public static CliOptions parse(final String[] args)
         throws CliException {
 
-        CliOptions options = CliOptions.parse(OPTIONS, args);
-
-        return options;
+        return CliOptions.parse(OPTIONS, args);
     }
 
 

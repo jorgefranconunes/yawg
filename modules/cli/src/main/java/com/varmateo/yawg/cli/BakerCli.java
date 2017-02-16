@@ -20,7 +20,6 @@ import javaslang.collection.Seq;
 import javaslang.control.Try;
 
 import com.varmateo.yawg.api.PageVars;
-import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.spi.SiteBaker;
 import com.varmateo.yawg.spi.SiteBakerConf;
 import com.varmateo.yawg.spi.SiteBakerFactory;
