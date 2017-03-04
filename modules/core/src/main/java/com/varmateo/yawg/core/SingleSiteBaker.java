@@ -6,24 +6,15 @@
 
 package com.varmateo.yawg.core;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.FileVisitResult;
 import java.nio.file.Path;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.StandardCopyOption;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Optional;
 
-import com.varmateo.yawg.api.PageVars;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.api.YawgInfo;
 import com.varmateo.yawg.core.DirBaker;
-import com.varmateo.yawg.core.DirBakerConf;
 import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogWithUtils;
 import com.varmateo.yawg.spi.SiteBakerConf;
-import com.varmateo.yawg.util.Exceptions;
 
 
 /**
@@ -32,12 +23,10 @@ import com.varmateo.yawg.util.Exceptions;
 /* package private */ final class SingleSiteBaker {
 
 
-    private static final String DEFAULT_TEMPLATE_NAME = "default.ftlh";
-
-
     private final LogWithUtils _log;
     private final SiteBakerConf _conf;
-    private final DirBaker _dirBaker;
+    private final AssetsCopier _assetsCopier;
+    private final SourceTreeBaker _sourceTreeBaker;
 
 
     /**
@@ -50,7 +39,16 @@ import com.varmateo.yawg.util.Exceptions;
 
         _log = LogWithUtils.from(log);
         _conf = conf;
-        _dirBaker = dirBaker;
+        _assetsCopier = new AssetsCopier(
+                _log,
+                conf.getAssetsDir(),
+                conf.getTargetDir());
+        _sourceTreeBaker = new SourceTreeBaker(
+                _log,
+                conf.getSourceDir(),
+                conf.getTargetDir(),
+                conf.getExternalPageVars(),
+                dirBaker);
     }
 
 
@@ -88,92 +86,8 @@ import com.varmateo.yawg.util.Exceptions;
     private void doBake()
             throws YawgException {
 
-        if ( _conf.getAssetsDir().isPresent() ) {
-            _log.logDelay("copying assets", this::copyAssets);
-        } else {
-            _log.debug("No assets directory given. Nothing to copy.");
-        }
-
-        _log.logDelay("baking source tree", this::bakeSourceTree);
-    }
-
-
-    /**
-     *
-     */
-    private void bakeSourceTree()
-            throws YawgException {
-
-        Path sourceDir = _conf.getSourceDir();
-        Path targetDir = _conf.getTargetDir();
-        PageVars externalPageVars = _conf.getExternalPageVars();
-        DirBakerConf dirBakerConf =
-                DirBakerConf.builder()
-                .setTemplateName(DEFAULT_TEMPLATE_NAME)
-                .setPageVars(externalPageVars)
-                .build();
-
-        _dirBaker.bakeDirectory(sourceDir, targetDir, dirBakerConf);
-    }
-
-
-    /**
-     *
-     */
-    private void copyAssets()
-            throws YawgException {
-
-        final Path sourceDir = _conf.getAssetsDir().get();
-        final Path targetDir = _conf.getTargetDir();
-
-        try {
-            copyDirectoryTree(sourceDir, targetDir);
-        } catch ( IOException e ) {
-            Exceptions.raise(
-                    e,
-                    "Failed to copy assets - {0} - {1}",
-                    e.getClass().getSimpleName(),
-                    e.getMessage());
-        }
-    }
-
-
-    /**
-     *
-     */
-    private void copyDirectoryTree(
-            final Path sourceDir,
-            final Path targetDir)
-            throws IOException {
-
-        Files.walkFileTree(
-                sourceDir,
-                new SimpleFileVisitor<Path>() {
-                    @Override
-                    public FileVisitResult preVisitDirectory(
-                            final Path dir,
-                            final BasicFileAttributes attrs)
-                            throws IOException {
-                        Path childTargetDir =
-                                targetDir.resolve(sourceDir.relativize(dir));
-                        if ( !Files.exists(childTargetDir) ) {
-                            Files.createDirectory(childTargetDir);
-                        }
-                        return FileVisitResult.CONTINUE;
-                    }
-                    @Override
-                    public FileVisitResult visitFile(
-                            final Path file,
-                            final BasicFileAttributes attrs)
-                            throws IOException {
-                        Files.copy(
-                                file,
-                                targetDir.resolve(sourceDir.relativize(file)),
-                                StandardCopyOption.REPLACE_EXISTING,
-                                StandardCopyOption.COPY_ATTRIBUTES);
-                        return FileVisitResult.CONTINUE;
-                    }
-                });
+        _assetsCopier.copy();
+        _sourceTreeBaker.bake();
     }
 
 

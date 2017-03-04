@@ -177,7 +177,7 @@ public final class FreemarkerTemplateService
 
 
         /**
-         * HACK
+         * HACK.
          */
         public Template asTemplate() {
 

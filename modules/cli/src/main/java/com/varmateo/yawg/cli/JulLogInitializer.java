@@ -12,6 +12,7 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.LogManager;
+import java.util.logging.LogRecord;
 import java.util.logging.StreamHandler;
 
 import com.varmateo.yawg.cli.LogInitializer;
@@ -58,7 +59,13 @@ final class JulLogInitializer
 
         Formatter formatter = new PlainFormatter(LOG_FMT_CONSOLE);
 
-        Handler handler = new StreamHandler(_output, formatter);
+        Handler handler = new StreamHandler(_output, formatter) {
+                @Override
+                public void publish(final LogRecord record) {
+                    super.publish(record);
+                    flush();
+                }
+            };
         handler.setLevel(loggerLevel);
 
         String loggerName = LOGGER_NAME;
