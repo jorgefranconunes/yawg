@@ -165,6 +165,17 @@ public final class BakerCliRunner {
         /**
          *
          */
+        public Builder addAssetsPath(final Path path) {
+
+            addArgs("--assets", path.toString());
+
+            return this;
+        }
+
+
+        /**
+         *
+         */
         public BakerCliRunner build() {
 
             BakerCliRunner result = new BakerCliRunner(this);

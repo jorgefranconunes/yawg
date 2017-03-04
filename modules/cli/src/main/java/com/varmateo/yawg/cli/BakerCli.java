@@ -235,9 +235,9 @@ public final class BakerCli {
     private static Tuple2<String,String> getVarNameAndValueFromOptionValue(
             final String optionValue) {
 
+        int indexOfEqSign = optionValue.indexOf('=');
         final String varName;
         final String varValue;
-        int indexOfEqSign = optionValue.indexOf('=');
 
         if ( indexOfEqSign < 0 ) {
             varName = optionValue;

@@ -22,21 +22,21 @@ import static com.varmateo.yawg.atests.BakerCliResultAssert.assertThat;
 /**
  * Acceptance tests related with the "template" bake parameter.
  */
-public final class TemplateParamIT {
+public final class CliOptionAssetsIT {
 
 
     /**
      *
      */
     @Test
-    public void givenEmptyTemplatesDir_whenBaking_thenErrorDueToMissingDefaultTemplate()
+    public void givenAssetsDirIsMissing_whenBaking_thenBakeFails()
             throws IOException {
 
         // GIVEN
         BakerCliScenario scenario = BakerCliScenario.builder(
-                TemplateParamIT.class,
-                "givenEmptyTemplatesDir_whenBaking_thenErrorDueToMissingDefaultTemplate")
-                .addTemplatesPath()
+                CliOptionAssetsIT.class,
+                "givenAssetsDirIsMissing_whenBaking_thenBakeFails")
+                .addAssetsPath()
                 .build();
 
         // WHEN
@@ -45,8 +45,8 @@ public final class TemplateParamIT {
         // THEN
         assertThat(bakerResult)
                 .hasExitStatusFailure()
-                .outputAsString()
-                .contains("TemplateNotFoundException");
+                .outputLineFromEnd(1)
+                .contains("Failed to copy assets");
     }
 
 
@@ -54,14 +54,14 @@ public final class TemplateParamIT {
      *
      */
     @Test
-    public void givenTemplatesDirWithoutTemplateParam_whenBaking_thenDefaultTemplateIsUsed()
+    public void givenAssetsDir_whenBaking_thenAssetsAreCopiedToTarget()
             throws IOException {
 
         // GIVEN
         BakerCliScenario scenario = BakerCliScenario.builder(
-                TemplateParamIT.class,
-                "givenTemplatesDirWithoutTemplateParam_whenBaking_thenDefaultTemplateIsUsed")
-                .addTemplatesPath()
+                CliOptionAssetsIT.class,
+                "givenAssetsDir_whenBaking_thenAssetsAreCopiedToTarget")
+                .addAssetsPath()
                 .build();
 
         // WHEN

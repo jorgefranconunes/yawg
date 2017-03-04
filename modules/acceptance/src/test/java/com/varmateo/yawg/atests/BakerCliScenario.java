@@ -110,6 +110,18 @@ public final class BakerCliScenario {
         /**
          *
          */
+        public Builder addAssetsPath() {
+
+            Path assetsPath = _testsuiteDir.resolve("assets");
+            _bakerRunnerBuilder.addAssetsPath(assetsPath);
+
+            return this;
+        }
+
+
+        /**
+         *
+         */
         public BakerCliScenario build() {
 
             return new BakerCliScenario(this);
