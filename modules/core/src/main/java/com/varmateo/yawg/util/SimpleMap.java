@@ -90,11 +90,12 @@ public final class SimpleMap {
      */
     public Optional<SimpleMap> getMap(final String key) {
 
-        Map<String,Object> map = getWithType(key, Map.class);
+        @SuppressWarnings("unchecked")
+        Map<String,Object> value =
+                (Map<String,Object>)getWithType(key, Map.class);
         Optional<SimpleMap> result =
-                (map==null)
-                ? Optional.empty()
-                : Optional.of(new SimpleMap(map));
+                Optional.ofNullable(value)
+                .map(SimpleMap::new);
 
         return result;
     }
@@ -107,11 +108,11 @@ public final class SimpleMap {
             final String key,
             final Class<T> itemsClass) {
 
-        List<Object> list = getWithType(key, List.class);
+        @SuppressWarnings("unchecked")
+        List<Object> value = (List<Object>)getWithType(key, List.class);
         Optional<SimpleList<T>> result =
-                (list==null)
-                ? Optional.empty()
-                : Optional.of(new SimpleList<T>(list, itemsClass));
+                Optional.ofNullable(value)
+                .map(v -> new SimpleList<T>(v, itemsClass));
 
         return result;
     }
@@ -135,6 +136,7 @@ public final class SimpleMap {
                     value.getClass().getSimpleName());
         }
 
+        @SuppressWarnings("unchecked")
         T result = (T)value;
 
         return result;

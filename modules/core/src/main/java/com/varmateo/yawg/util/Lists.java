@@ -157,6 +157,7 @@ public final class Lists {
             final Class<T> componentClass) {
 
         int size = collection.size();
+        @SuppressWarnings("unchecked")
         T[] result = (T[])Array.newInstance(componentClass, size);
 
         collection.toArray(result);

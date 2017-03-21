@@ -67,8 +67,10 @@ public final class SimpleList<T>
      */
     public SimpleMap getMap(final int index) {
 
-        Map<String,Object> map = getWithType(index, Map.class);
-        SimpleMap result = new SimpleMap(map);
+        @SuppressWarnings("unchecked")
+        Map<String,Object> value =
+                (Map<String,Object>)getWithType(index, Map.class);
+        SimpleMap result = new SimpleMap(value);
 
         return result;
     }
@@ -81,8 +83,9 @@ public final class SimpleList<T>
             final int index,
             final Class<T> itemsClass) {
 
-        List<Object> list = getWithType(index, List.class);
-        SimpleList<T> result = new SimpleList<T>(list, itemsClass);
+        @SuppressWarnings("unchecked")
+        List<Object> value = (List<Object>)getWithType(index, List.class);
+        SimpleList<T> result = new SimpleList<T>(value, itemsClass);
 
         return result;
     }
@@ -106,6 +109,7 @@ public final class SimpleList<T>
                     (value==null) ? "NULL" : value.getClass().getSimpleName());
         }
 
+        @SuppressWarnings("unchecked")
         T result = (T)value;
 
         return result;

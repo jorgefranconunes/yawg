@@ -44,12 +44,14 @@ public final class YamlParser {
     public SimpleMap parse(final Reader reader)
             throws IOException {
 
-        Map<String,Object> resultMap = null;
+        final Map<String,Object> resultMap;
         YamlReader yamlReader = new YamlReader(reader);
         Object yamlObj = yamlReader.read();
 
         if ( (yamlObj!=null) && (yamlObj instanceof Map) ) {
-            resultMap = (Map<String,Object>)yamlObj;
+            @SuppressWarnings("unchecked")
+            Map<String,Object> map = (Map<String,Object>)yamlObj;
+            resultMap = map;
         } else {
             // The contents of the YAML file are invalid.
             resultMap = Collections.emptyMap();
