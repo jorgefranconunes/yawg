@@ -12,12 +12,13 @@ import com.varmateo.yawg.actor.ActorRef;
 /**
  *
  */
+@FunctionalInterface
 public interface ActorFactory<T> {
 
 
     /**
      *
      */
-    T newActorCore(ActorRef actorSelf);
+    T newActorCore(ActorRef<T> actorSelf);
 
 }

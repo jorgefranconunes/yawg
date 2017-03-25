@@ -7,6 +7,7 @@
 package com.varmateo.yawg.actor;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -30,7 +31,8 @@ public final class SequentialExecutorTest {
     private static final int MAX_THREADS = 4;
 
 
-    private ExecutorService _delegateExecutor;
+    private final ExecutorService _delegateExecutor =
+            Executors.newFixedThreadPool(MAX_THREADS);
     private SequentialExecutor _sequentialExecutor;
 
 
@@ -40,7 +42,6 @@ public final class SequentialExecutorTest {
     @Before
     public void setUp() {
 
-        _delegateExecutor = Executors.newSingleThreadExecutor();
         _sequentialExecutor = new SequentialExecutor(_delegateExecutor);
     }
 
@@ -50,8 +51,7 @@ public final class SequentialExecutorTest {
      */
     @After
     public void teardown() {
-
-        _delegateExecutor.shutdownNow();
+        // Nothing to do, for now...
     }
 
 
@@ -148,7 +148,7 @@ public final class SequentialExecutorTest {
         }
 
         // THEN
-        CompletableFuture.allOf(futures).get(1000, TimeUnit.MILLISECONDS);
+        CompletableFuture.allOf(futures).get(1_000, TimeUnit.MILLISECONDS);
         for ( int i=0; i<taskCount; ++i ) {
             assertThat(futures[i]).isCompletedWithValue("result" + i);
         }
@@ -185,6 +185,41 @@ public final class SequentialExecutorTest {
         for ( int i=0; i<taskCount; ++i ) {
             assertThat(futures[i]).isCompletedWithValue("result" + i);
         }
+    }
+
+
+    /**
+     *
+     */
+    @Test
+    public void givenTwoSeqExecutors_whenTasksSubmittedToBoth_thenTasksExecuteInParallel()
+            throws Exception {
+        // GIVEN
+        Executor executor1 = new SequentialExecutor(_delegateExecutor);
+        CompletableFuture<String> future11 = new CompletableFuture<>();
+        CompletableFuture<String> future12 = new CompletableFuture<>();
+        Pojo pojo1 = new Pojo();
+
+        Executor executor2 = new SequentialExecutor(_delegateExecutor);
+        CompletableFuture<String> future21 = new CompletableFuture<>();
+        CompletableFuture<String> future22 = new CompletableFuture<>();
+        Pojo pojo2 = new Pojo();
+
+        long startTime = System.currentTimeMillis();
+
+        // WHEN
+        executor1.execute(() -> pojo1.doStuff(300, future11, "result11"));
+        executor1.execute(() -> pojo1.doStuff(200, future12, "result12"));
+        executor2.execute(() -> pojo2.doStuff(300, future21, "result21"));
+        executor2.execute(() -> pojo2.doStuff(200, future22, "result22"));
+
+        // THEN
+        CompletableFuture.allOf(future11, future12, future21, future22)
+                .get(750, TimeUnit.MILLISECONDS);
+        assertThat(future11).isCompletedWithValue("result11");
+        assertThat(future12).isCompletedWithValue("result12");
+        assertThat(future21).isCompletedWithValue("result21");
+        assertThat(future22).isCompletedWithValue("result22");
     }
 
 
