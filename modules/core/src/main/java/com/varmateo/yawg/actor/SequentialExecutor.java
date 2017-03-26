@@ -19,6 +19,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * received at construction time. This means that different tasks may
  * be executed in different threads. But it is guaranteed that no two
  * tasks will ever be executing concurrently.</p>
+ *
+ * <p>Why do we need this instead of just using a an executor from
+ * <code>Executors.singleThreadExecutor()</code>? Because it allows to
+ * serialize executions in multiple pipeline (one
+ * <code>SequentialExecutor</code> per pipeline) without requiring one
+ * thread per each pipeline.</p>
  */
 final class SequentialExecutor
         implements Executor {

@@ -39,7 +39,7 @@ public final class Exceptions {
             final Object... fmtArgs)
             throws YawgException {
 
-        return Exceptions.raise(YawgException.class, cause, msgFmt, fmtArgs);
+        throw Exceptions.raise(YawgException.class, cause, msgFmt, fmtArgs);
     }
 
 
@@ -51,7 +51,7 @@ public final class Exceptions {
             final Object... fmtArgs)
             throws YawgException {
 
-        return Exceptions.raise(YawgException.class, msgFmt, fmtArgs);
+        throw Exceptions.raise(YawgException.class, msgFmt, fmtArgs);
     }
 
 
@@ -79,7 +79,7 @@ public final class Exceptions {
 
         Throwable cause = null;
 
-        return raise(exceptionClass, cause, msgFmt, fmtArgs);
+        throw raise(exceptionClass, cause, msgFmt, fmtArgs);
     }
 
 
@@ -145,7 +145,7 @@ public final class Exceptions {
 
         Throwable cause = null;
 
-        raiseChecked(exceptionClass, cause, msgFmt, fmtArgs);
+        throw raiseChecked(exceptionClass, cause, msgFmt, fmtArgs);
     }
 
 
@@ -171,7 +171,7 @@ public final class Exceptions {
      *
      * @throws T A checked exception type.
      */
-    public static <T extends Exception> void
+    public static <T extends Exception> T
         raiseChecked(final Class<T>  exceptionClass,
                      final Throwable cause,
                      final String    msgFmt,
