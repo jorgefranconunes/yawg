@@ -119,6 +119,41 @@ public final class BakerCliResultAssert
     /**
      *
      */
+    public AbstractCharSequenceAssert<?,String> targetContentAsString(
+            final String relPath) {
+
+        Path path = actual.getTargetPath().resolve(relPath);
+        byte[] rawContent = readBytes(path);
+        String contentAsString = new String(rawContent, StandardCharsets.UTF_8);
+
+        return Assertions.assertThat(contentAsString);
+    }
+
+
+    /**
+     *
+     */
+    private byte[] readBytes(final Path path) {
+
+        byte[] result = null;
+
+        try {
+            result = Files.readAllBytes(path);
+        } catch ( IOException e ) {
+            failWithMessage(
+                    "Failed to read file '%s' - '%s' - '%s'",
+                    path,
+                    e.getClass().getName(),
+                    e.getMessage());
+        }
+
+        return result;
+    }
+
+
+    /**
+     *
+     */
     public BakerCliResultAssert targetDirContainsExactly(
             final String... fileNames) {
 
@@ -128,7 +163,7 @@ public final class BakerCliResultAssert
         Path targetPath = actual.getTargetPath();
         List<Path> targetFiles = lsR(targetPath);
 
-        Assertions.assertThat(expectedFiles).isEqualTo(targetFiles);
+        Assertions.assertThat(targetFiles).isEqualTo(expectedFiles);
 
         return this;
     }
@@ -180,6 +215,25 @@ public final class BakerCliResultAssert
                         .usingCharset(StandardCharsets.UTF_8)
                         .hasSameContentAs(expectedFile);
             });
+
+        return this;
+    }
+
+
+    /**
+     *
+     */
+    public BakerCliResultAssert targetDirContains(
+            final String... fileNames) {
+
+        isNotNull();
+
+        Path targetDir = actual.getTargetPath();
+
+        List.of(fileNames)
+                .map(Paths::get)
+                .map(path -> targetDir.resolve(path))
+                .forEach(path -> Assertions.assertThat(path).exists());
 
         return this;
     }

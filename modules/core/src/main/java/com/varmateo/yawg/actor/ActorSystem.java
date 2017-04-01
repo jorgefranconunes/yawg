@@ -45,20 +45,20 @@ public final class ActorSystem {
      * ensure the actor methods are called in sequence, and never
      * concurrently.</code>
      *
+     * @param actorFactory Used for creating an actual actor
+     * instance.
+     *
      * @param actorType The class object of the interface the actor
      * instance implements. This will also be the type of the returned
      * proxy actor.
-     *
-     * @param actorFactory Used for creating an actual actor
-     * instance.
      *
      * @return An object implementing the given <code>actorType</code>
      * interface. That object is a proxy for the actor instance
      * created with the <code>ActorFactory</code>.
      */
     public <T> T createActor(
-            final Class<T> actorType,
-            final ActorFactory<T> actorFactory) {
+            final ActorFactory<T> actorFactory,
+            final Class<T> actorType) {
 
         ActorRefImpl<T> actorRef = new ActorRefImpl<>(actorType, _executor);
         T actorCore = actorFactory.newActor(actorRef);

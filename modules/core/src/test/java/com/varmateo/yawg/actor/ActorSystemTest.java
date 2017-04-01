@@ -63,8 +63,8 @@ public final class ActorSystemTest {
 
         DummyActor actor = new DummyActor();
         Dummy dummy = _actorSystem.createActor(
-                Dummy.class,
-                actorRef -> actor);
+                actorRef -> actor,
+                Dummy.class);
         Semaphore semaphore = new Semaphore(1);
 
         // WHEN

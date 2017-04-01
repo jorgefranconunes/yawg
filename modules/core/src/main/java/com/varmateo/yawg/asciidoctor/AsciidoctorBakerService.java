@@ -14,7 +14,6 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 import org.asciidoctor.Asciidoctor;
-import org.asciidoctor.AttributesBuilder;
 import org.asciidoctor.OptionsBuilder;
 import org.asciidoctor.SafeMode;
 import org.asciidoctor.internal.AsciidoctorCoreException;
@@ -176,19 +175,11 @@ import com.varmateo.yawg.util.Holder;
             final Path targetPath)
             throws AsciidoctorCoreException {
 
+        OptionsBuilder options = AdocUtils.buildOptionsForBakeWithoutTemplate(
+                sourcePath,
+                targetDir,
+                targetPath);
         File sourceFile = sourcePath.toFile();
-        File targetFile = targetPath.toFile();
-        String imagesOutDir =
-                targetDir.toAbsolutePath().normalize().toString();
-        AttributesBuilder attributes =
-                AttributesBuilder.attributes()
-                .attribute("imagesoutdir", imagesOutDir)
-                .noFooter(false);
-        OptionsBuilder options =
-                OptionsBuilder.options()
-                .attributes(attributes)
-                .toFile(targetFile)
-                .safe(SafeMode.UNSAFE);
 
         _asciidoctor.get().convertFile(sourceFile, options);
     }

@@ -186,8 +186,8 @@ public final class ActorSystemPingPongTest {
                 final String gameName) {
 
             return actorSystem.createActor(
-                    Referee.class,
-                    actorRef -> new RefereeActor(endGameSemaphore, gameName));
+                    actorRef -> new RefereeActor(endGameSemaphore, gameName),
+                    Referee.class);
         }
 
 
@@ -272,13 +272,13 @@ public final class ActorSystemPingPongTest {
                 final int maxPlayCount) {
 
             return actorSystem.createActor(
-                    Player.class,
                     actorRef -> new PlayerActor(
                             actorRef,
                             name,
                             sound,
                             referee,
-                            maxPlayCount));
+                            maxPlayCount),
+                    Player.class);
         }
 
 

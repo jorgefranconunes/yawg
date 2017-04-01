@@ -1,0 +1,9 @@
+= This is just a test
+
+One line.
+
+[plantuml, TestDiagram, svg]
+....
+!include file02.puml
+class MyTestClass
+....

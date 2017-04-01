@@ -1,0 +1,9 @@
+@startuml
+
+!include file02.puml
+
+class MyTestClass
+
+@enduml
+
+

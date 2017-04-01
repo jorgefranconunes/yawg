@@ -7,16 +7,11 @@
 package com.varmateo.yawg.atests;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
-import com.varmateo.testutils.TestUtils;
-import static com.varmateo.testutils.DirPathAssert.assertThatDir;
-import com.varmateo.yawg.atests.BakerCliRunner;
 import com.varmateo.yawg.atests.BakerCliResult;
 import static com.varmateo.yawg.atests.BakerCliResultAssert.assertThat;
 
