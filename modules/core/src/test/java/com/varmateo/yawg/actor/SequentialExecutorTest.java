@@ -6,10 +6,10 @@
 
 package com.varmateo.yawg.actor;
 
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -19,7 +19,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.varmateo.yawg.actor.SequentialExecutor;
-import com.varmateo.yawg.util.Lists;
+import com.varmateo.yawg.actor.SequentialExecutorTestUtils.Pojo;
 
 
 /**
@@ -62,15 +62,20 @@ public final class SequentialExecutorTest {
     public void whenOneTaskSubmitted_thenTaskGetsExecuted()
             throws Exception {
 
-        CompletableFuture<String> future = new CompletableFuture<>();
-        Runnable task = () -> future.complete("Hello, world!");
+        // GIVEN
+        Semaphore semaphore = new Semaphore(1);
+        Pojo pojo = new Pojo();
+        Runnable task = () -> pojo.doStuff("Hello, world!", 0, semaphore);
 
         // WHEN
+        semaphore.acquire();
         _sequentialExecutor.execute(task);
-        String actualResult = future.get(1000, TimeUnit.MILLISECONDS);
 
         // THEN
-        assertThat(actualResult).isEqualTo("Hello, world!");
+        boolean isCompleted = semaphore.tryAcquire(
+                1, 1_000, TimeUnit.MILLISECONDS);
+        assertThat(isCompleted).isTrue();
+        assertThat(pojo.getResult(0)).isEqualTo("Hello, world!");
     }
 
 
@@ -81,17 +86,21 @@ public final class SequentialExecutorTest {
     public void whenTaskThrowsError_thenNextTaskStillGetsExecuted()
             throws Exception {
 
-        CompletableFuture<String> future = new CompletableFuture<>();
-        Runnable taskFail = () -> { throw new RuntimeException("boom"); };
-        Runnable taskOk = () -> future.complete("Hello, world!");
+        Semaphore semaphore = new Semaphore(1);
+        Pojo pojo = new Pojo();
+        Runnable taskFail = () -> pojo.throwError(0);
+        Runnable taskOk = () -> pojo.doStuff("Hello, world!", 0, semaphore);
 
         // WHEN
+        semaphore.acquire();
         _sequentialExecutor.execute(taskFail);
         _sequentialExecutor.execute(taskOk);
-        String actualResult = future.get(1000, TimeUnit.MILLISECONDS);
 
         // THEN
-        assertThat(actualResult).isEqualTo("Hello, world!");
+        boolean isCompleted = semaphore.tryAcquire(
+                1, 1_000, TimeUnit.MILLISECONDS);
+        assertThat(isCompleted).isTrue();
+        assertThat(pojo.getResult(0)).isEqualTo("Hello, world!");
     }
 
 
@@ -102,26 +111,26 @@ public final class SequentialExecutorTest {
     public void whenLongRunningTasksSubmitted_thenTasksExecuteSequentially()
             throws Exception {
 
-        CompletableFuture<String> future1 = new CompletableFuture<>();
-        CompletableFuture<String> future2 = new CompletableFuture<>();
-        CompletableFuture<String> future3 = new CompletableFuture<>();
+        Semaphore semaphore = new Semaphore(3);
         Pojo pojo = new Pojo();
 
         // WHEN
+        semaphore.acquire(3);
         _sequentialExecutor.execute(
-                () -> pojo.doStuff(300, future1, "result1"));
+                () -> pojo.doStuff("result1", 300, semaphore));
         _sequentialExecutor.execute(
-                () -> pojo.doStuff(200, future2, "result2"));
+                () -> pojo.doStuff("result2", 200, semaphore));
         _sequentialExecutor.execute(
-                () -> pojo.doStuff(100, future3, "result3"));
+                () -> pojo.doStuff("result3", 100, semaphore));
 
         // THEN
-        assertThat(future1.get(1000, TimeUnit.MILLISECONDS))
-                .isEqualTo("result1");
-        assertThat(future2.get(1000, TimeUnit.MILLISECONDS))
-                .isEqualTo("result2");
-        assertThat(future3.get(1000, TimeUnit.MILLISECONDS))
-                .isEqualTo("result3");
+        boolean isCompleted = semaphore.tryAcquire(
+                3, 1_000, TimeUnit.MILLISECONDS);
+        assertThat(isCompleted).isTrue();
+        assertThat(pojo.getResults()).containsExactly(
+                "result1",
+                "result2",
+                "result3");
     }
 
 
@@ -132,25 +141,22 @@ public final class SequentialExecutorTest {
     public void whenManyTasksSubmitted_thenTasksExecuteSequentially()
             throws Exception {
 
-        int taskCount = 10_000;
-        @SuppressWarnings({"unchecked", "rawtypes"})
-        CompletableFuture<String>[] futures =
-                (CompletableFuture<String>[])new CompletableFuture[taskCount];
+        int taskCount = 1_000;
+        Semaphore semaphore = new Semaphore(taskCount);
         Pojo pojo = new Pojo();
 
         // WHEN
+        semaphore.acquire(taskCount);
         for ( int i=0; i<taskCount; ++i ) {
-            String futureResult = "result" + i;
-            CompletableFuture<String> future = new CompletableFuture<>();
-            futures[i] = future;
-            _sequentialExecutor.execute(
-                    () -> pojo.doStuff(0, future, futureResult));
+            String value = "result" + i;
+            _sequentialExecutor.execute(() -> pojo.doStuff(value, 0, semaphore));
         }
 
         // THEN
-        CompletableFuture.allOf(futures).get(1_000, TimeUnit.MILLISECONDS);
+        boolean isCompleted = semaphore.tryAcquire(
+                taskCount, 1_000, TimeUnit.MILLISECONDS);
         for ( int i=0; i<taskCount; ++i ) {
-            assertThat(futures[i]).isCompletedWithValue("result" + i);
+            assertThat(pojo.getResult(i)).isEqualTo("result" + i);
         }
     }
 
@@ -162,28 +168,26 @@ public final class SequentialExecutorTest {
     public void whenManyTasksSubmittedInParallel_thenTasksExecuteSequentially()
             throws Exception {
 
-        int taskCount = 10_000;
-        @SuppressWarnings({"unchecked", "rawtypes"})
-        CompletableFuture<String>[] futures =
-                (CompletableFuture<String>[])new CompletableFuture[taskCount];
+        int taskCount = 1_000;
+        Semaphore semaphore = new Semaphore(taskCount);
         Pojo pojo = new Pojo();
 
         // WHEN
+        semaphore.acquire(taskCount);
         for ( int i=0; i<taskCount; ++i ) {
-            String futureResult = "result" + i;
-            CompletableFuture<String> future = new CompletableFuture<>();
-            futures[i] = future;
+            String value = "result" + i;
             Runnable task = () -> {
                 _sequentialExecutor.execute(
-                        () -> pojo.doStuff(0, future, futureResult));
+                        () -> pojo.doStuff(value, 0, semaphore));
             };
             _delegateExecutor.execute(task);
         }
 
         // THEN
-        CompletableFuture.allOf(futures).get(1000, TimeUnit.MILLISECONDS);
+        boolean isCompleted = semaphore.tryAcquire(
+                taskCount, 1_000, TimeUnit.MILLISECONDS);
         for ( int i=0; i<taskCount; ++i ) {
-            assertThat(futures[i]).isCompletedWithValue("result" + i);
+            assertThat(pojo.getResults()).contains("result" + i);
         }
     }
 
@@ -194,67 +198,47 @@ public final class SequentialExecutorTest {
     @Test
     public void givenTwoSeqExecutors_whenTasksSubmittedToBoth_thenTasksExecuteInParallel()
             throws Exception {
-        // GIVEN
-        Executor executor1 = new SequentialExecutor(_delegateExecutor);
-        CompletableFuture<String> future11 = new CompletableFuture<>();
-        CompletableFuture<String> future12 = new CompletableFuture<>();
-        Pojo pojo1 = new Pojo();
 
+        // GIVEN
+        Semaphore semaphore = new Semaphore(4);
+        Executor executor1 = new SequentialExecutor(_delegateExecutor);
+        Pojo pojo1 = new Pojo();
         Executor executor2 = new SequentialExecutor(_delegateExecutor);
-        CompletableFuture<String> future21 = new CompletableFuture<>();
-        CompletableFuture<String> future22 = new CompletableFuture<>();
         Pojo pojo2 = new Pojo();
 
-        long startTime = System.currentTimeMillis();
-
         // WHEN
-        executor1.execute(() -> pojo1.doStuff(300, future11, "result11"));
-        executor1.execute(() -> pojo1.doStuff(200, future12, "result12"));
-        executor2.execute(() -> pojo2.doStuff(300, future21, "result21"));
-        executor2.execute(() -> pojo2.doStuff(200, future22, "result22"));
+        semaphore.acquire(4);
+        executor1.execute(() -> pojo1.doStuff("result11", 300, semaphore));
+        executor1.execute(() -> pojo1.doStuff("result12", 200, semaphore));
+        executor2.execute(() -> pojo2.doStuff("result21", 300, semaphore));
+        executor2.execute(() -> pojo2.doStuff("result22", 200, semaphore));
 
         // THEN
-        CompletableFuture.allOf(future11, future12, future21, future22)
-                .get(750, TimeUnit.MILLISECONDS);
-        assertThat(future11).isCompletedWithValue("result11");
-        assertThat(future12).isCompletedWithValue("result12");
-        assertThat(future21).isCompletedWithValue("result21");
-        assertThat(future22).isCompletedWithValue("result22");
+        boolean isCompleted = semaphore.tryAcquire(
+                4, 750, TimeUnit.MILLISECONDS);
+        assertThat(pojo1.getResults()).containsExactly(
+                "result11",
+                "result12");
+        assertThat(pojo2.getResults()).containsExactly(
+                "result21",
+                "result22");
     }
 
 
     /**
      *
      */
-    private static final class Pojo {
+    @Test
+    public void givenNSeqExecutors_whenTasksSubmittedToAll_thenTasksExecuteInParallel()
+            throws Exception {
 
+        int actionDuration = 200;
+        int parLevel = Runtime.getRuntime().availableProcessors();
+        int pojoCount = parLevel;
+        int taskCountPerPojo = 1;
 
-        private int _counter = 0;
-
-
-        public void doStuff(
-                final long delay,
-                final CompletableFuture<String> future,
-                final String value) {
-
-            if ( _counter > 0 ) {
-                throw new IllegalStateException("concurrent access");
-            }
-
-            ++ _counter;
-
-            if ( delay > 0 ) {
-                try {
-                    Thread.sleep(delay);
-                } catch ( InterruptedException e ) {
-                    throw new RuntimeException(e);
-                }
-            }
-
-            --_counter;
-            future.complete(value);
-        }
-
+        SequentialExecutorTestUtils.testParallelExecutionDuration(
+                actionDuration, parLevel, pojoCount, taskCountPerPojo);
     }
 
 
