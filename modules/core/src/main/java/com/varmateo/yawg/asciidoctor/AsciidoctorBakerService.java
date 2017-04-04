@@ -15,7 +15,6 @@ import java.util.regex.Pattern;
 
 import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.OptionsBuilder;
-import org.asciidoctor.SafeMode;
 import org.asciidoctor.internal.AsciidoctorCoreException;
 
 import com.varmateo.yawg.api.BakerService;

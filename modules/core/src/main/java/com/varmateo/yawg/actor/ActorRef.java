@@ -31,7 +31,7 @@ public interface ActorRef<T> {
      * actor. This means that when the given action is being executed
      * no other thread will be executing methods of the actor.
      */
-    void perform(final Runnable action);
+    void perform(Runnable action);
 
 
     /**

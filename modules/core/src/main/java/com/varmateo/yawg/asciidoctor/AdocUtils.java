@@ -7,9 +7,7 @@
 package com.varmateo.yawg.asciidoctor;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
-import java.util.List;
 
 import org.asciidoctor.AttributesBuilder;
 import org.asciidoctor.OptionsBuilder;

@@ -35,7 +35,7 @@ public final class SequentialExecutorIT {
     public void givenNSeqExecutors_whenTasksSubmittedToAll_thenTasksExecuteInParallel()
             throws Exception {
 
-        int actionDuration = 100;
+        int actionDuration = 200;
         int cpuCount = Runtime.getRuntime().availableProcessors();
 
         SequentialExecutorTestUtils.testParallelExecutionDuration(

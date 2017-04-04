@@ -72,6 +72,7 @@ final class SequentialExecutorTestUtils {
                 + actionDuration/2;
         boolean isCompleted = semaphore.tryAcquire(
                 taskCount, maxExpectedDuration, TimeUnit.MILLISECONDS);
+        assertThat(isCompleted).isTrue();
         for ( int i=0; i<pojoCount; i++ ) {
             for ( int j=0; j<taskCountPerPojo; ++j ) {
                 assertThat(pojos.get(i).getResult(j))

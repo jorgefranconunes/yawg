@@ -43,7 +43,10 @@ public final class ActorSystem {
      * face of the actor for the outside world. The actor proxy,
      * working within the actor system, has the responsability to
      * ensure the actor methods are called in sequence, and never
-     * concurrently.</code>
+     * concurrently.</p>
+     *
+     * @param <T> Type of objects to be created. This will have to be
+     * an interface type.
      *
      * @param actorFactory Used for creating an actual actor
      * instance.
