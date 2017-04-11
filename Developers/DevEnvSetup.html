@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Setting up the development environment</title>
+
+    <link
+       rel="stylesheet"
+       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+       integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+       crossorigin="anonymous" />
+
+    <link
+       rel="stylesheet"
+       href="../yawg-site.css?v=a8a33bd0-1a42-48d3-a3ce-0689deced3ab" />
+
+    <script
+       type="text/javascript"
+       async
+       src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+  </head>
+
+  <body>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-79615115-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+    <div class="yawg-body">
+
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="../index.html">Yawg</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../Download/index.html">Download</a></li>
+    <li><a href="../Documentation/index.html">Documentation</a></li>
+    <li class="active"><a href="../Developers/index.html">Developers</a></li>
+            <li><a href="https://github.com/jorgefranconunes/yawg">GitHub repository</a></li>
+
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+
+
+      <div class="container yawg-content">
+
+
+  <!#-- The breadcrumb bar is only visible if there is more than
+        one bread crumb on this page.-->
+
+    <ol class="breadcrumb">
+          <li><a href=".././index.html">Home</a></li>
+          <li><a href="../Developers/index.html">Developers</a></li>
+    </ol>
+
+        <h1>Setting up the development environment</h1>
+        <div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_introduction">1. Introduction</a></li>
+<li><a href="#_requirements">2. Requirements</a></li>
+<li><a href="#_fetch_source_tree">3. Fetch source tree</a></li>
+<li><a href="#_edit_compile_run_cycle">4. Edit/compile/run cycle</a></li>
+<li><a href="#_running_unit_tests">5. Running unit tests</a></li>
+<li><a href="#_running_integration_tests">6. Running integration tests</a></li>
+<li><a href="#_code_quality_reports">7. Code quality reports</a></li>
+<li><a href="#_creating_a_new_release">8. Creating a new release</a></li>
+</ul>
+</div>
+<div class="sect1">
+<h2 id="_introduction">1. Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This document describes the steps for seting up the development
+environment for the Yawg project. The information contained here is
+targeted at developers of the Yawg project itself.</p>
+</div>
+<div class="paragraph">
+<p>The instructions in this document assume a Linux environment, or
+Windows with Cygwin installed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_requirements">2. Requirements</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following packages are required for developing in the Yawg
+project:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Oracle
+JDK 8</a></p>
+</li>
+<li>
+<p><a href="http://maven.apache.org/download.cgi">Maven 3</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You will need to have the above packages installed in your
+workstation.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_fetch_source_tree">3. Fetch source tree</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To fetch the project source tree do the following</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sh">git clone git@github.com:jorgefranconunes/yawg.git</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After executing the above (and after a few moments) a directory named
+<code>yawg</code> will have been created in your current working directory. That
+<code>yawg</code> directory contains the project tree, and will be your working
+area.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_edit_compile_run_cycle">4. Edit/compile/run cycle</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To perform a full build, just run <code>mvn</code> from the top of the project
+tree:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sh">mvn -f ./modules/pom.xml</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_running_unit_tests">5. Running unit tests</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To run all unit tests:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sh">mvn -f ./modules/pom.xml test</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To run a single unit test suite in a given module, cd to the module
+directory and run:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sh">mvn -Dtest=MyClassTest test</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Of course, change the <code>MyClassTest</code> above with the test suite you
+actually want to run.  By convention classes containing integration
+tests test suites have names ending in <code>Test</code>.</p>
+</div>
+<div class="paragraph">
+<p>And to run a single unit test:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sh">mvn -Dtest=MyClassTest#myTestMethod test</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_running_integration_tests">6. Running integration tests</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To run all integration tests:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sh">mvn -f ./modules/pom.xml verify</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Running just one single integration test suite, or one single
+integraton test is the exact same procedure as for unit tests. By
+convention classes containing integration tests test suites have names
+ending in <code>IT</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_code_quality_reports">7. Code quality reports</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To generate static analysis and test code coverage reports do the
+following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sh">./devtools/bin/build-create-bundle --with-reports</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will create under directory <code>./target/CodeQualityReports</code> a set
+of HTML pages with the results of static analysis (Checkstyle,
+Findbugs, PMD) and test code coverage (Jacoco). The entry page will be
+at <code>./target/CodeQualityReports/index.html</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_creating_a_new_release">8. Creating a new release</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To generate the tarball for an engineering build do the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>./devtools/bin/build-create-bundle</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above will perform a full build and create a tarball named
+<code>yawg-x.y.z-yyyyMMddhhmm.tar.bz2</code> at the top of the working area.</p>
+</div>
+<div class="paragraph">
+<p>To generate an official release see the instructions at
+<a href="CreatingRelease.html">Creating a release of the Yawg software</a>.</p>
+</div>
+</div>
+</div>
+
+
+<footer class="yawg-footer">
+  <p>&copy;2017 Jorge Nunes</p>
+  <p>
+    Mixed with
+    <a href="http://getbootstrap.com/" target="_blank">Bootstrap 3.3.6</a>
+    |
+    Baked with
+    <a href="http://yawg.varmateo.com/">Yawg 0.9.4</a>
+    |
+    <a href="../Acknowledgements.html">Acknowledgements</a>
+    |
+    <a href="../PrivacyPolicy.html">Privacy</a>
+  </p>
+</footer>
+
+      </div>
+
+    </div>
+
+  </body>
+
+</html>

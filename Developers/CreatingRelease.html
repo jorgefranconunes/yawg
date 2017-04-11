@@ -17,7 +17,7 @@
 
     <link
        rel="stylesheet"
-       href="../yawg-site.css?v=b135c9cd-cc1b-469e-8318-87d2cc927076" />
+       href="../yawg-site.css?v=7ab04e85-bb05-4ffc-b148-5ed26b8a13ed" />
 
     <script
        type="text/javascript"
@@ -75,7 +75,18 @@
     </ol>
 
         <h1>Creating a release of the Yawg software</h1>
-        <div id="preamble">
+        <div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_introduction">1. Introduction</a></li>
+<li><a href="#_validate_the_desired_version_number">2. Validate the desired version number</a></li>
+<li><a href="#_create_git_tag">3. Create Git tag</a></li>
+<li><a href="#_create_the_release_tarball">4. Create the release tarball</a></li>
+<li><a href="#_create_release_on_github">5. Create release on Github</a></li>
+</ul>
+</div>
+<div class="sect1">
+<h2 id="_introduction">1. Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The steps for making a an official release of the Yawg softare are
@@ -105,7 +116,7 @@ reflects the <code>HEAD</code> of the <code>main</code> branch.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_validate_the_desired_version_number">Validate the desired version number</h2>
+<h2 id="_validate_the_desired_version_number">2. Validate the desired version number</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Ensure the desired version number is defined at
@@ -119,7 +130,7 @@ beginning.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_create_git_tag">Create Git tag</h2>
+<h2 id="_create_git_tag">3. Create Git tag</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The Git tag will mark the commit used for the release in the project
@@ -137,7 +148,7 @@ git push origin v1.0.0</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_create_the_release_tarball">Create the release tarball</h2>
+<h2 id="_create_the_release_tarball">4. Create the release tarball</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Execute the following command:</p>
@@ -154,7 +165,7 @@ git push origin v1.0.0</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_create_release_on_github">Create release on Github</h2>
+<h2 id="_create_release_on_github">5. Create release on Github</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Goto <a href="https://github.com/jorgefranconunes/yawg/releases" class="bare">https://github.com/jorgefranconunes/yawg/releases</a> and create a
