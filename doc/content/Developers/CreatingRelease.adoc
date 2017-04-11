@@ -1,8 +1,13 @@
 = Creating a release of the Yawg software
+:author: Jorge Nunes
+:toc:
+:sectnums:
 
 
 
 
+
+== Introduction
 
 The steps for making a an official release of the Yawg softare are
 enumerated below.

@@ -22,8 +22,8 @@ for instructions on installing and running Yawg.
 
 == Source code
 
-You can obtain the source code by cloning the Git repository on the
-https://github.com/jorgefranconunes/yawg[Github project] with the
+You can obtain the Yawg source code by cloning the Git repository on
+the https://github.com/jorgefranconunes/yawg[Github project] with the
 following Git command:
 
 [source,sh]

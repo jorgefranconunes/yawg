@@ -55,7 +55,7 @@ branches.
 
 * Bake the Yawg site.
 
-* Commit and push the changes to GitHub, still in the `gh-granch`.
+* Commit and push the changes to GitHub, still in the `gh-branch`.
 
 
 
@@ -79,7 +79,7 @@ branches.
 
 * Created new tool `devtools/bin/build-travisci-publish-site` To
   perform the actions specific to Travis CI. This new
-  `build-travisci-publish-site`tool will in turn call `build-site` to
+  `build-travisci-publish-site` tool will in turn call `build-site` to
   perform most of the work.
 
 

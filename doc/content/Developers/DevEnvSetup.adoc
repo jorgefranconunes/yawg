@@ -1,0 +1,155 @@
+= Setting up the development environment
+:author: Jorge Nunes
+:toc:
+:sectnums:
+
+
+
+
+
+== Introduction
+
+This document describes the steps for seting up the development
+environment for the Yawg project. The information contained here is
+targeted at developers of the Yawg project itself.
+
+The instructions in this document assume a Linux environment, or
+Windows with Cygwin installed.
+
+
+
+
+
+== Requirements
+
+The following packages are required for developing in the Yawg
+project:
+
+* http://www.oracle.com/technetwork/java/javase/downloads/index.html[Oracle
+  JDK 8]
+  
+
+* http://maven.apache.org/download.cgi[Maven 3]
+
+You will need to have the above packages installed in your
+workstation.
+
+
+
+
+
+== Fetch source tree
+
+To fetch the project source tree do the following
+
+[source,sh]
+----
+git clone git@github.com:jorgefranconunes/yawg.git
+----
+
+After executing the above (and after a few moments) a directory named
+`yawg` will have been created in your current working directory. That
+`yawg` directory contains the project tree, and will be your working
+area.
+
+
+
+
+
+== Edit/compile/run cycle
+
+To perform a full build, just run `mvn` from the top of the project
+tree:
+
+[source,sh]
+----
+mvn -f ./modules/pom.xml
+----
+
+
+
+
+
+== Running unit tests
+
+To run all unit tests:
+
+[source,sh]
+----
+mvn -f ./modules/pom.xml test
+----
+
+To run a single unit test suite in a given module, cd to the module
+directory and run:
+
+[source,sh]
+----
+mvn -Dtest=MyClassTest test
+----
+
+Of course, change the `MyClassTest` above with the test suite you
+actually want to run.  By convention classes containing integration
+tests test suites have names ending in `Test`.
+
+And to run a single unit test:
+
+[source,sh]
+----
+mvn -Dtest=MyClassTest#myTestMethod test
+----
+
+
+
+
+
+== Running integration tests
+
+To run all integration tests:
+
+[source,sh]
+----
+mvn -f ./modules/pom.xml verify
+----
+
+Running just one single integration test suite, or one single
+integraton test is the exact same procedure as for unit tests. By
+convention classes containing integration tests test suites have names
+ending in `IT`.
+
+
+
+
+
+== Code quality reports
+
+To generate static analysis and test code coverage reports do the
+following:
+
+[source,sh]
+----
+./devtools/bin/build-create-bundle --with-reports
+----
+
+This will create under directory `./target/CodeQualityReports` a set
+of HTML pages with the results of static analysis (Checkstyle,
+Findbugs, PMD) and test code coverage (Jacoco). The entry page will be
+at `./target/CodeQualityReports/index.html`.
+
+
+
+
+
+== Creating a new release
+
+To generate the tarball for an engineering build do the following:
+
+----
+./devtools/bin/build-create-bundle
+----
+
+The above will perform a full build and create a tarball named
+`yawg-x.y.z-yyyyMMddhhmm.tar.bz2` at the top of the working area.
+
+To generate an official release see the instructions at
+link:CreatingRelease.html[Creating a release of the Yawg software].
+
