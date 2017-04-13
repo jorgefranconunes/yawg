@@ -25,7 +25,7 @@ PRODUCT_HEADER="${YAWG_PRODUCT_NAME} ${YAWG_VERSION} - ${TOOL_NAME}"
 
 SITE_REPO="git@github.com:jorgefranconunes/yawg.git"
 SITE_BRANCH="gh-pages"
-SITE_YAWG_VERSION=0.9.4
+SITE_YAWG_VERSION=0.9.5
 SITE_YAWG_BASEDIR=yawg-${SITE_YAWG_VERSION}
 SITE_YAWG_TARBALL=https://github.com/jorgefranconunes/yawg/releases/download/v${SITE_YAWG_VERSION}/${SITE_YAWG_BASEDIR}.tar.bz2
 
@@ -144,7 +144,7 @@ Available options:
 --upload
     Uploads the bake result to the Yawg site, replacing the previous
     contents with the bake result. Implies --init, --final, and
-    --with-latest
+    --yawg-latest
 
 --final
     Generates the site ready for uploading to the final production
@@ -161,8 +161,8 @@ Available options:
 
 --yawg-install-root=PATH
     Path of directory where the official release of Yawg will be
-    installed. Only relevant when used with --with-latest-yawg. It
-    will be ignored otherwise. When not specified it will default to
+    installed. Only relevant when used with --yawg-latest. It will be
+    ignored otherwise. When not specified it will default to
     'target/tools'.
 
 --help
