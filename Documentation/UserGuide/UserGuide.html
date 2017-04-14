@@ -17,7 +17,7 @@
 
     <link
        rel="stylesheet"
-       href="../../yawg-site.css?v=500e6580-076b-41c2-9303-204478607742" />
+       href="../../yawg-site.css?v=f70045f8-ce45-46a8-b2ad-9b6b50a1222f" />
 
     <script
        type="text/javascript"
@@ -356,8 +356,14 @@ to be baked by that baker type.</p>
 </li>
 <li>
 <p><code>exclude</code> (<code>List&lt;String&gt;</code>)&#8201;&#8212;&#8201;List of glob patterns representing the
-files in the directory that are to be excluded from the bake. These
-files will not be processed in any way.</p>
+files that are to be excluded from the bake. These files will not be
+processed in any way.</p>
+</li>
+<li>
+<p><code>excludeHere</code> (<code>List&lt;String&gt;</code>)&#8201;&#8212;&#8201;List of glob patterns representing
+the files that are to be excluded from the bake only in the
+directory where this parameter is specified. This parameter is not
+propagated to child directories.</p>
 </li>
 <li>
 <p><code>extraDirsHere</code> (<code>List&lt;String&gt;</code>)&#8201;&#8212;&#8201;List of additional directories
@@ -372,7 +378,7 @@ with the same name as the extra directory.</p>
 <p><code>includeHere</code> (<code>List&lt;String&gt;</code>)&#8201;&#8212;&#8201;List of glob patterns representing
 the files in the directory that are to be baked. All other files in
 the directory will be skipped. This parameter takes precedence over
-the <code>exclude</code> parameter.</p>
+the <code>exclude</code> and <code>excludeHere</code> parameters.</p>
 </li>
 <li>
 <p><code>pageVars</code> (<code>Map</code>)&#8201;&#8212;&#8201;Set of additional variables to be added to the
