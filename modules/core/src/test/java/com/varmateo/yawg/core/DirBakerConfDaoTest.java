@@ -175,6 +175,27 @@ public final class DirBakerConfDaoTest
      *
      */
     @Test
+    public void withExcludeHereParamOk()
+            throws IOException {
+
+        String confContents = ""
+                + "excludeHere:\n"
+                + "  - one\n"
+                + "  - two\n";
+        DirBakerConf actualConf = readFromString(confContents);
+        DirBakerConf expectedConf =
+                DirBakerConf.builder()
+                .setFilesToExcludeHere("one", "two")
+                .build();
+
+        assertConfEquals(expectedConf, actualConf);
+    }
+
+
+    /**
+     *
+     */
+    @Test
     public void withIncludeHereParamOk()
             throws IOException {
 

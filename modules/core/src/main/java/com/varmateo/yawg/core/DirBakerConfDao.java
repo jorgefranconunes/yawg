@@ -39,6 +39,7 @@ import com.varmateo.yawg.util.YamlParser;
 
     private static final String PARAM_BAKER_TYPES = "bakerTypes";
     private static final String PARAM_EXCLUDE = "exclude";
+    private static final String PARAM_EXCLUDE_HERE = "excludeHere";
     private static final String PARAM_INCLUDE_HERE = "includeHere";
     private static final String PARAM_TEMPLATE = "template";
     private static final String PARAM_PAGE_VARS = "pageVars";
@@ -139,6 +140,9 @@ import com.varmateo.yawg.util.YamlParser;
 
         getPatternList(confMap, PARAM_EXCLUDE)
                 .ifPresent(builder::setFilesToExclude);
+
+        getPatternList(confMap, PARAM_EXCLUDE_HERE)
+                .ifPresent(builder::setFilesToExcludeHere);
 
         getPatternList(confMap, PARAM_INCLUDE_HERE)
                 .ifPresent(builder::setFilesToIncludeHere);

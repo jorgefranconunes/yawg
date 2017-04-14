@@ -31,12 +31,19 @@ import com.varmateo.yawg.util.GlobMatcher;
     public final Option<String> templateName;
 
     /**
-     * List of files to exclude when baking a directory.
+     * List of files to exclude when baking a directory and its
+     * sub-directories.
      */
     public final Option<GlobMatcher> filesToExclude;
 
     /**
-     * Strict list of files to include when baking a directory.
+     * List of files to exclude when baking the current directory.
+     */
+    public final Option<GlobMatcher> filesToExcludeHere;
+
+    /**
+     * Strict list of files to include when baking the current
+     * directory.
      */
     public final Option<GlobMatcher> filesToIncludeHere;
 
@@ -81,6 +88,7 @@ import com.varmateo.yawg.util.GlobMatcher;
 
         this.templateName = builder._templateName;
         this.filesToExclude = builder._filesToExclude;
+        this.filesToExcludeHere = builder._filesToExcludeHere;
         this.filesToIncludeHere = builder._filesToIncludeHere;
         this.bakerTypes = builder._bakerTypes;
         this.pageVars = builder._pageVarsBuilder.build();
@@ -130,6 +138,7 @@ import com.varmateo.yawg.util.GlobMatcher;
 
         this.templateName.forEach(builder::setTemplateName);
         this.filesToExclude.forEach(builder::addFilesToExclude);
+        this.filesToExcludeHere.forEach(builder::setFilesToExcludeHere);
         this.filesToIncludeHere.forEach(builder::setFilesToIncludeHere);
         this.bakerTypes.forEach(builder::addBakerTypes);
         builder
@@ -152,6 +161,7 @@ import com.varmateo.yawg.util.GlobMatcher;
 
 
         // These always start empty.
+        private Option<GlobMatcher> _filesToExcludeHere = Option.none();
         private Option<GlobMatcher> _filesToIncludeHere = Option.none();
         private PageVars _pageVarsHere = new PageVars();
         private TemplateNameMatcher _templatesHere = new TemplateNameMatcher();
@@ -244,6 +254,29 @@ import com.varmateo.yawg.util.GlobMatcher;
         /**
          *
          */
+        public Builder setFilesToExcludeHere(final GlobMatcher fileNames) {
+
+            _filesToExcludeHere = Option.of(fileNames);
+
+            return this;
+        }
+
+
+        /**
+         * @throws PatternSyntaxException If any of the given regular
+         * expressions are invalid.
+         */
+        public Builder setFilesToExcludeHere(final String... fileNames) {
+
+            GlobMatcher patterns = new GlobMatcher(fileNames);
+
+            return setFilesToExcludeHere(patterns);
+        }
+
+
+        /**
+         *
+         */
         public Builder setFilesToIncludeHere(final GlobMatcher fileNames) {
 
             _filesToIncludeHere = Option.of(fileNames);
@@ -260,9 +293,7 @@ import com.varmateo.yawg.util.GlobMatcher;
 
             GlobMatcher patterns = new GlobMatcher(fileNames);
 
-            setFilesToIncludeHere(patterns);
-
-            return this;
+            return setFilesToIncludeHere(patterns);
         }
 
 

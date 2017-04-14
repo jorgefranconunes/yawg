@@ -70,6 +70,7 @@ final class CliOptions {
             throw raiseCliException(apacheOptions, e);
         }
 
+        @SuppressWarnings("unchecked")
         java.util.List<String> argList = cmdLine.getArgList();
         if ( (argList!=null) && !argList.isEmpty() ) {
             // There were arguments that were not options. We require

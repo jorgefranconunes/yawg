@@ -84,6 +84,51 @@ public final class DirEntryCheckerTest
      *
      */
     @Test
+    public void withExcludeHere() {
+
+        DirBakerConf conf =
+                DirBakerConf.builder()
+                .setFilesToExcludeHere("*.txt", "*.puml", "*~")
+                .build();
+        DirEntryChecker checker = new DirEntryChecker(conf);
+        Predicate<String> predicate = checker.asStringPredicate();
+
+        assertThat(predicate)
+                .accepts("something.adoc")
+                .rejects(
+                        "something.adoc~",
+                        "something.txt",
+                        "something.puml");
+    }
+
+
+    /**
+     *
+     */
+    @Test
+    public void withExcludeAndExcludeHere() {
+
+        DirBakerConf conf =
+                DirBakerConf.builder()
+                .setFilesToExclude("*.txt")
+                .setFilesToExcludeHere("*.puml", "*~")
+                .build();
+        DirEntryChecker checker = new DirEntryChecker(conf);
+        Predicate<String> predicate = checker.asStringPredicate();
+
+        assertThat(predicate)
+                .accepts("something.adoc")
+                .rejects(
+                        "something.adoc~",
+                        "something.txt",
+                        "something.puml");
+    }
+
+
+    /**
+     *
+     */
+    @Test
     public void withIncludeHereOne() {
 
         DirBakerConf conf =

@@ -217,8 +217,13 @@ types. The values are a list of glob patterns representing the files
 to be baked by that baker type.
 
 * `exclude` (`List<String>`) -- List of glob patterns representing the
-files in the directory that are to be excluded from the bake. These
-files will not be processed in any way.
+  files that are to be excluded from the bake. These files will not be
+  processed in any way.
+
+* `excludeHere` (`List<String>`) -- List of glob patterns representing
+  the files that are to be excluded from the bake only in the
+  directory where this parameter is specified. This parameter is not
+  propagated to child directories.
 
 * `extraDirsHere` (`List<String>`) -- List of additional directories
 to be baked into the current target directory. The elements of the
@@ -231,7 +236,7 @@ with the same name as the extra directory.
 * `includeHere` (`List<String>`) -- List of glob patterns representing
 the files in the directory that are to be baked. All other files in
 the directory will be skipped. This parameter takes precedence over
-the `exclude` parameter.
+the `exclude` and `excludeHere` parameters.
 
 * `pageVars` (`Map`) -- Set of additional variables to be added to the
   page template data model. These variables will be propagated to
