@@ -19,23 +19,22 @@ import static com.varmateo.yawg.atests.BakerCliResultAssert.assertThat;
 
 
 /**
- * Acceptance tests related with the "template" bake parameter.
+ * Acceptance tests related with the "exclude" bake parameter.
  */
-public final class CliOptionAssetsIT {
+public final class ExcludeParamIT {
 
 
     /**
      *
      */
     @Test
-    public void givenAssetsDirIsMissing_whenBaking_thenBakeFails()
+    public void givenExcludeParam_whenBaking_thenFilesAreExcludedInTopDir()
             throws IOException {
 
         // GIVEN
         BakerCliScenario scenario = BakerCliScenario.builder(
-                CliOptionAssetsIT.class,
-                "givenAssetsDirIsMissing_whenBaking_thenBakeFails")
-                .addAssetsPath()
+                ExcludeParamIT.class,
+                "givenExcludeParam_whenBaking_thenFilesAreExcludedInTopDir")
                 .build();
 
         // WHEN
@@ -43,9 +42,8 @@ public final class CliOptionAssetsIT {
 
         // THEN
         assertThat(bakerResult)
-                .hasExitStatusFailure()
-                .outputLineFromEnd(1)
-                .contains("Failed to copy assets");
+                .hasExitStatusSuccess()
+                .targetDirContainsExpectedContent(scenario);
     }
 
 
@@ -53,14 +51,13 @@ public final class CliOptionAssetsIT {
      *
      */
     @Test
-    public void givenAssetsDir_whenBaking_thenAssetsAreCopiedToTarget()
+    public void givenExcludeParam_whenBaking_thenFilesAreExcludedInDirTree()
             throws IOException {
 
         // GIVEN
         BakerCliScenario scenario = BakerCliScenario.builder(
-                CliOptionAssetsIT.class,
-                "givenAssetsDir_whenBaking_thenAssetsAreCopiedToTarget")
-                .addAssetsPath()
+                ExcludeParamIT.class,
+                "givenExcludeParam_whenBaking_thenFilesAreExcludedInDirTree")
                 .build();
 
         // WHEN

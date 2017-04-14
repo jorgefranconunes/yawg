@@ -1,0 +1,4 @@
+exclude:
+  - ".yawg.yml"
+  - "file0[23].txt"
+  - "file04.txt"
