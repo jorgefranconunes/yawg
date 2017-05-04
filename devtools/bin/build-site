@@ -35,6 +35,7 @@ _workingArea=
 _isInit=false
 _isUpload=false
 _isProduction=false
+_lastUpdateTimestamp=
 _commitComment=${DEFAULT_COMMIT_COMMENT}
 _outputDir=${_yawgHome}/target
 _yawgTool=${_yawgHome}/bin/yawg
@@ -259,9 +260,18 @@ function installYawgTool () {
 
 function setupWorkingArea () {
 
+    local lastUpdateTimestamp=
+
     if [ ${_isInit} == true -o ${_isUpload} == true ] ; then
         doSetupWorkingArea
+        pushd ${_yawgHome} > /dev/null
+        lastUpdateTimestamp=$(git log -1 --format=format:%cD doc/content/)
+        popd
+    else
+        lastUpdateTimestamp=$(date --rfc-2822)
     fi
+
+    _lastUpdateTimestamp=$(date --date="${lastUpdateTimestamp}" --utc "+%Y-%m-%d %H:%M UTC")
 }
 
 
@@ -339,6 +349,7 @@ function doBaking () {
         --templates $(yawgNormalizePath ${_yawgHome}/doc/templates) \
         --assets $(yawgNormalizePath ${_yawgHome}/doc/assets) \
         --page-var "isProduction=${_isProduction}" \
+        --page-var "lastUpdateTimestamp=${_lastUpdateTimestamp}" \
         --verbose
 }
 

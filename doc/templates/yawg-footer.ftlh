@@ -12,5 +12,7 @@
     <a href="${yawg.rootRelativeUrl}/Acknowledgements.html">Acknowledgements</a>
     |
     <a href="${yawg.rootRelativeUrl}/PrivacyPolicy.html">Privacy</a>
+    |
+    Last update ${lastUpdateTimestamp}
   </p>
 </footer>
