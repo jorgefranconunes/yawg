@@ -1,0 +1,88 @@
+= Bredcrumbs
+
+
+
+
+
+Wha are breadcrumbs?
+
+
+== Data model variable
+
+The breadcrumb extension automatically adds one data model variable
+named `breadcrumbs`.
+
+
+Example FreeMarker template snippet for a breadcrumb element:
+
+----
+<#list breadcrumbs.items>
+  <ol>
+    <#items as breadcrumb>
+      <li><a href="${yawg.rootRelativeUrl}/${breadcrumb.url}">${breadcrumb.title}</a></li>
+    </#items>
+  </ol>
+</#list>
+----
+
+
+
+
+
+== Page variables
+
+There is one page variable used for customizing breadcrumb items.
+
+TBD: What is the default behvior if the breadcrumb item is not
+customized?
+
+* `breadcrumb` -- Defines the title and URL for the breadcrumb item
+  for the current directory.
+
+Elements of the `breadcrumb` map:
+
+* `title` -- The title for the breadcrumb item.
+
+* `url` -- The relative URL for the breadcrumb item. This should
+  typically be the relative URL for the index page of the current
+  directory.
+
+Page variables are defined through the `pageVars` and
+`pageVarsHere`baking parameters. The baking parameters can be defined
+in `.yawg.yml` files in each directory of the document tree.
+
+In almost all cases you will want the breadcrumb costumization to
+apply to the current directory. This means the `breadcrumb` page
+variable should be defined through the `pageVarsHere` baking
+parameter.
+
+Definining the `breadcrumb` page variable will modify the value of the
+bredcrumb item in the `bredcrumbs` list corresponding to the current
+directory.
+
+
+
+
+
+== Example
+
+We now show  more sophisticated example. This example has the
+following features:
+
+* The breadcrumb bar is now show in the topmost directory. TBD: Why?
+
+* The breadcrumb item for the current directory is not displayed. TBD: Why?
+
+----
+<#if (breadcrumbs.items?size) gt 1 >
+  <#list breadcrumbs.items>
+    <ol>
+      <#items as breadcrumb>
+        <#if yawg.pageUrl != breadcrumb.url >
+          <li><a href="${yawg.rootRelativeUrl}/${breadcrumb.url}">${breadcrumb.title}</a></li>
+        </#if>
+      </#items>
+    </ol>
+  </#list>
+</#if>
+----

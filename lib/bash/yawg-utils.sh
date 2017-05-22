@@ -46,7 +46,7 @@ function yawgError () {
 
 function yawgLog () {
 
-    echo $(date "+%Y-%m-%d %H:%M:%S") "$@"
+    echo $(date "+%Y-%m-%d %H:%M:%S.%3N") "$@"
 }
 
 
