@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Bredcrumbs</title>
+
+    <link
+       rel="stylesheet"
+       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+       integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+       crossorigin="anonymous" />
+
+    <link
+       rel="stylesheet"
+       href="../yawg-site.css?v=5bfd806c-deea-46de-9ffb-353edcd33768" />
+
+    <script
+       type="text/javascript"
+       async
+       src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+  </head>
+
+  <body>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-79615115-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+    <div class="yawg-body">
+
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="../index.html">Yawg</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../Download/index.html">Download</a></li>
+    <li class="active"><a href="../Documentation/index.html">Documentation</a></li>
+    <li><a href="../Developers/index.html">Developers</a></li>
+            <li><a href="https://github.com/jorgefranconunes/yawg">GitHub repository</a></li>
+
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+
+
+      <div class="container yawg-content">
+
+
+  <!#-- The breadcrumb bar is only visible if there is more than
+        one bread crumb on this page.-->
+
+    <ol class="breadcrumb">
+          <li><a href=".././index.html">Home</a></li>
+          <li><a href="../Documentation/index.html">Documentation</a></li>
+    </ol>
+
+        <h1>Bredcrumbs</h1>
+        <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Wha are breadcrumbs?</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_data_model_variable">Data model variable</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The breadcrumb extension automatically adds one data model variable
+named <code>breadcrumbs</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example FreeMarker template snippet for a breadcrumb element:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;#list breadcrumbs.items&gt;
+  &lt;ol&gt;
+    &lt;#items as breadcrumb&gt;
+      &lt;li&gt;&lt;a href="${yawg.rootRelativeUrl}/${breadcrumb.url}"&gt;${breadcrumb.title}&lt;/a&gt;&lt;/li&gt;
+    &lt;/#items&gt;
+  &lt;/ol&gt;
+&lt;/#list&gt;</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_page_variables">Page variables</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There is one page variable used for customizing breadcrumb items.</p>
+</div>
+<div class="paragraph">
+<p>TBD: What is the default behvior if the breadcrumb item is not
+customized?</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>breadcrumb</code>&#8201;&#8212;&#8201;Defines the title and URL for the breadcrumb item
+for the current directory.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Elements of the <code>breadcrumb</code> map:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>title</code>&#8201;&#8212;&#8201;The title for the breadcrumb item.</p>
+</li>
+<li>
+<p><code>url</code>&#8201;&#8212;&#8201;The relative URL for the breadcrumb item. This should
+typically be the relative URL for the index page of the current
+directory.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Page variables are defined through the <code>pageVars</code> and
+<code>pageVarsHere`baking parameters. The baking parameters can be defined
+in `.yawg.yml</code> files in each directory of the document tree.</p>
+</div>
+<div class="paragraph">
+<p>In almost all cases you will want the breadcrumb costumization to
+apply to the current directory. This means the <code>breadcrumb</code> page
+variable should be defined through the <code>pageVarsHere</code> baking
+parameter.</p>
+</div>
+<div class="paragraph">
+<p>Definining the <code>breadcrumb</code> page variable will modify the value of the
+bredcrumb item in the <code>bredcrumbs</code> list corresponding to the current
+directory.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_example">Example</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We now show  more sophisticated example. This example has the
+following features:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The breadcrumb bar is now show in the topmost directory. TBD: Why?</p>
+</li>
+<li>
+<p>The breadcrumb item for the current directory is not displayed. TBD: Why?</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;#if (breadcrumbs.items?size) gt 1 &gt;
+  &lt;#list breadcrumbs.items&gt;
+    &lt;ol&gt;
+      &lt;#items as breadcrumb&gt;
+        &lt;#if yawg.pageUrl != breadcrumb.url &gt;
+          &lt;li&gt;&lt;a href="${yawg.rootRelativeUrl}/${breadcrumb.url}"&gt;${breadcrumb.title}&lt;/a&gt;&lt;/li&gt;
+        &lt;/#if&gt;
+      &lt;/#items&gt;
+    &lt;/ol&gt;
+  &lt;/#list&gt;
+&lt;/#if&gt;</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<footer class="yawg-footer">
+  <p>&copy;2017 Jorge Nunes</p>
+  <p>
+    Mixed with
+    <a href="http://getbootstrap.com/" target="_blank">Bootstrap 3.3.6</a>
+    |
+    Baked with
+    <a href="http://yawg.varmateo.com/">Yawg 0.9.5</a>
+    |
+    <a href="../Acknowledgements.html">Acknowledgements</a>
+    |
+    <a href="../PrivacyPolicy.html">Privacy</a>
+    |
+    Last update 2017-05-22 16:02 UTC
+  </p>
+</footer>
+
+      </div>
+
+    </div>
+
+  </body>
+
+</html>
