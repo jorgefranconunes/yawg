@@ -91,6 +91,36 @@ Copyright (c) 2016 Yawg project contributors.
   </build>
 
 
+  <profiles>
+    <profile>
+      <id>yawg-build-release</id>
+      <activation>
+        <property>
+          <name>yawg.release</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>${maven-source-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+
   <!-- More project information. -->
 
   <name>Yawg API</name>
