@@ -98,3 +98,29 @@ body {
     margin-top: 2em;
     margin-bottom: 2em;
 }
+
+table.tableblock {
+    border-spacing: 0;
+    border-collapse: collapse;
+    margin-bottom: 2em;
+}
+
+table.tableblock > thead > tr:first-child > th {
+    border-top: 0;
+}
+
+table.tableblock > thead > tr > th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #ddd;
+}
+
+table.tableblock > thead > tr > th,
+table.tableblock > tbody > tr > td {
+    padding: 0.5em;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+
+td > p.tableblock:last-child {
+    margin: 0;
+}

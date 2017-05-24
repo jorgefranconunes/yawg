@@ -34,6 +34,25 @@ project:
 You will need to have the above packages installed in your
 workstation.
 
+In addition to the above, some other tools are also required. Those
+tools are available from specific platform packages. Depending on
+platform, you will need to install the packages mentioned on the table
+below.
+
+[options="header"]
+|====
+| Platform | Packages
+| CentOS |
+  `libxslt`
+
+| Ubuntu |
+  `xsltproc`
+
+| Cygwin |
+  `libxsltproc`
+
+|====
+
 
 
 
