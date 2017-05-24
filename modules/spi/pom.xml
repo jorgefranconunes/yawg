@@ -59,6 +59,8 @@ Copyright (c) 2017 Yawg project contributors.
       </activation>
       <build>
         <plugins>
+
+        <!-- Generate JAR with source code. -->
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-source-plugin</artifactId>
@@ -72,6 +74,22 @@ Copyright (c) 2017 Yawg project contributors.
               </execution>
             </executions>
           </plugin>
+
+          <!-- Generate JAR with Javadocs. -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>${maven-javadoc-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
         </plugins>
       </build>
     </profile>

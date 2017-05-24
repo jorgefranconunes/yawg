@@ -131,6 +131,8 @@ Maven POM for the "core" sub-project of the Yawg project.
       </activation>
       <build>
         <plugins>
+
+        <!-- Generate JAR with source code. -->
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-source-plugin</artifactId>
@@ -144,6 +146,7 @@ Maven POM for the "core" sub-project of the Yawg project.
               </execution>
             </executions>
           </plugin>
+
         </plugins>
       </build>
     </profile>
