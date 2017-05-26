@@ -31,6 +31,7 @@ _jdkHome=
 _mavenTool=${MAVEN_DEFAULT_TOOL}
 _mavenHome=
 _mavenOptions=${MAVEN_DEFAULT_OPTIONS}
+_isRelease=false
 _isWithTests=false
 _isWithReports=false
 
@@ -100,6 +101,10 @@ function processCliArgs () {
                 ;;
             --maven-options=* )
                 _mavenOptions=$(expr "$option" : '--maven-options=\(.*\)')
+                ;;
+            --release )
+                _isRelease=true
+                _buildNumber=NONE
                 ;;
             --with-tests )
                 _isWithTests=true
@@ -182,6 +187,10 @@ Available options:
 --maven-options=STRING
     Additional command line options passed to the Maven tool.
 
+--release
+    Generates the additional Maven artifacts required for deploying to
+    the Maven Central repository. Implies --build-number=NONE.
+
 --with-tests
 --with-tests=FLAG
     Signals that unit and integration tests should be executed
@@ -214,17 +223,23 @@ EOF
 function prepareForMaven () {
 
     if [ "${_isWithTests}" == false ] ; then
-        _mavenOptions="-DskipTests=true ${_mavenOptions}"
+        _mavenOptions="${_mavenOptions} -DskipTests=true"
     else
-        _mavenOptions="-DskipTests=false -Pyawg-jacoco ${_mavenOptions}"
+        _mavenOptions="${_mavenOptions} -DskipTests=false -Pyawg-jacoco"
     fi
 
     if [ "${_isWithReports}" == true ] ; then
         local reportsDir=$(yawgNormalizePath ${_reportsDir})
         _mavenOptions="${_mavenOptions} -Dyawg.mavensite=${reportsDir}"
+        _mavenOptions="${_mavenOptions} -DskipTests=false"
+        _mavenOptions="${_mavenOptions} -Pyawg-maven-site"
         _mavenGoals="clean verify site"
 
         mkdir -p ${_reportsDir}
+    fi
+
+    if [ "${_isRelease}" == true ] ; then
+        _mavenOptions="${_mavenOptions} -Pyawg-maven-artifacts"
     fi
 }
 
@@ -400,7 +415,7 @@ function performBuild () {
 
     JAVA_HOME=${_jdkHome} ${_mavenTool} \
         -f "${masterPom}" \
-        -Dyawg.release \
+        -Pyawg-tarball \
         ${_mavenOptions} \
         ${_mavenGoals}
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-Copyright (c) 2016 Yawg project contributors.
+Copyright (c) 2016-2017 Yawg project contributors.
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -93,17 +93,12 @@ Copyright (c) 2016 Yawg project contributors.
 
   <profiles>
     <profile>
-      <id>yawg-build-release</id>
-      <activation>
-        <property>
-          <name>yawg.release</name>
-          <value>true</value>
-        </property>
-      </activation>
-      <build>
+      <id>yawg-maven-artifacts</id>
 
-        <!-- Generate JAR with source code. -->
+      <build>
         <plugins>
+
+          <!-- Generate JAR with source code. -->
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-source-plugin</artifactId>
@@ -128,6 +123,22 @@ Copyright (c) 2016 Yawg project contributors.
                 <id>attach-javadocs</id>
                 <goals>
                   <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+          <!-- Sign Maven artifacts -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>${maven-gpg-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
                 </goals>
               </execution>
             </executions>

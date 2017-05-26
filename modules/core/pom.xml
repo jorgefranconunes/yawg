@@ -122,13 +122,8 @@ Maven POM for the "core" sub-project of the Yawg project.
 
   <profiles>
     <profile>
-      <id>yawg-build-release</id>
-      <activation>
-        <property>
-          <name>yawg.release</name>
-          <value>true</value>
-        </property>
-      </activation>
+      <id>yawg-maven-artifacts</id>
+
       <build>
         <plugins>
 
@@ -142,6 +137,22 @@ Maven POM for the "core" sub-project of the Yawg project.
                 <id>attach-sources</id>
                 <goals>
                   <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+          <!-- Sign Maven artifacts -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>${maven-gpg-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
                 </goals>
               </execution>
             </executions>

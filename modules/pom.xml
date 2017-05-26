@@ -42,6 +42,7 @@ Copyright (c) 2015-2017 Yawg project contributors.
     <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
     <maven-dependency-plugin.version>2.10</maven-dependency-plugin.version>
     <maven-failsafe-plugin.version>2.19.1</maven-failsafe-plugin.version>
+    <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
     <maven-jar-plugin.version>2.6</maven-jar-plugin.version>
     <maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
     <maven-jxr-plugin.version>2.5</maven-jxr-plugin.version>
@@ -224,11 +225,18 @@ Copyright (c) 2015-2017 Yawg project contributors.
 
 
   <distributionManagement>
+
     <site>
       <id>yawg.mavensite</id>
       <name>Yawg Project Maven Reports</name>
       <url>file:///${yawg.mavensite}/</url>
     </site>
+
+    <repository>
+      <id>yawg.ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+
   </distributionManagement>
 
 
@@ -246,11 +254,6 @@ Copyright (c) 2015-2017 Yawg project contributors.
     -->
     <profile>
       <id>yawg-mavensite</id>
-      <activation>
-        <property>
-          <name>yawg.mavensite</name>
-        </property>
-      </activation>
 
       <properties>
         <skipTests>false</skipTests>
@@ -283,16 +286,6 @@ Copyright (c) 2015-2017 Yawg project contributors.
     <profile>
       <id>yawg-jacoco</id>
 
-      <!--
-          Activate JaCoCo code coverage analysis only when generating
-          the Maven site with all the code quality reports.
-      -->
-      <activation>
-        <property>
-          <name>yawg.mavensite</name>
-        </property>
-      </activation>
-
       <build>
         <plugins>
 
@@ -319,7 +312,30 @@ Copyright (c) 2015-2017 Yawg project contributors.
 
         </plugins>
       </build>
+    </profile>
 
+
+    <profile>
+      <id>yawg-maven-artifacts</id>
+      <build>
+        <plugins>
+          <!-- Sign Maven artifacts -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>${maven-gpg-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
 
 

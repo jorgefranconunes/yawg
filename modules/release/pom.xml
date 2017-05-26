@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright (c) 2016 Yawg project contributors.
+Copyright (c) 2016-2017 Yawg project contributors.
 
 Maven POM for the "release" sub-project of the Yawg project.
 -->
@@ -51,7 +51,6 @@ Maven POM for the "release" sub-project of the Yawg project.
   <build>
 
     <plugins>
-
 
       <!-- Copy the final JARs and their dependencies to the location
            expected by the command line tools and by the application
@@ -116,13 +115,8 @@ Maven POM for the "release" sub-project of the Yawg project.
          has value "true". This is tipically used when building a
          release. -->
     <profile>
-      <id>yawg-build-release</id>
-      <activation>
-        <property>
-          <name>yawg.release</name>
-          <value>true</value>
-        </property>
-      </activation>
+      <id>yawg-tarball</id>
+
       <build>
         <plugins>
 
