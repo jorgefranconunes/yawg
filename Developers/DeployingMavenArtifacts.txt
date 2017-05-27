@@ -1,0 +1,139 @@
+= Deploying to Maven Central Repository
+
+
+
+
+
+== Introduction
+
+This document contains notes on deploying the Yawg Maven artifacts to
+the Maven Central Repository.
+
+Information gleaned from the following sources:
+
+* https://maven.apache.org/guides/mini/guide-central-repository-upload.html[Guide
+  to uploading artifacts to the Central Repository]
+
+* http://central.sonatype.org/pages/ossrh-guide.html[OSSRH Guide]
+
+
+
+
+
+== Prepare GPG key
+
+
+=== Install GnuPG
+
+* CentOS: gnupg2
+
+* Ubuntu: gnupg
+
+* Cygwin: gnupg
+
+
+=== Generate a key pair
+
+----
+gpg --gen-key
+----
+
+Please select what kind of key you want: -- (1) RSA and RSA (default)
+
+What keysize do you want? (2048) -- 2048
+
+Key is valid for? (0) -- 0 = key does not expire
+
+Real name: -- Jorge Nunes
+
+Email address: -- jorgefranconunes@gmail.com
+
+Comment: --
+
+
+=== Distribute GPG public key
+
+----
+gpg --keyserver hkp://keys.gnupg.net --send-key 701FCC65
+----
+
+
+
+
+
+== Create JIRA account
+
+https://issues.sonatype.org/
+
+* Username : jorgefranconunes
+* Email    : jorgefranconunes@gmail.com
+
+
+
+
+
+== Register Yawg project on OSSRH
+
+https://issues.sonatype.org/secure/CreateIssue.jspa?issuetype=21&pid=10134
+
+Opened ticket https://issues.sonatype.org/browse/OSSRH-31607
+
+
+
+
+
+Add to the `distributionManagement` elment and entry for the Open
+Source Software Repository Hosting (OSSRH).
+
+----
+ <distributionManagement>
+    <repository>
+      <id>yawg.ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
+----
+
+
+
+
+== Add credentials to Maven settings
+
+Add the OSSRH Jira credentials, and the GnuPG key credentials to your
+`~/.m2/settings.xml` Maven configuration:
+
+----
+<settings>
+
+  <servers>
+    <server>
+      <id>yawg.ossrh</id>
+      <username>jorgefranconunes</username>
+      <password>XXXXXX</password>
+    </server>
+  </servers>
+
+  <profiles>
+    <profile>
+      <id>yawg-build-release</id>
+      <activation>
+        <property>
+          <name>yawg.release</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <properties>
+        <gpg.keyname>701FCC65</gpg.keyname>
+        <gpg.passphrase>XXXXXX</gpg.passphrase>
+      </properties>
+    </profile>
+  </profiles>
+
+</settings>
+----
+
+Make sure the file is readable only by user user:
+
+----
+chmod 600 ~/.m2/settings.xml
+----
