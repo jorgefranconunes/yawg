@@ -240,6 +240,7 @@ function prepareForMaven () {
 
     if [ "${_isRelease}" == true ] ; then
         _mavenOptions="${_mavenOptions} -Pyawg-maven-artifacts"
+        _mavenGoals="clean deploy"
     fi
 }
 

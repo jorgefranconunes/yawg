@@ -14,11 +14,13 @@ enumerated below.
 
 * Validate the desired version number
 
-* Create a Git tag.
+* Create release Git tag.
 
-* Create the release tarball.
+* Create release tarball and deploy to OSSRH Maven staging repo.
 
-* Create a release on Github with the given tag and tarball.
+* Upload release tarball to Github.
+
+* Release OSSRH staging repo to Maven central.
 
 The following sections describe with more detail what needs to be done
 in each step. The commands shown in the text assume your working area
@@ -28,25 +30,31 @@ reflects the `HEAD` of the `main` branch.
 
 
 
-== Validate the desired version number
+== Validate desired version number
 
 Ensure the desired version number is defined at
 `conf/yawg-defaults.conf`.
 
-If you do make changes on `conf/yawg-defaults.conf` you will need to
-commit your changes and initiate the release process from the
-beginning.
+If you do make changes on `conf/yawg-defaults.conf` you will need to:
+
+* Run `devtools/bin/bun/build-sync-version` to update the version
+  number in all relevant locations.
+
+* Commit and push your changes to the Github repo.
+
+* Initiate the release process from the beginning.
 
 
 
 
 
-== Create Git tag
+== Create release Git tag
 
 The Git tag will mark the commit used for the release in the project
 change history.
 
-For now we will create the release tag on the HEAD of the master branch.
+The release Git tag is to be created at the HEAD of the master branch,
+like this:
 
 [source,sh]
 ----
@@ -58,27 +66,61 @@ git push origin v1.0.0
 
 
 
-== Create the release tarball
+== Create release tarball and deploy to OSSRH Maven staging repo
 
 Execute the following command:
 
 [source,sh]
 ----
-./devtools/bin/build-create-bundle --build-number=NONE
+./devtools/bin/build-create-bundle --release
 ----
 
-This will create a tarball at the root of your working area named
-`yawg-1.0.0.tar.bz2`.
+The above command will perform the following actions:
+
+* Create a release tarball. The tarball will be named
+  `yawg-1.0.0.tar.bz2`, and it will be created at the root of your
+  working area.
+
+* Upload Maven artifacts to the
+  http://central.sonatype.org/pages/ossrh-guide.html[OSSRH] Maven
+  staging repository.
 
 
 
 
 
-== Create release on Github
+== Upload release tarball to Github
 
-Goto https://github.com/jorgefranconunes/yawg/releases and create a
+The release tarball will be hosted at Github. This is the simplest
+solution for making the release tarball accessible for download.
+
+Go to https://github.com/jorgefranconunes/yawg/releases and create a
 release:
 
-* With the tag created above.
+* With the tag created before.
 
-* With the tarball manually created above.
+* With the tarball manually created in the previous section.
+
+
+
+
+
+== Release OSSRH staging repo to Maven central
+
+The actions described in this section follow the
+http://central.sonatype.org/pages/releasing-the-deployment.html[instructions
+from Sonatype] for OSSRH.
+
+* Go to https://oss.sonatype.org/ and login.
+
+* Look for the latest staging repository with a name starting with
+  `comvarmateoyawg`.
+
+* Check that the contents of that staging repository appear to be
+  fine.
+
+* Click the `Close` action for the repository. This will prepare the
+  staging repository for being copied to Maven Central.
+
+* Click the `Release` action for the repository. This will copy the
+  staging repository to Maven Central.

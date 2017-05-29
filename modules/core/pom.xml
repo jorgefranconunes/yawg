@@ -17,7 +17,7 @@ Maven POM for the "core" sub-project of the Yawg project.
   <parent>
     <groupId>com.varmateo.yawg</groupId>
     <artifactId>yawg-main</artifactId>
-    <version>0.9.5-SNAPSHOT</version>
+    <version>0.9.6-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
 
@@ -117,6 +117,17 @@ Maven POM for the "core" sub-project of the Yawg project.
       </resource>
     </resources>
 
+
+    <plugins>
+      <!-- Deploy to OSSRH. This goal is bound to the deploy lifecycle
+           phase. -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>${maven-deploy-plugin.version}</version>
+      </plugin>
+    </plugins>
+
   </build>
 
 
@@ -137,6 +148,21 @@ Maven POM for the "core" sub-project of the Yawg project.
                 <id>attach-sources</id>
                 <goals>
                   <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+          <!-- Generate JAR with Javadocs. -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>${maven-javadoc-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
                 </goals>
               </execution>
             </executions>

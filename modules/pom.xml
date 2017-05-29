@@ -11,7 +11,7 @@ Copyright (c) 2015-2017 Yawg project contributors.
 
   <groupId>com.varmateo.yawg</groupId>
   <artifactId>yawg-main</artifactId>
-  <version>0.9.5-SNAPSHOT</version>
+  <version>0.9.6-SNAPSHOT</version>
 
 
 
@@ -41,6 +41,7 @@ Copyright (c) 2015-2017 Yawg project contributors.
     <maven-clean-plugin.version>2.6.1</maven-clean-plugin.version>
     <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
     <maven-dependency-plugin.version>2.10</maven-dependency-plugin.version>
+    <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
     <maven-failsafe-plugin.version>2.19.1</maven-failsafe-plugin.version>
     <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
     <maven-jar-plugin.version>2.6</maven-jar-plugin.version>
@@ -111,6 +112,21 @@ Copyright (c) 2015-2017 Yawg project contributors.
             </compilerArgs>
           </configuration>
         </plugin>
+
+          <!-- Javadoc copnfiguration. -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>${maven-javadoc-plugin.version}</version>
+            <configuration>
+              <author>true</author>
+              <splitindex>true</splitindex>
+              <version>true</version>
+              <use>true</use>
+              <quiet>true</quiet>
+              <failOnError>false</failOnError>
+        </configuration>
+          </plugin>
 
       </plugins>
 
@@ -215,29 +231,19 @@ Copyright (c) 2015-2017 Yawg project contributors.
         </configuration>
       </plugin>
 
+
+      <!-- Deploy to OSSRH. This goal is bound to the deploy lifecycle
+           phase. -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>${maven-deploy-plugin.version}</version>
+      </plugin>
+
     </plugins>
 
 
   </build>
-
-
-
-
-
-  <distributionManagement>
-
-    <site>
-      <id>yawg.mavensite</id>
-      <name>Yawg Project Maven Reports</name>
-      <url>file:///${yawg.mavensite}/</url>
-    </site>
-
-    <repository>
-      <id>yawg.ossrh</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-    </repository>
-
-  </distributionManagement>
 
 
 
@@ -340,6 +346,26 @@ Copyright (c) 2015-2017 Yawg project contributors.
 
 
   </profiles>
+
+
+
+
+
+  <!-- -->
+  <distributionManagement>
+
+    <site>
+      <id>yawg.mavensite</id>
+      <name>Yawg Project Maven Reports</name>
+      <url>file:///${yawg.mavensite}/</url>
+    </site>
+
+    <repository>
+      <id>yawg.ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+
+  </distributionManagement>
 
 
 

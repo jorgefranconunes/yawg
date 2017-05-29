@@ -43,9 +43,13 @@ below.
 |====
 | Platform | Packages
 | CentOS |
+  `gnupg2`
+
   `libxslt`
 
 | Ubuntu |
+  `gnupg`
+
   `xsltproc`
 
 | Cygwin |
@@ -57,9 +61,54 @@ below.
 
 
 
+== Add credentials to Maven settings
+
+This is only needed in case you are responsible for making official
+releases of the Yawg software. See
+link:DeployingMavenArtifacts.html[Deploying to Maven Central
+Repository] for additional background and details.
+
+Add your OSSRH Jira credentials, and your GnuPG key credentials to
+your `~/.m2/settings.xml` Maven configuration:
+
+[source,xml]
+----
+<settings>
+
+  <servers>
+    <server>
+      <id>yawg.ossrh</id>
+      <username>YourOssrhJiraUsername</username>
+      <password>XXXXXX</password>
+    </server>
+  </servers>
+
+  <profiles>
+    <profile>
+      <id>yawg-maven-artifacts</id>
+      <properties>
+        <gpg.keyname>YourGpgKeyName</gpg.keyname>
+        <gpg.passphrase>XXXXXX</gpg.passphrase>
+      </properties>
+    </profile>
+  </profiles>
+
+</settings>
+----
+
+Make sure the file is readable only by your user:
+
+----
+chmod 600 ~/.m2/settings.xml
+----
+
+
+
+
+
 == Fetch source tree
 
-To fetch the project source tree do the following
+To fetch the project source tree do the following:
 
 [source,sh]
 ----

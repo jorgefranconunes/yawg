@@ -82,9 +82,10 @@ Opened ticket https://issues.sonatype.org/browse/OSSRH-31607
 
 
 
-Add to the `distributionManagement` elment and entry for the Open
-Source Software Repository Hosting (OSSRH).
+Add to the `distributionManagement` element an entry for the Open
+Source Software Repository Hosting (OSSRH) repository.
 
+[source,xml]
 ----
  <distributionManagement>
     <repository>
@@ -102,6 +103,7 @@ Source Software Repository Hosting (OSSRH).
 Add the OSSRH Jira credentials, and the GnuPG key credentials to your
 `~/.m2/settings.xml` Maven configuration:
 
+[source,xml]
 ----
 <settings>
 
@@ -115,13 +117,7 @@ Add the OSSRH Jira credentials, and the GnuPG key credentials to your
 
   <profiles>
     <profile>
-      <id>yawg-build-release</id>
-      <activation>
-        <property>
-          <name>yawg.release</name>
-          <value>true</value>
-        </property>
-      </activation>
+      <id>yawg-maven-artifacts</id>
       <properties>
         <gpg.keyname>701FCC65</gpg.keyname>
         <gpg.passphrase>XXXXXX</gpg.passphrase>
@@ -137,3 +133,23 @@ Make sure the file is readable only by user user:
 ----
 chmod 600 ~/.m2/settings.xml
 ----
+
+
+
+
+
+== Deploy to the staging respository
+
+----
+./devtools/bin/build-create-bundle --release
+----
+
+
+
+
+
+== Release from staging repo to Maven Central
+
+Login into https://oss.sonatype.org/
+
+Look for the latest staging repo named `comvarmateoyawg`
