@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Deploying to Maven Central Repository</title>
+
+    <link
+       rel="stylesheet"
+       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+       integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+       crossorigin="anonymous" />
+
+    <link
+       rel="stylesheet"
+       href="../yawg-site.css?v=7dacbf53-3e47-4828-9377-db02b50f6a85" />
+
+    <script
+       type="text/javascript"
+       async
+       src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+  </head>
+
+  <body>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-79615115-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+    <div class="yawg-body">
+
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="../index.html">Yawg</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../Download/index.html">Download</a></li>
+    <li><a href="../Documentation/index.html">Documentation</a></li>
+    <li class="active"><a href="../Developers/index.html">Developers</a></li>
+            <li><a href="https://github.com/jorgefranconunes/yawg">GitHub repository</a></li>
+
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+
+
+      <div class="container yawg-content">
+
+
+  <!#-- The breadcrumb bar is only visible if there is more than
+        one bread crumb on this page.-->
+
+    <ol class="breadcrumb">
+          <li><a href=".././index.html">Home</a></li>
+          <li><a href="../Developers/index.html">Developers</a></li>
+    </ol>
+
+        <h1>Deploying to Maven Central Repository</h1>
+        <div class="sect1">
+<h2 id="_introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This document contains notes on deploying the Yawg Maven artifacts to
+the Maven Central Repository.</p>
+</div>
+<div class="paragraph">
+<p>Information gleaned from the following sources:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://maven.apache.org/guides/mini/guide-central-repository-upload.html">Guide
+to uploading artifacts to the Central Repository</a></p>
+</li>
+<li>
+<p><a href="http://central.sonatype.org/pages/ossrh-guide.html">OSSRH Guide</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prepare_gpg_key">Prepare GPG key</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_install_gnupg">Install GnuPG</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>CentOS: gnupg2</p>
+</li>
+<li>
+<p>Ubuntu: gnupg</p>
+</li>
+<li>
+<p>Cygwin: gnupg</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_generate_a_key_pair">Generate a key pair</h3>
+<div class="listingblock">
+<div class="content">
+<pre>gpg --gen-key</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Please select what kind of key you want:&#8201;&#8212;&#8201;(1) RSA and RSA (default)</p>
+</div>
+<div class="paragraph">
+<p>What keysize do you want? (2048)&#8201;&#8212;&#8201;2048</p>
+</div>
+<div class="paragraph">
+<p>Key is valid for? (0)&#8201;&#8212;&#8201;0 = key does not expire</p>
+</div>
+<div class="paragraph">
+<p>Real name:&#8201;&#8212;&#8201;Jorge Nunes</p>
+</div>
+<div class="paragraph">
+<p>Email address:&#8201;&#8212;&#8201;<a href="mailto:jorgefranconunes@gmail.com">jorgefranconunes@gmail.com</a></p>
+</div>
+<div class="paragraph">
+<p>Comment:&#8201;&#8212;&#8201;</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_distribute_gpg_public_key">Distribute GPG public key</h3>
+<div class="listingblock">
+<div class="content">
+<pre>gpg --keyserver hkp://keys.gnupg.net --send-key 701FCC65</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_create_jira_account">Create JIRA account</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://issues.sonatype.org/" class="bare">https://issues.sonatype.org/</a></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Username : jorgefranconunes</p>
+</li>
+<li>
+<p>Email    : <a href="mailto:jorgefranconunes@gmail.com">jorgefranconunes@gmail.com</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_register_yawg_project_on_ossrh">Register Yawg project on OSSRH</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://issues.sonatype.org/secure/CreateIssue.jspa?issuetype=21&amp;pid=10134" class="bare">https://issues.sonatype.org/secure/CreateIssue.jspa?issuetype=21&amp;pid=10134</a></p>
+</div>
+<div class="paragraph">
+<p>Opened ticket <a href="https://issues.sonatype.org/browse/OSSRH-31607" class="bare">https://issues.sonatype.org/browse/OSSRH-31607</a></p>
+</div>
+<div class="paragraph">
+<p>Add to the <code>distributionManagement</code> element an entry for the Open
+Source Software Repository Hosting (OSSRH) repository.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"> <span style="color:#070;font-weight:bold">&lt;distributionManagement&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;repository&gt;</span>
+      <span style="color:#070;font-weight:bold">&lt;id&gt;</span>yawg.ossrh<span style="color:#070;font-weight:bold">&lt;/id&gt;</span>
+      <span style="color:#070;font-weight:bold">&lt;url&gt;</span>https://oss.sonatype.org/service/local/staging/deploy/maven2/<span style="color:#070;font-weight:bold">&lt;/url&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;/repository&gt;</span>
+  <span style="color:#070;font-weight:bold">&lt;/distributionManagement&gt;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_add_credentials_to_maven_settings">Add credentials to Maven settings</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Add the OSSRH Jira credentials, and the GnuPG key credentials to your
+<code>~/.m2/settings.xml</code> Maven configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span style="color:#070;font-weight:bold">&lt;settings&gt;</span>
+
+  <span style="color:#070;font-weight:bold">&lt;servers&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;server&gt;</span>
+      <span style="color:#070;font-weight:bold">&lt;id&gt;</span>yawg.ossrh<span style="color:#070;font-weight:bold">&lt;/id&gt;</span>
+      <span style="color:#070;font-weight:bold">&lt;username&gt;</span>jorgefranconunes<span style="color:#070;font-weight:bold">&lt;/username&gt;</span>
+      <span style="color:#070;font-weight:bold">&lt;password&gt;</span>XXXXXX<span style="color:#070;font-weight:bold">&lt;/password&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;/server&gt;</span>
+  <span style="color:#070;font-weight:bold">&lt;/servers&gt;</span>
+
+  <span style="color:#070;font-weight:bold">&lt;profiles&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;profile&gt;</span>
+      <span style="color:#070;font-weight:bold">&lt;id&gt;</span>yawg-maven-artifacts<span style="color:#070;font-weight:bold">&lt;/id&gt;</span>
+      <span style="color:#070;font-weight:bold">&lt;properties&gt;</span>
+        <span style="color:#070;font-weight:bold">&lt;gpg.keyname&gt;</span>701FCC65<span style="color:#070;font-weight:bold">&lt;/gpg.keyname&gt;</span>
+        <span style="color:#070;font-weight:bold">&lt;gpg.passphrase&gt;</span>XXXXXX<span style="color:#070;font-weight:bold">&lt;/gpg.passphrase&gt;</span>
+      <span style="color:#070;font-weight:bold">&lt;/properties&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;/profile&gt;</span>
+  <span style="color:#070;font-weight:bold">&lt;/profiles&gt;</span>
+
+<span style="color:#070;font-weight:bold">&lt;/settings&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Make sure the file is readable only by user user:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>chmod 600 ~/.m2/settings.xml</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deploy_to_the_staging_respository">Deploy to the staging respository</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>./devtools/bin/build-create-bundle --release</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_release_from_staging_repo_to_maven_central">Release from staging repo to Maven Central</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Login into <a href="https://oss.sonatype.org/" class="bare">https://oss.sonatype.org/</a></p>
+</div>
+<div class="paragraph">
+<p>Look for the latest staging repo named <code>comvarmateoyawg</code></p>
+</div>
+</div>
+</div>
+
+
+<footer class="yawg-footer">
+  <p>&copy;2017 Jorge Nunes</p>
+  <p>
+    Mixed with
+    <a href="http://getbootstrap.com/" target="_blank">Bootstrap 3.3.6</a>
+    |
+    Baked with
+    <a href="http://yawg.varmateo.com/">Yawg 0.9.5</a>
+    |
+    <a href="../Acknowledgements.html">Acknowledgements</a>
+    |
+    <a href="../PrivacyPolicy.html">Privacy</a>
+    |
+    Last update 2017-05-29 09:03 UTC
+  </p>
+</footer>
+
+      </div>
+
+    </div>
+
+  </body>
+
+</html>

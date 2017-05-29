@@ -17,7 +17,7 @@
 
     <link
        rel="stylesheet"
-       href="../yawg-site.css?v=7ab0721f-497e-45dc-8bfc-6abee9105ed8" />
+       href="../yawg-site.css?v=defb1f12-de18-42a6-bf60-e2de4da682c2" />
 
     <script
        type="text/javascript"
@@ -79,10 +79,11 @@
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#_introduction">1. Introduction</a></li>
-<li><a href="#_validate_the_desired_version_number">2. Validate the desired version number</a></li>
-<li><a href="#_create_git_tag">3. Create Git tag</a></li>
-<li><a href="#_create_the_release_tarball">4. Create the release tarball</a></li>
-<li><a href="#_create_release_on_github">5. Create release on Github</a></li>
+<li><a href="#_validate_desired_version_number">2. Validate desired version number</a></li>
+<li><a href="#_create_release_git_tag">3. Create release Git tag</a></li>
+<li><a href="#_create_release_tarball_and_deploy_to_ossrh_maven_staging_repo">4. Create release tarball and deploy to OSSRH Maven staging repo</a></li>
+<li><a href="#_upload_release_tarball_to_github">5. Upload release tarball to Github</a></li>
+<li><a href="#_release_ossrh_staging_repo_to_maven_central">6. Release OSSRH staging repo to Maven central</a></li>
 </ul>
 </div>
 <div class="sect1">
@@ -98,13 +99,16 @@ enumerated below.</p>
 <p>Validate the desired version number</p>
 </li>
 <li>
-<p>Create a Git tag.</p>
+<p>Create release Git tag.</p>
 </li>
 <li>
-<p>Create the release tarball.</p>
+<p>Create release tarball and deploy to OSSRH Maven staging repo.</p>
 </li>
 <li>
-<p>Create a release on Github with the given tag and tarball.</p>
+<p>Upload release tarball to Github.</p>
+</li>
+<li>
+<p>Release OSSRH staging repo to Maven central.</p>
 </li>
 </ul>
 </div>
@@ -116,28 +120,41 @@ reflects the <code>HEAD</code> of the <code>main</code> branch.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_validate_the_desired_version_number">2. Validate the desired version number</h2>
+<h2 id="_validate_desired_version_number">2. Validate desired version number</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Ensure the desired version number is defined at
 <code>conf/yawg-defaults.conf</code>.</p>
 </div>
 <div class="paragraph">
-<p>If you do make changes on <code>conf/yawg-defaults.conf</code> you will need to
-commit your changes and initiate the release process from the
-beginning.</p>
+<p>If you do make changes on <code>conf/yawg-defaults.conf</code> you will need to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Run <code>devtools/bin/bun/build-sync-version</code> to update the version
+number in all relevant locations.</p>
+</li>
+<li>
+<p>Commit and push your changes to the Github repo.</p>
+</li>
+<li>
+<p>Initiate the release process from the beginning.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_create_git_tag">3. Create Git tag</h2>
+<h2 id="_create_release_git_tag">3. Create release Git tag</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The Git tag will mark the commit used for the release in the project
 change history.</p>
 </div>
 <div class="paragraph">
-<p>For now we will create the release tag on the HEAD of the master branch.</p>
+<p>The release Git tag is to be created at the HEAD of the master branch,
+like this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -148,36 +165,86 @@ git push origin v1.0.0</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_create_the_release_tarball">4. Create the release tarball</h2>
+<h2 id="_create_release_tarball_and_deploy_to_ossrh_maven_staging_repo">4. Create release tarball and deploy to OSSRH Maven staging repo</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Execute the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="sh">./devtools/bin/build-create-bundle --build-number=NONE</code></pre>
+<pre class="CodeRay highlight"><code data-lang="sh">./devtools/bin/build-create-bundle --release</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>This will create a tarball at the root of your working area named
-<code>yawg-1.0.0.tar.bz2</code>.</p>
+<p>The above command will perform the following actions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Create a release tarball. The tarball will be named
+<code>yawg-1.0.0.tar.bz2</code>, and it will be created at the root of your
+working area.</p>
+</li>
+<li>
+<p>Upload Maven artifacts to the
+<a href="http://central.sonatype.org/pages/ossrh-guide.html">OSSRH</a> Maven
+staging repository.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_create_release_on_github">5. Create release on Github</h2>
+<h2 id="_upload_release_tarball_to_github">5. Upload release tarball to Github</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Goto <a href="https://github.com/jorgefranconunes/yawg/releases" class="bare">https://github.com/jorgefranconunes/yawg/releases</a> and create a
+<p>The release tarball will be hosted at Github. This is the simplest
+solution for making the release tarball accessible for download.</p>
+</div>
+<div class="paragraph">
+<p>Go to <a href="https://github.com/jorgefranconunes/yawg/releases" class="bare">https://github.com/jorgefranconunes/yawg/releases</a> and create a
 release:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>With the tag created above.</p>
+<p>With the tag created before.</p>
 </li>
 <li>
-<p>With the tarball manually created above.</p>
+<p>With the tarball manually created in the previous section.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_release_ossrh_staging_repo_to_maven_central">6. Release OSSRH staging repo to Maven central</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The actions described in this section follow the
+<a href="http://central.sonatype.org/pages/releasing-the-deployment.html">instructions
+from Sonatype</a> for OSSRH.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Go to <a href="https://oss.sonatype.org/" class="bare">https://oss.sonatype.org/</a> and login.</p>
+</li>
+<li>
+<p>Look for the latest staging repository with a name starting with
+<code>comvarmateoyawg</code>.</p>
+</li>
+<li>
+<p>Check that the contents of that staging repository appear to be
+fine.</p>
+</li>
+<li>
+<p>Click the <code>Close</code> action for the repository. This will prepare the
+staging repository for being copied to Maven Central.</p>
+</li>
+<li>
+<p>Click the <code>Release</code> action for the repository. This will copy the
+staging repository to Maven Central.</p>
 </li>
 </ul>
 </div>
@@ -198,7 +265,7 @@ release:</p>
     |
     <a href="../PrivacyPolicy.html">Privacy</a>
     |
-    Last update 2017-05-27 16:02 UTC
+    Last update 2017-05-29 09:03 UTC
   </p>
 </footer>
 

@@ -17,7 +17,7 @@
 
     <link
        rel="stylesheet"
-       href="../yawg-site.css?v=8b421cee-367f-4346-9c3f-fe5e298c9aae" />
+       href="../yawg-site.css?v=2d3de433-7c8c-4e45-acc0-4c64c61d581f" />
 
     <script
        type="text/javascript"
@@ -80,12 +80,13 @@
 <ul class="sectlevel1">
 <li><a href="#_introduction">1. Introduction</a></li>
 <li><a href="#_requirements">2. Requirements</a></li>
-<li><a href="#_fetch_source_tree">3. Fetch source tree</a></li>
-<li><a href="#_edit_compile_run_cycle">4. Edit/compile/run cycle</a></li>
-<li><a href="#_running_unit_tests">5. Running unit tests</a></li>
-<li><a href="#_running_integration_tests">6. Running integration tests</a></li>
-<li><a href="#_code_quality_reports">7. Code quality reports</a></li>
-<li><a href="#_creating_a_new_release">8. Creating a new release</a></li>
+<li><a href="#_add_credentials_to_maven_settings">3. Add credentials to Maven settings</a></li>
+<li><a href="#_fetch_source_tree">4. Fetch source tree</a></li>
+<li><a href="#_edit_compile_run_cycle">5. Edit/compile/run cycle</a></li>
+<li><a href="#_running_unit_tests">6. Running unit tests</a></li>
+<li><a href="#_running_integration_tests">7. Running integration tests</a></li>
+<li><a href="#_code_quality_reports">8. Code quality reports</a></li>
+<li><a href="#_creating_a_new_release">9. Creating a new release</a></li>
 </ul>
 </div>
 <div class="sect1">
@@ -144,11 +145,13 @@ below.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CentOS</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>libxslt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gnupg2</code>
+</p><p class="tableblock">  <code>libxslt</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Ubuntu</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>xsltproc</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gnupg</code>
+</p><p class="tableblock">  <code>xsltproc</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Cygwin</p></td>
@@ -159,10 +162,58 @@ below.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_fetch_source_tree">3. Fetch source tree</h2>
+<h2 id="_add_credentials_to_maven_settings">3. Add credentials to Maven settings</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To fetch the project source tree do the following</p>
+<p>This is only needed in case you are responsible for making official
+releases of the Yawg software. See
+<a href="DeployingMavenArtifacts.html">Deploying to Maven Central
+Repository</a> for additional background and details.</p>
+</div>
+<div class="paragraph">
+<p>Add your OSSRH Jira credentials, and your GnuPG key credentials to
+your <code>~/.m2/settings.xml</code> Maven configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span style="color:#070;font-weight:bold">&lt;settings&gt;</span>
+
+  <span style="color:#070;font-weight:bold">&lt;servers&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;server&gt;</span>
+      <span style="color:#070;font-weight:bold">&lt;id&gt;</span>yawg.ossrh<span style="color:#070;font-weight:bold">&lt;/id&gt;</span>
+      <span style="color:#070;font-weight:bold">&lt;username&gt;</span>YourOssrhJiraUsername<span style="color:#070;font-weight:bold">&lt;/username&gt;</span>
+      <span style="color:#070;font-weight:bold">&lt;password&gt;</span>XXXXXX<span style="color:#070;font-weight:bold">&lt;/password&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;/server&gt;</span>
+  <span style="color:#070;font-weight:bold">&lt;/servers&gt;</span>
+
+  <span style="color:#070;font-weight:bold">&lt;profiles&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;profile&gt;</span>
+      <span style="color:#070;font-weight:bold">&lt;id&gt;</span>yawg-maven-artifacts<span style="color:#070;font-weight:bold">&lt;/id&gt;</span>
+      <span style="color:#070;font-weight:bold">&lt;properties&gt;</span>
+        <span style="color:#070;font-weight:bold">&lt;gpg.keyname&gt;</span>YourGpgKeyName<span style="color:#070;font-weight:bold">&lt;/gpg.keyname&gt;</span>
+        <span style="color:#070;font-weight:bold">&lt;gpg.passphrase&gt;</span>XXXXXX<span style="color:#070;font-weight:bold">&lt;/gpg.passphrase&gt;</span>
+      <span style="color:#070;font-weight:bold">&lt;/properties&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;/profile&gt;</span>
+  <span style="color:#070;font-weight:bold">&lt;/profiles&gt;</span>
+
+<span style="color:#070;font-weight:bold">&lt;/settings&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Make sure the file is readable only by your user:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>chmod 600 ~/.m2/settings.xml</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_fetch_source_tree">4. Fetch source tree</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To fetch the project source tree do the following:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -178,7 +229,7 @@ area.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_edit_compile_run_cycle">4. Edit/compile/run cycle</h2>
+<h2 id="_edit_compile_run_cycle">5. Edit/compile/run cycle</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>To perform a full build, just run <code>mvn</code> from the top of the project
@@ -192,7 +243,7 @@ tree:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_running_unit_tests">5. Running unit tests</h2>
+<h2 id="_running_unit_tests">6. Running unit tests</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>To run all unit tests:</p>
@@ -227,7 +278,7 @@ tests test suites have names ending in <code>Test</code>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_running_integration_tests">6. Running integration tests</h2>
+<h2 id="_running_integration_tests">7. Running integration tests</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>To run all integration tests:</p>
@@ -246,7 +297,7 @@ ending in <code>IT</code>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_code_quality_reports">7. Code quality reports</h2>
+<h2 id="_code_quality_reports">8. Code quality reports</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>To generate static analysis and test code coverage reports do the
@@ -266,7 +317,7 @@ at <code>./target/CodeQualityReports/index.html</code>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_creating_a_new_release">8. Creating a new release</h2>
+<h2 id="_creating_a_new_release">9. Creating a new release</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>To generate the tarball for an engineering build do the following:</p>
@@ -301,7 +352,7 @@ at <code>./target/CodeQualityReports/index.html</code>.</p>
     |
     <a href="../PrivacyPolicy.html">Privacy</a>
     |
-    Last update 2017-05-27 16:02 UTC
+    Last update 2017-05-29 09:03 UTC
   </p>
 </footer>
 
