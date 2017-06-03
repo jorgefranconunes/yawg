@@ -11,6 +11,29 @@ Yawg project.
 
 
 
+== 0.9.6
+
+Released on 2017/06/03
+
+#279 Completed support for deploying to Maven Central
+
+#288 Maven artifacts for deployment are now GPG signed
+
+#283 JARs with Javadocs are now generated when making a release
+
+#282 JARs with source code are now generated when making a release
+
+#280 Updated Maven project metadata
+
+#271 Added bake parameter `excludeHere`
+
+#271 Added acceptance tests for the `exclude` parameter
+
+
+
+
+
+
 == 0.9.5
 
 Released on 2017/04/13.
