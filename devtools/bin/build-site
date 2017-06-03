@@ -25,7 +25,7 @@ PRODUCT_HEADER="${YAWG_PRODUCT_NAME} ${YAWG_VERSION} - ${TOOL_NAME}"
 
 SITE_REPO="git@github.com:jorgefranconunes/yawg.git"
 SITE_BRANCH="gh-pages"
-SITE_YAWG_VERSION=0.9.5
+SITE_YAWG_VERSION=0.9.6
 SITE_YAWG_BASEDIR=yawg-${SITE_YAWG_VERSION}
 SITE_YAWG_TARBALL=https://github.com/jorgefranconunes/yawg/releases/download/v${SITE_YAWG_VERSION}/${SITE_YAWG_BASEDIR}.tar.bz2
 
