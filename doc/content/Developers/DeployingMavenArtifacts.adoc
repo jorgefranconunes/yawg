@@ -128,7 +128,7 @@ Add the OSSRH Jira credentials, and the GnuPG key credentials to your
 </settings>
 ----
 
-Make sure the file is readable only by user user:
+Make sure the file is readable only by the owner:
 
 ----
 chmod 600 ~/.m2/settings.xml

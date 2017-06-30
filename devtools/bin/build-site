@@ -331,7 +331,7 @@ function doSetupWorkingArea () {
 
 function doBaking () {
 
-    yawgLog "Starting baking..."
+    yawgLog "Starting Yawg site bake..."
     yawgLog "    Yawg tool  : ${_yawgTool}"
     yawgLog "    Target dir : ${_workingArea}"
 

@@ -27,7 +27,6 @@ project:
 
 * http://www.oracle.com/technetwork/java/javase/downloads/index.html[Oracle
   JDK 8]
-  
 
 * http://maven.apache.org/download.cgi[Maven 3]
 

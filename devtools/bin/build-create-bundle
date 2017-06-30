@@ -267,6 +267,9 @@ function showConfig () {
     yawgLog "    Maven options : ${_mavenOptions}"
     yawgLog "    Maven goals   : ${_mavenGoals}"
     yawgLog "    Build number  : ${buildNumberText}"
+
+    yawgLog "Maven details:"
+    ${_mavenTool} --version || yawgError "Failed to obtain Maven details"
 }
 
 
@@ -374,6 +377,8 @@ function updateBuildNumberInProjectTree () {
 
     if [ $? -ne 0 ] ; then
         yawgError "Cannot continue"
+        # Additional error details are supposed to have been printed
+        # by the build-sync-version tool.
     fi
 }
 

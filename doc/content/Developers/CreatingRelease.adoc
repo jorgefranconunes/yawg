@@ -16,7 +16,9 @@ enumerated below.
 
 * Create release Git tag.
 
-* Create release tarball and deploy to OSSRH Maven staging repo.
+* Create release tarball and deploy to
+  http://central.sonatype.org/pages/ossrh-guide.html[Open Source
+  Software Repository Hosting] (OSSRH) Maven staging repo.
 
 * Upload release tarball to Github.
 
@@ -53,8 +55,8 @@ If you do make changes on `conf/yawg-defaults.conf` you will need to:
 The Git tag will mark the commit used for the release in the project
 change history.
 
-The release Git tag is to be created at the HEAD of the master branch,
-like this:
+The release Git tag is to be created at the HEAD of the master
+branch. Do it like this:
 
 [source,sh]
 ----
@@ -68,14 +70,7 @@ git push origin v1.0.0
 
 == Create release tarball and deploy to OSSRH Maven staging repo
 
-Execute the following command:
-
-[source,sh]
-----
-./devtools/bin/build-create-bundle --release
-----
-
-The above command will perform the following actions:
+This step is composed of two actions:
 
 * Create a release tarball. The tarball will be named
   `yawg-1.0.0.tar.bz2`, and it will be created at the root of your
@@ -83,7 +78,18 @@ The above command will perform the following actions:
 
 * Upload Maven artifacts to the
   http://central.sonatype.org/pages/ossrh-guide.html[OSSRH] Maven
-  staging repository.
+  staging repository. These Maven artifacts include the JARs and
+  Javadocs of the Yawg libraries that are needed to integrate Yawg in
+  other products.
+
+
+To execute the two actions mentioned above the following command is
+used:
+
+[source,sh]
+----
+./devtools/bin/build-create-bundle --release
+----
 
 
 
