@@ -17,7 +17,7 @@
 
     <link
        rel="stylesheet"
-       href="../yawg-site.css?v=375e02de-6afe-4e78-a1a9-7a6c051d0cf9" />
+       href="../yawg-site.css?v=f6e92009-8705-49e7-afe3-8c20e01a89ff" />
 
     <script
        type="text/javascript"
@@ -102,7 +102,9 @@ enumerated below.</p>
 <p>Create release Git tag.</p>
 </li>
 <li>
-<p>Create release tarball and deploy to OSSRH Maven staging repo.</p>
+<p>Create release tarball and deploy to
+<a href="http://central.sonatype.org/pages/ossrh-guide.html">Open Source
+Software Repository Hosting</a> (OSSRH) Maven staging repo.</p>
 </li>
 <li>
 <p>Upload release tarball to Github.</p>
@@ -153,8 +155,8 @@ number in all relevant locations.</p>
 change history.</p>
 </div>
 <div class="paragraph">
-<p>The release Git tag is to be created at the HEAD of the master branch,
-like this:</p>
+<p>The release Git tag is to be created at the HEAD of the master
+branch. Do it like this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -168,15 +170,7 @@ git push origin v1.0.0</code></pre>
 <h2 id="_create_release_tarball_and_deploy_to_ossrh_maven_staging_repo">4. Create release tarball and deploy to OSSRH Maven staging repo</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Execute the following command:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="sh">./devtools/bin/build-create-bundle --release</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The above command will perform the following actions:</p>
+<p>This step is composed of two actions:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -188,9 +182,20 @@ working area.</p>
 <li>
 <p>Upload Maven artifacts to the
 <a href="http://central.sonatype.org/pages/ossrh-guide.html">OSSRH</a> Maven
-staging repository.</p>
+staging repository. These Maven artifacts include the JARs and
+Javadocs of the Yawg libraries that are needed to integrate Yawg in
+other products.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>To execute the two actions mentioned above the following command is
+used:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sh">./devtools/bin/build-create-bundle --release</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -265,7 +270,7 @@ staging repository to Maven Central.</p>
     |
     <a href="../PrivacyPolicy.html">Privacy</a>
     |
-    Last update 2017-06-03 10:27 UTC
+    Last update 2017-06-30 14:09 UTC
   </p>
 </footer>
 
