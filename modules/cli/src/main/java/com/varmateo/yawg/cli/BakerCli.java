@@ -25,6 +25,7 @@ import com.varmateo.yawg.spi.SiteBakerConf;
 import com.varmateo.yawg.spi.SiteBakerFactory;
 
 import com.varmateo.yawg.cli.InfoPrinter;
+import com.varmateo.yawg.cli.BakerCliConf;
 import com.varmateo.yawg.cli.BakerCliOptions;
 import com.varmateo.yawg.cli.CliException;
 import com.varmateo.yawg.cli.CliOptions;
@@ -39,36 +40,16 @@ public final class BakerCli {
     private static final int EXIT_STATUS_OK = 0;
     private static final int EXIT_STATUS_FAILURE = 1;
 
-    private static final String DEFAULT_ARGV0 = "yawg";
 
-
-    private final String _argv0;
-    private final String[] _args;
-    private final OutputStream _output;
-
-
-    /**
-     * Creates a newly initialized builder for creating a
-     * <code>BakerCli</code> instance.
-     *
-     * @return A new builder.
-     */
-    public static Builder builder() {
-
-        Builder result = new Builder();
-
-        return result;
-    }
+    private final BakerCliConf _conf;
 
 
     /**
      *
      */
-    private BakerCli(final Builder builder) {
+    public BakerCli(final BakerCliConf conf) {
 
-        _argv0 = builder._argv0;
-        _args = builder._args.toJavaArray(String.class);
-        _output = builder._output;
+        _conf = conf;
     }
 
 
@@ -80,11 +61,11 @@ public final class BakerCli {
      */
     public int run() {
 
-        InfoPrinter infoPrinter = buildInfoPrinter(_argv0, _output);
+        InfoPrinter infoPrinter = buildInfoPrinter(_conf.argv0, _conf.output);
         CliException error = null;
 
         try {
-            doEverything(infoPrinter, _args);
+            doEverything(infoPrinter, _conf.args);
         } catch ( CliException e ) {
             error = e;
         }
@@ -105,7 +86,7 @@ public final class BakerCli {
     /**
      *
      */
-    private InfoPrinter buildInfoPrinter(
+    private static InfoPrinter buildInfoPrinter(
             final String argv0,
             final OutputStream output) {
 
@@ -143,7 +124,7 @@ public final class BakerCli {
             } else if ( cliOptions.hasOption(BakerCliOptions.VERSION) ) {
                 infoPrinter.printVersion();
             } else {
-                Try<Void> result = doBake(cliOptions);
+                Try<Void> result = doBake(cliOptions, _conf.output);
 
                 if ( result.isFailure() ) {
                     Throwable e = result.getCause();
@@ -157,10 +138,12 @@ public final class BakerCli {
     /**
      *
      */
-    private Try<Void> doBake(final CliOptions cliOptions)
+    private static Try<Void> doBake(
+            final CliOptions cliOptions,
+            final OutputStream output)
             throws CliException {
 
-        LogInitializer logInitializer = initLogInitializer(cliOptions);
+        LogInitializer logInitializer = buildLogInitializer(cliOptions, output);
         SiteBakerConf conf = buildSiteBakerConf(cliOptions);
         SiteBakerFactory factory = SiteBakerFactory.get();
         SiteBaker siteBaker = factory.newSiteBaker();
@@ -175,11 +158,13 @@ public final class BakerCli {
     /**
      *
      */
-    private LogInitializer initLogInitializer(final CliOptions cliOptions) {
+    private static LogInitializer buildLogInitializer(
+            final CliOptions cliOptions,
+            final OutputStream output) {
 
         LogInitializer logInitializer = JulLogInitializer.builder()
                 .setVerbose(cliOptions.hasOption(BakerCliOptions.VERBOSE))
-                .setOutput(_output)
+                .setOutput(output)
                 .build();
 
         logInitializer.init();
@@ -191,7 +176,7 @@ public final class BakerCli {
     /**
      *
      */
-    private SiteBakerConf buildSiteBakerConf(final CliOptions cliOptions)
+    private static SiteBakerConf buildSiteBakerConf(final CliOptions cliOptions)
             throws CliException {
 
         Path sourceDir =
@@ -220,14 +205,14 @@ public final class BakerCli {
     /**
      *
      */
-    private PageVars buildExternalPageVars(final CliOptions cliOptions) {
+    private static PageVars buildExternalPageVars(final CliOptions cliOptions) {
 
         return cliOptions
                 .getAll(BakerCliOptions.PAGE_VAR)
                 .map(BakerCli::getVarNameAndValueFromOptionValue)
                 .foldLeft(
                         PageVars.builder(),
-                        (builder, t) -> builder.addVar(t._1(), t._2()))
+                        (builder, t) -> builder.addVar(t._1, t._2))
                 .build();
     }
 
@@ -235,9 +220,9 @@ public final class BakerCli {
     private static Tuple2<String,String> getVarNameAndValueFromOptionValue(
             final String optionValue) {
 
-        int indexOfEqSign = optionValue.indexOf('=');
         final String varName;
         final String varValue;
+        int indexOfEqSign = optionValue.indexOf('=');
 
         if ( indexOfEqSign < 0 ) {
             varName = optionValue;
@@ -248,78 +233,6 @@ public final class BakerCli {
         }
 
         return Tuple.of(varName, varValue);
-    }
-
-
-    /**
-     *
-     */
-    public static final class Builder {
-
-
-        private String _argv0;
-        private Seq<String> _args;
-        private OutputStream _output;
-
-
-        /**
-         *
-         */
-        private Builder() {
-
-            _argv0 = DEFAULT_ARGV0;
-            _args = List.of();
-            _output = System.out;
-        }
-
-
-        /**
-         * @param argv0 The name the utility was launched with on the
-         * command line. It will be used in informative or error
-         * messages.
-         */
-        public Builder setArgv0(final String argv0) {
-
-            _argv0 = argv0;
-
-            return this;
-        }
-
-
-        /**
-         * @param args The command line arguments passed to the
-         * utility.
-         */
-        public Builder addArgs(final String... args) {
-
-            _args = _args.appendAll(List.of(args));
-
-            return this;
-        }
-
-
-        /**
-         *
-         */
-        public Builder setOutput(final OutputStream output) {
-
-            _output = output;
-
-            return this;
-        }
-
-
-        /**
-         *
-         */
-        public BakerCli build() {
-
-            BakerCli result = new BakerCli(this);
-
-            return result;
-        }
-
-
     }
 
 

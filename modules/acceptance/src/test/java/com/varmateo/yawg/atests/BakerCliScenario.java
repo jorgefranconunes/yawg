@@ -122,6 +122,17 @@ public final class BakerCliScenario {
         /**
          *
          */
+        public Builder addArgs(final String... args) {
+
+            _bakerRunnerBuilder.addArgs(args);
+
+            return this;
+        }
+
+
+        /**
+         *
+         */
         public BakerCliScenario build() {
 
             return new BakerCliScenario(this);

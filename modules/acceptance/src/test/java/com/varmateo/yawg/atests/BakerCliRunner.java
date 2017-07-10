@@ -13,6 +13,7 @@ import javaslang.collection.List;
 import javaslang.collection.Seq;
 
 import com.varmateo.yawg.cli.BakerCli;
+import com.varmateo.yawg.cli.BakerCliConf;
 
 
 /**
@@ -65,11 +66,12 @@ public final class BakerCliRunner {
     public BakerCliResult run() {
 
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        BakerCli bakerCli =
-                BakerCli.builder()
+        BakerCliConf conf =
+                BakerCliConf.builder()
                 .addArgs(_args)
                 .setOutput(output)
                 .build();
+        BakerCli bakerCli = new BakerCli(conf);
         int exitStatus = bakerCli.run();
         BakerCliResult result =
                 BakerCliResult.builder()

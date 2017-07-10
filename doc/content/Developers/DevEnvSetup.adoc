@@ -44,10 +44,14 @@ below.
 | CentOS |
   `gnupg2`
 
+  `graphviz`
+
   `libxslt`
 
 | Ubuntu |
   `gnupg`
+
+  `graphviz`
 
   `xsltproc`
 

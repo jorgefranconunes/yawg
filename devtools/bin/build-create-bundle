@@ -232,7 +232,7 @@ function prepareForMaven () {
         local reportsDir=$(yawgNormalizePath ${_reportsDir})
         _mavenOptions="${_mavenOptions} -Dyawg.mavensite=${reportsDir}"
         _mavenOptions="${_mavenOptions} -DskipTests=false"
-        _mavenOptions="${_mavenOptions} -Pyawg-maven-site"
+        _mavenOptions="${_mavenOptions} -Pyawg-mavensite"
         _mavenGoals="clean verify site"
 
         mkdir -p ${_reportsDir}
