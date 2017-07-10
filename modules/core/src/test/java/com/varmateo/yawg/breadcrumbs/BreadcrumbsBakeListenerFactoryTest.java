@@ -8,7 +8,7 @@ package com.varmateo.yawg.breadcrumbs;
 
 import javaslang.collection.Seq;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
 
 import com.varmateo.yawg.api.DirBakeListenerFactory;
@@ -40,7 +40,7 @@ public final class BreadcrumbsBakeListenerFactoryTest
             }
         }
 
-        assertTrue(isFound);
+        assertThat(isFound).isTrue();
     }
 
 

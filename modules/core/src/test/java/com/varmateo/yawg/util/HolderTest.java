@@ -1,12 +1,12 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.util;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
 
 import com.varmateo.yawg.util.Holder;
@@ -29,21 +29,20 @@ public final class HolderTest
         MySupplier supplier = new MySupplier(myObject);
         Holder<Object> holder = Holder.of(supplier::getValue);
 
-        assertEquals(0, supplier.getCallCount());
+        assertThat(supplier.getCallCount()).isEqualTo(0);
 
-        assertSame(myObject, holder.get());
-        assertEquals(1, supplier.getCallCount());
+        assertThat(holder.get()).isSameAs(myObject);
+        assertThat(supplier.getCallCount()).isEqualTo(1);
 
-        assertSame(myObject, holder.get());
-        assertEquals(1, supplier.getCallCount());
+        assertThat(holder.get()).isSameAs(myObject);
+        assertThat(supplier.getCallCount()).isEqualTo(1);
     }
 
 
     /**
      *
      */
-    private static final class MySupplier
- {
+    private static final class MySupplier {
 
 
         private final Object _value;

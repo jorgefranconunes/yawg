@@ -1,5 +1,6 @@
 image:https://travis-ci.org/jorgefranconunes/yawg.svg?branch=master["Build Status", link="https://travis-ci.org/jorgefranconunes/yawg"]
 image:https://codecov.io/gh/jorgefranconunes/yawg/branch/master/graph/badge.svg[codecov, link="https://codecov.io/gh/jorgefranconunes/yawg"]
+image:https://codescene.io/projects/1434/status.svg[link="https://codescene.io/projects/1434/jobs/latest-successful/results"]
 
 
 

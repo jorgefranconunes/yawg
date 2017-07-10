@@ -6,7 +6,7 @@
 
 package com.varmateo.yawg.api;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
 
 import com.varmateo.testutils.TestUtils;
@@ -30,7 +30,7 @@ public final class YawgInfoTest
         String expectedVersion = getYawgVersion();
         String actualVersion = YawgInfo.VERSION;
 
-        assertEquals(expectedVersion, actualVersion);
+        assertThat(actualVersion).isEqualTo(expectedVersion);
     }
 
 

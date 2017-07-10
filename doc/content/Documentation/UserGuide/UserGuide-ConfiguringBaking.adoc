@@ -1,0 +1,72 @@
+[[sec-ConfiguringBaking]]
+== Configuring the baking process
+
+A set of baking parameters can be used to influence the baking
+process. Each directory under the source directory being baked can
+specify its own set of baking parameters.
+
+The baking parameters are defined in a file named `.yawg.yml` inside
+each directory. The existence of the `.yawg.yml` file is optional. If
+there is no `.yawg.yml` file in a given directory, then the baking
+parameters for the parent directory will be used instead.
+
+The `.yawg.yml` file, as you might have guessed, is in
+http://yaml.org/[YAML] format.
+
+The supported baking parameters are listed below.
+
+* `bakerTypes` (`Map<String,List<String>>`) -- Map that specifies the
+baker type to be used for certain files. This is useful when you want
+to override the default baker type for some files (e.g. when you want
+`*.txt` files baked with the `asciidoc` baker). The keys are baker
+types. The values are a list of glob patterns representing the files
+to be baked by that baker type.
+
+* `exclude` (`List<String>`) -- List of glob patterns representing the
+  files that are to be excluded from the bake. These files will not be
+  processed in any way.
+
+* `excludeHere` (`List<String>`) -- List of glob patterns representing
+  the files that are to be excluded from the bake only in the
+  directory where this parameter is specified. This parameter is not
+  propagated to child directories.
+
+* `extraDirsHere` (`List<String>`) -- List of additional directories
+to be baked into the current target directory. The elements of the
+list are file system paths of directories. If a path is relative it is
+taken as being relative to the directory currently being baked. Only
+the content of the extra source directories is baked into the current
+target directory. The target directory will not contain a directory
+with the same name as the extra directory.
+
+* `includeHere` (`List<String>`) -- List of glob patterns representing
+the files in the directory that are to be baked. All other files in
+the directory will be skipped. This parameter takes precedence over
+the `exclude` and `excludeHere` parameters.
+
+* `pageVars` (`Map`) -- Set of additional variables to be added to the
+  page template data model. These variables will be propagated to
+  child directories. See <<sec-PageTemplates>>.
+
+* `pageVarsHere` (`Map`) -- Set of additional variables to be added to the
+  page template data model. These variables will not be propagated to
+  child directories. See <<sec-PageTemplates>>.
+
+* `template` (`String`) -- The name of the page template to use for
+baking the files in the directory. If not specified it will default to
+`default.ftlh`.
+
+* `templatesHere` (`Map<String,List<String>>`) -- Map that specifies
+  the templates to be used for certain files. The keys are template
+  names. The values are a list of glob patterns representing the files
+  for which the corresponding template will be used.
+
+The baker types that can be specified for the `bakerTypes` parameter
+are the ones described in <<sec-BakerTypes>>. The possible values
+currently supported are the following:
+
+* `asciidoc` -- AsciiDoc baker.
+
+* `html` -- HTML baker.
+
+* `copy` -- Plain copy baker.

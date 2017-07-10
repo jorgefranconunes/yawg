@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.regex.Pattern;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.varmateo.yawg.core.DirBakerConf;
 import com.varmateo.yawg.util.GlobMatcher;
@@ -38,18 +38,16 @@ import com.varmateo.yawg.util.GlobMatcher;
             final DirBakerConf expectedConf,
             final DirBakerConf actualConf) {
 
-        assertEquals(
-                expectedConf.templateName,
-                actualConf.templateName);
-        assertEquals(
-                expectedConf.filesToExclude.map(GlobMatcher::toString),
-                actualConf.filesToExclude.map(GlobMatcher::toString));
-        assertEquals(
-                expectedConf.filesToIncludeHere.map(GlobMatcher::toString),
-                actualConf.filesToIncludeHere.map(GlobMatcher::toString));
-        assertEquals(
-                expectedConf.bakerTypes.map(BakerMatcher::toString),
-                actualConf.bakerTypes.map(BakerMatcher::toString));
+        assertThat(actualConf.templateName)
+                .isEqualTo(expectedConf.templateName);
+        assertThat(actualConf.filesToExclude.map(GlobMatcher::toString))
+                .isEqualTo(
+                        expectedConf.filesToExclude.map(GlobMatcher::toString));
+        assertThat(actualConf.filesToIncludeHere.map(GlobMatcher::toString))
+                .isEqualTo(
+                        expectedConf.filesToIncludeHere.map(GlobMatcher::toString));
+        assertThat(actualConf.bakerTypes.map(BakerMatcher::toString))
+                .isEqualTo(expectedConf.bakerTypes.map(BakerMatcher::toString));
     }
 
 

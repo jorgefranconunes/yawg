@@ -1,0 +1,72 @@
+[[sec-Running]]
+== Running Yawg
+
+The command line tool to bake sites lives at `bin/yawg` under the
+installation directory. This is the tool that is used for baking a
+site from a tree of documents.
+
+Yawg requires Java 8 to run. You tell the `bin/yawg` tool which JVM to
+use in one of the following ways:
+
+* If the environment variable `YAWG_JAVA_HOME` is defined, it will be
+  used to select the JVM.
+
+* Otherwise, if the environment variable `JAVA_HOME` is defined, it
+  will be used to select the JVM.
+
+* Otherwise, Yawg will attemp to use the `java` accessible in the
+  PATH.
+
+* Otherwise, Yawg will despondently give up, and print print a failure
+  message gently reminding you of the error in your ways.
+
+Running `bin/yawg` without any arguments will just print some
+information on how to use the tool.
+
+----
+Yawg 1.0.0 - CLI Baker
+Copyright (c) 2016 Yawg project contributors.
+
+Usage: yawg [OPTION] ...
+
+Bakes a site from a directory tree.
+
+Options:
+    --assets <PATH>           path of assets directory
+ -h,--help                    show this help text and exit
+    --page-var <NAME=VALUE>   additional page variable
+    --source <PATH>           path of source directory
+    --target <PATH>           path of target directory
+    --templates <PATH>        path of templates directory
+ -v,--version                 show version and exit
+    --verbose                 show abundant logging
+
+Find additional information at http://yawg.varmateo.com/
+----
+
+The `bin/yawg` command supports the following command line options:
+
+`--assets <PATH>` -- Path to the assets directory. The contents of
+this directory will be recursively copied to the target directory. The
+files under the assets directory are copied without any
+transformations.
+
+`--page-var <NAME=VALUE>` -- Defines a page variable that will be
+visible to the templates for all pages. The value of page variables
+defined through this option will always be strings. You can give this
+option multiple times to specify more than one page variable.
+
+`--source <PATH>` -- Path to the directory containing the content
+source files to be baked.
+
+`--target <PATH>` -- Path to the directory where the results of the
+baking will be copied to. If this directory does not yet exist, it
+will be created.
+
+`--templates <PATH>` -- Path to the directory containing the page templates
+that may be used during the baking.
+
+`--verbose` -- Print detailed logging during the baking. By default
+only minimal logging is shown.
+
+`--version` -- Prints the version of the Yawg software and exits.

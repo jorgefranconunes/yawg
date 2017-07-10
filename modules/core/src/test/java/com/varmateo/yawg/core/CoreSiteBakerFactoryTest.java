@@ -6,7 +6,7 @@
 
 package com.varmateo.yawg.core;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
 
 import com.varmateo.yawg.core.CoreSiteBakerFactory;
@@ -28,8 +28,8 @@ public final class CoreSiteBakerFactoryTest
 
         SiteBakerFactory factory = SiteBakerFactory.get();
 
-        assertNotNull(factory);
-        assertTrue(factory instanceof CoreSiteBakerFactory);
+        assertThat(factory).isNotNull();
+        assertThat(factory).isInstanceOf(CoreSiteBakerFactory.class);
     }
 
 

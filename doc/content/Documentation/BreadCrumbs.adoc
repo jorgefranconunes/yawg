@@ -47,9 +47,9 @@ Elements of the `breadcrumb` map:
   typically be the relative URL for the index page of the current
   directory.
 
-Page variables are defined through the `pageVars` and
-`pageVarsHere`baking parameters. The baking parameters can be defined
-in `.yawg.yml` files in each directory of the document tree.
+Page variables are defined through the `pageVars` and `pageVarsHere`
+baking parameters. The baking parameters can be defined in `.yawg.yml`
+files in each directory of the document tree.
 
 In almost all cases you will want the breadcrumb costumization to
 apply to the current directory. This means the `breadcrumb` page
@@ -66,10 +66,10 @@ directory.
 
 == Example
 
-We now show  more sophisticated example. This example has the
+We now show a more sophisticated example. This example has the
 following features:
 
-* The breadcrumb bar is now show in the topmost directory. TBD: Why?
+* The breadcrumb bar is now hidden in the topmost directory. TBD: Why?
 
 * The breadcrumb item for the current directory is not displayed. TBD: Why?
 

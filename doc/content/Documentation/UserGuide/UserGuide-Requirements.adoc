@@ -1,0 +1,15 @@
+[[sec-Requirements]]
+== Requirements
+
+For running Yawg you will need the following:
+
+* Linux -- Any typical Linux distribution from the last five years
+  should "just work" (TM).
+
+* Java 8 -- The Oracle JVM is known to work.
+
+* Graphviz -- But only if you want to have PlantUML diagrams in your
+  content.
+
+While Windows is not yet explicitly supported, you can still run Yawg
+just fine under Cygwin.

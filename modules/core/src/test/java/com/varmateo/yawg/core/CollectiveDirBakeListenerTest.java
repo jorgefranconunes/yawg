@@ -8,7 +8,7 @@ package com.varmateo.yawg.core;
 
 import javaslang.collection.List;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -36,13 +36,13 @@ public final class CollectiveDirBakeListenerTest
                 new CollectiveDirBakeListener(List.of(listener01));
         PageContext context = buildContext("var02", "world");
 
-        assertEquals(0, listener01.getEventCount());
+        assertThat(listener01.getEventCount()).isEqualTo(0);
 
         PageVars vars = listener.onDirBake(context);
 
-        assertEquals(1, listener01.getEventCount());
-        assertEquals("hello", vars.get("var01").get());
-        assertEquals("world", vars.get("var02").get());
+        assertThat(listener01.getEventCount()).isEqualTo(1);
+        assertThat(vars.get("var01")).hasValue("hello");
+        assertThat(vars.get("var02")).hasValue("world");
     }
 
 
@@ -57,12 +57,12 @@ public final class CollectiveDirBakeListenerTest
                 new CollectiveDirBakeListener(List.of(listener01));
         PageContext context = buildContext("var01", "world");
 
-        assertEquals(0, listener01.getEventCount());
+        assertThat(listener01.getEventCount()).isEqualTo(0);
 
         PageVars vars = listener.onDirBake(context);
 
-        assertEquals(1, listener01.getEventCount());
-        assertEquals("hello", vars.get("var01").get());
+        assertThat(listener01.getEventCount()).isEqualTo(1);
+        assertThat(vars.get("var01")).hasValue("hello");
     }
 
 
@@ -79,16 +79,16 @@ public final class CollectiveDirBakeListenerTest
                         List.of(listener01, listener02));
         PageContext context = buildContext("var03", "VALUE03");
 
-        assertEquals(0, listener01.getEventCount());
-        assertEquals(0, listener02.getEventCount());
+        assertThat(listener01.getEventCount()).isEqualTo(0);
+        assertThat(listener02.getEventCount()).isEqualTo(0);
 
         PageVars vars = listener.onDirBake(context);
 
-        assertEquals(1, listener01.getEventCount());
-        assertEquals(1, listener02.getEventCount());
-        assertEquals("hello", vars.get("var01").get());
-        assertEquals("world", vars.get("var02").get());
-        assertEquals("VALUE03", vars.get("var03").get());
+        assertThat(listener01.getEventCount()).isEqualTo(1);
+        assertThat(listener02.getEventCount()).isEqualTo(1);
+        assertThat(vars.get("var01")).hasValue("hello");
+        assertThat(vars.get("var02")).hasValue("world");
+        assertThat(vars.get("var03")).hasValue("VALUE03");
     }
 
 
@@ -105,15 +105,15 @@ public final class CollectiveDirBakeListenerTest
                         List.of(listener01, listener02));
         PageContext context = buildContext("var03", "VALUE03");
 
-        assertEquals(0, listener01.getEventCount());
-        assertEquals(0, listener02.getEventCount());
+        assertThat(listener01.getEventCount()).isEqualTo(0);
+        assertThat(listener02.getEventCount()).isEqualTo(0);
 
         PageVars vars = listener.onDirBake(context);
 
-        assertEquals(1, listener01.getEventCount());
-        assertEquals(1, listener02.getEventCount());
-        assertEquals("world", vars.get("var01").get());
-        assertEquals("VALUE03", vars.get("var03").get());
+        assertThat(listener01.getEventCount()).isEqualTo(1);
+        assertThat(listener02.getEventCount()).isEqualTo(1);
+        assertThat(vars.get("var01")).hasValue("world");
+        assertThat(vars.get("var03")).hasValue("VALUE03");
     }
 
 
@@ -130,15 +130,15 @@ public final class CollectiveDirBakeListenerTest
                         List.of(listener01, listener02));
         PageContext context = buildContext("var03", "VALUE03");
 
-        assertEquals(0, listener01.getEventCount());
-        assertEquals(0, listener02.getEventCount());
+        assertThat(listener01.getEventCount()).isEqualTo(0);
+        assertThat(listener02.getEventCount()).isEqualTo(0);
 
         PageVars vars = listener.onDirBake(context);
 
-        assertEquals(1, listener01.getEventCount());
-        assertEquals(1, listener02.getEventCount());
-        assertEquals("hello", vars.get("var01").get());
-        assertEquals("world", vars.get("var03").get());
+        assertThat(listener01.getEventCount()).isEqualTo(1);
+        assertThat(listener02.getEventCount()).isEqualTo(1);
+        assertThat(vars.get("var01")).hasValue("hello");
+        assertThat(vars.get("var03")).hasValue("world");
     }
 
 

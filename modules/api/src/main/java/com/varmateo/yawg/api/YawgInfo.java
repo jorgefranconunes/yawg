@@ -18,9 +18,6 @@ import java.util.Properties;
 public final class YawgInfo {
 
 
-
-
-
     private static final String RESOURCE =
         YawgInfo.class.getSimpleName() + ".properties";
 

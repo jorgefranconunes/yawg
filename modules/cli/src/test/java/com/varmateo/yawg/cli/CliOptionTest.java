@@ -6,8 +6,8 @@
 
 package com.varmateo.yawg.cli;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 import com.varmateo.yawg.cli.CliOption;
 
@@ -30,8 +30,8 @@ public final class CliOptionTest
             .setShortName("demo")
             .build();
 
-        assertEquals("demo", option.getShortName());
-        assertFalse(option.isWithArg());
+        assertThat(option.getShortName()).isEqualTo("demo");
+        assertThat(option.isWithArg()).isFalse();
     }
 
 
@@ -47,9 +47,9 @@ public final class CliOptionTest
             .setArgName("something")
             .build();
 
-        assertEquals("demo", option.getShortName());
-        assertTrue(option.isWithArg());
-        assertEquals("something", option.getArgName());
+        assertThat(option.getShortName()).isEqualTo("demo");
+        assertThat(option.isWithArg()).isTrue();
+        assertThat(option.getArgName()).isEqualTo("something");
     }
 
 
@@ -64,10 +64,10 @@ public final class CliOptionTest
             .setShortName("s")
             .build();
 
-        assertEquals("s", option.getShortName());
-        assertNull(option.getLongName());
-        assertEquals("s", option.getName());
-        assertEquals("-s", option.getLiteral());
+        assertThat(option.getShortName()).isEqualTo("s");
+        assertThat(option.getLongName()).isNull();
+        assertThat(option.getName()).isEqualTo("s");
+        assertThat(option.getLiteral()).isEqualTo("-s");
     }
 
 
@@ -83,10 +83,10 @@ public final class CliOptionTest
             .setLongName("something")
             .build();
 
-        assertEquals("s", option.getShortName());
-        assertEquals("something", option.getLongName());
-        assertEquals("something", option.getName());
-        assertEquals("--something", option.getLiteral());
+        assertThat(option.getShortName()).isEqualTo("s");
+        assertThat(option.getLongName()).isEqualTo("something");
+        assertThat(option.getName()).isEqualTo("something");
+        assertThat(option.getLiteral()).isEqualTo("--something");
     }
 
 

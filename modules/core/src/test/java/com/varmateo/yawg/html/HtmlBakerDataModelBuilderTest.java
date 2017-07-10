@@ -9,7 +9,7 @@ package com.varmateo.yawg.html;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -49,10 +49,9 @@ public final class HtmlBakerDataModelBuilderTest
 
         TemplateDataModel model = buildModel("DocumentWithTitle.html");
 
-        assertEquals("Document with Title", model.getTitle());
-        assertEquals(
-                "<p>The body of the document with a title.</p>",
-                model.getBody());
+        assertThat(model.getTitle()).isEqualTo("Document with Title");
+        assertThat(model.getBody())
+                .isEqualTo("<p>The body of the document with a title.</p>");
     }
 
 
@@ -65,10 +64,9 @@ public final class HtmlBakerDataModelBuilderTest
 
         TemplateDataModel model = buildModel("DocumentWithoutTitle.html");
 
-        assertEquals("DocumentWithoutTitle", model.getTitle());
-        assertEquals(
-                "<p>The body of the document without a title.</p>",
-                model.getBody());
+        assertThat(model.getTitle()).isEqualTo("DocumentWithoutTitle");
+        assertThat(model.getBody())
+                .isEqualTo("<p>The body of the document without a title.</p>");
     }
 
 
