@@ -13,9 +13,11 @@ import org.asciidoctor.AttributesBuilder;
 import org.asciidoctor.OptionsBuilder;
 import org.asciidoctor.SafeMode;
 
+import com.varmateo.yawg.api.PageVars;
+
 
 /**
- * Utility functions simplifying Asciidoctor usafe.
+ * Utility functions simplifying Asciidoctor usage.
  */
 final class AdocUtils {
 
@@ -34,11 +36,12 @@ final class AdocUtils {
     public static OptionsBuilder buildOptionsForBakeWithoutTemplate(
             final Path sourcePath,
             final Path targetDir,
-            final Path targetPath) {
+            final Path targetPath,
+            final PageVars pageVars) {
 
         File targetFile = targetPath.toFile();
         AttributesBuilder attributes =
-                buildCommonAttributes(sourcePath, targetDir)
+                buildCommonAttributes(sourcePath, targetDir, pageVars)
                 .noFooter(false);
         OptionsBuilder options =
                 buildCommonOptions(attributes)
@@ -53,10 +56,11 @@ final class AdocUtils {
      */
     public static OptionsBuilder buildOptionsForBakeWithTemplate(
             final Path sourcePath,
-            final Path targetDir) {
+            final Path targetDir,
+            final PageVars pageVars) {
 
         AttributesBuilder attributes =
-                buildCommonAttributes(sourcePath, targetDir);
+                buildCommonAttributes(sourcePath, targetDir, pageVars);
         OptionsBuilder options =
                 buildCommonOptions(attributes)
                 .headerFooter(false);
@@ -85,10 +89,18 @@ final class AdocUtils {
      */
     private static AttributesBuilder buildCommonAttributes(
             final Path sourcePath,
-            final Path targetDir) {
+            final Path targetDir,
+            final PageVars pageVars) {
 
         String docDir = sourcePath.getParent().toString();
         AttributesBuilder attributes = AttributesBuilder.attributes();
+
+        // First add all the existing page vars as attributes visible
+        // to Asciidoc content.
+        attributes.attributes(pageVars.asMap());
+
+        // And now add , or override, some well known attributes which
+        // control behavior in the Asciidoctor renderer.
 
         // Path of directory that contains the document. It is needed
         // for the PlantUML AsciidoctorJ extension to find its input

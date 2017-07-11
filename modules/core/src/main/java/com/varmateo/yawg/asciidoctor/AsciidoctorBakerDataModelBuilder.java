@@ -55,7 +55,8 @@ import com.varmateo.yawg.util.FileUtils;
         String sourceContent = FileUtils.readAsString(sourcePath);
         OptionsBuilder options = AdocUtils.buildOptionsForBakeWithTemplate(
                 sourcePath,
-                targetDir);
+                targetDir,
+                context.getPageVars());
         String body = _asciidoctor.render(sourceContent, options);
         String pageUrl = context.getDirUrl() + "/" + targetPath.getFileName();
         DocumentHeader header = _asciidoctor.readDocumentHeader(sourceContent);

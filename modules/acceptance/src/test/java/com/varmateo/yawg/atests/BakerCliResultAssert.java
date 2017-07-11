@@ -172,6 +172,25 @@ public final class BakerCliResultAssert
     /**
      *
      */
+    public BakerCliResultAssert targetDirContains(
+            final String... fileNames) {
+
+        isNotNull();
+
+        Path targetDir = actual.getTargetPath();
+
+        List.of(fileNames)
+                .map(Paths::get)
+                .map(path -> targetDir.resolve(path))
+                .forEach(path -> Assertions.assertThat(path).exists());
+
+        return this;
+    }
+
+
+    /**
+     *
+     */
     public BakerCliResultAssert targetDirContainsExpectedContent(
             final BakerCliScenario scenario,
             final String... fileNames) {
@@ -215,25 +234,6 @@ public final class BakerCliResultAssert
                         .usingCharset(StandardCharsets.UTF_8)
                         .hasSameContentAs(expectedFile);
             });
-
-        return this;
-    }
-
-
-    /**
-     *
-     */
-    public BakerCliResultAssert targetDirContains(
-            final String... fileNames) {
-
-        isNotNull();
-
-        Path targetDir = actual.getTargetPath();
-
-        List.of(fileNames)
-                .map(Paths::get)
-                .map(path -> targetDir.resolve(path))
-                .forEach(path -> Assertions.assertThat(path).exists());
 
         return this;
     }

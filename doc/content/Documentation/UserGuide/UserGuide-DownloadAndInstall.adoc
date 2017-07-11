@@ -8,15 +8,15 @@ After downloading the tarball, the installation consists simply of
 untaring said tarball. An example combining download and untaring
 follows:
 
-[source,bash]
+[source,bash,subs=attributes+]
 ----
 mkdir ~/local
-curl https://github.com/jorgefranconunes/yawg/releases/yawg-1.0.0.tar.gz \
+curl https://github.com/jorgefranconunes/yawg/releases/yawg-{yawgVersion}.tar.gz \
     | tar xfz -C ~/local
 ----
 
 The example example above would have installed Yawg under directory
-`$HOME/local/yawg-1.0.0/`.
+`$HOME/local/yawg-{yawgVersion}/`.
 
 The only files under the installation directory you need to know about
 are listed below. All other files are for internal use by Yawg. You

@@ -139,13 +139,18 @@ import com.varmateo.yawg.util.Holder;
         Optional<Template> template = context.getTemplateFor(sourcePath);
 
         if ( template.isPresent() ) {
-            doBakeWithTemplate(sourcePath,
-                               context,
-                               targetDir,
-                               targetPath,
-                               template.get());
+            doBakeWithTemplate(
+                    sourcePath,
+                    context,
+                    targetDir,
+                    targetPath,
+                    template.get());
         } else {
-            doBakeWithoutTemplate(sourcePath, targetDir, targetPath);
+            doBakeWithoutTemplate(
+                    sourcePath,
+                    context,
+                    targetDir,
+                    targetPath);
         }
     }
 
@@ -170,6 +175,7 @@ import com.varmateo.yawg.util.Holder;
      */
     private void doBakeWithoutTemplate(
             final Path sourcePath,
+            final PageContext context,
             final Path targetDir,
             final Path targetPath)
             throws AsciidoctorCoreException {
@@ -177,7 +183,8 @@ import com.varmateo.yawg.util.Holder;
         OptionsBuilder options = AdocUtils.buildOptionsForBakeWithoutTemplate(
                 sourcePath,
                 targetDir,
-                targetPath);
+                targetPath,
+                context.getPageVars());
         File sourceFile = sourcePath.toFile();
 
         _asciidoctor.get().convertFile(sourceFile, options);

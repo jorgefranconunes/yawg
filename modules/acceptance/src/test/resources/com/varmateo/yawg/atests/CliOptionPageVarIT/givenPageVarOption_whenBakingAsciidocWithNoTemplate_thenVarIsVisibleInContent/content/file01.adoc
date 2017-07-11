@@ -1,0 +1,5 @@
+= Demo
+
+Hello, world.
+
+External var: {oneDemoVar}
