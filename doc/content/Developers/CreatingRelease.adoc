@@ -58,10 +58,10 @@ change history.
 The release Git tag is to be created at the HEAD of the master
 branch. Do it like this:
 
-[source,sh]
+[source,sh,subs=attributes+]
 ----
-git tag -a v1.0.0 -m "Version 1.0.0"
-git push origin v1.0.0
+git tag -a v{yawgVersion} -m "Version {yawgVersion}"
+git push origin v{yawgVersion}
 ----
 
 
@@ -73,8 +73,8 @@ git push origin v1.0.0
 This step is composed of two actions:
 
 * Create a release tarball. The tarball will be named
-  `yawg-1.0.0.tar.bz2`, and it will be created at the root of your
-  working area.
+  `yawg-{yawgVersion}.tar.bz2`, and it will be created at the root of
+  your working area.
 
 * Upload Maven artifacts to the
   http://central.sonatype.org/pages/ossrh-guide.html[OSSRH] Maven
