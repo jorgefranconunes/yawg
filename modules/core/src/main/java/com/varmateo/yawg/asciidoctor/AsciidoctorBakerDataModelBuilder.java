@@ -8,8 +8,8 @@ package com.varmateo.yawg.asciidoctor;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.List;
 
+import javaslang.collection.List;
 import javaslang.control.Option;
 
 import org.asciidoctor.Asciidoctor;
@@ -20,7 +20,6 @@ import org.asciidoctor.internal.AsciidoctorCoreException;
 
 import com.varmateo.yawg.api.PageContext;
 import com.varmateo.yawg.api.TemplateDataModel;
-import com.varmateo.yawg.util.Lists;
 import com.varmateo.yawg.util.FileUtils;
 
 
@@ -87,15 +86,14 @@ import com.varmateo.yawg.util.FileUtils;
             final TemplateDataModel.Builder modelBuilder,
             final DocumentHeader header) {
 
-        List<Author> authors = header.getAuthors();
+        java.util.List<Author> authors = header.getAuthors();
 
         // This convoluted logic is needed because
         // DocumentHeader.getAuthor(), DocumentHeader.getAuthors() do
         // not behave consistently with each other.
 
         if ( !authors.isEmpty() ) {
-            Lists.forEach(
-                    authors,
+            List.ofAll(authors).forEach(
                     a -> modelBuilder.addAuthor(a.getFullName(), a.getEmail()));
         } else {
             Author singleAuthor = header.getAuthor();
