@@ -269,7 +269,7 @@ function showConfig () {
     yawgLog "    Build number  : ${buildNumberText}"
 
     yawgLog "Maven details:"
-    ${_mavenTool} --version || yawgError "Failed to obtain Maven details"
+    JAVA_HOME=${_jdkHome} ${_mavenTool} --version || yawgError "Failed to obtain Maven details"
 }
 
 

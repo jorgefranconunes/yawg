@@ -79,7 +79,7 @@ final class BakerCliOptions {
     /**
      *
      */
-    private static final Set<CliOption> OPTIONS =
+    private static final Set<CliOption> ALL_OPTIONS =
             HashSet.of(
                     ASSETS_DIR,
                     HELP,
@@ -96,7 +96,7 @@ final class BakerCliOptions {
      */
     public static Set<CliOption> options() {
 
-        return OPTIONS;
+        return ALL_OPTIONS;
     }
 
 
@@ -113,7 +113,7 @@ final class BakerCliOptions {
     public static CliOptions parse(final String[] args)
         throws CliException {
 
-        return CliOptions.parse(OPTIONS, args);
+        return CliOptions.parse(ALL_OPTIONS, args);
     }
 
 

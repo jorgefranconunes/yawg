@@ -15,8 +15,6 @@ import java.nio.file.Path;
 
 import javaslang.Tuple;
 import javaslang.Tuple2;
-import javaslang.collection.List;
-import javaslang.collection.Seq;
 import javaslang.control.Try;
 
 import com.varmateo.yawg.api.PageVars;
@@ -45,7 +43,7 @@ public final class BakerCli {
 
 
     /**
-     *
+     * @param conf Configuration settings.
      */
     public BakerCli(final BakerCliConf conf) {
 

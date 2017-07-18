@@ -6,6 +6,8 @@
 
 package com.varmateo.yawg.util;
 
+import javaslang.control.Option;
+
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
@@ -42,7 +44,10 @@ public final class FileUtils {
      */
     public static String basename(final Path path) {
 
-        String basenameWithExtension = path.getFileName().toString();
+        String basenameWithExtension =
+                Option.of(path.getFileName())
+                .map(Object::toString)
+                .getOrElse("");
         int extensionIndex = basenameWithExtension.lastIndexOf('.');
         String basenameWithoutExtension =
                 (extensionIndex>-1)

@@ -9,6 +9,8 @@ package com.varmateo.yawg.asciidoctor;
 import java.io.File;
 import java.nio.file.Path;
 
+import javaslang.control.Option;
+
 import org.asciidoctor.AttributesBuilder;
 import org.asciidoctor.OptionsBuilder;
 import org.asciidoctor.SafeMode;
@@ -92,7 +94,9 @@ final class AdocUtils {
             final Path targetDir,
             final PageVars pageVars) {
 
-        String docDir = sourcePath.getParent().toString();
+        String docDir = Option.of(sourcePath.getParent())
+                .map(Object::toString)
+                .getOrElse(".");
         AttributesBuilder attributes = AttributesBuilder.attributes();
 
         // First add all the existing page vars as attributes visible
