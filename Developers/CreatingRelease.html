@@ -17,7 +17,7 @@
 
     <link
        rel="stylesheet"
-       href="../yawg-site.css?v=86865f45-ee92-4b5b-af0e-720a60dd71de" />
+       href="../yawg-site.css?v=e165030d-b60c-423d-93ff-e7c4b88408d2" />
 
     <script
        type="text/javascript"
@@ -160,8 +160,8 @@ branch. Do it like this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="sh">git tag -a v1.0.0 -m &quot;Version 1.0.0&quot;
-git push origin v1.0.0</code></pre>
+<pre class="CodeRay highlight"><code data-lang="sh">git tag -a v{yawgVersion} -m &quot;Version {yawgVersion}&quot;
+git push origin v{yawgVersion}</code></pre>
 </div>
 </div>
 </div>
@@ -176,8 +176,8 @@ git push origin v1.0.0</code></pre>
 <ul>
 <li>
 <p>Create a release tarball. The tarball will be named
-<code>yawg-1.0.0.tar.bz2</code>, and it will be created at the root of your
-working area.</p>
+<code>yawg-{yawgVersion}.tar.bz2</code>, and it will be created at the root of
+your working area.</p>
 </li>
 <li>
 <p>Upload Maven artifacts to the
@@ -270,7 +270,7 @@ staging repository to Maven Central.</p>
     |
     <a href="../PrivacyPolicy.html">Privacy</a>
     |
-    Last update 2017-07-11 07:00 UTC
+    Last update 2017-07-18 18:13 UTC
   </p>
 </footer>
 
