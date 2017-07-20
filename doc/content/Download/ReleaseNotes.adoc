@@ -11,6 +11,24 @@ Yawg project.
 
 
 
+== 0.9.7
+
+Released on 2017/07/18
+
+#238 Fixed typo on README
+
+#238 Added acceptance tests for the --page-var CLI option
+
+#238 Removed list utility functions no longer used
+
+#300 Page vars are now visible as Asciidoc attributes
+
+#304 Fixed build-create-bundle-bug when JAVA_HOME not set
+
+
+
+
+
 == 0.9.6
 
 Released on 2017/06/03

@@ -60,8 +60,8 @@ branch. Do it like this:
 
 [source,sh,subs=attributes+]
 ----
-git tag -a v{yawgVersion} -m "Version {yawgVersion}"
-git push origin v{yawgVersion}
+git tag -a v{latestYawgVersion} -m "Version {latestYawgVersion}"
+git push origin v{latestYawgVersion}
 ----
 
 
@@ -73,7 +73,7 @@ git push origin v{yawgVersion}
 This step is composed of two actions:
 
 * Create a release tarball. The tarball will be named
-  `yawg-{yawgVersion}.tar.bz2`, and it will be created at the root of
+  `yawg-{latestYawgVersion}.tar.bz2`, and it will be created at the root of
   your working area.
 
 * Upload Maven artifacts to the

@@ -9,7 +9,7 @@
 Releases:
 
 * Latest release:
-https://github.com/jorgefranconunes/yawg/releases/download/v{yawgVersion}/yawg-{yawgVersion}.tar.bz2[yawg-{yawgVersion}.tar.bz2]
+https://github.com/jorgefranconunes/yawg/releases/download/v{latestYawgVersion}/yawg-{latestYawgVersion}.tar.bz2[yawg-{latestYawgVersion}.tar.bz2]
 
 * https://github.com/jorgefranconunes/yawg/releases[Older releases]
 

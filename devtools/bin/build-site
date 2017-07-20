@@ -350,7 +350,6 @@ function doBaking () {
         --assets $(yawgNormalizePath ${_yawgHome}/doc/assets) \
         --page-var "isProduction=${_isProduction}" \
         --page-var "lastUpdateTimestamp=${_lastUpdateTimestamp}" \
-        --page-var "yawgVersion=${YAWG_VERSION}" \
         --verbose
 }
 

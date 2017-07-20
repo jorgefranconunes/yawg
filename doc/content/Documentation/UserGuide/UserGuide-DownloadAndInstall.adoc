@@ -11,12 +11,12 @@ follows:
 [source,bash,subs=attributes+]
 ----
 mkdir ~/local
-curl https://github.com/jorgefranconunes/yawg/releases/yawg-{yawgVersion}.tar.gz \
+curl https://github.com/jorgefranconunes/yawg/releases/yawg-{latestYawgVersion}.tar.gz \
     | tar xfz -C ~/local
 ----
 
 The example example above would have installed Yawg under directory
-`$HOME/local/yawg-{yawgVersion}/`.
+`$HOME/local/yawg-{latestYawgVersion}/`.
 
 The only files under the installation directory you need to know about
 are listed below. All other files are for internal use by Yawg. You
