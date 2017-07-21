@@ -10,7 +10,7 @@ jdk:
   - oraclejdk8
 
 script:
-  - ./devtools/bin/build-create-bundle --with-tests
+  - ./devtools/bin/build-travisci-job --run
 
 cache:
   directories:

@@ -6,3 +6,6 @@ project.
 link:DevEnvSetup.html[Setting up the development environment]
 
 link:CreatingRelease.html[Creating a release of the Yawg software]
+
+link:CodeQualityReports/index.html[Code quality reports] - Maven
+generated reports for the latest commint in the `master` branch.

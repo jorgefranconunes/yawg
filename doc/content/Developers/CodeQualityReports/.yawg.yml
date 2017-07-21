@@ -1,0 +1,10 @@
+#
+#
+#
+
+extraDirsHere:
+  - "../../../../target/CodeQualityReports"
+
+bakerTypes:
+  copy :
+    - "*"
