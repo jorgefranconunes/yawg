@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SiteBakerFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg SPI</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.spi</a> &gt; <span class="el_source">SiteBakerFactory.java</span></div><h1>SiteBakerFactory.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2016-2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.spi;
+
+import java.util.Iterator;
+import java.util.ServiceLoader;
+
+import com.varmateo.yawg.spi.SiteBaker;
+
+
+/**
+ * Factory for &lt;code&gt;SiteBaker&lt;/code&gt; objects.
+ */
+public interface SiteBakerFactory {
+
+
+    /**
+     * Creates a new &lt;code&gt;SiteBake&lt;/code&gt; instance.
+     *
+     * @return The baker object.
+     */
+    SiteBaker newSiteBaker();
+
+
+    /**
+     * Retrieves the default &lt;code&gt;SiteBakerFactory&lt;/code&gt;
+     * implementation that is always available. This is the main entry
+     * point for baking a site.
+     *
+     * @return The default factory instance.
+     */
+    static SiteBakerFactory get() {
+
+<span class="fc" id="L38">        ServiceLoader&lt;SiteBakerFactory&gt; loader =</span>
+<span class="fc" id="L39">                ServiceLoader.load(SiteBakerFactory.class);</span>
+<span class="fc" id="L40">        Iterator&lt;SiteBakerFactory&gt; allFactories = loader.iterator();</span>
+<span class="fc" id="L41">        SiteBakerFactory result =</span>
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">                allFactories.hasNext() ? allFactories.next() : null;</span>
+
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">        if ( result == null ) {</span>
+<span class="fc" id="L45">            String msg = &quot;&quot;</span>
+                    + &quot;No \&quot;&quot;
+<span class="fc" id="L47">                    + SiteBakerFactory.class.getName()</span>
+                    + &quot;\&quot; service available&quot;;
+<span class="fc" id="L49">            throw new IllegalStateException(msg);</span>
+        }
+
+<span class="nc" id="L52">        return result;</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

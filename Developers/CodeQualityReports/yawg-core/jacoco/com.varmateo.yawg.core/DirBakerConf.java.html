@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DirBakerConf.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">DirBakerConf.java</span></div><h1>DirBakerConf.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2016-2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.core;
+
+import java.nio.file.Path;
+
+import javaslang.collection.List;
+import javaslang.collection.Seq;
+import javaslang.control.Option;
+
+import com.varmateo.yawg.api.PageVars;
+import com.varmateo.yawg.core.TemplateNameMatcher;
+import com.varmateo.yawg.util.GlobMatcher;
+
+
+/**
+ * Set of configuration parameters used for baking the files in a
+ * directory.
+ */
+/* package private */ final class DirBakerConf {
+
+
+    /**
+     * Name of template to use when baking a directory and all its
+     * sub-directories.
+     */
+    public final Option&lt;String&gt; templateName;
+
+    /**
+     * List of files to exclude when baking a directory and its
+     * sub-directories.
+     */
+    public final Option&lt;GlobMatcher&gt; filesToExclude;
+
+    /**
+     * List of files to exclude when baking the current directory.
+     */
+    public final Option&lt;GlobMatcher&gt; filesToExcludeHere;
+
+    /**
+     * Strict list of files to include when baking the current
+     * directory.
+     */
+    public final Option&lt;GlobMatcher&gt; filesToIncludeHere;
+
+    /**
+     * Association of baker types to some lists of files.
+     */
+    public final Option&lt;BakerMatcher&gt; bakerTypes;
+
+    /**
+     * Set of variables to be made available to the template that will
+     * also be propagated to child directories.
+     */
+    public final PageVars pageVars;
+
+
+    /**
+     * Set of variables made available to the template that will not
+     * be propagated to child directories.
+     */
+    public final PageVars pageVarsHere;
+
+
+    /**
+     *
+     */
+    public final TemplateNameMatcher templatesHere;
+
+
+    /**
+     * Collection of additional directories with content to be
+     * baked. The bake results from those directories will be placed
+     * in the same location as the bake results from the directory
+     * currently being baked.
+     */
+    public final Seq&lt;Path&gt; extraDirsHere;
+
+
+    /**
+     *
+     */
+<span class="fc" id="L87">    private DirBakerConf(final Builder builder) {</span>
+
+<span class="fc" id="L89">        this.templateName = builder._templateName;</span>
+<span class="fc" id="L90">        this.filesToExclude = builder._filesToExclude;</span>
+<span class="fc" id="L91">        this.filesToExcludeHere = builder._filesToExcludeHere;</span>
+<span class="fc" id="L92">        this.filesToIncludeHere = builder._filesToIncludeHere;</span>
+<span class="fc" id="L93">        this.bakerTypes = builder._bakerTypes;</span>
+<span class="fc" id="L94">        this.pageVars = builder._pageVarsBuilder.build();</span>
+<span class="fc" id="L95">        this.pageVarsHere = builder._pageVarsHere;</span>
+<span class="fc" id="L96">        this.templatesHere = builder._templatesHere;</span>
+<span class="fc" id="L97">        this.extraDirsHere = builder._extraDirsHere;</span>
+<span class="fc" id="L98">    }</span>
+
+
+    /**
+     * Creates a new builder with no initializations.
+     *
+     * @return A newly created &lt;code&gt;Builder&lt;/code&gt; instance.
+     */
+    public static Builder builder() {
+
+<span class="fc" id="L108">        Builder result = new Builder();</span>
+
+<span class="fc" id="L110">        return result;</span>
+    }
+
+
+    /**
+     *
+     */
+    public static DirBakerConf empty() {
+
+<span class="fc" id="L119">        DirBakerConf result = DirBakerConf.builder().build();</span>
+
+<span class="fc" id="L121">        return result;</span>
+    }
+
+
+    /**
+     * Creates a new container starting with the values from
+     * &lt;code&gt;that&lt;/code&gt; and overriding it with the values we possess.
+     *
+     * @param that The source of default values.
+     *
+     * @return A newly created container initialized with our values,
+     * and using as default values the ones contained in
+     * &lt;code&gt;that&lt;/code&gt;.
+     */
+    public DirBakerConf mergeOnTopOf(final DirBakerConf that) {
+
+<span class="fc" id="L137">        Builder builder = new Builder(that);</span>
+
+<span class="fc" id="L139">        this.templateName.forEach(builder::setTemplateName);</span>
+<span class="fc" id="L140">        this.filesToExclude.forEach(builder::addFilesToExclude);</span>
+<span class="fc" id="L141">        this.filesToExcludeHere.forEach(builder::setFilesToExcludeHere);</span>
+<span class="fc" id="L142">        this.filesToIncludeHere.forEach(builder::setFilesToIncludeHere);</span>
+<span class="pc" id="L143">        this.bakerTypes.forEach(builder::addBakerTypes);</span>
+<span class="fc" id="L144">        builder</span>
+<span class="fc" id="L145">                .addPageVars(this.pageVars)</span>
+<span class="fc" id="L146">                .setPageVarsHere(this.pageVarsHere)</span>
+<span class="fc" id="L147">                .setTemplatesHere(this.templatesHere)</span>
+<span class="fc" id="L148">                .setExtraDirsHere(this.extraDirsHere);</span>
+
+
+<span class="fc" id="L151">        DirBakerConf result = builder.build();</span>
+
+<span class="fc" id="L153">        return result;</span>
+    }
+
+
+    /**
+     * A builder of &lt;code&gt;DirBakerConf&lt;/code&gt; instances.
+     */
+    public static final class Builder {
+
+
+        // These always start empty.
+<span class="fc" id="L164">        private Option&lt;GlobMatcher&gt; _filesToExcludeHere = Option.none();</span>
+<span class="fc" id="L165">        private Option&lt;GlobMatcher&gt; _filesToIncludeHere = Option.none();</span>
+<span class="fc" id="L166">        private PageVars _pageVarsHere = new PageVars();</span>
+<span class="fc" id="L167">        private TemplateNameMatcher _templatesHere = new TemplateNameMatcher();</span>
+
+        // These adopt the values from externally provided
+        // initialization data.
+        private Option&lt;String&gt; _templateName;
+        private Option&lt;GlobMatcher&gt; _filesToExclude;
+        private Option&lt;BakerMatcher&gt; _bakerTypes;
+        private PageVars.Builder _pageVarsBuilder;
+        private Seq&lt;Path&gt; _extraDirsHere;
+
+
+        /**
+         *
+         */
+<span class="fc" id="L181">        private Builder() {</span>
+
+<span class="fc" id="L183">            _templateName = Option.none();</span>
+<span class="fc" id="L184">            _filesToExclude = Option.none();</span>
+<span class="fc" id="L185">            _bakerTypes = Option.none();</span>
+<span class="fc" id="L186">            _pageVarsBuilder = PageVars.builder();</span>
+<span class="fc" id="L187">            _extraDirsHere = List.of();</span>
+<span class="fc" id="L188">        }</span>
+
+
+        /**
+         * Prepares a Builder for performing a merge.
+         */
+<span class="fc" id="L194">        private Builder(final DirBakerConf defaults) {</span>
+
+<span class="fc" id="L196">            _templateName = defaults.templateName;</span>
+<span class="fc" id="L197">            _filesToExclude = defaults.filesToExclude;</span>
+<span class="fc" id="L198">            _bakerTypes = defaults.bakerTypes;</span>
+<span class="fc" id="L199">            _pageVarsBuilder = PageVars.builder(defaults.pageVars);</span>
+<span class="fc" id="L200">            _extraDirsHere = defaults.extraDirsHere;</span>
+<span class="fc" id="L201">        }</span>
+
+
+        /**
+         *
+         */
+        public Builder setTemplateName(final String templateName) {
+
+<span class="fc" id="L209">            _templateName = Option.of(templateName);</span>
+
+<span class="fc" id="L211">            return this;</span>
+        }
+
+
+        /**
+         *
+         */
+        public Builder setFilesToExclude(final GlobMatcher fileNames) {
+
+<span class="fc" id="L220">            _filesToExclude = Option.of(fileNames);</span>
+
+<span class="fc" id="L222">            return this;</span>
+        }
+
+
+        /**
+         * @throws PatternSyntaxException If any of the given glob
+         * expressions are invalid.
+         */
+        public Builder setFilesToExclude(final String... fileNames) {
+
+<span class="fc" id="L232">            GlobMatcher patterns = new GlobMatcher(fileNames);</span>
+
+<span class="fc" id="L234">            setFilesToExclude(patterns);</span>
+
+<span class="fc" id="L236">            return this;</span>
+        }
+
+
+        /**
+         *
+         */
+        private Builder addFilesToExclude(final GlobMatcher fileNames) {
+
+<span class="fc" id="L245">            _filesToExclude = _filesToExclude</span>
+<span class="fc" id="L246">                    .map(x -&gt;</span>
+<span class="fc" id="L247">                         GlobMatcher.builder(x).addGlobMatcher(fileNames).build())</span>
+<span class="fc" id="L248">                    .orElse(() -&gt; Option.some(fileNames));</span>
+
+<span class="fc" id="L250">            return this;</span>
+        }
+
+
+        /**
+         *
+         */
+        public Builder setFilesToExcludeHere(final GlobMatcher fileNames) {
+
+<span class="fc" id="L259">            _filesToExcludeHere = Option.of(fileNames);</span>
+
+<span class="fc" id="L261">            return this;</span>
+        }
+
+
+        /**
+         * @throws PatternSyntaxException If any of the given regular
+         * expressions are invalid.
+         */
+        public Builder setFilesToExcludeHere(final String... fileNames) {
+
+<span class="fc" id="L271">            GlobMatcher patterns = new GlobMatcher(fileNames);</span>
+
+<span class="fc" id="L273">            return setFilesToExcludeHere(patterns);</span>
+        }
+
+
+        /**
+         *
+         */
+        public Builder setFilesToIncludeHere(final GlobMatcher fileNames) {
+
+<span class="fc" id="L282">            _filesToIncludeHere = Option.of(fileNames);</span>
+
+<span class="fc" id="L284">            return this;</span>
+        }
+
+
+        /**
+         * @throws PatternSyntaxException If any of the given regular
+         * expressions are invalid.
+         */
+        public Builder setFilesToIncludeHere(final String... fileNames) {
+
+<span class="fc" id="L294">            GlobMatcher patterns = new GlobMatcher(fileNames);</span>
+
+<span class="fc" id="L296">            return setFilesToIncludeHere(patterns);</span>
+        }
+
+
+        /**
+         *
+         */
+        public Builder setBakerTypes(final BakerMatcher bakerTypes) {
+
+<span class="fc" id="L305">            _bakerTypes = Option.of(bakerTypes);</span>
+
+<span class="fc" id="L307">            return this;</span>
+        }
+
+
+        /**
+         *
+         */
+        public Builder addBakerType(
+                final String bakerType,
+                final String... fileNames) {
+
+            BakerMatcher bakerTypes =
+<span class="fc" id="L319">                    BakerMatcher.builder()</span>
+<span class="fc" id="L320">                    .addBakerType(bakerType, fileNames)</span>
+<span class="fc" id="L321">                    .build();</span>
+
+<span class="fc" id="L323">            addBakerTypes(bakerTypes);</span>
+
+<span class="fc" id="L325">            return this;</span>
+        }
+
+
+        /**
+         *
+         */
+        private Builder addBakerTypes(final BakerMatcher bakerTypes) {
+
+<span class="fc" id="L334">            _bakerTypes = _bakerTypes</span>
+<span class="fc" id="L335">                    .map(x -&gt;</span>
+<span class="fc" id="L336">                         BakerMatcher.builder(x).addBakerTypes(bakerTypes).build())</span>
+<span class="fc" id="L337">                    .orElse(() -&gt; Option.of(bakerTypes));</span>
+
+<span class="fc" id="L339">            return this;</span>
+        }
+
+
+        /**
+         *
+         */
+        public  Builder setPageVars(final PageVars pageVars) {
+
+<span class="fc" id="L348">            _pageVarsBuilder = PageVars.builder(pageVars);</span>
+
+<span class="fc" id="L350">            return this;</span>
+        }
+
+
+        /**
+         *
+         */
+        private Builder addPageVars(final PageVars pageVars) {
+
+<span class="fc" id="L359">            _pageVarsBuilder.addPageVars(pageVars);</span>
+
+<span class="fc" id="L361">            return this;</span>
+        }
+
+
+        /**
+         *
+         */
+        public Builder setPageVarsHere(final PageVars pageVarsHere) {
+
+<span class="fc" id="L370">            _pageVarsHere = pageVarsHere;</span>
+
+<span class="fc" id="L372">            return this;</span>
+        }
+
+
+        /**
+         *
+         */
+        public Builder setTemplatesHere(
+                final TemplateNameMatcher templatesHere) {
+
+<span class="fc" id="L382">            _templatesHere = templatesHere;</span>
+
+<span class="fc" id="L384">            return this;</span>
+        }
+
+
+        /**
+         *
+         */
+        public Builder setExtraDirsHere(
+                final Seq&lt;Path&gt; extraDirsHere) {
+
+<span class="fc" id="L394">            _extraDirsHere = extraDirsHere;</span>
+
+<span class="fc" id="L396">            return this;</span>
+        }
+
+
+        /**
+         *
+         */
+        public DirBakerConf build() {
+
+<span class="fc" id="L405">            return new DirBakerConf(this);</span>
+        }
+
+
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

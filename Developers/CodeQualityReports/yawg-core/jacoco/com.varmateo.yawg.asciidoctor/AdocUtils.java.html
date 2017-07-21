@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AdocUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.asciidoctor</a> &gt; <span class="el_source">AdocUtils.java</span></div><h1>AdocUtils.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.asciidoctor;
+
+import java.io.File;
+import java.nio.file.Path;
+
+import javaslang.control.Option;
+
+import org.asciidoctor.AttributesBuilder;
+import org.asciidoctor.OptionsBuilder;
+import org.asciidoctor.SafeMode;
+
+import com.varmateo.yawg.api.PageVars;
+
+
+/**
+ * Utility functions simplifying Asciidoctor usage.
+ */
+final class AdocUtils {
+
+
+    /**
+     * No instances of this class are to be created.
+     */
+<span class="nc" id="L30">    private AdocUtils() {</span>
+        // Nothing to do.
+<span class="nc" id="L32">    }</span>
+
+
+    /**
+     *
+     */
+    public static OptionsBuilder buildOptionsForBakeWithoutTemplate(
+            final Path sourcePath,
+            final Path targetDir,
+            final Path targetPath,
+            final PageVars pageVars) {
+
+<span class="nc" id="L44">        File targetFile = targetPath.toFile();</span>
+<span class="nc" id="L45">        AttributesBuilder attributes =</span>
+<span class="nc" id="L46">                buildCommonAttributes(sourcePath, targetDir, pageVars)</span>
+<span class="nc" id="L47">                .noFooter(false);</span>
+<span class="nc" id="L48">        OptionsBuilder options =</span>
+<span class="nc" id="L49">                buildCommonOptions(attributes)</span>
+<span class="nc" id="L50">                .toFile(targetFile);</span>
+
+<span class="nc" id="L52">        return options;</span>
+    }
+
+
+    /**
+     *
+     */
+    public static OptionsBuilder buildOptionsForBakeWithTemplate(
+            final Path sourcePath,
+            final Path targetDir,
+            final PageVars pageVars) {
+
+<span class="fc" id="L64">        AttributesBuilder attributes =</span>
+<span class="fc" id="L65">                buildCommonAttributes(sourcePath, targetDir, pageVars);</span>
+<span class="fc" id="L66">        OptionsBuilder options =</span>
+<span class="fc" id="L67">                buildCommonOptions(attributes)</span>
+<span class="fc" id="L68">                .headerFooter(false);</span>
+
+<span class="fc" id="L70">        return options;</span>
+    }
+
+
+    /**
+     *
+     */
+    private static OptionsBuilder buildCommonOptions(
+            final AttributesBuilder attributes) {
+
+        OptionsBuilder options =
+<span class="fc" id="L81">                OptionsBuilder.options()</span>
+<span class="fc" id="L82">                .attributes(attributes)</span>
+<span class="fc" id="L83">                .safe(SafeMode.UNSAFE);</span>
+
+<span class="fc" id="L85">        return options;</span>
+    }
+
+
+    /**
+     * Prepares a set of attributes that affect how Asciidoctor works.
+     */
+    private static AttributesBuilder buildCommonAttributes(
+            final Path sourcePath,
+            final Path targetDir,
+            final PageVars pageVars) {
+
+<span class="fc" id="L97">        String docDir = Option.of(sourcePath.getParent())</span>
+<span class="fc" id="L98">                .map(Object::toString)</span>
+<span class="fc" id="L99">                .getOrElse(&quot;.&quot;);</span>
+<span class="fc" id="L100">        AttributesBuilder attributes = AttributesBuilder.attributes();</span>
+
+        // First add all the existing page vars as attributes visible
+        // to Asciidoc content.
+<span class="fc" id="L104">        attributes.attributes(pageVars.asMap());</span>
+
+        // And now add , or override, some well known attributes which
+        // control behavior in the Asciidoctor renderer.
+
+        // Path of directory that contains the document. It is needed
+        // for the PlantUML AsciidoctorJ extension to find its input
+        // files relative to the AsciiDoc source document. At least in
+        // version 1.3.1 of asciidoctorj-diagrams
+<span class="fc" id="L113">        attributes.attribute(&quot;docdir&quot;, docDir);</span>
+
+        // Path of directory where image files generated by PlantUML
+        // will be created.
+<span class="fc" id="L117">        String imagesOutDir = targetDir.toAbsolutePath().normalize().toString();</span>
+<span class="fc" id="L118">        attributes.attribute(&quot;imagesoutdir&quot;, imagesOutDir);</span>
+
+        // Enable basic syntax highlithing by default.
+<span class="fc" id="L121">        attributes.attribute(&quot;source-highlighter&quot;, &quot;coderay&quot;);</span>
+<span class="fc" id="L122">        attributes.attribute(&quot;coderay-css&quot;, &quot;style&quot;);</span>
+
+        // HACK - THIS MAKES THE AsciiDoc BAKER NOT THREAD SAFE.
+<span class="fc" id="L125">        System.setProperty(&quot;plantuml.include.path&quot;, docDir);</span>
+
+<span class="fc" id="L127">        return attributes;</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

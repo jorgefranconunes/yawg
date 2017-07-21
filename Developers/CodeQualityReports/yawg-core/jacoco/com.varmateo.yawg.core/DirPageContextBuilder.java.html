@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DirPageContextBuilder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">DirPageContextBuilder.java</span></div><h1>DirPageContextBuilder.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2016-2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.core;
+
+import java.io.File;
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.function.Function;
+
+import javaslang.control.Option;
+
+import com.varmateo.yawg.api.PageContext;
+import com.varmateo.yawg.api.PageVars;
+import com.varmateo.yawg.api.Template;
+import com.varmateo.yawg.api.TemplateService;
+import com.varmateo.yawg.api.YawgException;
+
+import com.varmateo.yawg.core.DirBakerConf;
+import com.varmateo.yawg.core.TemplateNameMatcher;
+
+
+/**
+ * Builds the &lt;code&gt;PageContext&lt;/code&gt; to be used in the baking of
+ * files in one given directory.
+ */
+final class DirPageContextBuilder {
+
+
+    private final Path _targetRootDir;
+    private final TemplateService _templateService;
+
+
+    /**
+     *
+     */
+    DirPageContextBuilder(
+            final Path targetRootDir,
+<span class="fc" id="L42">            final TemplateService templateService) {</span>
+
+<span class="fc" id="L44">        _targetRootDir = targetRootDir;</span>
+<span class="fc" id="L45">        _templateService = templateService;</span>
+<span class="fc" id="L46">    }</span>
+
+
+    /**
+     *
+     */
+    public PageContext buildPageContext(
+            final Path targetDir,
+            final DirBakerConf dirBakerConf,
+            final PageVars extensionVars)
+            throws YawgException {
+
+<span class="fc" id="L58">        Function&lt;Path,Optional&lt;Template&gt;&gt; templateFetcher =</span>
+<span class="fc" id="L59">                buildTemplateFetcher(dirBakerConf);</span>
+<span class="fc" id="L60">        String dirUrl = buildRelativeUrl(targetDir, _targetRootDir);</span>
+<span class="fc" id="L61">        String rootRelativeUrl = buildRelativeUrl(_targetRootDir, targetDir);</span>
+        PageVars allPageVars =
+<span class="fc" id="L63">                PageVars.builder()</span>
+<span class="fc" id="L64">                .addPageVars(extensionVars)</span>
+<span class="fc" id="L65">                .addPageVars(dirBakerConf.pageVars)</span>
+<span class="fc" id="L66">                .addPageVars(dirBakerConf.pageVarsHere)</span>
+<span class="fc" id="L67">                .build();</span>
+        PageContext context =
+<span class="fc" id="L69">                PageContext.builder()</span>
+<span class="fc" id="L70">                .setDirUrl(dirUrl)</span>
+<span class="fc" id="L71">                .setRootRelativeUrl(rootRelativeUrl)</span>
+<span class="fc" id="L72">                .setTemplateFetcher(templateFetcher)</span>
+<span class="fc" id="L73">                .setPageVars(allPageVars)</span>
+<span class="fc" id="L74">                .build();</span>
+
+<span class="fc" id="L76">        return context;</span>
+    }
+
+
+    /**
+     * @throws YawgException When the template service throws this
+     * exception.
+     */
+    private Function&lt;Path,Optional&lt;Template&gt;&gt; buildTemplateFetcher(
+            final DirBakerConf dirBakerConf)
+            throws YawgException {
+
+<span class="fc" id="L88">        Option&lt;String&gt; templateName = dirBakerConf.templateName;</span>
+<span class="fc" id="L89">        TemplateNameMatcher templateNameMatcher = dirBakerConf.templatesHere;</span>
+<span class="fc" id="L90">        TemplateService templateService = _templateService;</span>
+
+<span class="fc" id="L92">        Function&lt;Path,Optional&lt;Template&gt;&gt; fetcher =</span>
+                path -&gt;
+<span class="nc" id="L94">                getTemplate(</span>
+                        path,
+                        templateNameMatcher,
+                        templateName,
+                        templateService)
+<span class="nc" id="L99">                .toJavaOptional();</span>
+
+<span class="fc" id="L101">        return fetcher;</span>
+    }
+
+
+    /**
+     *
+     */
+    private static Option&lt;Template&gt; getTemplate(
+            final Path path,
+            final TemplateNameMatcher templateNameMatcher,
+            final Option&lt;String&gt; templateName,
+            final TemplateService templateService) {
+
+<span class="nc" id="L114">        return getTemplateForPath(path, templateNameMatcher, templateService)</span>
+<span class="nc" id="L115">                .orElse(() -&gt; getDefaultTemplate(templateName, templateService));</span>
+    }
+
+
+    /**
+     *
+     */
+    private static Option&lt;Template&gt; getTemplateForPath(
+            final Path path,
+            final TemplateNameMatcher templateNameMatcher,
+            final TemplateService templateService) {
+
+<span class="nc" id="L127">        return templateNameMatcher</span>
+<span class="nc" id="L128">                .getTemplateNameFor(path)</span>
+<span class="nc" id="L129">                .flatMap(name -&gt;</span>
+<span class="nc" id="L130">                         Option.ofOptional(templateService.getTemplate(name)));</span>
+    }
+
+
+    /**
+     *
+     */
+    private static Option&lt;Template&gt; getDefaultTemplate(
+            final Option&lt;String&gt; templateName,
+            final TemplateService templateService) {
+
+<span class="nc" id="L141">        return templateName.flatMap(</span>
+<span class="nc" id="L142">                name -&gt; Option.ofOptional(templateService.getTemplate(name)));</span>
+    }
+
+
+    /**
+     * Generates the URL for the given &lt;code&gt;dir&lt;/code&gt; relative to
+     * the given &lt;code&gt;baseDir&lt;/code&gt;.
+     */
+    private String buildRelativeUrl(
+            final Path dir,
+            final Path baseDir) {
+
+<span class="fc" id="L154">        Path relDir = baseDir.relativize(dir);</span>
+<span class="fc" id="L155">        String result = relDir.toString().replace(File.separatorChar, '/');</span>
+
+<span class="pc bpc" id="L157" title="1 of 2 branches missed.">        if ( result.length() == 0 ) {</span>
+<span class="fc" id="L158">            result = &quot;.&quot;;</span>
+        }
+
+<span class="fc" id="L161">        return result;</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

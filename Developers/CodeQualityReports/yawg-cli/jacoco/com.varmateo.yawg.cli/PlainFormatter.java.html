@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PlainFormatter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg CLI</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.cli</a> &gt; <span class="el_source">PlainFormatter.java</span></div><h1>PlainFormatter.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2015-2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.cli;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.text.MessageFormat;
+import java.util.Date;
+import java.util.logging.Formatter;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+
+
+/**
+ * A log formatter that uses a sane format for the log lines.
+ */
+final class PlainFormatter
+        extends Formatter {
+
+
+
+
+
+    private static final String DEFAULT_LOG_FMT =
+        &quot;{0,date,yyyy-MM.dd HH:mm:ss.SSS} {1} {2}\n&quot;;
+
+<span class="nc" id="L31">    private static final String LINE_SEPARATOR =</span>
+<span class="nc" id="L32">        System.getProperty(&quot;line.separator&quot;);</span>
+
+    private final MessageFormat _logFmt;
+
+
+    /**
+     * Initializes the formatter with a default format string.
+     */
+<span class="nc" id="L40">    PlainFormatter() {</span>
+
+<span class="nc" id="L42">        _logFmt = new MessageFormat(DEFAULT_LOG_FMT);</span>
+<span class="nc" id="L43">    }</span>
+
+
+    /**
+     * Initializes the formatter with the given format string.
+     *
+     * &lt;p&gt;The format string is expected to follow
+     * &lt;code&gt;java.text.MessageFormat&lt;/code&gt; conventions. Three
+     * formating arguments are used when generating the actual log
+     * line. These are the following:&lt;/p&gt;
+     *
+     * &lt;ul&gt;
+     *
+     *   &lt;li&gt;0 - Date for the log message.&lt;/li&gt;
+     *
+     *   &lt;li&gt;1 - Log level for the log message.&lt;/li&gt;
+     *
+     *   &lt;li&gt;2 - Log message.&lt;/li&gt;
+     *
+     * &lt;/ul&gt;
+     *
+     * @param logFmt The formatting string for the log message. See
+     * above for details.
+     */
+<span class="nc" id="L67">    PlainFormatter(final String logFmt) {</span>
+
+<span class="nc" id="L69">        _logFmt = new MessageFormat(logFmt);</span>
+<span class="nc" id="L70">    }</span>
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String format(final LogRecord record) {
+
+<span class="nc" id="L79">        return formatLogMessage(record);</span>
+    }
+
+
+    /**
+     *
+     */
+    private String formatLogMessage(final LogRecord record) {
+
+<span class="nc" id="L88">        Throwable error    = record.getThrown();</span>
+<span class="nc" id="L89">        long      time     = record.getMillis();</span>
+<span class="nc" id="L90">        Level     logLevel = record.getLevel();</span>
+<span class="nc" id="L91">        String    message  =</span>
+<span class="nc" id="L92">            formatLogMessage(time,</span>
+                             logLevel,
+<span class="nc" id="L94">                             record.getMessage(),</span>
+<span class="nc" id="L95">                             record.getParameters());</span>
+<span class="nc" id="L96">        String logMessage = null;</span>
+
+<span class="nc bnc" id="L98" title="All 2 branches missed.">        if ( error == null ) {</span>
+<span class="nc" id="L99">            logMessage = message;</span>
+        } else {
+<span class="nc" id="L101">            logMessage =</span>
+<span class="nc" id="L102">                formatLogMessageWithError(message, time, logLevel, error);</span>
+        }
+
+<span class="nc" id="L105">        return logMessage;</span>
+    }
+
+
+    /**
+     *
+     */
+    private  String formatLogMessage(
+            final long     time,
+            final Level    logLevel,
+            final String   msgFmt,
+            final Object[] inputFmtArgs) {
+
+<span class="nc" id="L118">        String msg = null;</span>
+
+<span class="nc bnc" id="L120" title="All 4 branches missed.">        if ( (inputFmtArgs!=null) &amp;&amp; (inputFmtArgs.length&gt;0) ) {</span>
+<span class="nc" id="L121">            int      count   = inputFmtArgs.length;</span>
+<span class="nc" id="L122">            String[] fmtArgs = new String[count];</span>
+
+<span class="nc bnc" id="L124" title="All 2 branches missed.">            for ( int i=0; i&lt;count; ++i ) {</span>
+<span class="nc" id="L125">                Object inputFmtArg = inputFmtArgs[i];</span>
+
+<span class="nc bnc" id="L127" title="All 2 branches missed.">                fmtArgs[i] =</span>
+<span class="nc" id="L128">                    (inputFmtArg!=null) ? inputFmtArg.toString() : null;</span>
+            }
+<span class="nc" id="L130">            msg = MessageFormat.format(msgFmt, (Object[])fmtArgs);</span>
+<span class="nc" id="L131">        } else {</span>
+<span class="nc" id="L132">            msg = msgFmt;</span>
+        }
+
+<span class="nc" id="L135">        Date logRecordDate = new Date(time);</span>
+
+<span class="nc" id="L137">        Object[] logMsgFmtArgs = { logRecordDate, logLevel.getName(), msg };</span>
+<span class="nc" id="L138">        String logMsg = _logFmt.format(logMsgFmtArgs);</span>
+
+<span class="nc" id="L140">        return logMsg;</span>
+    }
+
+
+    /**
+     *
+     */
+    private String formatLogMessageWithError(
+            final String    firstLine,
+            final long      time,
+            final Level     logLevel,
+            final Throwable error) {
+
+<span class="nc" id="L153">        StringWriter buffer = new StringWriter();</span>
+<span class="nc" id="L154">        PrintWriter  writer = new PrintWriter(buffer);</span>
+
+<span class="nc" id="L156">        error.printStackTrace(writer);</span>
+<span class="nc" id="L157">        buffer.flush();</span>
+
+<span class="nc" id="L159">        StringBuilder msgBuilder = new StringBuilder(firstLine);</span>
+<span class="nc" id="L160">        String[]      lines      = buffer.toString().split(LINE_SEPARATOR);</span>
+
+<span class="nc bnc" id="L162" title="All 2 branches missed.">        for ( String line : lines ) {</span>
+<span class="nc" id="L163">            String logLine = formatLogMessage(time, logLevel, line, null);</span>
+
+<span class="nc" id="L165">            msgBuilder.append(logLine);</span>
+        }
+
+<span class="nc" id="L168">        String logMessage = msgBuilder.toString();</span>
+
+<span class="nc" id="L170">        return logMessage;</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

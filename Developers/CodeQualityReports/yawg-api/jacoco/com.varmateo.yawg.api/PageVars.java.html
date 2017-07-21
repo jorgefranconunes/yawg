@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PageVars.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg API</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.api</a> &gt; <span class="el_source">PageVars.java</span></div><h1>PageVars.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2016-2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.api;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
+
+/**
+ * Set of variables made available to the template when generating the
+ * final bake result.
+ *
+ * &lt;p&gt;The meaning of this variables is template specific.&lt;/p&gt;
+ */
+public final class PageVars {
+
+
+    private final Map&lt;String,Object&gt; _map;
+
+
+    /**
+     *
+     */
+<span class="fc" id="L30">    private PageVars(final Builder builder) {</span>
+
+<span class="fc" id="L32">        _map = Collections.unmodifiableMap(new HashMap&lt;&gt;(builder._map));</span>
+<span class="fc" id="L33">    }</span>
+
+
+    /**
+     * Initializes an empty set of variables.
+     */
+<span class="nc" id="L39">    public PageVars() {</span>
+
+<span class="nc" id="L41">        _map = Collections.emptyMap();</span>
+<span class="nc" id="L42">    }</span>
+
+
+    /**
+     * Retrieves the value of one of the variables.
+     *
+     * @param key The name of the variable whose value is to be
+     * returned.
+     *
+     * @return An &lt;code&gt;Optional&lt;/code&gt; containing the value of the
+     * given variable, or nan empty &lt;code&gt;Optional&lt;/code&gt; if the
+     * variable does not exist.
+     */
+    public Optional&lt;Object&gt; get(final String key) {
+
+<span class="nc" id="L57">        Object value = _map.get(key);</span>
+<span class="nc" id="L58">        Optional&lt;Object&gt; result = Optional.ofNullable(value);</span>
+
+<span class="nc" id="L60">        return result;</span>
+    }
+
+
+    /**
+     * Fetches a view of the set of vars as an unmodifiable map.
+     *
+     * @return An unmodifiable map containing all the vars. Each entry
+     * is one var.
+     */
+    public Map&lt;String,Object&gt; asMap() {
+
+<span class="fc" id="L72">        return _map;</span>
+    }
+
+
+    /**
+     * Creates a new builder with no initializations.
+     *
+     * @return A newly created &lt;code&gt;Builder&lt;/code&gt; instance.
+     */
+    public static Builder builder() {
+
+<span class="fc" id="L83">        Builder result = new Builder();</span>
+
+<span class="fc" id="L85">        return result;</span>
+    }
+
+
+    /**
+     * Creates a new builder initialized with the data from the given
+     * &lt;code&gt;PageVars&lt;/code&gt;.
+     *
+     * @param data Used for initializing the builder state.
+     *
+     * @return A newly created &lt;code&gt;Builder&lt;/code&gt; instance.
+     */
+    public static Builder builder(final Map&lt;String,Object&gt; data) {
+
+<span class="nc" id="L99">        Builder result = new Builder(data);</span>
+
+<span class="nc" id="L101">        return result;</span>
+    }
+
+
+    /**
+     * Creates a new builder initialized with the data from the given
+     * &lt;code&gt;PageVars&lt;/code&gt;.
+     *
+     * @param data Used for initializing the builder state.
+     *
+     * @return A newly created &lt;code&gt;Builder&lt;/code&gt; instance.
+     */
+    public static Builder builder(final PageVars data) {
+
+<span class="nc" id="L115">        Builder result = new Builder(data);</span>
+
+<span class="nc" id="L117">        return result;</span>
+    }
+
+
+    /**
+     * A builder of &lt;code&gt;PageVars&lt;/code&gt; instances.
+     */
+    public static final class Builder {
+
+
+        private Map&lt;String,Object&gt; _map;
+
+
+        /**
+         *
+         */
+<span class="fc" id="L133">        private Builder() {</span>
+
+<span class="fc" id="L135">            _map = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L136">        }</span>
+
+
+        /**
+         *
+         */
+<span class="nc" id="L142">        private Builder(final Map&lt;String,Object&gt; map) {</span>
+
+<span class="nc" id="L144">            _map = new HashMap&lt;&gt;(map);</span>
+<span class="nc" id="L145">        }</span>
+
+
+        /**
+         *
+         */
+<span class="nc" id="L151">        private Builder(final PageVars vars) {</span>
+
+<span class="nc" id="L153">            _map = new HashMap&lt;&gt;(vars._map);</span>
+<span class="nc" id="L154">        }</span>
+
+
+        /**
+         *
+         */
+        public Builder addVar(
+                final String varName,
+                final Object varValue) {
+
+<span class="nc" id="L164">            _map.put(varName, varValue);</span>
+
+<span class="nc" id="L166">            return this;</span>
+        }
+
+
+        /**
+         *
+         */
+        public Builder addPageVars(final PageVars that) {
+
+<span class="nc" id="L175">            _map.putAll(that._map);</span>
+
+<span class="nc" id="L177">            return this;</span>
+        }
+
+
+        /**
+         *
+         */
+        public PageVars build() {
+
+<span class="fc" id="L186">            PageVars result = new PageVars(this);</span>
+
+<span class="fc" id="L188">            return result;</span>
+        }
+
+
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

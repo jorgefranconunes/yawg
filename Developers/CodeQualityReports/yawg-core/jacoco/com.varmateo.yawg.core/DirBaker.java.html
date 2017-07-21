@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DirBaker.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">DirBaker.java</span></div><h1>DirBaker.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2016-2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.core;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import javaslang.collection.Seq;
+
+import com.varmateo.yawg.api.DirBakeListener;
+import com.varmateo.yawg.api.PageContext;
+import com.varmateo.yawg.api.PageVars;
+import com.varmateo.yawg.api.TemplateService;
+import com.varmateo.yawg.api.YawgException;
+import com.varmateo.yawg.core.DirBakerConf;
+import com.varmateo.yawg.core.DirBakerConfDao;
+import com.varmateo.yawg.core.DirEntryScanner;
+import com.varmateo.yawg.core.DirPageContextBuilder;
+import com.varmateo.yawg.core.FileBaker;
+import com.varmateo.yawg.logging.Log;
+import com.varmateo.yawg.logging.LogWithUtils;
+import com.varmateo.yawg.util.Exceptions;
+
+
+/**
+ * Bakes the files contained in a directory, and recursively bake all
+ * sub-directories.
+ */
+/* package private */ final class DirBaker {
+
+
+    private final LogWithUtils _log;
+    private final Path _sourceRootDir;
+    private final FileBaker _fileBaker;
+    private final DirBakerConfDao _dirBakerConfDao;
+    private final DirBakeListener _listener;
+    private final DirPageContextBuilder _dirPageContextBuilder;
+
+
+
+    /**
+     * @param log Used for logging.
+     *
+     * @param sourceRootDir The top level directory being baked. This
+     * is only used to improve logging messages.
+     *
+     * @param targetRootDir The top level directory where the bake
+     * results are stored.
+     *
+     * @param fileBaker Baker to be used on regular files.
+     *
+     * @param templateService Will provide the templates used in the
+     * baking of individual files.
+     *
+     * @param dirBakerConfDao Used for reading the bake configuration
+     * for each directory.
+     *
+     * @param dirBakeListener Will be notified when the bake of a
+     * directory starts.
+     */
+    DirBaker(
+            final Log log,
+            final Path sourceRootDir,
+            final Path targetRootDir,
+            final FileBaker fileBaker,
+            final TemplateService templateService,
+            final DirBakerConfDao dirBakerConfDao,
+<span class="fc" id="L73">            final DirBakeListener dirBakeListener) {</span>
+
+<span class="fc" id="L75">        _log = LogWithUtils.from(log);</span>
+<span class="fc" id="L76">        _sourceRootDir = sourceRootDir;</span>
+<span class="fc" id="L77">        _fileBaker = fileBaker;</span>
+<span class="fc" id="L78">        _dirBakerConfDao = dirBakerConfDao;</span>
+<span class="fc" id="L79">        _listener = dirBakeListener;</span>
+<span class="fc" id="L80">        _dirPageContextBuilder =</span>
+                new DirPageContextBuilder(targetRootDir, templateService);
+<span class="fc" id="L82">    }</span>
+
+
+    /**
+     * 
+     */
+    public void bakeDirectory(
+            final Path sourceDir,
+            final Path targetDir,
+            final DirBakerConf parentDirBakerConf)
+            throws YawgException {
+
+<span class="fc" id="L94">        PageVars parentExtensionVars = new PageVars();</span>
+
+<span class="fc" id="L96">        doBakeDirectory(</span>
+                sourceDir,
+                targetDir,
+                parentDirBakerConf,
+                parentExtensionVars);
+<span class="fc" id="L101">    }</span>
+
+
+    /**
+     * 
+     */
+    private void doBakeDirectory(
+            final Path sourceDir,
+            final Path targetDir,
+            final DirBakerConf parentDirBakerConf,
+            final PageVars parentExtensionVars)
+            throws YawgException {
+
+<span class="fc" id="L114">        Path relSourceDir = _sourceRootDir.relativize(sourceDir);</span>
+<span class="fc" id="L115">        _log.debug(&quot;Baking directory {0}&quot;, relSourceDir);</span>
+
+<span class="fc" id="L117">        createDirIfNeeded(targetDir);</span>
+
+<span class="fc" id="L119">        DirBakerConf dirBakerConf =</span>
+                _dirBakerConfDao
+<span class="fc" id="L121">                .loadFromDir(sourceDir)</span>
+<span class="fc" id="L122">                .mergeOnTopOf(parentDirBakerConf);</span>
+<span class="fc" id="L123">        PageContext context =</span>
+<span class="fc" id="L124">                _dirPageContextBuilder.buildPageContext(</span>
+                        targetDir,
+                        dirBakerConf,
+                        parentExtensionVars);
+<span class="fc" id="L128">        PageVars thisDirExtensionVars = _listener.onDirBake(context);</span>
+<span class="fc" id="L129">        PageVars extensionVars =</span>
+<span class="fc" id="L130">                PageVars.builder(parentExtensionVars)</span>
+<span class="fc" id="L131">                .addPageVars(thisDirExtensionVars)</span>
+<span class="fc" id="L132">                .build();</span>
+<span class="fc" id="L133">        PageContext extendedContext =</span>
+<span class="fc" id="L134">                PageContext.builder(context)</span>
+<span class="fc" id="L135">                .addPageVars(extensionVars)</span>
+<span class="fc" id="L136">                .build();</span>
+<span class="fc" id="L137">        Seq&lt;Path&gt; dirEntries = getDirEntries(sourceDir, dirBakerConf);</span>
+
+<span class="fc" id="L139">        bakeChildFiles(dirEntries, targetDir, dirBakerConf, extendedContext);</span>
+<span class="fc" id="L140">        bakeChildDirectories(dirEntries, targetDir, dirBakerConf,extensionVars);</span>
+<span class="fc" id="L141">        bakeExtraDirectories(</span>
+                sourceDir,
+                targetDir,
+                dirBakerConf,
+                extensionVars);
+<span class="fc" id="L146">    }</span>
+
+
+    /**
+     *
+     */
+    private void createDirIfNeeded(final Path targetDir) {
+
+<span class="pc bpc" id="L154" title="1 of 2 branches missed.">        if ( !Files.exists(targetDir) ) {</span>
+<span class="nc" id="L155">            doIoAction(</span>
+                    &quot;create directory&quot;,
+<span class="nc" id="L157">                    () -&gt; Files.createDirectory(targetDir));</span>
+        }
+<span class="fc" id="L159">    }</span>
+
+
+    /**
+     *
+     */
+    private Seq&lt;Path&gt; getDirEntries(
+            final Path dir,
+            final DirBakerConf dirBakerConf) {
+
+<span class="fc" id="L169">        DirEntryScanner scanner = new DirEntryScanner(dirBakerConf);</span>
+<span class="fc" id="L170">        Seq&lt;Path&gt; result =</span>
+<span class="fc" id="L171">                doIoAction(</span>
+                        &quot;list directory&quot;,
+<span class="fc" id="L173">                        () -&gt; scanner.getDirEntries(dir));</span>
+
+<span class="fc" id="L175">        return result;</span>
+    }
+
+
+    /**
+     *
+     */
+    private void bakeChildFiles(
+            final Seq&lt;Path&gt; dirEntries,
+            final Path targetDir,
+            final DirBakerConf dirBakerConf,
+            final PageContext context)
+            throws YawgException {
+
+<span class="fc" id="L189">        Seq&lt;Path&gt; filePathList = dirEntries.filter(Files::isRegularFile);</span>
+
+<span class="fc bfc" id="L191" title="All 2 branches covered.">        for ( Path path : filePathList ) {</span>
+<span class="fc" id="L192">            _fileBaker.bakeFile(path, context, targetDir, dirBakerConf);</span>
+<span class="fc" id="L193">        }</span>
+<span class="fc" id="L194">    }</span>
+
+
+    /**
+     *
+     */
+    private void bakeChildDirectories(
+            final Seq&lt;Path&gt; dirEntries,
+            final Path targetDir,
+            final DirBakerConf dirBakerConf,
+            final PageVars extensionVars) {
+
+<span class="fc" id="L206">        Seq&lt;Path&gt; dirPathList = dirEntries.filter(Files::isDirectory);</span>
+
+<span class="pc bpc" id="L208" title="1 of 2 branches missed.">        for ( Path childSourceDir : dirPathList ) {</span>
+<span class="nc" id="L209">            Path dirBasename = childSourceDir.getFileName();</span>
+<span class="nc" id="L210">            Path childTargetDir = targetDir.resolve(dirBasename);</span>
+<span class="nc" id="L211">            doBakeDirectory(</span>
+                    childSourceDir,
+                    childTargetDir,
+                    dirBakerConf,
+                    extensionVars);
+<span class="nc" id="L216">        }</span>
+<span class="fc" id="L217">    }</span>
+
+
+    /**
+     *
+     */
+    private void bakeExtraDirectories(
+            final Path sourceDir,
+            final Path targetDir,
+            final DirBakerConf dirBakerConf,
+            final PageVars extensionVars) {
+
+<span class="fc" id="L229">        Seq&lt;Path&gt; extraDirPathList =</span>
+                dirBakerConf.extraDirsHere
+<span class="pc" id="L231">                .map(path -&gt; sourceDir.resolve(path));</span>
+
+<span class="pc bpc" id="L233" title="1 of 2 branches missed.">        for ( Path extraSourceDir : extraDirPathList ) {</span>
+<span class="nc" id="L234">            DirBakerConf extraDirBakerConf =</span>
+                    _dirBakerConfDao
+<span class="nc" id="L236">                    .loadFromDir(extraSourceDir)</span>
+<span class="nc" id="L237">                    .mergeOnTopOf(dirBakerConf);</span>
+<span class="nc" id="L238">            Seq&lt;Path&gt; dirEntries =</span>
+<span class="nc" id="L239">                    getDirEntries(extraSourceDir, extraDirBakerConf);</span>
+<span class="nc" id="L240">            PageContext extraContext =</span>
+<span class="nc" id="L241">                    _dirPageContextBuilder.buildPageContext(</span>
+                            targetDir,
+                            extraDirBakerConf,
+                            extensionVars);
+
+<span class="nc" id="L246">            bakeChildFiles(</span>
+                    dirEntries,
+                    targetDir,
+                    extraDirBakerConf,
+                    extraContext);
+<span class="nc" id="L251">            bakeChildDirectories(</span>
+                    dirEntries,
+                    targetDir,
+                    extraDirBakerConf,
+                    extensionVars);
+<span class="nc" id="L256">        }</span>
+<span class="fc" id="L257">    }</span>
+
+
+    /**
+     * A simple wrapper to change a method signature from the checked
+     * IOException to the unchecked YawgException.
+     */
+    private &lt;T&gt; T doIoAction(
+            final String description,
+            final IoSupplier&lt;T&gt; supplier)
+            throws YawgException {
+
+<span class="fc" id="L269">        T result = null;</span>
+
+        try {
+<span class="fc" id="L272">            result = supplier.get();</span>
+<span class="nc" id="L273">        } catch ( IOException e ) {</span>
+<span class="nc" id="L274">            Exceptions.raise(</span>
+                    e,
+                    &quot;Failed to {0} - {1} - {2}&quot;,
+                    description,
+<span class="nc" id="L278">                    e.getClass().getSimpleName(),</span>
+<span class="nc" id="L279">                    e.getMessage());</span>
+<span class="fc" id="L280">        }</span>
+
+<span class="fc" id="L282">        return result;</span>
+    }
+
+
+    /**
+     * Utility interface to simplify creating lambdas whose body may
+     * throw exceptions.
+     *
+     * @param &lt;T&gt; Type of the values returned by the function.
+     */
+    @FunctionalInterface
+    private interface IoSupplier&lt;T&gt; {
+
+
+        /**
+         *
+         */
+        T get() throws IOException;
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

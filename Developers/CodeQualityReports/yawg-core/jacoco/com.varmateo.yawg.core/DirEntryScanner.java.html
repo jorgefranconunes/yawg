@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DirEntryScanner.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">DirEntryScanner.java</span></div><h1>DirEntryScanner.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2016-2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.core;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Iterator;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+
+import javaslang.collection.List;
+import javaslang.collection.Seq;
+
+import com.varmateo.yawg.core.DirBakerConf;
+import com.varmateo.yawg.core.DirEntryChecker;
+
+
+/**
+ * Used for obtaining the list of entries in a given directory that
+ * should be baked.
+ */
+/* package private */ final class DirEntryScanner {
+
+
+    private final Predicate&lt;Path&gt; _entryFilter;
+
+
+    /**
+     *
+     */
+<span class="fc" id="L36">    DirEntryScanner(final DirBakerConf conf) {</span>
+
+<span class="fc" id="L38">        _entryFilter = new DirEntryChecker(conf).asPathPredicate();</span>
+<span class="fc" id="L39">    }</span>
+
+
+    /**
+     *
+     */
+    public Seq&lt;Path&gt; getDirEntries(final Path dirPath)
+            throws IOException {
+
+        final Seq&lt;Path&gt; result;
+
+<span class="pc" id="L50">        try ( Stream&lt;Path&gt; entries = Files.list(dirPath) ) {</span>
+<span class="fc" id="L51">            Stream&lt;Path&gt; stream =</span>
+                    entries
+<span class="fc" id="L53">                    .filter(_entryFilter)</span>
+<span class="fc" id="L54">                    .sorted();</span>
+<span class="fc" id="L55">            result = List.ofAll(new Iterable&lt;Path&gt;() {</span>
+                    @Override
+                    public Iterator&lt;Path&gt; iterator() {
+<span class="fc" id="L58">                        return stream.iterator();</span>
+                    }
+                });
+<span class="pc bpc" id="L61" title="6 of 8 branches missed.">        }</span>
+
+<span class="fc" id="L63">        return result;</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

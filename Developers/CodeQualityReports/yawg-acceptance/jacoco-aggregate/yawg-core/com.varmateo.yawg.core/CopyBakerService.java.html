@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>CopyBakerService.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">CopyBakerService.java</span></div><h1>CopyBakerService.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2016-2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.core;
+
+import java.io.IOException;
+import java.nio.file.Path;
+
+import com.varmateo.yawg.api.BakerService;
+import com.varmateo.yawg.api.PageContext;
+import com.varmateo.yawg.api.YawgException;
+import com.varmateo.yawg.util.Exceptions;
+import com.varmateo.yawg.util.FileUtils;
+
+
+/**
+ * A &lt;code&gt;Baker&lt;/code&gt; that just copies the source file to the target
+ * location.
+ */
+/* package private */ final class CopyBakerService
+        implements BakerService {
+
+
+    private static final String NAME = &quot;copy&quot;;
+
+
+    /**
+     * 
+     */
+<span class="fc" id="L33">    CopyBakerService() {</span>
+
+        // Nothing to do.
+<span class="fc" id="L36">    }</span>
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getShortName() {
+
+<span class="fc" id="L45">        return NAME;</span>
+    }
+
+
+    /**
+     * Always returns true. This means this &lt;code&gt;Baker&lt;/code&gt; can
+     * bake all types of files.
+     *
+     * @return Always true.
+     */
+    public boolean isBakeable(final Path path) {
+
+<span class="nc" id="L57">        return true;</span>
+    }
+
+
+    /**
+     * Copies the given file into the specified target directory.
+     *
+     * &lt;p&gt;The target directory must already exist. Otherwise an
+     * exception will be thrown.&lt;/p&gt;
+     *
+     * @param sourcePath The file to be baked.
+     *
+     * @param context Not used.
+     *
+     * @param targetDir The directory where the source file will be
+     * copied to.
+     *
+     * @exception YawgException Thrown if the copying failed for
+     * whatever reason.
+     */
+    @Override
+    public void bake(
+            final Path sourcePath,
+            final PageContext context,
+            final Path targetDir)
+            throws YawgException {
+
+        try {
+<span class="fc" id="L85">            doBake(sourcePath, targetDir);</span>
+<span class="nc" id="L86">        } catch ( IOException e ) {</span>
+<span class="nc" id="L87">            throw Exceptions.raise(</span>
+                    e,
+                    &quot;Failed copying {0} - {1} - {2}&quot;,
+                    sourcePath,
+<span class="nc" id="L91">                    e.getClass().getSimpleName(),</span>
+<span class="nc" id="L92">                    e.getMessage());</span>
+<span class="fc" id="L93">        }</span>
+<span class="fc" id="L94">    }</span>
+
+
+    /**
+     *
+     */
+    private void doBake(
+            final Path sourcePath,
+            final Path targetDir)
+            throws IOException {
+
+<span class="fc" id="L105">        Path sourceBasename = sourcePath.getFileName();</span>
+<span class="fc" id="L106">        Path targetPath = targetDir.resolve(sourceBasename);</span>
+
+<span class="fc" id="L108">        FileUtils.copy(sourcePath, targetPath);</span>
+<span class="fc" id="L109">    }</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

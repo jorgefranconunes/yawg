@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CliException.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg CLI</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.cli</a> &gt; <span class="el_source">CliException.java</span></div><h1>CliException.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2015-2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.cli;
+
+import java.text.MessageFormat;
+
+
+/**
+ * An exception signaling an occurrence intended to be communicated to
+ * the end user.
+ */
+public final class CliException
+        extends Exception {
+
+
+    /**
+     *
+     */
+    public CliException(final String msg) {
+
+<span class="fc" id="L25">        super(msg);</span>
+<span class="fc" id="L26">    }</span>
+
+
+    /**
+     *
+     */
+    public CliException(
+            final String msg,
+            final Throwable cause) {
+
+<span class="nc" id="L36">        super(msg, cause);</span>
+<span class="nc" id="L37">    }</span>
+
+
+    /**
+     * Throws a newly created &lt;code&gt;CliException&lt;/code&gt;.
+     */
+    public static CliException raise(
+            final String    msgFmt,
+            final Object... fmtArgs)
+            throws CliException {
+
+<span class="fc" id="L48">        String message = MessageFormat.format(msgFmt, fmtArgs);</span>
+
+<span class="fc" id="L50">        throw new CliException(message);</span>
+    }
+
+
+    /**
+     * Throws a newly created &lt;code&gt;CliException&lt;/code&gt;.
+     */
+    public static CliException raise(
+            final Throwable cause,
+            final String    msgFmt,
+            final Object... fmtArgs)
+            throws CliException {
+
+<span class="nc" id="L63">        String message = MessageFormat.format(msgFmt, fmtArgs);</span>
+
+<span class="nc" id="L65">        throw new CliException(message, cause);</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

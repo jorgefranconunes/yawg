@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>SimpleList.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.util</a> &gt; <span class="el_source">SimpleList.java</span></div><h1>SimpleList.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2016-2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.util;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Objects;
+
+import com.varmateo.yawg.api.YawgException;
+import com.varmateo.yawg.util.Exceptions;
+import com.varmateo.yawg.util.SimpleMap;
+
+
+/**
+ * Simple list intended for use in deserialization.
+ *
+ * @param &lt;T&gt; The type of elements in the list.
+ */
+public final class SimpleList&lt;T&gt;
+        implements Iterable&lt;T&gt; {
+
+
+    private final List&lt;Object&gt; _list;
+    private final Class&lt;T&gt; _itemsClass;
+
+
+    /**
+     *
+     */
+    public SimpleList(
+            final List&lt;Object&gt; list,
+<span class="fc" id="L38">            final Class&lt;T&gt; itemsClass) {</span>
+
+<span class="fc" id="L40">        _list = Objects.requireNonNull(list);</span>
+<span class="fc" id="L41">        _itemsClass = Objects.requireNonNull(itemsClass);</span>
+<span class="fc" id="L42">    }</span>
+
+
+    /**
+     *
+     */
+    public Iterator&lt;T&gt; iterator() {
+
+<span class="fc" id="L50">        return new SimpleIterator&lt;&gt;(this);</span>
+    }
+
+
+    /**
+     *
+     */
+    public T get(final int index) {
+
+<span class="fc" id="L59">        T result = getWithType(index, _itemsClass);</span>
+
+<span class="fc" id="L61">        return result;</span>
+    }
+
+
+    /**
+     *
+     */
+    public SimpleMap getMap(final int index) {
+
+        @SuppressWarnings(&quot;unchecked&quot;)
+<span class="nc" id="L71">        Map&lt;String,Object&gt; value =</span>
+<span class="nc" id="L72">                (Map&lt;String,Object&gt;)getWithType(index, Map.class);</span>
+<span class="nc" id="L73">        SimpleMap result = new SimpleMap(value);</span>
+
+<span class="nc" id="L75">        return result;</span>
+    }
+
+
+    /**
+     *
+     */
+    public &lt;T&gt; SimpleList&lt;T&gt; getList(
+            final int index,
+            final Class&lt;T&gt; itemsClass) {
+
+        @SuppressWarnings(&quot;unchecked&quot;)
+<span class="nc" id="L87">        List&lt;Object&gt; value = (List&lt;Object&gt;)getWithType(index, List.class);</span>
+<span class="nc" id="L88">        SimpleList&lt;T&gt; result = new SimpleList&lt;T&gt;(value, itemsClass);</span>
+
+<span class="nc" id="L90">        return result;</span>
+    }
+
+
+    /**
+     *
+     */
+    public &lt;T&gt; T getWithType(
+            final int index,
+            final Class&lt;T&gt; klass)
+            throws YawgException {
+
+<span class="fc" id="L102">        Object value = _list.get(index);</span>
+
+<span class="pc bpc" id="L104" title="1 of 4 branches missed.">        if ( (value==null) || !klass.isInstance(value) ) {</span>
+<span class="pc" id="L105">            Exceptions.raise(</span>
+                    &quot;Invalid {2} value in {1} position {0}&quot;,
+<span class="fc" id="L107">                    index,</span>
+<span class="pc bpc" id="L108" title="1 of 2 branches missed.">                    klass.getSimpleName(),</span>
+<span class="fc" id="L109">                    (value==null) ? &quot;NULL&quot; : value.getClass().getSimpleName());</span>
+        }
+
+        @SuppressWarnings(&quot;unchecked&quot;)
+<span class="fc" id="L113">        T result = (T)value;</span>
+
+<span class="fc" id="L115">        return result;</span>
+    }
+
+
+    /**
+     *
+     */
+    public int size() {
+
+<span class="fc" id="L124">        int result = _list.size();</span>
+
+<span class="fc" id="L126">        return result;</span>
+    }
+
+
+    /**
+     *
+     */
+    private static final class SimpleIterator&lt;T&gt;
+            implements Iterator&lt;T&gt; {
+
+
+        private final SimpleList&lt;T&gt; _simpleList;
+        private int _index;
+
+
+        /**
+         *
+         */
+<span class="fc" id="L144">        SimpleIterator(final SimpleList&lt;T&gt; simpleList) {</span>
+
+<span class="fc" id="L146">            _simpleList = simpleList;</span>
+<span class="fc" id="L147">            _index = 0;</span>
+<span class="fc" id="L148">        }</span>
+
+
+        /**
+         *
+         */
+        @Override
+        public boolean hasNext() {
+
+<span class="fc bfc" id="L157" title="All 2 branches covered.">            return _index &lt; _simpleList.size();</span>
+        }
+
+
+        /**
+         *
+         */
+        @Override
+        public T next() {
+
+<span class="pc bpc" id="L167" title="1 of 2 branches missed.">            if ( _index &gt;= _simpleList.size() ) {</span>
+<span class="nc" id="L168">                throw new NoSuchElementException();</span>
+            }
+<span class="fc" id="L170">            T result = _simpleList.get(_index);</span>
+<span class="fc" id="L171">            ++_index;</span>
+
+<span class="fc" id="L173">            return result;</span>
+        }
+
+
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

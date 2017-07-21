@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DirPathAssert.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg test utilities</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.testutils</a> &gt; <span class="el_source">DirPathAssert.java</span></div><h1>DirPathAssert.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.testutils;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.assertj.core.api.ListAssert;
+import org.assertj.core.api.PathAssert;
+
+
+/**
+ * Assertions for paths that are directories.
+ */
+public final class DirPathAssert
+        extends PathAssert {
+
+
+    /**
+     *
+     */
+    public static DirPathAssert assertThatDir(final Path actual) {
+
+<span class="nc" id="L31">        return new DirPathAssert(actual);</span>
+    }
+
+
+    /**
+     *
+     */
+    public DirPathAssert(final Path actual) {
+
+<span class="nc" id="L40">        super(actual);</span>
+<span class="nc" id="L41">    }</span>
+
+
+    /**
+     *
+     */
+    public DirPathAssert isEmptyDirectory()
+            throws IOException {
+
+<span class="nc" id="L50">        isNotNull();</span>
+
+<span class="nc" id="L52">        long entryCount = Files.list(actual).count();</span>
+
+<span class="nc bnc" id="L54" title="All 2 branches missed.">        if ( entryCount != 0 ) {</span>
+<span class="nc" id="L55">            failWithMessage(</span>
+                    &quot;Expected empty directory \&quot;%s\&quot; but has %d entries&quot;,
+<span class="nc" id="L57">                    entryCount);</span>
+        }
+
+<span class="nc" id="L60">        return this;</span>
+    }
+
+
+    /**
+     *
+     */
+    public ListAssert&lt;String&gt; entryNames()
+            throws IOException {
+
+<span class="nc" id="L70">        isNotNull();</span>
+
+<span class="nc" id="L72">        List&lt;String&gt; entries =</span>
+<span class="nc" id="L73">                Files.list(actual)</span>
+<span class="nc" id="L74">                .map(Path::getFileName)</span>
+<span class="nc" id="L75">                .map(Object::toString)</span>
+<span class="nc" id="L76">                .collect(Collectors.toList());</span>
+
+<span class="nc" id="L78">        return new ListAssert&lt;String&gt;(entries);</span>
+    }
+
+
+    /**
+     *
+     */
+    public ListAssert&lt;String&gt; sortedEntryNames()
+            throws IOException {
+
+<span class="nc" id="L88">        isNotNull();</span>
+
+<span class="nc" id="L90">        List&lt;String&gt; entries =</span>
+<span class="nc" id="L91">                Files.list(actual)</span>
+<span class="nc" id="L92">                .map(Path::getFileName)</span>
+<span class="nc" id="L93">                .map(Object::toString)</span>
+<span class="nc" id="L94">                .sorted()</span>
+<span class="nc" id="L95">                .collect(Collectors.toList());</span>
+
+<span class="nc" id="L97">        return new ListAssert&lt;String&gt;(entries);</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

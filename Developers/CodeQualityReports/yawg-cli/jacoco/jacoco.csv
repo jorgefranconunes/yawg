@@ -1,0 +1,18 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Yawg CLI,com.varmateo.yawg.cli,InfoPrinter.Builder,27,0,0,0,10,0,4,0,4,0
+Yawg CLI,com.varmateo.yawg.cli,CliInfoPrinter.Builder,43,0,0,0,16,0,6,0,6,0
+Yawg CLI,com.varmateo.yawg.cli,BakerCli,227,0,12,0,78,0,17,0,11,0
+Yawg CLI,com.varmateo.yawg.cli,JulLogInitializer.new StreamHandler() {...},14,0,0,0,4,0,2,0,2,0
+Yawg CLI,com.varmateo.yawg.cli,Main,38,0,0,0,13,0,3,0,3,0
+Yawg CLI,com.varmateo.yawg.cli,CliInfoPrinter,113,0,0,0,30,0,7,0,7,0
+Yawg CLI,com.varmateo.yawg.cli,PlainFormatter,185,0,12,0,48,0,13,0,7,0
+Yawg CLI,com.varmateo.yawg.cli,JulLogInitializer,80,0,4,0,20,0,6,0,4,0
+Yawg CLI,com.varmateo.yawg.cli,JulLogInitializer.Builder,25,0,0,0,9,0,4,0,4,0
+Yawg CLI,com.varmateo.yawg.cli,CliOptions,137,227,6,14,31,69,8,18,3,13
+Yawg CLI,com.varmateo.yawg.cli,CliOption,0,166,0,16,0,46,0,19,0,11
+Yawg CLI,com.varmateo.yawg.cli,CliException,15,13,0,0,4,4,2,2,2,2
+Yawg CLI,com.varmateo.yawg.cli,BakerCliOptions,116,0,0,0,45,0,4,0,4,0
+Yawg CLI,com.varmateo.yawg.cli,InfoPrinter,98,0,0,0,24,0,6,0,6,0
+Yawg CLI,com.varmateo.yawg.cli,CliOption.Builder,0,43,0,0,0,16,0,6,0,6
+Yawg CLI,com.varmateo.yawg.cli,BakerCliConf.Builder,41,0,0,0,13,0,5,0,5,0
+Yawg CLI,com.varmateo.yawg.cli,BakerCliConf,25,0,0,0,7,0,2,0,2,0

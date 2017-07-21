@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TestUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg test utilities</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.testutils</a> &gt; <span class="el_source">TestUtils.java</span></div><h1>TestUtils.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2016-2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.testutils;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.MessageFormat;
+
+
+/**
+ * Utility functions intended for use in unit tests.
+ */
+public final class TestUtils {
+
+
+    // Name of system property with the path of the base directory
+    // containting input files to be used in testing.
+<span class="fc" id="L24">    private static final String PROP_INPUTS_DIR_PREFIX =</span>
+<span class="fc" id="L25">            TestUtils.class.getSimpleName() + &quot;.inputTestFilesDir&quot;;</span>
+
+    // Name of system property with the path of the directory to be
+    // used for creating temporary files during testing.
+<span class="fc" id="L29">    private static final String PROP_TMP_DIR_PREFIX =</span>
+<span class="fc" id="L30">            TestUtils.class.getSimpleName() + &quot;.tmpTestFilesDir&quot;;</span>
+
+
+    /**
+     * No instances of this class are to be created.
+     */
+<span class="nc" id="L36">    private TestUtils() {</span>
+<span class="nc" id="L37">    }</span>
+
+
+    /**
+     * Retrieves the value of a given system property. If the system
+     * property is not set, then it will blow up.
+     *
+     * @param key The name of the system property whose value is to be
+     * returned.
+     *
+     * @return The value of the given system property.
+     */
+    public static String getSystemProperty(final String key) {
+
+<span class="fc" id="L51">        String value = System.getProperty(key);</span>
+
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        if ( value == null ) {</span>
+<span class="fc" id="L54">            String msg =</span>
+<span class="fc" id="L55">                    MessageFormat.format(</span>
+                    &quot;System property \&quot;{0}\&quot; is not defined&quot;,
+                    key);
+<span class="fc" id="L58">            throw new IllegalStateException(msg);</span>
+        }
+
+<span class="fc" id="L61">        return value;</span>
+    }
+
+
+    /**
+     * Retrieves the directory containing the test input files for the
+     * given testsuite class.
+     *
+     * &lt;p&gt;By convention the path of directory with test input files is
+     * obtained in the following way:&lt;/p&gt;
+     *
+     * &lt;ul&gt;
+     *
+     * &lt;li&gt;The prefix component is obtained from the value of the
+     * &lt;code&gt;TestUtils.inputTestFilesDir&lt;/code&gt; system property. This
+     * is usually set to &lt;code&gt;${basedir}/test/resources&lt;/code&gt; in the
+     * Maven project &lt;code&gt;pom.xml&lt;/code&gt;.&lt;/li&gt;
+     *
+     * &lt;li&gt;The remaining path components are obtained from the fully
+     * qualified class name by replacing &quot;.&quot; with the path separator
+     * char.&lt;/li&gt;
+     *
+     *&lt;/ul&gt;
+     *
+     * @param testsuiteClass Class for which we will return in directory
+     * with input files for the corresponding testsuite.
+     *
+     * @return The path for the directory continaining the test input
+     * files for the given testsuite class.
+     */
+    public static Path getInputsDir(final Class&lt;?&gt; testsuiteClass) {
+
+<span class="fc" id="L93">        String inputsDirPrefix =</span>
+<span class="fc" id="L94">                getSystemProperty(PROP_INPUTS_DIR_PREFIX);</span>
+<span class="fc" id="L95">        String[] pathComponents =</span>
+<span class="fc" id="L96">            testsuiteClass.getName().split(&quot;\\.&quot;);</span>
+<span class="fc" id="L97">        Path inputsDirPath =</span>
+<span class="fc" id="L98">            Paths.get(inputsDirPrefix, pathComponents);</span>
+
+<span class="fc" id="L100">        return inputsDirPath;</span>
+    }
+
+
+    /**
+     * Retrieves the directory to be used as temporary directory for
+     * the given testsuite class.
+     *
+     * &lt;p&gt;The temporary directory will be created under the path
+     * specified by the &lt;code&gt;TestUtils.tmpTestFilesDir&lt;/code&gt; system
+     * property. The base name of the temporary directory is generated
+     * automatically.&lt;/p&gt;
+     *
+     * &lt;p&gt;The returned path will be different every time this method
+     * is called. This method is intended to be called from within
+     * test cases. Each test case should call this method to have its
+     * down dedicated temporary directory.&lt;/p&gt;
+     *
+     * &lt;p&gt;When this method returns, the temporary directory is sure to
+     * exist.&lt;/p&gt;
+     *
+     * @param testSuiteClass The Java class of the testsuite for
+     * which we are to return its dedicated temporary directory.
+     *
+     * @return The path to a newly created temporary directory.
+     *
+     * @throws IOException If there were any problems creating the
+     * temporary directory.
+     */
+    public static Path newTempDir(final Class&lt;?&gt; testSuiteClass)
+            throws IOException {
+
+<span class="nc" id="L132">        String tmpDirRoot =</span>
+<span class="nc" id="L133">                getSystemProperty(PROP_TMP_DIR_PREFIX);</span>
+<span class="nc" id="L134">        String[] pathComponents =</span>
+<span class="nc" id="L135">            testSuiteClass.getName().split(&quot;\\.&quot;);</span>
+<span class="nc" id="L136">        Path tmpDirParent =</span>
+<span class="nc" id="L137">                Paths.get(tmpDirRoot, pathComponents);</span>
+
+<span class="nc" id="L139">        Files.createDirectories(tmpDirParent);</span>
+
+<span class="nc" id="L141">        Path tmpDir =</span>
+<span class="nc" id="L142">                Files.createTempDirectory(tmpDirParent, &quot;tmp&quot;);</span>
+
+<span class="nc" id="L144">        return tmpDir;</span>
+    }
+
+
+    /**
+     * Retrives the path for a test file related with the given
+     * testsuit class.
+     *
+     * &lt;p&gt;The &lt;code&gt;pathName&lt;/code&gt; is assumed to be relative to the
+     * inputs directory for the given testsuit class. See &lt;code&gt;{@link
+     * #getInputsDir(Class)}&lt;/code&gt; for a description on on how the
+     * inputs directory is obtained.
+     *
+     * @param testSuiteClass 
+     *
+     * @param pathName A path relative to the inputs directory for the
+     * given testsuite class.
+     *
+     * @return The path for the desired test file of the testsuite.
+     */
+    public static Path getPath(
+            final Class&lt;?&gt; testSuiteClass,
+            final String   pathName) {
+
+<span class="nc" id="L168">        Path inputsDir = getInputsDir(testSuiteClass);</span>
+<span class="nc" id="L169">        Path inputPath = inputsDir.resolve(pathName);</span>
+
+<span class="nc" id="L171">        return inputPath;</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

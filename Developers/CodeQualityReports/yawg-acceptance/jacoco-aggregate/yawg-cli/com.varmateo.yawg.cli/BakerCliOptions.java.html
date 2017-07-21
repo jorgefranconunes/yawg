@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BakerCliOptions.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-cli</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.cli</a> &gt; <span class="el_source">BakerCliOptions.java</span></div><h1>BakerCliOptions.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2015-2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.cli;
+
+import javaslang.collection.HashSet;
+import javaslang.collection.Set;
+
+import com.varmateo.yawg.cli.CliException;
+import com.varmateo.yawg.cli.CliOption;
+import com.varmateo.yawg.cli.CliOptions;
+
+
+/**
+ * Represents the set of supported command line options.
+ */
+final class BakerCliOptions {
+
+
+    public static final CliOption ASSETS_DIR =
+<span class="fc" id="L24">            CliOption.builder()</span>
+<span class="fc" id="L25">            .setLongName(&quot;assets&quot;)</span>
+<span class="fc" id="L26">            .setArgName(&quot;PATH&quot;)</span>
+<span class="fc" id="L27">            .setDescription(&quot;path of assets directory&quot;)</span>
+<span class="fc" id="L28">            .build();</span>
+
+    public static final CliOption HELP =
+<span class="fc" id="L31">            CliOption.builder()</span>
+<span class="fc" id="L32">            .setLongName(&quot;help&quot;)</span>
+<span class="fc" id="L33">            .setDescription(&quot;show this help text and exit&quot;)</span>
+<span class="fc" id="L34">            .setShortName(&quot;h&quot;)</span>
+<span class="fc" id="L35">            .build();</span>
+
+    public static final CliOption PAGE_VAR =
+<span class="fc" id="L38">            CliOption.builder()</span>
+<span class="fc" id="L39">            .setLongName(&quot;page-var&quot;)</span>
+<span class="fc" id="L40">            .setArgName(&quot;NAME=VALUE&quot;)</span>
+<span class="fc" id="L41">            .setDescription(&quot;additional page variable&quot;)</span>
+<span class="fc" id="L42">            .build();</span>
+
+    public static final CliOption SOURCE_DIR =
+<span class="fc" id="L45">            CliOption.builder()</span>
+<span class="fc" id="L46">            .setLongName(&quot;source&quot;)</span>
+<span class="fc" id="L47">            .setArgName(&quot;PATH&quot;)</span>
+<span class="fc" id="L48">            .setDescription(&quot;path of source directory&quot;)</span>
+<span class="fc" id="L49">            .build();</span>
+
+    public static final CliOption TARGET_DIR =
+<span class="fc" id="L52">            CliOption.builder()</span>
+<span class="fc" id="L53">            .setLongName(&quot;target&quot;)</span>
+<span class="fc" id="L54">            .setArgName(&quot;PATH&quot;)</span>
+<span class="fc" id="L55">            .setDescription(&quot;path of target directory&quot;)</span>
+<span class="fc" id="L56">            .build();</span>
+
+    public static final CliOption TEMPLATES_DIR =
+<span class="fc" id="L59">            CliOption.builder()</span>
+<span class="fc" id="L60">            .setLongName(&quot;templates&quot;)</span>
+<span class="fc" id="L61">            .setArgName(&quot;PATH&quot;)</span>
+<span class="fc" id="L62">            .setDescription(&quot;path of templates directory&quot;)</span>
+<span class="fc" id="L63">            .build();</span>
+
+    public static final CliOption VERBOSE =
+<span class="fc" id="L66">            CliOption.builder()</span>
+<span class="fc" id="L67">            .setLongName(&quot;verbose&quot;)</span>
+<span class="fc" id="L68">            .setDescription(&quot;show abundant logging&quot;)</span>
+<span class="fc" id="L69">            .build();</span>
+
+    public static final CliOption VERSION =
+<span class="fc" id="L72">            CliOption.builder()</span>
+<span class="fc" id="L73">            .setShortName(&quot;v&quot;)</span>
+<span class="fc" id="L74">            .setLongName(&quot;version&quot;)</span>
+<span class="fc" id="L75">            .setDescription(&quot;show version and exit&quot;)</span>
+<span class="fc" id="L76">            .build();</span>
+
+
+    /**
+     *
+     */
+<span class="fc" id="L82">    private static final Set&lt;CliOption&gt; ALL_OPTIONS =</span>
+<span class="fc" id="L83">            HashSet.of(</span>
+                    ASSETS_DIR,
+                    HELP,
+                    PAGE_VAR,
+                    SOURCE_DIR,
+                    TARGET_DIR,
+                    TEMPLATES_DIR,
+                    VERBOSE,
+                    VERSION);
+
+
+    /**
+     *
+     */
+    public static Set&lt;CliOption&gt; options() {
+
+<span class="fc" id="L99">        return ALL_OPTIONS;</span>
+    }
+
+
+    /**
+     * No instances of this class are to be created.
+     */
+<span class="nc" id="L106">    private BakerCliOptions() {</span>
+<span class="nc" id="L107">    }</span>
+
+
+    /**
+     *
+     */
+    public static CliOptions parse(final String[] args)
+        throws CliException {
+
+<span class="fc" id="L116">        return CliOptions.parse(ALL_OPTIONS, args);</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

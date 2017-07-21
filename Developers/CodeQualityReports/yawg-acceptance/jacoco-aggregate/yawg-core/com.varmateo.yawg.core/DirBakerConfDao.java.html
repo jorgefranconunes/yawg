@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>DirBakerConfDao.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">DirBakerConfDao.java</span></div><h1>DirBakerConfDao.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2016-2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.core;
+
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Optional;
+import java.util.regex.PatternSyntaxException;
+
+import javaslang.collection.Seq;
+import javaslang.collection.Stream;
+
+import com.varmateo.yawg.api.PageVars;
+import com.varmateo.yawg.api.YawgException;
+import com.varmateo.yawg.core.DirBakerConf;
+import com.varmateo.yawg.core.TemplateNameMatcher;
+import com.varmateo.yawg.util.Exceptions;
+import com.varmateo.yawg.util.GlobMatcher;
+import com.varmateo.yawg.util.SimpleMap;
+import com.varmateo.yawg.util.YamlParser;
+
+
+/**
+ * Reads the baker configuration for one given directory.
+ */
+/* package private */ final class DirBakerConfDao {
+
+
+    private static final String CONF_FILE_NAME = &quot;.yawg.yml&quot;;
+
+    private static final String PARAM_BAKER_TYPES = &quot;bakerTypes&quot;;
+    private static final String PARAM_EXCLUDE = &quot;exclude&quot;;
+    private static final String PARAM_EXCLUDE_HERE = &quot;excludeHere&quot;;
+    private static final String PARAM_INCLUDE_HERE = &quot;includeHere&quot;;
+    private static final String PARAM_TEMPLATE = &quot;template&quot;;
+    private static final String PARAM_PAGE_VARS = &quot;pageVars&quot;;
+    private static final String PARAM_PAGE_VARS_HERE = &quot;pageVarsHere&quot;;
+    private static final String PARAM_TEMPLATES_HERE = &quot;templatesHere&quot;;
+    private static final String PARAM_EXTRA_DIRS_HERE = &quot;extraDirsHere&quot;;
+
+
+    /**
+     *
+     */
+<span class="fc" id="L54">    /* package private */ DirBakerConfDao() {</span>
+        // Nothing to do.
+<span class="fc" id="L56">    }</span>
+
+
+    /**
+     * Builds the baker configuration for the given directory.
+     *
+     * @param parentConf The configuration from which we will inherit
+     * values.
+     *
+     * @param sourceDir The directory for which we are going to create
+     * the baker conf.
+     *
+     * @return The bake configuration for the given source directory.
+     *
+     * @throws YawgException Thrown if the configuration file could
+     * not be read or had syntax problems.
+     */
+    public DirBakerConf loadFromDir(final Path sourceDir)
+            throws YawgException {
+
+<span class="fc" id="L76">        DirBakerConf result = null;</span>
+<span class="fc" id="L77">        Path confFile = sourceDir.resolve(CONF_FILE_NAME);</span>
+
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        if ( Files.isRegularFile(confFile) ) {</span>
+<span class="fc" id="L80">            result = loadFromFile(confFile);</span>
+        } else {
+<span class="fc" id="L82">            result = DirBakerConf.empty();</span>
+        }
+
+<span class="fc" id="L85">        return result;</span>
+    }
+
+
+    /**
+     *
+     */
+    /* package private */ DirBakerConf loadFromFile(final Path confFile)
+            throws YawgException {
+
+<span class="fc" id="L95">        DirBakerConf result = null;</span>
+
+        try {
+<span class="fc" id="L98">            result = doLoadFromFile(confFile);</span>
+<span class="fc" id="L99">        } catch ( IOException e ) {</span>
+<span class="pc" id="L100">            Exceptions.raise(</span>
+                    e,
+                    &quot;Failed to read config file \&quot;{0}\&quot; - {1} - {2}&quot;,
+                    confFile,
+<span class="fc" id="L104">                    e.getClass().getSimpleName(),</span>
+<span class="fc" id="L105">                    e.getMessage());</span>
+<span class="fc" id="L106">        }</span>
+
+<span class="fc" id="L108">        return result;</span>
+    }
+
+
+    /**
+     *
+     */
+    private DirBakerConf doLoadFromFile(final Path confFile)
+            throws YawgException, IOException {
+
+<span class="fc" id="L118">        DirBakerConf result = null;</span>
+
+<span class="pc" id="L120">        try ( Reader reader =</span>
+<span class="fc" id="L121">                Files.newBufferedReader(confFile, StandardCharsets.UTF_8) ) {</span>
+<span class="fc" id="L122">            result = read(reader);</span>
+<span class="pc bpc" id="L123" title="6 of 8 branches missed.">        }</span>
+
+<span class="fc" id="L125">        return result;</span>
+    }
+
+
+    /**
+     *
+     */
+    /* package private */ DirBakerConf read(final Reader reader)
+            throws IOException, YawgException {
+
+<span class="fc" id="L135">        SimpleMap confMap = new YamlParser().parse(reader);</span>
+<span class="fc" id="L136">        DirBakerConf.Builder builder = DirBakerConf.builder();</span>
+
+<span class="fc" id="L138">        confMap.getString(PARAM_TEMPLATE)</span>
+<span class="fc" id="L139">                .ifPresent(builder::setTemplateName);</span>
+
+<span class="fc" id="L141">        getPatternList(confMap, PARAM_EXCLUDE)</span>
+<span class="fc" id="L142">                .ifPresent(builder::setFilesToExclude);</span>
+
+<span class="fc" id="L144">        getPatternList(confMap, PARAM_EXCLUDE_HERE)</span>
+<span class="fc" id="L145">                .ifPresent(builder::setFilesToExcludeHere);</span>
+
+<span class="fc" id="L147">        getPatternList(confMap, PARAM_INCLUDE_HERE)</span>
+<span class="fc" id="L148">                .ifPresent(builder::setFilesToIncludeHere);</span>
+
+<span class="fc" id="L150">        getBakerTypes(confMap, PARAM_BAKER_TYPES)</span>
+<span class="fc" id="L151">                .ifPresent(builder::setBakerTypes);</span>
+
+<span class="fc" id="L153">        getPageVars(confMap, PARAM_PAGE_VARS)</span>
+<span class="fc" id="L154">                .ifPresent(builder::setPageVars);</span>
+
+<span class="fc" id="L156">        getPageVars(confMap, PARAM_PAGE_VARS_HERE)</span>
+<span class="fc" id="L157">                .ifPresent(builder::setPageVarsHere);</span>
+
+<span class="fc" id="L159">        getTemplatesHere(confMap, PARAM_TEMPLATES_HERE)</span>
+<span class="fc" id="L160">                .ifPresent(builder::setTemplatesHere);</span>
+
+<span class="fc" id="L162">        getPathList(confMap, PARAM_EXTRA_DIRS_HERE)</span>
+<span class="fc" id="L163">                .ifPresent(builder::setExtraDirsHere);</span>
+
+<span class="fc" id="L165">        DirBakerConf result = builder.build();</span>
+
+<span class="fc" id="L167">        return result;</span>
+    }
+
+
+    /**
+     *
+     */
+    private Optional&lt;GlobMatcher&gt; getPatternList(
+            final SimpleMap confMap,
+            final String key)
+            throws YawgException {
+
+<span class="fc" id="L179">        return confMap.getList(key, String.class)</span>
+<span class="fc" id="L180">                .map(itemList -&gt;</span>
+<span class="fc" id="L181">                     Stream.ofAll(itemList)</span>
+<span class="fc" id="L182">                     .zipWithIndex()</span>
+<span class="fc" id="L183">                     .foldLeft(</span>
+<span class="fc" id="L184">                             GlobMatcher.builder(),</span>
+<span class="fc" id="L185">                             (xs,x) -&gt; addToGlobBuilder(xs, x._1(), x._2(), key))</span>
+<span class="fc" id="L186">                     .build());</span>
+    }
+
+
+    private static GlobMatcher.Builder addToGlobBuilder(
+            final GlobMatcher.Builder builder,
+            final String glob,
+            final Long index,
+            final String key) {
+
+        try {
+<span class="fc" id="L197">            return builder.addGlobPattern(glob);</span>
+<span class="fc" id="L198">        } catch ( PatternSyntaxException e ) {</span>
+<span class="nc" id="L199">            throw Exceptions.raise(</span>
+                    e,
+                    &quot;Invalid glob \&quot;{0}\&quot; on item {1} of {2}&quot;,
+                    glob,
+                    index,
+                    key);
+        }
+    }
+
+
+    /**
+     *
+     */
+    private Optional&lt;BakerMatcher&gt; getBakerTypes(
+            final SimpleMap map,
+            final String key)
+            throws YawgException {
+
+        Optional&lt;BakerMatcher&gt; result;
+<span class="fc" id="L218">        Optional&lt;SimpleMap&gt; bakerTypesMapOpt = map.getMap(key);</span>
+
+<span class="fc bfc" id="L220" title="All 2 branches covered.">        if ( bakerTypesMapOpt.isPresent() ) {</span>
+<span class="fc" id="L221">            SimpleMap bakerTypesMap = bakerTypesMapOpt.get();</span>
+<span class="fc" id="L222">            BakerMatcher.Builder builder = BakerMatcher.builder();</span>
+
+<span class="fc bfc" id="L224" title="All 2 branches covered.">            for ( String bakerType : bakerTypesMap.keySet() ) {</span>
+<span class="fc" id="L225">                getPatternList(bakerTypesMap, bakerType)</span>
+<span class="fc" id="L226">                        .ifPresent(m -&gt; builder.addBakerType(bakerType, m));</span>
+<span class="fc" id="L227">            }</span>
+<span class="fc" id="L228">            result = Optional.of(builder.build());</span>
+<span class="fc" id="L229">        } else {</span>
+<span class="fc" id="L230">            result = Optional.empty();</span>
+        }
+
+<span class="fc" id="L233">        return result;</span>
+    }
+
+
+    /**
+     *
+     */
+    private Optional&lt;PageVars&gt; getPageVars(
+            final SimpleMap confMap,
+            final String key)
+            throws YawgException {
+
+<span class="fc" id="L245">        return confMap</span>
+<span class="fc" id="L246">                .getMap(key)</span>
+<span class="fc" id="L247">                .map(pageVarsMap -&gt;</span>
+<span class="fc" id="L248">                     PageVars.builder(pageVarsMap.asMap()).build());</span>
+    }
+
+
+    /**
+     *
+     */
+    private Optional&lt;TemplateNameMatcher&gt; getTemplatesHere(
+            final SimpleMap map,
+            final String key)
+            throws YawgException {
+
+        Optional&lt;TemplateNameMatcher&gt; result;
+<span class="fc" id="L261">        Optional&lt;SimpleMap&gt; templatesHereMapOpt = map.getMap(key);</span>
+
+<span class="pc bpc" id="L263" title="1 of 2 branches missed.">        if ( templatesHereMapOpt.isPresent() ) {</span>
+<span class="nc" id="L264">            SimpleMap templatesHereMap = templatesHereMapOpt.get();</span>
+<span class="nc" id="L265">            TemplateNameMatcher.Builder builder = TemplateNameMatcher.builder();</span>
+
+<span class="nc bnc" id="L267" title="All 2 branches missed.">            for ( String templateName : templatesHereMap.keySet() ) {</span>
+<span class="nc" id="L268">                GlobMatcher globMatcher =</span>
+<span class="nc" id="L269">                        getPatternList(templatesHereMap, templateName).get();</span>
+
+<span class="nc" id="L271">                builder.addTemplateName(templateName, globMatcher);</span>
+<span class="nc" id="L272">            }</span>
+<span class="nc" id="L273">            result = Optional.of(builder.build());</span>
+<span class="nc" id="L274">        } else {</span>
+<span class="fc" id="L275">            result = Optional.empty();</span>
+        }
+
+<span class="fc" id="L278">        return result;</span>
+    }
+
+
+    /**
+     *
+     */
+    private Optional&lt;Seq&lt;Path&gt;&gt; getPathList(
+            final SimpleMap confMap,
+            final String key)
+            throws YawgException {
+
+<span class="fc" id="L290">        return confMap</span>
+<span class="fc" id="L291">                .getList(key, String.class)</span>
+<span class="fc" id="L292">                .map(itemList -&gt;</span>
+<span class="nc" id="L293">                     Stream.ofAll(itemList)</span>
+<span class="nc" id="L294">                     .zipWithIndex()</span>
+<span class="nc" id="L295">                     .map(tuple -&gt; buildPath(tuple._1(), tuple._2(), key)));</span>
+    }
+
+
+    private static Path buildPath(
+            final String pathStr,
+            final Long index,
+            final String key) {
+
+        try {
+<span class="nc" id="L305">            return Paths.get(pathStr);</span>
+<span class="nc" id="L306">        } catch ( InvalidPathException e ) {</span>
+<span class="nc" id="L307">            throw Exceptions.raise(</span>
+                    e,
+                    &quot;Invalid path \&quot;{0}\&quot; on item {1} of {2}&quot;,
+                    pathStr,
+                    index,
+                    key);
+        }
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

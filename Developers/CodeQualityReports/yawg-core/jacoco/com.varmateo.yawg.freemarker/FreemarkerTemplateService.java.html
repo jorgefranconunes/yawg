@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FreemarkerTemplateService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.freemarker</a> &gt; <span class="el_source">FreemarkerTemplateService.java</span></div><h1>FreemarkerTemplateService.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2016-2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.freemarker;
+
+import java.io.IOException;
+import java.io.Writer;
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.regex.Pattern;
+
+import javaslang.control.Option;
+
+import freemarker.template.Configuration;
+import freemarker.template.TemplateExceptionHandler;
+import freemarker.template.TemplateException;
+
+import com.varmateo.yawg.api.YawgException;
+import com.varmateo.yawg.api.Template;
+import com.varmateo.yawg.api.TemplateDataModel;
+import com.varmateo.yawg.api.TemplateService;
+import com.varmateo.yawg.freemarker.FreemarkerDataModel;
+import com.varmateo.yawg.util.Exceptions;
+
+
+/**
+ * Creates templates based on the &lt;a
+ * href=&quot;http://freemarker.org/&quot;&gt;Freemarker&lt;/a&gt; template engine.
+ */
+public final class FreemarkerTemplateService
+        implements TemplateService {
+
+
+<span class="fc" id="L37">    private static final Pattern RE_FTLH = Pattern.compile(&quot;.*\\.ftlh$&quot;);</span>
+
+    private final Configuration _fmConfig;
+
+
+    /**
+     * @param templatesDir The directory containing the Freemarker
+     * template files.
+     */
+<span class="fc" id="L46">    private FreemarkerTemplateService(final Configuration fmConfig) {</span>
+
+<span class="fc" id="L48">        _fmConfig = fmConfig;</span>
+<span class="fc" id="L49">    }</span>
+
+
+    /**
+     *
+     */
+    /* package private */ static FreemarkerTemplateService build(
+            final Path templatesDir)
+            throws YawgException {
+
+<span class="fc" id="L59">        Configuration fmConfig = null;</span>
+
+        try {
+<span class="fc" id="L62">            fmConfig = buildConfiguration(templatesDir);</span>
+<span class="fc" id="L63">        } catch ( IOException e ) {</span>
+<span class="pc" id="L64">            Exceptions.raise(</span>
+                    e,
+                    &quot;Failed to initialize {0} - {1} - {2}&quot;,
+<span class="fc" id="L67">                    FreemarkerTemplateService.class.getSimpleName(),</span>
+<span class="fc" id="L68">                    e.getClass().getSimpleName(),</span>
+<span class="fc" id="L69">                    e.getMessage());</span>
+<span class="fc" id="L70">        }</span>
+
+<span class="fc" id="L72">        return new FreemarkerTemplateService(fmConfig);</span>
+    }
+
+
+    /**
+     *
+     */
+    private static Configuration buildConfiguration(final Path templatesDir)
+            throws IOException{
+
+<span class="fc" id="L82">        Configuration fmConfig =</span>
+                new Configuration(Configuration.VERSION_2_3_24);
+
+<span class="fc" id="L85">        fmConfig.setDirectoryForTemplateLoading(templatesDir.toFile());</span>
+<span class="fc" id="L86">        fmConfig.setDefaultEncoding(&quot;UTF-8&quot;);</span>
+<span class="fc" id="L87">        fmConfig.setTemplateExceptionHandler(</span>
+                TemplateExceptionHandler.RETHROW_HANDLER);
+<span class="fc" id="L89">        fmConfig.setLogTemplateExceptions(false);</span>
+
+<span class="fc" id="L91">        return fmConfig;</span>
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional&lt;Template&gt; getTemplate(final String name)
+            throws YawgException {
+
+<span class="fc" id="L102">        return Option.of(name)</span>
+<span class="fc" id="L103">                .filter(x -&gt; RE_FTLH.matcher(x).matches())</span>
+<span class="fc" id="L104">                .map(this::getFreemarkerTemplate)</span>
+<span class="fc" id="L105">                .map(FreemarkerTemplate::new)</span>
+<span class="fc" id="L106">                .map(FreemarkerTemplate::asTemplate) // HACK</span>
+<span class="fc" id="L107">                .toJavaOptional();</span>
+    }
+
+
+    /**
+     *
+     */
+    private freemarker.template.Template getFreemarkerTemplate(
+            final String name)
+            throws YawgException {
+
+<span class="fc" id="L118">        freemarker.template.Template fmTemplate = null;</span>
+
+        try {
+<span class="fc" id="L121">            fmTemplate = _fmConfig.getTemplate(name);</span>
+<span class="fc" id="L122">        } catch ( IOException e ) {</span>
+<span class="pc" id="L123">            Exceptions.raise(</span>
+                    e,
+                    &quot;Failed to fetch template \&quot;{0}\&quot; - {1} - {2}&quot;,
+                    name,
+<span class="fc" id="L127">                    e.getClass().getSimpleName(),</span>
+<span class="fc" id="L128">                    e.getMessage());</span>
+<span class="fc" id="L129">        }</span>
+
+<span class="fc" id="L131">        return fmTemplate;</span>
+    }
+
+
+    /**
+     *
+     */
+    private static final class FreemarkerTemplate
+            implements Template {
+
+
+        private final freemarker.template.Template _fmTemplate;
+
+
+        /**
+         *
+         */
+<span class="fc" id="L148">        FreemarkerTemplate(final freemarker.template.Template fmTemplate) {</span>
+
+<span class="fc" id="L150">            _fmTemplate = fmTemplate;</span>
+<span class="fc" id="L151">        }</span>
+
+
+        /**
+         *
+         */
+        @Override
+        public void process(
+                final TemplateDataModel dataModel,
+                final Writer writer)
+                throws YawgException {
+
+<span class="fc" id="L163">            FreemarkerDataModel fmDataModel =</span>
+                    new FreemarkerDataModel(dataModel);
+
+            try {
+<span class="fc" id="L167">                _fmTemplate.process(fmDataModel, writer);</span>
+<span class="fc" id="L168">            } catch ( TemplateException | IOException e ) {</span>
+<span class="pc" id="L169">                Exceptions.raise(</span>
+                        e,
+                        &quot;Failed to process template \&quot;{0}\&quot; - {1} - {2}&quot;,
+<span class="fc" id="L172">                        _fmTemplate.getName(),</span>
+<span class="fc" id="L173">                        e.getClass().getSimpleName(),</span>
+<span class="fc" id="L174">                        e.getMessage());</span>
+<span class="fc" id="L175">            }</span>
+<span class="fc" id="L176">        }</span>
+
+
+        /**
+         * HACK.
+         */
+        public Template asTemplate() {
+
+<span class="fc" id="L184">            return this;</span>
+        }
+
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>SimpleMap.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.util</a> &gt; <span class="el_source">SimpleMap.java</span></div><h1>SimpleMap.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2016-2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.util;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+
+import com.varmateo.yawg.api.YawgException;
+import com.varmateo.yawg.util.Exceptions;
+import com.varmateo.yawg.util.SimpleList;
+
+
+/**
+ * Wrapper for an unmodifiable map with utility methods for retrieving
+ * values.
+ */
+public final class SimpleMap {
+
+
+    private final Map&lt;String,Object&gt; _map;
+
+
+    /**
+     * Initializes this simple map with the given map.
+     *
+     * &lt;p&gt;As a matter of optimization we assume the given map will
+     * never be modified. It is up to the caller to ensure no changes
+     * are performed in the givan map&lt;/p&gt;.
+     *
+     * @param map The map to be wrapped by this simple map.
+     */
+<span class="fc" id="L40">    public SimpleMap(final Map&lt;String,Object&gt; map) {</span>
+
+<span class="fc" id="L42">        _map = Objects.requireNonNull(map);</span>
+<span class="fc" id="L43">    }</span>
+
+
+    /**
+     * Fetches a view on the contents of this simple map as an
+     * unmodifiable map.
+     *
+     * @return A unmodifiable view of the contents of this simple map.
+     */
+    public Map&lt;String,Object&gt; asMap() {
+
+<span class="fc" id="L54">        Map&lt;String,Object&gt; result = Collections.unmodifiableMap(_map);</span>
+
+<span class="fc" id="L56">        return result;</span>
+    }
+
+
+    /**
+     *
+     */
+    public &lt;T&gt; Optional&lt;T&gt; get(
+            final String key,
+            final Class&lt;T&gt; klass) {
+
+<span class="fc" id="L67">        T value = getWithType(key, klass);</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">        Optional&lt;T&gt; result =</span>
+                (value==null)
+<span class="fc" id="L70">                ? Optional.empty()</span>
+<span class="fc" id="L71">                : Optional.of(value);</span>
+
+<span class="fc" id="L73">        return result;</span>
+    }
+
+
+    /**
+     *
+     */
+    public Optional&lt;String&gt; getString(final String key) {
+
+<span class="fc" id="L82">        Optional&lt;String&gt; result = get(key, String.class);</span>
+
+<span class="fc" id="L84">        return result;</span>
+    }
+
+
+    /**
+     *
+     */
+    public Optional&lt;SimpleMap&gt; getMap(final String key) {
+
+        @SuppressWarnings(&quot;unchecked&quot;)
+<span class="fc" id="L94">        Map&lt;String,Object&gt; value =</span>
+<span class="fc" id="L95">                (Map&lt;String,Object&gt;)getWithType(key, Map.class);</span>
+<span class="fc" id="L96">        Optional&lt;SimpleMap&gt; result =</span>
+<span class="fc" id="L97">                Optional.ofNullable(value)</span>
+<span class="fc" id="L98">                .map(SimpleMap::new);</span>
+
+<span class="fc" id="L100">        return result;</span>
+    }
+
+
+    /**
+     *
+     */
+    public &lt;T&gt; Optional&lt;SimpleList&lt;T&gt;&gt; getList(
+            final String key,
+            final Class&lt;T&gt; itemsClass) {
+
+        @SuppressWarnings(&quot;unchecked&quot;)
+<span class="fc" id="L112">        List&lt;Object&gt; value = (List&lt;Object&gt;)getWithType(key, List.class);</span>
+<span class="fc" id="L113">        Optional&lt;SimpleList&lt;T&gt;&gt; result =</span>
+<span class="fc" id="L114">                Optional.ofNullable(value)</span>
+<span class="fc" id="L115">                .map(v -&gt; new SimpleList&lt;T&gt;(v, itemsClass));</span>
+
+<span class="fc" id="L117">        return result;</span>
+    }
+
+
+    /**
+     *
+     */
+    private &lt;T&gt; T getWithType(
+            final String key,
+            final Class&lt;T&gt; klass)
+            throws YawgException {
+
+<span class="fc" id="L129">        Object value = _map.get(key);</span>
+
+<span class="fc bfc" id="L131" title="All 4 branches covered.">        if ( (value!=null) &amp;&amp; !klass.isInstance(value) ) {</span>
+<span class="pc" id="L132">            Exceptions.raise(</span>
+                    &quot;Invalid {2} value in {1} field \&quot;{0}\&quot;&quot;,
+                    key,
+<span class="fc" id="L135">                    klass.getSimpleName(),</span>
+<span class="fc" id="L136">                    value.getClass().getSimpleName());</span>
+        }
+
+        @SuppressWarnings(&quot;unchecked&quot;)
+<span class="fc" id="L140">        T result = (T)value;</span>
+
+<span class="fc" id="L142">        return result;</span>
+    }
+
+
+    /**
+     *
+     */
+    public Set&lt;String&gt; keySet() {
+
+<span class="fc" id="L151">        Set&lt;String&gt; result =_map.keySet();</span>
+
+<span class="fc" id="L153">        return result;</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

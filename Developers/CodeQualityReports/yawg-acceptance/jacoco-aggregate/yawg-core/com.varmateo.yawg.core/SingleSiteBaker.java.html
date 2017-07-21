@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>SingleSiteBaker.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">SingleSiteBaker.java</span></div><h1>SingleSiteBaker.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2016-2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.core;
+
+import java.nio.file.Path;
+import java.util.Optional;
+
+import com.varmateo.yawg.api.YawgException;
+import com.varmateo.yawg.api.YawgInfo;
+import com.varmateo.yawg.core.DirBaker;
+import com.varmateo.yawg.logging.Log;
+import com.varmateo.yawg.logging.LogWithUtils;
+import com.varmateo.yawg.spi.SiteBakerConf;
+
+
+/**
+ * Baker for one specific site.
+ */
+/* package private */ final class SingleSiteBaker {
+
+
+    private final LogWithUtils _log;
+    private final SiteBakerConf _conf;
+    private final AssetsCopier _assetsCopier;
+    private final SourceTreeBaker _sourceTreeBaker;
+
+
+    /**
+     * @param conf All the parameters needed for performing a bake.
+     */
+    SingleSiteBaker(
+            final Log log,
+            final SiteBakerConf conf,
+<span class="fc" id="L38">            final DirBaker dirBaker) {</span>
+
+<span class="fc" id="L40">        _log = LogWithUtils.from(log);</span>
+<span class="fc" id="L41">        _conf = conf;</span>
+<span class="fc" id="L42">        _assetsCopier = new AssetsCopier(</span>
+                _log,
+<span class="fc" id="L44">                conf.getAssetsDir(),</span>
+<span class="fc" id="L45">                conf.getTargetDir());</span>
+<span class="fc" id="L46">        _sourceTreeBaker = new SourceTreeBaker(</span>
+                _log,
+<span class="fc" id="L48">                conf.getSourceDir(),</span>
+<span class="fc" id="L49">                conf.getTargetDir(),</span>
+<span class="fc" id="L50">                conf.getExternalPageVars(),</span>
+                dirBaker);
+<span class="fc" id="L52">    }</span>
+
+
+    /**
+     * Performs the baking of one directory tree into another.
+     *
+     * @exception YawgException Thrown if the baking could not be
+     * completed for whatever reason.
+     */
+    public void bake()
+            throws YawgException {
+
+<span class="fc" id="L64">        Path sourceDir = _conf.getSourceDir();</span>
+<span class="fc" id="L65">        Path targetDir = _conf.getTargetDir();</span>
+<span class="fc" id="L66">        Optional&lt;Path&gt; templatesDir = _conf.getTemplatesDir();</span>
+<span class="fc" id="L67">        Optional&lt;Path&gt; assetsDir = _conf.getAssetsDir();</span>
+
+<span class="fc" id="L69">        _log.info(&quot;{0} {1}&quot;, YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);</span>
+<span class="fc" id="L70">        _log.info(&quot;    Source    : {0}&quot;, sourceDir);</span>
+<span class="fc" id="L71">        _log.info(&quot;    Target    : {0}&quot;, targetDir);</span>
+<span class="fc" id="L72">        _log.info(</span>
+                &quot;    Templates : {0}&quot;,
+<span class="fc" id="L74">                templatesDir.map(Path::toString).orElse(&quot;NONE&quot;));</span>
+<span class="fc" id="L75">        _log.info(</span>
+                &quot;    Assets    : {0}&quot;,
+<span class="fc" id="L77">                assetsDir.map(Path::toString).orElse(&quot;NONE&quot;));</span>
+
+<span class="fc" id="L79">        _log.logDelay(&quot;bake&quot;, this::doBake);</span>
+<span class="fc" id="L80">    }</span>
+
+
+    /**
+     *
+     */
+    private void doBake()
+            throws YawgException {
+
+<span class="fc" id="L89">        _assetsCopier.copy();</span>
+<span class="fc" id="L90">        _sourceTreeBaker.bake();</span>
+<span class="fc" id="L91">    }</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

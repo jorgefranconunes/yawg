@@ -1,0 +1,10 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Yawg API,com.varmateo.yawg.api,PageVars.Builder,34,16,0,0,10,5,4,2,4,2
+Yawg API,com.varmateo.yawg.api,YawgException,9,0,0,0,4,0,2,0,2,0
+Yawg API,com.varmateo.yawg.api,PageContext,8,48,0,0,2,13,1,6,1,6
+Yawg API,com.varmateo.yawg.api,TemplateDataModel,90,0,2,0,24,0,12,0,11,0
+Yawg API,com.varmateo.yawg.api,PageVars,32,21,0,0,10,6,4,3,4,3
+Yawg API,com.varmateo.yawg.api,YawgInfo,66,41,7,3,6,12,6,1,1,1
+Yawg API,com.varmateo.yawg.api,TemplateDataModel.Builder,74,0,0,0,23,0,8,0,8,0
+Yawg API,com.varmateo.yawg.api,TemplateDataModel.Author,15,0,0,0,6,0,3,0,3,0
+Yawg API,com.varmateo.yawg.api,PageContext.Builder,46,35,0,0,14,12,5,5,5,5

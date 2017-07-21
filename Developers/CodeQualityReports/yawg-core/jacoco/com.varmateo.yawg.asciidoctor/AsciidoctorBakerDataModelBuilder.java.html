@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AsciidoctorBakerDataModelBuilder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.asciidoctor</a> &gt; <span class="el_source">AsciidoctorBakerDataModelBuilder.java</span></div><h1>AsciidoctorBakerDataModelBuilder.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2016-2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.asciidoctor;
+
+import java.io.IOException;
+import java.nio.file.Path;
+
+import javaslang.collection.List;
+import javaslang.control.Option;
+
+import org.asciidoctor.Asciidoctor;
+import org.asciidoctor.OptionsBuilder;
+import org.asciidoctor.ast.Author;
+import org.asciidoctor.ast.DocumentHeader;
+import org.asciidoctor.internal.AsciidoctorCoreException;
+
+import com.varmateo.yawg.api.PageContext;
+import com.varmateo.yawg.api.TemplateDataModel;
+import com.varmateo.yawg.util.FileUtils;
+
+
+/**
+ *
+ */
+/* package private */ final class AsciidoctorBakerDataModelBuilder {
+
+
+    private final Asciidoctor _asciidoctor;
+
+
+    /**
+     *
+     */
+<span class="fc" id="L38">    AsciidoctorBakerDataModelBuilder(final Asciidoctor asciidoctor) {</span>
+
+<span class="fc" id="L40">        _asciidoctor = asciidoctor;</span>
+<span class="fc" id="L41">    }</span>
+
+
+    /**
+     *
+     */
+    public TemplateDataModel build(
+            final Path sourcePath,
+            final Path targetDir,
+            final Path targetPath,
+            final PageContext context)
+            throws AsciidoctorCoreException, IOException {
+
+<span class="fc" id="L54">        String sourceContent = FileUtils.readAsString(sourcePath);</span>
+<span class="fc" id="L55">        OptionsBuilder options = AdocUtils.buildOptionsForBakeWithTemplate(</span>
+                sourcePath,
+                targetDir,
+<span class="fc" id="L58">                context.getPageVars());</span>
+<span class="fc" id="L59">        String body = _asciidoctor.render(sourceContent, options);</span>
+<span class="fc" id="L60">        String pageUrl = context.getDirUrl() + &quot;/&quot; + targetPath.getFileName();</span>
+<span class="fc" id="L61">        DocumentHeader header = _asciidoctor.readDocumentHeader(sourceContent);</span>
+<span class="fc" id="L62">        String title = Option.of(header)</span>
+<span class="fc" id="L63">                .flatMap(h -&gt; Option.of(h.getDocumentTitle()))</span>
+<span class="fc" id="L64">                .flatMap(t -&gt; Option.of(t.getMain()))</span>
+<span class="fc" id="L65">                .getOrElse(() -&gt; FileUtils.basename(sourcePath));</span>
+
+        TemplateDataModel.Builder modelBuilder =
+<span class="fc" id="L68">                TemplateDataModel.builder()</span>
+<span class="fc" id="L69">                .setTitle(title)</span>
+<span class="fc" id="L70">                .setBody(body)</span>
+<span class="fc" id="L71">                .setPageUrl(pageUrl)</span>
+<span class="fc" id="L72">                .setRootRelativeUrl(context.getRootRelativeUrl())</span>
+<span class="fc" id="L73">                .setPageVars(context.getPageVars());</span>
+<span class="fc" id="L74">        buildAuthors(modelBuilder, header);</span>
+
+<span class="fc" id="L76">        TemplateDataModel result = modelBuilder.build();</span>
+
+<span class="fc" id="L78">        return result;</span>
+    }
+
+
+    /**
+     *
+     */
+    private void buildAuthors(
+            final TemplateDataModel.Builder modelBuilder,
+            final DocumentHeader header) {
+
+<span class="fc" id="L89">        java.util.List&lt;Author&gt; authors = header.getAuthors();</span>
+
+        // This convoluted logic is needed because
+        // DocumentHeader.getAuthor(), DocumentHeader.getAuthors() do
+        // not behave consistently with each other.
+
+<span class="fc bfc" id="L95" title="All 2 branches covered.">        if ( !authors.isEmpty() ) {</span>
+<span class="fc" id="L96">            List.ofAll(authors).forEach(</span>
+<span class="fc" id="L97">                    a -&gt; modelBuilder.addAuthor(a.getFullName(), a.getEmail()));</span>
+        } else {
+<span class="fc" id="L99">            Author singleAuthor = header.getAuthor();</span>
+
+<span class="pc bpc" id="L101" title="1 of 4 branches missed.">            if ( (singleAuthor!=null) &amp;&amp; (singleAuthor.getFullName()!=null) )  {</span>
+<span class="fc" id="L102">                modelBuilder.addAuthor(</span>
+<span class="fc" id="L103">                        singleAuthor.getFullName(),</span>
+<span class="fc" id="L104">                        singleAuthor.getEmail());</span>
+            }
+        }
+<span class="fc" id="L107">    }</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

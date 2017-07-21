@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FileBaker.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">FileBaker.java</span></div><h1>FileBaker.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2016-2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.core;
+
+import java.nio.file.Path;
+
+import javaslang.Tuple;
+import javaslang.collection.HashMap;
+import javaslang.collection.Map;
+import javaslang.collection.Seq;
+import javaslang.control.Option;
+
+import com.varmateo.yawg.api.BakerService;
+import com.varmateo.yawg.api.PageContext;
+import com.varmateo.yawg.api.YawgException;
+import com.varmateo.yawg.logging.Log;
+import com.varmateo.yawg.util.Exceptions;
+
+
+/**
+ * 
+ */
+/* package private */ final class FileBaker {
+
+
+    private final Log _log;
+    private final Seq&lt;BakerService&gt; _bakers;
+    private final BakerService _defaultBaker;
+
+    // Keys are baker names (aka baker types), values are the
+    // corresponding bakers. This map also includes the default baker.
+    private final Map&lt;String, BakerService&gt; _allBakersByType;
+
+
+    /**
+     * @param log The logger that will be used for logging.
+     */
+    FileBaker(
+            final Log log,
+            final Seq&lt;BakerService&gt; bakers,
+<span class="fc" id="L45">            final BakerService defaultBaker) {</span>
+
+<span class="fc" id="L47">        _log = log;</span>
+<span class="fc" id="L48">        _bakers = bakers;</span>
+<span class="fc" id="L49">        _defaultBaker = defaultBaker;</span>
+<span class="fc" id="L50">        _allBakersByType =</span>
+<span class="fc" id="L51">                HashMap.ofEntries(</span>
+<span class="pc" id="L52">                        bakers.map(b -&gt; Tuple.of(b.getShortName(), b)))</span>
+<span class="fc" id="L53">                .put(defaultBaker.getShortName(), defaultBaker);</span>
+<span class="fc" id="L54">    }</span>
+
+
+    /**
+     * 
+     */
+    public void bakeFile(
+            final Path sourcePath,
+            final PageContext context,
+            final Path targetDir,
+            final DirBakerConf dirBakerConf)
+            throws YawgException {
+
+<span class="fc" id="L67">        BakerService baker = findBaker(sourcePath, dirBakerConf);</span>
+<span class="fc" id="L68">        long startTime = System.currentTimeMillis();</span>
+
+<span class="fc" id="L70">        baker.bake(sourcePath, context, targetDir);</span>
+
+<span class="fc" id="L72">        long delay = System.currentTimeMillis() - startTime;</span>
+<span class="fc" id="L73">        Path sourceBasename = sourcePath.getFileName();</span>
+<span class="fc" id="L74">        _log.debug(</span>
+                &quot;    {1}: {0} ({2}ms)&quot;,
+                sourceBasename,
+<span class="fc" id="L77">                baker.getShortName(),</span>
+<span class="fc" id="L78">                String.valueOf(delay));</span>
+<span class="fc" id="L79">    }</span>
+
+
+    /**
+     * @throws YawgException Thrown if the directory configuration
+     * specifies a baker type that is unknown.
+     */
+    private BakerService findBaker(
+            final Path sourcePath,
+            final DirBakerConf dirBakerConf)
+            throws YawgException {
+
+<span class="fc" id="L91">        BakerService baker =</span>
+                dirBakerConf.bakerTypes
+<span class="pc" id="L93">                .flatMap(bakerTypes -&gt; bakerTypes.getBakerTypeFor(sourcePath))</span>
+<span class="pc" id="L94">                .map(bakerType -&gt; findBakerWithType(bakerType))</span>
+<span class="fc" id="L95">                .getOrElse(() -&gt; findBakerFromAll(sourcePath));</span>
+
+<span class="fc" id="L97">        return baker;</span>
+    }
+
+
+    /**
+     *
+     */
+    private BakerService findBakerWithType(final String bakerType)
+            throws YawgException {
+
+<span class="nc" id="L107">        Option&lt;BakerService&gt; baker = _allBakersByType.get(bakerType);</span>
+
+<span class="nc bnc" id="L109" title="All 2 branches missed.">        if ( !baker.isDefined() ) {</span>
+<span class="nc" id="L110">            throw Exceptions.raise(&quot;Unknown baker type \&quot;{0}\&quot;&quot;, bakerType);</span>
+        }
+
+<span class="nc" id="L113">        return baker.get();</span>
+    }
+
+
+    /**
+     *
+     */
+    private BakerService findBakerFromAll(final Path sourcePath) {
+
+<span class="fc" id="L122">        return _bakers</span>
+<span class="pc" id="L123">                .filter(candidate -&gt; candidate.isBakeable(sourcePath))</span>
+<span class="fc" id="L124">                .headOption()</span>
+<span class="fc" id="L125">                .getOrElse(_defaultBaker);</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

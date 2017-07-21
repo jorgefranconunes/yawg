@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ActorSystem.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.actor</a> &gt; <span class="el_source">ActorSystem.java</span></div><h1>ActorSystem.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.actor;
+
+import java.util.concurrent.Executor;
+
+import com.varmateo.yawg.actor.ActorFactory;
+import com.varmateo.yawg.actor.ActorRefImpl;
+
+
+/**
+ * Manages a set of actors.
+ *
+ * &lt;p&gt;The actors managed by one given &lt;code&gt;ActorSystem&lt;/code&gt; have
+ * their methods executed by one of the threads in the
+ * &lt;code&gt;Executor&lt;/code&gt; specified at constructor time.&lt;/p&gt;
+ */
+public final class ActorSystem {
+
+
+    private final Executor _executor;
+
+
+    /**
+     * @param executor Used for executing actor methods.
+     */
+<span class="fc" id="L31">    public ActorSystem(final Executor executor) {</span>
+
+<span class="fc" id="L33">        _executor = executor;</span>
+<span class="fc" id="L34">    }</span>
+
+
+    /**
+     * Creates a new actor.
+     *
+     * &lt;p&gt;A new actor instance is created through the provided
+     * &lt;code&gt;{@link ActorFactory}&lt;/code&gt;. A proxy for that actor
+     * instance will then be returned. The actor proxy is the visible
+     * face of the actor for the outside world. The actor proxy,
+     * working within the actor system, has the responsability to
+     * ensure the actor methods are called in sequence, and never
+     * concurrently.&lt;/p&gt;
+     *
+     * @param &lt;T&gt; Type of objects to be created. This will have to be
+     * an interface type.
+     *
+     * @param actorFactory Used for creating an actual actor
+     * instance.
+     *
+     * @param actorType The class object of the interface the actor
+     * instance implements. This will also be the type of the returned
+     * proxy actor.
+     *
+     * @return An object implementing the given &lt;code&gt;actorType&lt;/code&gt;
+     * interface. That object is a proxy for the actor instance
+     * created with the &lt;code&gt;ActorFactory&lt;/code&gt;.
+     */
+    public &lt;T&gt; T createActor(
+            final ActorFactory&lt;T&gt; actorFactory,
+            final Class&lt;T&gt; actorType) {
+
+<span class="fc" id="L66">        ActorRefImpl&lt;T&gt; actorRef = new ActorRefImpl&lt;&gt;(actorType, _executor);</span>
+<span class="fc" id="L67">        T actorCore = actorFactory.newActor(actorRef);</span>
+
+<span class="fc" id="L69">        actorRef.setActorCore(actorCore);</span>
+
+<span class="fc" id="L71">        return actorRef.self();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

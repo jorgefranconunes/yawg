@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CollectiveTemplateService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">CollectiveTemplateService.java</span></div><h1>CollectiveTemplateService.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2016-2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.core;
+
+import java.util.Optional;
+import java.util.function.Function;
+
+import javaslang.collection.Seq;
+import javaslang.control.Option;
+
+import com.varmateo.yawg.api.Template;
+import com.varmateo.yawg.api.TemplateService;
+import com.varmateo.yawg.api.YawgException;
+
+import com.varmateo.yawg.util.Exceptions;
+
+
+/**
+ * 
+ */
+/* package private */ final class CollectiveTemplateService
+        implements TemplateService {
+
+
+    private final Function&lt;String,Optional&lt;Template&gt;&gt; _templateFetcher;
+
+
+    /**
+     *
+     */
+<span class="nc" id="L35">    CollectiveTemplateService(final Seq&lt;TemplateService&gt; services) {</span>
+
+<span class="nc bnc" id="L37" title="All 2 branches missed.">        if ( services.isEmpty() ) {</span>
+<span class="nc" id="L38">            _templateFetcher = name -&gt; Optional.empty();</span>
+        } else {
+<span class="nc" id="L40">            _templateFetcher = name -&gt; getTemplateFromServices(services, name);</span>
+        }
+<span class="nc" id="L42">    }</span>
+
+
+    /**
+     * {@inheritDoc}
+     */
+    public Optional&lt;Template&gt; getTemplate(final String name)
+            throws YawgException {
+
+<span class="nc" id="L51">        return _templateFetcher.apply(name);</span>
+    }
+
+
+    /**
+     *
+     */
+    private static Optional&lt;Template&gt; getTemplateFromServices(
+            final Seq&lt;TemplateService&gt; services,
+            final String name)
+            throws YawgException {
+
+<span class="nc" id="L63">        Option&lt;Template&gt; result = services</span>
+<span class="nc" id="L64">                .map(service -&gt; service.getTemplate(name))</span>
+<span class="nc" id="L65">                .map(Option::ofOptional)</span>
+<span class="nc" id="L66">                .filter(Option::isDefined)</span>
+<span class="nc" id="L67">                .map(Option::get)</span>
+<span class="nc" id="L68">                .headOption();</span>
+
+<span class="nc bnc" id="L70" title="All 2 branches missed.">        if ( !result.isDefined() ) {</span>
+<span class="nc" id="L71">            throw Exceptions.raise(&quot;Unsupported template format \&quot;{0}\&quot;&quot;, name);</span>
+        }
+
+<span class="nc" id="L74">        return result.toJavaOptional();</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

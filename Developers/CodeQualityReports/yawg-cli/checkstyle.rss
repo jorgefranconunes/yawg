@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<rss version="0.91">
+  <channel>
+    <title>Yawg CLI - Checkstyle report</title>
+    <link>http://yawg.varmateo.com/yawg-cli/</link>
+    <description>Yawg CLI - Checkstyle report</description>
+    <language>en-us</language>
+    <copyright>&#169;2015 - 2017</copyright>
+    <item>
+      <title>File: 13,
+             Errors: 37,
+             Warnings: 0,
+             Infos: 0
+      </title>
+            <link>http://yawg.varmateo.com/yawg-cli//checkstyle.html</link>
+      <description>
+        <p>Click <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html">here</a> for the full Checkstyle report.</p>
+
+        <table summary="Files" boder="1">
+          <thead>
+            <tr>
+              <th>Files</th>
+              <th style="width:30px;"><abbr title="Info">I</abbr></th>
+              <th style="width:30px;"><abbr title="Warning">W</abbr></th>
+              <th style="width:30px;"><abbr title="Error">E</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+                          <tr>
+                <td>
+                  <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.BakerCliConf.java">com/varmateo/yawg/cli/BakerCliConf.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  8
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.CliOption.java">com/varmateo/yawg/cli/CliOption.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  16
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.BakerCli.java">com/varmateo/yawg/cli/BakerCli.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.PlainFormatter.java">com/varmateo/yawg/cli/PlainFormatter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.LogInitializer.java">com/varmateo/yawg/cli/LogInitializer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.Main.java">com/varmateo/yawg/cli/Main.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.package-info.java">com/varmateo/yawg/cli/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.CliOptions.java">com/varmateo/yawg/cli/CliOptions.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.BakerCliOptions.java">com/varmateo/yawg/cli/BakerCliOptions.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.InfoPrinter.java">com/varmateo/yawg/cli/InfoPrinter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.CliInfoPrinter.java">com/varmateo/yawg/cli/CliInfoPrinter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.JulLogInitializer.java">com/varmateo/yawg/cli/JulLogInitializer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.CliException.java">com/varmateo/yawg/cli/CliException.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  12
+                </td>
+              </tr>
+                      </tbody>
+        </table>
+        
+      </description>
+    </item>
+  </channel>
+</rss>
+

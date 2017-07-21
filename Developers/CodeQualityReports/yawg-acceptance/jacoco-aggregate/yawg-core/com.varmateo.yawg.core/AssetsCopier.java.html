@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>AssetsCopier.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">AssetsCopier.java</span></div><h1>AssetsCopier.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.core;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Optional;
+
+import com.varmateo.yawg.api.YawgException;
+import com.varmateo.yawg.logging.LogWithUtils;
+import com.varmateo.yawg.util.Exceptions;
+
+
+/**
+ * Responsible for copying assets to the target directory.
+ */
+/* package private */ final class AssetsCopier {
+
+
+    private final LogWithUtils _log;
+    private final Optional&lt;Path&gt; _assetsDir;
+    private final Path _targetDir;
+
+
+    /**
+     * @param conf All the parameters needed for performing a bake.
+     */
+    AssetsCopier(
+            final LogWithUtils log,
+            final Optional&lt;Path&gt; assetsDir,
+<span class="fc" id="L40">            final Path targetDir) {</span>
+
+<span class="fc" id="L42">        _log = log;</span>
+<span class="fc" id="L43">        _assetsDir = assetsDir;</span>
+<span class="fc" id="L44">        _targetDir = targetDir;</span>
+<span class="fc" id="L45">    }</span>
+
+
+    /**
+     *
+     */
+    public void copy()
+            throws YawgException {
+
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        if ( _assetsDir.isPresent() ) {</span>
+<span class="fc" id="L55">            _log.logDelay(</span>
+                    &quot;copying assets&quot;,
+<span class="fc" id="L57">                    () -&gt; doCopy(_assetsDir.get(), _targetDir));</span>
+        } else {
+<span class="fc" id="L59">            _log.debug(&quot;No assets directory to copy&quot;);</span>
+        }
+<span class="fc" id="L61">    }</span>
+
+
+    /**
+     *
+     */
+    private static void doCopy(
+            final Path sourceDir,
+            final Path targetDir)
+            throws YawgException {
+
+        try {
+<span class="fc" id="L73">            copyDirectoryTree(sourceDir, targetDir);</span>
+<span class="fc" id="L74">        } catch ( IOException e ) {</span>
+<span class="pc" id="L75">            Exceptions.raise(</span>
+                    e,
+                    &quot;Failed to copy assets - {0} - {1}&quot;,
+<span class="fc" id="L78">                    e.getClass().getSimpleName(),</span>
+<span class="fc" id="L79">                    e.getMessage());</span>
+<span class="fc" id="L80">        }</span>
+<span class="fc" id="L81">    }</span>
+
+
+    /**
+     *
+     */
+    private static void copyDirectoryTree(
+            final Path sourceDir,
+            final Path targetDir)
+            throws IOException {
+
+<span class="fc" id="L92">        Files.walkFileTree(</span>
+                sourceDir,
+<span class="fc" id="L94">                new SimpleFileVisitor&lt;Path&gt;() {</span>
+                    @Override
+                    public FileVisitResult preVisitDirectory(
+                            final Path dir,
+                            final BasicFileAttributes attrs)
+                            throws IOException {
+<span class="fc" id="L100">                        Path childTargetDir =</span>
+<span class="fc" id="L101">                                targetDir.resolve(sourceDir.relativize(dir));</span>
+<span class="fc bfc" id="L102" title="All 2 branches covered.">                        if ( !Files.exists(childTargetDir) ) {</span>
+<span class="fc" id="L103">                            Files.createDirectory(childTargetDir);</span>
+                        }
+<span class="fc" id="L105">                        return FileVisitResult.CONTINUE;</span>
+                    }
+                    @Override
+                    public FileVisitResult visitFile(
+                            final Path file,
+                            final BasicFileAttributes attrs)
+                            throws IOException {
+<span class="fc" id="L112">                        Files.copy(</span>
+                                file,
+<span class="fc" id="L114">                                targetDir.resolve(sourceDir.relativize(file)),</span>
+                                StandardCopyOption.REPLACE_EXISTING,
+                                StandardCopyOption.COPY_ATTRIBUTES);
+<span class="fc" id="L117">                        return FileVisitResult.CONTINUE;</span>
+                    }
+                });
+<span class="fc" id="L120">    }</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

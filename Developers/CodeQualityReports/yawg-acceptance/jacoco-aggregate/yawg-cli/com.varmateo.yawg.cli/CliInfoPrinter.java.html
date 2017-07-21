@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>CliInfoPrinter.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-cli</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.cli</a> &gt; <span class="el_source">CliInfoPrinter.java</span></div><h1>CliInfoPrinter.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2015-2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.cli;
+
+import java.io.PrintWriter;
+import java.text.MessageFormat;
+
+import javaslang.collection.Set;
+
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Options;
+
+import com.varmateo.yawg.cli.CliException;
+import com.varmateo.yawg.cli.CliOption;
+
+
+/**
+ * Provides utility methods for printing help and varied info intended
+ * for end users.
+ */
+/* package private */ final class CliInfoPrinter {
+
+
+    private static final String DEFAULT_ARGV0 = &quot;&quot;;
+    private static final String DEFAULT_VERSION = &quot;&quot;;
+    private static final String DEFAULT_USAGE_HEADER = &quot;&quot;;
+    private static final String DEFAULT_USAGE_FOOTER = &quot;&quot;
+        + &quot;\n&quot;;
+
+    private static final String ERROR_FMT = &quot;&quot;
+        + &quot;\n&quot;
+        + &quot;{0}: {1}\n&quot;;
+
+<span class="fc" id="L38">    private String _argv0 = null;</span>
+<span class="fc" id="L39">    private String _versionMessage = null;</span>
+<span class="fc" id="L40">    private String _usageMessageHeader = null;</span>
+<span class="fc" id="L41">    private String _usageMessageFooter = null;</span>
+
+
+    /**
+     * Only used internally.
+     *
+     */
+<span class="fc" id="L48">    private CliInfoPrinter(final Builder builder) {</span>
+
+<span class="fc" id="L50">        _argv0 = builder._argv0;</span>
+<span class="fc" id="L51">        _versionMessage = builder._versionMessage;</span>
+<span class="fc" id="L52">        _usageMessageHeader = builder._usageMessageHeader;</span>
+<span class="fc" id="L53">        _usageMessageFooter = builder._usageMessageFooter;</span>
+<span class="fc" id="L54">    }</span>
+
+
+    /**
+     * Creates a new builder with no initializations.
+     *
+     * @return A newly created &lt;code&gt;Builder&lt;/code&gt; instance.
+     */
+    public static Builder builder() {
+
+<span class="fc" id="L64">        Builder result = new Builder();</span>
+
+<span class="fc" id="L66">        return result;</span>
+    }
+
+
+    /**
+     *
+     */
+    public void printUsage(
+            final PrintWriter output,
+            final Set&lt;CliOption&gt; options) {
+
+<span class="fc" id="L77">        String header = MessageFormat.format(_usageMessageHeader, _argv0);</span>
+<span class="fc" id="L78">        String footer = _usageMessageFooter;</span>
+
+<span class="fc" id="L80">        output.println(header);</span>
+
+<span class="fc" id="L82">        Options       apacheOptions = buildApacheOptions(options);</span>
+<span class="fc" id="L83">        HelpFormatter formatter = new HelpFormatter();</span>
+
+<span class="fc" id="L85">        formatter.printOptions(</span>
+                output,
+                HelpFormatter.DEFAULT_WIDTH,
+                apacheOptions,
+                HelpFormatter.DEFAULT_LEFT_PAD,
+                HelpFormatter.DEFAULT_DESC_PAD);
+
+<span class="fc" id="L92">        output.println(footer);</span>
+<span class="fc" id="L93">    }</span>
+
+
+    /**
+     *
+     */
+    private static Options
+        buildApacheOptions(final Set&lt;CliOption&gt; options) {
+
+<span class="fc" id="L102">        return options</span>
+<span class="fc" id="L103">                .map(CliOption::apacheOption)</span>
+<span class="fc" id="L104">                .foldLeft(</span>
+                        new Options(),
+<span class="fc" id="L106">                        (xs, x) -&gt; xs.addOption(x));</span>
+    }
+
+
+    /**
+     *
+     */
+    public void printVersion(final PrintWriter output) {
+
+<span class="fc" id="L115">        output.println(_versionMessage);</span>
+<span class="fc" id="L116">    }</span>
+
+
+    /**
+     *
+     */
+    public void printError(
+            final PrintWriter  output,
+            final CliException error) {
+
+<span class="fc" id="L126">        String errorMsg = error.getMessage();</span>
+<span class="fc" id="L127">        String msg      = MessageFormat.format(ERROR_FMT, _argv0, errorMsg);</span>
+
+<span class="fc" id="L129">        output.println(msg);</span>
+<span class="fc" id="L130">    }</span>
+
+
+    /**
+     * A builder of &lt;code&gt;CliInfoPrinter&lt;/code&gt; instances.
+     */
+    public static final class Builder {
+
+
+<span class="fc" id="L139">        private String _argv0 = DEFAULT_ARGV0;</span>
+<span class="fc" id="L140">        private String _versionMessage = DEFAULT_VERSION;</span>
+<span class="fc" id="L141">        private String _usageMessageHeader = DEFAULT_USAGE_HEADER;</span>
+<span class="fc" id="L142">        private String _usageMessageFooter = DEFAULT_USAGE_FOOTER;</span>
+
+
+        /**
+         *
+         */
+<span class="fc" id="L148">        private Builder() {</span>
+            // Nothing to do.
+<span class="fc" id="L150">        }</span>
+
+
+        /**
+         *
+         */
+        public Builder setArgv0(final String argv0) {
+
+<span class="fc" id="L158">            _argv0 = argv0;</span>
+
+<span class="fc" id="L160">            return this;</span>
+        }
+
+
+        /**
+         *
+         */
+        public Builder setVersionMessage(final String versionMessage) {
+
+<span class="fc" id="L169">            _versionMessage = versionMessage;</span>
+
+<span class="fc" id="L171">            return this;</span>
+        }
+
+
+        /**
+         *
+         */
+        public Builder setUsageMessageHeader(final String usageMessageHeader) {
+
+<span class="fc" id="L180">            _usageMessageHeader = usageMessageHeader;</span>
+
+<span class="fc" id="L182">            return this;</span>
+        }
+
+
+        /**
+         *
+         */
+        public Builder setUsageMessageFooter(final String usageMessageFooter) {
+
+<span class="fc" id="L191">            _usageMessageFooter = usageMessageFooter;</span>
+
+<span class="fc" id="L193">            return this;</span>
+        }
+
+
+        /**
+         *
+         */
+        public CliInfoPrinter build() {
+
+<span class="fc" id="L202">            CliInfoPrinter result = new CliInfoPrinter(this);</span>
+
+<span class="fc" id="L204">            return result;</span>
+        }
+
+
+    }
+
+
+}
+
+
+
+
+
+/**************************************************************************
+ *
+ * 
+ *
+ **************************************************************************/
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

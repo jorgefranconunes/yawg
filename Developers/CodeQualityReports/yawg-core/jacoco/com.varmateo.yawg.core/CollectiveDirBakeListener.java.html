@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CollectiveDirBakeListener.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">CollectiveDirBakeListener.java</span></div><h1>CollectiveDirBakeListener.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2016-2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.core;
+
+import javaslang.collection.Seq;
+
+import com.varmateo.yawg.api.DirBakeListener;
+import com.varmateo.yawg.api.PageContext;
+import com.varmateo.yawg.api.PageVars;
+
+
+/**
+ *
+ */
+/* package private */ final class CollectiveDirBakeListener
+        implements DirBakeListener {
+
+
+    private final Seq&lt;DirBakeListener&gt; _listeners;
+
+
+    /**
+     *
+     */
+<span class="fc" id="L29">    CollectiveDirBakeListener(final Seq&lt;DirBakeListener&gt; listeners) {</span>
+
+<span class="fc" id="L31">        _listeners = listeners;</span>
+<span class="fc" id="L32">    }</span>
+
+
+    /**
+     *
+     */
+    @Override
+    public PageVars onDirBake(final PageContext context) {
+
+<span class="fc" id="L41">        return _listeners</span>
+<span class="fc" id="L42">                .foldLeft(</span>
+                        context,
+<span class="fc" id="L44">                        (xs, listener) -&gt; augmentContext(xs, listener))</span>
+<span class="fc" id="L45">                .getPageVars();</span>
+    }
+
+
+    private static PageContext augmentContext(
+            final PageContext context,
+            final DirBakeListener listener) {
+
+<span class="fc" id="L53">        PageVars newVars = listener.onDirBake(context);</span>
+<span class="fc" id="L54">        PageContext newContext = PageContext.builder(context)</span>
+<span class="fc" id="L55">                .setPageVars(newVars)</span>
+<span class="fc" id="L56">                .build();</span>
+
+<span class="fc" id="L58">        return newContext;</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

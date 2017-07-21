@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Services.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.util</a> &gt; <span class="el_source">Services.java</span></div><h1>Services.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2016-2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.util;
+
+import java.util.Iterator;
+import java.util.ServiceLoader;
+
+import javaslang.collection.List;
+import javaslang.collection.Seq;
+
+
+/**
+ * Utility functions to support common use cases in the Java
+ * service-provider loading facility.
+ */
+public final class Services {
+
+    /**
+     * No instances of this class are to be created.
+     */
+<span class="nc" id="L25">    private Services() {</span>
+        // Nothing to do.
+<span class="nc" id="L27">    }</span>
+
+
+    /**
+     * Retrieves all available services of the given class.
+     *
+     * @param &lt;T&gt; The type os services to retrieve.
+     *
+     * @param klass The class of the services we are searching for.
+     *
+     * @return All available services of the given class.
+     */
+    public static &lt;T&gt; Seq&lt;T&gt; getAll(final Class&lt;T&gt; klass) {
+
+<span class="fc" id="L41">        ServiceLoader&lt;T&gt; loader = ServiceLoader.load(klass);</span>
+<span class="fc" id="L42">        Iterator&lt;T&gt; allServices = loader.iterator();</span>
+<span class="fc" id="L43">        Iterable&lt;T&gt; iterable = new Iterable&lt;T&gt;() {</span>
+                @Override
+                public Iterator&lt;T&gt; iterator() {
+<span class="fc" id="L46">                    return allServices;</span>
+                }
+            };
+<span class="fc" id="L49">        Seq&lt;T&gt; result = List.ofAll(iterable);</span>
+
+<span class="fc" id="L51">        return result;</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

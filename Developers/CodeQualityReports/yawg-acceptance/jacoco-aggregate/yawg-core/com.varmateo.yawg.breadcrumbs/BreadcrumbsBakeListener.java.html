@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BreadcrumbsBakeListener.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.breadcrumbs</a> &gt; <span class="el_source">BreadcrumbsBakeListener.java</span></div><h1>BreadcrumbsBakeListener.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2016-2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.breadcrumbs;
+
+import java.util.Optional;
+
+import com.varmateo.yawg.api.DirBakeListener;
+import com.varmateo.yawg.api.PageContext;
+import com.varmateo.yawg.api.PageVars;
+import com.varmateo.yawg.api.YawgException;
+import com.varmateo.yawg.breadcrumbs.BreadcrumbItem;
+import com.varmateo.yawg.breadcrumbs.Breadcrumbs;
+import com.varmateo.yawg.util.SimpleMap;
+
+
+/**
+ *
+ */
+public final class BreadcrumbsBakeListener
+        implements DirBakeListener {
+
+
+    private static final String VAR_BREADCRUMB = &quot;breadcrumb&quot;;
+    private static final String VAR_BREADCRUMB_LIST = &quot;breadcrumbs&quot;;
+
+    private static final String ATTR_TITLE = &quot;title&quot;;
+    private static final String ATTR_URL = &quot;url&quot;;
+
+
+    /**
+     *
+     */
+<span class="fc" id="L37">    public BreadcrumbsBakeListener() {</span>
+        // Nothing to do.
+<span class="fc" id="L39">    }</span>
+
+
+    /**
+     *
+     */
+    @Override
+    public PageVars onDirBake(final PageContext context)
+            throws YawgException {
+
+<span class="fc" id="L49">        SimpleMap vars = new SimpleMap(context.getPageVars().asMap());</span>
+<span class="fc" id="L50">        Breadcrumbs oldBreadcrumbs = getBreadcrumbs(vars);</span>
+<span class="fc" id="L51">        BreadcrumbItem newBreadcrumbItem =</span>
+<span class="fc" id="L52">                buildBreadcrumbItem(vars, context.getDirUrl());</span>
+<span class="fc" id="L53">        Breadcrumbs newBreadcrumbs =</span>
+<span class="fc" id="L54">                extendBreadcrumbs(oldBreadcrumbs, newBreadcrumbItem);</span>
+<span class="fc" id="L55">        PageVars newVars = updateBreadcrumbs(newBreadcrumbs);</span>
+
+<span class="fc" id="L57">        return newVars;</span>
+    }
+
+
+    /**
+     *
+     */
+    private Breadcrumbs getBreadcrumbs(final SimpleMap vars) {
+
+<span class="fc" id="L66">        Optional&lt;Breadcrumbs&gt; optBreadcrumbs =</span>
+<span class="fc" id="L67">                vars.get(VAR_BREADCRUMB_LIST, Breadcrumbs.class);</span>
+<span class="fc" id="L68">        Breadcrumbs result = optBreadcrumbs.orElseGet(Breadcrumbs::empty);</span>
+
+<span class="fc" id="L70">        return result;</span>
+    }
+
+
+    /**
+     *
+     */
+    private BreadcrumbItem buildBreadcrumbItem(
+            final SimpleMap vars,
+            final String dirUrl) {
+
+<span class="fc" id="L81">        Optional&lt;SimpleMap&gt; itemData = vars.getMap(VAR_BREADCRUMB);</span>
+<span class="fc" id="L82">        String title =</span>
+                itemData
+<span class="pc" id="L84">                .flatMap(m -&gt; m.getString(ATTR_TITLE))</span>
+<span class="fc" id="L85">                .orElseGet(() -&gt; basenameOf(dirUrl));</span>
+<span class="fc" id="L86">        String url =</span>
+                itemData
+<span class="pc" id="L88">                .flatMap(m -&gt; m.getString(ATTR_URL))</span>
+<span class="pc" id="L89">                .map(s -&gt; dirUrl + &quot;/&quot; + s)</span>
+<span class="fc" id="L90">                .orElse(dirUrl);</span>
+
+<span class="fc" id="L92">        BreadcrumbItem result = new BreadcrumbItem(title, url);</span>
+
+<span class="fc" id="L94">        return result;</span>
+    }
+
+
+    /**
+     * Basename without extension.
+     */
+    private String basenameOf(final String url) {
+
+<span class="fc" id="L103">        int index = url.lastIndexOf('/');</span>
+<span class="pc bpc" id="L104" title="1 of 2 branches missed.">        String result = (index!=-1) ? url.substring(index+1) : url;</span>
+
+<span class="fc" id="L106">        return result;</span>
+    }
+
+
+    /**
+     *
+     */
+    private Breadcrumbs extendBreadcrumbs(
+            final Breadcrumbs oldBreadcrumbs,
+            final BreadcrumbItem newBreadcrumbItem) {
+
+<span class="fc" id="L117">        Breadcrumbs newBreadcrumbs =</span>
+<span class="fc" id="L118">                Breadcrumbs.builder(oldBreadcrumbs)</span>
+<span class="fc" id="L119">                .addBreadcrumbItem(newBreadcrumbItem)</span>
+<span class="fc" id="L120">                .build();</span>
+
+<span class="fc" id="L122">        return newBreadcrumbs;</span>
+    }
+
+
+    /**
+     *
+     */
+    private PageVars updateBreadcrumbs(final Breadcrumbs newBreadcrumbs) {
+
+        PageVars newVars =
+<span class="fc" id="L132">                PageVars.builder()</span>
+<span class="fc" id="L133">                .addVar(VAR_BREADCRUMB_LIST, newBreadcrumbs)</span>
+<span class="fc" id="L134">                .build();</span>
+
+<span class="fc" id="L136">        return newVars;</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

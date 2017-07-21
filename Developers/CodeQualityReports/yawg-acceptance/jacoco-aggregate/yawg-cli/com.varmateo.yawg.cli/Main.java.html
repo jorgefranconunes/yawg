@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-cli</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.cli</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2015-2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.cli;
+
+import com.varmateo.yawg.cli.BakerCli;
+import com.varmateo.yawg.cli.BakerCliConf;
+
+
+/**
+ * Program for baking a site from a directory tree.
+ */
+public final class Main {
+
+
+    private static final String DEFAULT_ARGV0 = &quot;yawg&quot;;
+
+    // Name of system property whose value is to be used as argv0.
+<span class="nc" id="L22">    private static final String PROP_ARGV = Main.class.getName() + &quot;.argv0&quot;;</span>
+
+
+    /**
+     * No instances of this class are to be created.
+     */
+<span class="nc" id="L28">    private Main() {</span>
+        // Nothing to do.
+<span class="nc" id="L30">    }</span>
+
+
+    /**
+     * Main program.
+     *
+     * @param args Command line arguments.
+     */
+     public static void main(final String[] args) {
+
+<span class="nc" id="L40">         String argv0 = System.getProperty(PROP_ARGV, DEFAULT_ARGV0);</span>
+         BakerCliConf conf =
+<span class="nc" id="L42">                 BakerCliConf.builder()</span>
+<span class="nc" id="L43">                 .setArgv0(argv0)</span>
+<span class="nc" id="L44">                 .addArgs(args)</span>
+<span class="nc" id="L45">                 .setOutput(System.out)</span>
+<span class="nc" id="L46">                 .build();</span>
+<span class="nc" id="L47">         BakerCli bakerCli = new BakerCli(conf);</span>
+<span class="nc" id="L48">         int exitStatus = bakerCli.run();</span>
+
+<span class="nc" id="L50">         System.exit(exitStatus);</span>
+<span class="nc" id="L51">    }</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

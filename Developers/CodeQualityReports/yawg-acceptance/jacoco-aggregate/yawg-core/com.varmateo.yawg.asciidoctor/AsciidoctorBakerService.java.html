@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>AsciidoctorBakerService.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.asciidoctor</a> &gt; <span class="el_source">AsciidoctorBakerService.java</span></div><h1>AsciidoctorBakerService.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2016-2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.asciidoctor;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.regex.Pattern;
+
+import org.asciidoctor.Asciidoctor;
+import org.asciidoctor.OptionsBuilder;
+import org.asciidoctor.internal.AsciidoctorCoreException;
+
+import com.varmateo.yawg.api.BakerService;
+import com.varmateo.yawg.api.PageContext;
+import com.varmateo.yawg.api.Template;
+import com.varmateo.yawg.api.TemplateDataModel;
+import com.varmateo.yawg.api.YawgException;
+import com.varmateo.yawg.asciidoctor.AsciidoctorBakerDataModelBuilder;
+import com.varmateo.yawg.util.Exceptions;
+import com.varmateo.yawg.util.FileUtils;
+import com.varmateo.yawg.util.Holder;
+
+
+/**
+ * A &lt;code&gt;Baker&lt;/code&gt; that translates text files in Asciidoc format
+ * into HTML files.
+ */
+/* package private */ final class AsciidoctorBakerService
+        implements BakerService {
+
+
+    private static final String NAME = &quot;asciidoc&quot;;
+
+<span class="fc" id="L41">    private static final Pattern RE_ADOC = Pattern.compile(&quot;.*\\.adoc$&quot;);</span>
+
+    private static final String TARGET_EXTENSION = &quot;.html&quot;;
+
+<span class="fc" id="L45">    private final Holder&lt;Asciidoctor&gt; _asciidoctor =</span>
+<span class="fc" id="L46">            Holder.of(this::newAsciidoctor);</span>
+
+<span class="fc" id="L48">    private final Holder&lt;AsciidoctorBakerDataModelBuilder&gt; _modelBuilder =</span>
+<span class="fc" id="L49">            Holder.of(this::newAsciidoctorBakerDataModelBuilder);</span>
+
+
+    /**
+     * 
+     */
+<span class="fc" id="L55">    AsciidoctorBakerService() {</span>
+        // Nothing to do. Really.
+<span class="fc" id="L57">    }</span>
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getShortName() {
+
+<span class="fc" id="L66">        return NAME;</span>
+    }
+
+
+    /**
+     * Checks if the given file name has one of the known extensions.
+     *
+     * &lt;p&gt;The following extensions will be allowed:&lt;/p&gt;
+     *
+     * &lt;ul&gt;
+     *   &lt;li&gt;.adoc&lt;/li&gt;
+     * &lt;/ul&gt;
+     *
+     * @return True if the given file name has one of the allowed
+     * extensions.
+     */
+    @Override
+    public boolean isBakeable(final Path path) {
+
+<span class="fc" id="L85">        return FileUtils.isNameMatch(path, RE_ADOC);</span>
+    }
+
+
+    /**
+     * Converts the given text file in Asciidoc format into an HTML
+     * file.
+     *
+     * &lt;p&gt;The target directory must already exist. Otherwise an
+     * exception will be thrown.&lt;/p&gt;
+     *
+     * @param sourcePath The file to be baked.
+     *
+     * @param context Provides the template for generating the target
+     * document. If no template is provided, then the default
+     * AsciidoctorJ document generator will be used.
+     *
+     * @param targetDir The directory where the source file will be
+     * copied to.
+     *
+     * @exception YawgException Thrown if the copying failed for
+     * whatever reason.
+     */
+    @Override
+    public void bake(
+            final Path sourcePath,
+            final PageContext context,
+            final Path targetDir)
+            throws YawgException {
+
+        try {
+<span class="fc" id="L116">            doBake(sourcePath, context, targetDir);</span>
+<span class="nc" id="L117">        } catch ( AsciidoctorCoreException | IOException e ) {</span>
+<span class="nc" id="L118">            Exceptions.raise(</span>
+                    e,
+                    &quot;Failed {0} on {1} - {2} - {3}&quot;,
+                    NAME,
+                    sourcePath,
+<span class="nc" id="L123">                    e.getClass().getSimpleName(),</span>
+<span class="nc" id="L124">                    e.getMessage());</span>
+<span class="fc" id="L125">        }</span>
+<span class="fc" id="L126">    }</span>
+
+
+    /**
+     *
+     */
+    private void doBake(
+            final Path sourcePath,
+            final PageContext context,
+            final Path targetDir)
+            throws AsciidoctorCoreException, IOException {
+
+<span class="fc" id="L138">        Path targetPath = getTargetPath(sourcePath, targetDir);</span>
+<span class="fc" id="L139">        Optional&lt;Template&gt; template = context.getTemplateFor(sourcePath);</span>
+
+<span class="fc bfc" id="L141" title="All 2 branches covered.">        if ( template.isPresent() ) {</span>
+<span class="fc" id="L142">            doBakeWithTemplate(</span>
+                    sourcePath,
+                    context,
+                    targetDir,
+                    targetPath,
+<span class="fc" id="L147">                    template.get());</span>
+        } else {
+<span class="fc" id="L149">            doBakeWithoutTemplate(</span>
+                    sourcePath,
+                    context,
+                    targetDir,
+                    targetPath);
+        }
+<span class="fc" id="L155">    }</span>
+
+
+    /**
+     *
+     */
+    private Path getTargetPath(
+            final Path sourcePath,
+            final Path targetDir) {
+
+<span class="fc" id="L165">        String sourceBasename = FileUtils.basename(sourcePath);</span>
+<span class="fc" id="L166">        String targetName = sourceBasename + TARGET_EXTENSION;</span>
+<span class="fc" id="L167">        Path targetPath = targetDir.resolve(targetName);</span>
+
+<span class="fc" id="L169">        return targetPath;</span>
+    }
+
+
+    /**
+     *
+     */
+    private void doBakeWithoutTemplate(
+            final Path sourcePath,
+            final PageContext context,
+            final Path targetDir,
+            final Path targetPath)
+            throws AsciidoctorCoreException {
+
+<span class="fc" id="L183">        OptionsBuilder options = AdocUtils.buildOptionsForBakeWithoutTemplate(</span>
+                sourcePath,
+                targetDir,
+                targetPath,
+<span class="fc" id="L187">                context.getPageVars());</span>
+<span class="fc" id="L188">        File sourceFile = sourcePath.toFile();</span>
+
+<span class="fc" id="L190">        _asciidoctor.get().convertFile(sourceFile, options);</span>
+<span class="fc" id="L191">    }</span>
+
+
+    /**
+     *
+     */
+    private void doBakeWithTemplate(
+            final Path sourcePath,
+            final PageContext context,
+            final Path targetDir,
+            final Path targetPath,
+            final Template template)
+            throws AsciidoctorCoreException, IOException {
+
+<span class="fc" id="L205">        TemplateDataModel dataModel = _modelBuilder.get().build(</span>
+                sourcePath, targetDir, targetPath, context);
+<span class="fc" id="L207">        StringWriter buffer = new StringWriter();</span>
+
+<span class="fc" id="L209">        template.process(dataModel, buffer);</span>
+
+<span class="fc" id="L211">        String content = buffer.toString();</span>
+
+<span class="fc" id="L213">        FileUtils.newWriter(</span>
+                targetPath,
+<span class="fc" id="L215">                writer -&gt; writer.write(content));</span>
+<span class="fc" id="L216">    }</span>
+
+
+    /**
+     *
+     */
+    private Asciidoctor newAsciidoctor() {
+
+<span class="fc" id="L224">        Asciidoctor asciidoctor = Asciidoctor.Factory.create();</span>
+
+        // The following is required for supporting PlantUML diagrams
+        // (cf. http://asciidoctor.org/docs/asciidoctor-diagram/).
+<span class="fc" id="L228">        asciidoctor.requireLibrary(&quot;asciidoctor-diagram/plantuml&quot;);</span>
+
+<span class="fc" id="L230">        return asciidoctor;</span>
+    }
+
+
+    /**
+     *
+     */
+    private AsciidoctorBakerDataModelBuilder newAsciidoctorBakerDataModelBuilder() {
+<span class="fc" id="L238">        return new AsciidoctorBakerDataModelBuilder(_asciidoctor.get());</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
