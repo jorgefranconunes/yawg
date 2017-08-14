@@ -138,10 +138,10 @@ function runJob () {
 
     case "${_jobType}" in
         JOB_FOR_REVIEW )
-            exec ${_scriptDir}/build-create-bundle --with-tests
+            exec ${_scriptDir}/build-bundle --with-tests
             ;;
         JOB_MERGE_TO_MAINLINE )
-            exec ${_scriptDir}/build-create-bundle --with-reports
+            exec ${_scriptDir}/build-bundle --with-reports
             ;;
         *)
             yawgError "Internal error - unknown job type \"${_jobType}\""

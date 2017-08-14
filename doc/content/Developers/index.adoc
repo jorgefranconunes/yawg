@@ -1,11 +1,52 @@
 = Developers
 
+
 Here you will find information intended for the developers of the Yawg
 project.
+
+
+
+
+
+== Instructions
 
 link:DevEnvSetup.html[Setting up the development environment]
 
 link:CreatingRelease.html[Creating a release of the Yawg software]
 
+
+
+
+
+== Code quality
+
+image:https://travis-ci.org/jorgefranconunes/yawg.svg?branch=master["Build Status", link="https://travis-ci.org/jorgefranconunes/yawg"]
+image:https://codecov.io/gh/jorgefranconunes/yawg/branch/master/graph/badge.svg[codecov, link="https://codecov.io/gh/jorgefranconunes/yawg"]
+image:https://img.shields.io/badge/codescene-analyzed-brightgreen.svg[link="https://codescene.io/projects/1434/jobs/latest-successful/results"]
+
 link:CodeQualityReports/index.html[Code quality reports] - Maven
 generated reports for the latest commit in the `master` branch.
+
+
+
+
+
+== Third party services
+
+The Yawg project makes use of some third-party services freely
+available to open source projects.
+
+https://codecov.io/gh/jorgefranconunes/yawg[Codecov] -- Project trends
+in code coverage.
+
+https://codescene.io/projects/1434/jobs/latest-successful/results[CodeScene]
+-- Technical debt analysis.
+
+https://github.com/jorgefranconunes/yawg[GitHub] -- Git repository
+hosting and issue management.
+
+https://oss.sonatype.org/[Sonatype OSSRH] -- Repository hosting
+service for open source project binaries.
+
+https://codecov.io/gh/jorgefranconunes/yawg[Travis CI] -- Automated
+build and test service.

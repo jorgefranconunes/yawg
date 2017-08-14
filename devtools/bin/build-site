@@ -61,6 +61,13 @@ function main () {
 
     yawgLog "${PRODUCT_HEADER}"
 
+    # Small hack. This directory is expected to exist by some Yawg
+    # config files. But it would have been created and populated only
+    # if `build-bundle --with-reports` was previously run. So we
+    # preemptively create it in order not to blow up when running
+    # `build-site` manually.
+    mkdir -p ${_outputDir}/CodeQualityReports
+
     doBakeSite || yawgError "Failed building site."
 
     yawgLog "Done building site."
