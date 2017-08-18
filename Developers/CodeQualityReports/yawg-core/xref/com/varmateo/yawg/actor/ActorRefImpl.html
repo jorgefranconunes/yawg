@@ -30,7 +30,7 @@
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_javadoccomment"> * An internal implementation of &lt;code&gt;ActorRef&lt;/code&gt; intended to be</em>
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment"> * used solely by the &lt;code&gt;ActorSystem&lt;/code&gt; implementation.</em>
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> ActorRefImpl&lt;T&gt;
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_comment">/* default */</em> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> ActorRefImpl&lt;T&gt;
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>          <strong class="jxr_keyword">implements</strong> ActorRef&lt;T&gt; {
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  
@@ -46,7 +46,7 @@
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment">     * @param executor Used for executing actors methods.</em>
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>      <a href="../../../../com/varmateo/yawg/actor/ActorRefImpl.html">ActorRefImpl</a>(
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>      <em class="jxr_comment">/* default */</em> <a href="../../../../com/varmateo/yawg/actor/ActorRefImpl.html">ActorRefImpl</a>(
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>              <strong class="jxr_keyword">final</strong> Class&lt;T&gt; actorType,
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>              <strong class="jxr_keyword">final</strong> Executor executor) {
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  
@@ -75,7 +75,7 @@
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>  <em class="jxr_javadoccomment">     * @param actorCore The object being wrapped by this</em>
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  <em class="jxr_javadoccomment">     * &lt;code&gt;ActorRef&lt;/code&gt;.</em>
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>      <strong class="jxr_keyword">void</strong> setActorCore(<strong class="jxr_keyword">final</strong> T actorCore) {
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>      <em class="jxr_comment">/* default */</em> <strong class="jxr_keyword">void</strong> setActorCore(<strong class="jxr_keyword">final</strong> T actorCore) {
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>  
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>          _proxyInvocationHandler.setActorCore(actorCore);
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>      }
@@ -124,7 +124,7 @@
 <a class="jxr_linenumber" name="L116" href="#L116">116</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L117" href="#L117">117</a> <em class="jxr_javadoccomment">         *</em>
 <a class="jxr_linenumber" name="L118" href="#L118">118</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L119" href="#L119">119</a>         <strong class="jxr_keyword">void</strong> setActorCore(<strong class="jxr_keyword">final</strong> Object actorCore) {
+<a class="jxr_linenumber" name="L119" href="#L119">119</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setActorCore(<strong class="jxr_keyword">final</strong> Object actorCore) {
 <a class="jxr_linenumber" name="L120" href="#L120">120</a> 
 <a class="jxr_linenumber" name="L121" href="#L121">121</a>             _actorCore = actorCore;
 <a class="jxr_linenumber" name="L122" href="#L122">122</a>         }

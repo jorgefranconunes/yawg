@@ -17,16 +17,8 @@ import com.varmateo.yawg.freemarker.FreemarkerTemplateService;
 /**
  *
  */
-public final class FreemarkerTemplateServiceFactory
+<span class="nc" id="L20">public final class FreemarkerTemplateServiceFactory</span>
         implements TemplateServiceFactory {
-
-
-    /**
-     *
-     */
-<span class="nc" id="L27">    public FreemarkerTemplateServiceFactory() {</span>
-        // Nothing to do.
-<span class="nc" id="L29">    }</span>
 
 
     /**
@@ -35,9 +27,9 @@ public final class FreemarkerTemplateServiceFactory
     public TemplateService newTemplateService(final Path templatesDir)
             throws YawgException {
 
-<span class="nc" id="L38">        TemplateService result = FreemarkerTemplateService.build(templatesDir);</span>
+<span class="nc" id="L30">        TemplateService result = FreemarkerTemplateService.build(templatesDir);</span>
 
-<span class="nc" id="L40">        return result;</span>
+<span class="nc" id="L32">        return result;</span>
     }
 
 

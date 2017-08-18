@@ -16,16 +16,8 @@ import com.varmateo.yawg.spi.SiteBakerFactory;
 /**
  * Factory for &lt;code&gt;SiteBaker&lt;/code&gt; objects.
  */
-public final class CoreSiteBakerFactory
+<span class="fc" id="L19">public final class CoreSiteBakerFactory</span>
         implements SiteBakerFactory {
-
-
-    /**
-     * 
-     */
-<span class="fc" id="L26">    public CoreSiteBakerFactory() {</span>
-        // Nothing to do.
-<span class="fc" id="L28">    }</span>
 
 
     /**
@@ -36,14 +28,14 @@ public final class CoreSiteBakerFactory
     @Override
     public SiteBaker newSiteBaker() {
 
-<span class="fc" id="L39">        return new SiteBakerImpl();</span>
+<span class="fc" id="L31">        return new SiteBakerImpl();</span>
     }
 
 
     /**
      *
      */
-<span class="fc" id="L46">    private static final class SiteBakerImpl</span>
+<span class="fc" id="L38">    private static final class SiteBakerImpl</span>
             implements SiteBaker {
 
 
@@ -53,11 +45,11 @@ public final class CoreSiteBakerFactory
         @Override
         public void bake(final SiteBakerConf conf) {
 
-<span class="fc" id="L56">            SiteBakerDomain domain = new SiteBakerDomain(conf);</span>
-<span class="fc" id="L57">            SingleSiteBaker singleSiteBaker = domain.getSingleSiteBaker();</span>
+<span class="fc" id="L48">            SiteBakerDomain domain = new SiteBakerDomain(conf);</span>
+<span class="fc" id="L49">            SingleSiteBaker singleSiteBaker = domain.getSingleSiteBaker();</span>
 
-<span class="fc" id="L59">            singleSiteBaker.bake();</span>
-<span class="fc" id="L60">        }</span>
+<span class="fc" id="L51">            singleSiteBaker.bake();</span>
+<span class="fc" id="L52">        }</span>
 
 
     }
