@@ -8,9 +8,6 @@ package com.varmateo.yawg.cli;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 
 import javaslang.collection.HashSet;
 import javaslang.collection.Set;
@@ -20,8 +17,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.Test;
 
-import com.varmateo.testutils.TestUtils;
-
 import com.varmateo.yawg.cli.CliOption;
 import com.varmateo.yawg.cli.CliOptions;
 
@@ -29,16 +24,8 @@ import com.varmateo.yawg.cli.CliOptions;
 /**
  *
  */
-public final class CliOptionsTest
- {
+public final class CliOptionsTest {
 
-
-    private static final CliOption OPT1 =
-        CliOption.builder()
-        .setLongName("option1")
-        .setDescription("This is option one")
-        .setShortName("o1")
-        .build();
 
     private static final String OPT_WITH_ARG_NAME = "option-with-arg";
     private static final String OPT_WITH_ARG_OPT = "--" + OPT_WITH_ARG_NAME;
@@ -50,10 +37,10 @@ public final class CliOptionsTest
         .build();
 
     private static final String OPT_NO_ARG_NAME = "option-with-no-arg";
-    private static final String OPT_NO_ARG_OPT = "--" + OPT_WITH_ARG_NAME;
+    private static final String OPT_NO_ARG_OPT = "--" + OPT_NO_ARG_NAME;
     private static final CliOption OPT_NO_ARG =
         CliOption.builder()
-        .setLongName(OPT_WITH_ARG_NAME)
+        .setLongName(OPT_NO_ARG_NAME)
         .setDescription("This is option has one argument")
         .build();
 

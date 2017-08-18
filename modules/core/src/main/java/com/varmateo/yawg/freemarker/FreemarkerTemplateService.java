@@ -52,7 +52,7 @@ public final class FreemarkerTemplateService
     /**
      *
      */
-    /* package private */ static FreemarkerTemplateService build(
+    /* default */ static FreemarkerTemplateService build(
             final Path templatesDir)
             throws YawgException {
 

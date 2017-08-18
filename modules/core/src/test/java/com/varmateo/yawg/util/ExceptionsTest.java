@@ -114,16 +114,6 @@ public final class ExceptionsTest
      */
     private static final class ExceptionNoConstructorWithMessage
             extends RuntimeException {
-
-
-        /**
-         *
-         */
-        public ExceptionNoConstructorWithMessage() {
-            // We do nothing.
-        }
-
-
     }
 
 

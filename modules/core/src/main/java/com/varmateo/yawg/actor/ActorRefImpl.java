@@ -22,7 +22,7 @@ import com.varmateo.yawg.actor.SequentialExecutor;
  * An internal implementation of <code>ActorRef</code> intended to be
  * used solely by the <code>ActorSystem</code> implementation.
  */
-final class ActorRefImpl<T>
+/* default */ final class ActorRefImpl<T>
         implements ActorRef<T> {
 
 
@@ -38,7 +38,7 @@ final class ActorRefImpl<T>
      *
      * @param executor Used for executing actors methods.
      */
-    ActorRefImpl(
+    /* default */ ActorRefImpl(
             final Class<T> actorType,
             final Executor executor) {
 
@@ -67,7 +67,7 @@ final class ActorRefImpl<T>
      * @param actorCore The object being wrapped by this
      * <code>ActorRef</code>.
      */
-    void setActorCore(final T actorCore) {
+    /* default */ void setActorCore(final T actorCore) {
 
         _proxyInvocationHandler.setActorCore(actorCore);
     }
@@ -116,7 +116,7 @@ final class ActorRefImpl<T>
         /**
          *
          */
-        void setActorCore(final Object actorCore) {
+        public void setActorCore(final Object actorCore) {
 
             _actorCore = actorCore;
         }

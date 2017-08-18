@@ -23,14 +23,6 @@ public final class YamlParser {
 
 
     /**
-     *
-     */
-    public YamlParser() {
-        // Nothing do to.
-    }
-
-
-    /**
      * Parses YAML contants from the given reader.
      *
      * @param reader Source of YAML contents to be read.

@@ -21,14 +21,6 @@ public final class BreadcrumbsBakeListenerFactory
     /**
      *
      */
-    public BreadcrumbsBakeListenerFactory() {
-        // Nothing to do.
-    }
-
-
-    /**
-     *
-     */
     @Override
     public DirBakeListener newDirBakeListener() {
 

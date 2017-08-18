@@ -32,7 +32,7 @@ import com.varmateo.yawg.util.YamlParser;
 /**
  * Reads the baker configuration for one given directory.
  */
-/* package private */ final class DirBakerConfDao {
+/* default */ final class DirBakerConfDao {
 
 
     private static final String CONF_FILE_NAME = ".yawg.yml";
@@ -46,14 +46,6 @@ import com.varmateo.yawg.util.YamlParser;
     private static final String PARAM_PAGE_VARS_HERE = "pageVarsHere";
     private static final String PARAM_TEMPLATES_HERE = "templatesHere";
     private static final String PARAM_EXTRA_DIRS_HERE = "extraDirsHere";
-
-
-    /**
-     *
-     */
-    /* package private */ DirBakerConfDao() {
-        // Nothing to do.
-    }
 
 
     /**
@@ -89,7 +81,7 @@ import com.varmateo.yawg.util.YamlParser;
     /**
      *
      */
-    /* package private */ DirBakerConf loadFromFile(final Path confFile)
+    public DirBakerConf loadFromFile(final Path confFile)
             throws YawgException {
 
         DirBakerConf result = null;
@@ -129,7 +121,7 @@ import com.varmateo.yawg.util.YamlParser;
     /**
      *
      */
-    /* package private */ DirBakerConf read(final Reader reader)
+    public DirBakerConf read(final Reader reader)
             throws IOException, YawgException {
 
         SimpleMap confMap = new YamlParser().parse(reader);

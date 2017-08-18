@@ -14,7 +14,6 @@ import org.junit.Test;
 
 import com.varmateo.yawg.atests.BakerCliResult;
 import com.varmateo.yawg.atests.BakerCliScenario;
-import static com.varmateo.testutils.DirPathAssert.assertThatDir;
 import static com.varmateo.yawg.atests.BakerCliResultAssert.assertThat;
 
 

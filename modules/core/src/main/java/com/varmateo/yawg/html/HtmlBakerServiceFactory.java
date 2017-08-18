@@ -20,14 +20,6 @@ public final class HtmlBakerServiceFactory
     /**
      *
      */
-    public HtmlBakerServiceFactory() {
-        // Nothing to do.
-    }
-
-
-    /**
-     *
-     */
     @Override
     public BakerService newBakerService() {
 

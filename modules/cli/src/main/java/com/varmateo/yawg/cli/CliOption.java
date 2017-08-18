@@ -164,7 +164,7 @@ public final class CliOption {
     /**
      *
      */
-    /* package private */ Option apacheOption() {
+    /* default */ Option apacheOption() {
 
         return _apacheOption;
     }

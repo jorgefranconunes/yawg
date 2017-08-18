@@ -10,15 +10,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
 import java.util.stream.Stream;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import com.varmateo.yawg.actor.ActorSystem;
-import com.varmateo.yawg.actor.ActorRef;
 
 
 /**

@@ -12,8 +12,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
-import com.varmateo.testutils.TestUtils;
-import com.varmateo.yawg.atests.BakerCliRunner;
 import com.varmateo.yawg.atests.BakerCliResult;
 import static com.varmateo.yawg.atests.BakerCliResultAssert.assertThat;
 

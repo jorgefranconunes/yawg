@@ -7,12 +7,10 @@
 package com.varmateo.yawg.core;
 
 import java.io.IOException;
-import java.io.Reader;
 import java.io.StringReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
-import java.util.regex.Pattern;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

@@ -6,10 +6,6 @@
 
 package com.varmateo.yawg.core;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.regex.Pattern;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.varmateo.yawg.core.DirBakerConf;

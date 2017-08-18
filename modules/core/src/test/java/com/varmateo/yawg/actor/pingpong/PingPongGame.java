@@ -9,10 +9,7 @@ package com.varmateo.yawg.actor.pingpong;
 import java.util.Objects;
 import java.util.concurrent.Semaphore;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import com.varmateo.yawg.actor.ActorSystem;
-import com.varmateo.yawg.actor.ActorRef;
 
 
 /**

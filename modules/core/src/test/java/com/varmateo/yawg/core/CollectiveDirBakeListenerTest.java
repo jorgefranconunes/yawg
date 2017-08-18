@@ -9,7 +9,6 @@ package com.varmateo.yawg.core;
 import javaslang.collection.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.varmateo.yawg.api.DirBakeListener;

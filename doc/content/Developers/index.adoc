@@ -48,5 +48,5 @@ hosting and issue management.
 https://oss.sonatype.org/[Sonatype OSSRH] -- Repository hosting
 service for open source project binaries.
 
-https://codecov.io/gh/jorgefranconunes/yawg[Travis CI] -- Automated
+https://travis-ci.org/jorgefranconunes/yawg[Travis CI] -- Automated
 build and test service.

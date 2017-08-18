@@ -155,6 +155,7 @@ public final class SequentialExecutorTest {
         // THEN
         boolean isCompleted = semaphore.tryAcquire(
                 taskCount, 1_000, TimeUnit.MILLISECONDS);
+        assertThat(isCompleted).isTrue();
         for ( int i=0; i<taskCount; ++i ) {
             assertThat(pojo.getResult(i)).isEqualTo("result" + i);
         }

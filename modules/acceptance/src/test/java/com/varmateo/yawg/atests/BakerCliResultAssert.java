@@ -262,7 +262,9 @@ public final class BakerCliResultAssert
         try {
             javaStream = Files.walk(dirPath);
         } catch ( IOException e ) {
-            throw new RuntimeException(e);
+            String msg =
+                    String.format("Failed walkding directory \"%s\"", dirPath);
+            throw new AssertionError(msg, e);
         }
 
         return Stream.ofAll(

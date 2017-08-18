@@ -16,7 +16,6 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.varmateo.yawg.actor.ActorSystem;
-import com.varmateo.yawg.actor.ActorRef;
 
 
 /**

@@ -22,14 +22,6 @@ public final class FreemarkerTemplateServiceFactory
 
 
     /**
-     *
-     */
-    public FreemarkerTemplateServiceFactory() {
-        // Nothing to do.
-    }
-
-
-    /**
      * {@inheritDoc}
      */
     public TemplateService newTemplateService(final Path templatesDir)

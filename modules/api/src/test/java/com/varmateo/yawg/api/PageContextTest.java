@@ -13,8 +13,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.Test;
 
-import com.varmateo.testutils.TestUtils;
-
 import com.varmateo.yawg.api.PageContext;
 
 

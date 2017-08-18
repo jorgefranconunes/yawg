@@ -22,17 +22,6 @@ public final class MockTemplate
         implements Template {
 
 
-    private TemplateDataModel _model = null;
-
-
-    /**
-     *
-     */
-    public MockTemplate() {
-        // Nothing to do.
-    }
-
-
     /**
      *
      */
@@ -41,8 +30,6 @@ public final class MockTemplate
             TemplateDataModel model,
             Writer output)
             throws YawgException {
-
-        _model = model;
 
         try {
             output.write(model.getBody());

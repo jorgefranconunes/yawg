@@ -34,14 +34,6 @@ public final class BreadcrumbsBakeListener
     /**
      *
      */
-    public BreadcrumbsBakeListener() {
-        // Nothing to do.
-    }
-
-
-    /**
-     *
-     */
     @Override
     public PageVars onDirBake(final PageContext context)
             throws YawgException {

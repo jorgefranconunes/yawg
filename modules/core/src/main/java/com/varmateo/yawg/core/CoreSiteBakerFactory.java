@@ -21,14 +21,6 @@ public final class CoreSiteBakerFactory
 
 
     /**
-     * 
-     */
-    public CoreSiteBakerFactory() {
-        // Nothing to do.
-    }
-
-
-    /**
      * Creates a new <code>SiteBaker</code> instance.
      *
      * @return The baker object.

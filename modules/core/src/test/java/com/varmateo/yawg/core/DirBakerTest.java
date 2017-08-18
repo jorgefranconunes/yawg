@@ -6,7 +6,6 @@
 
 package com.varmateo.yawg.core;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
@@ -31,8 +30,6 @@ import com.varmateo.testutils.TestUtils;
 import com.varmateo.yawg.api.BakerService;
 import com.varmateo.yawg.api.DirBakeListener;
 import com.varmateo.yawg.api.PageContext;
-import com.varmateo.yawg.api.PageVars;
-import com.varmateo.yawg.api.Template;
 import com.varmateo.yawg.api.TemplateService;
 import com.varmateo.yawg.core.DirBaker;
 import com.varmateo.yawg.core.DirBakerConf;
