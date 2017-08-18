@@ -22,6 +22,7 @@ link:CreatingRelease.html[Creating a release of the Yawg software]
 
 image:https://travis-ci.org/jorgefranconunes/yawg.svg?branch=master["Build Status", link="https://travis-ci.org/jorgefranconunes/yawg"]
 image:https://codecov.io/gh/jorgefranconunes/yawg/branch/master/graph/badge.svg[codecov, link="https://codecov.io/gh/jorgefranconunes/yawg"]
+image:https://api.codacy.com/project/badge/Grade/5a8509efe93441eaafc869854e8a5dcf["Codacy code quality", link="https://www.codacy.com/app/jorgefranconunes/yawg?utm_source=github.com&utm_medium=referral&utm_content=jorgefranconunes/yawg&utm_campaign=Badge_Grade"]
 image:https://img.shields.io/badge/codescene-analyzed-brightgreen.svg[link="https://codescene.io/projects/1434/jobs/latest-successful/results"]
 
 link:CodeQualityReports/index.html[Code quality reports] - Maven
@@ -41,6 +42,9 @@ in code coverage.
 
 https://codescene.io/projects/1434/jobs/latest-successful/results[CodeScene]
 -- Technical debt analysis.
+
+https://www.codacy.com/"[Codacy] -- Automated code review tool for
+monitoring technical debt, and help improve code quality.
 
 https://github.com/jorgefranconunes/yawg[GitHub] -- Git repository
 hosting and issue management.

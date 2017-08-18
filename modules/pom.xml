@@ -505,7 +505,7 @@ Copyright (c) 2015-2017 Yawg project contributors.
           <targetJdk>1.8</targetJdk>
           <verbose>true</verbose>
           <rulesets>
-            <ruleset>${yawg.projectRootDir}/src/main/config/pmd/pmd-rulesets.xml</ruleset>
+            <ruleset>${yawg.projectRootDir}/src/main/config/pmd/ruleset.xml</ruleset>
           </rulesets>
         </configuration>
       </plugin>

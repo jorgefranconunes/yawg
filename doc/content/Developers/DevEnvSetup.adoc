@@ -200,7 +200,7 @@ following:
 
 [source,sh]
 ----
-./devtools/bin/build-create-bundle --with-reports
+./devtools/bin/build-bundle --with-reports
 ----
 
 This will create under directory `./target/CodeQualityReports` a set
