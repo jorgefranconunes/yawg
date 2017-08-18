@@ -29,9 +29,9 @@ import com.varmateo.yawg.cli.CliOption;
 
 
 /**
- * Represents the set of options provided in a command line.
+ * Represents the set of options supported in the command line.
  */
-final class CliOptions {
+/* default */ final class CliOptions {
 
 
     private static final String FLAG_TRUE  = "true";

@@ -273,7 +273,7 @@ function setupWorkingArea () {
         doSetupWorkingArea
         pushd ${_yawgHome} > /dev/null
         lastUpdateTimestamp=$(git log -1 --format=format:%cD doc/content/)
-        popd
+        popd > /dev/null
     else
         lastUpdateTimestamp=$(date --rfc-2822)
     fi
