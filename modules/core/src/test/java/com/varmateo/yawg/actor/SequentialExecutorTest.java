@@ -218,6 +218,7 @@ public final class SequentialExecutorTest {
         // THEN
         boolean isCompleted = semaphore.tryAcquire(
                 4, 750, TimeUnit.MILLISECONDS);
+        assertThat(isCompleted).isTrue();
         assertThat(pojo1.getResults()).containsExactly(
                 "result11",
                 "result12");

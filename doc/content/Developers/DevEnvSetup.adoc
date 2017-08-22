@@ -58,7 +58,7 @@ below.
 | Cygwin |
   `graphviz`
 
-  `libxsltproc`
+  `libxslt`
 
 |====
 

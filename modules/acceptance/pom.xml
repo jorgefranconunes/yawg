@@ -41,6 +41,10 @@ Copyright (c) 2016-2017 Yawg project contributors.
       <scope>test</scope>
     </dependency>
 
+    <!-- Below are all the other maven modules in this project. They
+         are included here so we can generate the aggregate Jacoco
+         code coverage report. -->
+
     <dependency>
       <groupId>com.varmateo.yawg</groupId>
       <artifactId>yawg-api</artifactId>

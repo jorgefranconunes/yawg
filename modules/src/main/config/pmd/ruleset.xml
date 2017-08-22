@@ -25,6 +25,9 @@ http://pmd.sourceforge.net/howtomakearuleset.html
   <rule ref="rulesets/java/basic.xml"/>
 
 
+  <rule ref="rulesets/java/braces.xml" />
+
+
   <rule ref="rulesets/java/empty.xml">
     <exclude name="EmptyCatchBlock" /> <!-- Needs config. -->
   </rule>
@@ -36,9 +39,6 @@ http://pmd.sourceforge.net/howtomakearuleset.html
       <property name="allowCommentedBlocks" value="true" />
     </properties>
   </rule>
-
-
-  <rule ref="rulesets/java/braces.xml" />
 
 
   <rule ref="rulesets/java/coupling.xml">
@@ -54,12 +54,17 @@ http://pmd.sourceforge.net/howtomakearuleset.html
   </rule>
 
 
+  <rule ref="rulesets/java/finalizers.xml" />
+
+
   <rule ref="rulesets/java/imports.xml">
     <exclude name="ImportFromSamePackage" /> <!-- Me not like it. -->
   </rule>
 
 
   <rule ref="rulesets/java/naming.xml">
+    <exclude name="AbstractNaming" /> <!-- Me not like it. -->
+    <exclude name="ShortMethodName" /> <!-- Me not like it. -->
     <exclude name="ShortVariable" /> <!-- Me not like it. -->
     <exclude name="LongVariable" /> <!-- Me not like it. -->
     <exclude name="VariableNamingConventions" /> <!-- Needs config. -->
