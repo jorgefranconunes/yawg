@@ -25,8 +25,8 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2015 - 2017</copyright>
     <item>
-      <title>File: 56,
-             Errors: 81,
+      <title>File: 50,
+             Errors: 75,
              Warnings: 0,
              Infos: 0
       </title>
@@ -44,20 +44,6 @@ under the License.
             </tr>
           </thead>
           <tbody>
-                          <tr>
-                <td>
-                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.actor.ActorRefImpl.java">com/varmateo/yawg/actor/ActorRefImpl.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  2
-                </td>
-              </tr>
                           <tr>
                 <td>
                   <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.logging.Log.java">com/varmateo/yawg/logging/Log.java</a>
@@ -382,20 +368,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.actor.SequentialExecutor.java">com/varmateo/yawg/actor/SequentialExecutor.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.util.Exceptions.java">com/varmateo/yawg/util/Exceptions.java</a>
                 </td>
                 <td>
@@ -406,20 +378,6 @@ under the License.
                 </td>
                 <td>
                   12
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.actor.ActorFactory.java">com/varmateo/yawg/actor/ActorFactory.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  2
                 </td>
               </tr>
                           <tr>
@@ -536,20 +494,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.actor.package-info.java">com/varmateo/yawg/actor/package-info.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.core.SiteBakerDomain.java">com/varmateo/yawg/core/SiteBakerDomain.java</a>
                 </td>
                 <td>
@@ -560,20 +504,6 @@ under the License.
                 </td>
                 <td>
                   0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.actor.ActorRef.java">com/varmateo/yawg/actor/ActorRef.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  2
                 </td>
               </tr>
                           <tr>
@@ -686,20 +616,6 @@ under the License.
                 </td>
                 <td>
                   7
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.actor.ActorSystem.java">com/varmateo/yawg/actor/ActorSystem.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
                 </td>
               </tr>
                           <tr>
