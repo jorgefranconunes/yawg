@@ -5,6 +5,7 @@
  **************************************************************************/
 
 /**
- * Interfaces and classes required for writing Yawg extensions.
+ * Interfaces and classes required for using Yawg within a library or
+ * application.
  */
 package com.varmateo.yawg.api;

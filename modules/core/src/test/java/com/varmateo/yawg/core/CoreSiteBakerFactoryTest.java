@@ -9,8 +9,8 @@ package com.varmateo.yawg.core;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
 
+import com.varmateo.yawg.api.SiteBakerFactory;
 import com.varmateo.yawg.core.CoreSiteBakerFactory;
-import com.varmateo.yawg.spi.SiteBakerFactory;
 
 
 /**

@@ -4,9 +4,9 @@
  *
  **************************************************************************/
 
-package com.varmateo.yawg.api;
+package com.varmateo.yawg.spi;
 
-import com.varmateo.yawg.api.DirBakeListener;
+import com.varmateo.yawg.spi.DirBakeListener;
 
 
 /**

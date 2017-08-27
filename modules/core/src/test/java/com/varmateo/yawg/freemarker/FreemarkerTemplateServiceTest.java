@@ -20,10 +20,10 @@ import freemarker.template.TemplateException;
 
 import com.varmateo.testutils.TestUtils;
 
-import com.varmateo.yawg.api.Template;
-import com.varmateo.yawg.api.TemplateDataModel;
-import com.varmateo.yawg.api.TemplateService;
 import com.varmateo.yawg.api.YawgException;
+import com.varmateo.yawg.spi.Template;
+import com.varmateo.yawg.spi.TemplateDataModel;
+import com.varmateo.yawg.spi.TemplateService;
 import com.varmateo.yawg.freemarker.FreemarkerTemplateService;
 
 

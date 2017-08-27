@@ -6,11 +6,11 @@
 
 package com.varmateo.yawg.core;
 
+import com.varmateo.yawg.api.SiteBaker;
+import com.varmateo.yawg.api.SiteBakerConf;
+import com.varmateo.yawg.api.SiteBakerFactory;
 import com.varmateo.yawg.core.SingleSiteBaker;
 import com.varmateo.yawg.core.SiteBakerDomain;
-import com.varmateo.yawg.spi.SiteBaker;
-import com.varmateo.yawg.spi.SiteBakerConf;
-import com.varmateo.yawg.spi.SiteBakerFactory;
 
 
 /**

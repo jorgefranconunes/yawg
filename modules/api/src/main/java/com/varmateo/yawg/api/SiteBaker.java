@@ -4,10 +4,10 @@
  *
  **************************************************************************/
 
-package com.varmateo.yawg.spi;
+package com.varmateo.yawg.api;
 
+import com.varmateo.yawg.api.SiteBakerConf;
 import com.varmateo.yawg.api.YawgException;
-import com.varmateo.yawg.spi.SiteBakerConf;
 
 
 /**

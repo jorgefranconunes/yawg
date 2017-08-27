@@ -119,8 +119,17 @@ deploying the Yawg site to GitHub from within a Travis CI job.
 
 Install Travis CI command line client:
 
+Debian family distributions:
+
 ----
 apt-get install ruby-dev
+gem install travis
+----
+
+CentOS family distributions:
+
+----
+yum install ruby-devel rubygems
 gem install travis
 ----
 

@@ -9,9 +9,9 @@ package com.varmateo.yawg;
 import java.io.IOException;
 import java.io.Writer;
 
-import com.varmateo.yawg.api.Template;
-import com.varmateo.yawg.api.TemplateDataModel;
 import com.varmateo.yawg.api.YawgException;
+import com.varmateo.yawg.spi.Template;
+import com.varmateo.yawg.spi.TemplateDataModel;
 import com.varmateo.yawg.util.Exceptions;
 
 

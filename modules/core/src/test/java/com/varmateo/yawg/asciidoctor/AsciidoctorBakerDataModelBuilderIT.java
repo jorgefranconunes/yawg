@@ -19,9 +19,9 @@ import org.junit.Test;
 
 import com.varmateo.testutils.TestUtils;
 
-import com.varmateo.yawg.api.PageContext;
-import com.varmateo.yawg.api.TemplateDataModel;
 import com.varmateo.yawg.asciidoctor.AsciidoctorBakerDataModelBuilder;
+import com.varmateo.yawg.spi.PageContext;
+import com.varmateo.yawg.spi.TemplateDataModel;
 
 
 /**

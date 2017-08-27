@@ -4,13 +4,13 @@
  *
  **************************************************************************/
 
-package com.varmateo.yawg;
+package com.varmateo.yawg.api;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.Test;
 
-import com.varmateo.yawg.spi.SiteBakerFactory;
+import com.varmateo.yawg.api.SiteBakerFactory;
 
 
 /**

@@ -11,8 +11,8 @@ import javaslang.collection.Seq;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
 
-import com.varmateo.yawg.api.DirBakeListenerFactory;
 import com.varmateo.yawg.breadcrumbs.BreadcrumbsBakeListenerFactory;
+import com.varmateo.yawg.spi.DirBakeListenerFactory;
 import com.varmateo.yawg.util.Services;
 
 

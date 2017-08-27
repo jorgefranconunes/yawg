@@ -4,9 +4,9 @@
  *
  **************************************************************************/
 
-package com.varmateo.yawg.api;
+package com.varmateo.yawg.spi;
 
-import com.varmateo.yawg.api.BakerService;
+import com.varmateo.yawg.spi.BakerService;
 
 
 /**

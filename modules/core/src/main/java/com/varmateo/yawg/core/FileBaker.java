@@ -14,10 +14,10 @@ import javaslang.collection.Map;
 import javaslang.collection.Seq;
 import javaslang.control.Option;
 
-import com.varmateo.yawg.api.BakerService;
-import com.varmateo.yawg.api.PageContext;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.logging.Log;
+import com.varmateo.yawg.spi.BakerService;
+import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.util.Exceptions;
 
 

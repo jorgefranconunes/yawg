@@ -4,12 +4,12 @@
  *
  **************************************************************************/
 
-package com.varmateo.yawg.spi;
+package com.varmateo.yawg.api;
 
 import java.util.Iterator;
 import java.util.ServiceLoader;
 
-import com.varmateo.yawg.spi.SiteBaker;
+import com.varmateo.yawg.api.SiteBaker;
 
 
 /**

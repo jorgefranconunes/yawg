@@ -4,7 +4,7 @@
  *
  **************************************************************************/
 
-package com.varmateo.yawg.api;
+package com.varmateo.yawg.spi;
 
 import java.nio.file.Path;
 import java.util.Objects;
@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 import com.varmateo.yawg.api.PageVars;
-import com.varmateo.yawg.api.Template;
+import com.varmateo.yawg.spi.Template;
 
 
 /**

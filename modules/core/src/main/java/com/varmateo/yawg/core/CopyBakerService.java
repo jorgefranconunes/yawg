@@ -9,9 +9,9 @@ package com.varmateo.yawg.core;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import com.varmateo.yawg.api.BakerService;
-import com.varmateo.yawg.api.PageContext;
 import com.varmateo.yawg.api.YawgException;
+import com.varmateo.yawg.spi.BakerService;
+import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.util.Exceptions;
 import com.varmateo.yawg.util.FileUtils;
 
@@ -20,7 +20,7 @@ import com.varmateo.yawg.util.FileUtils;
  * A <code>Baker</code> that just copies the source file to the target
  * location.
  */
-/* package private */ final class CopyBakerService
+/* default */ final class CopyBakerService
         implements BakerService {
 
 

@@ -18,10 +18,9 @@ import javaslang.Tuple2;
 import javaslang.control.Try;
 
 import com.varmateo.yawg.api.PageVars;
-import com.varmateo.yawg.spi.SiteBaker;
-import com.varmateo.yawg.spi.SiteBakerConf;
-import com.varmateo.yawg.spi.SiteBakerFactory;
-
+import com.varmateo.yawg.api.SiteBaker;
+import com.varmateo.yawg.api.SiteBakerConf;
+import com.varmateo.yawg.api.SiteBakerFactory;
 import com.varmateo.yawg.cli.InfoPrinter;
 import com.varmateo.yawg.cli.BakerCliConf;
 import com.varmateo.yawg.cli.BakerCliOptions;

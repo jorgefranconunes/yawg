@@ -11,10 +11,10 @@ import javaslang.collection.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
 
-import com.varmateo.yawg.api.DirBakeListener;
-import com.varmateo.yawg.api.PageContext;
 import com.varmateo.yawg.api.PageVars;
 import com.varmateo.yawg.core.CollectiveDirBakeListener;
+import com.varmateo.yawg.spi.DirBakeListener;
+import com.varmateo.yawg.spi.PageContext;
 
 
 /**

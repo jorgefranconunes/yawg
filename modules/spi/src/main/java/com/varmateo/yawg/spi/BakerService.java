@@ -4,12 +4,12 @@
  *
  **************************************************************************/
 
-package com.varmateo.yawg.api;
+package com.varmateo.yawg.spi;
 
 import java.nio.file.Path;
 
-import com.varmateo.yawg.api.PageContext;
 import com.varmateo.yawg.api.YawgException;
+import com.varmateo.yawg.spi.PageContext;
 
 
 /**

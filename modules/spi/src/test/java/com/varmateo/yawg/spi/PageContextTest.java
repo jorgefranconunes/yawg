@@ -4,7 +4,7 @@
  *
  **************************************************************************/
 
-package com.varmateo.yawg.api;
+package com.varmateo.yawg.spi;
 
 import java.nio.file.Paths;
 
@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.Test;
 
-import com.varmateo.yawg.api.PageContext;
+import com.varmateo.yawg.spi.PageContext;
 
 
 /**

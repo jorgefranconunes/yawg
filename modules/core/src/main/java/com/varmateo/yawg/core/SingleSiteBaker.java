@@ -9,12 +9,12 @@ package com.varmateo.yawg.core;
 import java.nio.file.Path;
 import java.util.Optional;
 
+import com.varmateo.yawg.api.SiteBakerConf;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.api.YawgInfo;
 import com.varmateo.yawg.core.DirBaker;
 import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogWithUtils;
-import com.varmateo.yawg.spi.SiteBakerConf;
 
 
 /**

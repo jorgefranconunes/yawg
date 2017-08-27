@@ -4,12 +4,12 @@
  *
  **************************************************************************/
 
-package com.varmateo.yawg.api;
+package com.varmateo.yawg.spi;
 
 import java.io.Writer;
 
-import com.varmateo.yawg.api.TemplateDataModel;
 import com.varmateo.yawg.api.YawgException;
+import com.varmateo.yawg.spi.TemplateDataModel;
 
 
 /**

@@ -120,7 +120,7 @@ from Sonatype] for OSSRH.
 * Go to https://oss.sonatype.org/ and login.
 
 * Look for the latest staging repository with a name starting with
-  `comvarmateoyawg`.
+  `comvarmateo`.
 
 * Check that the contents of that staging repository appear to be
   fine.

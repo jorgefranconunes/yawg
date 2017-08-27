@@ -4,7 +4,7 @@
  *
  **************************************************************************/
 
-package com.varmateo.yawg.spi;
+package com.varmateo.yawg.api;
 
 import java.nio.file.Path;
 import java.util.Objects;

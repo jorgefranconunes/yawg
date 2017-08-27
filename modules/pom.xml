@@ -125,7 +125,7 @@ Copyright (c) 2015-2017 Yawg project contributors.
               <version>true</version>
               <use>true</use>
               <quiet>true</quiet>
-              <failOnError>false</failOnError>
+              <failOnError>true</failOnError>
         </configuration>
           </plugin>
 
