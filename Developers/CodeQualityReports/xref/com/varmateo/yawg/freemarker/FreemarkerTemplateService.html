@@ -27,10 +27,10 @@
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> freemarker.template.TemplateException;
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>  
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.api.YawgException;
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.api.Template;
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.api.TemplateDataModel;
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.api.TemplateService;
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.freemarker.FreemarkerDataModel;
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.freemarker.FreemarkerDataModel;
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.Template;
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.TemplateDataModel;
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.TemplateService;
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.util.Exceptions;
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  
@@ -39,7 +39,7 @@
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment"> * href="<a href="http://freemarker.org/" target="alexandria_uri">http://freemarker.org/</a>"&gt;Freemarker&lt;/a&gt; template engine.</em>
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/varmateo/yawg/freemarker/FreemarkerTemplateService.html">FreemarkerTemplateService</a>
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>          <strong class="jxr_keyword">implements</strong> <a href="../../../../com/varmateo/yawg/api/TemplateService.html">TemplateService</a> {
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>          <strong class="jxr_keyword">implements</strong> <a href="../../../../com/varmateo/yawg/spi/TemplateService.html">TemplateService</a> {
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Pattern RE_FTLH = Pattern.compile(<span class="jxr_string">".*&#92;&#92;.ftlh$"</span>);
@@ -144,7 +144,7 @@
 <a class="jxr_linenumber" name="L136" href="#L136">136</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L137" href="#L137">137</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L138" href="#L138">138</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/varmateo/yawg/freemarker/FreemarkerTemplateService.html">FreemarkerTemplate</a>
-<a class="jxr_linenumber" name="L139" href="#L139">139</a>             <strong class="jxr_keyword">implements</strong> <a href="../../../../com/varmateo/yawg/api/Template.html">Template</a> {
+<a class="jxr_linenumber" name="L139" href="#L139">139</a>             <strong class="jxr_keyword">implements</strong> <a href="../../../../com/varmateo/yawg/spi/Template.html">Template</a> {
 <a class="jxr_linenumber" name="L140" href="#L140">140</a> 
 <a class="jxr_linenumber" name="L141" href="#L141">141</a> 
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> freemarker.template.Template _fmTemplate;
@@ -164,7 +164,7 @@
 <a class="jxr_linenumber" name="L156" href="#L156">156</a> <em class="jxr_javadoccomment">         */</em>
 <a class="jxr_linenumber" name="L157" href="#L157">157</a>         @Override
 <a class="jxr_linenumber" name="L158" href="#L158">158</a>         <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> process(
-<a class="jxr_linenumber" name="L159" href="#L159">159</a>                 <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/api/TemplateDataModel.html">TemplateDataModel</a> dataModel,
+<a class="jxr_linenumber" name="L159" href="#L159">159</a>                 <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/spi/TemplateDataModel.html">TemplateDataModel</a> dataModel,
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>                 <strong class="jxr_keyword">final</strong> Writer writer)
 <a class="jxr_linenumber" name="L161" href="#L161">161</a>                 <strong class="jxr_keyword">throws</strong> <a href="../../../../com/varmateo/yawg/api/YawgException.html">YawgException</a> {
 <a class="jxr_linenumber" name="L162" href="#L162">162</a> 
@@ -187,7 +187,7 @@
 <a class="jxr_linenumber" name="L179" href="#L179">179</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L180" href="#L180">180</a> <em class="jxr_javadoccomment">         * HACK.</em>
 <a class="jxr_linenumber" name="L181" href="#L181">181</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L182" href="#L182">182</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/api/Template.html">Template</a> asTemplate() {
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/spi/Template.html">Template</a> asTemplate() {
 <a class="jxr_linenumber" name="L183" href="#L183">183</a> 
 <a class="jxr_linenumber" name="L184" href="#L184">184</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>;
 <a class="jxr_linenumber" name="L185" href="#L185">185</a>         }

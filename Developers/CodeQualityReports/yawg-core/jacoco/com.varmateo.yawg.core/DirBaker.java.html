@@ -12,11 +12,8 @@ import java.nio.file.Path;
 
 import javaslang.collection.Seq;
 
-import com.varmateo.yawg.api.DirBakeListener;
-import com.varmateo.yawg.api.PageContext;
-import com.varmateo.yawg.api.PageVars;
-import com.varmateo.yawg.api.TemplateService;
 import com.varmateo.yawg.api.YawgException;
+import com.varmateo.yawg.api.PageVars;
 import com.varmateo.yawg.core.DirBakerConf;
 import com.varmateo.yawg.core.DirBakerConfDao;
 import com.varmateo.yawg.core.DirEntryScanner;
@@ -24,6 +21,9 @@ import com.varmateo.yawg.core.DirPageContextBuilder;
 import com.varmateo.yawg.core.FileBaker;
 import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogWithUtils;
+import com.varmateo.yawg.spi.DirBakeListener;
+import com.varmateo.yawg.spi.PageContext;
+import com.varmateo.yawg.spi.TemplateService;
 import com.varmateo.yawg.util.Exceptions;
 
 

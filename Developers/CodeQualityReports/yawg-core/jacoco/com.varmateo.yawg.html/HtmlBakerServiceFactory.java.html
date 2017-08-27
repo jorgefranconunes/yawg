@@ -6,8 +6,8 @@
 
 package com.varmateo.yawg.html;
 
-import com.varmateo.yawg.api.BakerService;
-import com.varmateo.yawg.api.BakerServiceFactory;
+import com.varmateo.yawg.spi.BakerService;
+import com.varmateo.yawg.spi.BakerServiceFactory;
 
 
 /**

@@ -1,13 +1,11 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,PageVars.Builder,0,50,0,0,0,15,0,6,0,6
 Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,YawgException,0,9,0,0,0,4,0,2,0,2
-Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,PageContext,0,56,0,0,0,15,0,7,0,7
-Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,TemplateDataModel,15,75,0,2,5,19,5,7,5,6
 Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,PageVars,0,53,0,0,0,16,0,7,0,7
 Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,YawgInfo,66,41,7,3,6,12,6,1,1,1
-Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,TemplateDataModel.Builder,0,74,0,0,0,23,0,8,0,8
-Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,TemplateDataModel.Author,0,15,0,0,0,6,0,3,0,3
-Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,PageContext.Builder,0,81,0,0,0,26,0,10,0,10
+Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,SiteBakerFactory,0,36,0,4,0,10,0,3,0,1
+Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,SiteBakerConf.Builder,0,57,0,0,0,18,0,7,0,7
+Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,SiteBakerConf,0,47,0,0,0,13,0,7,0,7
 Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,InfoPrinter.Builder,0,27,0,0,0,10,0,4,0,4
 Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,CliInfoPrinter.Builder,0,43,0,0,0,16,0,6,0,6
 Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,BakerCli,19,208,2,10,4,74,2,15,0,11
@@ -79,6 +77,8 @@ Yawg acceptance tests/yawg-core,com.varmateo.yawg.breadcrumbs,BreadcrumbItem,6,9
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.breadcrumbs,Breadcrumbs,3,22,0,0,1,6,1,4,1,4
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.breadcrumbs,Breadcrumbs.Builder,0,30,0,0,0,9,0,4,0,4
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.breadcrumbs,BreadcrumbsBakeListenerFactory,0,9,0,0,0,3,0,2,0,2
-Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,SiteBakerConf,0,47,0,0,0,13,0,7,0,7
-Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,SiteBakerConf.Builder,0,57,0,0,0,18,0,7,0,7
-Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,SiteBakerFactory,0,36,0,4,0,10,0,3,0,1
+Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,TemplateDataModel.Builder,0,74,0,0,0,23,0,8,0,8
+Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,PageContext,0,56,0,0,0,15,0,7,0,7
+Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,PageContext.Builder,0,81,0,0,0,26,0,10,0,10
+Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,TemplateDataModel,15,75,0,2,5,19,5,7,5,6
+Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,TemplateDataModel.Author,0,15,0,0,0,6,0,3,0,3

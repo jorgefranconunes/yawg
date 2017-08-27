@@ -8,9 +8,9 @@ package com.varmateo.yawg.freemarker;
 
 import java.nio.file.Path;
 
-import com.varmateo.yawg.api.TemplateService;
-import com.varmateo.yawg.api.TemplateServiceFactory;
 import com.varmateo.yawg.api.YawgException;
+import com.varmateo.yawg.spi.TemplateService;
+import com.varmateo.yawg.spi.TemplateServiceFactory;
 import com.varmateo.yawg.freemarker.FreemarkerTemplateService;
 
 

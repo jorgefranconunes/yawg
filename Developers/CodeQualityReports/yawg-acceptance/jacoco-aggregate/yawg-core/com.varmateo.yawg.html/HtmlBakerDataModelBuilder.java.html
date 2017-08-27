@@ -14,8 +14,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import com.varmateo.yawg.api.PageContext;
-import com.varmateo.yawg.api.TemplateDataModel;
+import com.varmateo.yawg.spi.PageContext;
+import com.varmateo.yawg.spi.TemplateDataModel;
 
 import com.varmateo.yawg.util.FileUtils;
 

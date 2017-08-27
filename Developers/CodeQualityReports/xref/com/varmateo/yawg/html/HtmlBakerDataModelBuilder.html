@@ -22,8 +22,8 @@
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> org.jsoup.nodes.Document;
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> org.jsoup.nodes.Element;
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.api.PageContext;
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.api.TemplateDataModel;
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.PageContext;
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.TemplateDataModel;
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.util.FileUtils;
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>  
@@ -50,10 +50,10 @@
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/api/TemplateDataModel.html">TemplateDataModel</a> build(
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/spi/TemplateDataModel.html">TemplateDataModel</a> build(
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>              <strong class="jxr_keyword">final</strong> Path sourcePath,
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>              <strong class="jxr_keyword">final</strong> Path targetPath,
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>              <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/api/PageContext.html">PageContext</a> context)
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>              <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/spi/PageContext.html">PageContext</a> context)
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>              <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>          Optional&lt;Document&gt; document =
@@ -72,7 +72,7 @@
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>                  .map(Element::text)
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>                  .orElseGet(() -&gt; FileUtils.basename(sourcePath));
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>          <a href="../../../../com/varmateo/yawg/api/TemplateDataModel.html">TemplateDataModel</a> result =
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>          <a href="../../../../com/varmateo/yawg/spi/TemplateDataModel.html">TemplateDataModel</a> result =
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>                  TemplateDataModel.builder()
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>                  .setTitle(title)
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>                  .setBody(body)

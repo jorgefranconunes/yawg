@@ -25,8 +25,8 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2015 - 2017</copyright>
     <item>
-      <title>File: 14,
-             Errors: 49,
+      <title>File: 8,
+             Errors: 22,
              Warnings: 0,
              Infos: 0
       </title>
@@ -46,48 +46,6 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.BakerService.java">com/varmateo/yawg/api/BakerService.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.PageContext.java">com/varmateo/yawg/api/PageContext.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  19
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.BakerServiceFactory.java">com/varmateo/yawg/api/BakerServiceFactory.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.PageVars.java">com/varmateo/yawg/api/PageVars.java</a>
                 </td>
                 <td>
@@ -102,7 +60,21 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.TemplateService.java">com/varmateo/yawg/api/TemplateService.java</a>
+                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.SiteBaker.java">com/varmateo/yawg/api/SiteBaker.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.SiteBakerFactory.java">com/varmateo/yawg/api/SiteBakerFactory.java</a>
                 </td>
                 <td>
                   0
@@ -130,6 +102,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.YawgInfo.java">com/varmateo/yawg/api/YawgInfo.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.YawgInfo.properties">com/varmateo/yawg/api/YawgInfo.properties</a>
                 </td>
                 <td>
@@ -144,7 +130,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.TemplateServiceFactory.java">com/varmateo/yawg/api/TemplateServiceFactory.java</a>
+                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.SiteBakerConf.java">com/varmateo/yawg/api/SiteBakerConf.java</a>
                 </td>
                 <td>
                   0
@@ -153,77 +139,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.DirBakeListenerFactory.java">com/varmateo/yawg/api/DirBakeListenerFactory.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.Template.java">com/varmateo/yawg/api/Template.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.DirBakeListener.java">com/varmateo/yawg/api/DirBakeListener.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.TemplateDataModel.java">com/varmateo/yawg/api/TemplateDataModel.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  24
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.YawgInfo.java">com/varmateo/yawg/api/YawgInfo.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
+                  16
                 </td>
               </tr>
                           <tr>

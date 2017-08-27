@@ -18,22 +18,22 @@
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> javaslang.collection.Seq;
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> javaslang.control.Option;
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.api.BakerService;
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.api.BakerServiceFactory;
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.api.DirBakeListener;
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.api.DirBakeListenerFactory;
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.api.TemplateService;
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.api.TemplateServiceFactory;
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.SiteBakerConf;
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.CollectiveDirBakeListener;
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.CollectiveTemplateService;
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.CopyBakerService;
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.DirBaker;
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.DirBakerConfDao;
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.FileBaker;
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.SingleSiteBaker;
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.logging.Log;
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.logging.LogFactory;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.api.SiteBakerConf;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.CollectiveDirBakeListener;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.CollectiveTemplateService;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.CopyBakerService;
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.DirBaker;
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.DirBakerConfDao;
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.FileBaker;
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.SingleSiteBaker;
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.logging.Log;
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.logging.LogFactory;
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.BakerService;
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.BakerServiceFactory;
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.DirBakeListener;
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.DirBakeListenerFactory;
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.TemplateService;
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.TemplateServiceFactory;
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.util.Holder;
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.util.Services;
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  
@@ -44,7 +44,7 @@
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_comment">/* package private */</em> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/varmateo/yawg/core/SiteBakerDomain.html">SiteBakerDomain</a> {
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/spi/SiteBakerConf.html">SiteBakerConf</a> _conf;
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/api/SiteBakerConf.html">SiteBakerConf</a> _conf;
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Holder&lt;Seq&lt;BakerService&gt;&gt; _bakers =
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>              Holder.of(<strong class="jxr_keyword">this</strong>::newBakers);
@@ -77,7 +77,7 @@
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>  <em class="jxr_javadoccomment">     * @param conf Configuration parameters.</em>
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>      <a href="../../../../com/varmateo/yawg/core/SiteBakerDomain.html">SiteBakerDomain</a>(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/spi/SiteBakerConf.html">SiteBakerConf</a> conf) {
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>      <a href="../../../../com/varmateo/yawg/core/SiteBakerDomain.html">SiteBakerDomain</a>(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/api/SiteBakerConf.html">SiteBakerConf</a> conf) {
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>  
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>          _conf = conf;
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>      }
@@ -105,7 +105,7 @@
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L100" href="#L100">100</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../com/varmateo/yawg/api/BakerService.html">BakerService</a> newCopyBakerService() {
+<a class="jxr_linenumber" name="L100" href="#L100">100</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../com/varmateo/yawg/spi/BakerService.html">BakerService</a> newCopyBakerService() {
 <a class="jxr_linenumber" name="L101" href="#L101">101</a> 
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/varmateo/yawg/core/CopyBakerService.html">CopyBakerService</a>();
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>     }
@@ -114,12 +114,12 @@
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L108" href="#L108">108</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L109" href="#L109">109</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../com/varmateo/yawg/api/DirBakeListener.html">DirBakeListener</a> newDirBakeListener() {
+<a class="jxr_linenumber" name="L109" href="#L109">109</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../com/varmateo/yawg/spi/DirBakeListener.html">DirBakeListener</a> newDirBakeListener() {
 <a class="jxr_linenumber" name="L110" href="#L110">110</a> 
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>         Seq&lt;DirBakeListener&gt; allListeners =
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>                 Services.getAll(DirBakeListenerFactory.<strong class="jxr_keyword">class</strong>)
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>                 .map(DirBakeListenerFactory::newDirBakeListener);
-<a class="jxr_linenumber" name="L114" href="#L114">114</a>         <a href="../../../../com/varmateo/yawg/api/DirBakeListener.html">DirBakeListener</a> result = <strong class="jxr_keyword">new</strong> <a href="../../../../com/varmateo/yawg/core/CollectiveDirBakeListener.html">CollectiveDirBakeListener</a>(allListeners);
+<a class="jxr_linenumber" name="L114" href="#L114">114</a>         <a href="../../../../com/varmateo/yawg/spi/DirBakeListener.html">DirBakeListener</a> result = <strong class="jxr_keyword">new</strong> <a href="../../../../com/varmateo/yawg/core/CollectiveDirBakeListener.html">CollectiveDirBakeListener</a>(allListeners);
 <a class="jxr_linenumber" name="L115" href="#L115">115</a> 
 <a class="jxr_linenumber" name="L116" href="#L116">116</a>         <strong class="jxr_keyword">return</strong> result;
 <a class="jxr_linenumber" name="L117" href="#L117">117</a>     }
@@ -157,7 +157,7 @@
 <a class="jxr_linenumber" name="L149" href="#L149">149</a> 
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>         <a href="../../../../com/varmateo/yawg/logging/Log.html">Log</a> log = _log.get();
 <a class="jxr_linenumber" name="L151" href="#L151">151</a>         Seq&lt;BakerService&gt; bakers = _bakers.get();
-<a class="jxr_linenumber" name="L152" href="#L152">152</a>         <a href="../../../../com/varmateo/yawg/api/BakerService.html">BakerService</a> defaultBaker = _copyBaker.get();
+<a class="jxr_linenumber" name="L152" href="#L152">152</a>         <a href="../../../../com/varmateo/yawg/spi/BakerService.html">BakerService</a> defaultBaker = _copyBaker.get();
 <a class="jxr_linenumber" name="L153" href="#L153">153</a>         <a href="../../../../com/varmateo/yawg/core/FileBaker.html">FileBaker</a> result = <strong class="jxr_keyword">new</strong> <a href="../../../../com/varmateo/yawg/core/FileBaker.html">FileBaker</a>(log, bakers, defaultBaker);
 <a class="jxr_linenumber" name="L154" href="#L154">154</a> 
 <a class="jxr_linenumber" name="L155" href="#L155">155</a>         <strong class="jxr_keyword">return</strong> result;
@@ -167,7 +167,7 @@
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L160" href="#L160">160</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L161" href="#L161">161</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L162" href="#L162">162</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../com/varmateo/yawg/api/TemplateService.html">TemplateService</a> newTemplateService() {
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../com/varmateo/yawg/spi/TemplateService.html">TemplateService</a> newTemplateService() {
 <a class="jxr_linenumber" name="L163" href="#L163">163</a> 
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>         Seq&lt;TemplateService&gt; allServices =
 <a class="jxr_linenumber" name="L165" href="#L165">165</a>                 Option.ofOptional(_conf.getTemplatesDir())
@@ -175,7 +175,7 @@
 <a class="jxr_linenumber" name="L167" href="#L167">167</a>                      Services.getAll(TemplateServiceFactory.<strong class="jxr_keyword">class</strong>)
 <a class="jxr_linenumber" name="L168" href="#L168">168</a>                      .map(f -&gt; f.newTemplateService(dirPath)))
 <a class="jxr_linenumber" name="L169" href="#L169">169</a>                 .getOrElse(List::of);
-<a class="jxr_linenumber" name="L170" href="#L170">170</a>         <a href="../../../../com/varmateo/yawg/api/TemplateService.html">TemplateService</a> result = <strong class="jxr_keyword">new</strong> <a href="../../../../com/varmateo/yawg/core/CollectiveTemplateService.html">CollectiveTemplateService</a>(allServices);
+<a class="jxr_linenumber" name="L170" href="#L170">170</a>         <a href="../../../../com/varmateo/yawg/spi/TemplateService.html">TemplateService</a> result = <strong class="jxr_keyword">new</strong> <a href="../../../../com/varmateo/yawg/core/CollectiveTemplateService.html">CollectiveTemplateService</a>(allServices);
 <a class="jxr_linenumber" name="L171" href="#L171">171</a> 
 <a class="jxr_linenumber" name="L172" href="#L172">172</a>         <strong class="jxr_keyword">return</strong> result;
 <a class="jxr_linenumber" name="L173" href="#L173">173</a>     }

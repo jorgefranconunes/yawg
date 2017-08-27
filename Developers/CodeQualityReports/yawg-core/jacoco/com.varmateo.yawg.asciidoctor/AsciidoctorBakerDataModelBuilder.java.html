@@ -18,8 +18,8 @@ import org.asciidoctor.ast.Author;
 import org.asciidoctor.ast.DocumentHeader;
 import org.asciidoctor.internal.AsciidoctorCoreException;
 
-import com.varmateo.yawg.api.PageContext;
-import com.varmateo.yawg.api.TemplateDataModel;
+import com.varmateo.yawg.spi.PageContext;
+import com.varmateo.yawg.spi.TemplateDataModel;
 import com.varmateo.yawg.util.FileUtils;
 
 

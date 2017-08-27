@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TemplateDataModel.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg SPI</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.spi</a> &gt; <span class="el_source">TemplateDataModel.java</span></div><h1>TemplateDataModel.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2016-2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.spi;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
+
+import com.varmateo.yawg.api.PageVars;
+import com.varmateo.yawg.api.YawgInfo;
+
+
+/**
+ * Data available to a template during processing.
+ */
+public final class TemplateDataModel {
+
+
+    private final List&lt;Author&gt; _authors;
+    private final String _bakeId;
+    private final String _body;
+    private final String _pageUrl;
+    private final PageVars _pageVars;
+    private final String _productName;
+    private final String _rootRelativeUrl;
+    private final String _title;
+    private final String _version;
+
+
+    /**
+     *
+     */
+<span class="nc" id="L39">    private TemplateDataModel(final Builder builder) {</span>
+
+<span class="nc" id="L41">        _authors =</span>
+<span class="nc" id="L42">                Collections.unmodifiableList(new ArrayList&lt;&gt;(builder._authors));</span>
+<span class="nc" id="L43">        _bakeId = UUID.randomUUID().toString();</span>
+<span class="nc" id="L44">        _body = Objects.requireNonNull(builder._body);</span>
+<span class="nc" id="L45">        _pageUrl = Objects.requireNonNull(builder._pageUrl);</span>
+<span class="nc" id="L46">        _pageVars =</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">                (builder._pageVars!=null) ? builder._pageVars: new PageVars();</span>
+<span class="nc" id="L48">        _productName = YawgInfo.PRODUCT_NAME;</span>
+<span class="nc" id="L49">        _rootRelativeUrl = Objects.requireNonNull(builder._rootRelativeUrl);</span>
+<span class="nc" id="L50">        _title = Objects.requireNonNull(builder._title);</span>
+<span class="nc" id="L51">        _version = YawgInfo.VERSION;</span>
+<span class="nc" id="L52">    }</span>
+
+
+    /**
+     * The authors of the document. It may be an empty list.
+     */
+    public Iterable&lt;Author&gt; getAuthors() {
+<span class="nc" id="L59">        return _authors;</span>
+    }
+
+
+    /**
+     * Randomly generated unique bake identifier. Each bake will have
+     * a different identifier.
+     */
+    public String getBakeId() {
+<span class="nc" id="L68">        return _bakeId;</span>
+    }
+
+
+    /**
+     * The raw HTML contents of the baked document. This is actually
+     * an HTML snippet appropriate for inclusion under a
+     * &lt;code&gt;&amp;lt;body&amp;gt;&lt;/code&gt; tag, or any other block level
+     * element.
+     */
+    public String getBody() {
+<span class="nc" id="L79">        return _body;</span>
+    }
+
+
+    /**
+     * The URL of the page being baked relative to the root directory
+     * of the site.
+     */
+    public String getPageUrl() {
+<span class="nc" id="L88">        return _pageUrl;</span>
+    }
+
+
+    /**
+     * Set of variables available to the page template. These
+     * variables are immutable.
+     */
+    public PageVars getPageVars() {
+<span class="nc" id="L97">        return _pageVars;</span>
+    }
+
+
+    /**
+     * A fixed string with the Yawg product name.
+     */
+    public String getProductName() {
+<span class="nc" id="L105">        return _productName;</span>
+    }
+
+
+    /**
+     * The URL of the root directory of the site being baked relative
+     * to the document about to be baked.
+     */
+    public String getRootRelativeUrl() {
+<span class="nc" id="L114">        return _rootRelativeUrl;</span>
+    }
+
+
+    /**
+     * The title of the document, as extracted from its source.
+     */
+    public String getTitle() {
+<span class="nc" id="L122">        return _title;</span>
+    }
+
+
+    /**
+     * The version of the Yawg software being used.
+     */
+    public String getVersion() {
+<span class="nc" id="L130">        return _version;</span>
+    }
+
+
+    /**
+     *
+     */
+    public static Builder builder() {
+
+<span class="nc" id="L139">        Builder result = new Builder();</span>
+
+<span class="nc" id="L141">        return result;</span>
+    }
+
+
+    /**
+     * Builder of &lt;code&gt;TemplateDataModel&lt;/code&gt; instances.
+     */
+    public static final class Builder {
+
+
+        private List&lt;Author&gt; _authors;
+        private String _body;
+        private String _pageUrl;
+        private String _rootRelativeUrl;
+        private PageVars _pageVars;
+        private String _title;
+
+
+        /**
+         *
+         */
+<span class="nc" id="L162">        private Builder() {</span>
+
+<span class="nc" id="L164">            _authors = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L165">            _body = null;</span>
+<span class="nc" id="L166">            _pageUrl = null;</span>
+<span class="nc" id="L167">            _rootRelativeUrl = null;</span>
+<span class="nc" id="L168">            _pageVars = null;</span>
+<span class="nc" id="L169">            _title = null;</span>
+<span class="nc" id="L170">        }</span>
+
+
+        /**
+         *
+         */
+        public Builder addAuthor(
+                final String name,
+                final String email) {
+
+<span class="nc" id="L180">            Author author = new Author(name, email);</span>
+
+<span class="nc" id="L182">            _authors.add(author);</span>
+
+<span class="nc" id="L184">            return this;</span>
+        }
+
+
+        /**
+         *
+         */
+        public Builder setBody(final String body) {
+
+<span class="nc" id="L193">            _body = Objects.requireNonNull(body);</span>
+
+<span class="nc" id="L195">            return this;</span>
+        }
+
+
+        /**
+         *
+         */
+        public Builder setPageUrl(final String pageUrl) {
+
+<span class="nc" id="L204">            _pageUrl = pageUrl;</span>
+
+<span class="nc" id="L206">            return this;</span>
+        }
+
+
+        /**
+         *
+         */
+        public Builder setRootRelativeUrl(
+                final String rootRelativeUrl) {
+
+<span class="nc" id="L216">            _rootRelativeUrl = rootRelativeUrl;</span>
+
+<span class="nc" id="L218">            return this;</span>
+        }
+
+
+        /**
+         *
+         */
+        public Builder setPageVars(final PageVars pageVars) {
+
+<span class="nc" id="L227">            _pageVars = pageVars;</span>
+
+<span class="nc" id="L229">            return this;</span>
+        }
+
+
+        /**
+         *
+         */
+        public Builder setTitle(final String title) {
+
+<span class="nc" id="L238">            _title = Objects.requireNonNull(title);</span>
+
+<span class="nc" id="L240">            return this;</span>
+        }
+
+
+        /**
+         *
+         */
+        public TemplateDataModel build() {
+
+<span class="nc" id="L249">            TemplateDataModel result = new TemplateDataModel(this);</span>
+
+<span class="nc" id="L251">            return result;</span>
+        }
+
+
+    }
+
+
+    /**
+     * Document author data.
+     */
+    public static final class Author {
+
+
+        private final String _name;
+        private final String _email;
+
+
+        /**
+         *
+         */
+        private Author(
+                final String name,
+<span class="nc" id="L273">                final String email) {</span>
+
+<span class="nc" id="L275">            _name = name;</span>
+<span class="nc" id="L276">            _email = email;</span>
+<span class="nc" id="L277">        }</span>
+
+
+        /**
+         * @return Author's name. It is never null.
+         */
+        public String getName() {
+
+<span class="nc" id="L285">            return _name;</span>
+        }
+
+
+        /**
+         * @return Author's email. It might be null.
+         */
+        public String getEmail() {
+
+<span class="nc" id="L294">            return _email;</span>
+        }
+
+
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

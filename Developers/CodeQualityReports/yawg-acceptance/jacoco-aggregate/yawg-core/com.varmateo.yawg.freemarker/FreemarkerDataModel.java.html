@@ -6,7 +6,7 @@
 
 package com.varmateo.yawg.freemarker;
 
-import com.varmateo.yawg.api.TemplateDataModel;
+import com.varmateo.yawg.spi.TemplateDataModel;
 
 
 /**

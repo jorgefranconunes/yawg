@@ -8,12 +8,12 @@ package com.varmateo.yawg.breadcrumbs;
 
 import java.util.Optional;
 
-import com.varmateo.yawg.api.DirBakeListener;
-import com.varmateo.yawg.api.PageContext;
 import com.varmateo.yawg.api.PageVars;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.breadcrumbs.BreadcrumbItem;
 import com.varmateo.yawg.breadcrumbs.Breadcrumbs;
+import com.varmateo.yawg.spi.DirBakeListener;
+import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.util.SimpleMap;
 
 

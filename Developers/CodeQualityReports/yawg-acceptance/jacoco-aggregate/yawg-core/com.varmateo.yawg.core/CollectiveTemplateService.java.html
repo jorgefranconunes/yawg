@@ -12,9 +12,9 @@ import java.util.function.Function;
 import javaslang.collection.Seq;
 import javaslang.control.Option;
 
-import com.varmateo.yawg.api.Template;
-import com.varmateo.yawg.api.TemplateService;
 import com.varmateo.yawg.api.YawgException;
+import com.varmateo.yawg.spi.Template;
+import com.varmateo.yawg.spi.TemplateService;
 
 import com.varmateo.yawg.util.Exceptions;
 
@@ -22,7 +22,7 @@ import com.varmateo.yawg.util.Exceptions;
 /**
  * 
  */
-/* package private */ final class CollectiveTemplateService
+/* default */ final class CollectiveTemplateService
         implements TemplateService {
 
 

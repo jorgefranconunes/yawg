@@ -6,9 +6,9 @@
 
 package com.varmateo.yawg.breadcrumbs;
 
-import com.varmateo.yawg.api.DirBakeListener;
-import com.varmateo.yawg.api.DirBakeListenerFactory;
 import com.varmateo.yawg.breadcrumbs.BreadcrumbsBakeListener;
+import com.varmateo.yawg.spi.DirBakeListener;
+import com.varmateo.yawg.spi.DirBakeListenerFactory;
 
 
 /**
