@@ -105,9 +105,7 @@ import com.varmateo.yawg.util.GlobMatcher;
      */
     public static Builder builder() {
 
-        Builder result = new Builder();
-
-        return result;
+        return new Builder();
     }
 
 
@@ -116,9 +114,7 @@ import com.varmateo.yawg.util.GlobMatcher;
      */
     public static DirBakerConf empty() {
 
-        DirBakerConf result = DirBakerConf.builder().build();
-
-        return result;
+        return DirBakerConf.builder().build();
     }
 
 
@@ -148,9 +144,7 @@ import com.varmateo.yawg.util.GlobMatcher;
                 .setExtraDirsHere(this.extraDirsHere);
 
 
-        DirBakerConf result = builder.build();
-
-        return result;
+        return builder.build();
     }
 
 

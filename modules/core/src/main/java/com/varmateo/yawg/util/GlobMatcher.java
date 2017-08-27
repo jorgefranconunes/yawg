@@ -88,9 +88,7 @@ public final class GlobMatcher
      */
     public static Builder builder() {
 
-        Builder result = new Builder();
-
-        return result;
+        return new Builder();
     }
 
 
@@ -104,9 +102,7 @@ public final class GlobMatcher
      */
     public static Builder builder(final GlobMatcher data) {
 
-        Builder result = new Builder(data);
-
-        return result;
+        return new Builder(data);
     }
 
 
@@ -124,12 +120,11 @@ public final class GlobMatcher
 
         Path name = path.getFileName();
         Predicate<PathMatcher> isMatch = matcher -> matcher.matches(name);
-        boolean result = _matchers
+
+        return _matchers
                 .filter(isMatch)
                 .headOption()
                 .isDefined();
-
-        return result;
     }
 
 
@@ -141,13 +136,11 @@ public final class GlobMatcher
     @Override
     public String toString() {
 
-        // This implementation is not particularly performant. Let's
+        // This implementation is not particularly performant. Let us
         // hope client code only uses this method for sporadic logging
         // or debugging.
 
-        String result = String.join(",", _globPatterns);
-
-        return result;
+        return String.join(",", _globPatterns);
     }
 
 
@@ -219,9 +212,7 @@ public final class GlobMatcher
          */
         public GlobMatcher build() {
 
-            GlobMatcher result = new GlobMatcher(this);
-
-            return result;
+            return new GlobMatcher(this);
         }
 
 

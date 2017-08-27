@@ -56,12 +56,9 @@ import com.varmateo.yawg.core.DirBakerConf;
      */
     private boolean testPath(final Path path) {
 
-        boolean result =
-                _isIncludeHere
+        return _isIncludeHere
                 ? testForIncludeHere(path)
                 : !testForExclude(path);
-
-        return result;
     }
 
 

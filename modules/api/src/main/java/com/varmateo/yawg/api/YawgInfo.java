@@ -53,7 +53,7 @@ public final class YawgInfo {
             }
         } catch ( IOException e ) {
             String msg = "Failed to read resource \"" + resourcePath + "\"";
-            throw new IllegalStateException(msg);
+            throw new IllegalStateException(msg, e);
         }
 
         VERSION = props.getProperty(PROP_VERSION);

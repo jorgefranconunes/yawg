@@ -64,15 +64,13 @@ final class DirPageContextBuilder {
                 .addPageVars(dirBakerConf.pageVars)
                 .addPageVars(dirBakerConf.pageVarsHere)
                 .build();
-        PageContext context =
-                PageContext.builder()
+
+        return PageContext.builder()
                 .setDirUrl(dirUrl)
                 .setRootRelativeUrl(rootRelativeUrl)
                 .setTemplateFetcher(templateFetcher)
                 .setPageVars(allPageVars)
                 .build();
-
-        return context;
     }
 
 
@@ -88,16 +86,12 @@ final class DirPageContextBuilder {
         TemplateNameMatcher templateNameMatcher = dirBakerConf.templatesHere;
         TemplateService templateService = _templateService;
 
-        Function<Path,Optional<Template>> fetcher =
-                path ->
-                getTemplate(
-                        path,
-                        templateNameMatcher,
-                        templateName,
-                        templateService)
+        return path -> getTemplate(
+                path,
+                templateNameMatcher,
+                templateName,
+                templateService)
                 .toJavaOptional();
-
-        return fetcher;
     }
 
 
@@ -151,13 +145,11 @@ final class DirPageContextBuilder {
             final Path baseDir) {
 
         Path relDir = baseDir.relativize(dir);
-        String result = relDir.toString().replace(File.separatorChar, '/');
+        String relativeUrl = relDir.toString().replace(File.separatorChar, '/');
 
-        if ( result.length() == 0 ) {
-            result = ".";
-        }
-
-        return result;
+        return relativeUrl.length() == 0
+                ? "."
+                : relativeUrl;
     }
 
 

@@ -56,9 +56,7 @@ public final class SimpleList<T>
      */
     public T get(final int index) {
 
-        T result = getWithType(index, _itemsClass);
-
-        return result;
+        return getWithType(index, _itemsClass);
     }
 
 
@@ -70,9 +68,8 @@ public final class SimpleList<T>
         @SuppressWarnings("unchecked")
         Map<String,Object> value =
                 (Map<String,Object>)getWithType(index, Map.class);
-        SimpleMap result = new SimpleMap(value);
 
-        return result;
+        return new SimpleMap(value);
     }
 
 
@@ -85,9 +82,8 @@ public final class SimpleList<T>
 
         @SuppressWarnings("unchecked")
         List<Object> value = (List<Object>)getWithType(index, List.class);
-        SimpleList<T> result = new SimpleList<T>(value, itemsClass);
 
-        return result;
+        return new SimpleList<T>(value, itemsClass);
     }
 
 
@@ -121,9 +117,7 @@ public final class SimpleList<T>
      */
     public int size() {
 
-        int result = _list.size();
-
-        return result;
+        return _list.size();
     }
 
 

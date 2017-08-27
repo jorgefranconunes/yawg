@@ -73,9 +73,7 @@ import com.varmateo.yawg.util.FileUtils;
                 .setPageVars(context.getPageVars());
         buildAuthors(modelBuilder, header);
 
-        TemplateDataModel result = modelBuilder.build();
-
-        return result;
+        return modelBuilder.build();
     }
 
 

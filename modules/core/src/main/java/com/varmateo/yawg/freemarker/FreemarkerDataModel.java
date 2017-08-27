@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -35,12 +35,9 @@ public final class FreemarkerDataModel {
      */
     public Object get(final String key) {
 
-        Object result =
-                KEY_YAWG_DATA.equals(key)
+        return KEY_YAWG_DATA.equals(key)
                 ? _data
                 : _data.getPageVars().get(key).orElse(null);
-
-        return result;
     }
 
 

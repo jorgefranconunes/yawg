@@ -55,9 +55,8 @@ public final class PageVars {
     public Optional<Object> get(final String key) {
 
         Object value = _map.get(key);
-        Optional<Object> result = Optional.ofNullable(value);
 
-        return result;
+        return Optional.ofNullable(value);
     }
 
 
@@ -80,9 +79,7 @@ public final class PageVars {
      */
     public static Builder builder() {
 
-        Builder result = new Builder();
-
-        return result;
+        return new Builder();
     }
 
 
@@ -96,9 +93,7 @@ public final class PageVars {
      */
     public static Builder builder(final Map<String,Object> data) {
 
-        Builder result = new Builder(data);
-
-        return result;
+        return new Builder(data);
     }
 
 
@@ -112,9 +107,7 @@ public final class PageVars {
      */
     public static Builder builder(final PageVars data) {
 
-        Builder result = new Builder(data);
-
-        return result;
+        return new Builder(data);
     }
 
 
@@ -183,9 +176,7 @@ public final class PageVars {
          */
         public PageVars build() {
 
-            PageVars result = new PageVars(this);
-
-            return result;
+            return new PageVars(this);
         }
 
 

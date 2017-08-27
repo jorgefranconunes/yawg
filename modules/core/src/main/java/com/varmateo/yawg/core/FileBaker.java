@@ -88,13 +88,10 @@ import com.varmateo.yawg.util.Exceptions;
             final DirBakerConf dirBakerConf)
             throws YawgException {
 
-        BakerService baker =
-                dirBakerConf.bakerTypes
+        return dirBakerConf.bakerTypes
                 .flatMap(bakerTypes -> bakerTypes.getBakerTypeFor(sourcePath))
                 .map(bakerType -> findBakerWithType(bakerType))
                 .getOrElse(() -> findBakerFromAll(sourcePath));
-
-        return baker;
     }
 
 

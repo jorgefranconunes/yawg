@@ -129,17 +129,13 @@ public final class TestUtils {
     public static Path newTempDir(final Class<?> testSuiteClass)
             throws IOException {
 
-        String tmpDirRoot =
-                getSystemProperty(PROP_TMP_DIR_PREFIX);
-        String[] pathComponents =
-            testSuiteClass.getName().split("\\.");
-        Path tmpDirParent =
-                Paths.get(tmpDirRoot, pathComponents);
+        String tmpDirRoot = getSystemProperty(PROP_TMP_DIR_PREFIX);
+        String[] pathComponents = testSuiteClass.getName().split("\\.");
+        Path tmpDirParent = Paths.get(tmpDirRoot, pathComponents);
 
         Files.createDirectories(tmpDirParent);
 
-        Path tmpDir =
-                Files.createTempDirectory(tmpDirParent, "tmp");
+        Path tmpDir = Files.createTempDirectory(tmpDirParent, "tmp");
 
         return tmpDir;
     }

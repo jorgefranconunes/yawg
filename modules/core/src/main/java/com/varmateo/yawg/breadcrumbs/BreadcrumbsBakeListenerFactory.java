@@ -24,9 +24,7 @@ public final class BreadcrumbsBakeListenerFactory
     @Override
     public DirBakeListener newDirBakeListener() {
 
-        DirBakeListener result = new BreadcrumbsBakeListener();
-
-        return result;
+        return new BreadcrumbsBakeListener();
     }
 
 

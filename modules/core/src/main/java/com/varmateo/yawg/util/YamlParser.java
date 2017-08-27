@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -49,9 +49,7 @@ public final class YamlParser {
             resultMap = Collections.emptyMap();
         }
 
-        SimpleMap result = new SimpleMap(resultMap);
-
-        return result;
+        return new SimpleMap(resultMap);
     }
 
 

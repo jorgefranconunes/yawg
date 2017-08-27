@@ -68,13 +68,9 @@ import com.varmateo.yawg.util.YamlParser;
         DirBakerConf result = null;
         Path confFile = sourceDir.resolve(CONF_FILE_NAME);
 
-        if ( Files.isRegularFile(confFile) ) {
-            result = loadFromFile(confFile);
-        } else {
-            result = DirBakerConf.empty();
-        }
-
-        return result;
+        return Files.isRegularFile(confFile)
+                ? loadFromFile(confFile)
+                : DirBakerConf.empty();
     }
 
 
@@ -84,12 +80,12 @@ import com.varmateo.yawg.util.YamlParser;
     public DirBakerConf loadFromFile(final Path confFile)
             throws YawgException {
 
-        DirBakerConf result = null;
+        final DirBakerConf result;
 
         try {
             result = doLoadFromFile(confFile);
         } catch ( IOException e ) {
-            Exceptions.raise(
+            throw Exceptions.raise(
                     e,
                     "Failed to read config file \"{0}\" - {1} - {2}",
                     confFile,
@@ -107,7 +103,7 @@ import com.varmateo.yawg.util.YamlParser;
     private DirBakerConf doLoadFromFile(final Path confFile)
             throws YawgException, IOException {
 
-        DirBakerConf result = null;
+        final DirBakerConf result;
 
         try ( Reader reader =
                 Files.newBufferedReader(confFile, StandardCharsets.UTF_8) ) {
@@ -154,9 +150,7 @@ import com.varmateo.yawg.util.YamlParser;
         getPathList(confMap, PARAM_EXTRA_DIRS_HERE)
                 .ifPresent(builder::setExtraDirsHere);
 
-        DirBakerConf result = builder.build();
-
-        return result;
+        return builder.build();
     }
 
 
@@ -206,7 +200,7 @@ import com.varmateo.yawg.util.YamlParser;
             final String key)
             throws YawgException {
 
-        Optional<BakerMatcher> result;
+        final Optional<BakerMatcher> result;
         Optional<SimpleMap> bakerTypesMapOpt = map.getMap(key);
 
         if ( bakerTypesMapOpt.isPresent() ) {
@@ -249,7 +243,7 @@ import com.varmateo.yawg.util.YamlParser;
             final String key)
             throws YawgException {
 
-        Optional<TemplateNameMatcher> result;
+        final Optional<TemplateNameMatcher> result;
         Optional<SimpleMap> templatesHereMapOpt = map.getMap(key);
 
         if ( templatesHereMapOpt.isPresent() ) {

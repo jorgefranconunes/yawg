@@ -136,9 +136,7 @@ public final class TemplateDataModel {
      */
     public static Builder builder() {
 
-        Builder result = new Builder();
-
-        return result;
+        return new Builder();
     }
 
 
@@ -246,9 +244,7 @@ public final class TemplateDataModel {
          */
         public TemplateDataModel build() {
 
-            TemplateDataModel result = new TemplateDataModel(this);
-
-            return result;
+            return new TemplateDataModel(this);
         }
 
 

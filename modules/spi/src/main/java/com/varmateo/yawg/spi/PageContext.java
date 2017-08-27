@@ -34,9 +34,7 @@ public final class PageContext {
      */
     public static Builder builder() {
 
-        Builder result = new Builder();
-
-        return result;
+        return new Builder();
     }
 
 
@@ -66,9 +64,7 @@ public final class PageContext {
      */
     public Optional<Template> getTemplateFor(final Path path) {
 
-        Optional<Template> result = _templateFetcher.apply(path);
-
-        return result;
+        return _templateFetcher.apply(path);
     }
 
 
@@ -99,9 +95,7 @@ public final class PageContext {
      */
     public static Builder builder(final PageContext data) {
 
-        Builder result = new Builder(data);
-
-        return result;
+        return new Builder(data);
     }
 
 
@@ -169,9 +163,9 @@ public final class PageContext {
          */
         public Builder setRootRelativeUrl(final String rootRelativeUrl) {
 
-        _rootRelativeUrl = rootRelativeUrl;
+            _rootRelativeUrl = rootRelativeUrl;
 
-        return this;
+            return this;
         }
 
 
@@ -215,9 +209,7 @@ public final class PageContext {
          */
         public PageContext build() {
 
-            PageContext result = new PageContext(this);
-
-            return result;
+            return new PageContext(this);
         }
 
 

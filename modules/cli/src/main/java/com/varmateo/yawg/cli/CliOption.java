@@ -54,9 +54,7 @@ public final class CliOption {
      */
     public static Builder builder() {
 
-        Builder result = new Builder();
-
-        return result;
+        return new Builder();
     }
 
 
@@ -64,8 +62,6 @@ public final class CliOption {
      *
      */
     private static Option buildApacheOption(final CliOption option) {
-
-        Option result = null;
 
         String longName = option.getLongName();
         if ( longName != null ) {
@@ -88,13 +84,10 @@ public final class CliOption {
         }
 
         String shortName = option.getShortName();
-        if ( shortName != null ) {
-            result = OptionBuilder.create(shortName);
-        } else {
-            result = OptionBuilder.create();
-        }
 
-        return result;
+        return shortName != null
+                ? OptionBuilder.create(shortName)
+                : OptionBuilder.create();
     }
 
 
@@ -242,9 +235,7 @@ public final class CliOption {
          */
         public CliOption build() {
 
-            CliOption result = new CliOption(this);
-
-            return result;
+            return new CliOption(this);
         }
 
 

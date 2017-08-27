@@ -61,9 +61,7 @@ import com.varmateo.yawg.cli.CliOption;
      */
     public static Builder builder() {
 
-        Builder result = new Builder();
-
-        return result;
+        return new Builder();
     }
 
 
@@ -199,9 +197,7 @@ import com.varmateo.yawg.cli.CliOption;
          */
         public CliInfoPrinter build() {
 
-            CliInfoPrinter result = new CliInfoPrinter(this);
-
-            return result;
+            return new CliInfoPrinter(this);
         }
 
 

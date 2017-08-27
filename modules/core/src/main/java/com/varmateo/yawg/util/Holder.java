@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -79,9 +79,7 @@ public final class Holder<T> {
      */
     public static <T> Holder<T> of(final Supplier<T> builder) {
 
-        Holder<T> result = new Holder<T>(builder);
-
-        return result;
+        return new Holder<T>(builder);
     }
 
 

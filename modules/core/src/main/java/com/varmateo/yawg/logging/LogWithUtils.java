@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -33,9 +33,7 @@ public final class LogWithUtils
      */
     public static LogWithUtils from(final Log myLog) {
 
-        LogWithUtils result = new LogWithUtils(myLog);
-
-        return result;
+        return new LogWithUtils(myLog);
     }
 
 
@@ -44,10 +42,9 @@ public final class LogWithUtils
      */
     public static LogWithUtils createFor(final Object owner) {
 
-        Log          myLog  = LogFactory.createFor(owner);
-        LogWithUtils result = LogWithUtils.from(myLog);
+        Log myLog  = LogFactory.createFor(owner);
 
-        return result;
+        return LogWithUtils.from(myLog);
     }
 
 

@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -65,14 +65,10 @@ public final class FileUtils {
             final Path path,
             final Pattern pattern) {
 
-        Optional<Path> fileName = Optional.ofNullable(path.getFileName());
-        boolean result =
-                fileName
+        return  Optional.ofNullable(path.getFileName())
                 .map(Path::toString)
                 .map(basename -> pattern.matcher(basename).matches())
                 .orElse(false);
-
-        return result;
     }
 
 

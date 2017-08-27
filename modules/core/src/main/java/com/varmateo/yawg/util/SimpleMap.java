@@ -51,9 +51,7 @@ public final class SimpleMap {
      */
     public Map<String,Object> asMap() {
 
-        Map<String,Object> result = Collections.unmodifiableMap(_map);
-
-        return result;
+        return Collections.unmodifiableMap(_map);
     }
 
 
@@ -65,12 +63,8 @@ public final class SimpleMap {
             final Class<T> klass) {
 
         T value = getWithType(key, klass);
-        Optional<T> result =
-                (value==null)
-                ? Optional.empty()
-                : Optional.of(value);
 
-        return result;
+        return Optional.ofNullable(value);
     }
 
 

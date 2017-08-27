@@ -167,10 +167,9 @@ import com.varmateo.yawg.cli.CliOption;
      */
     public boolean hasOption(final CliOption option) {
 
-        String  optionName = option.getName();
-        boolean result     = _cmdLine.hasOption(optionName);
+        String optionName = option.getName();
 
-        return result;
+        return _cmdLine.hasOption(optionName);
     }
 
 

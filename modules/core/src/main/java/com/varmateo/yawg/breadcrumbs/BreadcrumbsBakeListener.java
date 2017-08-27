@@ -55,11 +55,8 @@ public final class BreadcrumbsBakeListener
      */
     private Breadcrumbs getBreadcrumbs(final SimpleMap vars) {
 
-        Optional<Breadcrumbs> optBreadcrumbs =
-                vars.get(VAR_BREADCRUMB_LIST, Breadcrumbs.class);
-        Breadcrumbs result = optBreadcrumbs.orElseGet(Breadcrumbs::empty);
-
-        return result;
+        return vars.get(VAR_BREADCRUMB_LIST, Breadcrumbs.class)
+                .orElseGet(Breadcrumbs::empty);
     }
 
 
@@ -81,9 +78,7 @@ public final class BreadcrumbsBakeListener
                 .map(s -> dirUrl + "/" + s)
                 .orElse(dirUrl);
 
-        BreadcrumbItem result = new BreadcrumbItem(title, url);
-
-        return result;
+        return new BreadcrumbItem(title, url);
     }
 
 
@@ -93,9 +88,8 @@ public final class BreadcrumbsBakeListener
     private String basenameOf(final String url) {
 
         int index = url.lastIndexOf('/');
-        String result = (index!=-1) ? url.substring(index+1) : url;
 
-        return result;
+        return (index!=-1) ? url.substring(index+1) : url;
     }
 
 
@@ -106,12 +100,9 @@ public final class BreadcrumbsBakeListener
             final Breadcrumbs oldBreadcrumbs,
             final BreadcrumbItem newBreadcrumbItem) {
 
-        Breadcrumbs newBreadcrumbs =
-                Breadcrumbs.builder(oldBreadcrumbs)
+        return Breadcrumbs.builder(oldBreadcrumbs)
                 .addBreadcrumbItem(newBreadcrumbItem)
                 .build();
-
-        return newBreadcrumbs;
     }
 
 
@@ -120,12 +111,9 @@ public final class BreadcrumbsBakeListener
      */
     private PageVars updateBreadcrumbs(final Breadcrumbs newBreadcrumbs) {
 
-        PageVars newVars =
-                PageVars.builder()
+        return PageVars.builder()
                 .addVar(VAR_BREADCRUMB_LIST, newBreadcrumbs)
                 .build();
-
-        return newVars;
     }
 
 

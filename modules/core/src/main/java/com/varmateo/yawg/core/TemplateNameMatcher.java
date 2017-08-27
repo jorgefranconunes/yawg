@@ -48,9 +48,7 @@ import com.varmateo.yawg.util.GlobMatcher;
      */
     public static Builder builder() {
 
-        Builder result = new Builder();
-
-        return result;
+        return new Builder();
     }
 
 

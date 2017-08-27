@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2015-2016 Yawg project contributors.
+ * Copyright (c) 2015-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -52,9 +52,7 @@ final class LoggerLog
      */
     public Level getLevel() {
 
-        Level result = (_logger==null) ? Level.OFF : _logger.getLevel();
-
-        return result;
+        return (_logger==null) ? Level.OFF : _logger.getLevel();
     }
 
 

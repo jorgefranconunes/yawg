@@ -46,9 +46,7 @@ public final class BakerCliConf {
      */
     public static Builder builder() {
 
-        Builder result = new Builder();
-
-        return result;
+        return new Builder();
     }
 
 
@@ -115,9 +113,7 @@ public final class BakerCliConf {
          */
         public BakerCliConf build() {
 
-            BakerCliConf result = new BakerCliConf(this);
-
-            return result;
+            return new BakerCliConf(this);
         }
 
 

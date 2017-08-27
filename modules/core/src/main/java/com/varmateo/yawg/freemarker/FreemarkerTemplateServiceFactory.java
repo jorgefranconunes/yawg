@@ -27,9 +27,7 @@ public final class FreemarkerTemplateServiceFactory
     public TemplateService newTemplateService(final Path templatesDir)
             throws YawgException {
 
-        TemplateService result = FreemarkerTemplateService.build(templatesDir);
-
-        return result;
+        return FreemarkerTemplateService.build(templatesDir);
     }
 
 

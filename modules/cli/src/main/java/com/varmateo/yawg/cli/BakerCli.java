@@ -93,13 +93,10 @@ public final class BakerCli {
         PrintWriter stdout =
                 new PrintWriter(stdoutWriter, autoFlush);
 
-        InfoPrinter infoPrinter =
-            InfoPrinter.builder()
-            .setArgv0(argv0)
-            .setOutput(stdout)
-            .build();
-
-        return infoPrinter;
+        return InfoPrinter.builder()
+                .setArgv0(argv0)
+                .setOutput(stdout)
+                .build();
     }
 
 
@@ -186,16 +183,13 @@ public final class BakerCli {
                 cliOptions.getPath(BakerCliOptions.ASSETS_DIR, null);
         PageVars externalPageVars = buildExternalPageVars(cliOptions);
 
-        SiteBakerConf conf =
-                SiteBakerConf.builder()
+        return SiteBakerConf.builder()
                 .setSourceDir(sourceDir)
                 .setTargetDir(targetDir)
                 .setTemplatesDir(templatesDir)
                 .setAssetsDir(assetsDir)
                 .setExternalPageVars(externalPageVars)
                 .build();
-
-        return conf;
     }
 
 

@@ -111,9 +111,8 @@ import com.varmateo.yawg.util.Services;
         Seq<DirBakeListener> allListeners =
                 Services.getAll(DirBakeListenerFactory.class)
                 .map(DirBakeListenerFactory::newDirBakeListener);
-        DirBakeListener result = new CollectiveDirBakeListener(allListeners);
 
-        return result;
+        return new CollectiveDirBakeListener(allListeners);
     }
 
 
@@ -150,9 +149,8 @@ import com.varmateo.yawg.util.Services;
         Log log = _log.get();
         Seq<BakerService> bakers = _bakers.get();
         BakerService defaultBaker = _copyBaker.get();
-        FileBaker result = new FileBaker(log, bakers, defaultBaker);
 
-        return result;
+        return new FileBaker(log, bakers, defaultBaker);
     }
 
 
@@ -167,9 +165,8 @@ import com.varmateo.yawg.util.Services;
                      Services.getAll(TemplateServiceFactory.class)
                      .map(f -> f.newTemplateService(dirPath)))
                 .getOrElse(List::of);
-        TemplateService result = new CollectiveTemplateService(allServices);
 
-        return result;
+        return new CollectiveTemplateService(allServices);
     }
 
 
@@ -178,9 +175,7 @@ import com.varmateo.yawg.util.Services;
      */
     private Log newLog() {
 
-        Log result = LogFactory.createFor(this);
-
-        return result;
+        return LogFactory.createFor(this);
     }
 
 

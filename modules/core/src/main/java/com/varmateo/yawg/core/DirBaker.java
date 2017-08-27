@@ -167,12 +167,10 @@ import com.varmateo.yawg.util.Exceptions;
             final DirBakerConf dirBakerConf) {
 
         DirEntryScanner scanner = new DirEntryScanner(dirBakerConf);
-        Seq<Path> result =
-                doIoAction(
-                        "list directory",
-                        () -> scanner.getDirEntries(dir));
 
-        return result;
+        return doIoAction(
+                "list directory",
+                () -> scanner.getDirEntries(dir));
     }
 
 

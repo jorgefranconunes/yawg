@@ -22,9 +22,6 @@ final class PlainFormatter
         extends Formatter {
 
 
-
-
-
     private static final String DEFAULT_LOG_FMT =
         "{0,date,yyyy-MM.dd HH:mm:ss.SSS} {1} {2}\n";
 
@@ -93,16 +90,10 @@ final class PlainFormatter
                              logLevel,
                              record.getMessage(),
                              record.getParameters());
-        String logMessage = null;
 
-        if ( error == null ) {
-            logMessage = message;
-        } else {
-            logMessage =
-                formatLogMessageWithError(message, time, logLevel, error);
-        }
-
-        return logMessage;
+        return error == null
+                ? message
+                : formatLogMessageWithError(message, time, logLevel, error);
     }
 
 
@@ -150,24 +141,22 @@ final class PlainFormatter
             final Level     logLevel,
             final Throwable error) {
 
-        StringWriter buffer = new StringWriter();
-        PrintWriter  writer = new PrintWriter(buffer);
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter  writer = new PrintWriter(stringWriter);
 
         error.printStackTrace(writer);
-        buffer.flush();
+        writer.flush();
 
-        StringBuilder msgBuilder = new StringBuilder(firstLine);
-        String[]      lines      = buffer.toString().split(LINE_SEPARATOR);
+        StringBuilder buffer = new StringBuilder(firstLine);
+        String[] lines = stringWriter.toString().split(LINE_SEPARATOR);
 
         for ( String line : lines ) {
             String logLine = formatLogMessage(time, logLevel, line, null);
 
-            msgBuilder.append(logLine);
+            buffer.append(logLine);
         }
 
-        String logMessage = msgBuilder.toString();
-
-        return logMessage;
+        return buffer.toString();
     }
 
 

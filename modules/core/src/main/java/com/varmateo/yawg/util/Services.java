@@ -46,9 +46,8 @@ public final class Services {
                     return allServices;
                 }
             };
-        Seq<T> result = List.ofAll(iterable);
 
-        return result;
+        return List.ofAll(iterable);
     }
 
 

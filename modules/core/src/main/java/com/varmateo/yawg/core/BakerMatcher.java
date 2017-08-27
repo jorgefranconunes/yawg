@@ -186,8 +186,7 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public Builder addBakerTypes(final BakerMatcher that) {
 
-            that._bakerTypes
-                    .forEach(e -> addBakerType(e.mapType, e.matcher));
+            that._bakerTypes.forEach(e -> addBakerType(e.mapType, e.matcher));
 
             return this;
         }
@@ -198,9 +197,7 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public BakerMatcher build() {
 
-            BakerMatcher result = new BakerMatcher(this);
-
-            return result;
+            return new BakerMatcher(this);
         }
 
 

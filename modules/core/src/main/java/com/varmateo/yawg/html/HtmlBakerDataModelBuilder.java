@@ -64,16 +64,13 @@ final class HtmlBakerDataModelBuilder {
                 .map(Element::text)
                 .orElseGet(() -> FileUtils.basename(sourcePath));
 
-        TemplateDataModel result =
-                TemplateDataModel.builder()
+        return TemplateDataModel.builder()
                 .setTitle(title)
                 .setBody(body)
                 .setPageUrl(pageUrl)
                 .setRootRelativeUrl(context.getRootRelativeUrl())
                 .setPageVars(context.getPageVars())
                 .build();
-
-        return result;
     }
 
 
