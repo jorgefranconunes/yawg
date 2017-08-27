@@ -46,9 +46,7 @@ public final class BakerCliConf {
      */
     public static Builder builder() {
 
-<span class="fc" id="L49">        Builder result = new Builder();</span>
-
-<span class="fc" id="L51">        return result;</span>
+<span class="fc" id="L49">        return new Builder();</span>
     }
 
 
@@ -66,12 +64,12 @@ public final class BakerCliConf {
         /**
          *
          */
-<span class="fc" id="L69">        private Builder() {</span>
+<span class="fc" id="L67">        private Builder() {</span>
 
-<span class="fc" id="L71">            _argv0 = DEFAULT_ARGV0;</span>
-<span class="fc" id="L72">            _args = List.of();</span>
-<span class="fc" id="L73">            _output = System.out;</span>
-<span class="fc" id="L74">        }</span>
+<span class="fc" id="L69">            _argv0 = DEFAULT_ARGV0;</span>
+<span class="fc" id="L70">            _args = List.of();</span>
+<span class="fc" id="L71">            _output = System.out;</span>
+<span class="fc" id="L72">        }</span>
 
 
         /**
@@ -81,9 +79,9 @@ public final class BakerCliConf {
          */
         public Builder setArgv0(final String argv0) {
 
-<span class="nc" id="L84">            _argv0 = argv0;</span>
+<span class="nc" id="L82">            _argv0 = argv0;</span>
 
-<span class="nc" id="L86">            return this;</span>
+<span class="nc" id="L84">            return this;</span>
         }
 
 
@@ -93,9 +91,9 @@ public final class BakerCliConf {
          */
         public Builder addArgs(final String... args) {
 
-<span class="fc" id="L96">            _args = _args.appendAll(List.of(args));</span>
+<span class="fc" id="L94">            _args = _args.appendAll(List.of(args));</span>
 
-<span class="fc" id="L98">            return this;</span>
+<span class="fc" id="L96">            return this;</span>
         }
 
 
@@ -104,9 +102,9 @@ public final class BakerCliConf {
          */
         public Builder setOutput(final OutputStream output) {
 
-<span class="fc" id="L107">            _output = output;</span>
+<span class="fc" id="L105">            _output = output;</span>
 
-<span class="fc" id="L109">            return this;</span>
+<span class="fc" id="L107">            return this;</span>
         }
 
 
@@ -115,9 +113,7 @@ public final class BakerCliConf {
          */
         public BakerCliConf build() {
 
-<span class="fc" id="L118">            BakerCliConf result = new BakerCliConf(this);</span>
-
-<span class="fc" id="L120">            return result;</span>
+<span class="fc" id="L116">            return new BakerCliConf(this);</span>
         }
 
 

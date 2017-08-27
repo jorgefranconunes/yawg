@@ -22,14 +22,11 @@ final class PlainFormatter
         extends Formatter {
 
 
-
-
-
     private static final String DEFAULT_LOG_FMT =
         &quot;{0,date,yyyy-MM.dd HH:mm:ss.SSS} {1} {2}\n&quot;;
 
-<span class="nc" id="L31">    private static final String LINE_SEPARATOR =</span>
-<span class="nc" id="L32">        System.getProperty(&quot;line.separator&quot;);</span>
+<span class="nc" id="L28">    private static final String LINE_SEPARATOR =</span>
+<span class="nc" id="L29">        System.getProperty(&quot;line.separator&quot;);</span>
 
     private final MessageFormat _logFmt;
 
@@ -37,10 +34,10 @@ final class PlainFormatter
     /**
      * Initializes the formatter with a default format string.
      */
-<span class="nc" id="L40">    PlainFormatter() {</span>
+<span class="nc" id="L37">    PlainFormatter() {</span>
 
-<span class="nc" id="L42">        _logFmt = new MessageFormat(DEFAULT_LOG_FMT);</span>
-<span class="nc" id="L43">    }</span>
+<span class="nc" id="L39">        _logFmt = new MessageFormat(DEFAULT_LOG_FMT);</span>
+<span class="nc" id="L40">    }</span>
 
 
     /**
@@ -64,10 +61,10 @@ final class PlainFormatter
      * @param logFmt The formatting string for the log message. See
      * above for details.
      */
-<span class="nc" id="L67">    PlainFormatter(final String logFmt) {</span>
+<span class="nc" id="L64">    PlainFormatter(final String logFmt) {</span>
 
-<span class="nc" id="L69">        _logFmt = new MessageFormat(logFmt);</span>
-<span class="nc" id="L70">    }</span>
+<span class="nc" id="L66">        _logFmt = new MessageFormat(logFmt);</span>
+<span class="nc" id="L67">    }</span>
 
 
     /**
@@ -76,7 +73,7 @@ final class PlainFormatter
     @Override
     public String format(final LogRecord record) {
 
-<span class="nc" id="L79">        return formatLogMessage(record);</span>
+<span class="nc" id="L76">        return formatLogMessage(record);</span>
     }
 
 
@@ -85,24 +82,18 @@ final class PlainFormatter
      */
     private String formatLogMessage(final LogRecord record) {
 
-<span class="nc" id="L88">        Throwable error    = record.getThrown();</span>
-<span class="nc" id="L89">        long      time     = record.getMillis();</span>
-<span class="nc" id="L90">        Level     logLevel = record.getLevel();</span>
-<span class="nc" id="L91">        String    message  =</span>
-<span class="nc" id="L92">            formatLogMessage(time,</span>
+<span class="nc" id="L85">        Throwable error    = record.getThrown();</span>
+<span class="nc" id="L86">        long      time     = record.getMillis();</span>
+<span class="nc" id="L87">        Level     logLevel = record.getLevel();</span>
+<span class="nc" id="L88">        String    message  =</span>
+<span class="nc" id="L89">            formatLogMessage(time,</span>
                              logLevel,
-<span class="nc" id="L94">                             record.getMessage(),</span>
-<span class="nc" id="L95">                             record.getParameters());</span>
-<span class="nc" id="L96">        String logMessage = null;</span>
+<span class="nc" id="L91">                             record.getMessage(),</span>
+<span class="nc" id="L92">                             record.getParameters());</span>
 
-<span class="nc bnc" id="L98" title="All 2 branches missed.">        if ( error == null ) {</span>
-<span class="nc" id="L99">            logMessage = message;</span>
-        } else {
-<span class="nc" id="L101">            logMessage =</span>
-<span class="nc" id="L102">                formatLogMessageWithError(message, time, logLevel, error);</span>
-        }
-
-<span class="nc" id="L105">        return logMessage;</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">        return error == null</span>
+                ? message
+<span class="nc" id="L96">                : formatLogMessageWithError(message, time, logLevel, error);</span>
     }
 
 
@@ -115,29 +106,29 @@ final class PlainFormatter
             final String   msgFmt,
             final Object[] inputFmtArgs) {
 
-<span class="nc" id="L118">        String msg = null;</span>
+<span class="nc" id="L109">        String msg = null;</span>
 
-<span class="nc bnc" id="L120" title="All 4 branches missed.">        if ( (inputFmtArgs!=null) &amp;&amp; (inputFmtArgs.length&gt;0) ) {</span>
-<span class="nc" id="L121">            int      count   = inputFmtArgs.length;</span>
-<span class="nc" id="L122">            String[] fmtArgs = new String[count];</span>
+<span class="nc bnc" id="L111" title="All 4 branches missed.">        if ( (inputFmtArgs!=null) &amp;&amp; (inputFmtArgs.length&gt;0) ) {</span>
+<span class="nc" id="L112">            int      count   = inputFmtArgs.length;</span>
+<span class="nc" id="L113">            String[] fmtArgs = new String[count];</span>
 
-<span class="nc bnc" id="L124" title="All 2 branches missed.">            for ( int i=0; i&lt;count; ++i ) {</span>
-<span class="nc" id="L125">                Object inputFmtArg = inputFmtArgs[i];</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">            for ( int i=0; i&lt;count; ++i ) {</span>
+<span class="nc" id="L116">                Object inputFmtArg = inputFmtArgs[i];</span>
 
-<span class="nc bnc" id="L127" title="All 2 branches missed.">                fmtArgs[i] =</span>
-<span class="nc" id="L128">                    (inputFmtArg!=null) ? inputFmtArg.toString() : null;</span>
+<span class="nc bnc" id="L118" title="All 2 branches missed.">                fmtArgs[i] =</span>
+<span class="nc" id="L119">                    (inputFmtArg!=null) ? inputFmtArg.toString() : null;</span>
             }
-<span class="nc" id="L130">            msg = MessageFormat.format(msgFmt, (Object[])fmtArgs);</span>
-<span class="nc" id="L131">        } else {</span>
-<span class="nc" id="L132">            msg = msgFmt;</span>
+<span class="nc" id="L121">            msg = MessageFormat.format(msgFmt, (Object[])fmtArgs);</span>
+<span class="nc" id="L122">        } else {</span>
+<span class="nc" id="L123">            msg = msgFmt;</span>
         }
 
-<span class="nc" id="L135">        Date logRecordDate = new Date(time);</span>
+<span class="nc" id="L126">        Date logRecordDate = new Date(time);</span>
 
-<span class="nc" id="L137">        Object[] logMsgFmtArgs = { logRecordDate, logLevel.getName(), msg };</span>
-<span class="nc" id="L138">        String logMsg = _logFmt.format(logMsgFmtArgs);</span>
+<span class="nc" id="L128">        Object[] logMsgFmtArgs = { logRecordDate, logLevel.getName(), msg };</span>
+<span class="nc" id="L129">        String logMsg = _logFmt.format(logMsgFmtArgs);</span>
 
-<span class="nc" id="L140">        return logMsg;</span>
+<span class="nc" id="L131">        return logMsg;</span>
     }
 
 
@@ -150,24 +141,22 @@ final class PlainFormatter
             final Level     logLevel,
             final Throwable error) {
 
-<span class="nc" id="L153">        StringWriter buffer = new StringWriter();</span>
-<span class="nc" id="L154">        PrintWriter  writer = new PrintWriter(buffer);</span>
+<span class="nc" id="L144">        StringWriter stringWriter = new StringWriter();</span>
+<span class="nc" id="L145">        PrintWriter  writer = new PrintWriter(stringWriter);</span>
 
-<span class="nc" id="L156">        error.printStackTrace(writer);</span>
-<span class="nc" id="L157">        buffer.flush();</span>
+<span class="nc" id="L147">        error.printStackTrace(writer);</span>
+<span class="nc" id="L148">        writer.flush();</span>
 
-<span class="nc" id="L159">        StringBuilder msgBuilder = new StringBuilder(firstLine);</span>
-<span class="nc" id="L160">        String[]      lines      = buffer.toString().split(LINE_SEPARATOR);</span>
+<span class="nc" id="L150">        StringBuilder buffer = new StringBuilder(firstLine);</span>
+<span class="nc" id="L151">        String[] lines = stringWriter.toString().split(LINE_SEPARATOR);</span>
 
-<span class="nc bnc" id="L162" title="All 2 branches missed.">        for ( String line : lines ) {</span>
-<span class="nc" id="L163">            String logLine = formatLogMessage(time, logLevel, line, null);</span>
+<span class="nc bnc" id="L153" title="All 2 branches missed.">        for ( String line : lines ) {</span>
+<span class="nc" id="L154">            String logLine = formatLogMessage(time, logLevel, line, null);</span>
 
-<span class="nc" id="L165">            msgBuilder.append(logLine);</span>
+<span class="nc" id="L156">            buffer.append(logLine);</span>
         }
 
-<span class="nc" id="L168">        String logMessage = msgBuilder.toString();</span>
-
-<span class="nc" id="L170">        return logMessage;</span>
+<span class="nc" id="L159">        return buffer.toString();</span>
     }
 
 

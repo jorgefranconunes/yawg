@@ -54,9 +54,7 @@ public final class CliOption {
      */
     public static Builder builder() {
 
-<span class="fc" id="L57">        Builder result = new Builder();</span>
-
-<span class="fc" id="L59">        return result;</span>
+<span class="fc" id="L57">        return new Builder();</span>
     }
 
 
@@ -65,36 +63,31 @@ public final class CliOption {
      */
     private static Option buildApacheOption(final CliOption option) {
 
-<span class="fc" id="L68">        Option result = null;</span>
-
-<span class="fc" id="L70">        String longName = option.getLongName();</span>
-<span class="fc bfc" id="L71" title="All 2 branches covered.">        if ( longName != null ) {</span>
-<span class="fc" id="L72">            OptionBuilder.withLongOpt(longName);</span>
+<span class="fc" id="L66">        String longName = option.getLongName();</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">        if ( longName != null ) {</span>
+<span class="fc" id="L68">            OptionBuilder.withLongOpt(longName);</span>
         }
 
-<span class="fc" id="L75">        String description = option.getDescription();</span>
-<span class="fc bfc" id="L76" title="All 2 branches covered.">        if ( description != null ) {</span>
-<span class="fc" id="L77">            OptionBuilder.withDescription(description);</span>
+<span class="fc" id="L71">        String description = option.getDescription();</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        if ( description != null ) {</span>
+<span class="fc" id="L73">            OptionBuilder.withDescription(description);</span>
         }
 
-<span class="fc" id="L80">        boolean isWithArg = option.isWithArg();</span>
-<span class="fc bfc" id="L81" title="All 2 branches covered.">        if ( isWithArg ) {</span>
-<span class="fc" id="L82">            OptionBuilder.hasArg();</span>
+<span class="fc" id="L76">        boolean isWithArg = option.isWithArg();</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        if ( isWithArg ) {</span>
+<span class="fc" id="L78">            OptionBuilder.hasArg();</span>
         }
 
-<span class="fc" id="L85">        String argName = option.getArgName();</span>
-<span class="fc bfc" id="L86" title="All 2 branches covered.">        if ( argName != null ) {</span>
-<span class="fc" id="L87">            OptionBuilder.withArgName(argName);</span>
+<span class="fc" id="L81">        String argName = option.getArgName();</span>
+<span class="fc bfc" id="L82" title="All 2 branches covered.">        if ( argName != null ) {</span>
+<span class="fc" id="L83">            OptionBuilder.withArgName(argName);</span>
         }
 
-<span class="fc" id="L90">        String shortName = option.getShortName();</span>
-<span class="fc bfc" id="L91" title="All 2 branches covered.">        if ( shortName != null ) {</span>
-<span class="fc" id="L92">            result = OptionBuilder.create(shortName);</span>
-        } else {
-<span class="fc" id="L94">            result = OptionBuilder.create();</span>
-        }
+<span class="fc" id="L86">        String shortName = option.getShortName();</span>
 
-<span class="fc" id="L97">        return result;</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">        return shortName != null</span>
+<span class="fc" id="L89">                ? OptionBuilder.create(shortName)</span>
+<span class="fc" id="L90">                : OptionBuilder.create();</span>
     }
 
 
@@ -103,7 +96,7 @@ public final class CliOption {
      */
     public String getShortName() {
 
-<span class="fc" id="L106">        return _shortName;</span>
+<span class="fc" id="L99">        return _shortName;</span>
     }
 
 
@@ -112,7 +105,7 @@ public final class CliOption {
      */
     public String getLongName() {
 
-<span class="fc" id="L115">        return _longName;</span>
+<span class="fc" id="L108">        return _longName;</span>
     }
 
 
@@ -121,7 +114,7 @@ public final class CliOption {
      */
     public String getDescription() {
 
-<span class="fc" id="L124">        return _description;</span>
+<span class="fc" id="L117">        return _description;</span>
     }
 
 
@@ -130,7 +123,7 @@ public final class CliOption {
      */
     public boolean isWithArg() {
 
-<span class="fc" id="L133">        return _isWithArg;</span>
+<span class="fc" id="L126">        return _isWithArg;</span>
     }
 
 
@@ -139,7 +132,7 @@ public final class CliOption {
      */
     public String getArgName() {
 
-<span class="fc" id="L142">        return _argName;</span>
+<span class="fc" id="L135">        return _argName;</span>
     }
 
 
@@ -148,7 +141,7 @@ public final class CliOption {
      */
     public String getName() {
 
-<span class="fc" id="L151">        return _name;</span>
+<span class="fc" id="L144">        return _name;</span>
     }
 
 
@@ -157,7 +150,7 @@ public final class CliOption {
      */
     public String getLiteral() {
 
-<span class="fc" id="L160">        return _literal;</span>
+<span class="fc" id="L153">        return _literal;</span>
     }
 
 
@@ -166,7 +159,7 @@ public final class CliOption {
      */
     /* default */ Option apacheOption() {
 
-<span class="fc" id="L169">        return _apacheOption;</span>
+<span class="fc" id="L162">        return _apacheOption;</span>
     }
 
 
@@ -176,18 +169,18 @@ public final class CliOption {
     public static final class Builder {
 
 
-<span class="fc" id="L179">        private String  _shortName   = null;</span>
-<span class="fc" id="L180">        private String  _longName    = null;</span>
-<span class="fc" id="L181">        private String  _description = null;</span>
-<span class="fc" id="L182">        private String  _argName     = null;</span>
+<span class="fc" id="L172">        private String  _shortName   = null;</span>
+<span class="fc" id="L173">        private String  _longName    = null;</span>
+<span class="fc" id="L174">        private String  _description = null;</span>
+<span class="fc" id="L175">        private String  _argName     = null;</span>
 
 
         /**
          *
          */
-<span class="fc" id="L188">        private Builder() {</span>
+<span class="fc" id="L181">        private Builder() {</span>
             // Nothing to do.
-<span class="fc" id="L190">        }</span>
+<span class="fc" id="L183">        }</span>
 
 
         /**
@@ -195,9 +188,9 @@ public final class CliOption {
          */
         public Builder setShortName(final String shortName) {
 
-<span class="fc" id="L198">            _shortName = shortName;</span>
+<span class="fc" id="L191">            _shortName = shortName;</span>
 
-<span class="fc" id="L200">            return this;</span>
+<span class="fc" id="L193">            return this;</span>
         }
 
 
@@ -207,9 +200,9 @@ public final class CliOption {
 
         public Builder setLongName(final String longName) {
 
-<span class="fc" id="L210">            _longName = longName;</span>
+<span class="fc" id="L203">            _longName = longName;</span>
 
-<span class="fc" id="L212">            return this;</span>
+<span class="fc" id="L205">            return this;</span>
         }
 
 
@@ -220,9 +213,9 @@ public final class CliOption {
 
         public Builder setDescription(final String description) {
 
-<span class="fc" id="L223">            _description = description;</span>
+<span class="fc" id="L216">            _description = description;</span>
 
-<span class="fc" id="L225">            return this;</span>
+<span class="fc" id="L218">            return this;</span>
         }
 
 
@@ -231,9 +224,9 @@ public final class CliOption {
          */
         public Builder setArgName(final String argName) {
 
-<span class="fc" id="L234">            _argName = argName;</span>
+<span class="fc" id="L227">            _argName = argName;</span>
 
-<span class="fc" id="L236">            return this;</span>
+<span class="fc" id="L229">            return this;</span>
         }
 
 
@@ -242,9 +235,7 @@ public final class CliOption {
          */
         public CliOption build() {
 
-<span class="fc" id="L245">            CliOption result = new CliOption(this);</span>
-
-<span class="fc" id="L247">            return result;</span>
+<span class="fc" id="L238">            return new CliOption(this);</span>
         }
 
 

@@ -111,9 +111,8 @@ import com.varmateo.yawg.util.Services;
 <span class="nc" id="L111">        Seq&lt;DirBakeListener&gt; allListeners =</span>
 <span class="nc" id="L112">                Services.getAll(DirBakeListenerFactory.class)</span>
 <span class="nc" id="L113">                .map(DirBakeListenerFactory::newDirBakeListener);</span>
-<span class="nc" id="L114">        DirBakeListener result = new CollectiveDirBakeListener(allListeners);</span>
 
-<span class="nc" id="L116">        return result;</span>
+<span class="nc" id="L115">        return new CollectiveDirBakeListener(allListeners);</span>
     }
 
 
@@ -122,14 +121,14 @@ import com.varmateo.yawg.util.Services;
      */
     private DirBaker newDirBaker() {
 
-<span class="nc" id="L125">        return new DirBaker(</span>
-<span class="nc" id="L126">                _log.get(),</span>
-<span class="nc" id="L127">                _conf.getSourceDir(),</span>
-<span class="nc" id="L128">                _conf.getTargetDir(),</span>
-<span class="nc" id="L129">                _fileBaker.get(),</span>
-<span class="nc" id="L130">                _templateService.get(),</span>
-<span class="nc" id="L131">                _dirBakerConfDao.get(),</span>
-<span class="nc" id="L132">                _dirBakeListener.get());</span>
+<span class="nc" id="L124">        return new DirBaker(</span>
+<span class="nc" id="L125">                _log.get(),</span>
+<span class="nc" id="L126">                _conf.getSourceDir(),</span>
+<span class="nc" id="L127">                _conf.getTargetDir(),</span>
+<span class="nc" id="L128">                _fileBaker.get(),</span>
+<span class="nc" id="L129">                _templateService.get(),</span>
+<span class="nc" id="L130">                _dirBakerConfDao.get(),</span>
+<span class="nc" id="L131">                _dirBakeListener.get());</span>
     }
 
 
@@ -138,7 +137,7 @@ import com.varmateo.yawg.util.Services;
      */
     private DirBakerConfDao newDirBakerConfDao() {
 
-<span class="nc" id="L141">        return new DirBakerConfDao();</span>
+<span class="nc" id="L140">        return new DirBakerConfDao();</span>
     }
 
 
@@ -147,12 +146,11 @@ import com.varmateo.yawg.util.Services;
      */
     private FileBaker newFileBaker() {
 
-<span class="nc" id="L150">        Log log = _log.get();</span>
-<span class="nc" id="L151">        Seq&lt;BakerService&gt; bakers = _bakers.get();</span>
-<span class="nc" id="L152">        BakerService defaultBaker = _copyBaker.get();</span>
-<span class="nc" id="L153">        FileBaker result = new FileBaker(log, bakers, defaultBaker);</span>
+<span class="nc" id="L149">        Log log = _log.get();</span>
+<span class="nc" id="L150">        Seq&lt;BakerService&gt; bakers = _bakers.get();</span>
+<span class="nc" id="L151">        BakerService defaultBaker = _copyBaker.get();</span>
 
-<span class="nc" id="L155">        return result;</span>
+<span class="nc" id="L153">        return new FileBaker(log, bakers, defaultBaker);</span>
     }
 
 
@@ -161,15 +159,14 @@ import com.varmateo.yawg.util.Services;
      */
     private TemplateService newTemplateService() {
 
-<span class="nc" id="L164">        Seq&lt;TemplateService&gt; allServices =</span>
-<span class="nc" id="L165">                Option.ofOptional(_conf.getTemplatesDir())</span>
-<span class="nc" id="L166">                .map(dirPath -&gt;</span>
-<span class="nc" id="L167">                     Services.getAll(TemplateServiceFactory.class)</span>
-<span class="nc" id="L168">                     .map(f -&gt; f.newTemplateService(dirPath)))</span>
-<span class="nc" id="L169">                .getOrElse(List::of);</span>
-<span class="nc" id="L170">        TemplateService result = new CollectiveTemplateService(allServices);</span>
+<span class="nc" id="L162">        Seq&lt;TemplateService&gt; allServices =</span>
+<span class="nc" id="L163">                Option.ofOptional(_conf.getTemplatesDir())</span>
+<span class="nc" id="L164">                .map(dirPath -&gt;</span>
+<span class="nc" id="L165">                     Services.getAll(TemplateServiceFactory.class)</span>
+<span class="nc" id="L166">                     .map(f -&gt; f.newTemplateService(dirPath)))</span>
+<span class="nc" id="L167">                .getOrElse(List::of);</span>
 
-<span class="nc" id="L172">        return result;</span>
+<span class="nc" id="L169">        return new CollectiveTemplateService(allServices);</span>
     }
 
 
@@ -178,9 +175,7 @@ import com.varmateo.yawg.util.Services;
      */
     private Log newLog() {
 
-<span class="nc" id="L181">        Log result = LogFactory.createFor(this);</span>
-
-<span class="nc" id="L183">        return result;</span>
+<span class="nc" id="L178">        return LogFactory.createFor(this);</span>
     }
 
 
@@ -189,7 +184,7 @@ import com.varmateo.yawg.util.Services;
      */
     private SingleSiteBaker newSiteBaker() {
 
-<span class="nc" id="L192">        return new SingleSiteBaker(_log.get(), _conf, _dirBaker.get());</span>
+<span class="nc" id="L187">        return new SingleSiteBaker(_log.get(), _conf, _dirBaker.get());</span>
     }
 
 

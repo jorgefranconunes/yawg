@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>FileUtils.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.util</a> &gt; <span class="el_source">FileUtils.java</span></div><h1>FileUtils.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -65,14 +65,10 @@ public final class FileUtils {
             final Path path,
             final Pattern pattern) {
 
-<span class="fc" id="L68">        Optional&lt;Path&gt; fileName = Optional.ofNullable(path.getFileName());</span>
-<span class="fc" id="L69">        boolean result =</span>
-                fileName
-<span class="fc" id="L71">                .map(Path::toString)</span>
-<span class="fc" id="L72">                .map(basename -&gt; pattern.matcher(basename).matches())</span>
-<span class="fc" id="L73">                .orElse(false);</span>
-
-<span class="fc" id="L75">        return result;</span>
+<span class="fc" id="L68">        return  Optional.ofNullable(path.getFileName())</span>
+<span class="fc" id="L69">                .map(Path::toString)</span>
+<span class="fc" id="L70">                .map(basename -&gt; pattern.matcher(basename).matches())</span>
+<span class="fc" id="L71">                .orElse(false);</span>
     }
 
 
@@ -94,12 +90,12 @@ public final class FileUtils {
             final Path target)
             throws IOException {
 
-<span class="fc" id="L97">        Files.copy(</span>
+<span class="fc" id="L93">        Files.copy(</span>
                 source,
                 target,
                 StandardCopyOption.REPLACE_EXISTING,
                 StandardCopyOption.COPY_ATTRIBUTES);
-<span class="fc" id="L102">    }</span>
+<span class="fc" id="L98">    }</span>
 
 
     /**
@@ -117,10 +113,10 @@ public final class FileUtils {
     public static String readAsString(final Path sourcePath)
             throws IOException {
 
-<span class="fc" id="L120">        byte[] contentBytes = Files.readAllBytes(sourcePath);</span>
-<span class="fc" id="L121">        String content = new String(contentBytes, StandardCharsets.UTF_8);</span>
+<span class="fc" id="L116">        byte[] contentBytes = Files.readAllBytes(sourcePath);</span>
+<span class="fc" id="L117">        String content = new String(contentBytes, StandardCharsets.UTF_8);</span>
 
-<span class="fc" id="L123">        return content;</span>
+<span class="fc" id="L119">        return content;</span>
     }
 
 
@@ -146,11 +142,11 @@ public final class FileUtils {
             final ConsumerWithIOException&lt;Writer&gt; consumer)
             throws IOException {
 
-<span class="pc" id="L149">        try ( Writer writer =</span>
-<span class="fc" id="L150">                  Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {</span>
-<span class="fc" id="L151">            consumer.accept(writer);</span>
-<span class="pc bpc" id="L152" title="6 of 8 branches missed.">        }</span>
-<span class="fc" id="L153">    }</span>
+<span class="pc" id="L145">        try ( Writer writer =</span>
+<span class="fc" id="L146">                  Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {</span>
+<span class="fc" id="L147">            consumer.accept(writer);</span>
+<span class="pc bpc" id="L148" title="6 of 8 branches missed.">        }</span>
+<span class="fc" id="L149">    }</span>
 
 
     /**

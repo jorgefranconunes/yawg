@@ -68,13 +68,9 @@ import com.varmateo.yawg.util.YamlParser;
 <span class="fc" id="L68">        DirBakerConf result = null;</span>
 <span class="fc" id="L69">        Path confFile = sourceDir.resolve(CONF_FILE_NAME);</span>
 
-<span class="fc bfc" id="L71" title="All 2 branches covered.">        if ( Files.isRegularFile(confFile) ) {</span>
-<span class="fc" id="L72">            result = loadFromFile(confFile);</span>
-        } else {
-<span class="fc" id="L74">            result = DirBakerConf.empty();</span>
-        }
-
-<span class="fc" id="L77">        return result;</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        return Files.isRegularFile(confFile)</span>
+<span class="fc" id="L72">                ? loadFromFile(confFile)</span>
+<span class="fc" id="L73">                : DirBakerConf.empty();</span>
     }
 
 
@@ -84,20 +80,20 @@ import com.varmateo.yawg.util.YamlParser;
     public DirBakerConf loadFromFile(final Path confFile)
             throws YawgException {
 
-<span class="fc" id="L87">        DirBakerConf result = null;</span>
+        final DirBakerConf result;
 
         try {
-<span class="fc" id="L90">            result = doLoadFromFile(confFile);</span>
-<span class="fc" id="L91">        } catch ( IOException e ) {</span>
-<span class="pc" id="L92">            Exceptions.raise(</span>
+<span class="fc" id="L86">            result = doLoadFromFile(confFile);</span>
+<span class="fc" id="L87">        } catch ( IOException e ) {</span>
+<span class="pc" id="L88">            throw Exceptions.raise(</span>
                     e,
                     &quot;Failed to read config file \&quot;{0}\&quot; - {1} - {2}&quot;,
                     confFile,
-<span class="fc" id="L96">                    e.getClass().getSimpleName(),</span>
-<span class="fc" id="L97">                    e.getMessage());</span>
-<span class="fc" id="L98">        }</span>
+<span class="fc" id="L92">                    e.getClass().getSimpleName(),</span>
+<span class="fc" id="L93">                    e.getMessage());</span>
+<span class="fc" id="L94">        }</span>
 
-<span class="fc" id="L100">        return result;</span>
+<span class="fc" id="L96">        return result;</span>
     }
 
 
@@ -107,14 +103,14 @@ import com.varmateo.yawg.util.YamlParser;
     private DirBakerConf doLoadFromFile(final Path confFile)
             throws YawgException, IOException {
 
-<span class="fc" id="L110">        DirBakerConf result = null;</span>
+        final DirBakerConf result;
 
-<span class="pc" id="L112">        try ( Reader reader =</span>
-<span class="fc" id="L113">                Files.newBufferedReader(confFile, StandardCharsets.UTF_8) ) {</span>
-<span class="fc" id="L114">            result = read(reader);</span>
-<span class="pc bpc" id="L115" title="6 of 8 branches missed.">        }</span>
+<span class="pc" id="L108">        try ( Reader reader =</span>
+<span class="fc" id="L109">                Files.newBufferedReader(confFile, StandardCharsets.UTF_8) ) {</span>
+<span class="fc" id="L110">            result = read(reader);</span>
+<span class="pc bpc" id="L111" title="6 of 8 branches missed.">        }</span>
 
-<span class="fc" id="L117">        return result;</span>
+<span class="fc" id="L113">        return result;</span>
     }
 
 
@@ -124,39 +120,37 @@ import com.varmateo.yawg.util.YamlParser;
     public DirBakerConf read(final Reader reader)
             throws IOException, YawgException {
 
-<span class="fc" id="L127">        SimpleMap confMap = new YamlParser().parse(reader);</span>
-<span class="fc" id="L128">        DirBakerConf.Builder builder = DirBakerConf.builder();</span>
+<span class="fc" id="L123">        SimpleMap confMap = new YamlParser().parse(reader);</span>
+<span class="fc" id="L124">        DirBakerConf.Builder builder = DirBakerConf.builder();</span>
 
-<span class="fc" id="L130">        confMap.getString(PARAM_TEMPLATE)</span>
-<span class="fc" id="L131">                .ifPresent(builder::setTemplateName);</span>
+<span class="fc" id="L126">        confMap.getString(PARAM_TEMPLATE)</span>
+<span class="fc" id="L127">                .ifPresent(builder::setTemplateName);</span>
 
-<span class="fc" id="L133">        getPatternList(confMap, PARAM_EXCLUDE)</span>
-<span class="fc" id="L134">                .ifPresent(builder::setFilesToExclude);</span>
+<span class="fc" id="L129">        getPatternList(confMap, PARAM_EXCLUDE)</span>
+<span class="fc" id="L130">                .ifPresent(builder::setFilesToExclude);</span>
 
-<span class="fc" id="L136">        getPatternList(confMap, PARAM_EXCLUDE_HERE)</span>
-<span class="fc" id="L137">                .ifPresent(builder::setFilesToExcludeHere);</span>
+<span class="fc" id="L132">        getPatternList(confMap, PARAM_EXCLUDE_HERE)</span>
+<span class="fc" id="L133">                .ifPresent(builder::setFilesToExcludeHere);</span>
 
-<span class="fc" id="L139">        getPatternList(confMap, PARAM_INCLUDE_HERE)</span>
-<span class="fc" id="L140">                .ifPresent(builder::setFilesToIncludeHere);</span>
+<span class="fc" id="L135">        getPatternList(confMap, PARAM_INCLUDE_HERE)</span>
+<span class="fc" id="L136">                .ifPresent(builder::setFilesToIncludeHere);</span>
 
-<span class="fc" id="L142">        getBakerTypes(confMap, PARAM_BAKER_TYPES)</span>
-<span class="fc" id="L143">                .ifPresent(builder::setBakerTypes);</span>
+<span class="fc" id="L138">        getBakerTypes(confMap, PARAM_BAKER_TYPES)</span>
+<span class="fc" id="L139">                .ifPresent(builder::setBakerTypes);</span>
 
-<span class="fc" id="L145">        getPageVars(confMap, PARAM_PAGE_VARS)</span>
-<span class="fc" id="L146">                .ifPresent(builder::setPageVars);</span>
+<span class="fc" id="L141">        getPageVars(confMap, PARAM_PAGE_VARS)</span>
+<span class="fc" id="L142">                .ifPresent(builder::setPageVars);</span>
 
-<span class="fc" id="L148">        getPageVars(confMap, PARAM_PAGE_VARS_HERE)</span>
-<span class="fc" id="L149">                .ifPresent(builder::setPageVarsHere);</span>
+<span class="fc" id="L144">        getPageVars(confMap, PARAM_PAGE_VARS_HERE)</span>
+<span class="fc" id="L145">                .ifPresent(builder::setPageVarsHere);</span>
 
-<span class="fc" id="L151">        getTemplatesHere(confMap, PARAM_TEMPLATES_HERE)</span>
-<span class="fc" id="L152">                .ifPresent(builder::setTemplatesHere);</span>
+<span class="fc" id="L147">        getTemplatesHere(confMap, PARAM_TEMPLATES_HERE)</span>
+<span class="fc" id="L148">                .ifPresent(builder::setTemplatesHere);</span>
 
-<span class="fc" id="L154">        getPathList(confMap, PARAM_EXTRA_DIRS_HERE)</span>
-<span class="fc" id="L155">                .ifPresent(builder::setExtraDirsHere);</span>
+<span class="fc" id="L150">        getPathList(confMap, PARAM_EXTRA_DIRS_HERE)</span>
+<span class="fc" id="L151">                .ifPresent(builder::setExtraDirsHere);</span>
 
-<span class="fc" id="L157">        DirBakerConf result = builder.build();</span>
-
-<span class="fc" id="L159">        return result;</span>
+<span class="fc" id="L153">        return builder.build();</span>
     }
 
 
@@ -168,14 +162,14 @@ import com.varmateo.yawg.util.YamlParser;
             final String key)
             throws YawgException {
 
-<span class="fc" id="L171">        return confMap.getList(key, String.class)</span>
-<span class="fc" id="L172">                .map(itemList -&gt;</span>
-<span class="fc" id="L173">                     Stream.ofAll(itemList)</span>
-<span class="fc" id="L174">                     .zipWithIndex()</span>
-<span class="fc" id="L175">                     .foldLeft(</span>
-<span class="fc" id="L176">                             GlobMatcher.builder(),</span>
-<span class="fc" id="L177">                             (xs,x) -&gt; addToGlobBuilder(xs, x._1(), x._2(), key))</span>
-<span class="fc" id="L178">                     .build());</span>
+<span class="fc" id="L165">        return confMap.getList(key, String.class)</span>
+<span class="fc" id="L166">                .map(itemList -&gt;</span>
+<span class="fc" id="L167">                     Stream.ofAll(itemList)</span>
+<span class="fc" id="L168">                     .zipWithIndex()</span>
+<span class="fc" id="L169">                     .foldLeft(</span>
+<span class="fc" id="L170">                             GlobMatcher.builder(),</span>
+<span class="fc" id="L171">                             (xs,x) -&gt; addToGlobBuilder(xs, x._1(), x._2(), key))</span>
+<span class="fc" id="L172">                     .build());</span>
     }
 
 
@@ -186,9 +180,9 @@ import com.varmateo.yawg.util.YamlParser;
             final String key) {
 
         try {
-<span class="fc" id="L189">            return builder.addGlobPattern(glob);</span>
-<span class="fc" id="L190">        } catch ( PatternSyntaxException e ) {</span>
-<span class="nc" id="L191">            throw Exceptions.raise(</span>
+<span class="fc" id="L183">            return builder.addGlobPattern(glob);</span>
+<span class="fc" id="L184">        } catch ( PatternSyntaxException e ) {</span>
+<span class="nc" id="L185">            throw Exceptions.raise(</span>
                     e,
                     &quot;Invalid glob \&quot;{0}\&quot; on item {1} of {2}&quot;,
                     glob,
@@ -206,23 +200,23 @@ import com.varmateo.yawg.util.YamlParser;
             final String key)
             throws YawgException {
 
-        Optional&lt;BakerMatcher&gt; result;
-<span class="fc" id="L210">        Optional&lt;SimpleMap&gt; bakerTypesMapOpt = map.getMap(key);</span>
+        final Optional&lt;BakerMatcher&gt; result;
+<span class="fc" id="L204">        Optional&lt;SimpleMap&gt; bakerTypesMapOpt = map.getMap(key);</span>
 
-<span class="fc bfc" id="L212" title="All 2 branches covered.">        if ( bakerTypesMapOpt.isPresent() ) {</span>
-<span class="fc" id="L213">            SimpleMap bakerTypesMap = bakerTypesMapOpt.get();</span>
-<span class="fc" id="L214">            BakerMatcher.Builder builder = BakerMatcher.builder();</span>
+<span class="fc bfc" id="L206" title="All 2 branches covered.">        if ( bakerTypesMapOpt.isPresent() ) {</span>
+<span class="fc" id="L207">            SimpleMap bakerTypesMap = bakerTypesMapOpt.get();</span>
+<span class="fc" id="L208">            BakerMatcher.Builder builder = BakerMatcher.builder();</span>
 
-<span class="fc bfc" id="L216" title="All 2 branches covered.">            for ( String bakerType : bakerTypesMap.keySet() ) {</span>
-<span class="fc" id="L217">                getPatternList(bakerTypesMap, bakerType)</span>
-<span class="fc" id="L218">                        .ifPresent(m -&gt; builder.addBakerType(bakerType, m));</span>
-<span class="fc" id="L219">            }</span>
-<span class="fc" id="L220">            result = Optional.of(builder.build());</span>
-<span class="fc" id="L221">        } else {</span>
-<span class="fc" id="L222">            result = Optional.empty();</span>
+<span class="fc bfc" id="L210" title="All 2 branches covered.">            for ( String bakerType : bakerTypesMap.keySet() ) {</span>
+<span class="fc" id="L211">                getPatternList(bakerTypesMap, bakerType)</span>
+<span class="fc" id="L212">                        .ifPresent(m -&gt; builder.addBakerType(bakerType, m));</span>
+<span class="fc" id="L213">            }</span>
+<span class="fc" id="L214">            result = Optional.of(builder.build());</span>
+<span class="fc" id="L215">        } else {</span>
+<span class="fc" id="L216">            result = Optional.empty();</span>
         }
 
-<span class="fc" id="L225">        return result;</span>
+<span class="fc" id="L219">        return result;</span>
     }
 
 
@@ -234,10 +228,10 @@ import com.varmateo.yawg.util.YamlParser;
             final String key)
             throws YawgException {
 
-<span class="fc" id="L237">        return confMap</span>
-<span class="fc" id="L238">                .getMap(key)</span>
-<span class="fc" id="L239">                .map(pageVarsMap -&gt;</span>
-<span class="fc" id="L240">                     PageVars.builder(pageVarsMap.asMap()).build());</span>
+<span class="fc" id="L231">        return confMap</span>
+<span class="fc" id="L232">                .getMap(key)</span>
+<span class="fc" id="L233">                .map(pageVarsMap -&gt;</span>
+<span class="fc" id="L234">                     PageVars.builder(pageVarsMap.asMap()).build());</span>
     }
 
 
@@ -249,25 +243,25 @@ import com.varmateo.yawg.util.YamlParser;
             final String key)
             throws YawgException {
 
-        Optional&lt;TemplateNameMatcher&gt; result;
-<span class="fc" id="L253">        Optional&lt;SimpleMap&gt; templatesHereMapOpt = map.getMap(key);</span>
+        final Optional&lt;TemplateNameMatcher&gt; result;
+<span class="fc" id="L247">        Optional&lt;SimpleMap&gt; templatesHereMapOpt = map.getMap(key);</span>
 
-<span class="pc bpc" id="L255" title="1 of 2 branches missed.">        if ( templatesHereMapOpt.isPresent() ) {</span>
-<span class="nc" id="L256">            SimpleMap templatesHereMap = templatesHereMapOpt.get();</span>
-<span class="nc" id="L257">            TemplateNameMatcher.Builder builder = TemplateNameMatcher.builder();</span>
+<span class="pc bpc" id="L249" title="1 of 2 branches missed.">        if ( templatesHereMapOpt.isPresent() ) {</span>
+<span class="nc" id="L250">            SimpleMap templatesHereMap = templatesHereMapOpt.get();</span>
+<span class="nc" id="L251">            TemplateNameMatcher.Builder builder = TemplateNameMatcher.builder();</span>
 
-<span class="nc bnc" id="L259" title="All 2 branches missed.">            for ( String templateName : templatesHereMap.keySet() ) {</span>
-<span class="nc" id="L260">                GlobMatcher globMatcher =</span>
-<span class="nc" id="L261">                        getPatternList(templatesHereMap, templateName).get();</span>
+<span class="nc bnc" id="L253" title="All 2 branches missed.">            for ( String templateName : templatesHereMap.keySet() ) {</span>
+<span class="nc" id="L254">                GlobMatcher globMatcher =</span>
+<span class="nc" id="L255">                        getPatternList(templatesHereMap, templateName).get();</span>
 
-<span class="nc" id="L263">                builder.addTemplateName(templateName, globMatcher);</span>
-<span class="nc" id="L264">            }</span>
-<span class="nc" id="L265">            result = Optional.of(builder.build());</span>
-<span class="nc" id="L266">        } else {</span>
-<span class="fc" id="L267">            result = Optional.empty();</span>
+<span class="nc" id="L257">                builder.addTemplateName(templateName, globMatcher);</span>
+<span class="nc" id="L258">            }</span>
+<span class="nc" id="L259">            result = Optional.of(builder.build());</span>
+<span class="nc" id="L260">        } else {</span>
+<span class="fc" id="L261">            result = Optional.empty();</span>
         }
 
-<span class="fc" id="L270">        return result;</span>
+<span class="fc" id="L264">        return result;</span>
     }
 
 
@@ -279,12 +273,12 @@ import com.varmateo.yawg.util.YamlParser;
             final String key)
             throws YawgException {
 
-<span class="fc" id="L282">        return confMap</span>
-<span class="fc" id="L283">                .getList(key, String.class)</span>
-<span class="fc" id="L284">                .map(itemList -&gt;</span>
-<span class="nc" id="L285">                     Stream.ofAll(itemList)</span>
-<span class="nc" id="L286">                     .zipWithIndex()</span>
-<span class="nc" id="L287">                     .map(tuple -&gt; buildPath(tuple._1(), tuple._2(), key)));</span>
+<span class="fc" id="L276">        return confMap</span>
+<span class="fc" id="L277">                .getList(key, String.class)</span>
+<span class="fc" id="L278">                .map(itemList -&gt;</span>
+<span class="nc" id="L279">                     Stream.ofAll(itemList)</span>
+<span class="nc" id="L280">                     .zipWithIndex()</span>
+<span class="nc" id="L281">                     .map(tuple -&gt; buildPath(tuple._1(), tuple._2(), key)));</span>
     }
 
 
@@ -294,9 +288,9 @@ import com.varmateo.yawg.util.YamlParser;
             final String key) {
 
         try {
-<span class="nc" id="L297">            return Paths.get(pathStr);</span>
-<span class="nc" id="L298">        } catch ( InvalidPathException e ) {</span>
-<span class="nc" id="L299">            throw Exceptions.raise(</span>
+<span class="nc" id="L291">            return Paths.get(pathStr);</span>
+<span class="nc" id="L292">        } catch ( InvalidPathException e ) {</span>
+<span class="nc" id="L293">            throw Exceptions.raise(</span>
                     e,
                     &quot;Invalid path \&quot;{0}\&quot; on item {1} of {2}&quot;,
                     pathStr,

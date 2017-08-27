@@ -53,7 +53,7 @@ public final class YawgInfo {
             }
 <span class="pc bpc" id="L54" title="6 of 8 branches missed.">        } catch ( IOException e ) {</span>
 <span class="nc" id="L55">            String msg = &quot;Failed to read resource \&quot;&quot; + resourcePath + &quot;\&quot;&quot;;</span>
-<span class="nc" id="L56">            throw new IllegalStateException(msg);</span>
+<span class="nc" id="L56">            throw new IllegalStateException(msg, e);</span>
 <span class="fc" id="L57">        }</span>
 
 <span class="fc" id="L59">        VERSION = props.getProperty(PROP_VERSION);</span>

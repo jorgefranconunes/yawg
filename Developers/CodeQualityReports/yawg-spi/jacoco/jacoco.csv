@@ -1,6 +1,6 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-Yawg SPI,com.varmateo.yawg.spi,TemplateDataModel.Builder,74,0,0,0,23,0,8,0,8,0
-Yawg SPI,com.varmateo.yawg.spi,PageContext,8,48,0,0,2,13,1,6,1,6
-Yawg SPI,com.varmateo.yawg.spi,PageContext.Builder,46,35,0,0,14,12,5,5,5,5
-Yawg SPI,com.varmateo.yawg.spi,TemplateDataModel,90,0,2,0,24,0,12,0,11,0
+Yawg SPI,com.varmateo.yawg.spi,TemplateDataModel.Builder,72,0,0,0,22,0,8,0,8,0
+Yawg SPI,com.varmateo.yawg.spi,PageContext,6,44,0,0,1,11,1,6,1,6
+Yawg SPI,com.varmateo.yawg.spi,PageContext.Builder,46,33,0,0,14,11,5,5,5,5
+Yawg SPI,com.varmateo.yawg.spi,TemplateDataModel,88,0,2,0,23,0,12,0,11,0
 Yawg SPI,com.varmateo.yawg.spi,TemplateDataModel.Author,15,0,0,0,6,0,3,0,3,0

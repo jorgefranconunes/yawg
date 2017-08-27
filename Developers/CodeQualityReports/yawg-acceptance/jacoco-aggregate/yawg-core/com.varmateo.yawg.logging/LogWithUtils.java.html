@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>LogWithUtils.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.logging</a> &gt; <span class="el_source">LogWithUtils.java</span></div><h1>LogWithUtils.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2017 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -33,9 +33,7 @@ public final class LogWithUtils
      */
     public static LogWithUtils from(final Log myLog) {
 
-<span class="fc" id="L36">        LogWithUtils result = new LogWithUtils(myLog);</span>
-
-<span class="fc" id="L38">        return result;</span>
+<span class="fc" id="L36">        return new LogWithUtils(myLog);</span>
     }
 
 
@@ -44,10 +42,9 @@ public final class LogWithUtils
      */
     public static LogWithUtils createFor(final Object owner) {
 
-<span class="nc" id="L47">        Log          myLog  = LogFactory.createFor(owner);</span>
-<span class="nc" id="L48">        LogWithUtils result = LogWithUtils.from(myLog);</span>
+<span class="nc" id="L45">        Log myLog  = LogFactory.createFor(owner);</span>
 
-<span class="nc" id="L50">        return result;</span>
+<span class="nc" id="L47">        return LogWithUtils.from(myLog);</span>
     }
 
 
@@ -58,12 +55,12 @@ public final class LogWithUtils
             final String   subject,
             final Runnable runnable) {
 
-<span class="fc" id="L61">        Supplier&lt;Void&gt; supplier = () -&gt; {</span>
-<span class="fc" id="L62">            runnable.run();</span>
-<span class="fc" id="L63">            return null;</span>
+<span class="fc" id="L58">        Supplier&lt;Void&gt; supplier = () -&gt; {</span>
+<span class="fc" id="L59">            runnable.run();</span>
+<span class="fc" id="L60">            return null;</span>
         };
-<span class="fc" id="L65">        logDelay(subject, supplier);</span>
-<span class="fc" id="L66">    }</span>
+<span class="fc" id="L62">        logDelay(subject, supplier);</span>
+<span class="fc" id="L63">    }</span>
 
 
     /**
@@ -84,15 +81,15 @@ public final class LogWithUtils
             final String      subject,
             final Supplier&lt;T&gt; action) {
 
-<span class="fc" id="L87">        _myLog.info(&quot;Starting {0}...&quot;, subject);</span>
+<span class="fc" id="L84">        _myLog.info(&quot;Starting {0}...&quot;, subject);</span>
 
-<span class="fc" id="L89">        long startTime = System.currentTimeMillis();</span>
-<span class="fc" id="L90">        T result = performAction(subject, action);</span>
-<span class="fc" id="L91">        long delay = System.currentTimeMillis() - startTime;</span>
+<span class="fc" id="L86">        long startTime = System.currentTimeMillis();</span>
+<span class="fc" id="L87">        T result = performAction(subject, action);</span>
+<span class="fc" id="L88">        long delay = System.currentTimeMillis() - startTime;</span>
 
-<span class="fc" id="L93">        _myLog.info(&quot;Done {0} (delay {1}ms)&quot;, subject, delay);</span>
+<span class="fc" id="L90">        _myLog.info(&quot;Done {0} (delay {1}ms)&quot;, subject, delay);</span>
 
-<span class="fc" id="L95">        return result;</span>
+<span class="fc" id="L92">        return result;</span>
     }
 
 
@@ -102,24 +99,24 @@ public final class LogWithUtils
     private &lt;T&gt; T performAction(final String subject,
                                 final Supplier&lt;T&gt; action) {
 
-<span class="fc" id="L105">        T result = null;</span>
-<span class="fc" id="L106">        RuntimeException error = null;</span>
+<span class="fc" id="L102">        T result = null;</span>
+<span class="fc" id="L103">        RuntimeException error = null;</span>
 
         try {
-<span class="fc" id="L109">            result = action.get();</span>
-<span class="fc" id="L110">        } catch ( RuntimeException e ) {</span>
-<span class="fc" id="L111">            _myLog.warning(&quot;Failed {0} - {1} - {2}&quot;,</span>
+<span class="fc" id="L106">            result = action.get();</span>
+<span class="fc" id="L107">        } catch ( RuntimeException e ) {</span>
+<span class="fc" id="L108">            _myLog.warning(&quot;Failed {0} - {1} - {2}&quot;,</span>
                            subject,
-<span class="fc" id="L113">                           e.getClass().getSimpleName(),</span>
-<span class="fc" id="L114">                           e.getMessage());</span>
-<span class="fc" id="L115">            error = e;</span>
-<span class="fc" id="L116">        }</span>
+<span class="fc" id="L110">                           e.getClass().getSimpleName(),</span>
+<span class="fc" id="L111">                           e.getMessage());</span>
+<span class="fc" id="L112">            error = e;</span>
+<span class="fc" id="L113">        }</span>
 
-<span class="fc bfc" id="L118" title="All 2 branches covered.">        if ( error != null ) {</span>
-<span class="fc" id="L119">            throw error;</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">        if ( error != null ) {</span>
+<span class="fc" id="L116">            throw error;</span>
         }
 
-<span class="fc" id="L122">        return result;</span>
+<span class="fc" id="L119">        return result;</span>
     }
 
 
@@ -129,8 +126,8 @@ public final class LogWithUtils
     @Override
     public void warning(final String msg) {
 
-<span class="nc" id="L132">        _myLog.warning(msg);</span>
-<span class="nc" id="L133">    }</span>
+<span class="nc" id="L129">        _myLog.warning(msg);</span>
+<span class="nc" id="L130">    }</span>
 
 
     /**
@@ -140,8 +137,8 @@ public final class LogWithUtils
     public void warning(final String    msg,
                         final Object... fmtArgs) {
 
-<span class="nc" id="L143">        _myLog.warning(msg, fmtArgs);</span>
-<span class="nc" id="L144">    }</span>
+<span class="nc" id="L140">        _myLog.warning(msg, fmtArgs);</span>
+<span class="nc" id="L141">    }</span>
 
 
     /**
@@ -152,8 +149,8 @@ public final class LogWithUtils
                         final String    msg,
                         final Object... fmtArgs) {
 
-<span class="nc" id="L155">        _myLog.warning(error, msg, fmtArgs);</span>
-<span class="nc" id="L156">    }</span>
+<span class="nc" id="L152">        _myLog.warning(error, msg, fmtArgs);</span>
+<span class="nc" id="L153">    }</span>
 
 
     /**
@@ -162,8 +159,8 @@ public final class LogWithUtils
     @Override
     public void info(final String msg) {
 
-<span class="nc" id="L165">        _myLog.info(msg);</span>
-<span class="nc" id="L166">    }</span>
+<span class="nc" id="L162">        _myLog.info(msg);</span>
+<span class="nc" id="L163">    }</span>
 
 
     /**
@@ -173,8 +170,8 @@ public final class LogWithUtils
     public void info(final String    msg,
                      final Object... fmtArgs) {
 
-<span class="fc" id="L176">        _myLog.info(msg, fmtArgs);</span>
-<span class="fc" id="L177">    }</span>
+<span class="fc" id="L173">        _myLog.info(msg, fmtArgs);</span>
+<span class="fc" id="L174">    }</span>
 
 
     /**
@@ -183,8 +180,8 @@ public final class LogWithUtils
     @Override
     public void debug(final String msg) {
 
-<span class="fc" id="L186">        _myLog.debug(msg);</span>
-<span class="fc" id="L187">    }</span>
+<span class="fc" id="L183">        _myLog.debug(msg);</span>
+<span class="fc" id="L184">    }</span>
 
 
     /**
@@ -194,8 +191,8 @@ public final class LogWithUtils
     public void debug(final String    msg,
                       final Object... fmtArgs) {
 
-<span class="fc" id="L197">        _myLog.debug(msg, fmtArgs);</span>
-<span class="fc" id="L198">    }</span>
+<span class="fc" id="L194">        _myLog.debug(msg, fmtArgs);</span>
+<span class="fc" id="L195">    }</span>
 
 
 }

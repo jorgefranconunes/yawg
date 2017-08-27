@@ -24,9 +24,7 @@ import com.varmateo.yawg.spi.DirBakeListenerFactory;
     @Override
     public DirBakeListener newDirBakeListener() {
 
-<span class="nc" id="L27">        DirBakeListener result = new BreadcrumbsBakeListener();</span>
-
-<span class="nc" id="L29">        return result;</span>
+<span class="nc" id="L27">        return new BreadcrumbsBakeListener();</span>
     }
 
 

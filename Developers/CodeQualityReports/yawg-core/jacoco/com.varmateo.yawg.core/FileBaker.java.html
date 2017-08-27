@@ -88,13 +88,10 @@ import com.varmateo.yawg.util.Exceptions;
             final DirBakerConf dirBakerConf)
             throws YawgException {
 
-<span class="fc" id="L91">        BakerService baker =</span>
-                dirBakerConf.bakerTypes
-<span class="pc" id="L93">                .flatMap(bakerTypes -&gt; bakerTypes.getBakerTypeFor(sourcePath))</span>
-<span class="pc" id="L94">                .map(bakerType -&gt; findBakerWithType(bakerType))</span>
-<span class="fc" id="L95">                .getOrElse(() -&gt; findBakerFromAll(sourcePath));</span>
-
-<span class="fc" id="L97">        return baker;</span>
+<span class="fc" id="L91">        return dirBakerConf.bakerTypes</span>
+<span class="pc" id="L92">                .flatMap(bakerTypes -&gt; bakerTypes.getBakerTypeFor(sourcePath))</span>
+<span class="pc" id="L93">                .map(bakerType -&gt; findBakerWithType(bakerType))</span>
+<span class="fc" id="L94">                .getOrElse(() -&gt; findBakerFromAll(sourcePath));</span>
     }
 
 
@@ -104,13 +101,13 @@ import com.varmateo.yawg.util.Exceptions;
     private BakerService findBakerWithType(final String bakerType)
             throws YawgException {
 
-<span class="nc" id="L107">        Option&lt;BakerService&gt; baker = _allBakersByType.get(bakerType);</span>
+<span class="nc" id="L104">        Option&lt;BakerService&gt; baker = _allBakersByType.get(bakerType);</span>
 
-<span class="nc bnc" id="L109" title="All 2 branches missed.">        if ( !baker.isDefined() ) {</span>
-<span class="nc" id="L110">            throw Exceptions.raise(&quot;Unknown baker type \&quot;{0}\&quot;&quot;, bakerType);</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        if ( !baker.isDefined() ) {</span>
+<span class="nc" id="L107">            throw Exceptions.raise(&quot;Unknown baker type \&quot;{0}\&quot;&quot;, bakerType);</span>
         }
 
-<span class="nc" id="L113">        return baker.get();</span>
+<span class="nc" id="L110">        return baker.get();</span>
     }
 
 
@@ -119,10 +116,10 @@ import com.varmateo.yawg.util.Exceptions;
      */
     private BakerService findBakerFromAll(final Path sourcePath) {
 
-<span class="fc" id="L122">        return _bakers</span>
-<span class="pc" id="L123">                .filter(candidate -&gt; candidate.isBakeable(sourcePath))</span>
-<span class="fc" id="L124">                .headOption()</span>
-<span class="fc" id="L125">                .getOrElse(_defaultBaker);</span>
+<span class="fc" id="L119">        return _bakers</span>
+<span class="pc" id="L120">                .filter(candidate -&gt; candidate.isBakeable(sourcePath))</span>
+<span class="fc" id="L121">                .headOption()</span>
+<span class="fc" id="L122">                .getOrElse(_defaultBaker);</span>
     }
 
 

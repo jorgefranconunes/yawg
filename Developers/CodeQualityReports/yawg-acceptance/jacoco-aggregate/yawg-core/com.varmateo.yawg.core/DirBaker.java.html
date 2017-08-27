@@ -167,12 +167,10 @@ import com.varmateo.yawg.util.Exceptions;
             final DirBakerConf dirBakerConf) {
 
 <span class="fc" id="L169">        DirEntryScanner scanner = new DirEntryScanner(dirBakerConf);</span>
-<span class="fc" id="L170">        Seq&lt;Path&gt; result =</span>
-<span class="fc" id="L171">                doIoAction(</span>
-                        &quot;list directory&quot;,
-<span class="fc" id="L173">                        () -&gt; scanner.getDirEntries(dir));</span>
 
-<span class="fc" id="L175">        return result;</span>
+<span class="fc" id="L171">        return doIoAction(</span>
+                &quot;list directory&quot;,
+<span class="fc" id="L173">                () -&gt; scanner.getDirEntries(dir));</span>
     }
 
 
@@ -186,12 +184,12 @@ import com.varmateo.yawg.util.Exceptions;
             final PageContext context)
             throws YawgException {
 
-<span class="fc" id="L189">        Seq&lt;Path&gt; filePathList = dirEntries.filter(Files::isRegularFile);</span>
+<span class="fc" id="L187">        Seq&lt;Path&gt; filePathList = dirEntries.filter(Files::isRegularFile);</span>
 
-<span class="fc bfc" id="L191" title="All 2 branches covered.">        for ( Path path : filePathList ) {</span>
-<span class="fc" id="L192">            _fileBaker.bakeFile(path, context, targetDir, dirBakerConf);</span>
-<span class="fc" id="L193">        }</span>
-<span class="fc" id="L194">    }</span>
+<span class="fc bfc" id="L189" title="All 2 branches covered.">        for ( Path path : filePathList ) {</span>
+<span class="fc" id="L190">            _fileBaker.bakeFile(path, context, targetDir, dirBakerConf);</span>
+<span class="fc" id="L191">        }</span>
+<span class="fc" id="L192">    }</span>
 
 
     /**
@@ -203,18 +201,18 @@ import com.varmateo.yawg.util.Exceptions;
             final DirBakerConf dirBakerConf,
             final PageVars extensionVars) {
 
-<span class="fc" id="L206">        Seq&lt;Path&gt; dirPathList = dirEntries.filter(Files::isDirectory);</span>
+<span class="fc" id="L204">        Seq&lt;Path&gt; dirPathList = dirEntries.filter(Files::isDirectory);</span>
 
-<span class="fc bfc" id="L208" title="All 2 branches covered.">        for ( Path childSourceDir : dirPathList ) {</span>
-<span class="fc" id="L209">            Path dirBasename = childSourceDir.getFileName();</span>
-<span class="fc" id="L210">            Path childTargetDir = targetDir.resolve(dirBasename);</span>
-<span class="fc" id="L211">            doBakeDirectory(</span>
+<span class="fc bfc" id="L206" title="All 2 branches covered.">        for ( Path childSourceDir : dirPathList ) {</span>
+<span class="fc" id="L207">            Path dirBasename = childSourceDir.getFileName();</span>
+<span class="fc" id="L208">            Path childTargetDir = targetDir.resolve(dirBasename);</span>
+<span class="fc" id="L209">            doBakeDirectory(</span>
                     childSourceDir,
                     childTargetDir,
                     dirBakerConf,
                     extensionVars);
-<span class="fc" id="L216">        }</span>
-<span class="fc" id="L217">    }</span>
+<span class="fc" id="L214">        }</span>
+<span class="fc" id="L215">    }</span>
 
 
     /**
@@ -226,35 +224,35 @@ import com.varmateo.yawg.util.Exceptions;
             final DirBakerConf dirBakerConf,
             final PageVars extensionVars) {
 
-<span class="fc" id="L229">        Seq&lt;Path&gt; extraDirPathList =</span>
+<span class="fc" id="L227">        Seq&lt;Path&gt; extraDirPathList =</span>
                 dirBakerConf.extraDirsHere
-<span class="pc" id="L231">                .map(path -&gt; sourceDir.resolve(path));</span>
+<span class="pc" id="L229">                .map(path -&gt; sourceDir.resolve(path));</span>
 
-<span class="pc bpc" id="L233" title="1 of 2 branches missed.">        for ( Path extraSourceDir : extraDirPathList ) {</span>
-<span class="nc" id="L234">            DirBakerConf extraDirBakerConf =</span>
+<span class="pc bpc" id="L231" title="1 of 2 branches missed.">        for ( Path extraSourceDir : extraDirPathList ) {</span>
+<span class="nc" id="L232">            DirBakerConf extraDirBakerConf =</span>
                     _dirBakerConfDao
-<span class="nc" id="L236">                    .loadFromDir(extraSourceDir)</span>
-<span class="nc" id="L237">                    .mergeOnTopOf(dirBakerConf);</span>
-<span class="nc" id="L238">            Seq&lt;Path&gt; dirEntries =</span>
-<span class="nc" id="L239">                    getDirEntries(extraSourceDir, extraDirBakerConf);</span>
-<span class="nc" id="L240">            PageContext extraContext =</span>
-<span class="nc" id="L241">                    _dirPageContextBuilder.buildPageContext(</span>
+<span class="nc" id="L234">                    .loadFromDir(extraSourceDir)</span>
+<span class="nc" id="L235">                    .mergeOnTopOf(dirBakerConf);</span>
+<span class="nc" id="L236">            Seq&lt;Path&gt; dirEntries =</span>
+<span class="nc" id="L237">                    getDirEntries(extraSourceDir, extraDirBakerConf);</span>
+<span class="nc" id="L238">            PageContext extraContext =</span>
+<span class="nc" id="L239">                    _dirPageContextBuilder.buildPageContext(</span>
                             targetDir,
                             extraDirBakerConf,
                             extensionVars);
 
-<span class="nc" id="L246">            bakeChildFiles(</span>
+<span class="nc" id="L244">            bakeChildFiles(</span>
                     dirEntries,
                     targetDir,
                     extraDirBakerConf,
                     extraContext);
-<span class="nc" id="L251">            bakeChildDirectories(</span>
+<span class="nc" id="L249">            bakeChildDirectories(</span>
                     dirEntries,
                     targetDir,
                     extraDirBakerConf,
                     extensionVars);
-<span class="nc" id="L256">        }</span>
-<span class="fc" id="L257">    }</span>
+<span class="nc" id="L254">        }</span>
+<span class="fc" id="L255">    }</span>
 
 
     /**
@@ -266,20 +264,20 @@ import com.varmateo.yawg.util.Exceptions;
             final IoSupplier&lt;T&gt; supplier)
             throws YawgException {
 
-<span class="fc" id="L269">        T result = null;</span>
+<span class="fc" id="L267">        T result = null;</span>
 
         try {
-<span class="fc" id="L272">            result = supplier.get();</span>
-<span class="fc" id="L273">        } catch ( IOException e ) {</span>
-<span class="pc" id="L274">            Exceptions.raise(</span>
+<span class="fc" id="L270">            result = supplier.get();</span>
+<span class="fc" id="L271">        } catch ( IOException e ) {</span>
+<span class="pc" id="L272">            Exceptions.raise(</span>
                     e,
                     &quot;Failed to {0} - {1} - {2}&quot;,
                     description,
-<span class="fc" id="L278">                    e.getClass().getSimpleName(),</span>
-<span class="fc" id="L279">                    e.getMessage());</span>
-<span class="fc" id="L280">        }</span>
+<span class="fc" id="L276">                    e.getClass().getSimpleName(),</span>
+<span class="fc" id="L277">                    e.getMessage());</span>
+<span class="fc" id="L278">        }</span>
 
-<span class="fc" id="L282">        return result;</span>
+<span class="fc" id="L280">        return result;</span>
     }
 
 

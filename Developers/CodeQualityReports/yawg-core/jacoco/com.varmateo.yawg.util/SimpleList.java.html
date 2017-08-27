@@ -56,9 +56,7 @@ public final class SimpleList&lt;T&gt;
      */
     public T get(final int index) {
 
-<span class="fc" id="L59">        T result = getWithType(index, _itemsClass);</span>
-
-<span class="fc" id="L61">        return result;</span>
+<span class="fc" id="L59">        return getWithType(index, _itemsClass);</span>
     }
 
 
@@ -68,11 +66,10 @@ public final class SimpleList&lt;T&gt;
     public SimpleMap getMap(final int index) {
 
         @SuppressWarnings(&quot;unchecked&quot;)
-<span class="nc" id="L71">        Map&lt;String,Object&gt; value =</span>
-<span class="nc" id="L72">                (Map&lt;String,Object&gt;)getWithType(index, Map.class);</span>
-<span class="nc" id="L73">        SimpleMap result = new SimpleMap(value);</span>
+<span class="nc" id="L69">        Map&lt;String,Object&gt; value =</span>
+<span class="nc" id="L70">                (Map&lt;String,Object&gt;)getWithType(index, Map.class);</span>
 
-<span class="nc" id="L75">        return result;</span>
+<span class="nc" id="L72">        return new SimpleMap(value);</span>
     }
 
 
@@ -84,10 +81,9 @@ public final class SimpleList&lt;T&gt;
             final Class&lt;T&gt; itemsClass) {
 
         @SuppressWarnings(&quot;unchecked&quot;)
-<span class="nc" id="L87">        List&lt;Object&gt; value = (List&lt;Object&gt;)getWithType(index, List.class);</span>
-<span class="nc" id="L88">        SimpleList&lt;T&gt; result = new SimpleList&lt;T&gt;(value, itemsClass);</span>
+<span class="nc" id="L84">        List&lt;Object&gt; value = (List&lt;Object&gt;)getWithType(index, List.class);</span>
 
-<span class="nc" id="L90">        return result;</span>
+<span class="nc" id="L86">        return new SimpleList&lt;T&gt;(value, itemsClass);</span>
     }
 
 
@@ -99,20 +95,20 @@ public final class SimpleList&lt;T&gt;
             final Class&lt;T&gt; klass)
             throws YawgException {
 
-<span class="fc" id="L102">        Object value = _list.get(index);</span>
+<span class="fc" id="L98">        Object value = _list.get(index);</span>
 
-<span class="pc bpc" id="L104" title="1 of 4 branches missed.">        if ( (value==null) || !klass.isInstance(value) ) {</span>
-<span class="pc" id="L105">            Exceptions.raise(</span>
+<span class="pc bpc" id="L100" title="1 of 4 branches missed.">        if ( (value==null) || !klass.isInstance(value) ) {</span>
+<span class="pc" id="L101">            Exceptions.raise(</span>
                     &quot;Invalid {2} value in {1} position {0}&quot;,
-<span class="fc" id="L107">                    index,</span>
-<span class="pc bpc" id="L108" title="1 of 2 branches missed.">                    klass.getSimpleName(),</span>
-<span class="fc" id="L109">                    (value==null) ? &quot;NULL&quot; : value.getClass().getSimpleName());</span>
+<span class="fc" id="L103">                    index,</span>
+<span class="pc bpc" id="L104" title="1 of 2 branches missed.">                    klass.getSimpleName(),</span>
+<span class="fc" id="L105">                    (value==null) ? &quot;NULL&quot; : value.getClass().getSimpleName());</span>
         }
 
         @SuppressWarnings(&quot;unchecked&quot;)
-<span class="fc" id="L113">        T result = (T)value;</span>
+<span class="fc" id="L109">        T result = (T)value;</span>
 
-<span class="fc" id="L115">        return result;</span>
+<span class="fc" id="L111">        return result;</span>
     }
 
 
@@ -121,9 +117,7 @@ public final class SimpleList&lt;T&gt;
      */
     public int size() {
 
-<span class="fc" id="L124">        int result = _list.size();</span>
-
-<span class="fc" id="L126">        return result;</span>
+<span class="fc" id="L120">        return _list.size();</span>
     }
 
 
@@ -141,11 +135,11 @@ public final class SimpleList&lt;T&gt;
         /**
          *
          */
-<span class="fc" id="L144">        SimpleIterator(final SimpleList&lt;T&gt; simpleList) {</span>
+<span class="fc" id="L138">        SimpleIterator(final SimpleList&lt;T&gt; simpleList) {</span>
 
-<span class="fc" id="L146">            _simpleList = simpleList;</span>
-<span class="fc" id="L147">            _index = 0;</span>
-<span class="fc" id="L148">        }</span>
+<span class="fc" id="L140">            _simpleList = simpleList;</span>
+<span class="fc" id="L141">            _index = 0;</span>
+<span class="fc" id="L142">        }</span>
 
 
         /**
@@ -154,7 +148,7 @@ public final class SimpleList&lt;T&gt;
         @Override
         public boolean hasNext() {
 
-<span class="fc bfc" id="L157" title="All 2 branches covered.">            return _index &lt; _simpleList.size();</span>
+<span class="fc bfc" id="L151" title="All 2 branches covered.">            return _index &lt; _simpleList.size();</span>
         }
 
 
@@ -164,13 +158,13 @@ public final class SimpleList&lt;T&gt;
         @Override
         public T next() {
 
-<span class="pc bpc" id="L167" title="1 of 2 branches missed.">            if ( _index &gt;= _simpleList.size() ) {</span>
-<span class="nc" id="L168">                throw new NoSuchElementException();</span>
+<span class="pc bpc" id="L161" title="1 of 2 branches missed.">            if ( _index &gt;= _simpleList.size() ) {</span>
+<span class="nc" id="L162">                throw new NoSuchElementException();</span>
             }
-<span class="fc" id="L170">            T result = _simpleList.get(_index);</span>
-<span class="fc" id="L171">            ++_index;</span>
+<span class="fc" id="L164">            T result = _simpleList.get(_index);</span>
+<span class="fc" id="L165">            ++_index;</span>
 
-<span class="fc" id="L173">            return result;</span>
+<span class="fc" id="L167">            return result;</span>
         }
 
 

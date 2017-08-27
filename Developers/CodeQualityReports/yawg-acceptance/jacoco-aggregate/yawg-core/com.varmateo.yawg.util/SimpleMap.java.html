@@ -51,9 +51,7 @@ public final class SimpleMap {
      */
     public Map&lt;String,Object&gt; asMap() {
 
-<span class="fc" id="L54">        Map&lt;String,Object&gt; result = Collections.unmodifiableMap(_map);</span>
-
-<span class="fc" id="L56">        return result;</span>
+<span class="fc" id="L54">        return Collections.unmodifiableMap(_map);</span>
     }
 
 
@@ -64,13 +62,9 @@ public final class SimpleMap {
             final String key,
             final Class&lt;T&gt; klass) {
 
-<span class="fc" id="L67">        T value = getWithType(key, klass);</span>
-<span class="fc bfc" id="L68" title="All 2 branches covered.">        Optional&lt;T&gt; result =</span>
-                (value==null)
-<span class="fc" id="L70">                ? Optional.empty()</span>
-<span class="fc" id="L71">                : Optional.of(value);</span>
+<span class="fc" id="L65">        T value = getWithType(key, klass);</span>
 
-<span class="fc" id="L73">        return result;</span>
+<span class="fc" id="L67">        return Optional.ofNullable(value);</span>
     }
 
 
@@ -79,9 +73,9 @@ public final class SimpleMap {
      */
     public Optional&lt;String&gt; getString(final String key) {
 
-<span class="fc" id="L82">        Optional&lt;String&gt; result = get(key, String.class);</span>
+<span class="fc" id="L76">        Optional&lt;String&gt; result = get(key, String.class);</span>
 
-<span class="fc" id="L84">        return result;</span>
+<span class="fc" id="L78">        return result;</span>
     }
 
 
@@ -91,13 +85,13 @@ public final class SimpleMap {
     public Optional&lt;SimpleMap&gt; getMap(final String key) {
 
         @SuppressWarnings(&quot;unchecked&quot;)
-<span class="fc" id="L94">        Map&lt;String,Object&gt; value =</span>
-<span class="fc" id="L95">                (Map&lt;String,Object&gt;)getWithType(key, Map.class);</span>
-<span class="fc" id="L96">        Optional&lt;SimpleMap&gt; result =</span>
-<span class="fc" id="L97">                Optional.ofNullable(value)</span>
-<span class="fc" id="L98">                .map(SimpleMap::new);</span>
+<span class="fc" id="L88">        Map&lt;String,Object&gt; value =</span>
+<span class="fc" id="L89">                (Map&lt;String,Object&gt;)getWithType(key, Map.class);</span>
+<span class="fc" id="L90">        Optional&lt;SimpleMap&gt; result =</span>
+<span class="fc" id="L91">                Optional.ofNullable(value)</span>
+<span class="fc" id="L92">                .map(SimpleMap::new);</span>
 
-<span class="fc" id="L100">        return result;</span>
+<span class="fc" id="L94">        return result;</span>
     }
 
 
@@ -109,12 +103,12 @@ public final class SimpleMap {
             final Class&lt;T&gt; itemsClass) {
 
         @SuppressWarnings(&quot;unchecked&quot;)
-<span class="fc" id="L112">        List&lt;Object&gt; value = (List&lt;Object&gt;)getWithType(key, List.class);</span>
-<span class="fc" id="L113">        Optional&lt;SimpleList&lt;T&gt;&gt; result =</span>
-<span class="fc" id="L114">                Optional.ofNullable(value)</span>
-<span class="fc" id="L115">                .map(v -&gt; new SimpleList&lt;T&gt;(v, itemsClass));</span>
+<span class="fc" id="L106">        List&lt;Object&gt; value = (List&lt;Object&gt;)getWithType(key, List.class);</span>
+<span class="fc" id="L107">        Optional&lt;SimpleList&lt;T&gt;&gt; result =</span>
+<span class="fc" id="L108">                Optional.ofNullable(value)</span>
+<span class="fc" id="L109">                .map(v -&gt; new SimpleList&lt;T&gt;(v, itemsClass));</span>
 
-<span class="fc" id="L117">        return result;</span>
+<span class="fc" id="L111">        return result;</span>
     }
 
 
@@ -126,20 +120,20 @@ public final class SimpleMap {
             final Class&lt;T&gt; klass)
             throws YawgException {
 
-<span class="fc" id="L129">        Object value = _map.get(key);</span>
+<span class="fc" id="L123">        Object value = _map.get(key);</span>
 
-<span class="fc bfc" id="L131" title="All 4 branches covered.">        if ( (value!=null) &amp;&amp; !klass.isInstance(value) ) {</span>
-<span class="pc" id="L132">            Exceptions.raise(</span>
+<span class="fc bfc" id="L125" title="All 4 branches covered.">        if ( (value!=null) &amp;&amp; !klass.isInstance(value) ) {</span>
+<span class="pc" id="L126">            Exceptions.raise(</span>
                     &quot;Invalid {2} value in {1} field \&quot;{0}\&quot;&quot;,
                     key,
-<span class="fc" id="L135">                    klass.getSimpleName(),</span>
-<span class="fc" id="L136">                    value.getClass().getSimpleName());</span>
+<span class="fc" id="L129">                    klass.getSimpleName(),</span>
+<span class="fc" id="L130">                    value.getClass().getSimpleName());</span>
         }
 
         @SuppressWarnings(&quot;unchecked&quot;)
-<span class="fc" id="L140">        T result = (T)value;</span>
+<span class="fc" id="L134">        T result = (T)value;</span>
 
-<span class="fc" id="L142">        return result;</span>
+<span class="fc" id="L136">        return result;</span>
     }
 
 
@@ -148,9 +142,9 @@ public final class SimpleMap {
      */
     public Set&lt;String&gt; keySet() {
 
-<span class="fc" id="L151">        Set&lt;String&gt; result =_map.keySet();</span>
+<span class="fc" id="L145">        Set&lt;String&gt; result =_map.keySet();</span>
 
-<span class="fc" id="L153">        return result;</span>
+<span class="fc" id="L147">        return result;</span>
     }
 
 

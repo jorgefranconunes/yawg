@@ -48,9 +48,7 @@ import com.varmateo.yawg.util.GlobMatcher;
      */
     public static Builder builder() {
 
-<span class="nc" id="L51">        Builder result = new Builder();</span>
-
-<span class="nc" id="L53">        return result;</span>
+<span class="nc" id="L51">        return new Builder();</span>
     }
 
 
@@ -59,10 +57,10 @@ import com.varmateo.yawg.util.GlobMatcher;
      */
     public Option&lt;String&gt; getTemplateNameFor(final Path path) {
 
-<span class="fc" id="L62">        return _matchersByName</span>
-<span class="pc" id="L63">                .filter(entry -&gt; entry._2().test(path))</span>
-<span class="fc" id="L64">                .headOption()</span>
-<span class="fc" id="L65">                .map(Tuple2::_1);</span>
+<span class="fc" id="L60">        return _matchersByName</span>
+<span class="pc" id="L61">                .filter(entry -&gt; entry._2().test(path))</span>
+<span class="fc" id="L62">                .headOption()</span>
+<span class="fc" id="L63">                .map(Tuple2::_1);</span>
     }
 
 
@@ -78,10 +76,10 @@ import com.varmateo.yawg.util.GlobMatcher;
         /**
          *
          */
-<span class="nc" id="L81">        private Builder() {</span>
+<span class="nc" id="L79">        private Builder() {</span>
 
-<span class="nc" id="L83">            _matchersByName = HashMap.of();</span>
-<span class="nc" id="L84">        }</span>
+<span class="nc" id="L81">            _matchersByName = HashMap.of();</span>
+<span class="nc" id="L82">        }</span>
 
 
         /**
@@ -91,9 +89,9 @@ import com.varmateo.yawg.util.GlobMatcher;
                 final String templateName,
                 final GlobMatcher globMatcher) {
 
-<span class="nc" id="L94">            _matchersByName = _matchersByName.put(templateName, globMatcher);</span>
+<span class="nc" id="L92">            _matchersByName = _matchersByName.put(templateName, globMatcher);</span>
 
-<span class="nc" id="L96">            return this;</span>
+<span class="nc" id="L94">            return this;</span>
         }
 
 
@@ -102,7 +100,7 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public TemplateNameMatcher build() {
 
-<span class="nc" id="L105">            return new TemplateNameMatcher(this);</span>
+<span class="nc" id="L103">            return new TemplateNameMatcher(this);</span>
         }
 
 

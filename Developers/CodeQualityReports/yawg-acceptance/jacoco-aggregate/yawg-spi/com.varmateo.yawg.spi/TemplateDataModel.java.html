@@ -136,9 +136,7 @@ public final class TemplateDataModel {
      */
     public static Builder builder() {
 
-<span class="fc" id="L139">        Builder result = new Builder();</span>
-
-<span class="fc" id="L141">        return result;</span>
+<span class="fc" id="L139">        return new Builder();</span>
     }
 
 
@@ -159,15 +157,15 @@ public final class TemplateDataModel {
         /**
          *
          */
-<span class="fc" id="L162">        private Builder() {</span>
+<span class="fc" id="L160">        private Builder() {</span>
 
-<span class="fc" id="L164">            _authors = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L165">            _body = null;</span>
-<span class="fc" id="L166">            _pageUrl = null;</span>
-<span class="fc" id="L167">            _rootRelativeUrl = null;</span>
-<span class="fc" id="L168">            _pageVars = null;</span>
-<span class="fc" id="L169">            _title = null;</span>
-<span class="fc" id="L170">        }</span>
+<span class="fc" id="L162">            _authors = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L163">            _body = null;</span>
+<span class="fc" id="L164">            _pageUrl = null;</span>
+<span class="fc" id="L165">            _rootRelativeUrl = null;</span>
+<span class="fc" id="L166">            _pageVars = null;</span>
+<span class="fc" id="L167">            _title = null;</span>
+<span class="fc" id="L168">        }</span>
 
 
         /**
@@ -177,11 +175,11 @@ public final class TemplateDataModel {
                 final String name,
                 final String email) {
 
-<span class="fc" id="L180">            Author author = new Author(name, email);</span>
+<span class="fc" id="L178">            Author author = new Author(name, email);</span>
 
-<span class="fc" id="L182">            _authors.add(author);</span>
+<span class="fc" id="L180">            _authors.add(author);</span>
 
-<span class="fc" id="L184">            return this;</span>
+<span class="fc" id="L182">            return this;</span>
         }
 
 
@@ -190,9 +188,9 @@ public final class TemplateDataModel {
          */
         public Builder setBody(final String body) {
 
-<span class="fc" id="L193">            _body = Objects.requireNonNull(body);</span>
+<span class="fc" id="L191">            _body = Objects.requireNonNull(body);</span>
 
-<span class="fc" id="L195">            return this;</span>
+<span class="fc" id="L193">            return this;</span>
         }
 
 
@@ -201,9 +199,9 @@ public final class TemplateDataModel {
          */
         public Builder setPageUrl(final String pageUrl) {
 
-<span class="fc" id="L204">            _pageUrl = pageUrl;</span>
+<span class="fc" id="L202">            _pageUrl = pageUrl;</span>
 
-<span class="fc" id="L206">            return this;</span>
+<span class="fc" id="L204">            return this;</span>
         }
 
 
@@ -213,9 +211,9 @@ public final class TemplateDataModel {
         public Builder setRootRelativeUrl(
                 final String rootRelativeUrl) {
 
-<span class="fc" id="L216">            _rootRelativeUrl = rootRelativeUrl;</span>
+<span class="fc" id="L214">            _rootRelativeUrl = rootRelativeUrl;</span>
 
-<span class="fc" id="L218">            return this;</span>
+<span class="fc" id="L216">            return this;</span>
         }
 
 
@@ -224,9 +222,9 @@ public final class TemplateDataModel {
          */
         public Builder setPageVars(final PageVars pageVars) {
 
-<span class="fc" id="L227">            _pageVars = pageVars;</span>
+<span class="fc" id="L225">            _pageVars = pageVars;</span>
 
-<span class="fc" id="L229">            return this;</span>
+<span class="fc" id="L227">            return this;</span>
         }
 
 
@@ -235,9 +233,9 @@ public final class TemplateDataModel {
          */
         public Builder setTitle(final String title) {
 
-<span class="fc" id="L238">            _title = Objects.requireNonNull(title);</span>
+<span class="fc" id="L236">            _title = Objects.requireNonNull(title);</span>
 
-<span class="fc" id="L240">            return this;</span>
+<span class="fc" id="L238">            return this;</span>
         }
 
 
@@ -246,9 +244,7 @@ public final class TemplateDataModel {
          */
         public TemplateDataModel build() {
 
-<span class="fc" id="L249">            TemplateDataModel result = new TemplateDataModel(this);</span>
-
-<span class="fc" id="L251">            return result;</span>
+<span class="fc" id="L247">            return new TemplateDataModel(this);</span>
         }
 
 
@@ -270,11 +266,11 @@ public final class TemplateDataModel {
          */
         private Author(
                 final String name,
-<span class="fc" id="L273">                final String email) {</span>
+<span class="fc" id="L269">                final String email) {</span>
 
-<span class="fc" id="L275">            _name = name;</span>
-<span class="fc" id="L276">            _email = email;</span>
-<span class="fc" id="L277">        }</span>
+<span class="fc" id="L271">            _name = name;</span>
+<span class="fc" id="L272">            _email = email;</span>
+<span class="fc" id="L273">        }</span>
 
 
         /**
@@ -282,7 +278,7 @@ public final class TemplateDataModel {
          */
         public String getName() {
 
-<span class="fc" id="L285">            return _name;</span>
+<span class="fc" id="L281">            return _name;</span>
         }
 
 
@@ -291,7 +287,7 @@ public final class TemplateDataModel {
          */
         public String getEmail() {
 
-<span class="fc" id="L294">            return _email;</span>
+<span class="fc" id="L290">            return _email;</span>
         }
 
 

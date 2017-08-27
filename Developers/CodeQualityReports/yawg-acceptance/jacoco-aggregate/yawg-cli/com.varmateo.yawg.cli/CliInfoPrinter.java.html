@@ -61,9 +61,7 @@ import com.varmateo.yawg.cli.CliOption;
      */
     public static Builder builder() {
 
-<span class="fc" id="L64">        Builder result = new Builder();</span>
-
-<span class="fc" id="L66">        return result;</span>
+<span class="fc" id="L64">        return new Builder();</span>
     }
 
 
@@ -74,23 +72,23 @@ import com.varmateo.yawg.cli.CliOption;
             final PrintWriter output,
             final Set&lt;CliOption&gt; options) {
 
-<span class="fc" id="L77">        String header = MessageFormat.format(_usageMessageHeader, _argv0);</span>
-<span class="fc" id="L78">        String footer = _usageMessageFooter;</span>
+<span class="fc" id="L75">        String header = MessageFormat.format(_usageMessageHeader, _argv0);</span>
+<span class="fc" id="L76">        String footer = _usageMessageFooter;</span>
 
-<span class="fc" id="L80">        output.println(header);</span>
+<span class="fc" id="L78">        output.println(header);</span>
 
-<span class="fc" id="L82">        Options       apacheOptions = buildApacheOptions(options);</span>
-<span class="fc" id="L83">        HelpFormatter formatter = new HelpFormatter();</span>
+<span class="fc" id="L80">        Options       apacheOptions = buildApacheOptions(options);</span>
+<span class="fc" id="L81">        HelpFormatter formatter = new HelpFormatter();</span>
 
-<span class="fc" id="L85">        formatter.printOptions(</span>
+<span class="fc" id="L83">        formatter.printOptions(</span>
                 output,
                 HelpFormatter.DEFAULT_WIDTH,
                 apacheOptions,
                 HelpFormatter.DEFAULT_LEFT_PAD,
                 HelpFormatter.DEFAULT_DESC_PAD);
 
-<span class="fc" id="L92">        output.println(footer);</span>
-<span class="fc" id="L93">    }</span>
+<span class="fc" id="L90">        output.println(footer);</span>
+<span class="fc" id="L91">    }</span>
 
 
     /**
@@ -99,11 +97,11 @@ import com.varmateo.yawg.cli.CliOption;
     private static Options
         buildApacheOptions(final Set&lt;CliOption&gt; options) {
 
-<span class="fc" id="L102">        return options</span>
-<span class="fc" id="L103">                .map(CliOption::apacheOption)</span>
-<span class="fc" id="L104">                .foldLeft(</span>
+<span class="fc" id="L100">        return options</span>
+<span class="fc" id="L101">                .map(CliOption::apacheOption)</span>
+<span class="fc" id="L102">                .foldLeft(</span>
                         new Options(),
-<span class="fc" id="L106">                        (xs, x) -&gt; xs.addOption(x));</span>
+<span class="fc" id="L104">                        (xs, x) -&gt; xs.addOption(x));</span>
     }
 
 
@@ -112,8 +110,8 @@ import com.varmateo.yawg.cli.CliOption;
      */
     public void printVersion(final PrintWriter output) {
 
-<span class="fc" id="L115">        output.println(_versionMessage);</span>
-<span class="fc" id="L116">    }</span>
+<span class="fc" id="L113">        output.println(_versionMessage);</span>
+<span class="fc" id="L114">    }</span>
 
 
     /**
@@ -123,11 +121,11 @@ import com.varmateo.yawg.cli.CliOption;
             final PrintWriter  output,
             final CliException error) {
 
-<span class="fc" id="L126">        String errorMsg = error.getMessage();</span>
-<span class="fc" id="L127">        String msg      = MessageFormat.format(ERROR_FMT, _argv0, errorMsg);</span>
+<span class="fc" id="L124">        String errorMsg = error.getMessage();</span>
+<span class="fc" id="L125">        String msg      = MessageFormat.format(ERROR_FMT, _argv0, errorMsg);</span>
 
-<span class="fc" id="L129">        output.println(msg);</span>
-<span class="fc" id="L130">    }</span>
+<span class="fc" id="L127">        output.println(msg);</span>
+<span class="fc" id="L128">    }</span>
 
 
     /**
@@ -136,18 +134,18 @@ import com.varmateo.yawg.cli.CliOption;
     public static final class Builder {
 
 
-<span class="fc" id="L139">        private String _argv0 = DEFAULT_ARGV0;</span>
-<span class="fc" id="L140">        private String _versionMessage = DEFAULT_VERSION;</span>
-<span class="fc" id="L141">        private String _usageMessageHeader = DEFAULT_USAGE_HEADER;</span>
-<span class="fc" id="L142">        private String _usageMessageFooter = DEFAULT_USAGE_FOOTER;</span>
+<span class="fc" id="L137">        private String _argv0 = DEFAULT_ARGV0;</span>
+<span class="fc" id="L138">        private String _versionMessage = DEFAULT_VERSION;</span>
+<span class="fc" id="L139">        private String _usageMessageHeader = DEFAULT_USAGE_HEADER;</span>
+<span class="fc" id="L140">        private String _usageMessageFooter = DEFAULT_USAGE_FOOTER;</span>
 
 
         /**
          *
          */
-<span class="fc" id="L148">        private Builder() {</span>
+<span class="fc" id="L146">        private Builder() {</span>
             // Nothing to do.
-<span class="fc" id="L150">        }</span>
+<span class="fc" id="L148">        }</span>
 
 
         /**
@@ -155,9 +153,9 @@ import com.varmateo.yawg.cli.CliOption;
          */
         public Builder setArgv0(final String argv0) {
 
-<span class="fc" id="L158">            _argv0 = argv0;</span>
+<span class="fc" id="L156">            _argv0 = argv0;</span>
 
-<span class="fc" id="L160">            return this;</span>
+<span class="fc" id="L158">            return this;</span>
         }
 
 
@@ -166,9 +164,9 @@ import com.varmateo.yawg.cli.CliOption;
          */
         public Builder setVersionMessage(final String versionMessage) {
 
-<span class="fc" id="L169">            _versionMessage = versionMessage;</span>
+<span class="fc" id="L167">            _versionMessage = versionMessage;</span>
 
-<span class="fc" id="L171">            return this;</span>
+<span class="fc" id="L169">            return this;</span>
         }
 
 
@@ -177,9 +175,9 @@ import com.varmateo.yawg.cli.CliOption;
          */
         public Builder setUsageMessageHeader(final String usageMessageHeader) {
 
-<span class="fc" id="L180">            _usageMessageHeader = usageMessageHeader;</span>
+<span class="fc" id="L178">            _usageMessageHeader = usageMessageHeader;</span>
 
-<span class="fc" id="L182">            return this;</span>
+<span class="fc" id="L180">            return this;</span>
         }
 
 
@@ -188,9 +186,9 @@ import com.varmateo.yawg.cli.CliOption;
          */
         public Builder setUsageMessageFooter(final String usageMessageFooter) {
 
-<span class="fc" id="L191">            _usageMessageFooter = usageMessageFooter;</span>
+<span class="fc" id="L189">            _usageMessageFooter = usageMessageFooter;</span>
 
-<span class="fc" id="L193">            return this;</span>
+<span class="fc" id="L191">            return this;</span>
         }
 
 
@@ -199,9 +197,7 @@ import com.varmateo.yawg.cli.CliOption;
          */
         public CliInfoPrinter build() {
 
-<span class="fc" id="L202">            CliInfoPrinter result = new CliInfoPrinter(this);</span>
-
-<span class="fc" id="L204">            return result;</span>
+<span class="fc" id="L200">            return new CliInfoPrinter(this);</span>
         }
 
 

@@ -129,19 +129,15 @@ public final class TestUtils {
     public static Path newTempDir(final Class&lt;?&gt; testSuiteClass)
             throws IOException {
 
-<span class="nc" id="L132">        String tmpDirRoot =</span>
-<span class="nc" id="L133">                getSystemProperty(PROP_TMP_DIR_PREFIX);</span>
-<span class="nc" id="L134">        String[] pathComponents =</span>
-<span class="nc" id="L135">            testSuiteClass.getName().split(&quot;\\.&quot;);</span>
-<span class="nc" id="L136">        Path tmpDirParent =</span>
-<span class="nc" id="L137">                Paths.get(tmpDirRoot, pathComponents);</span>
+<span class="nc" id="L132">        String tmpDirRoot = getSystemProperty(PROP_TMP_DIR_PREFIX);</span>
+<span class="nc" id="L133">        String[] pathComponents = testSuiteClass.getName().split(&quot;\\.&quot;);</span>
+<span class="nc" id="L134">        Path tmpDirParent = Paths.get(tmpDirRoot, pathComponents);</span>
 
-<span class="nc" id="L139">        Files.createDirectories(tmpDirParent);</span>
+<span class="nc" id="L136">        Files.createDirectories(tmpDirParent);</span>
 
-<span class="nc" id="L141">        Path tmpDir =</span>
-<span class="nc" id="L142">                Files.createTempDirectory(tmpDirParent, &quot;tmp&quot;);</span>
+<span class="nc" id="L138">        Path tmpDir = Files.createTempDirectory(tmpDirParent, &quot;tmp&quot;);</span>
 
-<span class="nc" id="L144">        return tmpDir;</span>
+<span class="nc" id="L140">        return tmpDir;</span>
     }
 
 
@@ -165,10 +161,10 @@ public final class TestUtils {
             final Class&lt;?&gt; testSuiteClass,
             final String   pathName) {
 
-<span class="nc" id="L168">        Path inputsDir = getInputsDir(testSuiteClass);</span>
-<span class="nc" id="L169">        Path inputPath = inputsDir.resolve(pathName);</span>
+<span class="nc" id="L164">        Path inputsDir = getInputsDir(testSuiteClass);</span>
+<span class="nc" id="L165">        Path inputPath = inputsDir.resolve(pathName);</span>
 
-<span class="nc" id="L171">        return inputPath;</span>
+<span class="nc" id="L167">        return inputPath;</span>
     }
 
 

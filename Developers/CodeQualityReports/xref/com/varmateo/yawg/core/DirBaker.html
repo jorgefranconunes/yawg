@@ -175,140 +175,138 @@
 <a class="jxr_linenumber" name="L167" href="#L167">167</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/core/DirBakerConf.html">DirBakerConf</a> dirBakerConf) {
 <a class="jxr_linenumber" name="L168" href="#L168">168</a> 
 <a class="jxr_linenumber" name="L169" href="#L169">169</a>         <a href="../../../../com/varmateo/yawg/core/DirEntryScanner.html">DirEntryScanner</a> scanner = <strong class="jxr_keyword">new</strong> <a href="../../../../com/varmateo/yawg/core/DirEntryScanner.html">DirEntryScanner</a>(dirBakerConf);
-<a class="jxr_linenumber" name="L170" href="#L170">170</a>         Seq&lt;Path&gt; result =
-<a class="jxr_linenumber" name="L171" href="#L171">171</a>                 doIoAction(
-<a class="jxr_linenumber" name="L172" href="#L172">172</a>                         <span class="jxr_string">"list directory"</span>,
-<a class="jxr_linenumber" name="L173" href="#L173">173</a>                         () -&gt; scanner.getDirEntries(dir));
-<a class="jxr_linenumber" name="L174" href="#L174">174</a> 
-<a class="jxr_linenumber" name="L175" href="#L175">175</a>         <strong class="jxr_keyword">return</strong> result;
-<a class="jxr_linenumber" name="L176" href="#L176">176</a>     }
-<a class="jxr_linenumber" name="L177" href="#L177">177</a> 
-<a class="jxr_linenumber" name="L178" href="#L178">178</a> 
-<a class="jxr_linenumber" name="L179" href="#L179">179</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L180" href="#L180">180</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L181" href="#L181">181</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L182" href="#L182">182</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> bakeChildFiles(
-<a class="jxr_linenumber" name="L183" href="#L183">183</a>             <strong class="jxr_keyword">final</strong> Seq&lt;Path&gt; dirEntries,
-<a class="jxr_linenumber" name="L184" href="#L184">184</a>             <strong class="jxr_keyword">final</strong> Path targetDir,
-<a class="jxr_linenumber" name="L185" href="#L185">185</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/core/DirBakerConf.html">DirBakerConf</a> dirBakerConf,
-<a class="jxr_linenumber" name="L186" href="#L186">186</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/spi/PageContext.html">PageContext</a> context)
-<a class="jxr_linenumber" name="L187" href="#L187">187</a>             <strong class="jxr_keyword">throws</strong> <a href="../../../../com/varmateo/yawg/api/YawgException.html">YawgException</a> {
+<a class="jxr_linenumber" name="L170" href="#L170">170</a> 
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>         <strong class="jxr_keyword">return</strong> doIoAction(
+<a class="jxr_linenumber" name="L172" href="#L172">172</a>                 <span class="jxr_string">"list directory"</span>,
+<a class="jxr_linenumber" name="L173" href="#L173">173</a>                 () -&gt; scanner.getDirEntries(dir));
+<a class="jxr_linenumber" name="L174" href="#L174">174</a>     }
+<a class="jxr_linenumber" name="L175" href="#L175">175</a> 
+<a class="jxr_linenumber" name="L176" href="#L176">176</a> 
+<a class="jxr_linenumber" name="L177" href="#L177">177</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L178" href="#L178">178</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L179" href="#L179">179</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L180" href="#L180">180</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> bakeChildFiles(
+<a class="jxr_linenumber" name="L181" href="#L181">181</a>             <strong class="jxr_keyword">final</strong> Seq&lt;Path&gt; dirEntries,
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>             <strong class="jxr_keyword">final</strong> Path targetDir,
+<a class="jxr_linenumber" name="L183" href="#L183">183</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/core/DirBakerConf.html">DirBakerConf</a> dirBakerConf,
+<a class="jxr_linenumber" name="L184" href="#L184">184</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/spi/PageContext.html">PageContext</a> context)
+<a class="jxr_linenumber" name="L185" href="#L185">185</a>             <strong class="jxr_keyword">throws</strong> <a href="../../../../com/varmateo/yawg/api/YawgException.html">YawgException</a> {
+<a class="jxr_linenumber" name="L186" href="#L186">186</a> 
+<a class="jxr_linenumber" name="L187" href="#L187">187</a>         Seq&lt;Path&gt; filePathList = dirEntries.filter(Files::isRegularFile);
 <a class="jxr_linenumber" name="L188" href="#L188">188</a> 
-<a class="jxr_linenumber" name="L189" href="#L189">189</a>         Seq&lt;Path&gt; filePathList = dirEntries.filter(Files::isRegularFile);
-<a class="jxr_linenumber" name="L190" href="#L190">190</a> 
-<a class="jxr_linenumber" name="L191" href="#L191">191</a>         <strong class="jxr_keyword">for</strong> ( Path path : filePathList ) {
-<a class="jxr_linenumber" name="L192" href="#L192">192</a>             _fileBaker.bakeFile(path, context, targetDir, dirBakerConf);
-<a class="jxr_linenumber" name="L193" href="#L193">193</a>         }
-<a class="jxr_linenumber" name="L194" href="#L194">194</a>     }
-<a class="jxr_linenumber" name="L195" href="#L195">195</a> 
-<a class="jxr_linenumber" name="L196" href="#L196">196</a> 
-<a class="jxr_linenumber" name="L197" href="#L197">197</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L198" href="#L198">198</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L199" href="#L199">199</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L200" href="#L200">200</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> bakeChildDirectories(
-<a class="jxr_linenumber" name="L201" href="#L201">201</a>             <strong class="jxr_keyword">final</strong> Seq&lt;Path&gt; dirEntries,
-<a class="jxr_linenumber" name="L202" href="#L202">202</a>             <strong class="jxr_keyword">final</strong> Path targetDir,
-<a class="jxr_linenumber" name="L203" href="#L203">203</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/core/DirBakerConf.html">DirBakerConf</a> dirBakerConf,
-<a class="jxr_linenumber" name="L204" href="#L204">204</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/api/PageVars.html">PageVars</a> extensionVars) {
+<a class="jxr_linenumber" name="L189" href="#L189">189</a>         <strong class="jxr_keyword">for</strong> ( Path path : filePathList ) {
+<a class="jxr_linenumber" name="L190" href="#L190">190</a>             _fileBaker.bakeFile(path, context, targetDir, dirBakerConf);
+<a class="jxr_linenumber" name="L191" href="#L191">191</a>         }
+<a class="jxr_linenumber" name="L192" href="#L192">192</a>     }
+<a class="jxr_linenumber" name="L193" href="#L193">193</a> 
+<a class="jxr_linenumber" name="L194" href="#L194">194</a> 
+<a class="jxr_linenumber" name="L195" href="#L195">195</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L196" href="#L196">196</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L197" href="#L197">197</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L198" href="#L198">198</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> bakeChildDirectories(
+<a class="jxr_linenumber" name="L199" href="#L199">199</a>             <strong class="jxr_keyword">final</strong> Seq&lt;Path&gt; dirEntries,
+<a class="jxr_linenumber" name="L200" href="#L200">200</a>             <strong class="jxr_keyword">final</strong> Path targetDir,
+<a class="jxr_linenumber" name="L201" href="#L201">201</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/core/DirBakerConf.html">DirBakerConf</a> dirBakerConf,
+<a class="jxr_linenumber" name="L202" href="#L202">202</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/api/PageVars.html">PageVars</a> extensionVars) {
+<a class="jxr_linenumber" name="L203" href="#L203">203</a> 
+<a class="jxr_linenumber" name="L204" href="#L204">204</a>         Seq&lt;Path&gt; dirPathList = dirEntries.filter(Files::isDirectory);
 <a class="jxr_linenumber" name="L205" href="#L205">205</a> 
-<a class="jxr_linenumber" name="L206" href="#L206">206</a>         Seq&lt;Path&gt; dirPathList = dirEntries.filter(Files::isDirectory);
-<a class="jxr_linenumber" name="L207" href="#L207">207</a> 
-<a class="jxr_linenumber" name="L208" href="#L208">208</a>         <strong class="jxr_keyword">for</strong> ( Path childSourceDir : dirPathList ) {
-<a class="jxr_linenumber" name="L209" href="#L209">209</a>             Path dirBasename = childSourceDir.getFileName();
-<a class="jxr_linenumber" name="L210" href="#L210">210</a>             Path childTargetDir = targetDir.resolve(dirBasename);
-<a class="jxr_linenumber" name="L211" href="#L211">211</a>             doBakeDirectory(
-<a class="jxr_linenumber" name="L212" href="#L212">212</a>                     childSourceDir,
-<a class="jxr_linenumber" name="L213" href="#L213">213</a>                     childTargetDir,
-<a class="jxr_linenumber" name="L214" href="#L214">214</a>                     dirBakerConf,
-<a class="jxr_linenumber" name="L215" href="#L215">215</a>                     extensionVars);
-<a class="jxr_linenumber" name="L216" href="#L216">216</a>         }
-<a class="jxr_linenumber" name="L217" href="#L217">217</a>     }
-<a class="jxr_linenumber" name="L218" href="#L218">218</a> 
-<a class="jxr_linenumber" name="L219" href="#L219">219</a> 
-<a class="jxr_linenumber" name="L220" href="#L220">220</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L221" href="#L221">221</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L222" href="#L222">222</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L223" href="#L223">223</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> bakeExtraDirectories(
-<a class="jxr_linenumber" name="L224" href="#L224">224</a>             <strong class="jxr_keyword">final</strong> Path sourceDir,
-<a class="jxr_linenumber" name="L225" href="#L225">225</a>             <strong class="jxr_keyword">final</strong> Path targetDir,
-<a class="jxr_linenumber" name="L226" href="#L226">226</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/core/DirBakerConf.html">DirBakerConf</a> dirBakerConf,
-<a class="jxr_linenumber" name="L227" href="#L227">227</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/api/PageVars.html">PageVars</a> extensionVars) {
-<a class="jxr_linenumber" name="L228" href="#L228">228</a> 
-<a class="jxr_linenumber" name="L229" href="#L229">229</a>         Seq&lt;Path&gt; extraDirPathList =
-<a class="jxr_linenumber" name="L230" href="#L230">230</a>                 dirBakerConf.extraDirsHere
-<a class="jxr_linenumber" name="L231" href="#L231">231</a>                 .map(path -&gt; sourceDir.resolve(path));
-<a class="jxr_linenumber" name="L232" href="#L232">232</a> 
-<a class="jxr_linenumber" name="L233" href="#L233">233</a>         <strong class="jxr_keyword">for</strong> ( Path extraSourceDir : extraDirPathList ) {
-<a class="jxr_linenumber" name="L234" href="#L234">234</a>             <a href="../../../../com/varmateo/yawg/core/DirBakerConf.html">DirBakerConf</a> extraDirBakerConf =
-<a class="jxr_linenumber" name="L235" href="#L235">235</a>                     _dirBakerConfDao
-<a class="jxr_linenumber" name="L236" href="#L236">236</a>                     .loadFromDir(extraSourceDir)
-<a class="jxr_linenumber" name="L237" href="#L237">237</a>                     .mergeOnTopOf(dirBakerConf);
-<a class="jxr_linenumber" name="L238" href="#L238">238</a>             Seq&lt;Path&gt; dirEntries =
-<a class="jxr_linenumber" name="L239" href="#L239">239</a>                     getDirEntries(extraSourceDir, extraDirBakerConf);
-<a class="jxr_linenumber" name="L240" href="#L240">240</a>             <a href="../../../../com/varmateo/yawg/spi/PageContext.html">PageContext</a> extraContext =
-<a class="jxr_linenumber" name="L241" href="#L241">241</a>                     _dirPageContextBuilder.buildPageContext(
-<a class="jxr_linenumber" name="L242" href="#L242">242</a>                             targetDir,
-<a class="jxr_linenumber" name="L243" href="#L243">243</a>                             extraDirBakerConf,
-<a class="jxr_linenumber" name="L244" href="#L244">244</a>                             extensionVars);
-<a class="jxr_linenumber" name="L245" href="#L245">245</a> 
-<a class="jxr_linenumber" name="L246" href="#L246">246</a>             bakeChildFiles(
-<a class="jxr_linenumber" name="L247" href="#L247">247</a>                     dirEntries,
-<a class="jxr_linenumber" name="L248" href="#L248">248</a>                     targetDir,
-<a class="jxr_linenumber" name="L249" href="#L249">249</a>                     extraDirBakerConf,
-<a class="jxr_linenumber" name="L250" href="#L250">250</a>                     extraContext);
-<a class="jxr_linenumber" name="L251" href="#L251">251</a>             bakeChildDirectories(
-<a class="jxr_linenumber" name="L252" href="#L252">252</a>                     dirEntries,
-<a class="jxr_linenumber" name="L253" href="#L253">253</a>                     targetDir,
-<a class="jxr_linenumber" name="L254" href="#L254">254</a>                     extraDirBakerConf,
-<a class="jxr_linenumber" name="L255" href="#L255">255</a>                     extensionVars);
-<a class="jxr_linenumber" name="L256" href="#L256">256</a>         }
-<a class="jxr_linenumber" name="L257" href="#L257">257</a>     }
-<a class="jxr_linenumber" name="L258" href="#L258">258</a> 
-<a class="jxr_linenumber" name="L259" href="#L259">259</a> 
-<a class="jxr_linenumber" name="L260" href="#L260">260</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L261" href="#L261">261</a> <em class="jxr_javadoccomment">     * A simple wrapper to change a method signature from the checked</em>
-<a class="jxr_linenumber" name="L262" href="#L262">262</a> <em class="jxr_javadoccomment">     * IOException to the unchecked YawgException.</em>
-<a class="jxr_linenumber" name="L263" href="#L263">263</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L264" href="#L264">264</a>     <strong class="jxr_keyword">private</strong> &lt;T&gt; T doIoAction(
-<a class="jxr_linenumber" name="L265" href="#L265">265</a>             <strong class="jxr_keyword">final</strong> String description,
-<a class="jxr_linenumber" name="L266" href="#L266">266</a>             <strong class="jxr_keyword">final</strong> IoSupplier&lt;T&gt; supplier)
-<a class="jxr_linenumber" name="L267" href="#L267">267</a>             <strong class="jxr_keyword">throws</strong> <a href="../../../../com/varmateo/yawg/api/YawgException.html">YawgException</a> {
+<a class="jxr_linenumber" name="L206" href="#L206">206</a>         <strong class="jxr_keyword">for</strong> ( Path childSourceDir : dirPathList ) {
+<a class="jxr_linenumber" name="L207" href="#L207">207</a>             Path dirBasename = childSourceDir.getFileName();
+<a class="jxr_linenumber" name="L208" href="#L208">208</a>             Path childTargetDir = targetDir.resolve(dirBasename);
+<a class="jxr_linenumber" name="L209" href="#L209">209</a>             doBakeDirectory(
+<a class="jxr_linenumber" name="L210" href="#L210">210</a>                     childSourceDir,
+<a class="jxr_linenumber" name="L211" href="#L211">211</a>                     childTargetDir,
+<a class="jxr_linenumber" name="L212" href="#L212">212</a>                     dirBakerConf,
+<a class="jxr_linenumber" name="L213" href="#L213">213</a>                     extensionVars);
+<a class="jxr_linenumber" name="L214" href="#L214">214</a>         }
+<a class="jxr_linenumber" name="L215" href="#L215">215</a>     }
+<a class="jxr_linenumber" name="L216" href="#L216">216</a> 
+<a class="jxr_linenumber" name="L217" href="#L217">217</a> 
+<a class="jxr_linenumber" name="L218" href="#L218">218</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L219" href="#L219">219</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L220" href="#L220">220</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L221" href="#L221">221</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> bakeExtraDirectories(
+<a class="jxr_linenumber" name="L222" href="#L222">222</a>             <strong class="jxr_keyword">final</strong> Path sourceDir,
+<a class="jxr_linenumber" name="L223" href="#L223">223</a>             <strong class="jxr_keyword">final</strong> Path targetDir,
+<a class="jxr_linenumber" name="L224" href="#L224">224</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/core/DirBakerConf.html">DirBakerConf</a> dirBakerConf,
+<a class="jxr_linenumber" name="L225" href="#L225">225</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/api/PageVars.html">PageVars</a> extensionVars) {
+<a class="jxr_linenumber" name="L226" href="#L226">226</a> 
+<a class="jxr_linenumber" name="L227" href="#L227">227</a>         Seq&lt;Path&gt; extraDirPathList =
+<a class="jxr_linenumber" name="L228" href="#L228">228</a>                 dirBakerConf.extraDirsHere
+<a class="jxr_linenumber" name="L229" href="#L229">229</a>                 .map(path -&gt; sourceDir.resolve(path));
+<a class="jxr_linenumber" name="L230" href="#L230">230</a> 
+<a class="jxr_linenumber" name="L231" href="#L231">231</a>         <strong class="jxr_keyword">for</strong> ( Path extraSourceDir : extraDirPathList ) {
+<a class="jxr_linenumber" name="L232" href="#L232">232</a>             <a href="../../../../com/varmateo/yawg/core/DirBakerConf.html">DirBakerConf</a> extraDirBakerConf =
+<a class="jxr_linenumber" name="L233" href="#L233">233</a>                     _dirBakerConfDao
+<a class="jxr_linenumber" name="L234" href="#L234">234</a>                     .loadFromDir(extraSourceDir)
+<a class="jxr_linenumber" name="L235" href="#L235">235</a>                     .mergeOnTopOf(dirBakerConf);
+<a class="jxr_linenumber" name="L236" href="#L236">236</a>             Seq&lt;Path&gt; dirEntries =
+<a class="jxr_linenumber" name="L237" href="#L237">237</a>                     getDirEntries(extraSourceDir, extraDirBakerConf);
+<a class="jxr_linenumber" name="L238" href="#L238">238</a>             <a href="../../../../com/varmateo/yawg/spi/PageContext.html">PageContext</a> extraContext =
+<a class="jxr_linenumber" name="L239" href="#L239">239</a>                     _dirPageContextBuilder.buildPageContext(
+<a class="jxr_linenumber" name="L240" href="#L240">240</a>                             targetDir,
+<a class="jxr_linenumber" name="L241" href="#L241">241</a>                             extraDirBakerConf,
+<a class="jxr_linenumber" name="L242" href="#L242">242</a>                             extensionVars);
+<a class="jxr_linenumber" name="L243" href="#L243">243</a> 
+<a class="jxr_linenumber" name="L244" href="#L244">244</a>             bakeChildFiles(
+<a class="jxr_linenumber" name="L245" href="#L245">245</a>                     dirEntries,
+<a class="jxr_linenumber" name="L246" href="#L246">246</a>                     targetDir,
+<a class="jxr_linenumber" name="L247" href="#L247">247</a>                     extraDirBakerConf,
+<a class="jxr_linenumber" name="L248" href="#L248">248</a>                     extraContext);
+<a class="jxr_linenumber" name="L249" href="#L249">249</a>             bakeChildDirectories(
+<a class="jxr_linenumber" name="L250" href="#L250">250</a>                     dirEntries,
+<a class="jxr_linenumber" name="L251" href="#L251">251</a>                     targetDir,
+<a class="jxr_linenumber" name="L252" href="#L252">252</a>                     extraDirBakerConf,
+<a class="jxr_linenumber" name="L253" href="#L253">253</a>                     extensionVars);
+<a class="jxr_linenumber" name="L254" href="#L254">254</a>         }
+<a class="jxr_linenumber" name="L255" href="#L255">255</a>     }
+<a class="jxr_linenumber" name="L256" href="#L256">256</a> 
+<a class="jxr_linenumber" name="L257" href="#L257">257</a> 
+<a class="jxr_linenumber" name="L258" href="#L258">258</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L259" href="#L259">259</a> <em class="jxr_javadoccomment">     * A simple wrapper to change a method signature from the checked</em>
+<a class="jxr_linenumber" name="L260" href="#L260">260</a> <em class="jxr_javadoccomment">     * IOException to the unchecked YawgException.</em>
+<a class="jxr_linenumber" name="L261" href="#L261">261</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L262" href="#L262">262</a>     <strong class="jxr_keyword">private</strong> &lt;T&gt; T doIoAction(
+<a class="jxr_linenumber" name="L263" href="#L263">263</a>             <strong class="jxr_keyword">final</strong> String description,
+<a class="jxr_linenumber" name="L264" href="#L264">264</a>             <strong class="jxr_keyword">final</strong> IoSupplier&lt;T&gt; supplier)
+<a class="jxr_linenumber" name="L265" href="#L265">265</a>             <strong class="jxr_keyword">throws</strong> <a href="../../../../com/varmateo/yawg/api/YawgException.html">YawgException</a> {
+<a class="jxr_linenumber" name="L266" href="#L266">266</a> 
+<a class="jxr_linenumber" name="L267" href="#L267">267</a>         T result = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L268" href="#L268">268</a> 
-<a class="jxr_linenumber" name="L269" href="#L269">269</a>         T result = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L270" href="#L270">270</a> 
-<a class="jxr_linenumber" name="L271" href="#L271">271</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L272" href="#L272">272</a>             result = supplier.get();
-<a class="jxr_linenumber" name="L273" href="#L273">273</a>         } <strong class="jxr_keyword">catch</strong> ( IOException e ) {
-<a class="jxr_linenumber" name="L274" href="#L274">274</a>             Exceptions.raise(
-<a class="jxr_linenumber" name="L275" href="#L275">275</a>                     e,
-<a class="jxr_linenumber" name="L276" href="#L276">276</a>                     <span class="jxr_string">"Failed to {0} - {1} - {2}"</span>,
-<a class="jxr_linenumber" name="L277" href="#L277">277</a>                     description,
-<a class="jxr_linenumber" name="L278" href="#L278">278</a>                     e.getClass().getSimpleName(),
-<a class="jxr_linenumber" name="L279" href="#L279">279</a>                     e.getMessage());
-<a class="jxr_linenumber" name="L280" href="#L280">280</a>         }
-<a class="jxr_linenumber" name="L281" href="#L281">281</a> 
-<a class="jxr_linenumber" name="L282" href="#L282">282</a>         <strong class="jxr_keyword">return</strong> result;
-<a class="jxr_linenumber" name="L283" href="#L283">283</a>     }
-<a class="jxr_linenumber" name="L284" href="#L284">284</a> 
-<a class="jxr_linenumber" name="L285" href="#L285">285</a> 
-<a class="jxr_linenumber" name="L286" href="#L286">286</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L287" href="#L287">287</a> <em class="jxr_javadoccomment">     * Utility interface to simplify creating lambdas whose body may</em>
-<a class="jxr_linenumber" name="L288" href="#L288">288</a> <em class="jxr_javadoccomment">     * throw exceptions.</em>
-<a class="jxr_linenumber" name="L289" href="#L289">289</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L290" href="#L290">290</a> <em class="jxr_javadoccomment">     * @param &lt;T&gt; Type of the values returned by the function.</em>
-<a class="jxr_linenumber" name="L291" href="#L291">291</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L292" href="#L292">292</a>     @FunctionalInterface
-<a class="jxr_linenumber" name="L293" href="#L293">293</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">interface</strong> IoSupplier&lt;T&gt; {
-<a class="jxr_linenumber" name="L294" href="#L294">294</a> 
-<a class="jxr_linenumber" name="L295" href="#L295">295</a> 
-<a class="jxr_linenumber" name="L296" href="#L296">296</a>         <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L297" href="#L297">297</a> <em class="jxr_javadoccomment">         *</em>
-<a class="jxr_linenumber" name="L298" href="#L298">298</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L299" href="#L299">299</a>         T get() <strong class="jxr_keyword">throws</strong> IOException;
-<a class="jxr_linenumber" name="L300" href="#L300">300</a>     }
-<a class="jxr_linenumber" name="L301" href="#L301">301</a> 
-<a class="jxr_linenumber" name="L302" href="#L302">302</a> 
-<a class="jxr_linenumber" name="L303" href="#L303">303</a> }
+<a class="jxr_linenumber" name="L269" href="#L269">269</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L270" href="#L270">270</a>             result = supplier.get();
+<a class="jxr_linenumber" name="L271" href="#L271">271</a>         } <strong class="jxr_keyword">catch</strong> ( IOException e ) {
+<a class="jxr_linenumber" name="L272" href="#L272">272</a>             Exceptions.raise(
+<a class="jxr_linenumber" name="L273" href="#L273">273</a>                     e,
+<a class="jxr_linenumber" name="L274" href="#L274">274</a>                     <span class="jxr_string">"Failed to {0} - {1} - {2}"</span>,
+<a class="jxr_linenumber" name="L275" href="#L275">275</a>                     description,
+<a class="jxr_linenumber" name="L276" href="#L276">276</a>                     e.getClass().getSimpleName(),
+<a class="jxr_linenumber" name="L277" href="#L277">277</a>                     e.getMessage());
+<a class="jxr_linenumber" name="L278" href="#L278">278</a>         }
+<a class="jxr_linenumber" name="L279" href="#L279">279</a> 
+<a class="jxr_linenumber" name="L280" href="#L280">280</a>         <strong class="jxr_keyword">return</strong> result;
+<a class="jxr_linenumber" name="L281" href="#L281">281</a>     }
+<a class="jxr_linenumber" name="L282" href="#L282">282</a> 
+<a class="jxr_linenumber" name="L283" href="#L283">283</a> 
+<a class="jxr_linenumber" name="L284" href="#L284">284</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L285" href="#L285">285</a> <em class="jxr_javadoccomment">     * Utility interface to simplify creating lambdas whose body may</em>
+<a class="jxr_linenumber" name="L286" href="#L286">286</a> <em class="jxr_javadoccomment">     * throw exceptions.</em>
+<a class="jxr_linenumber" name="L287" href="#L287">287</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L288" href="#L288">288</a> <em class="jxr_javadoccomment">     * @param &lt;T&gt; Type of the values returned by the function.</em>
+<a class="jxr_linenumber" name="L289" href="#L289">289</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L290" href="#L290">290</a>     @FunctionalInterface
+<a class="jxr_linenumber" name="L291" href="#L291">291</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">interface</strong> IoSupplier&lt;T&gt; {
+<a class="jxr_linenumber" name="L292" href="#L292">292</a> 
+<a class="jxr_linenumber" name="L293" href="#L293">293</a> 
+<a class="jxr_linenumber" name="L294" href="#L294">294</a>         <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L295" href="#L295">295</a> <em class="jxr_javadoccomment">         *</em>
+<a class="jxr_linenumber" name="L296" href="#L296">296</a> <em class="jxr_javadoccomment">         */</em>
+<a class="jxr_linenumber" name="L297" href="#L297">297</a>         T get() <strong class="jxr_keyword">throws</strong> IOException;
+<a class="jxr_linenumber" name="L298" href="#L298">298</a>     }
+<a class="jxr_linenumber" name="L299" href="#L299">299</a> 
+<a class="jxr_linenumber" name="L300" href="#L300">300</a> 
+<a class="jxr_linenumber" name="L301" href="#L301">301</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2015&#x2013;2017. All rights reserved.</div>

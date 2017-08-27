@@ -88,9 +88,7 @@ public final class GlobMatcher
      */
     public static Builder builder() {
 
-<span class="fc" id="L91">        Builder result = new Builder();</span>
-
-<span class="fc" id="L93">        return result;</span>
+<span class="fc" id="L91">        return new Builder();</span>
     }
 
 
@@ -104,9 +102,7 @@ public final class GlobMatcher
      */
     public static Builder builder(final GlobMatcher data) {
 
-<span class="fc" id="L107">        Builder result = new Builder(data);</span>
-
-<span class="fc" id="L109">        return result;</span>
+<span class="fc" id="L105">        return new Builder(data);</span>
     }
 
 
@@ -122,14 +118,13 @@ public final class GlobMatcher
     @Override
     public boolean test(final Path path) {
 
-<span class="fc" id="L125">        Path name = path.getFileName();</span>
-<span class="fc" id="L126">        Predicate&lt;PathMatcher&gt; isMatch = matcher -&gt; matcher.matches(name);</span>
-<span class="fc" id="L127">        boolean result = _matchers</span>
-<span class="fc" id="L128">                .filter(isMatch)</span>
-<span class="fc" id="L129">                .headOption()</span>
-<span class="fc" id="L130">                .isDefined();</span>
+<span class="fc" id="L121">        Path name = path.getFileName();</span>
+<span class="fc" id="L122">        Predicate&lt;PathMatcher&gt; isMatch = matcher -&gt; matcher.matches(name);</span>
 
-<span class="fc" id="L132">        return result;</span>
+<span class="fc" id="L124">        return _matchers</span>
+<span class="fc" id="L125">                .filter(isMatch)</span>
+<span class="fc" id="L126">                .headOption()</span>
+<span class="fc" id="L127">                .isDefined();</span>
     }
 
 
@@ -141,13 +136,11 @@ public final class GlobMatcher
     @Override
     public String toString() {
 
-        // This implementation is not particularly performant. Let's
+        // This implementation is not particularly performant. Let us
         // hope client code only uses this method for sporadic logging
         // or debugging.
 
-<span class="fc" id="L148">        String result = String.join(&quot;,&quot;, _globPatterns);</span>
-
-<span class="fc" id="L150">        return result;</span>
+<span class="fc" id="L143">        return String.join(&quot;,&quot;, _globPatterns);</span>
     }
 
 
@@ -167,21 +160,21 @@ public final class GlobMatcher
         /**
          *
          */
-<span class="fc" id="L170">        private Builder() {</span>
+<span class="fc" id="L163">        private Builder() {</span>
 
-<span class="fc" id="L172">            _globPatterns = Array.of();</span>
-<span class="fc" id="L173">            _matchers = Array.of();</span>
-<span class="fc" id="L174">        }</span>
+<span class="fc" id="L165">            _globPatterns = Array.of();</span>
+<span class="fc" id="L166">            _matchers = Array.of();</span>
+<span class="fc" id="L167">        }</span>
 
 
         /**
          *
          */
-<span class="fc" id="L180">        private Builder(final GlobMatcher globMatcher) {</span>
+<span class="fc" id="L173">        private Builder(final GlobMatcher globMatcher) {</span>
 
-<span class="fc" id="L182">            _globPatterns = globMatcher._globPatterns;</span>
-<span class="fc" id="L183">            _matchers = globMatcher._matchers;</span>
-<span class="fc" id="L184">        }</span>
+<span class="fc" id="L175">            _globPatterns = globMatcher._globPatterns;</span>
+<span class="fc" id="L176">            _matchers = globMatcher._matchers;</span>
+<span class="fc" id="L177">        }</span>
 
 
         /**
@@ -193,12 +186,12 @@ public final class GlobMatcher
         public Builder addGlobPattern(final String globPattern) {
 
             PathMatcher matcher =
-<span class="fc" id="L196">                    DEFAULT_FILESYSTEM.getPathMatcher(&quot;glob:&quot; + globPattern);</span>
+<span class="fc" id="L189">                    DEFAULT_FILESYSTEM.getPathMatcher(&quot;glob:&quot; + globPattern);</span>
 
-<span class="fc" id="L198">            _globPatterns = _globPatterns.append(globPattern);</span>
-<span class="fc" id="L199">            _matchers = _matchers.append(matcher);</span>
+<span class="fc" id="L191">            _globPatterns = _globPatterns.append(globPattern);</span>
+<span class="fc" id="L192">            _matchers = _matchers.append(matcher);</span>
 
-<span class="fc" id="L201">            return this;</span>
+<span class="fc" id="L194">            return this;</span>
         }
 
 
@@ -207,10 +200,10 @@ public final class GlobMatcher
          */
         public Builder addGlobMatcher(final GlobMatcher globMatcher) {
 
-<span class="fc" id="L210">            _globPatterns = _globPatterns.appendAll(globMatcher._globPatterns);</span>
-<span class="fc" id="L211">            _matchers = _matchers.appendAll(globMatcher._matchers);</span>
+<span class="fc" id="L203">            _globPatterns = _globPatterns.appendAll(globMatcher._globPatterns);</span>
+<span class="fc" id="L204">            _matchers = _matchers.appendAll(globMatcher._matchers);</span>
 
-<span class="fc" id="L213">            return this;</span>
+<span class="fc" id="L206">            return this;</span>
         }
 
 
@@ -219,9 +212,7 @@ public final class GlobMatcher
          */
         public GlobMatcher build() {
 
-<span class="fc" id="L222">            GlobMatcher result = new GlobMatcher(this);</span>
-
-<span class="fc" id="L224">            return result;</span>
+<span class="fc" id="L215">            return new GlobMatcher(this);</span>
         }
 
 

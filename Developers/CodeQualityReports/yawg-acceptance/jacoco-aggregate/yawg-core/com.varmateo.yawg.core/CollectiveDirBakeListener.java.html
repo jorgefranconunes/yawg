@@ -51,11 +51,11 @@ import com.varmateo.yawg.spi.PageContext;
             final DirBakeListener listener) {
 
 <span class="fc" id="L53">        PageVars newVars = listener.onDirBake(context);</span>
-<span class="fc" id="L54">        PageContext newContext = PageContext.builder(context)</span>
+<span class="fc" id="L54">        PageContext augmentedContext = PageContext.builder(context)</span>
 <span class="fc" id="L55">                .setPageVars(newVars)</span>
 <span class="fc" id="L56">                .build();</span>
 
-<span class="fc" id="L58">        return newContext;</span>
+<span class="fc" id="L58">        return augmentedContext;</span>
     }
 
 

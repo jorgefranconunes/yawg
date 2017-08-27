@@ -73,9 +73,7 @@ import com.varmateo.yawg.util.FileUtils;
 <span class="fc" id="L73">                .setPageVars(context.getPageVars());</span>
 <span class="fc" id="L74">        buildAuthors(modelBuilder, header);</span>
 
-<span class="fc" id="L76">        TemplateDataModel result = modelBuilder.build();</span>
-
-<span class="fc" id="L78">        return result;</span>
+<span class="fc" id="L76">        return modelBuilder.build();</span>
     }
 
 
@@ -86,25 +84,25 @@ import com.varmateo.yawg.util.FileUtils;
             final TemplateDataModel.Builder modelBuilder,
             final DocumentHeader header) {
 
-<span class="fc" id="L89">        java.util.List&lt;Author&gt; authors = header.getAuthors();</span>
+<span class="fc" id="L87">        java.util.List&lt;Author&gt; authors = header.getAuthors();</span>
 
         // This convoluted logic is needed because
         // DocumentHeader.getAuthor(), DocumentHeader.getAuthors() do
         // not behave consistently with each other.
 
-<span class="fc bfc" id="L95" title="All 2 branches covered.">        if ( !authors.isEmpty() ) {</span>
-<span class="fc" id="L96">            List.ofAll(authors).forEach(</span>
-<span class="fc" id="L97">                    a -&gt; modelBuilder.addAuthor(a.getFullName(), a.getEmail()));</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">        if ( !authors.isEmpty() ) {</span>
+<span class="fc" id="L94">            List.ofAll(authors).forEach(</span>
+<span class="fc" id="L95">                    a -&gt; modelBuilder.addAuthor(a.getFullName(), a.getEmail()));</span>
         } else {
-<span class="fc" id="L99">            Author singleAuthor = header.getAuthor();</span>
+<span class="fc" id="L97">            Author singleAuthor = header.getAuthor();</span>
 
-<span class="pc bpc" id="L101" title="1 of 4 branches missed.">            if ( (singleAuthor!=null) &amp;&amp; (singleAuthor.getFullName()!=null) )  {</span>
-<span class="fc" id="L102">                modelBuilder.addAuthor(</span>
-<span class="fc" id="L103">                        singleAuthor.getFullName(),</span>
-<span class="fc" id="L104">                        singleAuthor.getEmail());</span>
+<span class="pc bpc" id="L99" title="1 of 4 branches missed.">            if ( (singleAuthor!=null) &amp;&amp; (singleAuthor.getFullName()!=null) )  {</span>
+<span class="fc" id="L100">                modelBuilder.addAuthor(</span>
+<span class="fc" id="L101">                        singleAuthor.getFullName(),</span>
+<span class="fc" id="L102">                        singleAuthor.getEmail());</span>
             }
         }
-<span class="fc" id="L107">    }</span>
+<span class="fc" id="L105">    }</span>
 
 
 }
