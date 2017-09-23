@@ -5,6 +5,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
+          <a class="navbar-brand" href="${yawg.rootRelativeUrl}/index.html"><img src="${yawg.rootRelativeUrl}/YawgLogo-standard.png" style="height:1.5em;"/></a>
           <a class="navbar-brand" href="${yawg.rootRelativeUrl}/index.html">Yawg</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">

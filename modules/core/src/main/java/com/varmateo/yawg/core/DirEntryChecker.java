@@ -68,9 +68,8 @@ import com.varmateo.yawg.core.DirBakerConf;
     private boolean testString(final String name) {
 
         Path path = Paths.get(name);
-        boolean result = testPath(path);
 
-        return result;
+        return testPath(path);
     }
 
 

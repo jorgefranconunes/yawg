@@ -190,12 +190,10 @@ import com.varmateo.yawg.cli.CliOption;
 
         String   optionName   = option.getName();
         String[] optionValues = _cmdLine.getOptionValues(optionName);
-        Seq<String> result =
-                Option.of(optionValues)
+
+        return Option.of(optionValues)
                 .map(Array::of)
                 .getOrElse(Array::of);
-
-        return result;
     }
 
 
@@ -216,20 +214,20 @@ import com.varmateo.yawg.cli.CliOption;
     public String get(final CliOption option)
             throws CliException {
 
-        String   result       = null;
-        String   optionName   = option.getName();
+        final String optionValue;
+        String optionName = option.getName();
         String[] optionValues = _cmdLine.getOptionValues(optionName);
 
         if ( optionValues != null ) {
             int indexOfLast = optionValues.length-1;
-            result = optionValues[indexOfLast];
+            optionValue = optionValues[indexOfLast];
         } else {
-            String   msgFmt  = "missing mandatory option --{0}";
-            Object[] fmtArgs = { optionName };
-            CliException.raise(msgFmt, fmtArgs);
+            throw CliException.raise(
+                    "missing mandatory option --{0}",
+                    optionName);
         }
 
-        return result;
+        return optionValue;
     }
 
 
@@ -246,18 +244,18 @@ import com.varmateo.yawg.cli.CliOption;
             final CliOption option,
             final String defaultValue) {
 
-        String   result       = null;
-        String   optionName   = option.getName();
+        final String optionValue;
+        String optionName = option.getName();
         String[] optionValues = _cmdLine.getOptionValues(optionName);
 
         if ( optionValues != null ) {
             int indexOfLast = optionValues.length-1;
-            result = optionValues[indexOfLast];
+            optionValue = optionValues[indexOfLast];
         } else {
-            result = defaultValue;
+            optionValue = defaultValue;
         }
 
-        return result;
+        return optionValue;
     }
 
 
@@ -268,9 +266,8 @@ import com.varmateo.yawg.cli.CliOption;
             throws CliException {
 
         String pathStr = get(option);
-        Path   result  = stringToPath(option, pathStr);
 
-        return result;
+        return stringToPath(option, pathStr);
     }
 
 
@@ -283,15 +280,10 @@ import com.varmateo.yawg.cli.CliOption;
             throws CliException {
 
         String pathStr = get(option, null);
-        Path result = null;
 
-        if ( pathStr == null ) {
-            result = defaultValue;
-        } else {
-            result = stringToPath(option, pathStr);
-        }
-
-        return result;
+        return pathStr == null
+                ? defaultValue
+                : stringToPath(option, pathStr);
     }
 
 
@@ -303,17 +295,14 @@ import com.varmateo.yawg.cli.CliOption;
             final String pathStr)
             throws CliException {
 
-        Path result = null;
-
         try {
-            result = Paths.get(pathStr);
+            return Paths.get(pathStr);
         } catch ( InvalidPathException e ) {
-            String   msgFmt  = "value of option {0} is an invalid path ({1})";
-            Object[] fmtArgs = { option.getLiteral(), pathStr };
-            CliException.raise(msgFmt, fmtArgs);
+            throw CliException.raise(
+                    "value of option {0} is an invalid path ({1})",
+                    option.getLiteral(),
+                    pathStr);
         }
-
-        return result;
     }
 
 

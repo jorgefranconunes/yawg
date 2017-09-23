@@ -93,9 +93,9 @@ public final class TestUtils {
         String inputsDirPrefix =
                 getSystemProperty(PROP_INPUTS_DIR_PREFIX);
         String[] pathComponents =
-            testsuiteClass.getName().split("\\.");
+                testsuiteClass.getName().split("\\.");
         Path inputsDirPath =
-            Paths.get(inputsDirPrefix, pathComponents);
+                Paths.get(inputsDirPrefix, pathComponents);
 
         return inputsDirPath;
     }

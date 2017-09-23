@@ -65,7 +65,6 @@ import com.varmateo.yawg.util.YamlParser;
     public DirBakerConf loadFromDir(final Path sourceDir)
             throws YawgException {
 
-        DirBakerConf result = null;
         Path confFile = sourceDir.resolve(CONF_FILE_NAME);
 
         return Files.isRegularFile(confFile)
