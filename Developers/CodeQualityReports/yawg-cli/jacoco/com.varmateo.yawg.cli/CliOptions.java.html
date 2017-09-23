@@ -190,12 +190,10 @@ import com.varmateo.yawg.cli.CliOption;
 
 <span class="nc" id="L191">        String   optionName   = option.getName();</span>
 <span class="nc" id="L192">        String[] optionValues = _cmdLine.getOptionValues(optionName);</span>
-<span class="nc" id="L193">        Seq&lt;String&gt; result =</span>
-<span class="nc" id="L194">                Option.of(optionValues)</span>
+
+<span class="nc" id="L194">        return Option.of(optionValues)</span>
 <span class="nc" id="L195">                .map(Array::of)</span>
 <span class="nc" id="L196">                .getOrElse(Array::of);</span>
-
-<span class="nc" id="L198">        return result;</span>
     }
 
 
@@ -216,20 +214,20 @@ import com.varmateo.yawg.cli.CliOption;
     public String get(final CliOption option)
             throws CliException {
 
-<span class="fc" id="L219">        String   result       = null;</span>
-<span class="fc" id="L220">        String   optionName   = option.getName();</span>
-<span class="fc" id="L221">        String[] optionValues = _cmdLine.getOptionValues(optionName);</span>
+        final String optionValue;
+<span class="fc" id="L218">        String optionName = option.getName();</span>
+<span class="fc" id="L219">        String[] optionValues = _cmdLine.getOptionValues(optionName);</span>
 
-<span class="fc bfc" id="L223" title="All 2 branches covered.">        if ( optionValues != null ) {</span>
-<span class="fc" id="L224">            int indexOfLast = optionValues.length-1;</span>
-<span class="fc" id="L225">            result = optionValues[indexOfLast];</span>
-<span class="fc" id="L226">        } else {</span>
-<span class="fc" id="L227">            String   msgFmt  = &quot;missing mandatory option --{0}&quot;;</span>
-<span class="fc" id="L228">            Object[] fmtArgs = { optionName };</span>
-<span class="nc" id="L229">            CliException.raise(msgFmt, fmtArgs);</span>
+<span class="pc bpc" id="L221" title="1 of 2 branches missed.">        if ( optionValues != null ) {</span>
+<span class="fc" id="L222">            int indexOfLast = optionValues.length-1;</span>
+<span class="fc" id="L223">            optionValue = optionValues[indexOfLast];</span>
+<span class="fc" id="L224">        } else {</span>
+<span class="nc" id="L225">            throw CliException.raise(</span>
+                    &quot;missing mandatory option --{0}&quot;,
+                    optionName);
         }
 
-<span class="fc" id="L232">        return result;</span>
+<span class="fc" id="L230">        return optionValue;</span>
     }
 
 
@@ -246,18 +244,18 @@ import com.varmateo.yawg.cli.CliOption;
             final CliOption option,
             final String defaultValue) {
 
-<span class="fc" id="L249">        String   result       = null;</span>
-<span class="fc" id="L250">        String   optionName   = option.getName();</span>
-<span class="fc" id="L251">        String[] optionValues = _cmdLine.getOptionValues(optionName);</span>
+        final String optionValue;
+<span class="fc" id="L248">        String optionName = option.getName();</span>
+<span class="fc" id="L249">        String[] optionValues = _cmdLine.getOptionValues(optionName);</span>
 
-<span class="fc bfc" id="L253" title="All 2 branches covered.">        if ( optionValues != null ) {</span>
-<span class="fc" id="L254">            int indexOfLast = optionValues.length-1;</span>
-<span class="fc" id="L255">            result = optionValues[indexOfLast];</span>
-<span class="fc" id="L256">        } else {</span>
-<span class="fc" id="L257">            result = defaultValue;</span>
+<span class="fc bfc" id="L251" title="All 2 branches covered.">        if ( optionValues != null ) {</span>
+<span class="fc" id="L252">            int indexOfLast = optionValues.length-1;</span>
+<span class="fc" id="L253">            optionValue = optionValues[indexOfLast];</span>
+<span class="fc" id="L254">        } else {</span>
+<span class="fc" id="L255">            optionValue = defaultValue;</span>
         }
 
-<span class="fc" id="L260">        return result;</span>
+<span class="fc" id="L258">        return optionValue;</span>
     }
 
 
@@ -267,10 +265,9 @@ import com.varmateo.yawg.cli.CliOption;
     public Path getPath(final CliOption option)
             throws CliException {
 
-<span class="fc" id="L270">        String pathStr = get(option);</span>
-<span class="fc" id="L271">        Path   result  = stringToPath(option, pathStr);</span>
+<span class="fc" id="L268">        String pathStr = get(option);</span>
 
-<span class="fc" id="L273">        return result;</span>
+<span class="fc" id="L270">        return stringToPath(option, pathStr);</span>
     }
 
 
@@ -282,16 +279,11 @@ import com.varmateo.yawg.cli.CliOption;
             final Path defaultValue)
             throws CliException {
 
-<span class="nc" id="L285">        String pathStr = get(option, null);</span>
-<span class="nc" id="L286">        Path result = null;</span>
+<span class="nc" id="L282">        String pathStr = get(option, null);</span>
 
-<span class="nc bnc" id="L288" title="All 2 branches missed.">        if ( pathStr == null ) {</span>
-<span class="nc" id="L289">            result = defaultValue;</span>
-        } else {
-<span class="nc" id="L291">            result = stringToPath(option, pathStr);</span>
-        }
-
-<span class="nc" id="L294">        return result;</span>
+<span class="nc bnc" id="L284" title="All 2 branches missed.">        return pathStr == null</span>
+                ? defaultValue
+<span class="nc" id="L286">                : stringToPath(option, pathStr);</span>
     }
 
 
@@ -303,17 +295,14 @@ import com.varmateo.yawg.cli.CliOption;
             final String pathStr)
             throws CliException {
 
-<span class="fc" id="L306">        Path result = null;</span>
-
         try {
-<span class="fc" id="L309">            result = Paths.get(pathStr);</span>
-<span class="nc" id="L310">        } catch ( InvalidPathException e ) {</span>
-<span class="nc" id="L311">            String   msgFmt  = &quot;value of option {0} is an invalid path ({1})&quot;;</span>
-<span class="nc" id="L312">            Object[] fmtArgs = { option.getLiteral(), pathStr };</span>
-<span class="nc" id="L313">            CliException.raise(msgFmt, fmtArgs);</span>
-<span class="fc" id="L314">        }</span>
-
-<span class="fc" id="L316">        return result;</span>
+<span class="fc" id="L299">            return Paths.get(pathStr);</span>
+<span class="nc" id="L300">        } catch ( InvalidPathException e ) {</span>
+<span class="nc" id="L301">            throw CliException.raise(</span>
+                    &quot;value of option {0} is an invalid path ({1})&quot;,
+<span class="nc" id="L303">                    option.getLiteral(),</span>
+                    pathStr);
+        }
     }
 
 
@@ -322,15 +311,15 @@ import com.varmateo.yawg.cli.CliOption;
      */
     public boolean isTrue(final CliOption option) {
 
-<span class="fc" id="L325">        boolean result = false;</span>
+<span class="fc" id="L314">        boolean result = false;</span>
 
-<span class="fc bfc" id="L327" title="All 2 branches covered.">        if ( hasOption(option) ) {</span>
-<span class="fc" id="L328">            String value = get(option, FLAG_TRUE);</span>
+<span class="fc bfc" id="L316" title="All 2 branches covered.">        if ( hasOption(option) ) {</span>
+<span class="fc" id="L317">            String value = get(option, FLAG_TRUE);</span>
 
-<span class="fc" id="L330">            result = FLAG_TRUE.equals(value);</span>
+<span class="fc" id="L319">            result = FLAG_TRUE.equals(value);</span>
         }
 
-<span class="fc" id="L333">        return result;</span>
+<span class="fc" id="L322">        return result;</span>
     }
 
 

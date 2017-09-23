@@ -8,7 +8,7 @@ Yawg CLI,com.varmateo.yawg.cli,CliInfoPrinter,111,0,0,0,29,0,7,0,7,0
 Yawg CLI,com.varmateo.yawg.cli,PlainFormatter,178,0,12,0,43,0,13,0,7,0
 Yawg CLI,com.varmateo.yawg.cli,JulLogInitializer,80,0,4,0,20,0,6,0,4,0
 Yawg CLI,com.varmateo.yawg.cli,JulLogInitializer.Builder,25,0,0,0,9,0,4,0,4,0
-Yawg CLI,com.varmateo.yawg.cli,CliOptions,137,225,6,14,31,68,8,18,3,13
+Yawg CLI,com.varmateo.yawg.cli,CliOptions,131,205,7,13,25,60,9,17,3,13
 Yawg CLI,com.varmateo.yawg.cli,CliOption,0,159,0,16,0,43,0,19,0,11
 Yawg CLI,com.varmateo.yawg.cli,CliException,15,13,0,0,4,4,2,2,2,2
 Yawg CLI,com.varmateo.yawg.cli,BakerCliOptions,116,0,0,0,45,0,4,0,4,0

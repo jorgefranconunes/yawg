@@ -68,9 +68,8 @@ import com.varmateo.yawg.core.DirBakerConf;
     private boolean testString(final String name) {
 
 <span class="fc" id="L70">        Path path = Paths.get(name);</span>
-<span class="fc" id="L71">        boolean result = testPath(path);</span>
 
-<span class="fc" id="L73">        return result;</span>
+<span class="fc" id="L72">        return testPath(path);</span>
     }
 
 
@@ -79,9 +78,9 @@ import com.varmateo.yawg.core.DirBakerConf;
      */
     private boolean testForIncludeHere(final Path path) {
 
-<span class="fc" id="L82">        return _conf.filesToIncludeHere</span>
-<span class="fc" id="L83">                .map(matcher -&gt; matcher.test(path))</span>
-<span class="fc" id="L84">                .getOrElse(false);</span>
+<span class="fc" id="L81">        return _conf.filesToIncludeHere</span>
+<span class="fc" id="L82">                .map(matcher -&gt; matcher.test(path))</span>
+<span class="fc" id="L83">                .getOrElse(false);</span>
     }
 
 
@@ -90,13 +89,13 @@ import com.varmateo.yawg.core.DirBakerConf;
      */
     private boolean testForExclude(final Path path) {
 
-<span class="fc" id="L93">        return false</span>
+<span class="fc" id="L92">        return false</span>
                 || _conf.filesToExclude
-<span class="fc" id="L95">                .map(matcher -&gt; matcher.test(path))</span>
-<span class="fc bfc" id="L96" title="All 2 branches covered.">                .getOrElse(false)</span>
+<span class="fc" id="L94">                .map(matcher -&gt; matcher.test(path))</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">                .getOrElse(false)</span>
                 || _conf.filesToExcludeHere
-<span class="fc" id="L98">                .map(matcher -&gt; matcher.test(path))</span>
-<span class="fc bfc" id="L99" title="All 2 branches covered.">                .getOrElse(false);</span>
+<span class="fc" id="L97">                .map(matcher -&gt; matcher.test(path))</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">                .getOrElse(false);</span>
     }
 
 
