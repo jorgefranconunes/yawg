@@ -226,32 +226,32 @@ import com.varmateo.yawg.util.Exceptions;
 
 <span class="fc" id="L227">        Seq&lt;Path&gt; extraDirPathList =</span>
                 dirBakerConf.extraDirsHere
-<span class="pc" id="L229">                .map(path -&gt; sourceDir.resolve(path));</span>
+<span class="fc" id="L229">                .map(path -&gt; sourceDir.resolve(path));</span>
 
-<span class="pc bpc" id="L231" title="1 of 2 branches missed.">        for ( Path extraSourceDir : extraDirPathList ) {</span>
-<span class="nc" id="L232">            DirBakerConf extraDirBakerConf =</span>
+<span class="fc bfc" id="L231" title="All 2 branches covered.">        for ( Path extraSourceDir : extraDirPathList ) {</span>
+<span class="fc" id="L232">            DirBakerConf extraDirBakerConf =</span>
                     _dirBakerConfDao
-<span class="nc" id="L234">                    .loadFromDir(extraSourceDir)</span>
-<span class="nc" id="L235">                    .mergeOnTopOf(dirBakerConf);</span>
-<span class="nc" id="L236">            Seq&lt;Path&gt; dirEntries =</span>
-<span class="nc" id="L237">                    getDirEntries(extraSourceDir, extraDirBakerConf);</span>
-<span class="nc" id="L238">            PageContext extraContext =</span>
-<span class="nc" id="L239">                    _dirPageContextBuilder.buildPageContext(</span>
+<span class="fc" id="L234">                    .loadFromDir(extraSourceDir)</span>
+<span class="fc" id="L235">                    .mergeOnTopOf(dirBakerConf);</span>
+<span class="fc" id="L236">            Seq&lt;Path&gt; dirEntries =</span>
+<span class="fc" id="L237">                    getDirEntries(extraSourceDir, extraDirBakerConf);</span>
+<span class="fc" id="L238">            PageContext extraContext =</span>
+<span class="fc" id="L239">                    _dirPageContextBuilder.buildPageContext(</span>
                             targetDir,
                             extraDirBakerConf,
                             extensionVars);
 
-<span class="nc" id="L244">            bakeChildFiles(</span>
+<span class="fc" id="L244">            bakeChildFiles(</span>
                     dirEntries,
                     targetDir,
                     extraDirBakerConf,
                     extraContext);
-<span class="nc" id="L249">            bakeChildDirectories(</span>
+<span class="fc" id="L249">            bakeChildDirectories(</span>
                     dirEntries,
                     targetDir,
                     extraDirBakerConf,
                     extensionVars);
-<span class="nc" id="L254">        }</span>
+<span class="fc" id="L254">        }</span>
 <span class="fc" id="L255">    }</span>
 
 

@@ -45,22 +45,13 @@ import com.varmateo.yawg.core.DirEntryChecker;
     public Seq&lt;Path&gt; getDirEntries(final Path dirPath)
             throws IOException {
 
-        final Seq&lt;Path&gt; result;
-
-<span class="pc" id="L50">        try ( Stream&lt;Path&gt; entries = Files.list(dirPath) ) {</span>
-<span class="fc" id="L51">            Stream&lt;Path&gt; stream =</span>
+<span class="pc" id="L48">        try ( Stream&lt;Path&gt; entries = Files.list(dirPath) ) {</span>
+<span class="fc" id="L49">            Stream&lt;Path&gt; stream =</span>
                     entries
-<span class="fc" id="L53">                    .filter(_entryFilter)</span>
-<span class="fc" id="L54">                    .sorted();</span>
-<span class="fc" id="L55">            result = List.ofAll(new Iterable&lt;Path&gt;() {</span>
-                    @Override
-                    public Iterator&lt;Path&gt; iterator() {
-<span class="fc" id="L58">                        return stream.iterator();</span>
-                    }
-                });
-<span class="pc bpc" id="L61" title="6 of 8 branches missed.">        }</span>
-
-<span class="fc" id="L63">        return result;</span>
+<span class="fc" id="L51">                    .filter(_entryFilter)</span>
+<span class="fc" id="L52">                    .sorted();</span>
+<span class="fc" id="L53">            return List.ofAll(() -&gt; stream.iterator());</span>
+<span class="pc bpc" id="L54" title="6 of 8 branches missed.">        }</span>
     }
 
 

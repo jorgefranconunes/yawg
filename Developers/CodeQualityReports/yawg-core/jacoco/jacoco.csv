@@ -27,7 +27,7 @@ Yawg core,com.varmateo.yawg.asciidoctor,AdocUtils,20,67,0,0,10,22,2,3,2,3
 Yawg core,com.varmateo.yawg.core,CopyBakerService,46,0,0,0,15,0,5,0,5,0
 Yawg core,com.varmateo.yawg.core,AssetsCopier,68,0,2,0,19,0,6,0,5,0
 Yawg core,com.varmateo.yawg.core,SingleSiteBaker,127,0,0,0,27,0,3,0,3,0
-Yawg core,com.varmateo.yawg.core,DirEntryScanner,30,37,6,2,0,10,4,2,0,2
+Yawg core,com.varmateo.yawg.core,DirEntryScanner,30,36,6,2,0,9,4,3,0,3
 Yawg core,com.varmateo.yawg.core,SiteBakerDomain,177,0,0,0,51,0,14,0,14,0
 Yawg core,com.varmateo.yawg.core,AssetsCopier.new SimpleFileVisitor() {...},51,0,2,0,9,0,4,0,3,0
 Yawg core,com.varmateo.yawg.core,DirBakerConf.Builder,0,223,0,0,0,61,0,23,0,23
@@ -46,7 +46,6 @@ Yawg core,com.varmateo.yawg.core,DirEntryChecker,0,96,0,8,0,19,0,14,0,10
 Yawg core,com.varmateo.yawg.core,DirBakerConfDao,125,275,9,9,16,71,9,18,3,15
 Yawg core,com.varmateo.yawg.core,CollectiveTemplateService,57,0,4,0,15,0,8,0,6,0
 Yawg core,com.varmateo.yawg.core,DirBakerConf,5,116,0,0,0,25,1,5,1,5
-Yawg core,com.varmateo.yawg.core,DirEntryScanner.new Iterable() {...},0,13,0,0,0,2,0,2,0,2
 Yawg core,com.varmateo.yawg.core,DirPageContextBuilder,43,77,1,1,9,26,8,4,7,4
 Yawg core,com.varmateo.yawg.breadcrumbs,BreadcrumbsBakeListener,118,0,2,0,28,0,12,0,11,0
 Yawg core,com.varmateo.yawg.breadcrumbs,BreadcrumbItem,15,0,0,0,6,0,3,0,3,0

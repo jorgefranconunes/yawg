@@ -275,9 +275,9 @@ import com.varmateo.yawg.util.YamlParser;
 <span class="fc" id="L275">        return confMap</span>
 <span class="fc" id="L276">                .getList(key, String.class)</span>
 <span class="fc" id="L277">                .map(itemList -&gt;</span>
-<span class="nc" id="L278">                     Stream.ofAll(itemList)</span>
-<span class="nc" id="L279">                     .zipWithIndex()</span>
-<span class="nc" id="L280">                     .map(tuple -&gt; buildPath(tuple._1(), tuple._2(), key)));</span>
+<span class="fc" id="L278">                     Stream.ofAll(itemList)</span>
+<span class="fc" id="L279">                     .zipWithIndex()</span>
+<span class="fc" id="L280">                     .map(tuple -&gt; buildPath(tuple._1(), tuple._2(), key)));</span>
     }
 
 
@@ -287,7 +287,7 @@ import com.varmateo.yawg.util.YamlParser;
             final String key) {
 
         try {
-<span class="nc" id="L290">            return Paths.get(pathStr);</span>
+<span class="fc" id="L290">            return Paths.get(pathStr);</span>
 <span class="nc" id="L291">        } catch ( InvalidPathException e ) {</span>
 <span class="nc" id="L292">            throw Exceptions.raise(</span>
                     e,
