@@ -56,11 +56,11 @@ public final class BakerCliResultAssert
 
         isNotNull();
 
-        if ( actual.getExitStatus() != 0 ) {
+        if ( this.actual.getExitStatus() != 0 ) {
             failWithMessage(
                     "Expected exit status to be zero but was %d - %s",
-                    actual.getExitStatus(),
-                    actual.getOutputAsString());
+                    this.actual.getExitStatus(),
+                    this.actual.getOutputAsString());
         }
 
         return this;
@@ -74,7 +74,7 @@ public final class BakerCliResultAssert
 
         isNotNull();
 
-        if ( actual.getExitStatus() == 0 ) {
+        if ( this.actual.getExitStatus() == 0 ) {
             failWithMessage("Expected exit status to be non-zero but was zero");
         }
 
@@ -89,7 +89,7 @@ public final class BakerCliResultAssert
 
         isNotNull();
 
-        return Assertions.assertThat(actual.outputAsString());
+        return Assertions.assertThat(this.actual.outputAsString());
     }
 
 
@@ -100,7 +100,7 @@ public final class BakerCliResultAssert
 
         isNotNull();
 
-        return Assertions.assertThat(actual.outputLine(index));
+        return Assertions.assertThat(this.actual.outputLine(index));
     }
 
 
@@ -112,7 +112,7 @@ public final class BakerCliResultAssert
 
         isNotNull();
 
-        return Assertions.assertThat(actual.outputLineFromEnd(index));
+        return Assertions.assertThat(this.actual.outputLineFromEnd(index));
     }
 
 
@@ -122,7 +122,7 @@ public final class BakerCliResultAssert
     public AbstractCharSequenceAssert<?,String> targetContentAsString(
             final String relPath) {
 
-        Path path = actual.getTargetPath().resolve(relPath);
+        Path path = this.actual.getTargetPath().resolve(relPath);
         byte[] rawContent = readBytes(path);
         String contentAsString = new String(rawContent, StandardCharsets.UTF_8);
 
@@ -160,7 +160,7 @@ public final class BakerCliResultAssert
         isNotNull();
 
         List<Path> expectedFiles = List.of(fileNames).map(Paths::get);
-        Path targetPath = actual.getTargetPath();
+        Path targetPath = this.actual.getTargetPath();
         List<Path> targetFiles = lsR(targetPath);
 
         Assertions.assertThat(targetFiles).isEqualTo(expectedFiles);
@@ -177,7 +177,7 @@ public final class BakerCliResultAssert
 
         isNotNull();
 
-        Path targetDir = actual.getTargetPath();
+        Path targetDir = this.actual.getTargetPath();
 
         List.of(fileNames)
                 .map(Paths::get)
@@ -198,7 +198,7 @@ public final class BakerCliResultAssert
         isNotNull();
 
         Path expectedResultsPath = scenario.getExpectedResultsPath();
-        Path targetPath = actual.getTargetPath();
+        Path targetPath = this.actual.getTargetPath();
 
         for ( String fileName : fileNames ) {
             Path expectedFile = expectedResultsPath.resolve(fileName);
@@ -221,7 +221,7 @@ public final class BakerCliResultAssert
         isNotNull();
 
         Path expectedResultsPath = scenario.getExpectedResultsPath();
-        Path targetPath = actual.getTargetPath();
+        Path targetPath = this.actual.getTargetPath();
         List<Path> expectedFiles = lsR(expectedResultsPath);
         List<Path> targetFiles = lsR(targetPath);
 
@@ -267,13 +267,7 @@ public final class BakerCliResultAssert
             throw new AssertionError(msg, e);
         }
 
-        return Stream.ofAll(
-                new Iterable<Path>() {
-                    @Override
-                    public Iterator<Path> iterator() {
-                        return javaStream.iterator();
-                    }
-                });
+        return Stream.ofAll(() -> javaStream.iterator());
     }
 
 

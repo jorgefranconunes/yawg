@@ -17,7 +17,7 @@ The variables composing the data model are described below.
 
 * `yawg.body` -- String containing the raw HTML resulting from
   converting the source document into HTML. This is an HTML snippet
-  ready to be included a `<body>` element, or any other block level
+  ready to be included in a `<body>` element, or any other block level
   element.
 
 * `yawg.pageUrl` -- The URL of the page being baked relative to the

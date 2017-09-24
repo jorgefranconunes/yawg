@@ -59,7 +59,8 @@ baking the files in the directory. If not specified it will default to
 * `templatesHere` (`Map<String,List<String>>`) -- Map that specifies
   the templates to be used for certain files. The keys are template
   names. The values are a list of glob patterns representing the files
-  for which the corresponding template will be used.
+  for which the corresponding template will be used. This parameter is
+  not propagated to child directories.
 
 The baker types that can be specified for the `bakerTypes` parameter
 are the ones described in <<sec-BakerTypes>>. The possible values

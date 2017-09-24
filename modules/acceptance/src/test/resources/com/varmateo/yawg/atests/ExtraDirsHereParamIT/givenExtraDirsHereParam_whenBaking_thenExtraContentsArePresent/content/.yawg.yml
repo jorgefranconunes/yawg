@@ -1,0 +1,5 @@
+extraDirsHere:
+  - "../extra"
+
+exclude:
+  - ".yawg.yml"

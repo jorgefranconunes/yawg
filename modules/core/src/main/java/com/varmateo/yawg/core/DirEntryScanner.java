@@ -45,22 +45,13 @@ import com.varmateo.yawg.core.DirEntryChecker;
     public Seq<Path> getDirEntries(final Path dirPath)
             throws IOException {
 
-        final Seq<Path> result;
-
         try ( Stream<Path> entries = Files.list(dirPath) ) {
             Stream<Path> stream =
                     entries
                     .filter(_entryFilter)
                     .sorted();
-            result = List.ofAll(new Iterable<Path>() {
-                    @Override
-                    public Iterator<Path> iterator() {
-                        return stream.iterator();
-                    }
-                });
+            return List.ofAll(() -> stream.iterator());
         }
-
-        return result;
     }
 
 
