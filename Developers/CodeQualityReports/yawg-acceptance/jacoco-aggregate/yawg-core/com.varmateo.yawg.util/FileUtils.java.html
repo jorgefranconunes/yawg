@@ -114,9 +114,8 @@ public final class FileUtils {
             throws IOException {
 
 <span class="fc" id="L116">        byte[] contentBytes = Files.readAllBytes(sourcePath);</span>
-<span class="fc" id="L117">        String content = new String(contentBytes, StandardCharsets.UTF_8);</span>
 
-<span class="fc" id="L119">        return content;</span>
+<span class="fc" id="L118">        return new String(contentBytes, StandardCharsets.UTF_8);</span>
     }
 
 
@@ -142,11 +141,11 @@ public final class FileUtils {
             final ConsumerWithIOException&lt;Writer&gt; consumer)
             throws IOException {
 
-<span class="pc" id="L145">        try ( Writer writer =</span>
-<span class="fc" id="L146">                  Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {</span>
-<span class="fc" id="L147">            consumer.accept(writer);</span>
-<span class="pc bpc" id="L148" title="6 of 8 branches missed.">        }</span>
-<span class="fc" id="L149">    }</span>
+<span class="pc" id="L144">        try ( Writer writer =</span>
+<span class="fc" id="L145">                  Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {</span>
+<span class="fc" id="L146">            consumer.accept(writer);</span>
+<span class="pc bpc" id="L147" title="6 of 8 branches missed.">        }</span>
+<span class="fc" id="L148">    }</span>
 
 
     /**
