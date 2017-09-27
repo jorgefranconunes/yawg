@@ -45,11 +45,9 @@ final class AdocUtils {
         AttributesBuilder attributes =
                 buildCommonAttributes(sourcePath, targetDir, pageVars)
                 .noFooter(false);
-        OptionsBuilder options =
-                buildCommonOptions(attributes)
-                .toFile(targetFile);
 
-        return options;
+        return buildCommonOptions(attributes)
+                .toFile(targetFile);
     }
 
 
@@ -63,11 +61,9 @@ final class AdocUtils {
 
         AttributesBuilder attributes =
                 buildCommonAttributes(sourcePath, targetDir, pageVars);
-        OptionsBuilder options =
-                buildCommonOptions(attributes)
-                .headerFooter(false);
 
-        return options;
+        return buildCommonOptions(attributes)
+                .headerFooter(false);
     }
 
 
@@ -77,12 +73,9 @@ final class AdocUtils {
     private static OptionsBuilder buildCommonOptions(
             final AttributesBuilder attributes) {
 
-        OptionsBuilder options =
-                OptionsBuilder.options()
+        return OptionsBuilder.options()
                 .attributes(attributes)
                 .safe(SafeMode.UNSAFE);
-
-        return options;
     }
 
 

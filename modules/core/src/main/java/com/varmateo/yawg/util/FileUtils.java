@@ -114,9 +114,8 @@ public final class FileUtils {
             throws IOException {
 
         byte[] contentBytes = Files.readAllBytes(sourcePath);
-        String content = new String(contentBytes, StandardCharsets.UTF_8);
 
-        return content;
+        return new String(contentBytes, StandardCharsets.UTF_8);
     }
 
 

@@ -73,9 +73,7 @@ public final class SimpleMap {
      */
     public Optional<String> getString(final String key) {
 
-        Optional<String> result = get(key, String.class);
-
-        return result;
+        return get(key, String.class);
     }
 
 
@@ -87,11 +85,9 @@ public final class SimpleMap {
         @SuppressWarnings("unchecked")
         Map<String,Object> value =
                 (Map<String,Object>)getWithType(key, Map.class);
-        Optional<SimpleMap> result =
-                Optional.ofNullable(value)
-                .map(SimpleMap::new);
 
-        return result;
+        return Optional.ofNullable(value)
+                .map(SimpleMap::new);
     }
 
 
@@ -104,11 +100,9 @@ public final class SimpleMap {
 
         @SuppressWarnings("unchecked")
         List<Object> value = (List<Object>)getWithType(key, List.class);
-        Optional<SimpleList<T>> result =
-                Optional.ofNullable(value)
-                .map(v -> new SimpleList<T>(v, itemsClass));
 
-        return result;
+        return Optional.ofNullable(value)
+                .map(v -> new SimpleList<T>(v, itemsClass));
     }
 
 
@@ -142,9 +136,7 @@ public final class SimpleMap {
      */
     public Set<String> keySet() {
 
-        Set<String> result =_map.keySet();
-
-        return result;
+        return _map.keySet();
     }
 
 

@@ -172,7 +172,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         /**
          *
          */
-        private Builder() {
+        /* default */ Builder() {
 
             _templateName = Option.none();
             _filesToExclude = Option.none();
@@ -185,7 +185,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         /**
          * Prepares a Builder for performing a merge.
          */
-        private Builder(final DirBakerConf defaults) {
+        /* default */ Builder(final DirBakerConf defaults) {
 
             _templateName = defaults.templateName;
             _filesToExclude = defaults.filesToExclude;
