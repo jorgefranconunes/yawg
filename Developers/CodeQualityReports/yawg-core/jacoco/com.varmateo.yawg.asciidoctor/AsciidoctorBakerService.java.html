@@ -164,9 +164,8 @@ import com.varmateo.yawg.util.Holder;
 
 <span class="nc" id="L165">        String sourceBasename = FileUtils.basename(sourcePath);</span>
 <span class="nc" id="L166">        String targetName = sourceBasename + TARGET_EXTENSION;</span>
-<span class="nc" id="L167">        Path targetPath = targetDir.resolve(targetName);</span>
 
-<span class="nc" id="L169">        return targetPath;</span>
+<span class="nc" id="L168">        return targetDir.resolve(targetName);</span>
     }
 
 
@@ -180,15 +179,15 @@ import com.varmateo.yawg.util.Holder;
             final Path targetPath)
             throws AsciidoctorCoreException {
 
-<span class="nc" id="L183">        OptionsBuilder options = AdocUtils.buildOptionsForBakeWithoutTemplate(</span>
+<span class="nc" id="L182">        OptionsBuilder options = AdocUtils.buildOptionsForBakeWithoutTemplate(</span>
                 sourcePath,
                 targetDir,
                 targetPath,
-<span class="nc" id="L187">                context.getPageVars());</span>
-<span class="nc" id="L188">        File sourceFile = sourcePath.toFile();</span>
+<span class="nc" id="L186">                context.getPageVars());</span>
+<span class="nc" id="L187">        File sourceFile = sourcePath.toFile();</span>
 
-<span class="nc" id="L190">        _asciidoctor.get().convertFile(sourceFile, options);</span>
-<span class="nc" id="L191">    }</span>
+<span class="nc" id="L189">        _asciidoctor.get().convertFile(sourceFile, options);</span>
+<span class="nc" id="L190">    }</span>
 
 
     /**
@@ -202,18 +201,18 @@ import com.varmateo.yawg.util.Holder;
             final Template template)
             throws AsciidoctorCoreException, IOException {
 
-<span class="nc" id="L205">        TemplateDataModel dataModel = _modelBuilder.get().build(</span>
+<span class="nc" id="L204">        TemplateDataModel dataModel = _modelBuilder.get().build(</span>
                 sourcePath, targetDir, targetPath, context);
-<span class="nc" id="L207">        StringWriter buffer = new StringWriter();</span>
+<span class="nc" id="L206">        StringWriter buffer = new StringWriter();</span>
 
-<span class="nc" id="L209">        template.process(dataModel, buffer);</span>
+<span class="nc" id="L208">        template.process(dataModel, buffer);</span>
 
-<span class="nc" id="L211">        String content = buffer.toString();</span>
+<span class="nc" id="L210">        String content = buffer.toString();</span>
 
-<span class="nc" id="L213">        FileUtils.newWriter(</span>
+<span class="nc" id="L212">        FileUtils.newWriter(</span>
                 targetPath,
-<span class="nc" id="L215">                writer -&gt; writer.write(content));</span>
-<span class="nc" id="L216">    }</span>
+<span class="nc" id="L214">                writer -&gt; writer.write(content));</span>
+<span class="nc" id="L215">    }</span>
 
 
     /**
@@ -221,13 +220,13 @@ import com.varmateo.yawg.util.Holder;
      */
     private Asciidoctor newAsciidoctor() {
 
-<span class="nc" id="L224">        Asciidoctor asciidoctor = Asciidoctor.Factory.create();</span>
+<span class="nc" id="L223">        Asciidoctor asciidoctor = Asciidoctor.Factory.create();</span>
 
         // The following is required for supporting PlantUML diagrams
         // (cf. http://asciidoctor.org/docs/asciidoctor-diagram/).
-<span class="nc" id="L228">        asciidoctor.requireLibrary(&quot;asciidoctor-diagram/plantuml&quot;);</span>
+<span class="nc" id="L227">        asciidoctor.requireLibrary(&quot;asciidoctor-diagram/plantuml&quot;);</span>
 
-<span class="nc" id="L230">        return asciidoctor;</span>
+<span class="nc" id="L229">        return asciidoctor;</span>
     }
 
 
@@ -235,7 +234,7 @@ import com.varmateo.yawg.util.Holder;
      *
      */
     private AsciidoctorBakerDataModelBuilder newAsciidoctorBakerDataModelBuilder() {
-<span class="nc" id="L238">        return new AsciidoctorBakerDataModelBuilder(_asciidoctor.get());</span>
+<span class="nc" id="L237">        return new AsciidoctorBakerDataModelBuilder(_asciidoctor.get());</span>
     }
 
 

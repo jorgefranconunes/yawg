@@ -142,9 +142,8 @@ import com.varmateo.yawg.util.FileUtils;
 
 <span class="fc" id="L143">        String sourceBasename = FileUtils.basename(sourcePath);</span>
 <span class="fc" id="L144">        String targetName = sourceBasename + TARGET_EXTENSION;</span>
-<span class="fc" id="L145">        Path targetPath = targetDir.resolve(targetName);</span>
 
-<span class="fc" id="L147">        return targetPath;</span>
+<span class="fc" id="L146">        return targetDir.resolve(targetName);</span>
     }
 
 
@@ -157,8 +156,8 @@ import com.varmateo.yawg.util.FileUtils;
             final Path targetPath)
             throws IOException {
 
-<span class="fc" id="L160">        FileUtils.copy(sourcePath, targetPath);</span>
-<span class="fc" id="L161">    }</span>
+<span class="fc" id="L159">        FileUtils.copy(sourcePath, targetPath);</span>
+<span class="fc" id="L160">    }</span>
 
 
     /**
@@ -171,15 +170,15 @@ import com.varmateo.yawg.util.FileUtils;
             final Template template)
             throws IOException {
 
-<span class="fc" id="L174">        HtmlBakerDataModelBuilder modelBuilder =</span>
+<span class="fc" id="L173">        HtmlBakerDataModelBuilder modelBuilder =</span>
                 new HtmlBakerDataModelBuilder();
-<span class="fc" id="L176">        TemplateDataModel dataModel =</span>
-<span class="fc" id="L177">                modelBuilder.build(sourcePath, targetPath, context);</span>
+<span class="fc" id="L175">        TemplateDataModel dataModel =</span>
+<span class="fc" id="L176">                modelBuilder.build(sourcePath, targetPath, context);</span>
 
-<span class="fc" id="L179">        FileUtils.newWriter(</span>
+<span class="fc" id="L178">        FileUtils.newWriter(</span>
                 targetPath,
-<span class="fc" id="L181">                writer -&gt; template.process(dataModel, writer));</span>
-<span class="fc" id="L182">    }</span>
+<span class="fc" id="L180">                writer -&gt; template.process(dataModel, writer));</span>
+<span class="fc" id="L181">    }</span>
 
 
 }
