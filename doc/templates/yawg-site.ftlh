@@ -4,11 +4,9 @@
 -->
 <html>
 
-  <#include "yawg-site-head.ftlh">
+  <#include "yawg-head.ftlh">
 
   <body>
-
-    <#include "yawg-site-analytics.ftlh">
 
     <div class="yawg-body">
 

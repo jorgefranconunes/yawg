@@ -142,9 +142,8 @@ import com.varmateo.yawg.util.FileUtils;
 
         String sourceBasename = FileUtils.basename(sourcePath);
         String targetName = sourceBasename + TARGET_EXTENSION;
-        Path targetPath = targetDir.resolve(targetName);
 
-        return targetPath;
+        return targetDir.resolve(targetName);
     }
 
 

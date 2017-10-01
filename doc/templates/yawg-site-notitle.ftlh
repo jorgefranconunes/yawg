@@ -7,14 +7,11 @@
   that render the page title in their own way. One example is the site
   home page.
 -->
-
 <html>
 
-  <#include "yawg-site-head.ftlh">
+  <#include "yawg-head.ftlh">
 
   <body>
-
-    <#include "yawg-site-analytics.ftlh">
 
     <div class="yawg-body">
 
