@@ -1,4 +1,4 @@
-= Yawg Documentation
+= Yawg documentation
 
 Here you can find information on using Yawg.
 
@@ -20,3 +20,12 @@ link:Equations.html[Equations and Mathematical Formulas]
 link:Diagrams.html[Diagrams]
 
 link:TablesOfContents.html[Including a Table of Contents]
+
+
+
+
+
+== Programmer's guide
+
+link:ProgrammerGuide.html[Programmer's Guide] -- Documentation on
+integrating Yawg with your own software.

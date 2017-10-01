@@ -1,0 +1,56 @@
+= Programmer\'s guide
+
+Here you can find information in integrating Yawg with your own
+software.
+
+
+
+
+
+== Maven coordinates
+
+When using the Yawg librarry for baking sites from within your code
+you need to include the Maven dependencies shown below.
+
+[source,xml,subs=attributes+]
+----
+<dependency>
+  <groupId>com.varmateo.yawg</groupId>
+  <artifactId>yawg-api</artifactId>
+  <version>{latestYawgVersion}</version>
+  <scope>compile</scope>
+</dependency>
+
+<dependency>
+  <groupId>com.varmateo.yawg</groupId>
+  <artifactId>yawg-core</artifactId>
+  <version>{latestYawgVersion}</version>
+  <scope>runtime</scope>
+</dependency>
+----
+
+If you are writing Yawg extensions you will instead use the following
+Maven dependency:
+
+[source,xml,subs=attributes+]
+----
+<dependency>
+  <groupId>com.varmateo.yawg</groupId>
+  <artifactId>yawg-spi</artifactId>
+  <version>{latestYawgVersion}</version>
+</dependency>
+----
+
+
+
+
+
+== API reference
+
+Javadocs for the latest Yawg release ({latestYawgVersion}).
+
+* http://javadoc.io/doc/com.varmateo.yawg/yawg-api/{latestYawgVersion}[com.varmateo.yawg.api]
+  -- Yawg API for baking sites from within your code.
+
+* http://javadoc.io/doc/com.varmateo.yawg/yawg-api/{latestYawgVersion}[com.varmateo.yawg.spi]
+  -- Service provide interface required for writing Yawg extensions.
