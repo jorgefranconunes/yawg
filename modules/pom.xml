@@ -22,6 +22,9 @@ Copyright (c) 2015-2017 Yawg project contributors.
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+    <yawg.javadoc.bottom><![CDATA[Yawg ${project.version}<br/>Copyright © 2015–2017 Yawg project contributors. All rights reserved.]]></yawg.javadoc.bottom>
+    <yawg.javadoc.windowtitle>${project.name} ${project.version}</yawg.javadoc.windowtitle>
+
     <!-- By default unit tests are run. -->
     <skipTests>false</skipTests>
 
@@ -114,20 +117,22 @@ Copyright (c) 2015-2017 Yawg project contributors.
           </configuration>
         </plugin>
 
-          <!-- Javadoc copnfiguration. -->
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <version>${maven-javadoc-plugin.version}</version>
-            <configuration>
-              <author>true</author>
-              <splitindex>true</splitindex>
-              <version>true</version>
-              <use>true</use>
-              <quiet>true</quiet>
-              <failOnError>true</failOnError>
-        </configuration>
-          </plugin>
+        <!-- Javadoc configuration. -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>${maven-javadoc-plugin.version}</version>
+          <configuration>
+            <author>true</author>
+            <splitindex>true</splitindex>
+            <version>true</version>
+            <use>true</use>
+            <quiet>true</quiet>
+            <failOnError>true</failOnError>
+            <bottom>${yawg.javadoc.bottom}</bottom>
+            <windowtitle>${yawg.javadoc.windowtitle}</windowtitle>
+          </configuration>
+        </plugin>
 
       </plugins>
 
@@ -422,6 +427,8 @@ Copyright (c) 2015-2017 Yawg project contributors.
           <quiet>true</quiet>
           <failOnError>false</failOnError>
           <aggregate>false</aggregate>
+          <bottom>${yawg.javadoc.bottom}</bottom>
+          <windowtitle>${yawg.javadoc.windowtitle}</windowtitle>
         </configuration>
         <reportSets>
           <reportSet>
