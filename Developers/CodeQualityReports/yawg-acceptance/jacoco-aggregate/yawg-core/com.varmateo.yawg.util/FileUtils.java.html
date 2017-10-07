@@ -6,7 +6,7 @@
 
 package com.varmateo.yawg.util;
 
-import javaslang.control.Option;
+import io.vavr.control.Option;
 
 import java.io.IOException;
 import java.io.Writer;

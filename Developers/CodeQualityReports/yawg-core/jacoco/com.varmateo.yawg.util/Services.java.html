@@ -9,8 +9,8 @@ package com.varmateo.yawg.util;
 import java.util.Iterator;
 import java.util.ServiceLoader;
 
-import javaslang.collection.List;
-import javaslang.collection.Seq;
+import io.vavr.collection.List;
+import io.vavr.collection.Seq;
 
 
 /**

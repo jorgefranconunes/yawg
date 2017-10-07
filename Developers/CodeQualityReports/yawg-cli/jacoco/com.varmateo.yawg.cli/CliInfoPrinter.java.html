@@ -9,7 +9,7 @@ package com.varmateo.yawg.cli;
 import java.io.PrintWriter;
 import java.text.MessageFormat;
 
-import javaslang.collection.Set;
+import io.vavr.collection.Set;
 
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;

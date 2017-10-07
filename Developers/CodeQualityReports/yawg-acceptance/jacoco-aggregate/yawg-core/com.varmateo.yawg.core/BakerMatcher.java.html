@@ -8,11 +8,11 @@ package com.varmateo.yawg.core;
 
 import java.nio.file.Path;
 
-import javaslang.Tuple;
-import javaslang.collection.HashMap;
-import javaslang.collection.Map;
-import javaslang.collection.Seq;
-import javaslang.control.Option;
+import io.vavr.Tuple;
+import io.vavr.collection.HashMap;
+import io.vavr.collection.Map;
+import io.vavr.collection.Seq;
+import io.vavr.control.Option;
 
 import com.varmateo.yawg.util.GlobMatcher;
 
@@ -32,7 +32,7 @@ import com.varmateo.yawg.util.GlobMatcher;
 <span class="fc" id="L32">    private BakerMatcher(final Builder builder) {</span>
 
 <span class="fc" id="L34">        _bakerTypes = builder._bakerTypes</span>
-<span class="fc" id="L35">                .traverse(Entry::new);</span>
+<span class="fc" id="L35">                .map(x -&gt; new Entry(x._1, x._2));</span>
 <span class="fc" id="L36">    }</span>
 
 
@@ -127,7 +127,7 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
 <span class="fc" id="L128">        private Builder() {</span>
 
-<span class="fc" id="L130">            _bakerTypes = HashMap.of();</span>
+<span class="fc" id="L130">            _bakerTypes = HashMap.empty();</span>
 <span class="fc" id="L131">        }</span>
 
 

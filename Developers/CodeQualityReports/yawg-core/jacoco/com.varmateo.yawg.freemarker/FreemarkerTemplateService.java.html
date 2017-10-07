@@ -12,7 +12,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
-import javaslang.control.Option;
+import io.vavr.control.Option;
 
 import freemarker.template.Configuration;
 import freemarker.template.TemplateExceptionHandler;

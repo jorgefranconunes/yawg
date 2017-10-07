@@ -8,11 +8,11 @@ package com.varmateo.yawg.core;
 
 import java.nio.file.Path;
 
-import javaslang.Tuple;
-import javaslang.collection.HashMap;
-import javaslang.collection.Map;
-import javaslang.collection.Seq;
-import javaslang.control.Option;
+import io.vavr.Tuple;
+import io.vavr.collection.HashMap;
+import io.vavr.collection.Map;
+import io.vavr.collection.Seq;
+import io.vavr.control.Option;
 
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.logging.Log;

@@ -9,7 +9,7 @@ package com.varmateo.yawg.asciidoctor;
 import java.io.File;
 import java.nio.file.Path;
 
-import javaslang.control.Option;
+import io.vavr.control.Option;
 
 import org.asciidoctor.AttributesBuilder;
 import org.asciidoctor.OptionsBuilder;

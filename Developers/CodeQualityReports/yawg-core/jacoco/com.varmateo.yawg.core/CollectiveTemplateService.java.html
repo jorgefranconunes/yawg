@@ -9,8 +9,8 @@ package com.varmateo.yawg.core;
 import java.util.Optional;
 import java.util.function.Function;
 
-import javaslang.collection.Seq;
-import javaslang.control.Option;
+import io.vavr.collection.Seq;
+import io.vavr.control.Option;
 
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.spi.Template;
