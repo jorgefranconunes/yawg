@@ -16,8 +16,9 @@ import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.regex.PatternSyntaxException;
 
-import javaslang.collection.Seq;
-import javaslang.collection.Stream;
+import io.vavr.Function1;
+import io.vavr.collection.Seq;
+import io.vavr.collection.Stream;
 
 import com.varmateo.yawg.api.PageVars;
 import com.varmateo.yawg.api.YawgException;
@@ -25,6 +26,7 @@ import com.varmateo.yawg.core.DirBakerConf;
 import com.varmateo.yawg.core.TemplateNameMatcher;
 import com.varmateo.yawg.util.Exceptions;
 import com.varmateo.yawg.util.GlobMatcher;
+import com.varmateo.yawg.util.SimpleList;
 import com.varmateo.yawg.util.SimpleMap;
 import com.varmateo.yawg.util.YamlParser;
 
@@ -161,21 +163,24 @@ import com.varmateo.yawg.util.YamlParser;
             final String key)
             throws YawgException {
 
+        Function1<Seq<String>, GlobMatcher> itemsToGlobMatcher = items ->
+                items
+                .zipWithIndex()
+                .foldLeft(
+                        GlobMatcher.builder(),
+                        (xs,x) -> addToGlobBuilder(xs, x._1, x._2, key))
+                .build();
+
         return confMap.getList(key, String.class)
-                .map(itemList ->
-                     Stream.ofAll(itemList)
-                     .zipWithIndex()
-                     .foldLeft(
-                             GlobMatcher.builder(),
-                             (xs,x) -> addToGlobBuilder(xs, x._1(), x._2(), key))
-                     .build());
+                .map(Stream::ofAll)
+                .map(itemsToGlobMatcher);
     }
 
 
     private static GlobMatcher.Builder addToGlobBuilder(
             final GlobMatcher.Builder builder,
             final String glob,
-            final Long index,
+            final Integer index,
             final String key) {
 
         try {
@@ -274,16 +279,17 @@ import com.varmateo.yawg.util.YamlParser;
 
         return confMap
                 .getList(key, String.class)
-                .map(itemList ->
-                     Stream.ofAll(itemList)
+                .map(Stream::ofAll)
+                .map(itemSeq ->
+                     itemSeq
                      .zipWithIndex()
-                     .map(tuple -> buildPath(tuple._1(), tuple._2(), key)));
+                     .map(tuple -> buildPath(tuple._1, tuple._2, key)));
     }
 
 
     private static Path buildPath(
             final String pathStr,
-            final Long index,
+            final Integer index,
             final String key) {
 
         try {

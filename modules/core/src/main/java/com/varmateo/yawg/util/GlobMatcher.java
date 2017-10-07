@@ -13,8 +13,8 @@ import java.nio.file.PathMatcher;
 import java.util.function.Predicate;
 import java.util.regex.PatternSyntaxException;
 
-import javaslang.collection.Array;
-import javaslang.collection.Seq;
+import io.vavr.collection.Array;
+import io.vavr.collection.Seq;
 
 
 /**

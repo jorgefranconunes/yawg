@@ -6,8 +6,8 @@
 
 package com.varmateo.yawg.cli;
 
-import javaslang.collection.HashSet;
-import javaslang.collection.Set;
+import io.vavr.collection.HashSet;
+import io.vavr.collection.Set;
 
 import com.varmateo.yawg.cli.CliException;
 import com.varmateo.yawg.cli.CliOption;

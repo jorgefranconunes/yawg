@@ -32,9 +32,9 @@ Copyright (c) 2015-2017 Yawg project contributors.
     </dependency>
 
     <dependency>
-      <groupId>io.javaslang</groupId>
-      <artifactId>javaslang</artifactId>
-      <version>${javaslang.version}</version>
+      <groupId>io.vavr</groupId>
+      <artifactId>vavr</artifactId>
+      <version>${vavr.version}</version>
     </dependency>
 
     <dependency>
@@ -65,7 +65,7 @@ Copyright (c) 2015-2017 Yawg project contributors.
     </dependency>
 
     <dependency>
-      <groupId>com.varmateo.yawg</groupId>
+      <groupId>${project.groupId}</groupId>
       <artifactId>yawg-testutils</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>

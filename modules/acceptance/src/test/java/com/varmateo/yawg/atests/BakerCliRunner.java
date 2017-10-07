@@ -9,8 +9,8 @@ package com.varmateo.yawg.atests;
 import java.io.ByteArrayOutputStream;
 import java.nio.file.Path;
 
-import javaslang.collection.List;
-import javaslang.collection.Seq;
+import io.vavr.collection.List;
+import io.vavr.collection.Seq;
 
 import com.varmateo.yawg.cli.BakerCli;
 import com.varmateo.yawg.cli.BakerCliConf;

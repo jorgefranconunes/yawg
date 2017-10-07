@@ -8,10 +8,10 @@ package com.varmateo.yawg.core;
 
 import java.nio.file.Path;
 
-import javaslang.Tuple2;
-import javaslang.collection.HashMap;
-import javaslang.collection.Map;
-import javaslang.control.Option;
+import io.vavr.Tuple2;
+import io.vavr.collection.HashMap;
+import io.vavr.collection.Map;
+import io.vavr.control.Option;
 
 import com.varmateo.yawg.util.GlobMatcher;
 
@@ -30,7 +30,7 @@ import com.varmateo.yawg.util.GlobMatcher;
      */
     TemplateNameMatcher() {
 
-        _matchersByName = HashMap.of();
+        _matchersByName = HashMap.empty();
     }
 
 
@@ -78,7 +78,7 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         private Builder() {
 
-            _matchersByName = HashMap.of();
+            _matchersByName = HashMap.empty();
         }
 
 

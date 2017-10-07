@@ -14,7 +14,7 @@ import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.Objects;
 
-import javaslang.collection.Stream;
+import io.vavr.collection.Stream;
 
 
 /**

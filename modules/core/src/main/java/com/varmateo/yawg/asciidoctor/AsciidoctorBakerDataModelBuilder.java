@@ -9,8 +9,8 @@ package com.varmateo.yawg.asciidoctor;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import javaslang.collection.List;
-import javaslang.control.Option;
+import io.vavr.collection.List;
+import io.vavr.control.Option;
 
 import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.OptionsBuilder;

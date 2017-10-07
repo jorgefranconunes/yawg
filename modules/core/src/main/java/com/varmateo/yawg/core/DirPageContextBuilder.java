@@ -11,7 +11,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.function.Function;
 
-import javaslang.control.Option;
+import io.vavr.control.Option;
 
 import com.varmateo.yawg.api.PageVars;
 import com.varmateo.yawg.api.YawgException;

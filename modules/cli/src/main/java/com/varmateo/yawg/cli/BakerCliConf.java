@@ -8,8 +8,8 @@ package com.varmateo.yawg.cli;
 
 import java.io.OutputStream;
 
-import javaslang.collection.List;
-import javaslang.collection.Seq;
+import io.vavr.collection.List;
+import io.vavr.collection.Seq;
 
 
 /**

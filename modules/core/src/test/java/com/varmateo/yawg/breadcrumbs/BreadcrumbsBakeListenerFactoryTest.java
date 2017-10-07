@@ -6,7 +6,7 @@
 
 package com.varmateo.yawg.breadcrumbs;
 
-import javaslang.collection.Seq;
+import io.vavr.collection.Seq;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;

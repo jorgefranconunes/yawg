@@ -10,8 +10,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
-import javaslang.collection.Seq;
-import javaslang.collection.List;
+import io.vavr.collection.Seq;
+import io.vavr.collection.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

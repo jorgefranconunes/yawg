@@ -6,7 +6,7 @@
 
 package com.varmateo.yawg.breadcrumbs;
 
-import javaslang.collection.List;
+import io.vavr.collection.List;
 
 import com.varmateo.yawg.breadcrumbs.BreadcrumbItem;
 

@@ -6,7 +6,7 @@
 
 package com.varmateo.yawg.core;
 
-import javaslang.collection.Seq;
+import io.vavr.collection.Seq;
 
 import com.varmateo.yawg.api.PageVars;
 import com.varmateo.yawg.spi.DirBakeListener;

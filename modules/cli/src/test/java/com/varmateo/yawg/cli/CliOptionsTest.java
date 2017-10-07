@@ -9,8 +9,8 @@ package com.varmateo.yawg.cli;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import javaslang.collection.HashSet;
-import javaslang.collection.Set;
+import io.vavr.collection.HashSet;
+import io.vavr.collection.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

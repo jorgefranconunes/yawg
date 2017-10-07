@@ -8,9 +8,9 @@ package com.varmateo.yawg.core;
 
 import java.nio.file.Path;
 
-import javaslang.collection.List;
-import javaslang.collection.Seq;
-import javaslang.control.Option;
+import io.vavr.collection.List;
+import io.vavr.collection.Seq;
+import io.vavr.control.Option;
 
 import com.varmateo.yawg.api.PageVars;
 import com.varmateo.yawg.core.TemplateNameMatcher;

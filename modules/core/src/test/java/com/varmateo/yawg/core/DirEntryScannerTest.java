@@ -9,8 +9,8 @@ package com.varmateo.yawg.core;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import javaslang.collection.List;
-import javaslang.collection.Seq;
+import io.vavr.collection.List;
+import io.vavr.collection.Seq;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

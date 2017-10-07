@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import javaslang.collection.Seq;
+import io.vavr.collection.Seq;
 
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.api.PageVars;

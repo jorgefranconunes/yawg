@@ -10,10 +10,10 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import javaslang.collection.Array;
-import javaslang.collection.Seq;
-import javaslang.collection.Set;
-import javaslang.control.Option;
+import io.vavr.collection.Array;
+import io.vavr.collection.Seq;
+import io.vavr.collection.Set;
+import io.vavr.control.Option;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;

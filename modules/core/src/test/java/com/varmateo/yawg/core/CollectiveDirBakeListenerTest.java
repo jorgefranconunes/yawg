@@ -6,7 +6,7 @@
 
 package com.varmateo.yawg.core;
 
-import javaslang.collection.List;
+import io.vavr.collection.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
