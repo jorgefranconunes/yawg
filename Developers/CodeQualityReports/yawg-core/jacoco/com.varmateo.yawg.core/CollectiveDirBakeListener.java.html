@@ -8,9 +8,9 @@ package com.varmateo.yawg.core;
 
 import io.vavr.collection.Seq;
 
-import com.varmateo.yawg.api.PageVars;
 import com.varmateo.yawg.spi.DirBakeListener;
 import com.varmateo.yawg.spi.PageContext;
+import com.varmateo.yawg.spi.PageVars;
 
 
 /**

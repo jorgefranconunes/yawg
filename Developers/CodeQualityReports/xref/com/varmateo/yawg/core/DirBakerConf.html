@@ -20,8 +20,8 @@
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> io.vavr.collection.Seq;
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> io.vavr.control.Option;
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.api.PageVars;
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.TemplateNameMatcher;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.TemplateNameMatcher;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.PageVars;
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.util.GlobMatcher;
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  
@@ -64,14 +64,14 @@
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>  <em class="jxr_javadoccomment">     * Set of variables to be made available to the template that will</em>
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>  <em class="jxr_javadoccomment">     * also be propagated to child directories.</em>
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/api/PageVars.html">PageVars</a> pageVars;
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/spi/PageVars.html">PageVars</a> pageVars;
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_javadoccomment">     * Set of variables made available to the template that will not</em>
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_javadoccomment">     * be propagated to child directories.</em>
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/api/PageVars.html">PageVars</a> pageVarsHere;
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/spi/PageVars.html">PageVars</a> pageVarsHere;
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>  
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>      <em class="jxr_javadoccomment">/**</em>
@@ -92,7 +92,7 @@
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../com/varmateo/yawg/core/DirBakerConf.html">DirBakerConf</a>(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/api/SiteBakerConf.html">Builder</a> builder) {
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../com/varmateo/yawg/core/DirBakerConf.html">DirBakerConf</a>(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/core/TemplateNameMatcher.html">Builder</a> builder) {
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>  
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>          <strong class="jxr_keyword">this</strong>.templateName = builder._templateName;
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>          <strong class="jxr_keyword">this</strong>.filesToExclude = builder._filesToExclude;
@@ -111,9 +111,9 @@
 <a class="jxr_linenumber" name="L103" href="#L103">103</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L104" href="#L104">104</a> <em class="jxr_javadoccomment">     * @return A newly created &lt;code&gt;Builder&lt;/code&gt; instance.</em>
 <a class="jxr_linenumber" name="L105" href="#L105">105</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../com/varmateo/yawg/api/SiteBakerConf.html">Builder</a> builder() {
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../com/varmateo/yawg/core/TemplateNameMatcher.html">Builder</a> builder() {
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> 
-<a class="jxr_linenumber" name="L108" href="#L108">108</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/varmateo/yawg/api/SiteBakerConf.html">Builder</a>();
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/varmateo/yawg/core/TemplateNameMatcher.html">Builder</a>();
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>     }
 <a class="jxr_linenumber" name="L110" href="#L110">110</a> 
 <a class="jxr_linenumber" name="L111" href="#L111">111</a> 
@@ -138,7 +138,7 @@
 <a class="jxr_linenumber" name="L130" href="#L130">130</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L131" href="#L131">131</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/core/DirBakerConf.html">DirBakerConf</a> mergeOnTopOf(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/core/DirBakerConf.html">DirBakerConf</a> that) {
 <a class="jxr_linenumber" name="L132" href="#L132">132</a> 
-<a class="jxr_linenumber" name="L133" href="#L133">133</a>         <a href="../../../../com/varmateo/yawg/api/SiteBakerConf.html">Builder</a> builder = <strong class="jxr_keyword">new</strong> <a href="../../../../com/varmateo/yawg/api/SiteBakerConf.html">Builder</a>(that);
+<a class="jxr_linenumber" name="L133" href="#L133">133</a>         <a href="../../../../com/varmateo/yawg/core/TemplateNameMatcher.html">Builder</a> builder = <strong class="jxr_keyword">new</strong> <a href="../../../../com/varmateo/yawg/core/TemplateNameMatcher.html">Builder</a>(that);
 <a class="jxr_linenumber" name="L134" href="#L134">134</a> 
 <a class="jxr_linenumber" name="L135" href="#L135">135</a>         <strong class="jxr_keyword">this</strong>.templateName.forEach(builder::setTemplateName);
 <a class="jxr_linenumber" name="L136" href="#L136">136</a>         <strong class="jxr_keyword">this</strong>.filesToExclude.forEach(builder::addFilesToExclude);
@@ -159,13 +159,13 @@
 <a class="jxr_linenumber" name="L151" href="#L151">151</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L152" href="#L152">152</a> <em class="jxr_javadoccomment">     * A builder of &lt;code&gt;DirBakerConf&lt;/code&gt; instances.</em>
 <a class="jxr_linenumber" name="L153" href="#L153">153</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L154" href="#L154">154</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/varmateo/yawg/api/SiteBakerConf.html">Builder</a> {
+<a class="jxr_linenumber" name="L154" href="#L154">154</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/varmateo/yawg/core/TemplateNameMatcher.html">Builder</a> {
 <a class="jxr_linenumber" name="L155" href="#L155">155</a> 
 <a class="jxr_linenumber" name="L156" href="#L156">156</a> 
 <a class="jxr_linenumber" name="L157" href="#L157">157</a>         <em class="jxr_comment">// These always start empty.</em>
 <a class="jxr_linenumber" name="L158" href="#L158">158</a>         <strong class="jxr_keyword">private</strong> Option&lt;GlobMatcher&gt; _filesToExcludeHere = Option.none();
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>         <strong class="jxr_keyword">private</strong> Option&lt;GlobMatcher&gt; _filesToIncludeHere = Option.none();
-<a class="jxr_linenumber" name="L160" href="#L160">160</a>         <strong class="jxr_keyword">private</strong> <a href="../../../../com/varmateo/yawg/api/PageVars.html">PageVars</a> _pageVarsHere = <strong class="jxr_keyword">new</strong> <a href="../../../../com/varmateo/yawg/api/PageVars.html">PageVars</a>();
+<a class="jxr_linenumber" name="L160" href="#L160">160</a>         <strong class="jxr_keyword">private</strong> <a href="../../../../com/varmateo/yawg/spi/PageVars.html">PageVars</a> _pageVarsHere = <strong class="jxr_keyword">new</strong> <a href="../../../../com/varmateo/yawg/spi/PageVars.html">PageVars</a>();
 <a class="jxr_linenumber" name="L161" href="#L161">161</a>         <strong class="jxr_keyword">private</strong> <a href="../../../../com/varmateo/yawg/core/TemplateNameMatcher.html">TemplateNameMatcher</a> _templatesHere = <strong class="jxr_keyword">new</strong> <a href="../../../../com/varmateo/yawg/core/TemplateNameMatcher.html">TemplateNameMatcher</a>();
 <a class="jxr_linenumber" name="L162" href="#L162">162</a> 
 <a class="jxr_linenumber" name="L163" href="#L163">163</a>         <em class="jxr_comment">// These adopt the values from externally provided</em>
@@ -180,7 +180,7 @@
 <a class="jxr_linenumber" name="L172" href="#L172">172</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L173" href="#L173">173</a> <em class="jxr_javadoccomment">         *</em>
 <a class="jxr_linenumber" name="L174" href="#L174">174</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L175" href="#L175">175</a>         <em class="jxr_comment">/* default */</em> <a href="../../../../com/varmateo/yawg/api/SiteBakerConf.html">Builder</a>() {
+<a class="jxr_linenumber" name="L175" href="#L175">175</a>         <em class="jxr_comment">/* default */</em> <a href="../../../../com/varmateo/yawg/core/TemplateNameMatcher.html">Builder</a>() {
 <a class="jxr_linenumber" name="L176" href="#L176">176</a> 
 <a class="jxr_linenumber" name="L177" href="#L177">177</a>             _templateName = Option.none();
 <a class="jxr_linenumber" name="L178" href="#L178">178</a>             _filesToExclude = Option.none();
@@ -193,7 +193,7 @@
 <a class="jxr_linenumber" name="L185" href="#L185">185</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L186" href="#L186">186</a> <em class="jxr_javadoccomment">         * Prepares a Builder for performing a merge.</em>
 <a class="jxr_linenumber" name="L187" href="#L187">187</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L188" href="#L188">188</a>         <em class="jxr_comment">/* default */</em> <a href="../../../../com/varmateo/yawg/api/SiteBakerConf.html">Builder</a>(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/core/DirBakerConf.html">DirBakerConf</a> defaults) {
+<a class="jxr_linenumber" name="L188" href="#L188">188</a>         <em class="jxr_comment">/* default */</em> <a href="../../../../com/varmateo/yawg/core/TemplateNameMatcher.html">Builder</a>(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/core/DirBakerConf.html">DirBakerConf</a> defaults) {
 <a class="jxr_linenumber" name="L189" href="#L189">189</a> 
 <a class="jxr_linenumber" name="L190" href="#L190">190</a>             _templateName = defaults.templateName;
 <a class="jxr_linenumber" name="L191" href="#L191">191</a>             _filesToExclude = defaults.filesToExclude;
@@ -206,7 +206,7 @@
 <a class="jxr_linenumber" name="L198" href="#L198">198</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L199" href="#L199">199</a> <em class="jxr_javadoccomment">         *</em>
 <a class="jxr_linenumber" name="L200" href="#L200">200</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L201" href="#L201">201</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/api/SiteBakerConf.html">Builder</a> setTemplateName(<strong class="jxr_keyword">final</strong> String templateName) {
+<a class="jxr_linenumber" name="L201" href="#L201">201</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/core/TemplateNameMatcher.html">Builder</a> setTemplateName(<strong class="jxr_keyword">final</strong> String templateName) {
 <a class="jxr_linenumber" name="L202" href="#L202">202</a> 
 <a class="jxr_linenumber" name="L203" href="#L203">203</a>             _templateName = Option.of(templateName);
 <a class="jxr_linenumber" name="L204" href="#L204">204</a> 
@@ -217,7 +217,7 @@
 <a class="jxr_linenumber" name="L209" href="#L209">209</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L210" href="#L210">210</a> <em class="jxr_javadoccomment">         *</em>
 <a class="jxr_linenumber" name="L211" href="#L211">211</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L212" href="#L212">212</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/api/SiteBakerConf.html">Builder</a> setFilesToExclude(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">GlobMatcher</a> fileNames) {
+<a class="jxr_linenumber" name="L212" href="#L212">212</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/core/TemplateNameMatcher.html">Builder</a> setFilesToExclude(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">GlobMatcher</a> fileNames) {
 <a class="jxr_linenumber" name="L213" href="#L213">213</a> 
 <a class="jxr_linenumber" name="L214" href="#L214">214</a>             _filesToExclude = Option.of(fileNames);
 <a class="jxr_linenumber" name="L215" href="#L215">215</a> 
@@ -229,7 +229,7 @@
 <a class="jxr_linenumber" name="L221" href="#L221">221</a> <em class="jxr_javadoccomment">         * @throws PatternSyntaxException If any of the given glob</em>
 <a class="jxr_linenumber" name="L222" href="#L222">222</a> <em class="jxr_javadoccomment">         * expressions are invalid.</em>
 <a class="jxr_linenumber" name="L223" href="#L223">223</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L224" href="#L224">224</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/api/SiteBakerConf.html">Builder</a> setFilesToExclude(<strong class="jxr_keyword">final</strong> String... fileNames) {
+<a class="jxr_linenumber" name="L224" href="#L224">224</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/core/TemplateNameMatcher.html">Builder</a> setFilesToExclude(<strong class="jxr_keyword">final</strong> String... fileNames) {
 <a class="jxr_linenumber" name="L225" href="#L225">225</a> 
 <a class="jxr_linenumber" name="L226" href="#L226">226</a>             <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">GlobMatcher</a> patterns = <strong class="jxr_keyword">new</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">GlobMatcher</a>(fileNames);
 <a class="jxr_linenumber" name="L227" href="#L227">227</a> 
@@ -242,7 +242,7 @@
 <a class="jxr_linenumber" name="L234" href="#L234">234</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L235" href="#L235">235</a> <em class="jxr_javadoccomment">         *</em>
 <a class="jxr_linenumber" name="L236" href="#L236">236</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L237" href="#L237">237</a>         <strong class="jxr_keyword">private</strong> <a href="../../../../com/varmateo/yawg/api/SiteBakerConf.html">Builder</a> addFilesToExclude(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">GlobMatcher</a> fileNames) {
+<a class="jxr_linenumber" name="L237" href="#L237">237</a>         <strong class="jxr_keyword">private</strong> <a href="../../../../com/varmateo/yawg/core/TemplateNameMatcher.html">Builder</a> addFilesToExclude(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">GlobMatcher</a> fileNames) {
 <a class="jxr_linenumber" name="L238" href="#L238">238</a> 
 <a class="jxr_linenumber" name="L239" href="#L239">239</a>             _filesToExclude = _filesToExclude
 <a class="jxr_linenumber" name="L240" href="#L240">240</a>                     .map(x -&gt;
@@ -256,7 +256,7 @@
 <a class="jxr_linenumber" name="L248" href="#L248">248</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L249" href="#L249">249</a> <em class="jxr_javadoccomment">         *</em>
 <a class="jxr_linenumber" name="L250" href="#L250">250</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L251" href="#L251">251</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/api/SiteBakerConf.html">Builder</a> setFilesToExcludeHere(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">GlobMatcher</a> fileNames) {
+<a class="jxr_linenumber" name="L251" href="#L251">251</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/core/TemplateNameMatcher.html">Builder</a> setFilesToExcludeHere(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">GlobMatcher</a> fileNames) {
 <a class="jxr_linenumber" name="L252" href="#L252">252</a> 
 <a class="jxr_linenumber" name="L253" href="#L253">253</a>             _filesToExcludeHere = Option.of(fileNames);
 <a class="jxr_linenumber" name="L254" href="#L254">254</a> 
@@ -268,7 +268,7 @@
 <a class="jxr_linenumber" name="L260" href="#L260">260</a> <em class="jxr_javadoccomment">         * @throws PatternSyntaxException If any of the given regular</em>
 <a class="jxr_linenumber" name="L261" href="#L261">261</a> <em class="jxr_javadoccomment">         * expressions are invalid.</em>
 <a class="jxr_linenumber" name="L262" href="#L262">262</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L263" href="#L263">263</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/api/SiteBakerConf.html">Builder</a> setFilesToExcludeHere(<strong class="jxr_keyword">final</strong> String... fileNames) {
+<a class="jxr_linenumber" name="L263" href="#L263">263</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/core/TemplateNameMatcher.html">Builder</a> setFilesToExcludeHere(<strong class="jxr_keyword">final</strong> String... fileNames) {
 <a class="jxr_linenumber" name="L264" href="#L264">264</a> 
 <a class="jxr_linenumber" name="L265" href="#L265">265</a>             <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">GlobMatcher</a> patterns = <strong class="jxr_keyword">new</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">GlobMatcher</a>(fileNames);
 <a class="jxr_linenumber" name="L266" href="#L266">266</a> 
@@ -279,7 +279,7 @@
 <a class="jxr_linenumber" name="L271" href="#L271">271</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L272" href="#L272">272</a> <em class="jxr_javadoccomment">         *</em>
 <a class="jxr_linenumber" name="L273" href="#L273">273</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L274" href="#L274">274</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/api/SiteBakerConf.html">Builder</a> setFilesToIncludeHere(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">GlobMatcher</a> fileNames) {
+<a class="jxr_linenumber" name="L274" href="#L274">274</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/core/TemplateNameMatcher.html">Builder</a> setFilesToIncludeHere(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">GlobMatcher</a> fileNames) {
 <a class="jxr_linenumber" name="L275" href="#L275">275</a> 
 <a class="jxr_linenumber" name="L276" href="#L276">276</a>             _filesToIncludeHere = Option.of(fileNames);
 <a class="jxr_linenumber" name="L277" href="#L277">277</a> 
@@ -291,7 +291,7 @@
 <a class="jxr_linenumber" name="L283" href="#L283">283</a> <em class="jxr_javadoccomment">         * @throws PatternSyntaxException If any of the given regular</em>
 <a class="jxr_linenumber" name="L284" href="#L284">284</a> <em class="jxr_javadoccomment">         * expressions are invalid.</em>
 <a class="jxr_linenumber" name="L285" href="#L285">285</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L286" href="#L286">286</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/api/SiteBakerConf.html">Builder</a> setFilesToIncludeHere(<strong class="jxr_keyword">final</strong> String... fileNames) {
+<a class="jxr_linenumber" name="L286" href="#L286">286</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/core/TemplateNameMatcher.html">Builder</a> setFilesToIncludeHere(<strong class="jxr_keyword">final</strong> String... fileNames) {
 <a class="jxr_linenumber" name="L287" href="#L287">287</a> 
 <a class="jxr_linenumber" name="L288" href="#L288">288</a>             <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">GlobMatcher</a> patterns = <strong class="jxr_keyword">new</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">GlobMatcher</a>(fileNames);
 <a class="jxr_linenumber" name="L289" href="#L289">289</a> 
@@ -302,7 +302,7 @@
 <a class="jxr_linenumber" name="L294" href="#L294">294</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L295" href="#L295">295</a> <em class="jxr_javadoccomment">         *</em>
 <a class="jxr_linenumber" name="L296" href="#L296">296</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L297" href="#L297">297</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/api/SiteBakerConf.html">Builder</a> setBakerTypes(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/core/BakerMatcher.html">BakerMatcher</a> bakerTypes) {
+<a class="jxr_linenumber" name="L297" href="#L297">297</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/core/TemplateNameMatcher.html">Builder</a> setBakerTypes(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/core/BakerMatcher.html">BakerMatcher</a> bakerTypes) {
 <a class="jxr_linenumber" name="L298" href="#L298">298</a> 
 <a class="jxr_linenumber" name="L299" href="#L299">299</a>             _bakerTypes = Option.of(bakerTypes);
 <a class="jxr_linenumber" name="L300" href="#L300">300</a> 
@@ -313,7 +313,7 @@
 <a class="jxr_linenumber" name="L305" href="#L305">305</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L306" href="#L306">306</a> <em class="jxr_javadoccomment">         *</em>
 <a class="jxr_linenumber" name="L307" href="#L307">307</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L308" href="#L308">308</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/api/SiteBakerConf.html">Builder</a> addBakerType(
+<a class="jxr_linenumber" name="L308" href="#L308">308</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/core/TemplateNameMatcher.html">Builder</a> addBakerType(
 <a class="jxr_linenumber" name="L309" href="#L309">309</a>                 <strong class="jxr_keyword">final</strong> String bakerType,
 <a class="jxr_linenumber" name="L310" href="#L310">310</a>                 <strong class="jxr_keyword">final</strong> String... fileNames) {
 <a class="jxr_linenumber" name="L311" href="#L311">311</a> 
@@ -331,7 +331,7 @@
 <a class="jxr_linenumber" name="L323" href="#L323">323</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L324" href="#L324">324</a> <em class="jxr_javadoccomment">         *</em>
 <a class="jxr_linenumber" name="L325" href="#L325">325</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L326" href="#L326">326</a>         <strong class="jxr_keyword">private</strong> <a href="../../../../com/varmateo/yawg/api/SiteBakerConf.html">Builder</a> addBakerTypes(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/core/BakerMatcher.html">BakerMatcher</a> bakerTypes) {
+<a class="jxr_linenumber" name="L326" href="#L326">326</a>         <strong class="jxr_keyword">private</strong> <a href="../../../../com/varmateo/yawg/core/TemplateNameMatcher.html">Builder</a> addBakerTypes(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/core/BakerMatcher.html">BakerMatcher</a> bakerTypes) {
 <a class="jxr_linenumber" name="L327" href="#L327">327</a> 
 <a class="jxr_linenumber" name="L328" href="#L328">328</a>             _bakerTypes = _bakerTypes
 <a class="jxr_linenumber" name="L329" href="#L329">329</a>                     .map(x -&gt;
@@ -356,7 +356,7 @@
 <a class="jxr_linenumber" name="L348" href="#L348">348</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L349" href="#L349">349</a> <em class="jxr_javadoccomment">         *</em>
 <a class="jxr_linenumber" name="L350" href="#L350">350</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L351" href="#L351">351</a>         <strong class="jxr_keyword">private</strong> <a href="../../../../com/varmateo/yawg/api/SiteBakerConf.html">Builder</a> addPageVars(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/api/PageVars.html">PageVars</a> pageVars) {
+<a class="jxr_linenumber" name="L351" href="#L351">351</a>         <strong class="jxr_keyword">private</strong> <a href="../../../../com/varmateo/yawg/core/TemplateNameMatcher.html">Builder</a> addPageVars(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/spi/PageVars.html">PageVars</a> pageVars) {
 <a class="jxr_linenumber" name="L352" href="#L352">352</a> 
 <a class="jxr_linenumber" name="L353" href="#L353">353</a>             _pageVarsBuilder.addPageVars(pageVars);
 <a class="jxr_linenumber" name="L354" href="#L354">354</a> 
@@ -367,7 +367,7 @@
 <a class="jxr_linenumber" name="L359" href="#L359">359</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L360" href="#L360">360</a> <em class="jxr_javadoccomment">         *</em>
 <a class="jxr_linenumber" name="L361" href="#L361">361</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L362" href="#L362">362</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/api/SiteBakerConf.html">Builder</a> setPageVarsHere(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/api/PageVars.html">PageVars</a> pageVarsHere) {
+<a class="jxr_linenumber" name="L362" href="#L362">362</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/core/TemplateNameMatcher.html">Builder</a> setPageVarsHere(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/spi/PageVars.html">PageVars</a> pageVarsHere) {
 <a class="jxr_linenumber" name="L363" href="#L363">363</a> 
 <a class="jxr_linenumber" name="L364" href="#L364">364</a>             _pageVarsHere = pageVarsHere;
 <a class="jxr_linenumber" name="L365" href="#L365">365</a> 
@@ -378,7 +378,7 @@
 <a class="jxr_linenumber" name="L370" href="#L370">370</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L371" href="#L371">371</a> <em class="jxr_javadoccomment">         *</em>
 <a class="jxr_linenumber" name="L372" href="#L372">372</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L373" href="#L373">373</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/api/SiteBakerConf.html">Builder</a> setTemplatesHere(
+<a class="jxr_linenumber" name="L373" href="#L373">373</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/core/TemplateNameMatcher.html">Builder</a> setTemplatesHere(
 <a class="jxr_linenumber" name="L374" href="#L374">374</a>                 <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/core/TemplateNameMatcher.html">TemplateNameMatcher</a> templatesHere) {
 <a class="jxr_linenumber" name="L375" href="#L375">375</a> 
 <a class="jxr_linenumber" name="L376" href="#L376">376</a>             _templatesHere = templatesHere;
@@ -390,7 +390,7 @@
 <a class="jxr_linenumber" name="L382" href="#L382">382</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L383" href="#L383">383</a> <em class="jxr_javadoccomment">         *</em>
 <a class="jxr_linenumber" name="L384" href="#L384">384</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L385" href="#L385">385</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/api/SiteBakerConf.html">Builder</a> setExtraDirsHere(
+<a class="jxr_linenumber" name="L385" href="#L385">385</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/core/TemplateNameMatcher.html">Builder</a> setExtraDirsHere(
 <a class="jxr_linenumber" name="L386" href="#L386">386</a>                 <strong class="jxr_keyword">final</strong> Seq&lt;Path&gt; extraDirsHere) {
 <a class="jxr_linenumber" name="L387" href="#L387">387</a> 
 <a class="jxr_linenumber" name="L388" href="#L388">388</a>             _extraDirsHere = extraDirsHere;

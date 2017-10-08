@@ -7,6 +7,7 @@
 package com.varmateo.yawg.core;
 
 import java.nio.file.Path;
+import java.util.Map;
 import java.util.Optional;
 
 import com.varmateo.yawg.api.SiteBakerConf;
@@ -15,6 +16,7 @@ import com.varmateo.yawg.api.YawgInfo;
 import com.varmateo.yawg.core.DirBaker;
 import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogWithUtils;
+import com.varmateo.yawg.spi.PageVars;
 
 
 /**
@@ -35,21 +37,37 @@ import com.varmateo.yawg.logging.LogWithUtils;
     SingleSiteBaker(
             final Log log,
             final SiteBakerConf conf,
-<span class="nc" id="L38">            final DirBaker dirBaker) {</span>
+<span class="nc" id="L40">            final DirBaker dirBaker) {</span>
 
-<span class="nc" id="L40">        _log = LogWithUtils.from(log);</span>
-<span class="nc" id="L41">        _conf = conf;</span>
-<span class="nc" id="L42">        _assetsCopier = new AssetsCopier(</span>
+<span class="nc" id="L42">        PageVars pageVars = mapToPageVars(conf.getExternalPageVars());</span>
+
+<span class="nc" id="L44">        _log = LogWithUtils.from(log);</span>
+<span class="nc" id="L45">        _conf = conf;</span>
+<span class="nc" id="L46">        _assetsCopier = new AssetsCopier(</span>
                 _log,
-<span class="nc" id="L44">                conf.getAssetsDir(),</span>
-<span class="nc" id="L45">                conf.getTargetDir());</span>
-<span class="nc" id="L46">        _sourceTreeBaker = new SourceTreeBaker(</span>
+<span class="nc" id="L48">                conf.getAssetsDir(),</span>
+<span class="nc" id="L49">                conf.getTargetDir());</span>
+<span class="nc" id="L50">        _sourceTreeBaker = new SourceTreeBaker(</span>
                 _log,
-<span class="nc" id="L48">                conf.getSourceDir(),</span>
-<span class="nc" id="L49">                conf.getTargetDir(),</span>
-<span class="nc" id="L50">                conf.getExternalPageVars(),</span>
+<span class="nc" id="L52">                conf.getSourceDir(),</span>
+<span class="nc" id="L53">                conf.getTargetDir(),</span>
+                pageVars,
                 dirBaker);
-<span class="nc" id="L52">    }</span>
+<span class="nc" id="L56">    }</span>
+
+
+    /**
+     *
+     */
+    private static PageVars mapToPageVars(
+            final Map&lt;String,Object&gt; pageVarsMap) {
+
+<span class="nc" id="L65">        PageVars.Builder builder = PageVars.builder();</span>
+<span class="nc" id="L66">        pageVarsMap.entrySet().stream()</span>
+<span class="nc" id="L67">                .forEach(x -&gt; builder.addVar(x.getKey(), x.getValue()));</span>
+
+<span class="nc" id="L69">        return builder.build();</span>
+    }
 
 
     /**
@@ -61,23 +79,23 @@ import com.varmateo.yawg.logging.LogWithUtils;
     public void bake()
             throws YawgException {
 
-<span class="nc" id="L64">        Path sourceDir = _conf.getSourceDir();</span>
-<span class="nc" id="L65">        Path targetDir = _conf.getTargetDir();</span>
-<span class="nc" id="L66">        Optional&lt;Path&gt; templatesDir = _conf.getTemplatesDir();</span>
-<span class="nc" id="L67">        Optional&lt;Path&gt; assetsDir = _conf.getAssetsDir();</span>
+<span class="nc" id="L82">        Path sourceDir = _conf.getSourceDir();</span>
+<span class="nc" id="L83">        Path targetDir = _conf.getTargetDir();</span>
+<span class="nc" id="L84">        Optional&lt;Path&gt; templatesDir = _conf.getTemplatesDir();</span>
+<span class="nc" id="L85">        Optional&lt;Path&gt; assetsDir = _conf.getAssetsDir();</span>
 
-<span class="nc" id="L69">        _log.info(&quot;{0} {1}&quot;, YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);</span>
-<span class="nc" id="L70">        _log.info(&quot;    Source    : {0}&quot;, sourceDir);</span>
-<span class="nc" id="L71">        _log.info(&quot;    Target    : {0}&quot;, targetDir);</span>
-<span class="nc" id="L72">        _log.info(</span>
+<span class="nc" id="L87">        _log.info(&quot;{0} {1}&quot;, YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);</span>
+<span class="nc" id="L88">        _log.info(&quot;    Source    : {0}&quot;, sourceDir);</span>
+<span class="nc" id="L89">        _log.info(&quot;    Target    : {0}&quot;, targetDir);</span>
+<span class="nc" id="L90">        _log.info(</span>
                 &quot;    Templates : {0}&quot;,
-<span class="nc" id="L74">                templatesDir.map(Path::toString).orElse(&quot;NONE&quot;));</span>
-<span class="nc" id="L75">        _log.info(</span>
+<span class="nc" id="L92">                templatesDir.map(Path::toString).orElse(&quot;NONE&quot;));</span>
+<span class="nc" id="L93">        _log.info(</span>
                 &quot;    Assets    : {0}&quot;,
-<span class="nc" id="L77">                assetsDir.map(Path::toString).orElse(&quot;NONE&quot;));</span>
+<span class="nc" id="L95">                assetsDir.map(Path::toString).orElse(&quot;NONE&quot;));</span>
 
-<span class="nc" id="L79">        _log.logDelay(&quot;bake&quot;, this::doBake);</span>
-<span class="nc" id="L80">    }</span>
+<span class="nc" id="L97">        _log.logDelay(&quot;bake&quot;, this::doBake);</span>
+<span class="nc" id="L98">    }</span>
 
 
     /**
@@ -86,9 +104,9 @@ import com.varmateo.yawg.logging.LogWithUtils;
     private void doBake()
             throws YawgException {
 
-<span class="nc" id="L89">        _assetsCopier.copy();</span>
-<span class="nc" id="L90">        _sourceTreeBaker.bake();</span>
-<span class="nc" id="L91">    }</span>
+<span class="nc" id="L107">        _assetsCopier.copy();</span>
+<span class="nc" id="L108">        _sourceTreeBaker.bake();</span>
+<span class="nc" id="L109">    }</span>
 
 
 }

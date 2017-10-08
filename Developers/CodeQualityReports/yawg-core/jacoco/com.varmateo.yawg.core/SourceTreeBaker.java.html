@@ -8,11 +8,11 @@ package com.varmateo.yawg.core;
 
 import java.nio.file.Path;
 
-import com.varmateo.yawg.api.PageVars;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.core.DirBaker;
 import com.varmateo.yawg.core.DirBakerConf;
 import com.varmateo.yawg.logging.LogWithUtils;
+import com.varmateo.yawg.spi.PageVars;
 
 
 /**

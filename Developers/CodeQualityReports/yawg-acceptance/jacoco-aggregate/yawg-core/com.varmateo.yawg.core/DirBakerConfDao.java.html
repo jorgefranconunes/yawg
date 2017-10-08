@@ -20,10 +20,10 @@ import io.vavr.Function1;
 import io.vavr.collection.Seq;
 import io.vavr.collection.Stream;
 
-import com.varmateo.yawg.api.PageVars;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.core.DirBakerConf;
 import com.varmateo.yawg.core.TemplateNameMatcher;
+import com.varmateo.yawg.spi.PageVars;
 import com.varmateo.yawg.util.Exceptions;
 import com.varmateo.yawg.util.GlobMatcher;
 import com.varmateo.yawg.util.SimpleMap;

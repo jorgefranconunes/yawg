@@ -15,7 +15,7 @@ import org.asciidoctor.AttributesBuilder;
 import org.asciidoctor.OptionsBuilder;
 import org.asciidoctor.SafeMode;
 
-import com.varmateo.yawg.api.PageVars;
+import com.varmateo.yawg.spi.PageVars;
 
 
 /**

@@ -25,8 +25,8 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2015 - 2017</copyright>
     <item>
-      <title>File: 8,
-             Errors: 22,
+      <title>File: 7,
+             Errors: 13,
              Warnings: 0,
              Infos: 0
       </title>
@@ -44,20 +44,6 @@ under the License.
             </tr>
           </thead>
           <tbody>
-                          <tr>
-                <td>
-                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.PageVars.java">com/varmateo/yawg/api/PageVars.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  6
-                </td>
-              </tr>
                           <tr>
                 <td>
                   <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.SiteBaker.java">com/varmateo/yawg/api/SiteBaker.java</a>
@@ -139,7 +125,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  16
+                  13
                 </td>
               </tr>
                           <tr>

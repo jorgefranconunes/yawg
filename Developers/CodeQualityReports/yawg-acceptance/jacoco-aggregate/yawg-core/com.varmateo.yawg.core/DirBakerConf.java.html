@@ -12,8 +12,8 @@ import io.vavr.collection.List;
 import io.vavr.collection.Seq;
 import io.vavr.control.Option;
 
-import com.varmateo.yawg.api.PageVars;
 import com.varmateo.yawg.core.TemplateNameMatcher;
+import com.varmateo.yawg.spi.PageVars;
 import com.varmateo.yawg.util.GlobMatcher;
 
 

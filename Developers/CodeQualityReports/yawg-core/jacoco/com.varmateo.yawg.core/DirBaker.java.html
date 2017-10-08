@@ -13,7 +13,6 @@ import java.nio.file.Path;
 import io.vavr.collection.Seq;
 
 import com.varmateo.yawg.api.YawgException;
-import com.varmateo.yawg.api.PageVars;
 import com.varmateo.yawg.core.DirBakerConf;
 import com.varmateo.yawg.core.DirBakerConfDao;
 import com.varmateo.yawg.core.DirEntryScanner;
@@ -23,6 +22,7 @@ import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogWithUtils;
 import com.varmateo.yawg.spi.DirBakeListener;
 import com.varmateo.yawg.spi.PageContext;
+import com.varmateo.yawg.spi.PageVars;
 import com.varmateo.yawg.spi.TemplateService;
 import com.varmateo.yawg.util.Exceptions;
 

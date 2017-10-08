@@ -11,7 +11,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
-import com.varmateo.yawg.api.PageVars;
+import com.varmateo.yawg.spi.PageVars;
 import com.varmateo.yawg.spi.Template;
 
 

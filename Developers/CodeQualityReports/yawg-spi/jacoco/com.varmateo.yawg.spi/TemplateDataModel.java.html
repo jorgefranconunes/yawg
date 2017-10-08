@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-import com.varmateo.yawg.api.PageVars;
 import com.varmateo.yawg.api.YawgInfo;
+import com.varmateo.yawg.spi.PageVars;
 
 
 /**

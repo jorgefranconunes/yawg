@@ -13,11 +13,11 @@ import java.util.function.Function;
 
 import io.vavr.control.Option;
 
-import com.varmateo.yawg.api.PageVars;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.core.DirBakerConf;
 import com.varmateo.yawg.core.TemplateNameMatcher;
 import com.varmateo.yawg.spi.PageContext;
+import com.varmateo.yawg.spi.PageVars;
 import com.varmateo.yawg.spi.Template;
 import com.varmateo.yawg.spi.TemplateService;
 

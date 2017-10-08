@@ -21,16 +21,16 @@
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> io.vavr.collection.Seq;
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.api.YawgException;
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.api.PageVars;
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.DirBakerConf;
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.DirBakerConfDao;
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.DirEntryScanner;
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.DirPageContextBuilder;
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.FileBaker;
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.logging.Log;
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.logging.LogWithUtils;
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.DirBakeListener;
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.PageContext;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.DirBakerConf;
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.DirBakerConfDao;
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.DirEntryScanner;
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.DirPageContextBuilder;
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.FileBaker;
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.logging.Log;
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.logging.LogWithUtils;
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.DirBakeListener;
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.PageContext;
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.PageVars;
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.TemplateService;
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.util.Exceptions;
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  
@@ -99,7 +99,7 @@
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>              <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/core/DirBakerConf.html">DirBakerConf</a> parentDirBakerConf)
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>              <strong class="jxr_keyword">throws</strong> <a href="../../../../com/varmateo/yawg/api/YawgException.html">YawgException</a> {
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>  
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>          <a href="../../../../com/varmateo/yawg/api/PageVars.html">PageVars</a> parentExtensionVars = <strong class="jxr_keyword">new</strong> <a href="../../../../com/varmateo/yawg/api/PageVars.html">PageVars</a>();
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>          <a href="../../../../com/varmateo/yawg/spi/PageVars.html">PageVars</a> parentExtensionVars = <strong class="jxr_keyword">new</strong> <a href="../../../../com/varmateo/yawg/spi/PageVars.html">PageVars</a>();
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>  
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>          doBakeDirectory(
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>                  sourceDir,
@@ -116,7 +116,7 @@
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>             <strong class="jxr_keyword">final</strong> Path sourceDir,
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>             <strong class="jxr_keyword">final</strong> Path targetDir,
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/core/DirBakerConf.html">DirBakerConf</a> parentDirBakerConf,
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/api/PageVars.html">PageVars</a> parentExtensionVars)
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/spi/PageVars.html">PageVars</a> parentExtensionVars)
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>             <strong class="jxr_keyword">throws</strong> <a href="../../../../com/varmateo/yawg/api/YawgException.html">YawgException</a> {
 <a class="jxr_linenumber" name="L113" href="#L113">113</a> 
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>         Path relSourceDir = _sourceRootDir.relativize(sourceDir);
@@ -133,8 +133,8 @@
 <a class="jxr_linenumber" name="L125" href="#L125">125</a>                         targetDir,
 <a class="jxr_linenumber" name="L126" href="#L126">126</a>                         dirBakerConf,
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>                         parentExtensionVars);
-<a class="jxr_linenumber" name="L128" href="#L128">128</a>         <a href="../../../../com/varmateo/yawg/api/PageVars.html">PageVars</a> thisDirExtensionVars = _listener.onDirBake(context);
-<a class="jxr_linenumber" name="L129" href="#L129">129</a>         <a href="../../../../com/varmateo/yawg/api/PageVars.html">PageVars</a> extensionVars =
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>         <a href="../../../../com/varmateo/yawg/spi/PageVars.html">PageVars</a> thisDirExtensionVars = _listener.onDirBake(context);
+<a class="jxr_linenumber" name="L129" href="#L129">129</a>         <a href="../../../../com/varmateo/yawg/spi/PageVars.html">PageVars</a> extensionVars =
 <a class="jxr_linenumber" name="L130" href="#L130">130</a>                 PageVars.builder(parentExtensionVars)
 <a class="jxr_linenumber" name="L131" href="#L131">131</a>                 .addPageVars(thisDirExtensionVars)
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>                 .build();
@@ -207,7 +207,7 @@
 <a class="jxr_linenumber" name="L199" href="#L199">199</a>             <strong class="jxr_keyword">final</strong> Seq&lt;Path&gt; dirEntries,
 <a class="jxr_linenumber" name="L200" href="#L200">200</a>             <strong class="jxr_keyword">final</strong> Path targetDir,
 <a class="jxr_linenumber" name="L201" href="#L201">201</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/core/DirBakerConf.html">DirBakerConf</a> dirBakerConf,
-<a class="jxr_linenumber" name="L202" href="#L202">202</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/api/PageVars.html">PageVars</a> extensionVars) {
+<a class="jxr_linenumber" name="L202" href="#L202">202</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/spi/PageVars.html">PageVars</a> extensionVars) {
 <a class="jxr_linenumber" name="L203" href="#L203">203</a> 
 <a class="jxr_linenumber" name="L204" href="#L204">204</a>         Seq&lt;Path&gt; dirPathList = dirEntries.filter(Files::isDirectory);
 <a class="jxr_linenumber" name="L205" href="#L205">205</a> 
@@ -230,7 +230,7 @@
 <a class="jxr_linenumber" name="L222" href="#L222">222</a>             <strong class="jxr_keyword">final</strong> Path sourceDir,
 <a class="jxr_linenumber" name="L223" href="#L223">223</a>             <strong class="jxr_keyword">final</strong> Path targetDir,
 <a class="jxr_linenumber" name="L224" href="#L224">224</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/core/DirBakerConf.html">DirBakerConf</a> dirBakerConf,
-<a class="jxr_linenumber" name="L225" href="#L225">225</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/api/PageVars.html">PageVars</a> extensionVars) {
+<a class="jxr_linenumber" name="L225" href="#L225">225</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/spi/PageVars.html">PageVars</a> extensionVars) {
 <a class="jxr_linenumber" name="L226" href="#L226">226</a> 
 <a class="jxr_linenumber" name="L227" href="#L227">227</a>         Seq&lt;Path&gt; extraDirPathList =
 <a class="jxr_linenumber" name="L228" href="#L228">228</a>                 dirBakerConf.extraDirsHere
