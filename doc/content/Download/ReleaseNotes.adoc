@@ -11,6 +11,26 @@ Yawg project.
 
 
 
+== 0.9.8
+
+Released on 2017/10/08
+
+#321 Remove Java package for actor classes
+
+#324 Review separation between API and SPI classes
+
+#330 Add acceptance tests for `extraDirsHere` baking parameter
+
+#336 Javadocs are missing version information
+
+#338 Move PageVars class to SPI
+
+#339 Move to latest Vavr release
+
+
+
+
+
 == 0.9.7
 
 Released on 2017/07/18

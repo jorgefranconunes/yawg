@@ -11,7 +11,7 @@ Copyright (c) 2015-2017 Yawg project contributors.
 
   <groupId>com.varmateo.yawg</groupId>
   <artifactId>yawg-main</artifactId>
-  <version>0.9.7-SNAPSHOT</version>
+  <version>0.9.8-SNAPSHOT</version>
 
 
 
@@ -22,7 +22,7 @@ Copyright (c) 2015-2017 Yawg project contributors.
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-    <yawg.javadoc.bottom><![CDATA[Yawg ${project.version}<br/>Copyright © 2015–2017 Yawg project contributors. All rights reserved.]]></yawg.javadoc.bottom>
+    <yawg.javadoc.bottom>Yawg ${project.version}&lt;br/&gt;Copyright © 2015–2017 Yawg project contributors. All rights reserved.</yawg.javadoc.bottom>
     <yawg.javadoc.windowtitle>${project.name} ${project.version}</yawg.javadoc.windowtitle>
 
     <!-- By default unit tests are run. -->
