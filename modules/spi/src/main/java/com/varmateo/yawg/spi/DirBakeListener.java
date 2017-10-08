@@ -6,9 +6,9 @@
 
 package com.varmateo.yawg.spi;
 
-import com.varmateo.yawg.api.PageVars;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.spi.PageContext;
+import com.varmateo.yawg.spi.PageVars;
 
 
 /**

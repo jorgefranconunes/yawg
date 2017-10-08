@@ -17,7 +17,6 @@ import io.vavr.Tuple;
 import io.vavr.Tuple2;
 import io.vavr.control.Try;
 
-import com.varmateo.yawg.api.PageVars;
 import com.varmateo.yawg.api.SiteBaker;
 import com.varmateo.yawg.api.SiteBakerConf;
 import com.varmateo.yawg.api.SiteBakerFactory;
@@ -181,14 +180,15 @@ public final class BakerCli {
                 cliOptions.getPath(BakerCliOptions.TEMPLATES_DIR, null);
         Path assetsDir =
                 cliOptions.getPath(BakerCliOptions.ASSETS_DIR, null);
-        PageVars externalPageVars = buildExternalPageVars(cliOptions);
+        java.util.Map<String,Object> externalPageVars =
+                buildExternalPageVars(cliOptions);
 
         return SiteBakerConf.builder()
                 .setSourceDir(sourceDir)
                 .setTargetDir(targetDir)
                 .setTemplatesDir(templatesDir)
                 .setAssetsDir(assetsDir)
-                .setExternalPageVars(externalPageVars)
+                .addExternalPageVars(externalPageVars)
                 .build();
     }
 
@@ -196,15 +196,15 @@ public final class BakerCli {
     /**
      *
      */
-    private static PageVars buildExternalPageVars(final CliOptions cliOptions) {
+    private static java.util.Map<String,Object> buildExternalPageVars(
+            final CliOptions cliOptions) {
 
         return cliOptions
                 .getAll(BakerCliOptions.PAGE_VAR)
                 .map(BakerCli::getVarNameAndValueFromOptionValue)
                 .foldLeft(
-                        PageVars.builder(),
-                        (builder, t) -> builder.addVar(t._1, t._2))
-                .build();
+                        new java.util.HashMap<>(),
+                        (map, t) -> { map.put(t._1, t._2); return map; });
     }
 
 

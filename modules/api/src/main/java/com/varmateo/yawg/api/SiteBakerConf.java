@@ -7,10 +7,11 @@
 package com.varmateo.yawg.api;
 
 import java.nio.file.Path;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-
-import com.varmateo.yawg.api.PageVars;
 
 
 /**
@@ -26,7 +27,7 @@ public final class SiteBakerConf {
     private final Path _sourceDir;
     private final Path _targetDir;
     private final Optional<Path> _templatesDir;
-    private final PageVars _externalPageVars;
+    private final Map<String,Object> _externalPageVars;
 
 
     /**
@@ -38,7 +39,8 @@ public final class SiteBakerConf {
         _sourceDir = Objects.requireNonNull(builder._sourceDir);
         _targetDir = Objects.requireNonNull(builder._targetDir);
         _templatesDir = builder._templatesDir;
-        _externalPageVars = builder._externalPageVars;
+        _externalPageVars = Collections.unmodifiableMap(
+                new HashMap<>(builder._externalPageVars));
     }
 
 
@@ -79,9 +81,12 @@ public final class SiteBakerConf {
     /**
      * Set of page variables provided externally.
      *
-     * <p>Page variables will intended to be used by templates.</p>
+     * <p>Page variables are intended to be used by templates.</p>
+     *
+     * @return A read-only map containing the page variables. The keys
+     * are the variable names.
      */
-    public PageVars getExternalPageVars() {
+    public Map<String,Object> getExternalPageVars() {
         return _externalPageVars;
     }
 
@@ -106,7 +111,7 @@ public final class SiteBakerConf {
         private Path _sourceDir = null;
         private Path _targetDir = null;
         private Optional<Path> _templatesDir = Optional.empty();
-        private PageVars _externalPageVars = new PageVars();
+        private Map<String,Object> _externalPageVars = new HashMap<>();
 
 
         /**
@@ -160,9 +165,10 @@ public final class SiteBakerConf {
         /**
          *
          */
-        public Builder setExternalPageVars(final PageVars externalPageVars) {
+        public Builder addExternalPageVars(
+                final Map<String,Object> externalPageVars) {
 
-            _externalPageVars = externalPageVars;
+            _externalPageVars.putAll(externalPageVars);
             return this;
         }
 

@@ -7,6 +7,7 @@
 package com.varmateo.yawg.core;
 
 import java.nio.file.Path;
+import java.util.Map;
 import java.util.Optional;
 
 import com.varmateo.yawg.api.SiteBakerConf;
@@ -15,6 +16,7 @@ import com.varmateo.yawg.api.YawgInfo;
 import com.varmateo.yawg.core.DirBaker;
 import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogWithUtils;
+import com.varmateo.yawg.spi.PageVars;
 
 
 /**
@@ -37,6 +39,8 @@ import com.varmateo.yawg.logging.LogWithUtils;
             final SiteBakerConf conf,
             final DirBaker dirBaker) {
 
+        PageVars pageVars = mapToPageVars(conf.getExternalPageVars());
+
         _log = LogWithUtils.from(log);
         _conf = conf;
         _assetsCopier = new AssetsCopier(
@@ -47,8 +51,22 @@ import com.varmateo.yawg.logging.LogWithUtils;
                 _log,
                 conf.getSourceDir(),
                 conf.getTargetDir(),
-                conf.getExternalPageVars(),
+                pageVars,
                 dirBaker);
+    }
+
+
+    /**
+     *
+     */
+    private static PageVars mapToPageVars(
+            final Map<String,Object> pageVarsMap) {
+
+        PageVars.Builder builder = PageVars.builder();
+        pageVarsMap.entrySet().stream()
+                .forEach(x -> builder.addVar(x.getKey(), x.getValue()));
+
+        return builder.build();
     }
 
 

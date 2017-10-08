@@ -53,15 +53,15 @@ Copyright (c) 2015-2017 Yawg project contributors.
 
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>yawg-core</artifactId>
+      <artifactId>yawg-api</artifactId>
       <version>${project.version}</version>
-      <scope>runtime</scope>
     </dependency>
 
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>yawg-spi</artifactId>
+      <artifactId>yawg-core</artifactId>
       <version>${project.version}</version>
+      <scope>runtime</scope>
     </dependency>
 
     <dependency>

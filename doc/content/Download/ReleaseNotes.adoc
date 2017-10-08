@@ -17,13 +17,13 @@ Released on 2017/07/18
 
 #238 Fixed typo on README
 
-#238 Added acceptance tests for the --page-var CLI option
+#238 Added acceptance tests for the `--page-var` CLI option
 
 #238 Removed list utility functions no longer used
 
 #300 Page vars are now visible as Asciidoc attributes
 
-#304 Fixed build-create-bundle-bug when JAVA_HOME not set
+#304 Fixed build-create-bundle-bug when `JAVA_HOME` not set
 
 
 
@@ -64,7 +64,7 @@ Released on 2017/04/13.
 
 #204 Update PMD rules to not require explicit extends Object
 
-#206 Refactor BakerCli for easier testing
+#206 Refactor `BakerCli` for easier testing
 
 #208 Prepare for acceptance tests
 
@@ -72,7 +72,7 @@ Released on 2017/04/13.
 
 #214 Refactor builders for easier creation of empty POJOs
 
-#216 Simplify mocks in DirBaker unit tests
+#216 Simplify mocks in `DirBaker` unit tests
 
 #218 Include Jacoco aggregate report with Maven reports site
 
@@ -115,7 +115,7 @@ Released on 2016/09/10.
 
 #177 Support specifying template only for some files
 
-#178 Rename dir bake parameter includeOnly to includeHere
+#178 Rename dir bake parameter `includeOnly` to `includeHere`
 
 #179 Support specifying template vars only for the current directory
 
@@ -129,11 +129,11 @@ Released on 2016/09/10.
 
 Released on 2016/08/09.
 
-#157 Rename dir bake parameter "ignore" to "exclude"
+#157 Rename dir bake parameter `ignore` to `exclude`
 
-#158 Refactor SiteBakerConf builder
+#158 Refactor `SiteBakerConf` builder
 
-#159 Refactor PageVars builder
+#159 Refactor `PageVars` builder
 
 #163 PlantUML image files created in the wrong directory
 
@@ -151,11 +151,11 @@ Released on 2016/07/27.
 
 #145 Separated extensions API into dedicated module
 
-#147 Renamed dir bake parameter templateVars to pageVars
+#147 Renamed dir bake parameter `templateVars` to `pageVars`
 
-#149 Refactored the PageContext interface to have no public builder
+#149 Refactored the `PageContext` interface to have no public builder
 
-#151 Refactored the TemplateDataModel interface to have no public
+#151 Refactored the `TemplateDataModel` interface to have no public
 builder
 
 
