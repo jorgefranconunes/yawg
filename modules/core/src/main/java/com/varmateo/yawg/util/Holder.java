@@ -53,7 +53,7 @@ public final class Holder<T> {
      *
      * <p>The first time this method is called, the
      * <code>Supplier</code> passed to the <code>{@link
-     * #of(Supplier<T>)}</code> method will be invoked to fetch the
+     * #of(Supplier)}</code> method will be invoked to fetch the
      * actual object. All following calls will then always return that
      * same object.</p>
      *

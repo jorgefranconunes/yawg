@@ -130,7 +130,7 @@ Copyright (c) 2015-2017 Yawg project contributors.
             <version>true</version>
             <use>true</use>
             <quiet>true</quiet>
-            <failOnError>true</failOnError>
+            <failOnError>false</failOnError>
             <bottom>${yawg.javadoc.bottom}</bottom>
             <windowtitle>${yawg.javadoc.windowtitle}</windowtitle>
           </configuration>
