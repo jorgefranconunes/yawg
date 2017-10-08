@@ -163,7 +163,13 @@ public final class SiteBakerConf {
 
 
         /**
+         * Adds page variables to be used by templates.
          *
+         * @param externalPageVars Map where keys are the variable
+         * names, and the values are the corresponding variable
+         * values.
+         *
+         * @return A reference to the same builder object.
          */
         public Builder addExternalPageVars(
                 final Map<String,Object> externalPageVars) {
