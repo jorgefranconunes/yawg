@@ -35,7 +35,7 @@ exclude:
 
 
 pageVars:
-  latestYawgVersion: "0.9.7"
+  latestYawgVersion: "0.9.8"
   navbarSelectedItem: "home"
 
 

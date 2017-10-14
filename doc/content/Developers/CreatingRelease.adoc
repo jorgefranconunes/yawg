@@ -129,4 +129,8 @@ from Sonatype] for OSSRH.
   staging repository for being copied to Maven Central.
 
 * Click the `Release` action for the repository. This will copy the
-  staging repository to Maven Central.
+  staging repository to Maven Central. This process can take some
+  minutes to complete. You can confirm the process has completed by
+  checking on Maven Central at
+  https://repo1.maven.org/maven2/com/varmateo/yawg/yawg-api/ that the
+  new version is there.
