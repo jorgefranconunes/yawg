@@ -23,7 +23,6 @@ link:CreatingRelease.html[Creating a release of the Yawg software]
 image:https://travis-ci.org/jorgefranconunes/yawg.svg?branch=master["Build Status", link="https://travis-ci.org/jorgefranconunes/yawg"]
 image:https://codecov.io/gh/jorgefranconunes/yawg/branch/master/graph/badge.svg[codecov, link="https://codecov.io/gh/jorgefranconunes/yawg"]
 image:https://api.codacy.com/project/badge/Grade/5a8509efe93441eaafc869854e8a5dcf["Codacy code quality", link="https://www.codacy.com/app/jorgefranconunes/yawg?utm_source=github.com&utm_medium=referral&utm_content=jorgefranconunes/yawg&utm_campaign=Badge_Grade"]
-image:https://img.shields.io/badge/codescene-analyzed-brightgreen.svg[link="https://codescene.io/projects/1434/jobs/latest-successful/results"]
 
 link:CodeQualityReports/index.html[Code quality reports] - Maven
 generated reports for the latest commit in the `master` branch.
@@ -37,14 +36,11 @@ generated reports for the latest commit in the `master` branch.
 The Yawg project makes use of some third-party services freely
 available to open source projects.
 
-https://codecov.io/gh/jorgefranconunes/yawg[Codecov] -- Project trends
-in code coverage.
-
-https://codescene.io/projects/1434/jobs/latest-successful/results[CodeScene]
--- Technical debt analysis.
-
 https://www.codacy.com/"[Codacy] -- Automated code review tool for
 monitoring technical debt, and help improve code quality.
+
+https://codecov.io/gh/jorgefranconunes/yawg[Codecov] -- Project trends
+in code coverage.
 
 https://github.com/jorgefranconunes/yawg[GitHub] -- Git repository
 hosting and issue management.
