@@ -89,13 +89,12 @@ import com.varmateo.yawg.core.DirBakerConf;
      */
     private boolean testForExclude(final Path path) {
 
-<span class="fc" id="L92">        return false</span>
-                || _conf.filesToExclude
-<span class="fc" id="L94">                .map(matcher -&gt; matcher.test(path))</span>
-<span class="fc bfc" id="L95" title="All 2 branches covered.">                .getOrElse(false)</span>
+<span class="fc" id="L92">        return _conf.filesToExclude</span>
+<span class="fc" id="L93">                .map(matcher -&gt; matcher.test(path))</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">                .getOrElse(false)</span>
                 || _conf.filesToExcludeHere
-<span class="fc" id="L97">                .map(matcher -&gt; matcher.test(path))</span>
-<span class="fc bfc" id="L98" title="All 2 branches covered.">                .getOrElse(false);</span>
+<span class="fc" id="L96">                .map(matcher -&gt; matcher.test(path))</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">                .getOrElse(false);</span>
     }
 
 

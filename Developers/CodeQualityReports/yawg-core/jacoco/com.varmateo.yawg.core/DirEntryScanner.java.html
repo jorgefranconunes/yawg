@@ -9,7 +9,6 @@ package com.varmateo.yawg.core;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Iterator;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -33,10 +32,10 @@ import com.varmateo.yawg.core.DirEntryChecker;
     /**
      *
      */
-<span class="fc" id="L36">    DirEntryScanner(final DirBakerConf conf) {</span>
+<span class="fc" id="L35">    DirEntryScanner(final DirBakerConf conf) {</span>
 
-<span class="fc" id="L38">        _entryFilter = new DirEntryChecker(conf).asPathPredicate();</span>
-<span class="fc" id="L39">    }</span>
+<span class="fc" id="L37">        _entryFilter = new DirEntryChecker(conf).asPathPredicate();</span>
+<span class="fc" id="L38">    }</span>
 
 
     /**
@@ -45,13 +44,13 @@ import com.varmateo.yawg.core.DirEntryChecker;
     public Seq&lt;Path&gt; getDirEntries(final Path dirPath)
             throws IOException {
 
-<span class="pc" id="L48">        try ( Stream&lt;Path&gt; entries = Files.list(dirPath) ) {</span>
-<span class="fc" id="L49">            Stream&lt;Path&gt; stream =</span>
+<span class="pc" id="L47">        try ( Stream&lt;Path&gt; entries = Files.list(dirPath) ) {</span>
+<span class="fc" id="L48">            Stream&lt;Path&gt; stream =</span>
                     entries
-<span class="fc" id="L51">                    .filter(_entryFilter)</span>
-<span class="fc" id="L52">                    .sorted();</span>
-<span class="fc" id="L53">            return List.ofAll(() -&gt; stream.iterator());</span>
-<span class="pc bpc" id="L54" title="6 of 8 branches missed.">        }</span>
+<span class="fc" id="L50">                    .filter(_entryFilter)</span>
+<span class="fc" id="L51">                    .sorted();</span>
+<span class="fc" id="L52">            return List.ofAll(() -&gt; stream.iterator());</span>
+<span class="pc bpc" id="L53" title="6 of 8 branches missed.">        }</span>
     }
 
 
