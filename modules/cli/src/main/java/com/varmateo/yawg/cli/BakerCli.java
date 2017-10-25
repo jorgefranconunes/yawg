@@ -19,6 +19,7 @@ import io.vavr.control.Try;
 
 import com.varmateo.yawg.api.SiteBaker;
 import com.varmateo.yawg.api.SiteBakerConf;
+import com.varmateo.yawg.api.SiteBakerConfBuilder;
 import com.varmateo.yawg.api.SiteBakerFactory;
 import com.varmateo.yawg.cli.InfoPrinter;
 import com.varmateo.yawg.cli.BakerCliConf;
@@ -183,7 +184,7 @@ public final class BakerCli {
         java.util.Map<String,Object> externalPageVars =
                 buildExternalPageVars(cliOptions);
 
-        return SiteBakerConf.builder()
+        return SiteBakerConfBuilder.create()
                 .setSourceDir(sourceDir)
                 .setTargetDir(targetDir)
                 .setTemplatesDir(templatesDir)

@@ -198,10 +198,9 @@ function sanityChecks () {
             yawgError "Unknow archive type $(basename ${tarball})"
             ;;
     esac
-    
+
     local tarballName=$(expr "${tarballBasename}" : "${extRegex}")
     local installDir=${installRootDir}/${tarballName}
-                        
 
     if [ -d ${installDir} ] ; then
         local msg="Destination directory already exists: ${installDir}"
@@ -234,7 +233,7 @@ function fetchTarball () {
     else
         # We assume it is a file system path.
         _localTarball=${tarballUrl}
-        
+
         yawgLog "Tarball is a file system path."
     fi
 }
@@ -270,7 +269,7 @@ function downloadTarball () {
            --no-verbose \
            --output-document=${localTarball} \
            ${tarballUrl} ; then
-        
+
         yawgLog "Tarball downloaded to ${localTarball}"
         _localTarball=${localTarball}
     else

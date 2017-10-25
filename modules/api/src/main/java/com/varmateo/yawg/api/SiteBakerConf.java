@@ -7,75 +7,47 @@
 package com.varmateo.yawg.api;
 
 import java.nio.file.Path;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 
 /**
  * Set of configuration parameters for baking a site with a
  * <code>SiteBaker</code> instance.
- *
- * <p>Objects of this class are immutable.</p>
  */
-public final class SiteBakerConf {
-
-
-    private final Optional<Path> _assetsDir;
-    private final Path _sourceDir;
-    private final Path _targetDir;
-    private final Optional<Path> _templatesDir;
-    private final Map<String,Object> _externalPageVars;
-
-
-    /**
-     *
-     */
-    private SiteBakerConf(final Builder builder) {
-
-        _assetsDir = builder._assetsDir;
-        _sourceDir = Objects.requireNonNull(builder._sourceDir);
-        _targetDir = Objects.requireNonNull(builder._targetDir);
-        _templatesDir = builder._templatesDir;
-        _externalPageVars = Collections.unmodifiableMap(
-                new HashMap<>(builder._externalPageVars));
-    }
+public interface SiteBakerConf {
 
 
     /**
      * Path of directory containing the assets files. These files will
      * be copied without any changes to the target directory.
+     *
+     * <p>An empty <code>Optional</code> means no assets will be
+     * copied.</p>
      */
-    public Optional<Path> getAssetsDir() {
-        return _assetsDir;
-    }
+    Optional<Path> getAssetsDir();
 
 
     /**
      * Path of directory containing the documents to be baked.
      */
-    public Path getSourceDir() {
-        return _sourceDir;
-    }
+    Path getSourceDir();
 
 
     /**
      * Path of directory where the results of the baking will be
      * stored.
      */
-    public Path getTargetDir() {
-        return _targetDir;
-    }
+    Path getTargetDir();
 
 
     /**
      * Path of directory containing the templates files.
+     *
+     * <p>An empty <code>Optional</code> means no templates are
+     * available for use.</p>
      */
-    public Optional<Path> getTemplatesDir() {
-        return _templatesDir;
-    }
+    Optional<Path> getTemplatesDir();
 
 
     /**
@@ -83,111 +55,10 @@ public final class SiteBakerConf {
      *
      * <p>Page variables are intended to be used by templates.</p>
      *
-     * @return A read-only map containing the page variables. The keys
-     * are the variable names.
+     * @return A read-only map containing the page variables. Keys in
+     * the map are the variable names.
      */
-    public Map<String,Object> getExternalPageVars() {
-        return _externalPageVars;
-    }
-
-
-    /**
-     * Creates a new builder with no initializations.
-     *
-     * @return A newly created <code>Builder</code> instance.
-     */
-    public static Builder builder() {
-        return new Builder();
-    }
-
-
-    /**
-     * A builder of <code>SiteBakerConf</code> instances.
-     */
-    public static final class Builder {
-
-
-        private Optional<Path> _assetsDir = Optional.empty();
-        private Path _sourceDir = null;
-        private Path _targetDir = null;
-        private Optional<Path> _templatesDir = Optional.empty();
-        private Map<String,Object> _externalPageVars = new HashMap<>();
-
-
-        /**
-         * 
-         */
-        private Builder() {
-            // Nothing to do.
-        }
-
-
-        /**
-         *
-         */
-        public Builder setAssetsDir(final Path assetsDir) {
-
-            _assetsDir = Optional.ofNullable(assetsDir);
-            return this;
-        }
-
-
-        /**
-         *
-         */
-        public Builder setSourceDir(final Path sourceDir) {
-
-            _sourceDir = Objects.requireNonNull(sourceDir);
-            return this;
-        }
-
-
-        /**
-         *
-         */
-        public Builder setTargetDir(final Path targetDir) {
-
-            _targetDir = Objects.requireNonNull(targetDir);
-            return this;
-        }
-
-
-        /**
-         *
-         */
-        public Builder setTemplatesDir(final Path templatesDir) {
-
-            _templatesDir = Optional.ofNullable(templatesDir);
-            return this;
-        }
-
-
-        /**
-         * Adds page variables to be used by templates.
-         *
-         * @param externalPageVars Map where keys are the variable
-         * names, and the values are the corresponding variable
-         * values.
-         *
-         * @return A reference to the same builder object.
-         */
-        public Builder addExternalPageVars(
-                final Map<String,Object> externalPageVars) {
-
-            _externalPageVars.putAll(externalPageVars);
-            return this;
-        }
-
-
-        /**
-         *
-         */
-        public SiteBakerConf build() {
-
-            return new SiteBakerConf(this);
-        }
-
-    }
+    Map<String,Object> getExternalPageVars();
 
 
 }

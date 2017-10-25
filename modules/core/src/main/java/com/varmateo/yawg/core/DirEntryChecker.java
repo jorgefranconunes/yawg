@@ -89,8 +89,7 @@ import com.varmateo.yawg.core.DirBakerConf;
      */
     private boolean testForExclude(final Path path) {
 
-        return false
-                || _conf.filesToExclude
+        return _conf.filesToExclude
                 .map(matcher -> matcher.test(path))
                 .getOrElse(false)
                 || _conf.filesToExcludeHere
