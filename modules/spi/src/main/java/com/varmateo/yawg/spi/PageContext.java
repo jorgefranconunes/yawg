@@ -31,7 +31,7 @@ public interface PageContext {
     /**
      * Template to be used when generating the target page.
      */
-    Optional<Template> getTemplateFor(final Path path);
+    Optional<Template> getTemplateFor(Path path);
 
 
     /**

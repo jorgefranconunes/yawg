@@ -53,6 +53,8 @@ public final class PageContextBuilder {
 
     /**
      * Creates a new empty <code>PageContextBuilder</code> instance.
+     *
+     * @return A new empty builder object.
      */
     public static PageContextBuilder create() {
 
@@ -67,6 +69,8 @@ public final class PageContextBuilder {
      *
      * @param initialData Provides the data used for initializing the
      * returned builder.
+     *
+     * @return A new builder object initialized with the given data.
      */
     public static PageContextBuilder create(final PageContext initialData) {
 
@@ -75,7 +79,7 @@ public final class PageContextBuilder {
 
 
     /**
-     *
+     * @return A reference to this builder.
      */
     public PageContextBuilder setDirUrl(final String dirUrl) {
 
@@ -85,7 +89,10 @@ public final class PageContextBuilder {
 
 
     /**
+     * @param templateFetcher Function that can be used to retrieve
+     * the template to be applied to a given path.
      *
+     * @return A reference to this builder.
      */
     public PageContextBuilder setTemplateFetcher(
             final Function<Path,Optional<Template>> templateFetcher) {
@@ -96,7 +103,7 @@ public final class PageContextBuilder {
 
 
     /**
-     *
+     * @return A reference to this builder.
      */
     public PageContextBuilder setRootRelativeUrl(final String rootRelativeUrl) {
 
@@ -106,7 +113,7 @@ public final class PageContextBuilder {
 
 
     /**
-     *
+     * @return A reference to this builder.
      */
     public PageContextBuilder setPageVars(final PageVars pageVars) {
 
@@ -116,7 +123,15 @@ public final class PageContextBuilder {
 
 
     /**
+     * Merges the given set of page variables into the set of page
+     * variables currently hold by this builder. Page variables
+     * currently in this builder with the same name will be superseded
+     * by the new provided page variables.
      *
+     * @param pageVars The set of page variables to add to the set of
+     * page variables hold by this builder.
+     *
+     * @return A reference to this builder.
      */
     public PageContextBuilder addPageVars(final PageVars pageVars) {
 
@@ -126,7 +141,15 @@ public final class PageContextBuilder {
 
 
     /**
+     * Adds one page variable to this builder. An existing page
+     * variable in this builder with the same name will be superseded
+     * by the given page variable.
      *
+     * @param varName The name of the page variable to be added.
+     *
+     * @param varValue The value of the page variable to be added.
+     *
+     * @return A reference to this builder.
      */
     public PageContextBuilder addVar(
             final String varName,
@@ -138,7 +161,10 @@ public final class PageContextBuilder {
 
 
     /**
+     * Creates a new <code>PageContext</code> instance initialized
+     * with the current values in this builder.
      *
+     * @return A newly created <code>PageContext</code> instance.
      */
     public PageContext build() {
 
