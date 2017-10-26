@@ -6,22 +6,19 @@
 
 package com.varmateo.yawg.asciidoctor;
 
+import com.varmateo.testutils.TestUtils;
+import com.varmateo.yawg.asciidoctor.AsciidoctorBakerDataModelBuilder;
+import com.varmateo.yawg.spi.PageContext;
+import com.varmateo.yawg.spi.PageContextBuilder;
+import com.varmateo.yawg.spi.TemplateDataModel;
 import java.io.IOException;
 import java.nio.file.Path;
-
 import org.asciidoctor.Asciidoctor;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.tuple;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import com.varmateo.testutils.TestUtils;
-
-import com.varmateo.yawg.asciidoctor.AsciidoctorBakerDataModelBuilder;
-import com.varmateo.yawg.spi.PageContext;
-import com.varmateo.yawg.spi.TemplateDataModel;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
 
 
 /**
@@ -151,7 +148,7 @@ public final class AsciidoctorBakerDataModelBuilderIT
         String dirUrl = ".";
         String rootRelativeUrl = ".";
         PageContext context =
-                PageContext.builder()
+                PageContextBuilder.create()
                 .setDirUrl(dirUrl)
                 .setRootRelativeUrl(rootRelativeUrl)
                 .build();

@@ -19,7 +19,7 @@ public interface SiteBakerFactory {
 
 
     /**
-     * Creates a new <code>SiteBake</code> instance.
+     * Creates a new <code>SiteBaker</code> instance.
      *
      * @return The baker object.
      */

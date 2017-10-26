@@ -6,15 +6,15 @@
 
 package com.varmateo.yawg.core;
 
-import io.vavr.collection.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import org.junit.Test;
-
 import com.varmateo.yawg.core.CollectiveDirBakeListener;
 import com.varmateo.yawg.spi.DirBakeListener;
 import com.varmateo.yawg.spi.PageContext;
+import com.varmateo.yawg.spi.PageContextBuilder;
 import com.varmateo.yawg.spi.PageVars;
+import io.vavr.collection.List;
+import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 /**
@@ -148,8 +148,7 @@ public final class CollectiveDirBakeListenerTest
             final String varName,
             final String varValue) {
 
-        PageContext context =
-                PageContext.builder()
+        PageContext context = PageContextBuilder.create()
                 .setDirUrl(".")
                 .setRootRelativeUrl(".")
                 .addVar(varName, varValue)

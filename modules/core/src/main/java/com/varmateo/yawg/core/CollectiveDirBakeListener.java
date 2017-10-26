@@ -6,17 +6,17 @@
 
 package com.varmateo.yawg.core;
 
-import io.vavr.collection.Seq;
-
 import com.varmateo.yawg.spi.DirBakeListener;
 import com.varmateo.yawg.spi.PageContext;
+import com.varmateo.yawg.spi.PageContextBuilder;
 import com.varmateo.yawg.spi.PageVars;
+import io.vavr.collection.Seq;
 
 
 /**
  *
  */
-/* package private */ final class CollectiveDirBakeListener
+/* default */ final class CollectiveDirBakeListener
         implements DirBakeListener {
 
 
@@ -51,7 +51,7 @@ import com.varmateo.yawg.spi.PageVars;
             final DirBakeListener listener) {
 
         PageVars newVars = listener.onDirBake(context);
-        PageContext augmentedContext = PageContext.builder(context)
+        PageContext augmentedContext = PageContextBuilder.create(context)
                 .setPageVars(newVars)
                 .build();
 

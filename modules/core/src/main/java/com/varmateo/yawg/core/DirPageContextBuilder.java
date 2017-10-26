@@ -6,20 +6,19 @@
 
 package com.varmateo.yawg.core;
 
-import java.io.File;
-import java.nio.file.Path;
-import java.util.Optional;
-import java.util.function.Function;
-
-import io.vavr.control.Option;
-
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.core.DirBakerConf;
 import com.varmateo.yawg.core.TemplateNameMatcher;
 import com.varmateo.yawg.spi.PageContext;
+import com.varmateo.yawg.spi.PageContextBuilder;
 import com.varmateo.yawg.spi.PageVars;
 import com.varmateo.yawg.spi.Template;
 import com.varmateo.yawg.spi.TemplateService;
+import io.vavr.control.Option;
+import java.io.File;
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.function.Function;
 
 
 /**
@@ -65,7 +64,7 @@ final class DirPageContextBuilder {
                 .addPageVars(dirBakerConf.pageVarsHere)
                 .build();
 
-        return PageContext.builder()
+        return PageContextBuilder.create()
                 .setDirUrl(dirUrl)
                 .setRootRelativeUrl(rootRelativeUrl)
                 .setTemplateFetcher(templateFetcher)

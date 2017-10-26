@@ -6,21 +6,19 @@
 
 package com.varmateo.yawg.spi;
 
+import com.varmateo.yawg.spi.PageContext;
+import com.varmateo.yawg.spi.PageContextBuilder;
 import java.nio.file.Paths;
+import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
-import org.junit.Test;
-
-import com.varmateo.yawg.spi.PageContext;
 
 
 /**
  *
  */
-public final class PageContextTest
- {
+public final class PageContextBuilderTest {
 
 
     /**
@@ -29,7 +27,7 @@ public final class PageContextTest
     @Test
     public void missingMandatoryAttrs() {
 
-        assertThatThrownBy(() -> PageContext.builder().build())
+        assertThatThrownBy(() -> PageContextBuilder.create().build())
                 .isInstanceOf(NullPointerException.class);
     }
 
@@ -41,7 +39,7 @@ public final class PageContextTest
     public void mandatoryAttrs() {
 
         PageContext context =
-                PageContext.builder()
+                PageContextBuilder.create()
                 .setDirUrl("something")
                 .setRootRelativeUrl("whatever")
                 .build();

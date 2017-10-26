@@ -6,18 +6,17 @@
 
 package com.varmateo.yawg.html;
 
+import com.varmateo.testutils.TestUtils;
+import com.varmateo.yawg.html.HtmlBakerDataModelBuilder;
+import com.varmateo.yawg.spi.PageContext;
+import com.varmateo.yawg.spi.PageContextBuilder;
+import com.varmateo.yawg.spi.TemplateDataModel;
 import java.io.IOException;
 import java.nio.file.Path;
-
-import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.varmateo.testutils.TestUtils;
-
-import com.varmateo.yawg.html.HtmlBakerDataModelBuilder;
-import com.varmateo.yawg.spi.PageContext;
-import com.varmateo.yawg.spi.TemplateDataModel;
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 /**
@@ -79,7 +78,7 @@ public final class HtmlBakerDataModelBuilderTest
         String dirUrl = ".";
         String rootRelativeUrl = ".";
         PageContext context =
-                PageContext.builder()
+                PageContextBuilder.create()
                 .setDirUrl(dirUrl)
                 .setRootRelativeUrl(rootRelativeUrl)
                 .build();
