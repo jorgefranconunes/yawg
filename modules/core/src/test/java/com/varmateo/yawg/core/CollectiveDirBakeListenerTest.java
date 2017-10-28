@@ -11,6 +11,7 @@ import com.varmateo.yawg.spi.DirBakeListener;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.PageContextBuilder;
 import com.varmateo.yawg.spi.PageVars;
+import com.varmateo.yawg.spi.PageVarsBuilder;
 import io.vavr.collection.List;
 import org.junit.Test;
 
@@ -190,7 +191,7 @@ public final class CollectiveDirBakeListenerTest
         public PageVars onDirBake(final PageContext context) {
 
             PageVars newVars =
-                    PageVars.builder(context.getPageVars())
+                    PageVarsBuilder.create(context.getPageVars())
                     .addVar(_varName, _varValue)
                     .build();
 

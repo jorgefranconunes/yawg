@@ -6,10 +6,6 @@
 
 package com.varmateo.yawg.core;
 
-import java.nio.file.Path;
-import java.util.Map;
-import java.util.Optional;
-
 import com.varmateo.yawg.api.SiteBakerConf;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.api.YawgInfo;
@@ -17,12 +13,16 @@ import com.varmateo.yawg.core.DirBaker;
 import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogWithUtils;
 import com.varmateo.yawg.spi.PageVars;
+import com.varmateo.yawg.spi.PageVarsBuilder;
+import java.nio.file.Path;
+import java.util.Map;
+import java.util.Optional;
 
 
 /**
  * Baker for one specific site.
  */
-/* package private */ final class SingleSiteBaker {
+/* default */ final class SingleSiteBaker {
 
 
     private final LogWithUtils _log;
@@ -62,7 +62,7 @@ import com.varmateo.yawg.spi.PageVars;
     private static PageVars mapToPageVars(
             final Map<String,Object> pageVarsMap) {
 
-        PageVars.Builder builder = PageVars.builder();
+        PageVarsBuilder builder = PageVarsBuilder.create();
         pageVarsMap.entrySet().stream()
                 .forEach(x -> builder.addVar(x.getKey(), x.getValue()));
 

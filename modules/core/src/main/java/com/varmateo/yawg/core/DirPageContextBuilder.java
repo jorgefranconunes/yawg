@@ -12,6 +12,7 @@ import com.varmateo.yawg.core.TemplateNameMatcher;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.PageContextBuilder;
 import com.varmateo.yawg.spi.PageVars;
+import com.varmateo.yawg.spi.PageVarsBuilder;
 import com.varmateo.yawg.spi.Template;
 import com.varmateo.yawg.spi.TemplateService;
 import io.vavr.control.Option;
@@ -58,7 +59,7 @@ final class DirPageContextBuilder {
         String dirUrl = buildRelativeUrl(targetDir, _targetRootDir);
         String rootRelativeUrl = buildRelativeUrl(_targetRootDir, targetDir);
         PageVars allPageVars =
-                PageVars.builder()
+                PageVarsBuilder.create()
                 .addPageVars(extensionVars)
                 .addPageVars(dirBakerConf.pageVars)
                 .addPageVars(dirBakerConf.pageVarsHere)

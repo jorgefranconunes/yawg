@@ -8,6 +8,7 @@ package com.varmateo.yawg.spi;
 
 import com.varmateo.yawg.spi.PageContextBuilder;
 import com.varmateo.yawg.spi.PageVars;
+import com.varmateo.yawg.spi.PageVarsBuilder;
 import com.varmateo.yawg.spi.Template;
 import java.nio.file.Path;
 import java.util.Objects;
@@ -24,7 +25,7 @@ public final class PageContextBuilder {
     private String _dirUrl;
     private Function<Path,Optional<Template>> _templateFetcher;
     private String _rootRelativeUrl;
-    private PageVars.Builder _pageVarsBuilder;
+    private PageVarsBuilder _pageVarsBuilder;
 
 
     /**
@@ -35,7 +36,7 @@ public final class PageContextBuilder {
         _dirUrl = null;
         _templateFetcher = (path -> Optional.empty());
         _rootRelativeUrl = null;
-        _pageVarsBuilder = PageVars.builder();
+        _pageVarsBuilder = PageVarsBuilder.create();
     }
 
 
@@ -47,7 +48,7 @@ public final class PageContextBuilder {
         _dirUrl = data.getDirUrl();
         _templateFetcher = data::getTemplateFor;
         _rootRelativeUrl = data.getRootRelativeUrl();
-        _pageVarsBuilder = PageVars.builder(data.getPageVars());
+        _pageVarsBuilder = PageVarsBuilder.create(data.getPageVars());
     }
 
 
@@ -117,7 +118,7 @@ public final class PageContextBuilder {
      */
     public PageContextBuilder setPageVars(final PageVars pageVars) {
 
-        _pageVarsBuilder = PageVars.builder(pageVars);
+        _pageVarsBuilder = PageVarsBuilder.create(pageVars);
         return this;
     }
 

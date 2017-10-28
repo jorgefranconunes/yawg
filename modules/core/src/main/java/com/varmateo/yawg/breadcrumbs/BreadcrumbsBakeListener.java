@@ -6,15 +6,15 @@
 
 package com.varmateo.yawg.breadcrumbs;
 
-import java.util.Optional;
-
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.breadcrumbs.BreadcrumbItem;
 import com.varmateo.yawg.breadcrumbs.Breadcrumbs;
 import com.varmateo.yawg.spi.DirBakeListener;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.PageVars;
+import com.varmateo.yawg.spi.PageVarsBuilder;
 import com.varmateo.yawg.util.SimpleMap;
+import java.util.Optional;
 
 
 /**
@@ -111,7 +111,7 @@ public final class BreadcrumbsBakeListener
      */
     private PageVars updateBreadcrumbs(final Breadcrumbs newBreadcrumbs) {
 
-        return PageVars.builder()
+        return PageVarsBuilder.create()
                 .addVar(VAR_BREADCRUMB_LIST, newBreadcrumbs)
                 .build();
     }

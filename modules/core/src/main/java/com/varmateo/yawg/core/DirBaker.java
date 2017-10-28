@@ -18,6 +18,7 @@ import com.varmateo.yawg.spi.DirBakeListener;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.PageContextBuilder;
 import com.varmateo.yawg.spi.PageVars;
+import com.varmateo.yawg.spi.PageVarsBuilder;
 import com.varmateo.yawg.spi.TemplateService;
 import com.varmateo.yawg.util.Exceptions;
 import io.vavr.collection.Seq;
@@ -90,7 +91,7 @@ import java.nio.file.Path;
             final DirBakerConf parentDirBakerConf)
             throws YawgException {
 
-        PageVars parentExtensionVars = new PageVars();
+        PageVars parentExtensionVars = PageVars.empty();
 
         doBakeDirectory(
                 sourceDir,
@@ -126,7 +127,7 @@ import java.nio.file.Path;
                         parentExtensionVars);
         PageVars thisDirExtensionVars = _listener.onDirBake(context);
         PageVars extensionVars =
-                PageVars.builder(parentExtensionVars)
+                PageVarsBuilder.create(parentExtensionVars)
                 .addPageVars(thisDirExtensionVars)
                 .build();
         PageContext extendedContext =

@@ -7,7 +7,6 @@
 package com.varmateo.yawg.spi;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -18,28 +17,7 @@ import java.util.Optional;
  *
  * <p>The meaning of this variables is template specific.</p>
  */
-public final class PageVars {
-
-
-    private final Map<String,Object> _map;
-
-
-    /**
-     *
-     */
-    private PageVars(final Builder builder) {
-
-        _map = Collections.unmodifiableMap(new HashMap<>(builder._map));
-    }
-
-
-    /**
-     * Initializes an empty set of variables.
-     */
-    public PageVars() {
-
-        _map = Collections.emptyMap();
-    }
+public interface PageVars {
 
 
     /**
@@ -52,135 +30,37 @@ public final class PageVars {
      * given variable, or nan empty <code>Optional</code> if the
      * variable does not exist.
      */
-    public Optional<Object> get(final String key) {
-
-        Object value = _map.get(key);
-
-        return Optional.ofNullable(value);
-    }
+    Optional<Object> get(String key);
 
 
     /**
-     * Fetches a view of the set of vars as an unmodifiable map.
+     * Fetches a view of the set of page variables as an unmodifiable
+     * map.
      *
      * @return An unmodifiable map containing all the vars. Each entry
-     * is one var.
+     * corresponds to one page variable.
      */
-    public Map<String,Object> asMap() {
-
-        return _map;
-    }
+    Map<String,Object> asMap();
 
 
     /**
-     * Creates a new builder with no initializations.
+     * Creates an empty <code>PageVars</code>.
      *
-     * @return A newly created <code>Builder</code> instance.
+     * @return An empty <code>PageVars</code>.
      */
-    public static Builder builder() {
+    static PageVars empty() {
 
-        return new Builder();
+        return new PageVars() {
+            @Override
+            public Optional<Object> get(final String key) {
+                return Optional.empty();
+            }
+
+            @Override
+            public Map<String,Object> asMap() {
+                return Collections.emptyMap();
+            }
+        };
     }
-
-
-    /**
-     * Creates a new builder initialized with the data from the given
-     * <code>PageVars</code>.
-     *
-     * @param data Used for initializing the builder state.
-     *
-     * @return A newly created <code>Builder</code> instance.
-     */
-    public static Builder builder(final Map<String,Object> data) {
-
-        return new Builder(data);
-    }
-
-
-    /**
-     * Creates a new builder initialized with the data from the given
-     * <code>PageVars</code>.
-     *
-     * @param data Used for initializing the builder state.
-     *
-     * @return A newly created <code>Builder</code> instance.
-     */
-    public static Builder builder(final PageVars data) {
-
-        return new Builder(data);
-    }
-
-
-    /**
-     * A builder of <code>PageVars</code> instances.
-     */
-    public static final class Builder {
-
-
-        private Map<String,Object> _map;
-
-
-        /**
-         *
-         */
-        private Builder() {
-
-            _map = new HashMap<>();
-        }
-
-
-        /**
-         *
-         */
-        private Builder(final Map<String,Object> map) {
-
-            _map = new HashMap<>(map);
-        }
-
-
-        /**
-         *
-         */
-        private Builder(final PageVars vars) {
-
-            _map = new HashMap<>(vars._map);
-        }
-
-
-        /**
-         *
-         */
-        public Builder addVar(
-                final String varName,
-                final Object varValue) {
-
-            _map.put(varName, varValue);
-
-            return this;
-        }
-
-
-        /**
-         *
-         */
-        public Builder addPageVars(final PageVars that) {
-
-            _map.putAll(that._map);
-
-            return this;
-        }
-
-
-        /**
-         *
-         */
-        public PageVars build() {
-
-            return new PageVars(this);
-        }
-
-
-    }
-
 
 }

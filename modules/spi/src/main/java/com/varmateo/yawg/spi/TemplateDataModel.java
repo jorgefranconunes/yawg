@@ -44,7 +44,7 @@ public final class TemplateDataModel {
         _body = Objects.requireNonNull(builder._body);
         _pageUrl = Objects.requireNonNull(builder._pageUrl);
         _pageVars =
-                (builder._pageVars!=null) ? builder._pageVars: new PageVars();
+                (builder._pageVars!=null) ? builder._pageVars: PageVars.empty();
         _productName = YawgInfo.PRODUCT_NAME;
         _rootRelativeUrl = Objects.requireNonNull(builder._rootRelativeUrl);
         _title = Objects.requireNonNull(builder._title);

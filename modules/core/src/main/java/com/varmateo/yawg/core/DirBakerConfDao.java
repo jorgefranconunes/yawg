@@ -6,6 +6,15 @@
 
 package com.varmateo.yawg.core;
 
+import com.varmateo.yawg.api.YawgException;
+import com.varmateo.yawg.core.DirBakerConf;
+import com.varmateo.yawg.core.TemplateNameMatcher;
+import com.varmateo.yawg.spi.PageVars;
+import com.varmateo.yawg.spi.PageVarsBuilder;
+import com.varmateo.yawg.util.Exceptions;
+import com.varmateo.yawg.util.GlobMatcher;
+import com.varmateo.yawg.util.SimpleMap;
+import com.varmateo.yawg.util.YamlParser;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
@@ -15,19 +24,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.regex.PatternSyntaxException;
-
 import io.vavr.Function1;
 import io.vavr.collection.Seq;
 import io.vavr.collection.Stream;
-
-import com.varmateo.yawg.api.YawgException;
-import com.varmateo.yawg.core.DirBakerConf;
-import com.varmateo.yawg.core.TemplateNameMatcher;
-import com.varmateo.yawg.spi.PageVars;
-import com.varmateo.yawg.util.Exceptions;
-import com.varmateo.yawg.util.GlobMatcher;
-import com.varmateo.yawg.util.SimpleMap;
-import com.varmateo.yawg.util.YamlParser;
 
 
 /**
@@ -234,7 +233,7 @@ import com.varmateo.yawg.util.YamlParser;
         return confMap
                 .getMap(key)
                 .map(pageVarsMap ->
-                     PageVars.builder(pageVarsMap.asMap()).build());
+                     PageVarsBuilder.create(pageVarsMap.asMap()).build());
     }
 
 

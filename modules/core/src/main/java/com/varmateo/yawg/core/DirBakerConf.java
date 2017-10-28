@@ -6,15 +6,14 @@
 
 package com.varmateo.yawg.core;
 
+import com.varmateo.yawg.core.TemplateNameMatcher;
+import com.varmateo.yawg.spi.PageVars;
+import com.varmateo.yawg.spi.PageVarsBuilder;
+import com.varmateo.yawg.util.GlobMatcher;
 import java.nio.file.Path;
-
 import io.vavr.collection.List;
 import io.vavr.collection.Seq;
 import io.vavr.control.Option;
-
-import com.varmateo.yawg.core.TemplateNameMatcher;
-import com.varmateo.yawg.spi.PageVars;
-import com.varmateo.yawg.util.GlobMatcher;
 
 
 /**
@@ -157,7 +156,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         // These always start empty.
         private Option<GlobMatcher> _filesToExcludeHere = Option.none();
         private Option<GlobMatcher> _filesToIncludeHere = Option.none();
-        private PageVars _pageVarsHere = new PageVars();
+        private PageVars _pageVarsHere = PageVars.empty();
         private TemplateNameMatcher _templatesHere = new TemplateNameMatcher();
 
         // These adopt the values from externally provided
@@ -165,7 +164,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         private Option<String> _templateName;
         private Option<GlobMatcher> _filesToExclude;
         private Option<BakerMatcher> _bakerTypes;
-        private PageVars.Builder _pageVarsBuilder;
+        private PageVarsBuilder _pageVarsBuilder;
         private Seq<Path> _extraDirsHere;
 
 
@@ -177,7 +176,7 @@ import com.varmateo.yawg.util.GlobMatcher;
             _templateName = Option.none();
             _filesToExclude = Option.none();
             _bakerTypes = Option.none();
-            _pageVarsBuilder = PageVars.builder();
+            _pageVarsBuilder = PageVarsBuilder.create();
             _extraDirsHere = List.of();
         }
 
@@ -190,7 +189,7 @@ import com.varmateo.yawg.util.GlobMatcher;
             _templateName = defaults.templateName;
             _filesToExclude = defaults.filesToExclude;
             _bakerTypes = defaults.bakerTypes;
-            _pageVarsBuilder = PageVars.builder(defaults.pageVars);
+            _pageVarsBuilder = PageVarsBuilder.create(defaults.pageVars);
             _extraDirsHere = defaults.extraDirsHere;
         }
 
@@ -339,7 +338,7 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public  Builder setPageVars(final PageVars pageVars) {
 
-            _pageVarsBuilder = PageVars.builder(pageVars);
+            _pageVarsBuilder = PageVarsBuilder.create(pageVars);
 
             return this;
         }
