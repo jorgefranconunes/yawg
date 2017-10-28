@@ -52,7 +52,7 @@
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>          _body = Objects.requireNonNull(builder._body);
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>          _pageUrl = Objects.requireNonNull(builder._pageUrl);
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>          _pageVars =
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>                  (builder._pageVars!=<strong class="jxr_keyword">null</strong>) ? builder._pageVars: <strong class="jxr_keyword">new</strong> PageVars();
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>                  (builder._pageVars!=<strong class="jxr_keyword">null</strong>) ? builder._pageVars: PageVars.empty();
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>          _productName = YawgInfo.PRODUCT_NAME;
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>          _rootRelativeUrl = Objects.requireNonNull(builder._rootRelativeUrl);
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>          _title = Objects.requireNonNull(builder._title);

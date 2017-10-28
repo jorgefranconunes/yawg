@@ -44,7 +44,7 @@ public final class TemplateDataModel {
 <span class="nc" id="L44">        _body = Objects.requireNonNull(builder._body);</span>
 <span class="nc" id="L45">        _pageUrl = Objects.requireNonNull(builder._pageUrl);</span>
 <span class="nc" id="L46">        _pageVars =</span>
-<span class="nc bnc" id="L47" title="All 2 branches missed.">                (builder._pageVars!=null) ? builder._pageVars: new PageVars();</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">                (builder._pageVars!=null) ? builder._pageVars: PageVars.empty();</span>
 <span class="nc" id="L48">        _productName = YawgInfo.PRODUCT_NAME;</span>
 <span class="nc" id="L49">        _rootRelativeUrl = Objects.requireNonNull(builder._rootRelativeUrl);</span>
 <span class="nc" id="L50">        _title = Objects.requireNonNull(builder._title);</span>

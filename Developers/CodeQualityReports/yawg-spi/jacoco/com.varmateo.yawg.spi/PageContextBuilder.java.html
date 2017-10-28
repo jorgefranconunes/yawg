@@ -8,6 +8,7 @@ package com.varmateo.yawg.spi;
 
 import com.varmateo.yawg.spi.PageContextBuilder;
 import com.varmateo.yawg.spi.PageVars;
+import com.varmateo.yawg.spi.PageVarsBuilder;
 import com.varmateo.yawg.spi.Template;
 import java.nio.file.Path;
 import java.util.Objects;
@@ -24,31 +25,31 @@ public final class PageContextBuilder {
     private String _dirUrl;
     private Function&lt;Path,Optional&lt;Template&gt;&gt; _templateFetcher;
     private String _rootRelativeUrl;
-    private PageVars.Builder _pageVarsBuilder;
+    private PageVarsBuilder _pageVarsBuilder;
 
 
     /**
      *
      */
-<span class="fc" id="L33">    private PageContextBuilder() {</span>
+<span class="fc" id="L34">    private PageContextBuilder() {</span>
 
-<span class="fc" id="L35">        _dirUrl = null;</span>
-<span class="fc" id="L36">        _templateFetcher = (path -&gt; Optional.empty());</span>
-<span class="fc" id="L37">        _rootRelativeUrl = null;</span>
-<span class="fc" id="L38">        _pageVarsBuilder = PageVars.builder();</span>
-<span class="fc" id="L39">    }</span>
+<span class="fc" id="L36">        _dirUrl = null;</span>
+<span class="fc" id="L37">        _templateFetcher = (path -&gt; Optional.empty());</span>
+<span class="fc" id="L38">        _rootRelativeUrl = null;</span>
+<span class="fc" id="L39">        _pageVarsBuilder = PageVarsBuilder.create();</span>
+<span class="fc" id="L40">    }</span>
 
 
     /**
      *
      */
-<span class="nc" id="L45">    private PageContextBuilder(final PageContext data) {</span>
+<span class="nc" id="L46">    private PageContextBuilder(final PageContext data) {</span>
 
-<span class="nc" id="L47">        _dirUrl = data.getDirUrl();</span>
-<span class="nc" id="L48">        _templateFetcher = data::getTemplateFor;</span>
-<span class="nc" id="L49">        _rootRelativeUrl = data.getRootRelativeUrl();</span>
-<span class="nc" id="L50">        _pageVarsBuilder = PageVars.builder(data.getPageVars());</span>
-<span class="nc" id="L51">    }</span>
+<span class="nc" id="L48">        _dirUrl = data.getDirUrl();</span>
+<span class="nc" id="L49">        _templateFetcher = data::getTemplateFor;</span>
+<span class="nc" id="L50">        _rootRelativeUrl = data.getRootRelativeUrl();</span>
+<span class="nc" id="L51">        _pageVarsBuilder = PageVarsBuilder.create(data.getPageVars());</span>
+<span class="nc" id="L52">    }</span>
 
 
     /**
@@ -58,7 +59,7 @@ public final class PageContextBuilder {
      */
     public static PageContextBuilder create() {
 
-<span class="fc" id="L61">        return new PageContextBuilder();</span>
+<span class="fc" id="L62">        return new PageContextBuilder();</span>
     }
 
 
@@ -74,7 +75,7 @@ public final class PageContextBuilder {
      */
     public static PageContextBuilder create(final PageContext initialData) {
 
-<span class="nc" id="L77">        return new PageContextBuilder(initialData);</span>
+<span class="nc" id="L78">        return new PageContextBuilder(initialData);</span>
     }
 
 
@@ -83,8 +84,8 @@ public final class PageContextBuilder {
      */
     public PageContextBuilder setDirUrl(final String dirUrl) {
 
-<span class="fc" id="L86">        _dirUrl = dirUrl;</span>
-<span class="fc" id="L87">        return this;</span>
+<span class="fc" id="L87">        _dirUrl = dirUrl;</span>
+<span class="fc" id="L88">        return this;</span>
     }
 
 
@@ -97,8 +98,8 @@ public final class PageContextBuilder {
     public PageContextBuilder setTemplateFetcher(
             final Function&lt;Path,Optional&lt;Template&gt;&gt; templateFetcher) {
 
-<span class="nc" id="L100">        _templateFetcher = templateFetcher;</span>
-<span class="nc" id="L101">        return this;</span>
+<span class="nc" id="L101">        _templateFetcher = templateFetcher;</span>
+<span class="nc" id="L102">        return this;</span>
     }
 
 
@@ -107,8 +108,8 @@ public final class PageContextBuilder {
      */
     public PageContextBuilder setRootRelativeUrl(final String rootRelativeUrl) {
 
-<span class="fc" id="L110">        _rootRelativeUrl = rootRelativeUrl;</span>
-<span class="fc" id="L111">        return this;</span>
+<span class="fc" id="L111">        _rootRelativeUrl = rootRelativeUrl;</span>
+<span class="fc" id="L112">        return this;</span>
     }
 
 
@@ -117,8 +118,8 @@ public final class PageContextBuilder {
      */
     public PageContextBuilder setPageVars(final PageVars pageVars) {
 
-<span class="nc" id="L120">        _pageVarsBuilder = PageVars.builder(pageVars);</span>
-<span class="nc" id="L121">        return this;</span>
+<span class="nc" id="L121">        _pageVarsBuilder = PageVarsBuilder.create(pageVars);</span>
+<span class="nc" id="L122">        return this;</span>
     }
 
 
@@ -135,8 +136,8 @@ public final class PageContextBuilder {
      */
     public PageContextBuilder addPageVars(final PageVars pageVars) {
 
-<span class="nc" id="L138">        _pageVarsBuilder.addPageVars(pageVars);</span>
-<span class="nc" id="L139">        return this;</span>
+<span class="nc" id="L139">        _pageVarsBuilder.addPageVars(pageVars);</span>
+<span class="nc" id="L140">        return this;</span>
     }
 
 
@@ -155,8 +156,8 @@ public final class PageContextBuilder {
             final String varName,
             final Object varValue) {
 
-<span class="nc" id="L158">        _pageVarsBuilder.addVar(varName, varValue);</span>
-<span class="nc" id="L159">        return this;</span>
+<span class="nc" id="L159">        _pageVarsBuilder.addVar(varName, varValue);</span>
+<span class="nc" id="L160">        return this;</span>
     }
 
 
@@ -168,7 +169,7 @@ public final class PageContextBuilder {
      */
     public PageContext build() {
 
-<span class="fc" id="L171">        return new PageContextImpl(this);</span>
+<span class="fc" id="L172">        return new PageContextImpl(this);</span>
     }
 
 
@@ -188,13 +189,13 @@ public final class PageContextBuilder {
         /**
          *
          */
-<span class="fc" id="L191">        private PageContextImpl(final PageContextBuilder builder) {</span>
+<span class="fc" id="L192">        private PageContextImpl(final PageContextBuilder builder) {</span>
 
-<span class="fc" id="L193">            _dirUrl = Objects.requireNonNull(builder._dirUrl);</span>
-<span class="fc" id="L194">            _templateFetcher = builder._templateFetcher;</span>
-<span class="fc" id="L195">            _rootRelativeUrl = Objects.requireNonNull(builder._rootRelativeUrl);</span>
-<span class="fc" id="L196">            _pageVars = builder._pageVarsBuilder.build();</span>
-<span class="fc" id="L197">        }</span>
+<span class="fc" id="L194">            _dirUrl = Objects.requireNonNull(builder._dirUrl);</span>
+<span class="fc" id="L195">            _templateFetcher = builder._templateFetcher;</span>
+<span class="fc" id="L196">            _rootRelativeUrl = Objects.requireNonNull(builder._rootRelativeUrl);</span>
+<span class="fc" id="L197">            _pageVars = builder._pageVarsBuilder.build();</span>
+<span class="fc" id="L198">        }</span>
 
 
         /**
@@ -202,7 +203,7 @@ public final class PageContextBuilder {
          */
         @Override
         public String getDirUrl() {
-<span class="fc" id="L205">            return _dirUrl;</span>
+<span class="fc" id="L206">            return _dirUrl;</span>
         }
 
 
@@ -211,7 +212,7 @@ public final class PageContextBuilder {
          */
         @Override
         public Optional&lt;Template&gt; getTemplateFor(final Path path) {
-<span class="fc" id="L214">            return _templateFetcher.apply(path);</span>
+<span class="fc" id="L215">            return _templateFetcher.apply(path);</span>
         }
 
 
@@ -220,7 +221,7 @@ public final class PageContextBuilder {
          */
         @Override
         public PageVars getPageVars() {
-<span class="fc" id="L223">            return _pageVars;</span>
+<span class="fc" id="L224">            return _pageVars;</span>
         }
 
 
@@ -229,7 +230,7 @@ public final class PageContextBuilder {
          */
         @Override
         public String getRootRelativeUrl() {
-<span class="fc" id="L232">            return _rootRelativeUrl;</span>
+<span class="fc" id="L233">            return _rootRelativeUrl;</span>
         }
 
     }

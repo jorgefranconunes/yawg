@@ -7,7 +7,6 @@
 package com.varmateo.yawg.spi;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -18,28 +17,7 @@ import java.util.Optional;
  *
  * &lt;p&gt;The meaning of this variables is template specific.&lt;/p&gt;
  */
-public final class PageVars {
-
-
-    private final Map&lt;String,Object&gt; _map;
-
-
-    /**
-     *
-     */
-<span class="fc" id="L30">    private PageVars(final Builder builder) {</span>
-
-<span class="fc" id="L32">        _map = Collections.unmodifiableMap(new HashMap&lt;&gt;(builder._map));</span>
-<span class="fc" id="L33">    }</span>
-
-
-    /**
-     * Initializes an empty set of variables.
-     */
-<span class="fc" id="L39">    public PageVars() {</span>
-
-<span class="fc" id="L41">        _map = Collections.emptyMap();</span>
-<span class="fc" id="L42">    }</span>
+public interface PageVars {
 
 
     /**
@@ -52,136 +30,38 @@ public final class PageVars {
      * given variable, or nan empty &lt;code&gt;Optional&lt;/code&gt; if the
      * variable does not exist.
      */
-    public Optional&lt;Object&gt; get(final String key) {
-
-<span class="fc" id="L57">        Object value = _map.get(key);</span>
-
-<span class="fc" id="L59">        return Optional.ofNullable(value);</span>
-    }
+    Optional&lt;Object&gt; get(String key);
 
 
     /**
-     * Fetches a view of the set of vars as an unmodifiable map.
+     * Fetches a view of the set of page variables as an unmodifiable
+     * map.
      *
      * @return An unmodifiable map containing all the vars. Each entry
-     * is one var.
+     * corresponds to one page variable.
      */
-    public Map&lt;String,Object&gt; asMap() {
-
-<span class="fc" id="L71">        return _map;</span>
-    }
+    Map&lt;String,Object&gt; asMap();
 
 
     /**
-     * Creates a new builder with no initializations.
+     * Creates an empty &lt;code&gt;PageVars&lt;/code&gt;.
      *
-     * @return A newly created &lt;code&gt;Builder&lt;/code&gt; instance.
+     * @return An empty &lt;code&gt;PageVars&lt;/code&gt;.
      */
-    public static Builder builder() {
+    static PageVars empty() {
 
-<span class="fc" id="L82">        return new Builder();</span>
+<span class="fc" id="L53">        return new PageVars() {</span>
+            @Override
+            public Optional&lt;Object&gt; get(final String key) {
+<span class="fc" id="L56">                return Optional.empty();</span>
+            }
+
+            @Override
+            public Map&lt;String,Object&gt; asMap() {
+<span class="fc" id="L61">                return Collections.emptyMap();</span>
+            }
+        };
     }
-
-
-    /**
-     * Creates a new builder initialized with the data from the given
-     * &lt;code&gt;PageVars&lt;/code&gt;.
-     *
-     * @param data Used for initializing the builder state.
-     *
-     * @return A newly created &lt;code&gt;Builder&lt;/code&gt; instance.
-     */
-    public static Builder builder(final Map&lt;String,Object&gt; data) {
-
-<span class="fc" id="L96">        return new Builder(data);</span>
-    }
-
-
-    /**
-     * Creates a new builder initialized with the data from the given
-     * &lt;code&gt;PageVars&lt;/code&gt;.
-     *
-     * @param data Used for initializing the builder state.
-     *
-     * @return A newly created &lt;code&gt;Builder&lt;/code&gt; instance.
-     */
-    public static Builder builder(final PageVars data) {
-
-<span class="fc" id="L110">        return new Builder(data);</span>
-    }
-
-
-    /**
-     * A builder of &lt;code&gt;PageVars&lt;/code&gt; instances.
-     */
-    public static final class Builder {
-
-
-        private Map&lt;String,Object&gt; _map;
-
-
-        /**
-         *
-         */
-<span class="fc" id="L126">        private Builder() {</span>
-
-<span class="fc" id="L128">            _map = new HashMap&lt;&gt;();</span>
-<span class="fc" id="L129">        }</span>
-
-
-        /**
-         *
-         */
-<span class="fc" id="L135">        private Builder(final Map&lt;String,Object&gt; map) {</span>
-
-<span class="fc" id="L137">            _map = new HashMap&lt;&gt;(map);</span>
-<span class="fc" id="L138">        }</span>
-
-
-        /**
-         *
-         */
-<span class="fc" id="L144">        private Builder(final PageVars vars) {</span>
-
-<span class="fc" id="L146">            _map = new HashMap&lt;&gt;(vars._map);</span>
-<span class="fc" id="L147">        }</span>
-
-
-        /**
-         *
-         */
-        public Builder addVar(
-                final String varName,
-                final Object varValue) {
-
-<span class="fc" id="L157">            _map.put(varName, varValue);</span>
-
-<span class="fc" id="L159">            return this;</span>
-        }
-
-
-        /**
-         *
-         */
-        public Builder addPageVars(final PageVars that) {
-
-<span class="fc" id="L168">            _map.putAll(that._map);</span>
-
-<span class="fc" id="L170">            return this;</span>
-        }
-
-
-        /**
-         *
-         */
-        public PageVars build() {
-
-<span class="fc" id="L179">            return new PageVars(this);</span>
-        }
-
-
-    }
-
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

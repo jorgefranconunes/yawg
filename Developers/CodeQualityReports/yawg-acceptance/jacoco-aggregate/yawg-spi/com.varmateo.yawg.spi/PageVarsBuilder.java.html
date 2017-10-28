@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>PageVarsBuilder.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-spi</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.spi</a> &gt; <span class="el_source">PageVarsBuilder.java</span></div><h1>PageVarsBuilder.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.spi;
+
+import com.varmateo.yawg.spi.PageVars;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
+
+/**
+ * A builder of &lt;code&gt;PageVars&lt;/code&gt; instances.
+ */
+public final class PageVarsBuilder {
+
+
+    private final Map&lt;String,Object&gt; _map;
+
+
+    /**
+     *
+     */
+<span class="fc" id="L28">    private PageVarsBuilder(final Map&lt;String,Object&gt; map) {</span>
+
+<span class="fc" id="L30">        _map = new HashMap&lt;&gt;(map);</span>
+<span class="fc" id="L31">    }</span>
+
+
+    /**
+     * Creates a new empty builder.
+     *
+     * @return A newly created &lt;code&gt;Builder&lt;/code&gt; instance.
+     */
+    public static PageVarsBuilder create() {
+
+<span class="fc" id="L41">        return new PageVarsBuilder(Collections.emptyMap());</span>
+    }
+
+
+    /**
+     * Creates a new builder initialized with the data from the given
+     * map.
+     *
+     * @param data Used for initializing the builder state.
+     *
+     * @return A newly created &lt;code&gt;Builder&lt;/code&gt; instance.
+     */
+    public static PageVarsBuilder create(final Map&lt;String,Object&gt; data)
+    {
+<span class="fc" id="L55">        return new PageVarsBuilder(data);</span>
+    }
+
+
+    /**
+     * Creates a new builder initialized with the data from the given
+     * &lt;code&gt;PageVars&lt;/code&gt;.
+     *
+     * @param pageVars Used for initializing the builder state.
+     *
+     * @return A newly created &lt;code&gt;Builder&lt;/code&gt; instance.
+     */
+    public static PageVarsBuilder create(final PageVars pageVars)
+    {
+<span class="fc" id="L69">        return new PageVarsBuilder(pageVars.asMap());</span>
+    }
+
+
+    /**
+     * Adds or updates a page variable variable.
+     */
+    public PageVarsBuilder addVar(
+            final String varName,
+            final Object varValue) {
+
+<span class="fc" id="L80">        _map.put(varName, varValue);</span>
+<span class="fc" id="L81">        return this;</span>
+    }
+
+
+    /**
+     * Adds to this builder all the variables contained in the
+     * given &lt;code&gt;PageVars&lt;/code&gt;.
+     */
+    public PageVarsBuilder addPageVars(final PageVars pageVars) {
+
+<span class="fc" id="L91">        _map.putAll(pageVars.asMap());</span>
+<span class="fc" id="L92">        return this;</span>
+    }
+
+
+    /**
+     * Creates a new &lt;code&gt;PageVars&lt;/code&gt; instance that containing
+     * the data currently in this builder.
+     *
+     * @return A new &lt;code&gt;PageVars&lt;/code&gt; instance.
+     */
+    public PageVars build() {
+
+<span class="fc" id="L104">        return new PageVarsImpl(_map);</span>
+    }
+
+
+    /**
+     *
+     */
+    private static final class PageVarsImpl
+            implements PageVars {
+
+
+        private final Map&lt;String,Object&gt; _map;
+
+
+        /**
+         *
+         */
+<span class="nc" id="L121">        private PageVarsImpl() {</span>
+
+<span class="nc" id="L123">            _map = Collections.emptyMap();</span>
+<span class="nc" id="L124">        }</span>
+
+
+        /**
+         *
+         */
+<span class="fc" id="L130">        private PageVarsImpl(final Map&lt;String,Object&gt; data) {</span>
+
+<span class="fc" id="L132">            _map = Collections.unmodifiableMap(data);</span>
+<span class="fc" id="L133">        }</span>
+
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public Optional&lt;Object&gt; get(final String key) {
+
+<span class="fc" id="L142">            Object value = _map.get(key);</span>
+<span class="fc" id="L143">            return Optional.ofNullable(value);</span>
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public Map&lt;String,Object&gt; asMap() {
+
+<span class="fc" id="L153">            return _map;</span>
+        }
+
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

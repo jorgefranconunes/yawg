@@ -52,11 +52,11 @@ Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,SingleSiteBaker,0,150,0,0
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DirEntryScanner,30,36,6,2,0,9,4,3,0,3
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,SiteBakerDomain,0,177,0,0,0,51,0,14,0,14
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,AssetsCopier.new SimpleFileVisitor() {...},0,51,0,2,0,9,0,4,0,3
-Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DirBakerConf.Builder,0,223,0,0,0,61,0,23,0,23
+Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DirBakerConf.Builder,0,219,0,0,0,61,0,23,0,23
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,BakerMatcher.Entry,0,9,0,0,0,4,0,1,0,1
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,CoreSiteBakerFactory,0,8,0,0,0,2,0,2,0,2
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,BakerMatcher.Builder,6,66,0,0,3,16,1,8,1,8
-Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DirBaker,2,287,0,8,0,74,0,18,0,14
+Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DirBaker,2,285,0,8,0,74,0,18,0,14
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,TemplateNameMatcher,18,15,0,0,4,7,3,2,3,2
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,FileBaker,29,100,2,0,4,26,4,7,3,7
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,TemplateNameMatcher.Builder,21,0,0,0,6,0,3,0,3,0
@@ -74,10 +74,12 @@ Yawg acceptance tests/yawg-core,com.varmateo.yawg.breadcrumbs,BreadcrumbItem,6,9
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.breadcrumbs,Breadcrumbs,3,22,0,0,1,6,1,4,1,4
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.breadcrumbs,Breadcrumbs.Builder,0,30,0,0,0,9,0,4,0,4
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.breadcrumbs,BreadcrumbsBakeListenerFactory,0,7,0,0,0,2,0,2,0,2
+Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,PageVarsBuilder.PageVarsImpl,6,18,0,0,3,6,1,3,1,3
+Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,PageVars.new PageVars() {...},0,7,0,0,0,3,0,3,0,3
 Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,TemplateDataModel.Builder,0,72,0,0,0,22,0,8,0,8
 Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,PageContextBuilder,0,92,0,0,0,27,0,12,0,12
 Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,PageContextBuilder.PageContextImpl,0,42,0,0,0,10,0,5,0,5
-Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,TemplateDataModel,15,73,0,2,5,18,5,7,5,6
-Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,PageVars,0,45,0,0,0,12,0,7,0,7
-Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,PageVars.Builder,0,48,0,0,0,14,0,6,0,6
+Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,TemplateDataModel,15,71,0,2,5,18,5,7,5,6
+Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,PageVarsBuilder,0,47,0,0,0,11,0,7,0,7
+Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,PageVars,0,4,0,0,0,1,0,1,0,1
 Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,TemplateDataModel.Author,0,15,0,0,0,6,0,3,0,3
