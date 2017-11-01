@@ -6,25 +6,22 @@
 
 package com.varmateo.yawg.freemarker;
 
+import com.varmateo.yawg.api.YawgException;
+import com.varmateo.yawg.spi.Template;
+import com.varmateo.yawg.spi.TemplateDataModel;
+import com.varmateo.yawg.spi.TemplateDataModelBuilder;
+import com.varmateo.yawg.spi.TemplateService;
+import com.varmateo.yawg.freemarker.FreemarkerTemplateService;
+import com.varmateo.testutils.TestUtils;
+import freemarker.template.TemplateException;
 import java.io.StringWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
+import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
-import org.junit.Test;
-
-import freemarker.template.TemplateException;
-
-import com.varmateo.testutils.TestUtils;
-
-import com.varmateo.yawg.api.YawgException;
-import com.varmateo.yawg.spi.Template;
-import com.varmateo.yawg.spi.TemplateDataModel;
-import com.varmateo.yawg.spi.TemplateService;
-import com.varmateo.yawg.freemarker.FreemarkerTemplateService;
 
 
 /**
@@ -101,7 +98,7 @@ public final class FreemarkerTemplateServiceTest
         String title = "Simple title";
         String body = "Hello, world!";
         TemplateDataModel model =
-                TemplateDataModel.builder()
+                TemplateDataModelBuilder.create()
                 .setBody(body)
                 .setPageUrl("MyPage.html")
                 .setRootRelativeUrl(".")
@@ -124,17 +121,15 @@ public final class FreemarkerTemplateServiceTest
     @Test
     public void processTemplateNotOk() {
 
-        Path templatesDir =
-                TestUtils.getPath(
-                        FreemarkerTemplateService.class,
-                        TEMPLATE_DIR_OK);
+        Path templatesDir = TestUtils.getPath(
+                FreemarkerTemplateService.class,
+                TEMPLATE_DIR_OK);
         TemplateService service = FreemarkerTemplateService.build(templatesDir);
         Template template = service.getTemplate("template03.ftlh").get();
 
         String title = "Simple title";
         String body = "Hello, world!";
-        TemplateDataModel model =
-                TemplateDataModel.builder()
+        TemplateDataModel model = TemplateDataModelBuilder.create()
                 .setBody(body)
                 .setPageUrl("MyPage.html")
                 .setRootRelativeUrl(".")

@@ -6,21 +6,19 @@
 
 package com.varmateo.yawg.asciidoctor;
 
-import java.io.IOException;
-import java.nio.file.Path;
-
+import com.varmateo.yawg.spi.PageContext;
+import com.varmateo.yawg.spi.TemplateDataModel;
+import com.varmateo.yawg.spi.TemplateDataModelBuilder;
+import com.varmateo.yawg.util.FileUtils;
 import io.vavr.collection.List;
 import io.vavr.control.Option;
-
+import java.io.IOException;
+import java.nio.file.Path;
 import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.OptionsBuilder;
 import org.asciidoctor.ast.Author;
 import org.asciidoctor.ast.DocumentHeader;
 import org.asciidoctor.internal.AsciidoctorCoreException;
-
-import com.varmateo.yawg.spi.PageContext;
-import com.varmateo.yawg.spi.TemplateDataModel;
-import com.varmateo.yawg.util.FileUtils;
 
 
 /**
@@ -64,8 +62,8 @@ import com.varmateo.yawg.util.FileUtils;
                 .flatMap(t -> Option.of(t.getMain()))
                 .getOrElse(() -> FileUtils.basename(sourcePath));
 
-        TemplateDataModel.Builder modelBuilder =
-                TemplateDataModel.builder()
+        TemplateDataModelBuilder modelBuilder =
+                TemplateDataModelBuilder.create()
                 .setTitle(title)
                 .setBody(body)
                 .setPageUrl(pageUrl)
@@ -81,7 +79,7 @@ import com.varmateo.yawg.util.FileUtils;
      *
      */
     private void buildAuthors(
-            final TemplateDataModel.Builder modelBuilder,
+            final TemplateDataModelBuilder modelBuilder,
             final DocumentHeader header) {
 
         java.util.List<Author> authors = header.getAuthors();

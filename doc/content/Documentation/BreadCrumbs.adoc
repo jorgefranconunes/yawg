@@ -57,7 +57,7 @@ variable should be defined through the `pageVarsHere` baking
 parameter.
 
 Definining the `breadcrumb` page variable will modify the value of the
-bredcrumb item in the `bredcrumbs` list corresponding to the current
+breadcrumb item in the `breadcrumbs` list corresponding to the current
 directory.
 
 

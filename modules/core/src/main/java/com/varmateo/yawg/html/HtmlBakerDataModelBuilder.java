@@ -6,18 +6,16 @@
 
 package com.varmateo.yawg.html;
 
+import com.varmateo.yawg.spi.PageContext;
+import com.varmateo.yawg.spi.TemplateDataModel;
+import com.varmateo.yawg.spi.TemplateDataModelBuilder;
+import com.varmateo.yawg.util.FileUtils;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-
-import com.varmateo.yawg.spi.PageContext;
-import com.varmateo.yawg.spi.TemplateDataModel;
-
-import com.varmateo.yawg.util.FileUtils;
 
 
 /**
@@ -64,7 +62,7 @@ final class HtmlBakerDataModelBuilder {
                 .map(Element::text)
                 .orElseGet(() -> FileUtils.basename(sourcePath));
 
-        return TemplateDataModel.builder()
+        return TemplateDataModelBuilder.create()
                 .setTitle(title)
                 .setBody(body)
                 .setPageUrl(pageUrl)
