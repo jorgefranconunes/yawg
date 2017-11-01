@@ -25,8 +25,8 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2015 - 2017</copyright>
     <item>
-      <title>File: 13,
-             Errors: 41,
+      <title>File: 14,
+             Errors: 45,
              Warnings: 0,
              Infos: 0
       </title>
@@ -44,6 +44,20 @@ under the License.
             </tr>
           </thead>
           <tbody>
+                          <tr>
+                <td>
+                  <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.TemplateDataModelBuilder.java">com/varmateo/yawg/spi/TemplateDataModelBuilder.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  15
+                </td>
+              </tr>
                           <tr>
                 <td>
                   <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.TemplateServiceFactory.java">com/varmateo/yawg/spi/TemplateServiceFactory.java</a>
@@ -111,7 +125,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  24
+                  13
                 </td>
               </tr>
                           <tr>

@@ -76,10 +76,10 @@ Yawg acceptance tests/yawg-core,com.varmateo.yawg.breadcrumbs,Breadcrumbs.Builde
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.breadcrumbs,BreadcrumbsBakeListenerFactory,0,7,0,0,0,2,0,2,0,2
 Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,PageVarsBuilder.PageVarsImpl,6,18,0,0,3,6,1,3,1,3
 Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,PageVars.new PageVars() {...},0,7,0,0,0,3,0,3,0,3
-Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,TemplateDataModel.Builder,0,72,0,0,0,22,0,8,0,8
+Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,TemplateDataModelBuilder,0,72,0,0,0,23,0,9,0,9
 Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,PageContextBuilder,0,92,0,0,0,27,0,12,0,12
+Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,TemplateDataModelBuilder.TemplateDataModelImpl,15,66,0,2,5,17,5,6,5,5
 Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,PageContextBuilder.PageContextImpl,0,42,0,0,0,10,0,5,0,5
-Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,TemplateDataModel,15,71,0,2,5,18,5,7,5,6
 Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,PageVarsBuilder,0,47,0,0,0,11,0,7,0,7
 Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,PageVars,0,4,0,0,0,1,0,1,0,1
-Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,TemplateDataModel.Author,0,15,0,0,0,6,0,3,0,3
+Yawg acceptance tests/yawg-spi,com.varmateo.yawg.spi,TemplateDataModel.Author,0,21,0,0,0,7,0,4,0,4

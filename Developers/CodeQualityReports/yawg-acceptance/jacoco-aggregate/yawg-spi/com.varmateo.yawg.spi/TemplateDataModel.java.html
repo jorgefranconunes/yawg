@@ -6,67 +6,26 @@
 
 package com.varmateo.yawg.spi;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
-
-import com.varmateo.yawg.api.YawgInfo;
 import com.varmateo.yawg.spi.PageVars;
 
 
 /**
  * Data available to a template during processing.
  */
-public final class TemplateDataModel {
-
-
-    private final List&lt;Author&gt; _authors;
-    private final String _bakeId;
-    private final String _body;
-    private final String _pageUrl;
-    private final PageVars _pageVars;
-    private final String _productName;
-    private final String _rootRelativeUrl;
-    private final String _title;
-    private final String _version;
-
-
-    /**
-     *
-     */
-<span class="fc" id="L39">    private TemplateDataModel(final Builder builder) {</span>
-
-<span class="fc" id="L41">        _authors =</span>
-<span class="fc" id="L42">                Collections.unmodifiableList(new ArrayList&lt;&gt;(builder._authors));</span>
-<span class="fc" id="L43">        _bakeId = UUID.randomUUID().toString();</span>
-<span class="fc" id="L44">        _body = Objects.requireNonNull(builder._body);</span>
-<span class="fc" id="L45">        _pageUrl = Objects.requireNonNull(builder._pageUrl);</span>
-<span class="fc" id="L46">        _pageVars =</span>
-<span class="fc bfc" id="L47" title="All 2 branches covered.">                (builder._pageVars!=null) ? builder._pageVars: PageVars.empty();</span>
-<span class="fc" id="L48">        _productName = YawgInfo.PRODUCT_NAME;</span>
-<span class="fc" id="L49">        _rootRelativeUrl = Objects.requireNonNull(builder._rootRelativeUrl);</span>
-<span class="fc" id="L50">        _title = Objects.requireNonNull(builder._title);</span>
-<span class="fc" id="L51">        _version = YawgInfo.VERSION;</span>
-<span class="fc" id="L52">    }</span>
+public interface TemplateDataModel {
 
 
     /**
      * The authors of the document. It may be an empty list.
      */
-    public Iterable&lt;Author&gt; getAuthors() {
-<span class="fc" id="L59">        return _authors;</span>
-    }
+    Iterable&lt;Author&gt; getAuthors();
 
 
     /**
      * Randomly generated unique bake identifier. Each bake will have
      * a different identifier.
      */
-    public String getBakeId() {
-<span class="nc" id="L68">        return _bakeId;</span>
-    }
+    String getBakeId();
 
 
     /**
@@ -75,180 +34,46 @@ public final class TemplateDataModel {
      * &lt;code&gt;&amp;lt;body&amp;gt;&lt;/code&gt; tag, or any other block level
      * element.
      */
-    public String getBody() {
-<span class="fc" id="L79">        return _body;</span>
-    }
+    String getBody();
 
 
     /**
      * The URL of the page being baked relative to the root directory
      * of the site.
      */
-    public String getPageUrl() {
-<span class="nc" id="L88">        return _pageUrl;</span>
-    }
+    String getPageUrl();
 
 
     /**
      * Set of variables available to the page template. These
      * variables are immutable.
      */
-    public PageVars getPageVars() {
-<span class="fc" id="L97">        return _pageVars;</span>
-    }
+    PageVars getPageVars();
 
 
     /**
      * A fixed string with the Yawg product name.
      */
-    public String getProductName() {
-<span class="nc" id="L105">        return _productName;</span>
-    }
+    String getProductName();
 
 
     /**
      * The URL of the root directory of the site being baked relative
      * to the document about to be baked.
      */
-    public String getRootRelativeUrl() {
-<span class="nc" id="L114">        return _rootRelativeUrl;</span>
-    }
+    String getRootRelativeUrl();
 
 
     /**
      * The title of the document, as extracted from its source.
      */
-    public String getTitle() {
-<span class="fc" id="L122">        return _title;</span>
-    }
+    String getTitle();
 
 
     /**
      * The version of the Yawg software being used.
      */
-    public String getVersion() {
-<span class="nc" id="L130">        return _version;</span>
-    }
-
-
-    /**
-     *
-     */
-    public static Builder builder() {
-
-<span class="fc" id="L139">        return new Builder();</span>
-    }
-
-
-    /**
-     * Builder of &lt;code&gt;TemplateDataModel&lt;/code&gt; instances.
-     */
-    public static final class Builder {
-
-
-        private List&lt;Author&gt; _authors;
-        private String _body;
-        private String _pageUrl;
-        private String _rootRelativeUrl;
-        private PageVars _pageVars;
-        private String _title;
-
-
-        /**
-         *
-         */
-<span class="fc" id="L160">        private Builder() {</span>
-
-<span class="fc" id="L162">            _authors = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L163">            _body = null;</span>
-<span class="fc" id="L164">            _pageUrl = null;</span>
-<span class="fc" id="L165">            _rootRelativeUrl = null;</span>
-<span class="fc" id="L166">            _pageVars = null;</span>
-<span class="fc" id="L167">            _title = null;</span>
-<span class="fc" id="L168">        }</span>
-
-
-        /**
-         *
-         */
-        public Builder addAuthor(
-                final String name,
-                final String email) {
-
-<span class="fc" id="L178">            Author author = new Author(name, email);</span>
-
-<span class="fc" id="L180">            _authors.add(author);</span>
-
-<span class="fc" id="L182">            return this;</span>
-        }
-
-
-        /**
-         *
-         */
-        public Builder setBody(final String body) {
-
-<span class="fc" id="L191">            _body = Objects.requireNonNull(body);</span>
-
-<span class="fc" id="L193">            return this;</span>
-        }
-
-
-        /**
-         *
-         */
-        public Builder setPageUrl(final String pageUrl) {
-
-<span class="fc" id="L202">            _pageUrl = pageUrl;</span>
-
-<span class="fc" id="L204">            return this;</span>
-        }
-
-
-        /**
-         *
-         */
-        public Builder setRootRelativeUrl(
-                final String rootRelativeUrl) {
-
-<span class="fc" id="L214">            _rootRelativeUrl = rootRelativeUrl;</span>
-
-<span class="fc" id="L216">            return this;</span>
-        }
-
-
-        /**
-         *
-         */
-        public Builder setPageVars(final PageVars pageVars) {
-
-<span class="fc" id="L225">            _pageVars = pageVars;</span>
-
-<span class="fc" id="L227">            return this;</span>
-        }
-
-
-        /**
-         *
-         */
-        public Builder setTitle(final String title) {
-
-<span class="fc" id="L236">            _title = Objects.requireNonNull(title);</span>
-
-<span class="fc" id="L238">            return this;</span>
-        }
-
-
-        /**
-         *
-         */
-        public TemplateDataModel build() {
-
-<span class="fc" id="L247">            return new TemplateDataModel(this);</span>
-        }
-
-
-    }
+    String getVersion();
 
 
     /**
@@ -266,11 +91,22 @@ public final class TemplateDataModel {
          */
         private Author(
                 final String name,
-<span class="fc" id="L269">                final String email) {</span>
+<span class="fc" id="L94">                final String email) {</span>
 
-<span class="fc" id="L271">            _name = name;</span>
-<span class="fc" id="L272">            _email = email;</span>
-<span class="fc" id="L273">        }</span>
+<span class="fc" id="L96">            _name = name;</span>
+<span class="fc" id="L97">            _email = email;</span>
+<span class="fc" id="L98">        }</span>
+
+
+        /**
+         *
+         */
+        public static Author create(
+                final String name,
+                final String email) {
+
+<span class="fc" id="L108">            return new Author(name, email);</span>
+        }
 
 
         /**
@@ -278,7 +114,7 @@ public final class TemplateDataModel {
          */
         public String getName() {
 
-<span class="fc" id="L281">            return _name;</span>
+<span class="fc" id="L117">            return _name;</span>
         }
 
 
@@ -287,7 +123,7 @@ public final class TemplateDataModel {
          */
         public String getEmail() {
 
-<span class="fc" id="L290">            return _email;</span>
+<span class="fc" id="L126">            return _email;</span>
         }
 
 

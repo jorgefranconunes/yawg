@@ -6,18 +6,16 @@
 
 package com.varmateo.yawg.html;
 
+import com.varmateo.yawg.spi.PageContext;
+import com.varmateo.yawg.spi.TemplateDataModel;
+import com.varmateo.yawg.spi.TemplateDataModelBuilder;
+import com.varmateo.yawg.util.FileUtils;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-
-import com.varmateo.yawg.spi.PageContext;
-import com.varmateo.yawg.spi.TemplateDataModel;
-
-import com.varmateo.yawg.util.FileUtils;
 
 
 /**
@@ -34,9 +32,9 @@ final class HtmlBakerDataModelBuilder {
     /**
      *
      */
-<span class="fc" id="L37">    HtmlBakerDataModelBuilder() {</span>
+<span class="fc" id="L35">    HtmlBakerDataModelBuilder() {</span>
         // Nothing to do.
-<span class="fc" id="L39">    }</span>
+<span class="fc" id="L37">    }</span>
 
 
     /**
@@ -48,29 +46,29 @@ final class HtmlBakerDataModelBuilder {
             final PageContext context)
             throws IOException {
 
-<span class="fc" id="L51">        Optional&lt;Document&gt; document =</span>
-<span class="fc" id="L52">                Optional.of(Jsoup.parse(sourcePath.toFile(), null));</span>
-<span class="fc" id="L53">        String body =</span>
+<span class="fc" id="L49">        Optional&lt;Document&gt; document =</span>
+<span class="fc" id="L50">                Optional.of(Jsoup.parse(sourcePath.toFile(), null));</span>
+<span class="fc" id="L51">        String body =</span>
                 document
-<span class="fc" id="L55">                .map(doc -&gt; doc.getElementsByTag(TAG_BODY))</span>
-<span class="fc" id="L56">                .flatMap(elems -&gt; Optional.ofNullable(elems.first()))</span>
-<span class="fc" id="L57">                .map(Element::html)</span>
-<span class="fc" id="L58">                .orElse(&quot;&quot;);</span>
-<span class="fc" id="L59">        String pageUrl = context.getDirUrl() + &quot;/&quot; + targetPath.getFileName();</span>
-<span class="fc" id="L60">        String title =</span>
+<span class="fc" id="L53">                .map(doc -&gt; doc.getElementsByTag(TAG_BODY))</span>
+<span class="fc" id="L54">                .flatMap(elems -&gt; Optional.ofNullable(elems.first()))</span>
+<span class="fc" id="L55">                .map(Element::html)</span>
+<span class="fc" id="L56">                .orElse(&quot;&quot;);</span>
+<span class="fc" id="L57">        String pageUrl = context.getDirUrl() + &quot;/&quot; + targetPath.getFileName();</span>
+<span class="fc" id="L58">        String title =</span>
                 document
-<span class="fc" id="L62">                .map(doc -&gt; doc.getElementsByTag(TAG_TITLE))</span>
-<span class="fc" id="L63">                .flatMap(elems -&gt; Optional.ofNullable(elems.first()))</span>
-<span class="fc" id="L64">                .map(Element::text)</span>
-<span class="fc" id="L65">                .orElseGet(() -&gt; FileUtils.basename(sourcePath));</span>
+<span class="fc" id="L60">                .map(doc -&gt; doc.getElementsByTag(TAG_TITLE))</span>
+<span class="fc" id="L61">                .flatMap(elems -&gt; Optional.ofNullable(elems.first()))</span>
+<span class="fc" id="L62">                .map(Element::text)</span>
+<span class="fc" id="L63">                .orElseGet(() -&gt; FileUtils.basename(sourcePath));</span>
 
-<span class="fc" id="L67">        return TemplateDataModel.builder()</span>
-<span class="fc" id="L68">                .setTitle(title)</span>
-<span class="fc" id="L69">                .setBody(body)</span>
-<span class="fc" id="L70">                .setPageUrl(pageUrl)</span>
-<span class="fc" id="L71">                .setRootRelativeUrl(context.getRootRelativeUrl())</span>
-<span class="fc" id="L72">                .setPageVars(context.getPageVars())</span>
-<span class="fc" id="L73">                .build();</span>
+<span class="fc" id="L65">        return TemplateDataModelBuilder.create()</span>
+<span class="fc" id="L66">                .setTitle(title)</span>
+<span class="fc" id="L67">                .setBody(body)</span>
+<span class="fc" id="L68">                .setPageUrl(pageUrl)</span>
+<span class="fc" id="L69">                .setRootRelativeUrl(context.getRootRelativeUrl())</span>
+<span class="fc" id="L70">                .setPageVars(context.getPageVars())</span>
+<span class="fc" id="L71">                .build();</span>
     }
 
 
