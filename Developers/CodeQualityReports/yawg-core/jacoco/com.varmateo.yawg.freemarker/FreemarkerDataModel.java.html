@@ -6,7 +6,11 @@
 
 package com.varmateo.yawg.freemarker;
 
+import com.varmateo.yawg.api.YawgInfo;
+import com.varmateo.yawg.spi.PageVars;
 import com.varmateo.yawg.spi.TemplateDataModel;
+import com.varmateo.yawg.spi.TemplateDataModel.Author;
+import java.util.UUID;
 
 
 /**
@@ -18,28 +22,127 @@ public final class FreemarkerDataModel {
     private static final String KEY_YAWG_DATA = &quot;yawg&quot;;
 
 
-    private final TemplateDataModel _data;
+    private final YawgFreemarkerDataModel _data;
+    private final PageVars _pageVars;
 
 
     /**
-     *
+     * @param templateDataModel Source of page variables.
      */
-<span class="fc" id="L27">    public FreemarkerDataModel(final TemplateDataModel data) {</span>
+<span class="fc" id="L32">    public FreemarkerDataModel(final TemplateDataModel templateDataModel) {</span>
 
-<span class="fc" id="L29">        _data = data;</span>
-<span class="fc" id="L30">    }</span>
+<span class="fc" id="L34">        _data = new YawgFreemarkerDataModel(templateDataModel);</span>
+<span class="fc" id="L35">        _pageVars = templateDataModel.getPageVars();</span>
+<span class="fc" id="L36">    }</span>
 
 
     /**
+     * Retrieves the value of a template variable.
      *
+     * &lt;p&gt;This method is intended to be called by the Freemarker
+     * engine for retrieving a template variable value when a template
+     * is being processed.&lt;/p&gt;
+     *
+     * @param key The name of the template variable being retrieved.
+     *
+     * @return The value of the template variable with the given
+     * name. Or null if there is no template variable with that name.
      */
-    public Object get(final String key) {
+    public Object get(final String varName) {
 
-<span class="fc bfc" id="L38" title="All 2 branches covered.">        return KEY_YAWG_DATA.equals(key)</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        return KEY_YAWG_DATA.equals(varName)</span>
                 ? _data
-<span class="fc" id="L40">                : _data.getPageVars().get(key).orElse(null);</span>
+<span class="fc" id="L55">                : _pageVars.get(varName).orElse(null);</span>
     }
 
+
+    /**
+     * This is a class that provides the right getters in order to
+     * have the appropriate template variables visible inside the
+     * Freemarker templates.
+     *
+     * &lt;p&gt;The purpose of this Java bean is to provide the template
+     * variables named with prefix &quot;yawg.&quot;.&lt;/p&gt;
+     */
+    public static final class YawgFreemarkerDataModel {
+
+
+        private final TemplateDataModel _templateDataModel;
+        private final String _bakeId;
+        private final String _productName;
+        private final String _version;
+
+
+        /**
+         *
+         */
+        /* default */ YawgFreemarkerDataModel(
+<span class="fc" id="L80">                final TemplateDataModel templateDataModel) {</span>
+
+<span class="fc" id="L82">            _templateDataModel = templateDataModel;</span>
+<span class="fc" id="L83">            _bakeId = UUID.randomUUID().toString();</span>
+<span class="fc" id="L84">            _productName = YawgInfo.PRODUCT_NAME;</span>
+<span class="fc" id="L85">            _version = YawgInfo.VERSION;</span>
+<span class="fc" id="L86">        }</span>
+
+        /**
+         * Randomly generated unique bake identifier. Each bake will have
+         * a different identifier.
+         */
+        public String getBakeId() {
+
+<span class="nc" id="L94">            return _bakeId;</span>
+        }
+
+
+        /**
+         * A fixed string with the Yawg product name.
+         */
+        public String getProductName() {
+
+<span class="nc" id="L103">            return _productName;</span>
+        }
+
+
+        /**
+         * The version of the Yawg software being used.
+         */
+        public String getVersion() {
+
+<span class="nc" id="L112">            return _version;</span>
+        }
+
+
+        public Iterable&lt;Author&gt; getAuthors() {
+
+<span class="nc" id="L118">            return _templateDataModel.getAuthors();</span>
+        }
+
+
+        public String getBody() {
+
+<span class="fc" id="L124">            return _templateDataModel.getBody();</span>
+        }
+
+
+        public String getPageUrl() {
+
+<span class="nc" id="L130">            return _templateDataModel.getPageUrl();</span>
+        }
+
+
+        public String getRootRelativeUrl() {
+
+<span class="nc" id="L136">            return _templateDataModel.getRootRelativeUrl();</span>
+        }
+
+
+        public String getTitle() {
+
+<span class="nc" id="L142">            return _templateDataModel.getTitle();</span>
+        }
+
+    }
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
