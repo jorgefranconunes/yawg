@@ -6,16 +6,13 @@
 
 package com.varmateo.yawg.spi;
 
+import com.varmateo.yawg.spi.PageVars;
 import com.varmateo.yawg.spi.TemplateDataModel;
 import com.varmateo.yawg.spi.TemplateDataModel.Author;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
-
-import com.varmateo.yawg.api.YawgInfo;
-import com.varmateo.yawg.spi.PageVars;
 
 
 /**
@@ -136,14 +133,11 @@ public final class TemplateDataModelBuilder {
 
 
         private final List<Author> _authors;
-        private final String _bakeId;
         private final String _body;
         private final String _pageUrl;
         private final PageVars _pageVars;
-        private final String _productName;
         private final String _rootRelativeUrl;
         private final String _title;
-        private final String _version;
 
 
         /**
@@ -153,15 +147,12 @@ public final class TemplateDataModelBuilder {
 
             _authors =
                 Collections.unmodifiableList(new ArrayList<>(builder._authors));
-            _bakeId = UUID.randomUUID().toString();
             _body = Objects.requireNonNull(builder._body);
             _pageUrl = Objects.requireNonNull(builder._pageUrl);
             _pageVars =
                 (builder._pageVars!=null) ? builder._pageVars: PageVars.empty();
-            _productName = YawgInfo.PRODUCT_NAME;
             _rootRelativeUrl = Objects.requireNonNull(builder._rootRelativeUrl);
             _title = Objects.requireNonNull(builder._title);
-            _version = YawgInfo.VERSION;
         }
 
 
@@ -171,15 +162,6 @@ public final class TemplateDataModelBuilder {
         @Override
         public Iterable<Author> getAuthors() {
             return _authors;
-        }
-
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public String getBakeId() {
-            return _bakeId;
         }
 
 
@@ -214,15 +196,6 @@ public final class TemplateDataModelBuilder {
          * {@inheritDoc}
          */
         @Override
-        public String getProductName() {
-            return _productName;
-        }
-
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
         public String getRootRelativeUrl() {
             return _rootRelativeUrl;
         }
@@ -234,15 +207,6 @@ public final class TemplateDataModelBuilder {
         @Override
         public String getTitle() {
             return _title;
-        }
-
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public String getVersion() {
-            return _version;
         }
 
     }
