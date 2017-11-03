@@ -44,11 +44,14 @@ public final class TemplateDataModelBuilder {
 
 
     /**
+     * Creates a new empty builder.
      *
+     * @return A newly created &lt;code&gt;TemplateDataModelBuilder&lt;/code&gt;
+     * instance.
      */
     public static TemplateDataModelBuilder create() {
 
-<span class="nc" id="L51">        return new TemplateDataModelBuilder();</span>
+<span class="nc" id="L54">        return new TemplateDataModelBuilder();</span>
     }
 
 
@@ -59,9 +62,9 @@ public final class TemplateDataModelBuilder {
             final String name,
             final String email) {
 
-<span class="nc" id="L62">        Author author = Author.create(name, email);</span>
-<span class="nc" id="L63">        _authors.add(author);</span>
-<span class="nc" id="L64">        return this;</span>
+<span class="nc" id="L65">        Author author = Author.create(name, email);</span>
+<span class="nc" id="L66">        _authors.add(author);</span>
+<span class="nc" id="L67">        return this;</span>
     }
 
 
@@ -70,8 +73,8 @@ public final class TemplateDataModelBuilder {
      */
     public TemplateDataModelBuilder setBody(final String body) {
 
-<span class="nc" id="L73">        _body = Objects.requireNonNull(body);</span>
-<span class="nc" id="L74">        return this;</span>
+<span class="nc" id="L76">        _body = Objects.requireNonNull(body);</span>
+<span class="nc" id="L77">        return this;</span>
     }
 
 
@@ -80,8 +83,8 @@ public final class TemplateDataModelBuilder {
      */
     public TemplateDataModelBuilder setPageUrl(final String pageUrl) {
 
-<span class="nc" id="L83">        _pageUrl = pageUrl;</span>
-<span class="nc" id="L84">        return this;</span>
+<span class="nc" id="L86">        _pageUrl = pageUrl;</span>
+<span class="nc" id="L87">        return this;</span>
     }
 
 
@@ -91,8 +94,8 @@ public final class TemplateDataModelBuilder {
     public TemplateDataModelBuilder setRootRelativeUrl(
             final String rootRelativeUrl) {
 
-<span class="nc" id="L94">        _rootRelativeUrl = rootRelativeUrl;</span>
-<span class="nc" id="L95">        return this;</span>
+<span class="nc" id="L97">        _rootRelativeUrl = rootRelativeUrl;</span>
+<span class="nc" id="L98">        return this;</span>
     }
 
 
@@ -101,8 +104,8 @@ public final class TemplateDataModelBuilder {
      */
     public TemplateDataModelBuilder setPageVars(final PageVars pageVars) {
 
-<span class="nc" id="L104">        _pageVars = pageVars;</span>
-<span class="nc" id="L105">        return this;</span>
+<span class="nc" id="L107">        _pageVars = pageVars;</span>
+<span class="nc" id="L108">        return this;</span>
     }
 
 
@@ -111,8 +114,8 @@ public final class TemplateDataModelBuilder {
      */
     public TemplateDataModelBuilder setTitle(final String title) {
 
-<span class="nc" id="L114">        _title = Objects.requireNonNull(title);</span>
-<span class="nc" id="L115">        return this;</span>
+<span class="nc" id="L117">        _title = Objects.requireNonNull(title);</span>
+<span class="nc" id="L118">        return this;</span>
     }
 
 
@@ -121,7 +124,7 @@ public final class TemplateDataModelBuilder {
      */
     public TemplateDataModel build() {
 
-<span class="nc" id="L124">        return new TemplateDataModelImpl(this);</span>
+<span class="nc" id="L127">        return new TemplateDataModelImpl(this);</span>
     }
 
 
@@ -143,17 +146,17 @@ public final class TemplateDataModelBuilder {
         /**
          *
          */
-<span class="nc" id="L146">        TemplateDataModelImpl(final TemplateDataModelBuilder builder) {</span>
+<span class="nc" id="L149">        TemplateDataModelImpl(final TemplateDataModelBuilder builder) {</span>
 
-<span class="nc" id="L148">            _authors =</span>
-<span class="nc" id="L149">                Collections.unmodifiableList(new ArrayList&lt;&gt;(builder._authors));</span>
-<span class="nc" id="L150">            _body = Objects.requireNonNull(builder._body);</span>
-<span class="nc" id="L151">            _pageUrl = Objects.requireNonNull(builder._pageUrl);</span>
-<span class="nc" id="L152">            _pageVars =</span>
-<span class="nc bnc" id="L153" title="All 2 branches missed.">                (builder._pageVars!=null) ? builder._pageVars: PageVars.empty();</span>
-<span class="nc" id="L154">            _rootRelativeUrl = Objects.requireNonNull(builder._rootRelativeUrl);</span>
-<span class="nc" id="L155">            _title = Objects.requireNonNull(builder._title);</span>
-<span class="nc" id="L156">        }</span>
+<span class="nc" id="L151">            _authors =</span>
+<span class="nc" id="L152">                Collections.unmodifiableList(new ArrayList&lt;&gt;(builder._authors));</span>
+<span class="nc" id="L153">            _body = Objects.requireNonNull(builder._body);</span>
+<span class="nc" id="L154">            _pageUrl = Objects.requireNonNull(builder._pageUrl);</span>
+<span class="nc" id="L155">            _pageVars =</span>
+<span class="nc bnc" id="L156" title="All 2 branches missed.">                (builder._pageVars!=null) ? builder._pageVars: PageVars.empty();</span>
+<span class="nc" id="L157">            _rootRelativeUrl = Objects.requireNonNull(builder._rootRelativeUrl);</span>
+<span class="nc" id="L158">            _title = Objects.requireNonNull(builder._title);</span>
+<span class="nc" id="L159">        }</span>
 
 
         /**
@@ -161,7 +164,7 @@ public final class TemplateDataModelBuilder {
          */
         @Override
         public Iterable&lt;Author&gt; getAuthors() {
-<span class="nc" id="L164">            return _authors;</span>
+<span class="nc" id="L167">            return _authors;</span>
         }
 
 
@@ -170,7 +173,7 @@ public final class TemplateDataModelBuilder {
          */
         @Override
         public String getBody() {
-<span class="nc" id="L173">            return _body;</span>
+<span class="nc" id="L176">            return _body;</span>
         }
 
 
@@ -179,7 +182,7 @@ public final class TemplateDataModelBuilder {
          */
         @Override
         public String getPageUrl() {
-<span class="nc" id="L182">            return _pageUrl;</span>
+<span class="nc" id="L185">            return _pageUrl;</span>
         }
 
 
@@ -188,7 +191,7 @@ public final class TemplateDataModelBuilder {
          */
         @Override
         public PageVars getPageVars() {
-<span class="nc" id="L191">            return _pageVars;</span>
+<span class="nc" id="L194">            return _pageVars;</span>
         }
 
 
@@ -197,7 +200,7 @@ public final class TemplateDataModelBuilder {
          */
         @Override
         public String getRootRelativeUrl() {
-<span class="nc" id="L200">            return _rootRelativeUrl;</span>
+<span class="nc" id="L203">            return _rootRelativeUrl;</span>
         }
 
 
@@ -206,7 +209,7 @@ public final class TemplateDataModelBuilder {
          */
         @Override
         public String getTitle() {
-<span class="nc" id="L209">            return _title;</span>
+<span class="nc" id="L212">            return _title;</span>
         }
 
     }
