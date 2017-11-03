@@ -34,7 +34,7 @@ public final class PageVarsBuilder {
     /**
      * Creates a new empty builder.
      *
-     * @return A newly created <code>Builder</code> instance.
+     * @return A newly created <code>PageVarsBuilder</code> instance.
      */
     public static PageVarsBuilder create() {
 
