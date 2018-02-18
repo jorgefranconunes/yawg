@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>Logs.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.logging</a> &gt; <span class="el_source">Logs.java</span></div><h1>Logs.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2018 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.logging;
+
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
+import java.util.function.Supplier;
+
+import io.vavr.Function0;
+import io.vavr.control.Try;
+
+import com.varmateo.yawg.logging.Log;
+
+
+/**
+ * Utility functions related with logging.
+ */
+public final class Logs {
+
+
+    /**
+     * No instance of this class are to be created.
+     */
+<span class="nc" id="L28">    private Logs() {</span>
+        // Nothing to do.
+<span class="nc" id="L30">    }</span>
+
+
+    /**
+     *
+     */
+    public static &lt;T&gt; T logDuration(
+            final Log log,
+            final String subject,
+            final Supplier&lt;T&gt; action) {
+
+<span class="fc" id="L41">        Supplier&lt;Try&lt;T&gt;&gt; liftedAction = Function0.liftTry(action);</span>
+<span class="fc" id="L42">        boolean isVerbose = false;</span>
+<span class="fc" id="L43">        Try&lt;T&gt; result = logTryDuration(log, subject, liftedAction, isVerbose);</span>
+
+<span class="fc" id="L45">        return result.get();</span>
+    }
+
+
+    /**
+     *
+     */
+    public static Runnable decorateWithLogDuration(
+            final Log log,
+            final String description,
+            final Runnable function) {
+
+<span class="fc" id="L57">        return () -&gt; logDuration(</span>
+                log,
+                description,
+<span class="fc" id="L60">                () -&gt; { function.run(); return null; });</span>
+    }
+
+
+    /**
+     *
+     */
+    public static &lt;T, U&gt; BiConsumer&lt;T, U&gt; decorateWithLogDuration(
+            final Log log,
+            final BiFunction&lt;T, U, String&gt; description,
+            final BiConsumer&lt;T, U&gt; function) {
+
+<span class="fc" id="L72">        return (t, u) -&gt; logDuration(</span>
+                log,
+<span class="fc" id="L74">                description.apply(t, u),</span>
+<span class="fc" id="L75">                () -&gt; { function.accept(t, u); return null; });</span>
+    }
+
+
+    /**
+     *
+     */
+    private static &lt;T&gt; Try&lt;T&gt; logTryDuration(
+            final Log log,
+            final String subject,
+            final Supplier&lt;Try&lt;T&gt;&gt; action,
+            final boolean isVerbose) {
+
+<span class="fc" id="L88">        log.info(&quot;Starting {0}...&quot;, subject);</span>
+
+<span class="fc" id="L90">        long startTime = System.currentTimeMillis();</span>
+<span class="fc" id="L91">        Try&lt;T&gt; result = Try.of(action::get).flatMap(x -&gt; x);</span>
+<span class="fc" id="L92">        long delay = System.currentTimeMillis() - startTime;</span>
+
+<span class="fc bfc" id="L94" title="All 2 branches covered.">        if (result.isSuccess()) {</span>
+<span class="fc" id="L95">            log.info(&quot;Done {0} ({1} ms)&quot;, subject, delay);</span>
+        } else {
+<span class="fc" id="L97">            final Throwable cause = result.getCause();</span>
+
+<span class="pc bpc" id="L99" title="1 of 2 branches missed.">            if (isVerbose) {</span>
+                // Log with stack trace.
+<span class="nc" id="L101">                log.warning(cause, &quot;Failed {0} ({1} ms)&quot;, subject, delay);</span>
+            } else {
+                // Log without stack trace.
+<span class="fc" id="L104">                log.warning(</span>
+                        &quot;Failed {0} ({1} ms) - {2} - {3}&quot;,
+<span class="fc" id="L106">                        subject, delay,</span>
+<span class="fc" id="L107">                        cause.getClass().getName(), cause.getMessage());</span>
+            }
+        }
+
+<span class="fc" id="L111">        return result;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

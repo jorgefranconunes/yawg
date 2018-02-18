@@ -23,10 +23,10 @@ under the License.
     <link>http://yawg.varmateo.com/yawg-core/</link>
     <description>Yawg core - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2015 - 2017</copyright>
+    <copyright>&#169;2015 - 2018</copyright>
     <item>
       <title>File: 50,
-             Errors: 80,
+             Errors: 91,
              Warnings: 0,
              Infos: 0
       </title>
@@ -112,6 +112,20 @@ under the License.
                 </td>
                 <td>
                   0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.logging.Logs.java">com/varmateo/yawg/logging/Logs.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  17
                 </td>
               </tr>
                           <tr>
@@ -532,20 +546,6 @@ under the License.
                 </td>
                 <td>
                   2
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.logging.LogWithUtils.java">com/varmateo/yawg/logging/LogWithUtils.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  6
                 </td>
               </tr>
                           <tr>
