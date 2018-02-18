@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2018 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -13,7 +13,7 @@ import com.varmateo.yawg.core.DirEntryScanner;
 import com.varmateo.yawg.core.DirPageContextBuilder;
 import com.varmateo.yawg.core.FileBaker;
 import com.varmateo.yawg.logging.Log;
-import com.varmateo.yawg.logging.LogWithUtils;
+import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.spi.DirBakeListener;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.PageContextBuilder;
@@ -34,7 +34,7 @@ import java.nio.file.Path;
 /* package private */ final class DirBaker {
 
 
-    private final LogWithUtils _log;
+    private final Log _log;
     private final Path _sourceRootDir;
     private final FileBaker _fileBaker;
     private final DirBakerConfDao _dirBakerConfDao;
@@ -72,7 +72,7 @@ import java.nio.file.Path;
             final DirBakerConfDao dirBakerConfDao,
             final DirBakeListener dirBakeListener) {
 
-        _log = LogWithUtils.from(log);
+        _log = log;
         _sourceRootDir = sourceRootDir;
         _fileBaker = fileBaker;
         _dirBakerConfDao = dirBakerConfDao;

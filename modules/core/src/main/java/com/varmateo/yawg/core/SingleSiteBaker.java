@@ -1,22 +1,23 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2018 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.core;
+
+import java.nio.file.Path;
+import java.util.Map;
+import java.util.Optional;
 
 import com.varmateo.yawg.api.SiteBakerConf;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.api.YawgInfo;
 import com.varmateo.yawg.core.DirBaker;
 import com.varmateo.yawg.logging.Log;
-import com.varmateo.yawg.logging.LogWithUtils;
+import com.varmateo.yawg.logging.Logs;
 import com.varmateo.yawg.spi.PageVars;
 import com.varmateo.yawg.spi.PageVarsBuilder;
-import java.nio.file.Path;
-import java.util.Map;
-import java.util.Optional;
 
 
 /**
@@ -25,10 +26,12 @@ import java.util.Optional;
 /* default */ final class SingleSiteBaker {
 
 
-    private final LogWithUtils _log;
+    private final Log _log;
     private final SiteBakerConf _conf;
     private final AssetsCopier _assetsCopier;
     private final SourceTreeBaker _sourceTreeBaker;
+
+    private final Runnable _bakeAction;
 
 
     /**
@@ -41,18 +44,23 @@ import java.util.Optional;
 
         PageVars pageVars = mapToPageVars(conf.getExternalPageVars());
 
-        _log = LogWithUtils.from(log);
+        _log = log;
         _conf = conf;
         _assetsCopier = new AssetsCopier(
-                _log,
+                log,
                 conf.getAssetsDir(),
                 conf.getTargetDir());
         _sourceTreeBaker = new SourceTreeBaker(
-                _log,
+                log,
                 conf.getSourceDir(),
                 conf.getTargetDir(),
                 pageVars,
                 dirBaker);
+
+        _bakeAction = Logs.decorateWithLogDuration(
+                log,
+                "bake",
+                this::doBake);
     }
 
 
@@ -94,7 +102,7 @@ import java.util.Optional;
                 "    Assets    : {0}",
                 assetsDir.map(Path::toString).orElse("NONE"));
 
-        _log.logDelay("bake", this::doBake);
+        _bakeAction.run();
     }
 
 
