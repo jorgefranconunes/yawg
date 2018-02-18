@@ -102,7 +102,7 @@ public final class Logs {
             } else {
                 // Log without stack trace.
                 log.warning(
-                        "Failed {} ({} ms) - {} - {}",
+                        "Failed {0} ({1} ms) - {2} - {3}",
                         subject, delay,
                         cause.getClass().getName(), cause.getMessage());
             }
