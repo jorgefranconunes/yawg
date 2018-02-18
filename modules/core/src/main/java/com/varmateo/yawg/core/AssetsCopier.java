@@ -15,7 +15,6 @@ import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Optional;
 import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
 
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.logging.Log;

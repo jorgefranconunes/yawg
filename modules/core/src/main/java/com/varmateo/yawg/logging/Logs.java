@@ -83,26 +83,23 @@ public final class Logs {
             final Log log,
             final String subject,
             final Supplier<Try<T>> action,
-            final boolean isVerbose)
-    {
+            final boolean isVerbose) {
+
         log.info("Starting {0}...", subject);
 
         long startTime = System.currentTimeMillis();
         Try<T> result = Try.of(action::get).flatMap(x -> x);
         long delay = System.currentTimeMillis() - startTime;
 
-        if (result.isSuccess())
-        {
+        if (result.isSuccess()) {
             log.info("Done {0} ({1} ms)", subject, delay);
-        } else
-        {
+        } else {
             final Throwable cause = result.getCause();
-            if (isVerbose)
-            {
+
+            if (isVerbose) {
                 // Log with stack trace.
                 log.warning(cause, "Failed {0} ({1} ms)", subject, delay);
-            } else
-            {
+            } else {
                 // Log without stack trace.
                 log.warning(
                         "Failed {} ({} ms) - {} - {}",

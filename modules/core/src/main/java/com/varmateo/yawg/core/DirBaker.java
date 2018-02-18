@@ -13,7 +13,6 @@ import com.varmateo.yawg.core.DirEntryScanner;
 import com.varmateo.yawg.core.DirPageContextBuilder;
 import com.varmateo.yawg.core.FileBaker;
 import com.varmateo.yawg.logging.Log;
-import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.spi.DirBakeListener;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.PageContextBuilder;
