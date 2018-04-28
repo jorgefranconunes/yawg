@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2017 Yawg project contributors.
+ * Copyright (c) 2017-2018 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -11,38 +11,44 @@ import java.nio.file.Path;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.core.DirBaker;
 import com.varmateo.yawg.core.DirBakerConf;
-import com.varmateo.yawg.logging.LogWithUtils;
+import com.varmateo.yawg.logging.Log;
+import com.varmateo.yawg.logging.Logs;
 import com.varmateo.yawg.spi.PageVars;
 
 
 /**
  *
  */
-/* package private */ final class SourceTreeBaker {
+/* default */ final class SourceTreeBaker {
 
 
     private static final String DEFAULT_TEMPLATE_NAME = "default.ftlh";
 
 
-    private final LogWithUtils _log;
     private final Path _sourceDir;
     private final Path _targetDir;
     private final PageVars _externalPageVars;
     private final DirBaker _dirBaker;
 
+    private final Runnable _bakeAction;
 
-    SourceTreeBaker(
-            final LogWithUtils log,
+
+    /* default */ SourceTreeBaker(
+            final Log log,
             final Path sourceDir,
             final Path targetDir,
             final PageVars externalPageVars,
             final DirBaker dirBaker) {
 
-        _log = log;
         _sourceDir = sourceDir;
         _targetDir = targetDir;
         _externalPageVars = externalPageVars;
         _dirBaker = dirBaker;
+
+        _bakeAction = Logs.decorateWithLogDuration(
+                log,
+                "baking source tree",
+                this::doBake);
     }
 
 
@@ -52,7 +58,7 @@ import com.varmateo.yawg.spi.PageVars;
     public void bake()
             throws YawgException {
 
-        _log.logDelay("baking source tree", this::doBake);
+        _bakeAction.run();
     }
 
 

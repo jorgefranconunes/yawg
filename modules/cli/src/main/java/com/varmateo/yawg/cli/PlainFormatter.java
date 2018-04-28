@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2015-2017 Yawg project contributors.
+ * Copyright (c) 2015-2018 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -23,7 +23,7 @@ final class PlainFormatter
 
 
     private static final String DEFAULT_LOG_FMT =
-        "{0,date,yyyy-MM.dd HH:mm:ss.SSS} {1} {2}\n";
+        "{0,date,yyyy-MM-dd HH:mm:ss.SSS} {1} {2}\n";
 
     private static final String LINE_SEPARATOR =
         System.getProperty("line.separator");

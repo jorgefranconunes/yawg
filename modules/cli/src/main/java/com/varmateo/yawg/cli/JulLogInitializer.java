@@ -29,7 +29,7 @@ final class JulLogInitializer
     private static final String LOGGER_NAME = "com.varmateo";
 
     private static final String LOG_FMT_CONSOLE =
-            "{0,date,yyyy-MM.dd HH:mm:ss.SSS} {1} {2}\n";
+            "{0,date,yyyy-MM-dd HH:mm:ss.SSS} {1} {2}\n";
 
     private final boolean _isVerbose;
     private final OutputStream _output;

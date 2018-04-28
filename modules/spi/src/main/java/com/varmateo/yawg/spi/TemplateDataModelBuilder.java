@@ -44,7 +44,10 @@ public final class TemplateDataModelBuilder {
 
 
     /**
+     * Creates a new empty builder.
      *
+     * @return A newly created <code>TemplateDataModelBuilder</code>
+     * instance.
      */
     public static TemplateDataModelBuilder create() {
 
