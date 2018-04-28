@@ -58,12 +58,6 @@ public interface TemplateDataModel {
 
 
     /**
-     * The version of the Yawg software being used.
-     */
-    //String getVersion();
-
-
-    /**
      * Document author data.
      */
     public static final class Author {

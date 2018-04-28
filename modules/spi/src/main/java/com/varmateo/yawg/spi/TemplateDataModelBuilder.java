@@ -38,7 +38,7 @@ public final class TemplateDataModelBuilder {
         _body = null;
         _pageUrl = null;
         _rootRelativeUrl = null;
-        _pageVars = null;
+        _pageVars = PageVars.empty();
         _title = null;
     }
 
@@ -149,8 +149,7 @@ public final class TemplateDataModelBuilder {
                 Collections.unmodifiableList(new ArrayList<>(builder._authors));
             _body = Objects.requireNonNull(builder._body);
             _pageUrl = Objects.requireNonNull(builder._pageUrl);
-            _pageVars =
-                (builder._pageVars!=null) ? builder._pageVars: PageVars.empty();
+            _pageVars = Objects.requireNonNull(builder._pageVars);
             _rootRelativeUrl = Objects.requireNonNull(builder._rootRelativeUrl);
             _title = Objects.requireNonNull(builder._title);
         }

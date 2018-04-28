@@ -163,8 +163,8 @@ Copyright (c) 2016-2017 Yawg project contributors.
 
   <name>Yawg API</name>
 
-  <description>Yawg API classes required for implementing
-  extensions.</description>
+  <description>Yawg SPI classes for embedding Yawg in
+  applications.</description>
 
 
 </project>
