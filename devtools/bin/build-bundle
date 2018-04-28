@@ -1,7 +1,7 @@
 #!/bin/bash
 ###########################################################################
 #
-# Copyright (c) 2016-2017 Yawg project contributors.
+# Copyright (c) 2016-2018 Yawg project contributors.
 #
 #
 # Creates a release bundle for the Yawg software.
@@ -22,7 +22,7 @@ source ${_yawgHome}/conf/yawg-defaults.conf
 TOOL_NAME="Release builder"
 PRODUCT_HEADER="${YAWG_PRODUCT_NAME} ${YAWG_VERSION} - ${TOOL_NAME}"
 
-MAVEN_DEFAULT_TOOL=mvn
+MAVEN_DEFAULT_TOOL=${_yawgHome}/modules/mvnw
 MAVEN_DEFAULT_OPTIONS=""
 MAVEN_DEFAULT_GOALS="clean verify"
 
