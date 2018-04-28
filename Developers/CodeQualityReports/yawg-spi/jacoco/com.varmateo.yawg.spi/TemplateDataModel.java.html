@@ -58,12 +58,6 @@ public interface TemplateDataModel {
 
 
     /**
-     * The version of the Yawg software being used.
-     */
-    //String getVersion();
-
-
-    /**
      * Document author data.
      */
     public static final class Author {
@@ -78,11 +72,11 @@ public interface TemplateDataModel {
          */
         private Author(
                 final String name,
-<span class="nc" id="L81">                final String email) {</span>
+<span class="nc" id="L75">                final String email) {</span>
 
-<span class="nc" id="L83">            _name = name;</span>
-<span class="nc" id="L84">            _email = email;</span>
-<span class="nc" id="L85">        }</span>
+<span class="nc" id="L77">            _name = name;</span>
+<span class="nc" id="L78">            _email = email;</span>
+<span class="nc" id="L79">        }</span>
 
 
         /**
@@ -92,7 +86,7 @@ public interface TemplateDataModel {
                 final String name,
                 final String email) {
 
-<span class="nc" id="L95">            return new Author(name, email);</span>
+<span class="nc" id="L89">            return new Author(name, email);</span>
         }
 
 
@@ -101,7 +95,7 @@ public interface TemplateDataModel {
          */
         public String getName() {
 
-<span class="nc" id="L104">            return _name;</span>
+<span class="nc" id="L98">            return _name;</span>
         }
 
 
@@ -110,7 +104,7 @@ public interface TemplateDataModel {
          */
         public String getEmail() {
 
-<span class="nc" id="L113">            return _email;</span>
+<span class="nc" id="L107">            return _email;</span>
         }
 
 
