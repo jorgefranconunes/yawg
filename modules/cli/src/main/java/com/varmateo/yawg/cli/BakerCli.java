@@ -137,33 +137,11 @@ public final class BakerCli {
             final OutputStream output)
             throws CliException {
 
-        LogInitializer logInitializer = buildLogInitializer(cliOptions, output);
         SiteBakerConf conf = buildSiteBakerConf(cliOptions);
         SiteBakerFactory factory = SiteBakerFactory.get();
         SiteBaker siteBaker = factory.newSiteBaker();
-        Try<Void> result = Try.run(() -> siteBaker.bake(conf));
 
-        logInitializer.close();
-
-        return result;
-    }
-
-
-    /**
-     *
-     */
-    private static LogInitializer buildLogInitializer(
-            final CliOptions cliOptions,
-            final OutputStream output) {
-
-        LogInitializer logInitializer = JulLogInitializer.builder()
-                .setVerbose(cliOptions.hasOption(BakerCliOptions.VERBOSE))
-                .setOutput(output)
-                .build();
-
-        logInitializer.init();
-
-        return logInitializer;
+        return Try.run(() -> siteBaker.bake(conf));
     }
 
 

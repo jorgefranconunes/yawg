@@ -202,6 +202,12 @@ Copyright (c) 2015-2017 Yawg project contributors.
               <value>${project.build.directory}/tmp</value>
             </property>
 
+            <!-- Logging configuration for tests. -->
+            <property>
+              <name>java.util.logging.config.file</name>
+              <value>${yawg.projectRootDir}/testutils/src/main/resources/logging.properties/</value>
+            </property>
+
           </systemProperties>
 
         </configuration>
@@ -236,6 +242,12 @@ Copyright (c) 2015-2017 Yawg project contributors.
             <property>
               <name>TestUtils.tmpTestFilesDir</name>
               <value>${project.build.directory}/tmp</value>
+            </property>
+
+            <!-- Logging configuration for tests. -->
+            <property>
+              <name>java.util.logging.config.file</name>
+              <value>${yawg.projectRootDir}/testutils/src/main/resources/logging.properties/</value>
             </property>
 
           </systemProperties>
