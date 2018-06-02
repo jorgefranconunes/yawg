@@ -25,7 +25,7 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2015 - 2018</copyright>
     <item>
-      <title>File: 13,
+      <title>File: 11,
              Errors: 38,
              Warnings: 0,
              Infos: 0
@@ -74,76 +74,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.BakerCli.java">com/varmateo/yawg/cli/BakerCli.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  2
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.PlainFormatter.java">com/varmateo/yawg/cli/PlainFormatter.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.LogInitializer.java">com/varmateo/yawg/cli/LogInitializer.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.Main.java">com/varmateo/yawg/cli/Main.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.package-info.java">com/varmateo/yawg/cli/package-info.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.CliOptions.java">com/varmateo/yawg/cli/CliOptions.java</a>
                 </td>
                 <td>
@@ -186,7 +116,21 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.CliInfoPrinter.java">com/varmateo/yawg/cli/CliInfoPrinter.java</a>
+                  <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.BakerCli.java">com/varmateo/yawg/cli/BakerCli.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.PlainFormatter.java">com/varmateo/yawg/cli/PlainFormatter.java</a>
                 </td>
                 <td>
                   0
@@ -200,7 +144,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.JulLogInitializer.java">com/varmateo/yawg/cli/JulLogInitializer.java</a>
+                  <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.CliInfoPrinter.java">com/varmateo/yawg/cli/CliInfoPrinter.java</a>
                 </td>
                 <td>
                   0
@@ -224,6 +168,34 @@ under the License.
                 </td>
                 <td>
                   12
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.Main.java">com/varmateo/yawg/cli/Main.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.package-info.java">com/varmateo/yawg/cli/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
                 </td>
               </tr>
                       </tbody>
