@@ -1,21 +1,25 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2018 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.asciidoctor;
 
+import java.io.IOException;
+import java.nio.file.Path;
+
+import org.asciidoctor.Asciidoctor;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+
+import com.varmateo.testutils.LogStartAndEndRule;
 import com.varmateo.testutils.TestUtils;
 import com.varmateo.yawg.asciidoctor.AsciidoctorBakerDataModelBuilder;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.PageContextBuilder;
 import com.varmateo.yawg.spi.TemplateDataModel;
-import java.io.IOException;
-import java.nio.file.Path;
-import org.asciidoctor.Asciidoctor;
-import org.junit.Before;
-import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
@@ -24,9 +28,10 @@ import static org.assertj.core.api.Assertions.tuple;
 /**
  *
  */
-public final class AsciidoctorBakerDataModelBuilderIT
- {
+public final class AsciidoctorBakerDataModelBuilderIT {
 
+    @Rule
+    public final LogStartAndEndRule logRule = new LogStartAndEndRule();
 
     private AsciidoctorBakerDataModelBuilder _modelBuilder = null;
 

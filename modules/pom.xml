@@ -37,7 +37,7 @@ Copyright (c) 2015-2018 Yawg project contributors.
     <jacoco-maven-plugin.version>0.7.7.201606060606</jacoco-maven-plugin.version>
     <freemaker.version>2.3.24-incubating</freemaker.version>
     <jsoup.version>1.8.3</jsoup.version>
-    <junit.version>4.11</junit.version>
+    <junit.version>4.12</junit.version>
     <mockito-core.version>2.2.27</mockito-core.version>
     <vavr.version>0.9.1</vavr.version>
     <yamlbeans.version>1.09</yamlbeans.version>

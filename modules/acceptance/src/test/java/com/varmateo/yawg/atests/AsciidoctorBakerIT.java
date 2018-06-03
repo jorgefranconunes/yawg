@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2018 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -8,12 +8,15 @@ package com.varmateo.yawg.atests;
 
 import java.io.IOException;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import org.junit.Rule;
 import org.junit.Test;
 
+import com.varmateo.testutils.LogStartAndEndRule;
 import com.varmateo.yawg.atests.BakerCliResult;
 import com.varmateo.yawg.atests.BakerCliScenario;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 import static com.varmateo.yawg.atests.BakerCliResultAssert.assertThat;
 
 
@@ -21,6 +24,9 @@ import static com.varmateo.yawg.atests.BakerCliResultAssert.assertThat;
  * Acceptance tests related with the "asciidoctor" baker type.
  */
 public final class AsciidoctorBakerIT {
+
+    @Rule
+    public final LogStartAndEndRule logRule = new LogStartAndEndRule();
 
 
     /**

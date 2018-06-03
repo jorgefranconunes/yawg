@@ -1,18 +1,21 @@
 /**************************************************************************
  *
- * Copyright (c) 2017 Yawg project contributors.
+ * Copyright (c) 2017-2018 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.atests;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.io.IOException;
 
+import org.junit.Rule;
 import org.junit.Test;
 
+import com.varmateo.testutils.LogStartAndEndRule;
 import com.varmateo.yawg.atests.BakerCliResult;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 import static com.varmateo.yawg.atests.BakerCliResultAssert.assertThat;
 
 
@@ -20,6 +23,9 @@ import static com.varmateo.yawg.atests.BakerCliResultAssert.assertThat;
  * Acceptance tests related with the "extraDirsHere" baking parameter.
  */
 public final class ExtraDirsHereParamIT {
+
+    @Rule
+    public final LogStartAndEndRule logRule = new LogStartAndEndRule();
 
 
     /**

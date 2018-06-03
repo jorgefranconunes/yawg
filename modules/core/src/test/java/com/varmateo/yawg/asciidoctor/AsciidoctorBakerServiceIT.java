@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2018 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -9,11 +9,14 @@ package com.varmateo.yawg.asciidoctor;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
+import com.varmateo.testutils.LogStartAndEndRule;
 import com.varmateo.yawg.asciidoctor.AsciidoctorBakerService;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 /**
@@ -21,6 +24,8 @@ import com.varmateo.yawg.asciidoctor.AsciidoctorBakerService;
  */
 public final class AsciidoctorBakerServiceIT {
 
+    @Rule
+    public final LogStartAndEndRule logRule = new LogStartAndEndRule();
 
     private AsciidoctorBakerService _baker = null;
 
