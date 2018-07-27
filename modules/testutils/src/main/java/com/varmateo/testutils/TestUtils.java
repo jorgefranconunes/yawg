@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2018 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -135,9 +135,7 @@ public final class TestUtils {
 
         Files.createDirectories(tmpDirParent);
 
-        Path tmpDir = Files.createTempDirectory(tmpDirParent, "tmp");
-
-        return tmpDir;
+        return Files.createTempDirectory(tmpDirParent, "tmp");
     }
 
 
@@ -162,9 +160,8 @@ public final class TestUtils {
             final String   pathName) {
 
         Path inputsDir = getInputsDir(testSuiteClass);
-        Path inputPath = inputsDir.resolve(pathName);
 
-        return inputPath;
+        return inputsDir.resolve(pathName);
     }
 
 

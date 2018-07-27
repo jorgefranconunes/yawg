@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2015-2017 Yawg project contributors.
+ * Copyright (c) 2015-2018 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -77,9 +77,7 @@ import com.varmateo.yawg.cli.CliInfoPrinter;
      */
     public static Builder builder() {
 
-        Builder result = new Builder();
-
-        return result;
+        return new Builder();
     }
 
 

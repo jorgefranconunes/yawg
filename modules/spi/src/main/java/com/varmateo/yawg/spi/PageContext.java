@@ -1,15 +1,13 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2018 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.spi;
 
 import java.nio.file.Path;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Function;
 
 import com.varmateo.yawg.spi.PageVars;
 import com.varmateo.yawg.spi.Template;

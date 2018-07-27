@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2018 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -44,9 +44,8 @@ public final class BreadcrumbsBakeListener
                 buildBreadcrumbItem(vars, context.getDirUrl());
         Breadcrumbs newBreadcrumbs =
                 extendBreadcrumbs(oldBreadcrumbs, newBreadcrumbItem);
-        PageVars newVars = updateBreadcrumbs(newBreadcrumbs);
 
-        return newVars;
+        return updateBreadcrumbs(newBreadcrumbs);
     }
 
 
