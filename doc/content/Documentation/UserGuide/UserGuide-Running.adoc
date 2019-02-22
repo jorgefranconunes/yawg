@@ -17,7 +17,7 @@ use in one of the following ways:
 * Otherwise, Yawg will attemp to use the `java` accessible in the
   PATH.
 
-* Otherwise, Yawg will despondently give up, and print print a failure
+* Otherwise, Yawg will despondently give up, and print a failure
   message gently reminding you of the error in your ways.
 
 Running `bin/yawg` without any arguments will just print some
