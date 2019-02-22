@@ -23,10 +23,10 @@ under the License.
     <link>http://yawg.varmateo.com/yawg-spi/</link>
     <description>Yawg SPI - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2015 - 2018</copyright>
+    <copyright>&#169;2015 - 2019</copyright>
     <item>
       <title>File: 14,
-             Errors: 41,
+             Errors: 39,
              Warnings: 0,
              Infos: 0
       </title>
@@ -139,7 +139,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  7
+                  5
                 </td>
               </tr>
                           <tr>
@@ -172,7 +172,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.BakerServiceFactory.java">com/varmateo/yawg/spi/BakerServiceFactory.java</a>
+                  <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.TemplateService.java">com/varmateo/yawg/spi/TemplateService.java</a>
                 </td>
                 <td>
                   0
@@ -186,7 +186,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.TemplateService.java">com/varmateo/yawg/spi/TemplateService.java</a>
+                  <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.BakerServiceFactory.java">com/varmateo/yawg/spi/BakerServiceFactory.java</a>
                 </td>
                 <td>
                   0

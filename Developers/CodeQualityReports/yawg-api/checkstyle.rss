@@ -23,7 +23,7 @@ under the License.
     <link>http://yawg.varmateo.com/yawg-api/</link>
     <description>Yawg API - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2015 - 2018</copyright>
+    <copyright>&#169;2015 - 2019</copyright>
     <item>
       <title>File: 8,
              Errors: 13,
@@ -74,7 +74,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.SiteBakerFactory.java">com/varmateo/yawg/api/SiteBakerFactory.java</a>
+                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.YawgException.java">com/varmateo/yawg/api/YawgException.java</a>
                 </td>
                 <td>
                   0
@@ -88,7 +88,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.YawgException.java">com/varmateo/yawg/api/YawgException.java</a>
+                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.SiteBakerFactory.java">com/varmateo/yawg/api/SiteBakerFactory.java</a>
                 </td>
                 <td>
                   0

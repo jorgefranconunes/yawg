@@ -1,6 +1,6 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-Yawg core,com.varmateo.yawg.html,HtmlBakerServiceFactory,7,0,0,0,2,0,2,0,2,0
 Yawg core,com.varmateo.yawg.html,HtmlBakerService,113,0,2,0,29,0,11,0,10,0
+Yawg core,com.varmateo.yawg.html,HtmlBakerServiceFactory,7,0,0,0,2,0,2,0,2,0
 Yawg core,com.varmateo.yawg.html,HtmlBakerDataModelBuilder,0,79,0,0,0,22,0,7,0,7
 Yawg core,com.varmateo.yawg.util,FileUtils,67,54,8,2,9,14,7,5,3,4
 Yawg core,com.varmateo.yawg.util,YamlParser,0,29,1,3,0,9,1,3,0,2
@@ -28,8 +28,8 @@ Yawg core,com.varmateo.yawg.asciidoctor,AdocUtils,18,63,0,0,8,19,2,3,2,3
 Yawg core,com.varmateo.yawg.core,CopyBakerService,46,0,0,0,15,0,5,0,5,0
 Yawg core,com.varmateo.yawg.core,AssetsCopier,70,0,2,0,20,0,6,0,5,0
 Yawg core,com.varmateo.yawg.core,SingleSiteBaker,151,0,0,0,32,0,5,0,5,0
-Yawg core,com.varmateo.yawg.core,DirEntryScanner,30,36,6,2,0,9,4,3,0,3
 Yawg core,com.varmateo.yawg.core,SiteBakerDomain,177,0,0,0,51,0,14,0,14,0
+Yawg core,com.varmateo.yawg.core,DirEntryScanner,30,36,6,2,0,9,4,3,0,3
 Yawg core,com.varmateo.yawg.core,AssetsCopier.new SimpleFileVisitor() {...},51,0,2,0,9,0,4,0,3,0
 Yawg core,com.varmateo.yawg.core,DirBakerConf.Builder,0,219,0,0,0,61,0,23,0,23
 Yawg core,com.varmateo.yawg.core,BakerMatcher.Entry,0,9,0,0,0,4,0,1,0,1
@@ -48,7 +48,7 @@ Yawg core,com.varmateo.yawg.core,DirBakerConfDao,124,280,9,9,16,73,9,18,3,15
 Yawg core,com.varmateo.yawg.core,CollectiveTemplateService,57,0,4,0,15,0,8,0,6,0
 Yawg core,com.varmateo.yawg.core,DirBakerConf,5,114,0,0,0,25,1,5,1,5
 Yawg core,com.varmateo.yawg.core,DirPageContextBuilder,43,77,1,1,9,26,8,4,7,4
-Yawg core,com.varmateo.yawg.breadcrumbs,BreadcrumbsBakeListener,118,0,2,0,28,0,12,0,11,0
+Yawg core,com.varmateo.yawg.breadcrumbs,BreadcrumbsBakeListener,116,0,2,0,27,0,12,0,11,0
 Yawg core,com.varmateo.yawg.breadcrumbs,BreadcrumbItem,15,0,0,0,6,0,3,0,3,0
 Yawg core,com.varmateo.yawg.breadcrumbs,Breadcrumbs,25,0,0,0,7,0,5,0,5,0
 Yawg core,com.varmateo.yawg.breadcrumbs,Breadcrumbs.Builder,30,0,0,0,9,0,4,0,4,0
