@@ -48,6 +48,10 @@ Adaped from the "sun_checks.xml" from the Checkstyle 5.3 distribution.
         <!-- See http://checkstyle.sf.net/config_javadoc.html -->
         <module name="JavadocMethod">
           <property name="scope" value="protected"/>
+          <property name="allowMissingParamTags" value="true"/>
+          <property name="allowMissingThrowsTags" value="true"/>
+          <property name="allowMissingReturnTag" value="true"/>
+          <property name="allowMissingJavadoc" value="true"/>
         </module>
         <module name="JavadocType"/>
         <module name="JavadocVariable">

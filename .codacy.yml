@@ -1,0 +1,7 @@
+#
+# Codacy configuration for the Yawg project
+#
+---
+
+exclude_paths:
+  - 'modules/.mvn/**'
