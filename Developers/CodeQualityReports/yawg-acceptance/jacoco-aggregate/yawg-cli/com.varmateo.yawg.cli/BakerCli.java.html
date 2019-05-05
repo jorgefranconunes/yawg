@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BakerCli.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-cli</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.cli</a> &gt; <span class="el_source">BakerCli.java</span></div><h1>BakerCli.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2015-2018 Yawg project contributors.
+ * Copyright (c) 2015-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -118,7 +118,7 @@ public final class BakerCli {
 <span class="fc bfc" id="L118" title="All 2 branches covered.">            } else if ( cliOptions.hasOption(BakerCliOptions.VERSION) ) {</span>
 <span class="fc" id="L119">                infoPrinter.printVersion();</span>
             } else {
-<span class="fc" id="L121">                Try&lt;Void&gt; result = doBake(cliOptions, _conf.output);</span>
+<span class="fc" id="L121">                Try&lt;Void&gt; result = doBake(cliOptions);</span>
 
 <span class="fc bfc" id="L123" title="All 2 branches covered.">                if ( result.isFailure() ) {</span>
 <span class="fc" id="L124">                    Throwable e = result.getCause();</span>
@@ -132,16 +132,14 @@ public final class BakerCli {
     /**
      *
      */
-    private static Try&lt;Void&gt; doBake(
-            final CliOptions cliOptions,
-            final OutputStream output)
+    private static Try&lt;Void&gt; doBake(final CliOptions cliOptions)
             throws CliException {
 
-<span class="fc" id="L140">        SiteBakerConf conf = buildSiteBakerConf(cliOptions);</span>
-<span class="fc" id="L141">        SiteBakerFactory factory = SiteBakerFactory.get();</span>
-<span class="fc" id="L142">        SiteBaker siteBaker = factory.newSiteBaker();</span>
+<span class="fc" id="L138">        SiteBakerConf conf = buildSiteBakerConf(cliOptions);</span>
+<span class="fc" id="L139">        SiteBakerFactory factory = SiteBakerFactory.get();</span>
+<span class="fc" id="L140">        SiteBaker siteBaker = factory.newSiteBaker();</span>
 
-<span class="fc" id="L144">        return Try.run(() -&gt; siteBaker.bake(conf));</span>
+<span class="fc" id="L142">        return Try.run(() -&gt; siteBaker.bake(conf));</span>
     }
 
 
@@ -151,24 +149,24 @@ public final class BakerCli {
     private static SiteBakerConf buildSiteBakerConf(final CliOptions cliOptions)
             throws CliException {
 
-<span class="fc" id="L154">        Path sourceDir =</span>
-<span class="fc" id="L155">                cliOptions.getPath(BakerCliOptions.SOURCE_DIR);</span>
-<span class="fc" id="L156">        Path targetDir =</span>
-<span class="fc" id="L157">                cliOptions.getPath(BakerCliOptions.TARGET_DIR);</span>
-<span class="fc" id="L158">        Path templatesDir =</span>
-<span class="fc" id="L159">                cliOptions.getPath(BakerCliOptions.TEMPLATES_DIR, null);</span>
-<span class="fc" id="L160">        Path assetsDir =</span>
-<span class="fc" id="L161">                cliOptions.getPath(BakerCliOptions.ASSETS_DIR, null);</span>
-<span class="fc" id="L162">        java.util.Map&lt;String,Object&gt; externalPageVars =</span>
-<span class="fc" id="L163">                buildExternalPageVars(cliOptions);</span>
+<span class="fc" id="L152">        Path sourceDir =</span>
+<span class="fc" id="L153">                cliOptions.getPath(BakerCliOptions.SOURCE_DIR);</span>
+<span class="fc" id="L154">        Path targetDir =</span>
+<span class="fc" id="L155">                cliOptions.getPath(BakerCliOptions.TARGET_DIR);</span>
+<span class="fc" id="L156">        Path templatesDir =</span>
+<span class="fc" id="L157">                cliOptions.getPath(BakerCliOptions.TEMPLATES_DIR, null);</span>
+<span class="fc" id="L158">        Path assetsDir =</span>
+<span class="fc" id="L159">                cliOptions.getPath(BakerCliOptions.ASSETS_DIR, null);</span>
+<span class="fc" id="L160">        java.util.Map&lt;String,Object&gt; externalPageVars =</span>
+<span class="fc" id="L161">                buildExternalPageVars(cliOptions);</span>
 
-<span class="fc" id="L165">        return SiteBakerConfBuilder.create()</span>
-<span class="fc" id="L166">                .setSourceDir(sourceDir)</span>
-<span class="fc" id="L167">                .setTargetDir(targetDir)</span>
-<span class="fc" id="L168">                .setTemplatesDir(templatesDir)</span>
-<span class="fc" id="L169">                .setAssetsDir(assetsDir)</span>
-<span class="fc" id="L170">                .addExternalPageVars(externalPageVars)</span>
-<span class="fc" id="L171">                .build();</span>
+<span class="fc" id="L163">        return SiteBakerConfBuilder.create()</span>
+<span class="fc" id="L164">                .setSourceDir(sourceDir)</span>
+<span class="fc" id="L165">                .setTargetDir(targetDir)</span>
+<span class="fc" id="L166">                .setTemplatesDir(templatesDir)</span>
+<span class="fc" id="L167">                .setAssetsDir(assetsDir)</span>
+<span class="fc" id="L168">                .addExternalPageVars(externalPageVars)</span>
+<span class="fc" id="L169">                .build();</span>
     }
 
 
@@ -178,12 +176,12 @@ public final class BakerCli {
     private static java.util.Map&lt;String,Object&gt; buildExternalPageVars(
             final CliOptions cliOptions) {
 
-<span class="fc" id="L181">        return cliOptions</span>
-<span class="fc" id="L182">                .getAll(BakerCliOptions.PAGE_VAR)</span>
-<span class="fc" id="L183">                .map(BakerCli::getVarNameAndValueFromOptionValue)</span>
-<span class="fc" id="L184">                .foldLeft(</span>
+<span class="fc" id="L179">        return cliOptions</span>
+<span class="fc" id="L180">                .getAll(BakerCliOptions.PAGE_VAR)</span>
+<span class="fc" id="L181">                .map(BakerCli::getVarNameAndValueFromOptionValue)</span>
+<span class="fc" id="L182">                .foldLeft(</span>
                         new java.util.HashMap&lt;&gt;(),
-<span class="fc" id="L186">                        (map, t) -&gt; { map.put(t._1, t._2); return map; });</span>
+<span class="fc" id="L184">                        (map, t) -&gt; { map.put(t._1, t._2); return map; });</span>
     }
 
 
@@ -192,17 +190,17 @@ public final class BakerCli {
 
         final String varName;
         final String varValue;
-<span class="fc" id="L195">        int indexOfEqSign = optionValue.indexOf('=');</span>
+<span class="fc" id="L193">        int indexOfEqSign = optionValue.indexOf('=');</span>
 
-<span class="pc bpc" id="L197" title="1 of 2 branches missed.">        if ( indexOfEqSign &lt; 0 ) {</span>
-<span class="nc" id="L198">            varName = optionValue;</span>
-<span class="nc" id="L199">            varValue = &quot;&quot;;</span>
+<span class="pc bpc" id="L195" title="1 of 2 branches missed.">        if ( indexOfEqSign &lt; 0 ) {</span>
+<span class="nc" id="L196">            varName = optionValue;</span>
+<span class="nc" id="L197">            varValue = &quot;&quot;;</span>
         } else {
-<span class="fc" id="L201">            varName = optionValue.substring(0, indexOfEqSign);</span>
-<span class="fc" id="L202">            varValue = optionValue.substring(indexOfEqSign+1);</span>
+<span class="fc" id="L199">            varName = optionValue.substring(0, indexOfEqSign);</span>
+<span class="fc" id="L200">            varValue = optionValue.substring(indexOfEqSign+1);</span>
         }
 
-<span class="fc" id="L205">        return Tuple.of(varName, varValue);</span>
+<span class="fc" id="L203">        return Tuple.of(varName, varValue);</span>
     }
 
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>FileUtils.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.util</a> &gt; <span class="el_source">FileUtils.java</span></div><h1>FileUtils.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -44,17 +44,15 @@ public final class FileUtils {
      */
     public static String basename(final Path path) {
 
-<span class="fc" id="L47">        String basenameWithExtension =</span>
+<span class="fc" id="L47">        final String basenameWithExtension =</span>
 <span class="fc" id="L48">                Option.of(path.getFileName())</span>
 <span class="fc" id="L49">                .map(Object::toString)</span>
 <span class="fc" id="L50">                .getOrElse(&quot;&quot;);</span>
-<span class="fc" id="L51">        int extensionIndex = basenameWithExtension.lastIndexOf('.');</span>
-<span class="fc bfc" id="L52" title="All 2 branches covered.">        String basenameWithoutExtension =</span>
-                (extensionIndex&gt;-1)
+<span class="fc" id="L51">        final int extensionIndex = basenameWithExtension.lastIndexOf('.');</span>
+
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        return (extensionIndex&gt;-1)</span>
 <span class="fc" id="L54">                ? basenameWithExtension.substring(0, extensionIndex)</span>
                 : basenameWithExtension;
-
-<span class="fc" id="L57">        return basenameWithoutExtension;</span>
     }
 
 
@@ -65,10 +63,10 @@ public final class FileUtils {
             final Path path,
             final Pattern pattern) {
 
-<span class="fc" id="L68">        return  Optional.ofNullable(path.getFileName())</span>
-<span class="fc" id="L69">                .map(Path::toString)</span>
-<span class="fc" id="L70">                .map(basename -&gt; pattern.matcher(basename).matches())</span>
-<span class="fc" id="L71">                .orElse(false);</span>
+<span class="fc" id="L66">        return  Optional.ofNullable(path.getFileName())</span>
+<span class="fc" id="L67">                .map(Path::toString)</span>
+<span class="fc" id="L68">                .map(basename -&gt; pattern.matcher(basename).matches())</span>
+<span class="fc" id="L69">                .orElse(false);</span>
     }
 
 
@@ -90,12 +88,12 @@ public final class FileUtils {
             final Path target)
             throws IOException {
 
-<span class="fc" id="L93">        Files.copy(</span>
+<span class="fc" id="L91">        Files.copy(</span>
                 source,
                 target,
                 StandardCopyOption.REPLACE_EXISTING,
                 StandardCopyOption.COPY_ATTRIBUTES);
-<span class="fc" id="L98">    }</span>
+<span class="fc" id="L96">    }</span>
 
 
     /**
@@ -113,9 +111,9 @@ public final class FileUtils {
     public static String readAsString(final Path sourcePath)
             throws IOException {
 
-<span class="fc" id="L116">        byte[] contentBytes = Files.readAllBytes(sourcePath);</span>
+<span class="fc" id="L114">        final byte[] contentBytes = Files.readAllBytes(sourcePath);</span>
 
-<span class="fc" id="L118">        return new String(contentBytes, StandardCharsets.UTF_8);</span>
+<span class="fc" id="L116">        return new String(contentBytes, StandardCharsets.UTF_8);</span>
     }
 
 
@@ -141,11 +139,11 @@ public final class FileUtils {
             final ConsumerWithIOException&lt;Writer&gt; consumer)
             throws IOException {
 
-<span class="pc" id="L144">        try ( Writer writer =</span>
-<span class="fc" id="L145">                  Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {</span>
-<span class="fc" id="L146">            consumer.accept(writer);</span>
-<span class="pc bpc" id="L147" title="6 of 8 branches missed.">        }</span>
-<span class="fc" id="L148">    }</span>
+<span class="pc" id="L142">        try ( final Writer writer =</span>
+<span class="fc" id="L143">                  Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {</span>
+<span class="fc" id="L144">            consumer.accept(writer);</span>
+<span class="pc bpc" id="L145" title="6 of 8 branches missed.">        }</span>
+<span class="fc" id="L146">    }</span>
 
 
     /**
