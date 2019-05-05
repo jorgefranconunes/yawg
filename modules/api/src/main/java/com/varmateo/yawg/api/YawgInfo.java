@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -32,7 +32,7 @@ public final class YawgInfo {
 
     /** Copyright string to be displayed to end users. */
     public static final String COPYRIGHT_HEADER =
-        "Copyright (c) 2018 Yawg project contributors.";
+        "Copyright (c) 2019 Yawg project contributors.";
 
 
     /**
