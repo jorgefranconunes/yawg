@@ -3,7 +3,7 @@
 #
 
 #
-# Default template for the whole site.
+# Default template for the all pages in the Yawg site.
 #
 template: "yawg-site.ftlh"
 
@@ -15,8 +15,8 @@ templatesHere:
     - "index.html"
 
 #
-# List of globs for files NOT to be included in the bake. This list is
-# tipically very similar to the .gitignore list.
+# List of globs for files NOT to be included in the bake. This list
+# should tipically very similar to the .gitignore list.
 #
 exclude:
   - "*~"
@@ -35,7 +35,7 @@ exclude:
 
 
 pageVars:
-  latestYawgVersion: "0.9.8"
+  latestYawgVersion: "1.0.0-RC1"
   navbarSelectedItem: "home"
 
 

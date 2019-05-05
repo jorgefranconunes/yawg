@@ -1,7 +1,7 @@
 #!/bin/bash
 ###########################################################################
 #
-# Copyright (c) 2016-2017 Yawg project contributors.
+# Copyright (c) 2016-2019 Yawg project contributors.
 #
 #
 # Generates the Yawg static site and optionally uploads it to the
@@ -25,7 +25,7 @@ PRODUCT_HEADER="${YAWG_PRODUCT_NAME} ${YAWG_VERSION} - ${TOOL_NAME}"
 
 SITE_REPO="git@github.com:jorgefranconunes/yawg.git"
 SITE_BRANCH="gh-pages"
-SITE_YAWG_VERSION=0.9.8
+SITE_YAWG_VERSION=1.0.0-RC1
 SITE_YAWG_BASEDIR=yawg-${SITE_YAWG_VERSION}
 SITE_YAWG_TARBALL=https://github.com/jorgefranconunes/yawg/releases/download/v${SITE_YAWG_VERSION}/${SITE_YAWG_BASEDIR}.tar.bz2
 
