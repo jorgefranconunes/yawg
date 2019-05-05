@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -50,12 +50,11 @@ import io.vavr.collection.Seq;
             final PageContext context,
             final DirBakeListener listener) {
 
-        PageVars newVars = listener.onDirBake(context);
-        PageContext augmentedContext = PageContextBuilder.create(context)
+        final PageVars newVars = listener.onDirBake(context);
+
+        return PageContextBuilder.create(context)
                 .setPageVars(newVars)
                 .build();
-
-        return augmentedContext;
     }
 
 

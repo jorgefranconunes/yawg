@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -32,9 +32,7 @@ public final class BakerCliRunner {
      */
     public static Builder builder() {
 
-        Builder builder = new Builder();
-
-        return builder;
+        return new Builder();
     }
 
 
@@ -43,9 +41,7 @@ public final class BakerCliRunner {
      */
     public static BakerCliRunner empty() {
 
-        BakerCliRunner result = BakerCliRunner.builder().build();
-
-        return result;
+        return BakerCliRunner.builder().build();
     }
 
 
@@ -65,15 +61,15 @@ public final class BakerCliRunner {
      */
     public BakerCliResult run() {
 
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        BakerCliConf conf =
+        final ByteArrayOutputStream output = new ByteArrayOutputStream();
+        final BakerCliConf conf =
                 BakerCliConf.builder()
                 .addArgs(_args)
                 .setOutput(output)
                 .build();
-        BakerCli bakerCli = new BakerCli(conf);
-        int exitStatus = bakerCli.run();
-        BakerCliResult result =
+        final BakerCli bakerCli = new BakerCli(conf);
+        final int exitStatus = bakerCli.run();
+        final BakerCliResult result =
                 BakerCliResult.builder()
                 .setSourcePath(_sourcePath)
                 .setTargetPath(_targetPath)
@@ -180,9 +176,7 @@ public final class BakerCliRunner {
          */
         public BakerCliRunner build() {
 
-            BakerCliRunner result = new BakerCliRunner(this);
-
-            return result;
+            return new BakerCliRunner(this);
         }
 
 
@@ -191,10 +185,9 @@ public final class BakerCliRunner {
          */
         public BakerCliResult run() {
 
-            BakerCliRunner baker = new BakerCliRunner(this);
-            BakerCliResult result = baker.run();
+            final BakerCliRunner baker = new BakerCliRunner(this);
 
-            return result;
+            return baker.run();
         }
 
 

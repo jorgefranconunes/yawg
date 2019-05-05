@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2015-2018 Yawg project contributors.
+ * Copyright (c) 2015-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -118,7 +118,7 @@ public final class BakerCli {
             } else if ( cliOptions.hasOption(BakerCliOptions.VERSION) ) {
                 infoPrinter.printVersion();
             } else {
-                Try<Void> result = doBake(cliOptions, _conf.output);
+                Try<Void> result = doBake(cliOptions);
 
                 if ( result.isFailure() ) {
                     Throwable e = result.getCause();
@@ -132,9 +132,7 @@ public final class BakerCli {
     /**
      *
      */
-    private static Try<Void> doBake(
-            final CliOptions cliOptions,
-            final OutputStream output)
+    private static Try<Void> doBake(final CliOptions cliOptions)
             throws CliException {
 
         SiteBakerConf conf = buildSiteBakerConf(cliOptions);

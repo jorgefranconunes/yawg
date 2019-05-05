@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -44,17 +44,15 @@ public final class FileUtils {
      */
     public static String basename(final Path path) {
 
-        String basenameWithExtension =
+        final String basenameWithExtension =
                 Option.of(path.getFileName())
                 .map(Object::toString)
                 .getOrElse("");
-        int extensionIndex = basenameWithExtension.lastIndexOf('.');
-        String basenameWithoutExtension =
-                (extensionIndex>-1)
+        final int extensionIndex = basenameWithExtension.lastIndexOf('.');
+
+        return (extensionIndex>-1)
                 ? basenameWithExtension.substring(0, extensionIndex)
                 : basenameWithExtension;
-
-        return basenameWithoutExtension;
     }
 
 
@@ -113,7 +111,7 @@ public final class FileUtils {
     public static String readAsString(final Path sourcePath)
             throws IOException {
 
-        byte[] contentBytes = Files.readAllBytes(sourcePath);
+        final byte[] contentBytes = Files.readAllBytes(sourcePath);
 
         return new String(contentBytes, StandardCharsets.UTF_8);
     }
@@ -141,7 +139,7 @@ public final class FileUtils {
             final ConsumerWithIOException<Writer> consumer)
             throws IOException {
 
-        try ( Writer writer =
+        try ( final Writer writer =
                   Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {
             consumer.accept(writer);
         }
