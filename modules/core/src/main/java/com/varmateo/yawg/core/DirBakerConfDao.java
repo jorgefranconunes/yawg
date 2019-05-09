@@ -1,10 +1,24 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.core;
+
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Optional;
+import java.util.regex.PatternSyntaxException;
+
+import io.vavr.Function1;
+import io.vavr.collection.Seq;
+import io.vavr.collection.Stream;
 
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.core.DirBakerConf;
@@ -15,18 +29,6 @@ import com.varmateo.yawg.util.Exceptions;
 import com.varmateo.yawg.util.GlobMatcher;
 import com.varmateo.yawg.util.SimpleMap;
 import com.varmateo.yawg.util.YamlParser;
-import java.io.IOException;
-import java.io.Reader;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.InvalidPathException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Optional;
-import java.util.regex.PatternSyntaxException;
-import io.vavr.Function1;
-import io.vavr.collection.Seq;
-import io.vavr.collection.Stream;
 
 
 /**
@@ -123,31 +125,31 @@ import io.vavr.collection.Stream;
         DirBakerConf.Builder builder = DirBakerConf.builder();
 
         confMap.getString(PARAM_TEMPLATE)
-                .ifPresent(builder::setTemplateName);
+                .ifPresent(builder::templateName);
 
         getPatternList(confMap, PARAM_EXCLUDE)
-                .ifPresent(builder::setFilesToExclude);
+                .ifPresent(builder::filesToExclude);
 
         getPatternList(confMap, PARAM_EXCLUDE_HERE)
-                .ifPresent(builder::setFilesToExcludeHere);
+                .ifPresent(builder::filesToExcludeHere);
 
         getPatternList(confMap, PARAM_INCLUDE_HERE)
-                .ifPresent(builder::setFilesToIncludeHere);
+                .ifPresent(builder::filesToIncludeHere);
 
         getBakerTypes(confMap, PARAM_BAKER_TYPES)
-                .ifPresent(builder::setBakerTypes);
+                .ifPresent(builder::bakerTypes);
 
         getPageVars(confMap, PARAM_PAGE_VARS)
-                .ifPresent(builder::setPageVars);
+                .ifPresent(builder::pageVars);
 
         getPageVars(confMap, PARAM_PAGE_VARS_HERE)
-                .ifPresent(builder::setPageVarsHere);
+                .ifPresent(builder::pageVarsHere);
 
         getTemplatesHere(confMap, PARAM_TEMPLATES_HERE)
-                .ifPresent(builder::setTemplatesHere);
+                .ifPresent(builder::templatesHere);
 
         getPathList(confMap, PARAM_EXTRA_DIRS_HERE)
-                .ifPresent(builder::setExtraDirsHere);
+                .ifPresent(builder::extraDirsHere);
 
         return builder.build();
     }

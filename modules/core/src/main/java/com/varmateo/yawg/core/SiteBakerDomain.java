@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -10,7 +10,7 @@ import io.vavr.collection.List;
 import io.vavr.collection.Seq;
 import io.vavr.control.Option;
 
-import com.varmateo.yawg.api.SiteBakerConf;
+import com.varmateo.yawg.api.SiteBakerOptions;
 import com.varmateo.yawg.core.CollectiveDirBakeListener;
 import com.varmateo.yawg.core.CollectiveTemplateService;
 import com.varmateo.yawg.core.CopyBakerService;
@@ -36,7 +36,7 @@ import com.varmateo.yawg.util.Services;
 /* package private */ final class SiteBakerDomain {
 
 
-    private final SiteBakerConf _conf;
+    private final SiteBakerOptions _conf;
 
     private final Holder<Seq<BakerService>> _bakers =
             Holder.of(this::newBakers);
@@ -69,7 +69,7 @@ import com.varmateo.yawg.util.Services;
     /**
      * @param conf Configuration parameters.
      */
-    SiteBakerDomain(final SiteBakerConf conf) {
+    SiteBakerDomain(final SiteBakerOptions conf) {
 
         _conf = conf;
     }
@@ -123,8 +123,8 @@ import com.varmateo.yawg.util.Services;
 
         return new DirBaker(
                 _log.get(),
-                _conf.getSourceDir(),
-                _conf.getTargetDir(),
+                _conf.sourceDir(),
+                _conf.targetDir(),
                 _fileBaker.get(),
                 _templateService.get(),
                 _dirBakerConfDao.get(),
@@ -160,7 +160,7 @@ import com.varmateo.yawg.util.Services;
     private TemplateService newTemplateService() {
 
         Seq<TemplateService> allServices =
-                Option.ofOptional(_conf.getTemplatesDir())
+                Option.ofOptional(_conf.templatesDir())
                 .map(dirPath ->
                      Services.getAll(TemplateServiceFactory.class)
                      .map(f -> f.newTemplateService(dirPath)))

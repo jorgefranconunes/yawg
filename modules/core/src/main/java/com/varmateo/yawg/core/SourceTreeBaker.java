@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2017-2018 Yawg project contributors.
+ * Copyright (c) 2017-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -68,10 +68,9 @@ import com.varmateo.yawg.spi.PageVars;
     private void doBake()
             throws YawgException {
 
-        DirBakerConf dirBakerConf =
-                DirBakerConf.builder()
-                .setTemplateName(DEFAULT_TEMPLATE_NAME)
-                .setPageVars(_externalPageVars)
+        final DirBakerConf dirBakerConf = DirBakerConf.builder()
+                .templateName(DEFAULT_TEMPLATE_NAME)
+                .pageVars(_externalPageVars)
                 .build();
 
         _dirBaker.bakeDirectory(_sourceDir, _targetDir, dirBakerConf);

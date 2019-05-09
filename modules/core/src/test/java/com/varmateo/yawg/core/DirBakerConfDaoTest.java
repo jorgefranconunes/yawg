@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -65,13 +65,11 @@ public final class DirBakerConfDaoTest
     public void withTemplateParamOk()
             throws IOException {
 
-        String templateName = "demo";
-        String confContents = ""
-                + "template: " + templateName;
-        DirBakerConf actualConf = readFromString(confContents);
-        DirBakerConf expectedConf =
-                DirBakerConf.builder()
-                .setTemplateName(templateName)
+        final String templateName = "demo";
+        final String confContents = "template: " + templateName;
+        final DirBakerConf actualConf = readFromString(confContents);
+        final DirBakerConf expectedConf = DirBakerConf.builder()
+                .templateName(templateName)
                 .build();
 
         assertConfEquals(expectedConf, actualConf);
@@ -111,14 +109,13 @@ public final class DirBakerConfDaoTest
     public void withExcludeParamOk()
             throws IOException {
 
-        String confContents = ""
+        final String confContents = ""
                 + "exclude:\n"
                 + "  - one\n"
                 + "  - .*~\n";
-        DirBakerConf actualConf = readFromString(confContents);
-        DirBakerConf expectedConf =
-                DirBakerConf.builder()
-                .setFilesToExclude("one", ".*~")
+        final DirBakerConf actualConf = readFromString(confContents);
+        final DirBakerConf expectedConf = DirBakerConf.builder()
+                .filesToExclude("one", ".*~")
                 .build();
 
         assertConfEquals(expectedConf, actualConf);
@@ -175,14 +172,13 @@ public final class DirBakerConfDaoTest
     public void withExcludeHereParamOk()
             throws IOException {
 
-        String confContents = ""
+        final String confContents = ""
                 + "excludeHere:\n"
                 + "  - one\n"
                 + "  - two\n";
-        DirBakerConf actualConf = readFromString(confContents);
-        DirBakerConf expectedConf =
-                DirBakerConf.builder()
-                .setFilesToExcludeHere("one", "two")
+        final DirBakerConf actualConf = readFromString(confContents);
+        final DirBakerConf expectedConf = DirBakerConf.builder()
+                .filesToExcludeHere("one", "two")
                 .build();
 
         assertConfEquals(expectedConf, actualConf);
@@ -196,14 +192,13 @@ public final class DirBakerConfDaoTest
     public void withIncludeHereParamOk()
             throws IOException {
 
-        String confContents = ""
+        final String confContents = ""
                 + "includeHere:\n"
                 + "  - one\n"
                 + "  - two\n";
-        DirBakerConf actualConf = readFromString(confContents);
-        DirBakerConf expectedConf =
-                DirBakerConf.builder()
-                .setFilesToIncludeHere("one", "two")
+        final DirBakerConf actualConf = readFromString(confContents);
+        final DirBakerConf expectedConf = DirBakerConf.builder()
+                .filesToIncludeHere("one", "two")
                 .build();
 
         assertConfEquals(expectedConf, actualConf);
@@ -273,12 +268,12 @@ public final class DirBakerConfDaoTest
     public void withPageVarsHere()
             throws IOException {
 
-        String confContents = ""
+        final String confContents = ""
                 + "pageVarsHere:\n"
                 + "  hello : 'world'\n";
-        DirBakerConf actualConf = readFromString(confContents);
-        PageVars vars = actualConf.pageVarsHere;
-        Optional<Object> value = vars.get("hello");
+        final DirBakerConf actualConf = readFromString(confContents);
+        final PageVars vars = actualConf.pageVarsHere;
+        final Optional<Object> value = vars.get("hello");
 
         assertThat(value).isPresent();
         assertThat(value).containsInstanceOf(String.class);
@@ -292,14 +287,11 @@ public final class DirBakerConfDaoTest
     @Test
     public void loadFromFileOk() {
 
-        Path confFile =
-                TestUtils
-                .getInputsDir(DirBakerConfDao.class)
+        final Path confFile = TestUtils.getInputsDir(DirBakerConfDao.class)
                 .resolve("dirWithYawgYml/.yawg.yml");
-        DirBakerConf actualConf = _dao.loadFromFile(confFile);
-        DirBakerConf expectedConf =
-                DirBakerConf.builder()
-                .setTemplateName("demo")
+        final DirBakerConf actualConf = _dao.loadFromFile(confFile);
+        final DirBakerConf expectedConf = DirBakerConf.builder()
+                .templateName("demo")
                 .build();
 
         assertConfEquals(expectedConf, actualConf);
@@ -325,14 +317,11 @@ public final class DirBakerConfDaoTest
     @Test
     public void loadOk() {
 
-        Path sourceDir =
-                TestUtils
-                .getInputsDir(DirBakerConfDao.class)
+        final Path sourceDir = TestUtils.getInputsDir(DirBakerConfDao.class)
                 .resolve("dirWithYawgYml");
-        DirBakerConf actualConf = _dao.loadFromDir(sourceDir);
-        DirBakerConf expectedConf =
-                DirBakerConf.builder()
-                .setTemplateName("demo")
+        final DirBakerConf actualConf = _dao.loadFromDir(sourceDir);
+        final DirBakerConf expectedConf = DirBakerConf.builder()
+                .templateName("demo")
                 .build();
 
         assertConfEquals(expectedConf, actualConf);

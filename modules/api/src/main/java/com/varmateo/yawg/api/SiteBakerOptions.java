@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -10,12 +10,15 @@ import java.nio.file.Path;
 import java.util.Map;
 import java.util.Optional;
 
+import org.inferred.freebuilder.FreeBuilder;
+
 
 /**
  * Set of configuration parameters for baking a site with a
  * <code>SiteBaker</code> instance.
  */
-public interface SiteBakerConf {
+@FreeBuilder
+public interface SiteBakerOptions {
 
 
     /**
@@ -25,20 +28,20 @@ public interface SiteBakerConf {
      * <p>An empty <code>Optional</code> means no assets will be
      * copied.</p>
      */
-    Optional<Path> getAssetsDir();
+    Optional<Path> assetsDir();
 
 
     /**
      * Path of directory containing the documents to be baked.
      */
-    Path getSourceDir();
+    Path sourceDir();
 
 
     /**
      * Path of directory where the results of the baking will be
      * stored.
      */
-    Path getTargetDir();
+    Path targetDir();
 
 
     /**
@@ -47,7 +50,7 @@ public interface SiteBakerConf {
      * <p>An empty <code>Optional</code> means no templates are
      * available for use.</p>
      */
-    Optional<Path> getTemplatesDir();
+    Optional<Path> templatesDir();
 
 
     /**
@@ -58,7 +61,28 @@ public interface SiteBakerConf {
      * @return A read-only map containing the page variables. Keys in
      * the map are the variable names.
      */
-    Map<String,Object> getExternalPageVars();
+    Map<String,Object> externalPageVars();
+
+
+    /**
+     *
+     */
+    static Builder builder() {
+
+        return new Builder();
+    }
+
+
+    /**
+     *
+     */
+    static final class Builder extends SiteBakerOptions_Builder {
+
+        private Builder() {
+            // Nothing to do.
+        }
+
+    }
 
 
 }

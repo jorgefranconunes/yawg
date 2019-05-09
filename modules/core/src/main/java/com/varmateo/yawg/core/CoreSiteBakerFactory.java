@@ -1,13 +1,13 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.core;
 
 import com.varmateo.yawg.api.SiteBaker;
-import com.varmateo.yawg.api.SiteBakerConf;
+import com.varmateo.yawg.api.SiteBakerOptions;
 import com.varmateo.yawg.api.SiteBakerFactory;
 import com.varmateo.yawg.core.SingleSiteBaker;
 import com.varmateo.yawg.core.SiteBakerDomain;
@@ -43,7 +43,7 @@ public final class CoreSiteBakerFactory
          *
          */
         @Override
-        public void bake(final SiteBakerConf conf) {
+        public void bake(final SiteBakerOptions conf) {
 
             SiteBakerDomain domain = new SiteBakerDomain(conf);
             SingleSiteBaker singleSiteBaker = domain.getSingleSiteBaker();

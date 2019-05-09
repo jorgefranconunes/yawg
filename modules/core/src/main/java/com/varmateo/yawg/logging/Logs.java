@@ -57,7 +57,10 @@ public final class Logs {
         return () -> logDuration(
                 log,
                 description,
-                () -> { function.run(); return null; });
+                () -> {
+                    function.run();
+                    return null;
+                });
     }
 
 
@@ -72,7 +75,10 @@ public final class Logs {
         return (t, u) -> logDuration(
                 log,
                 description.apply(t, u),
-                () -> { function.accept(t, u); return null; });
+                () -> {
+                    function.accept(t, u);
+                    return null;
+                });
     }
 
 

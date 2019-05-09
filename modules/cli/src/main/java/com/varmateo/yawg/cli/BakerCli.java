@@ -12,14 +12,14 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.util.Optional;
 
 import io.vavr.Tuple;
 import io.vavr.Tuple2;
 import io.vavr.control.Try;
 
 import com.varmateo.yawg.api.SiteBaker;
-import com.varmateo.yawg.api.SiteBakerConf;
-import com.varmateo.yawg.api.SiteBakerConfBuilder;
+import com.varmateo.yawg.api.SiteBakerOptions;
 import com.varmateo.yawg.api.SiteBakerFactory;
 import com.varmateo.yawg.cli.InfoPrinter;
 import com.varmateo.yawg.cli.BakerCliConf;
@@ -133,7 +133,7 @@ public final class BakerCli {
     private static Try<Void> doBake(final CliOptionSet cliOptions)
             throws CliException {
 
-        SiteBakerConf conf = buildSiteBakerConf(cliOptions);
+        SiteBakerOptions conf = buildSiteBakerOptions(cliOptions);
         SiteBakerFactory factory = SiteBakerFactory.get();
         SiteBaker siteBaker = factory.newSiteBaker();
 
@@ -144,7 +144,7 @@ public final class BakerCli {
     /**
      *
      */
-    private static SiteBakerConf buildSiteBakerConf(final CliOptionSet cliOptions)
+    private static SiteBakerOptions buildSiteBakerOptions(final CliOptionSet cliOptions)
             throws CliException {
 
         final Path sourceDir = cliOptions.getPath(BakerCliOptions.SOURCE_DIR);
@@ -153,12 +153,12 @@ public final class BakerCli {
         final Path assetsDir = cliOptions.getPath(BakerCliOptions.ASSETS_DIR, null);
         final java.util.Map<String,Object> externalPageVars = buildExternalPageVars(cliOptions);
 
-        return SiteBakerConfBuilder.create()
-                .setSourceDir(sourceDir)
-                .setTargetDir(targetDir)
-                .setTemplatesDir(templatesDir)
-                .setAssetsDir(assetsDir)
-                .addExternalPageVars(externalPageVars)
+        return SiteBakerOptions.builder()
+                .sourceDir(sourceDir)
+                .targetDir(targetDir)
+                .templatesDir(Optional.ofNullable(templatesDir))
+                .assetsDir(Optional.ofNullable(assetsDir))
+                .putAllExternalPageVars(externalPageVars)
                 .build();
     }
 

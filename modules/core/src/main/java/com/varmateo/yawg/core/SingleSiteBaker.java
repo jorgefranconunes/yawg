@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2018 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -10,7 +10,7 @@ import java.nio.file.Path;
 import java.util.Map;
 import java.util.Optional;
 
-import com.varmateo.yawg.api.SiteBakerConf;
+import com.varmateo.yawg.api.SiteBakerOptions;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.api.YawgInfo;
 import com.varmateo.yawg.core.DirBaker;
@@ -27,7 +27,7 @@ import com.varmateo.yawg.spi.PageVarsBuilder;
 
 
     private final Log _log;
-    private final SiteBakerConf _conf;
+    private final SiteBakerOptions _conf;
     private final AssetsCopier _assetsCopier;
     private final SourceTreeBaker _sourceTreeBaker;
 
@@ -39,21 +39,21 @@ import com.varmateo.yawg.spi.PageVarsBuilder;
      */
     SingleSiteBaker(
             final Log log,
-            final SiteBakerConf conf,
+            final SiteBakerOptions conf,
             final DirBaker dirBaker) {
 
-        PageVars pageVars = mapToPageVars(conf.getExternalPageVars());
+        PageVars pageVars = mapToPageVars(conf.externalPageVars());
 
         _log = log;
         _conf = conf;
         _assetsCopier = new AssetsCopier(
                 log,
-                conf.getAssetsDir(),
-                conf.getTargetDir());
+                conf.assetsDir(),
+                conf.targetDir());
         _sourceTreeBaker = new SourceTreeBaker(
                 log,
-                conf.getSourceDir(),
-                conf.getTargetDir(),
+                conf.sourceDir(),
+                conf.targetDir(),
                 pageVars,
                 dirBaker);
 
@@ -87,10 +87,10 @@ import com.varmateo.yawg.spi.PageVarsBuilder;
     public void bake()
             throws YawgException {
 
-        Path sourceDir = _conf.getSourceDir();
-        Path targetDir = _conf.getTargetDir();
-        Optional<Path> templatesDir = _conf.getTemplatesDir();
-        Optional<Path> assetsDir = _conf.getAssetsDir();
+        Path sourceDir = _conf.sourceDir();
+        Path targetDir = _conf.targetDir();
+        Optional<Path> templatesDir = _conf.templatesDir();
+        Optional<Path> assetsDir = _conf.assetsDir();
 
         _log.info("{0} {1}", YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);
         _log.info("    Source    : {0}", sourceDir);

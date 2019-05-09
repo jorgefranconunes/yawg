@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -40,7 +40,7 @@ public interface PageVars {
      * @return An unmodifiable map containing all the vars. Each entry
      * corresponds to one page variable.
      */
-    Map<String,Object> asMap();
+    Map<String, Object> asMap();
 
 
     /**
@@ -57,7 +57,7 @@ public interface PageVars {
             }
 
             @Override
-            public Map<String,Object> asMap() {
+            public Map<String, Object> asMap() {
                 return Collections.emptyMap();
             }
         };

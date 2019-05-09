@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -26,15 +26,13 @@ public final class DirBakerConfTest
     @Test
     public void mergeFromEmpty() {
 
-        DirBakerConf confEmpty = DirBakerConf.empty();
-        DirBakerConf conf =
-                DirBakerConf.builder()
-                .setFilesToExclude("hello")
+        final DirBakerConf confEmpty = DirBakerConf.empty();
+        final DirBakerConf conf = DirBakerConf.builder()
+                .filesToExclude("hello")
                 .build()
                 .mergeOnTopOf(confEmpty);
-        DirBakerConf expectedConf =
-                DirBakerConf.builder()
-                .setFilesToExclude("hello")
+        final DirBakerConf expectedConf = DirBakerConf.builder()
+                .filesToExclude("hello")
                 .build();
 
         assertConfEquals(expectedConf, conf);
@@ -47,18 +45,15 @@ public final class DirBakerConfTest
     @Test
     public void mergeOne() {
 
-        DirBakerConf conf01 =
-                DirBakerConf.builder()
-                .setFilesToExclude("hello")
+        final DirBakerConf conf01 = DirBakerConf.builder()
+                .filesToExclude("hello")
                 .build();
-        DirBakerConf conf02 =
-                DirBakerConf.builder()
-                .setFilesToExclude("world")
+        final DirBakerConf conf02 = DirBakerConf.builder()
+                .filesToExclude("world")
                 .build()
                 .mergeOnTopOf(conf01);
-        DirBakerConf expectedConf =
-                DirBakerConf.builder()
-                .setFilesToExclude("hello", "world")
+        final DirBakerConf expectedConf = DirBakerConf.builder()
+                .filesToExclude("hello", "world")
                 .build();
 
         assertConfEquals(expectedConf, conf02);

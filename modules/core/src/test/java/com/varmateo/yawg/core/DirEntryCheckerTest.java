@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -45,12 +45,11 @@ public final class DirEntryCheckerTest
     @Test
     public void withExcludeOne() {
 
-        DirBakerConf conf =
-                DirBakerConf.builder()
-                .setFilesToExclude("*.txt")
+        final DirBakerConf conf = DirBakerConf.builder()
+                .filesToExclude("*.txt")
                 .build();
-        DirEntryChecker checker = new DirEntryChecker(conf);
-        Predicate<String> predicate = checker.asStringPredicate();
+        final DirEntryChecker checker = new DirEntryChecker(conf);
+        final Predicate<String> predicate = checker.asStringPredicate();
 
         assertThat(predicate)
                 .accepts("something.adoc")
@@ -64,12 +63,11 @@ public final class DirEntryCheckerTest
     @Test
     public void withExcludeMany() {
 
-        DirBakerConf conf =
-                DirBakerConf.builder()
-                .setFilesToExclude("*.txt", "*.puml", "*~")
+        final DirBakerConf conf = DirBakerConf.builder()
+                .filesToExclude("*.txt", "*.puml", "*~")
                 .build();
-        DirEntryChecker checker = new DirEntryChecker(conf);
-        Predicate<String> predicate = checker.asStringPredicate();
+        final DirEntryChecker checker = new DirEntryChecker(conf);
+        final Predicate<String> predicate = checker.asStringPredicate();
 
         assertThat(predicate)
                 .accepts("something.adoc")
@@ -86,12 +84,11 @@ public final class DirEntryCheckerTest
     @Test
     public void withExcludeHere() {
 
-        DirBakerConf conf =
-                DirBakerConf.builder()
-                .setFilesToExcludeHere("*.txt", "*.puml", "*~")
+        final DirBakerConf conf = DirBakerConf.builder()
+                .filesToExcludeHere("*.txt", "*.puml", "*~")
                 .build();
-        DirEntryChecker checker = new DirEntryChecker(conf);
-        Predicate<String> predicate = checker.asStringPredicate();
+        final DirEntryChecker checker = new DirEntryChecker(conf);
+        final Predicate<String> predicate = checker.asStringPredicate();
 
         assertThat(predicate)
                 .accepts("something.adoc")
@@ -108,13 +105,12 @@ public final class DirEntryCheckerTest
     @Test
     public void withExcludeAndExcludeHere() {
 
-        DirBakerConf conf =
-                DirBakerConf.builder()
-                .setFilesToExclude("*.txt")
-                .setFilesToExcludeHere("*.puml", "*~")
+        final DirBakerConf conf = DirBakerConf.builder()
+                .filesToExclude("*.txt")
+                .filesToExcludeHere("*.puml", "*~")
                 .build();
-        DirEntryChecker checker = new DirEntryChecker(conf);
-        Predicate<String> predicate = checker.asStringPredicate();
+        final DirEntryChecker checker = new DirEntryChecker(conf);
+        final Predicate<String> predicate = checker.asStringPredicate();
 
         assertThat(predicate)
                 .accepts("something.adoc")
@@ -131,12 +127,11 @@ public final class DirEntryCheckerTest
     @Test
     public void withIncludeHereOne() {
 
-        DirBakerConf conf =
-                DirBakerConf.builder()
-                .setFilesToIncludeHere("*.adoc")
+        final DirBakerConf conf = DirBakerConf.builder()
+                .filesToIncludeHere("*.adoc")
                 .build();
-        DirEntryChecker checker = new DirEntryChecker(conf);
-        Predicate<String> predicate = checker.asStringPredicate();
+        final DirEntryChecker checker = new DirEntryChecker(conf);
+        final Predicate<String> predicate = checker.asStringPredicate();
 
         assertThat(predicate)
                 .accepts("something.adoc")
@@ -150,12 +145,11 @@ public final class DirEntryCheckerTest
     @Test
     public void withIncludeHereTwo() {
 
-        DirBakerConf conf =
-                DirBakerConf.builder()
-                .setFilesToIncludeHere("*.adoc", "*.svg")
+        final DirBakerConf conf = DirBakerConf.builder()
+                .filesToIncludeHere("*.adoc", "*.svg")
                 .build();
-        DirEntryChecker checker = new DirEntryChecker(conf);
-        Predicate<String> predicate = checker.asStringPredicate();
+        final DirEntryChecker checker = new DirEntryChecker(conf);
+        final Predicate<String> predicate = checker.asStringPredicate();
 
         assertThat(predicate)
                 .accepts(
@@ -173,13 +167,12 @@ public final class DirEntryCheckerTest
     @Test
     public void withExcludeAndInclude() {
 
-        DirBakerConf conf =
-                DirBakerConf.builder()
-                .setFilesToExclude("*.txt")
-                .setFilesToIncludeHere("*.adoc")
+        final DirBakerConf conf = DirBakerConf.builder()
+                .filesToExclude("*.txt")
+                .filesToIncludeHere("*.adoc")
                 .build();
-        DirEntryChecker checker = new DirEntryChecker(conf);
-        Predicate<String> predicate = checker.asStringPredicate();
+        final DirEntryChecker checker = new DirEntryChecker(conf);
+        final Predicate<String> predicate = checker.asStringPredicate();
 
         assertThat(predicate)
                 .accepts("something.adoc")
@@ -195,12 +188,11 @@ public final class DirEntryCheckerTest
     @Test
     public void pathWithExcludeOne() {
 
-        DirBakerConf conf =
-                DirBakerConf.builder()
-                .setFilesToExclude("*.txt")
+        final DirBakerConf conf = DirBakerConf.builder()
+                .filesToExclude("*.txt")
                 .build();
-        DirEntryChecker checker = new DirEntryChecker(conf);
-        Predicate<Path> predicate = checker.asPathPredicate();
+        final DirEntryChecker checker = new DirEntryChecker(conf);
+        final Predicate<Path> predicate = checker.asPathPredicate();
 
         assertThat(predicate)
                 .accepts(

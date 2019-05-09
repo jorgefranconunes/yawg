@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -23,7 +23,7 @@ import com.varmateo.yawg.util.GlobMatcher;
 /* package private */ final class BakerMatcher {
 
 
-    private Seq<Entry> _bakerTypes;
+    private final Seq<Entry> _bakerTypes;
 
 
     /**
@@ -64,7 +64,7 @@ import com.varmateo.yawg.util.GlobMatcher;
     /**
      *
      */
-    public Option<String> getBakerTypeFor(final Path path) {
+    public Option<String> bakerTypeFor(final Path path) {
 
         return _bakerTypes
                 .filter(entry -> entry.matcher.test(path))

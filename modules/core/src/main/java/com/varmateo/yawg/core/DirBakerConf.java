@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -129,18 +129,18 @@ import io.vavr.control.Option;
      */
     public DirBakerConf mergeOnTopOf(final DirBakerConf that) {
 
-        Builder builder = new Builder(that);
+        final Builder builder = new Builder(that);
 
-        this.templateName.forEach(builder::setTemplateName);
+        this.templateName.forEach(builder::templateName);
         this.filesToExclude.forEach(builder::addFilesToExclude);
-        this.filesToExcludeHere.forEach(builder::setFilesToExcludeHere);
-        this.filesToIncludeHere.forEach(builder::setFilesToIncludeHere);
+        this.filesToExcludeHere.forEach(builder::filesToExcludeHere);
+        this.filesToIncludeHere.forEach(builder::filesToIncludeHere);
         this.bakerTypes.forEach(builder::addBakerTypes);
         builder
                 .addPageVars(this.pageVars)
-                .setPageVarsHere(this.pageVarsHere)
-                .setTemplatesHere(this.templatesHere)
-                .setExtraDirsHere(this.extraDirsHere);
+                .pageVarsHere(this.pageVarsHere)
+                .templatesHere(this.templatesHere)
+                .extraDirsHere(this.extraDirsHere);
 
 
         return builder.build();
@@ -197,7 +197,7 @@ import io.vavr.control.Option;
         /**
          *
          */
-        public Builder setTemplateName(final String templateName) {
+        public Builder templateName(final String templateName) {
 
             _templateName = Option.of(templateName);
 
@@ -208,7 +208,7 @@ import io.vavr.control.Option;
         /**
          *
          */
-        public Builder setFilesToExclude(final GlobMatcher fileNames) {
+        public Builder filesToExclude(final GlobMatcher fileNames) {
 
             _filesToExclude = Option.of(fileNames);
 
@@ -220,11 +220,11 @@ import io.vavr.control.Option;
          * @throws PatternSyntaxException If any of the given glob
          * expressions are invalid.
          */
-        public Builder setFilesToExclude(final String... fileNames) {
+        public Builder filesToExclude(final String... fileNames) {
 
-            GlobMatcher patterns = new GlobMatcher(fileNames);
+            final GlobMatcher patterns = new GlobMatcher(fileNames);
 
-            setFilesToExclude(patterns);
+            filesToExclude(patterns);
 
             return this;
         }
@@ -247,7 +247,7 @@ import io.vavr.control.Option;
         /**
          *
          */
-        public Builder setFilesToExcludeHere(final GlobMatcher fileNames) {
+        public Builder filesToExcludeHere(final GlobMatcher fileNames) {
 
             _filesToExcludeHere = Option.of(fileNames);
 
@@ -259,18 +259,18 @@ import io.vavr.control.Option;
          * @throws PatternSyntaxException If any of the given regular
          * expressions are invalid.
          */
-        public Builder setFilesToExcludeHere(final String... fileNames) {
+        public Builder filesToExcludeHere(final String... fileNames) {
 
-            GlobMatcher patterns = new GlobMatcher(fileNames);
+            final GlobMatcher patterns = new GlobMatcher(fileNames);
 
-            return setFilesToExcludeHere(patterns);
+            return filesToExcludeHere(patterns);
         }
 
 
         /**
          *
          */
-        public Builder setFilesToIncludeHere(final GlobMatcher fileNames) {
+        public Builder filesToIncludeHere(final GlobMatcher fileNames) {
 
             _filesToIncludeHere = Option.of(fileNames);
 
@@ -282,18 +282,18 @@ import io.vavr.control.Option;
          * @throws PatternSyntaxException If any of the given regular
          * expressions are invalid.
          */
-        public Builder setFilesToIncludeHere(final String... fileNames) {
+        public Builder filesToIncludeHere(final String... fileNames) {
 
-            GlobMatcher patterns = new GlobMatcher(fileNames);
+            final GlobMatcher patterns = new GlobMatcher(fileNames);
 
-            return setFilesToIncludeHere(patterns);
+            return filesToIncludeHere(patterns);
         }
 
 
         /**
          *
          */
-        public Builder setBakerTypes(final BakerMatcher bakerTypes) {
+        public Builder bakerTypes(final BakerMatcher bakerTypes) {
 
             _bakerTypes = Option.of(bakerTypes);
 
@@ -308,8 +308,7 @@ import io.vavr.control.Option;
                 final String bakerType,
                 final String... fileNames) {
 
-            BakerMatcher bakerTypes =
-                    BakerMatcher.builder()
+            final BakerMatcher bakerTypes = BakerMatcher.builder()
                     .addBakerType(bakerType, fileNames)
                     .build();
 
@@ -336,7 +335,7 @@ import io.vavr.control.Option;
         /**
          *
          */
-        public  Builder setPageVars(final PageVars pageVars) {
+        public  Builder pageVars(final PageVars pageVars) {
 
             _pageVarsBuilder = PageVarsBuilder.create(pageVars);
 
@@ -358,7 +357,7 @@ import io.vavr.control.Option;
         /**
          *
          */
-        public Builder setPageVarsHere(final PageVars pageVarsHere) {
+        public Builder pageVarsHere(final PageVars pageVarsHere) {
 
             _pageVarsHere = pageVarsHere;
 
@@ -369,8 +368,7 @@ import io.vavr.control.Option;
         /**
          *
          */
-        public Builder setTemplatesHere(
-                final TemplateNameMatcher templatesHere) {
+        public Builder templatesHere(final TemplateNameMatcher templatesHere) {
 
             _templatesHere = templatesHere;
 
@@ -381,8 +379,7 @@ import io.vavr.control.Option;
         /**
          *
          */
-        public Builder setExtraDirsHere(
-                final Seq<Path> extraDirsHere) {
+        public Builder extraDirsHere(final Seq<Path> extraDirsHere) {
 
             _extraDirsHere = extraDirsHere;
 

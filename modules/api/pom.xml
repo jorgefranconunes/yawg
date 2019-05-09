@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-Copyright (c) 2016-2017 Yawg project contributors.
+Copyright (c) 2016-2019 Yawg project contributors.
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -28,9 +28,9 @@ Copyright (c) 2016-2017 Yawg project contributors.
   <dependencies>
 
     <dependency>
-      <groupId>org.assertj</groupId>
-      <artifactId>assertj-core</artifactId>
-      <version>${assertj-core.version}</version>
+      <groupId>com.varmateo.yawg</groupId>
+      <artifactId>yawg-testutils</artifactId>
+      <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
 
@@ -42,10 +42,17 @@ Copyright (c) 2016-2017 Yawg project contributors.
     </dependency>
 
     <dependency>
-      <groupId>com.varmateo.yawg</groupId>
-      <artifactId>yawg-testutils</artifactId>
-      <version>${project.version}</version>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>${assertj-core.version}</version>
       <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.inferred</groupId>
+      <artifactId>freebuilder</artifactId>
+      <version>${freebuilder.version}</version>
+      <scope>provided</scope>
     </dependency>
 
   </dependencies>

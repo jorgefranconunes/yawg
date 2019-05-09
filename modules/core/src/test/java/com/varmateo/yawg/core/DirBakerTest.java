@@ -101,22 +101,20 @@ public final class DirBakerTest {
     @Test
     public void bakeSomeWithConfFixed() {
 
-        DirBakerConf conf =
-                DirBakerConf.builder()
-                .setFilesToExclude("*.txt")
+        final DirBakerConf conf = DirBakerConf.builder()
+                .filesToExclude("*.txt")
                 .build();
 
-        Path sourceDir = TestUtils.getPath(DirBaker.class, "source01");
-        Path targetDir = Paths.get(".");
-        DirBaker baker = buildDirBaker(sourceDir, targetDir, _bakerMock);
+        final Path sourceDir = TestUtils.getPath(DirBaker.class, "source01");
+        final Path targetDir = Paths.get(".");
+        final DirBaker baker = buildDirBaker(sourceDir, targetDir, _bakerMock);
 
         baker.bakeDirectory(sourceDir, targetDir, conf);
 
-        Seq<Path> actualBakedFiles = _bakedFiles;
-        Seq<String> expectedBakedFiles =
-                List.of(
-                        "file02.adoc",
-                        "file04.adoc");
+        final Seq<Path> actualBakedFiles = _bakedFiles;
+        final Seq<String> expectedBakedFiles = List.of(
+                "file02.adoc",
+                "file04.adoc");
 
         assertFileNameEquals(sourceDir, expectedBakedFiles, actualBakedFiles);
     }

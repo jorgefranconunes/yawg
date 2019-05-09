@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -11,15 +11,13 @@ import java.nio.file.Path;
 
 import io.vavr.collection.List;
 import io.vavr.collection.Seq;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.Test;
 
 import com.varmateo.testutils.TestUtils;
-
 import com.varmateo.yawg.core.DirBakerConf;
 import com.varmateo.yawg.core.DirEntryScanner;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 /**
@@ -58,17 +56,15 @@ public final class DirEntryScannerTest {
     public void someFiles()
             throws IOException {
 
-        DirBakerConf conf =
-                DirBakerConf.builder()
-                .setFilesToExclude("*.txt", "*.html")
+        final DirBakerConf conf = DirBakerConf.builder()
+                .filesToExclude("*.txt", "*.html")
                 .build();
-        Path dirPath = TestUtils.getInputsDir(DirEntryScanner.class);
-        DirEntryScanner scanner = new DirEntryScanner(conf);
-        Seq<Path> actualEntries = scanner.getDirEntries(dirPath);
-        Seq<String> expectedEntries =
-                List.of(
-                        "file02.adoc",
-                        "file04.adoc");
+        final Path dirPath = TestUtils.getInputsDir(DirEntryScanner.class);
+        final DirEntryScanner scanner = new DirEntryScanner(conf);
+        final Seq<Path> actualEntries = scanner.getDirEntries(dirPath);
+        final Seq<String> expectedEntries = List.of(
+                "file02.adoc",
+                "file04.adoc");
 
         assertFilenameEquals(expectedEntries, actualEntries);
     }

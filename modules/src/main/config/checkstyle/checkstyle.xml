@@ -107,7 +107,9 @@ Adaped from the "sun_checks.xml" from the Checkstyle 5.3 distribution.
 
         <!-- Checks for Size Violations.                    -->
         <!-- See http://checkstyle.sf.net/config_sizes.html -->
-        <module name="LineLength"/>
+        <module name="LineLength">
+          <property name="max" value="100"/>
+        </module>
         <module name="MethodLength"/>
         <module name="ParameterNumber"/>
 

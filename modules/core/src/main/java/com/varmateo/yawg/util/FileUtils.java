@@ -139,7 +139,7 @@ public final class FileUtils {
             final ConsumerWithIOException<Writer> consumer)
             throws IOException {
 
-        try ( final Writer writer =
+        try ( Writer writer =
                   Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {
             consumer.accept(writer);
         }

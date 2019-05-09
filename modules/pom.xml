@@ -34,6 +34,7 @@ Copyright (c) 2015-2019 Yawg project contributors.
     <assertj-core.version>3.11.1</assertj-core.version>
     <commons-cli.version>1.2</commons-cli.version>
     <findbugs-maven-plugin.version>3.0.4</findbugs-maven-plugin.version>
+    <freebuilder.version>2.3.0</freebuilder.version>
     <jacoco-maven-plugin.version>0.7.7.201606060606</jacoco-maven-plugin.version>
     <freemaker.version>2.3.24-incubating</freemaker.version>
     <jsoup.version>1.8.3</jsoup.version>
@@ -43,19 +44,19 @@ Copyright (c) 2015-2019 Yawg project contributors.
     <yamlbeans.version>1.09</yamlbeans.version>
 
     <!-- Versions of Maven plugins. -->
-    <maven-assembly-plugin.version>2.5.3</maven-assembly-plugin.version>
+    <maven-assembly-plugin.version>3.1.1</maven-assembly-plugin.version>
     <maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>
-    <maven-clean-plugin.version>2.6.1</maven-clean-plugin.version>
-    <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
-    <maven-dependency-plugin.version>2.10</maven-dependency-plugin.version>
+    <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
+    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+    <maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>
     <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
     <maven-failsafe-plugin.version>2.19.1</maven-failsafe-plugin.version>
     <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
-    <maven-jar-plugin.version>2.6</maven-jar-plugin.version>
-    <maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
-    <maven-jxr-plugin.version>2.5</maven-jxr-plugin.version>
+    <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+    <maven-javadoc-plugin.version>3.1.0</maven-javadoc-plugin.version>
+    <maven-jxr-plugin.version>3.0.0</maven-jxr-plugin.version>
     <maven-pmd-plugin.version>3.7</maven-pmd-plugin.version>
-    <maven-project-info-reports-plugin.version>2.8</maven-project-info-reports-plugin.version>
+    <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
     <maven-site-plugin.version>3.7.1</maven-site-plugin.version>
     <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
     <maven-surefire-plugin.version>2.18.1</maven-surefire-plugin.version>
@@ -417,11 +418,11 @@ Copyright (c) 2015-2019 Yawg project contributors.
             <id>top-project</id>
             <reports>
               <report>index</report>
-              <report>project-team</report>
-              <report>mailing-list</report>
+              <report>team</report>
+              <report>mailing-lists</report>
               <report>scm</report>
-              <report>issue-tracking</report>
-              <report>cim</report>
+              <report>issue-management</report>
+              <report>ci-management</report>
               <report>dependencies</report>
               <report>summary</report>
             </reports>
