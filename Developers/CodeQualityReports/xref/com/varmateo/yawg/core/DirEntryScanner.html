@@ -31,7 +31,7 @@
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment"> * Used for obtaining the list of entries in a given directory that</em>
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment"> * should be baked.</em>
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_comment">/* package private */</em> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/varmateo/yawg/core/DirEntryScanner.html">DirEntryScanner</a> {
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_comment">/* package private */</em> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="DirEntryScanner" href="../../../../com/varmateo/yawg/core/DirEntryScanner.html#DirEntryScanner">DirEntryScanner</a> {
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Predicate&lt;Path&gt; _entryFilter;
@@ -40,9 +40,9 @@
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>      <a href="../../../../com/varmateo/yawg/core/DirEntryScanner.html">DirEntryScanner</a>(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/core/DirBakerConf.html">DirBakerConf</a> conf) {
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>      <a name="DirEntryScanner" href="../../../../com/varmateo/yawg/core/DirEntryScanner.html#DirEntryScanner">DirEntryScanner</a>(<strong class="jxr_keyword">final</strong> <a name="DirBakerConf" href="../../../../com/varmateo/yawg/core/DirBakerConf.html#DirBakerConf">DirBakerConf</a> conf) {
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>          _entryFilter = <strong class="jxr_keyword">new</strong> <a href="../../../../com/varmateo/yawg/core/DirEntryChecker.html">DirEntryChecker</a>(conf).asPathPredicate();
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>          _entryFilter = <strong class="jxr_keyword">new</strong> <a name="DirEntryChecker" href="../../../../com/varmateo/yawg/core/DirEntryChecker.html#DirEntryChecker">DirEntryChecker</a>(conf).asPathPredicate();
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>      }
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  

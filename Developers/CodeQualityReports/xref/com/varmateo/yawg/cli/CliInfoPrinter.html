@@ -30,7 +30,7 @@
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_javadoccomment"> * Provides utility methods for printing help and varied info intended</em>
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment"> * for end users.</em>
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_comment">/* package private */</em> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/varmateo/yawg/cli/CliInfoPrinter.html">CliInfoPrinter</a> {
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_comment">/* package private */</em> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="CliInfoPrinter" href="../../../../com/varmateo/yawg/cli/CliInfoPrinter.html#CliInfoPrinter">CliInfoPrinter</a> {
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String DEFAULT_ARGV0 = <span class="jxr_string">""</span>;
@@ -53,7 +53,7 @@
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment">     * Only used internally.</em>
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../com/varmateo/yawg/cli/CliInfoPrinter.html">CliInfoPrinter</a>(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/cli/CliOption.html">Builder</a> builder) {
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>      <strong class="jxr_keyword">private</strong> <a name="CliInfoPrinter" href="../../../../com/varmateo/yawg/cli/CliInfoPrinter.html#CliInfoPrinter">CliInfoPrinter</a>(<strong class="jxr_keyword">final</strong> Builder builder) {
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>  
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>          _argv0 = builder._argv0;
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>          _versionMessage = builder._versionMessage;
@@ -67,9 +67,9 @@
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  <em class="jxr_javadoccomment">     * @return A newly created &lt;code&gt;Builder&lt;/code&gt; instance.</em>
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../com/varmateo/yawg/cli/CliOption.html">Builder</a> builder() {
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Builder builder() {
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/varmateo/yawg/cli/CliOption.html">Builder</a>();
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> Builder();
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>      }
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>  
@@ -127,7 +127,7 @@
 <a class="jxr_linenumber" name="L119" href="#L119">119</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L120" href="#L120">120</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> printError(
 <a class="jxr_linenumber" name="L121" href="#L121">121</a>             <strong class="jxr_keyword">final</strong> PrintWriter  output,
-<a class="jxr_linenumber" name="L122" href="#L122">122</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/cli/CliException.html">CliException</a> error) {
+<a class="jxr_linenumber" name="L122" href="#L122">122</a>             <strong class="jxr_keyword">final</strong> <a name="CliException" href="../../../../com/varmateo/yawg/cli/CliException.html#CliException">CliException</a> error) {
 <a class="jxr_linenumber" name="L123" href="#L123">123</a> 
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>         String errorMsg = error.getMessage();
 <a class="jxr_linenumber" name="L125" href="#L125">125</a>         String msg      = MessageFormat.format(ERROR_FMT, _argv0, errorMsg);
@@ -139,7 +139,7 @@
 <a class="jxr_linenumber" name="L131" href="#L131">131</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L132" href="#L132">132</a> <em class="jxr_javadoccomment">     * A builder of &lt;code&gt;CliInfoPrinter&lt;/code&gt; instances.</em>
 <a class="jxr_linenumber" name="L133" href="#L133">133</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L134" href="#L134">134</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/varmateo/yawg/cli/CliOption.html">Builder</a> {
+<a class="jxr_linenumber" name="L134" href="#L134">134</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> Builder {
 <a class="jxr_linenumber" name="L135" href="#L135">135</a> 
 <a class="jxr_linenumber" name="L136" href="#L136">136</a> 
 <a class="jxr_linenumber" name="L137" href="#L137">137</a>         <strong class="jxr_keyword">private</strong> String _argv0 = DEFAULT_ARGV0;
@@ -151,7 +151,7 @@
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L144" href="#L144">144</a> <em class="jxr_javadoccomment">         *</em>
 <a class="jxr_linenumber" name="L145" href="#L145">145</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L146" href="#L146">146</a>         <strong class="jxr_keyword">private</strong> <a href="../../../../com/varmateo/yawg/cli/CliOption.html">Builder</a>() {
+<a class="jxr_linenumber" name="L146" href="#L146">146</a>         <strong class="jxr_keyword">private</strong> Builder() {
 <a class="jxr_linenumber" name="L147" href="#L147">147</a>             <em class="jxr_comment">// Nothing to do.</em>
 <a class="jxr_linenumber" name="L148" href="#L148">148</a>         }
 <a class="jxr_linenumber" name="L149" href="#L149">149</a> 
@@ -159,7 +159,7 @@
 <a class="jxr_linenumber" name="L151" href="#L151">151</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L152" href="#L152">152</a> <em class="jxr_javadoccomment">         *</em>
 <a class="jxr_linenumber" name="L153" href="#L153">153</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L154" href="#L154">154</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/cli/CliOption.html">Builder</a> setArgv0(<strong class="jxr_keyword">final</strong> String argv0) {
+<a class="jxr_linenumber" name="L154" href="#L154">154</a>         <strong class="jxr_keyword">public</strong> Builder setArgv0(<strong class="jxr_keyword">final</strong> String argv0) {
 <a class="jxr_linenumber" name="L155" href="#L155">155</a> 
 <a class="jxr_linenumber" name="L156" href="#L156">156</a>             _argv0 = argv0;
 <a class="jxr_linenumber" name="L157" href="#L157">157</a> 
@@ -170,7 +170,7 @@
 <a class="jxr_linenumber" name="L162" href="#L162">162</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L163" href="#L163">163</a> <em class="jxr_javadoccomment">         *</em>
 <a class="jxr_linenumber" name="L164" href="#L164">164</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L165" href="#L165">165</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/cli/CliOption.html">Builder</a> setVersionMessage(<strong class="jxr_keyword">final</strong> String versionMessage) {
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>         <strong class="jxr_keyword">public</strong> Builder setVersionMessage(<strong class="jxr_keyword">final</strong> String versionMessage) {
 <a class="jxr_linenumber" name="L166" href="#L166">166</a> 
 <a class="jxr_linenumber" name="L167" href="#L167">167</a>             _versionMessage = versionMessage;
 <a class="jxr_linenumber" name="L168" href="#L168">168</a> 
@@ -181,7 +181,7 @@
 <a class="jxr_linenumber" name="L173" href="#L173">173</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L174" href="#L174">174</a> <em class="jxr_javadoccomment">         *</em>
 <a class="jxr_linenumber" name="L175" href="#L175">175</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L176" href="#L176">176</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/cli/CliOption.html">Builder</a> setUsageMessageHeader(<strong class="jxr_keyword">final</strong> String usageMessageHeader) {
+<a class="jxr_linenumber" name="L176" href="#L176">176</a>         <strong class="jxr_keyword">public</strong> Builder setUsageMessageHeader(<strong class="jxr_keyword">final</strong> String usageMessageHeader) {
 <a class="jxr_linenumber" name="L177" href="#L177">177</a> 
 <a class="jxr_linenumber" name="L178" href="#L178">178</a>             _usageMessageHeader = usageMessageHeader;
 <a class="jxr_linenumber" name="L179" href="#L179">179</a> 
@@ -192,7 +192,7 @@
 <a class="jxr_linenumber" name="L184" href="#L184">184</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L185" href="#L185">185</a> <em class="jxr_javadoccomment">         *</em>
 <a class="jxr_linenumber" name="L186" href="#L186">186</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L187" href="#L187">187</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/cli/CliOption.html">Builder</a> setUsageMessageFooter(<strong class="jxr_keyword">final</strong> String usageMessageFooter) {
+<a class="jxr_linenumber" name="L187" href="#L187">187</a>         <strong class="jxr_keyword">public</strong> Builder setUsageMessageFooter(<strong class="jxr_keyword">final</strong> String usageMessageFooter) {
 <a class="jxr_linenumber" name="L188" href="#L188">188</a> 
 <a class="jxr_linenumber" name="L189" href="#L189">189</a>             _usageMessageFooter = usageMessageFooter;
 <a class="jxr_linenumber" name="L190" href="#L190">190</a> 
@@ -203,9 +203,9 @@
 <a class="jxr_linenumber" name="L195" href="#L195">195</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L196" href="#L196">196</a> <em class="jxr_javadoccomment">         *</em>
 <a class="jxr_linenumber" name="L197" href="#L197">197</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L198" href="#L198">198</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/cli/CliInfoPrinter.html">CliInfoPrinter</a> build() {
+<a class="jxr_linenumber" name="L198" href="#L198">198</a>         <strong class="jxr_keyword">public</strong> <a name="CliInfoPrinter" href="../../../../com/varmateo/yawg/cli/CliInfoPrinter.html#CliInfoPrinter">CliInfoPrinter</a> build() {
 <a class="jxr_linenumber" name="L199" href="#L199">199</a> 
-<a class="jxr_linenumber" name="L200" href="#L200">200</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/varmateo/yawg/cli/CliInfoPrinter.html">CliInfoPrinter</a>(<strong class="jxr_keyword">this</strong>);
+<a class="jxr_linenumber" name="L200" href="#L200">200</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a name="CliInfoPrinter" href="../../../../com/varmateo/yawg/cli/CliInfoPrinter.html#CliInfoPrinter">CliInfoPrinter</a>(<strong class="jxr_keyword">this</strong>);
 <a class="jxr_linenumber" name="L201" href="#L201">201</a>         }
 <a class="jxr_linenumber" name="L202" href="#L202">202</a> 
 <a class="jxr_linenumber" name="L203" href="#L203">203</a> 

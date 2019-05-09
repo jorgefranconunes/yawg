@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>DirBakerConf.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">DirBakerConf.java</span></div><h1>DirBakerConf.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -129,18 +129,18 @@ import io.vavr.control.Option;
      */
     public DirBakerConf mergeOnTopOf(final DirBakerConf that) {
 
-<span class="fc" id="L132">        Builder builder = new Builder(that);</span>
+<span class="fc" id="L132">        final Builder builder = new Builder(that);</span>
 
-<span class="fc" id="L134">        this.templateName.forEach(builder::setTemplateName);</span>
+<span class="fc" id="L134">        this.templateName.forEach(builder::templateName);</span>
 <span class="fc" id="L135">        this.filesToExclude.forEach(builder::addFilesToExclude);</span>
-<span class="fc" id="L136">        this.filesToExcludeHere.forEach(builder::setFilesToExcludeHere);</span>
-<span class="fc" id="L137">        this.filesToIncludeHere.forEach(builder::setFilesToIncludeHere);</span>
+<span class="fc" id="L136">        this.filesToExcludeHere.forEach(builder::filesToExcludeHere);</span>
+<span class="fc" id="L137">        this.filesToIncludeHere.forEach(builder::filesToIncludeHere);</span>
 <span class="pc" id="L138">        this.bakerTypes.forEach(builder::addBakerTypes);</span>
 <span class="fc" id="L139">        builder</span>
 <span class="fc" id="L140">                .addPageVars(this.pageVars)</span>
-<span class="fc" id="L141">                .setPageVarsHere(this.pageVarsHere)</span>
-<span class="fc" id="L142">                .setTemplatesHere(this.templatesHere)</span>
-<span class="fc" id="L143">                .setExtraDirsHere(this.extraDirsHere);</span>
+<span class="fc" id="L141">                .pageVarsHere(this.pageVarsHere)</span>
+<span class="fc" id="L142">                .templatesHere(this.templatesHere)</span>
+<span class="fc" id="L143">                .extraDirsHere(this.extraDirsHere);</span>
 
 
 <span class="fc" id="L146">        return builder.build();</span>
@@ -197,7 +197,7 @@ import io.vavr.control.Option;
         /**
          *
          */
-        public Builder setTemplateName(final String templateName) {
+        public Builder templateName(final String templateName) {
 
 <span class="fc" id="L202">            _templateName = Option.of(templateName);</span>
 
@@ -208,7 +208,7 @@ import io.vavr.control.Option;
         /**
          *
          */
-        public Builder setFilesToExclude(final GlobMatcher fileNames) {
+        public Builder filesToExclude(final GlobMatcher fileNames) {
 
 <span class="fc" id="L213">            _filesToExclude = Option.of(fileNames);</span>
 
@@ -220,11 +220,11 @@ import io.vavr.control.Option;
          * @throws PatternSyntaxException If any of the given glob
          * expressions are invalid.
          */
-        public Builder setFilesToExclude(final String... fileNames) {
+        public Builder filesToExclude(final String... fileNames) {
 
-<span class="fc" id="L225">            GlobMatcher patterns = new GlobMatcher(fileNames);</span>
+<span class="fc" id="L225">            final GlobMatcher patterns = new GlobMatcher(fileNames);</span>
 
-<span class="fc" id="L227">            setFilesToExclude(patterns);</span>
+<span class="fc" id="L227">            filesToExclude(patterns);</span>
 
 <span class="fc" id="L229">            return this;</span>
         }
@@ -247,7 +247,7 @@ import io.vavr.control.Option;
         /**
          *
          */
-        public Builder setFilesToExcludeHere(final GlobMatcher fileNames) {
+        public Builder filesToExcludeHere(final GlobMatcher fileNames) {
 
 <span class="fc" id="L252">            _filesToExcludeHere = Option.of(fileNames);</span>
 
@@ -259,18 +259,18 @@ import io.vavr.control.Option;
          * @throws PatternSyntaxException If any of the given regular
          * expressions are invalid.
          */
-        public Builder setFilesToExcludeHere(final String... fileNames) {
+        public Builder filesToExcludeHere(final String... fileNames) {
 
-<span class="fc" id="L264">            GlobMatcher patterns = new GlobMatcher(fileNames);</span>
+<span class="fc" id="L264">            final GlobMatcher patterns = new GlobMatcher(fileNames);</span>
 
-<span class="fc" id="L266">            return setFilesToExcludeHere(patterns);</span>
+<span class="fc" id="L266">            return filesToExcludeHere(patterns);</span>
         }
 
 
         /**
          *
          */
-        public Builder setFilesToIncludeHere(final GlobMatcher fileNames) {
+        public Builder filesToIncludeHere(final GlobMatcher fileNames) {
 
 <span class="fc" id="L275">            _filesToIncludeHere = Option.of(fileNames);</span>
 
@@ -282,18 +282,18 @@ import io.vavr.control.Option;
          * @throws PatternSyntaxException If any of the given regular
          * expressions are invalid.
          */
-        public Builder setFilesToIncludeHere(final String... fileNames) {
+        public Builder filesToIncludeHere(final String... fileNames) {
 
-<span class="fc" id="L287">            GlobMatcher patterns = new GlobMatcher(fileNames);</span>
+<span class="fc" id="L287">            final GlobMatcher patterns = new GlobMatcher(fileNames);</span>
 
-<span class="fc" id="L289">            return setFilesToIncludeHere(patterns);</span>
+<span class="fc" id="L289">            return filesToIncludeHere(patterns);</span>
         }
 
 
         /**
          *
          */
-        public Builder setBakerTypes(final BakerMatcher bakerTypes) {
+        public Builder bakerTypes(final BakerMatcher bakerTypes) {
 
 <span class="fc" id="L298">            _bakerTypes = Option.of(bakerTypes);</span>
 
@@ -308,14 +308,13 @@ import io.vavr.control.Option;
                 final String bakerType,
                 final String... fileNames) {
 
-            BakerMatcher bakerTypes =
-<span class="fc" id="L312">                    BakerMatcher.builder()</span>
-<span class="fc" id="L313">                    .addBakerType(bakerType, fileNames)</span>
-<span class="fc" id="L314">                    .build();</span>
+<span class="fc" id="L311">            final BakerMatcher bakerTypes = BakerMatcher.builder()</span>
+<span class="fc" id="L312">                    .addBakerType(bakerType, fileNames)</span>
+<span class="fc" id="L313">                    .build();</span>
 
-<span class="fc" id="L316">            addBakerTypes(bakerTypes);</span>
+<span class="fc" id="L315">            addBakerTypes(bakerTypes);</span>
 
-<span class="fc" id="L318">            return this;</span>
+<span class="fc" id="L317">            return this;</span>
         }
 
 
@@ -324,23 +323,23 @@ import io.vavr.control.Option;
          */
         private Builder addBakerTypes(final BakerMatcher bakerTypes) {
 
-<span class="fc" id="L327">            _bakerTypes = _bakerTypes</span>
-<span class="fc" id="L328">                    .map(x -&gt;</span>
-<span class="fc" id="L329">                         BakerMatcher.builder(x).addBakerTypes(bakerTypes).build())</span>
-<span class="fc" id="L330">                    .orElse(() -&gt; Option.of(bakerTypes));</span>
+<span class="fc" id="L326">            _bakerTypes = _bakerTypes</span>
+<span class="fc" id="L327">                    .map(x -&gt;</span>
+<span class="fc" id="L328">                         BakerMatcher.builder(x).addBakerTypes(bakerTypes).build())</span>
+<span class="fc" id="L329">                    .orElse(() -&gt; Option.of(bakerTypes));</span>
 
-<span class="fc" id="L332">            return this;</span>
+<span class="fc" id="L331">            return this;</span>
         }
 
 
         /**
          *
          */
-        public  Builder setPageVars(final PageVars pageVars) {
+        public  Builder pageVars(final PageVars pageVars) {
 
-<span class="fc" id="L341">            _pageVarsBuilder = PageVarsBuilder.create(pageVars);</span>
+<span class="fc" id="L340">            _pageVarsBuilder = PageVarsBuilder.create(pageVars);</span>
 
-<span class="fc" id="L343">            return this;</span>
+<span class="fc" id="L342">            return this;</span>
         }
 
 
@@ -349,44 +348,42 @@ import io.vavr.control.Option;
          */
         private Builder addPageVars(final PageVars pageVars) {
 
-<span class="fc" id="L352">            _pageVarsBuilder.addPageVars(pageVars);</span>
+<span class="fc" id="L351">            _pageVarsBuilder.addPageVars(pageVars);</span>
 
-<span class="fc" id="L354">            return this;</span>
+<span class="fc" id="L353">            return this;</span>
         }
 
 
         /**
          *
          */
-        public Builder setPageVarsHere(final PageVars pageVarsHere) {
+        public Builder pageVarsHere(final PageVars pageVarsHere) {
 
-<span class="fc" id="L363">            _pageVarsHere = pageVarsHere;</span>
+<span class="fc" id="L362">            _pageVarsHere = pageVarsHere;</span>
 
-<span class="fc" id="L365">            return this;</span>
+<span class="fc" id="L364">            return this;</span>
         }
 
 
         /**
          *
          */
-        public Builder setTemplatesHere(
-                final TemplateNameMatcher templatesHere) {
+        public Builder templatesHere(final TemplateNameMatcher templatesHere) {
 
-<span class="fc" id="L375">            _templatesHere = templatesHere;</span>
+<span class="fc" id="L373">            _templatesHere = templatesHere;</span>
 
-<span class="fc" id="L377">            return this;</span>
+<span class="fc" id="L375">            return this;</span>
         }
 
 
         /**
          *
          */
-        public Builder setExtraDirsHere(
-                final Seq&lt;Path&gt; extraDirsHere) {
+        public Builder extraDirsHere(final Seq&lt;Path&gt; extraDirsHere) {
 
-<span class="fc" id="L387">            _extraDirsHere = extraDirsHere;</span>
+<span class="fc" id="L384">            _extraDirsHere = extraDirsHere;</span>
 
-<span class="fc" id="L389">            return this;</span>
+<span class="fc" id="L386">            return this;</span>
         }
 
 
@@ -395,7 +392,7 @@ import io.vavr.control.Option;
          */
         public DirBakerConf build() {
 
-<span class="fc" id="L398">            return new DirBakerConf(this);</span>
+<span class="fc" id="L395">            return new DirBakerConf(this);</span>
         }
 
 

@@ -139,7 +139,7 @@ public final class FileUtils {
             final ConsumerWithIOException&lt;Writer&gt; consumer)
             throws IOException {
 
-<span class="pc" id="L142">        try ( final Writer writer =</span>
+<span class="pc" id="L142">        try ( Writer writer =</span>
 <span class="fc" id="L143">                  Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {</span>
 <span class="fc" id="L144">            consumer.accept(writer);</span>
 <span class="pc bpc" id="L145" title="6 of 8 branches missed.">        }</span>

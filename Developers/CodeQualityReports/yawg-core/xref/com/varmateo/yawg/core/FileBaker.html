@@ -32,10 +32,10 @@
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_javadoccomment"> * </em>
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_comment">/* package private */</em> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/varmateo/yawg/core/FileBaker.html">FileBaker</a> {
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_comment">/* package private */</em> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="FileBaker" href="../../../../com/varmateo/yawg/core/FileBaker.html#FileBaker">FileBaker</a> {
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/logging/Log.html">Log</a> _log;
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="Log" href="../../../../com/varmateo/yawg/logging/Log.html#Log">Log</a> _log;
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Seq&lt;BakerService&gt; _bakers;
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> BakerService _defaultBaker;
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  
@@ -47,8 +47,8 @@
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment">     * @param log The logger that will be used for logging.</em>
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>      <a href="../../../../com/varmateo/yawg/core/FileBaker.html">FileBaker</a>(
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>              <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/logging/Log.html">Log</a> log,
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>      <a name="FileBaker" href="../../../../com/varmateo/yawg/core/FileBaker.html#FileBaker">FileBaker</a>(
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>              <strong class="jxr_keyword">final</strong> <a name="Log" href="../../../../com/varmateo/yawg/logging/Log.html#Log">Log</a> log,
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>              <strong class="jxr_keyword">final</strong> Seq&lt;BakerService&gt; bakers,
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>              <strong class="jxr_keyword">final</strong> BakerService defaultBaker) {
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  
@@ -69,7 +69,7 @@
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>              <strong class="jxr_keyword">final</strong> Path sourcePath,
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>              <strong class="jxr_keyword">final</strong> PageContext context,
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>              <strong class="jxr_keyword">final</strong> Path targetDir,
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>              <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/core/DirBakerConf.html">DirBakerConf</a> dirBakerConf)
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>              <strong class="jxr_keyword">final</strong> <a name="DirBakerConf" href="../../../../com/varmateo/yawg/core/DirBakerConf.html#DirBakerConf">DirBakerConf</a> dirBakerConf)
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>              <strong class="jxr_keyword">throws</strong> YawgException {
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>          BakerService baker = findBaker(sourcePath, dirBakerConf);
@@ -93,11 +93,11 @@
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>      <strong class="jxr_keyword">private</strong> BakerService findBaker(
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>              <strong class="jxr_keyword">final</strong> Path sourcePath,
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>              <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/core/DirBakerConf.html">DirBakerConf</a> dirBakerConf)
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>              <strong class="jxr_keyword">final</strong> <a name="DirBakerConf" href="../../../../com/varmateo/yawg/core/DirBakerConf.html#DirBakerConf">DirBakerConf</a> dirBakerConf)
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>              <strong class="jxr_keyword">throws</strong> YawgException {
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>  
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>          <strong class="jxr_keyword">return</strong> dirBakerConf.bakerTypes
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>                  .flatMap(bakerTypes -&gt; bakerTypes.getBakerTypeFor(sourcePath))
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>                  .flatMap(bakerTypes -&gt; bakerTypes.bakerTypeFor(sourcePath))
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>                  .map(bakerType -&gt; findBakerWithType(bakerType))
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>                  .getOrElse(() -&gt; findBakerFromAll(sourcePath));
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>      }

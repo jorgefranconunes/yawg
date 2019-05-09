@@ -26,7 +26,7 @@ under the License.
     <copyright>&#169;2015 - 2019</copyright>
     <item>
       <title>File: 8,
-             Errors: 0,
+             Errors: 60,
              Warnings: 0,
              Infos: 0
       </title>
@@ -60,7 +60,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.SiteBakerConfBuilder.java">com/varmateo/yawg/api/SiteBakerConfBuilder.java</a>
+                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.SiteBakerOptions.java">com/varmateo/yawg/api/SiteBakerOptions.java</a>
                 </td>
                 <td>
                   0
@@ -69,7 +69,21 @@ under the License.
                   0
                 </td>
                 <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.SiteBakerOptions_Builder.java">com/varmateo/yawg/api/SiteBakerOptions_Builder.java</a>
+                </td>
+                <td>
                   0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  59
                 </td>
               </tr>
                           <tr>
@@ -117,20 +131,6 @@ under the License.
                           <tr>
                 <td>
                   <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.YawgInfo.properties">com/varmateo/yawg/api/YawgInfo.properties</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.SiteBakerConf.java">com/varmateo/yawg/api/SiteBakerConf.java</a>
                 </td>
                 <td>
                   0

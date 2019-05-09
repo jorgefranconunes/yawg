@@ -30,7 +30,7 @@
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment"> * Acceptance tests related with the "--page-var" comand line option.</em>
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/varmateo/yawg/atests/CliOptionPageVarIT.html">CliOptionPageVarIT</a> {
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="CliOptionPageVarIT" href="../../../../com/varmateo/yawg/atests/CliOptionPageVarIT.html#CliOptionPageVarIT">CliOptionPageVarIT</a> {
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>      @Rule
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> LogStartAndEndRule logRule = <strong class="jxr_keyword">new</strong> LogStartAndEndRule();
@@ -44,7 +44,7 @@
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>              <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>          <em class="jxr_comment">// GIVEN</em>
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>          <a href="../../../../com/varmateo/yawg/atests/BakerCliScenario.html">BakerCliScenario</a> scenario = BakerCliScenario.builder(
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>          <a name="BakerCliScenario" href="../../../../com/varmateo/yawg/atests/BakerCliScenario.html#BakerCliScenario">BakerCliScenario</a> scenario = BakerCliScenario.builder(
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>                  CliOptionPageVarIT.<strong class="jxr_keyword">class</strong>,
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>                  <span class="jxr_string">"givenPageVarOption_whenBaking_thenVarIsVisibleInTemplate"</span>)
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>                  .addTemplatesPath()
@@ -52,7 +52,7 @@
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>                  .build();
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>  
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>          <em class="jxr_comment">// WHEN</em>
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>          <a href="../../../../com/varmateo/yawg/atests/BakerCliResult.html">BakerCliResult</a> bakerResult = scenario.run();
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>          <a name="BakerCliResult" href="../../../../com/varmateo/yawg/atests/BakerCliResult.html#BakerCliResult">BakerCliResult</a> bakerResult = scenario.run();
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>          <em class="jxr_comment">// THEN</em>
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>          assertThat(bakerResult)
@@ -69,7 +69,7 @@
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>              <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>          <em class="jxr_comment">// GIVEN</em>
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>          <a href="../../../../com/varmateo/yawg/atests/BakerCliScenario.html">BakerCliScenario</a> scenario = BakerCliScenario.builder(
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>          <a name="BakerCliScenario" href="../../../../com/varmateo/yawg/atests/BakerCliScenario.html#BakerCliScenario">BakerCliScenario</a> scenario = BakerCliScenario.builder(
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>                  CliOptionPageVarIT.<strong class="jxr_keyword">class</strong>,
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>                  <span class="jxr_string">"givenTwoPageVarOptions_whenBaking_thenVarsAreVisibleInTemplate"</span>)
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>                  .addTemplatesPath()
@@ -78,7 +78,7 @@
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>                  .build();
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>  
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>          <em class="jxr_comment">// WHEN</em>
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>          <a href="../../../../com/varmateo/yawg/atests/BakerCliResult.html">BakerCliResult</a> bakerResult = scenario.run();
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>          <a name="BakerCliResult" href="../../../../com/varmateo/yawg/atests/BakerCliResult.html#BakerCliResult">BakerCliResult</a> bakerResult = scenario.run();
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>  
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>          <em class="jxr_comment">// THEN</em>
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>          assertThat(bakerResult)
@@ -97,7 +97,7 @@
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>          <strong class="jxr_keyword">final</strong> String PAGE_VAR_VALUE = <span class="jxr_string">"Just testing"</span>;
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>  
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>          <em class="jxr_comment">// GIVEN</em>
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>          <a href="../../../../com/varmateo/yawg/atests/BakerCliScenario.html">BakerCliScenario</a> scenario = BakerCliScenario.builder(
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>          <a name="BakerCliScenario" href="../../../../com/varmateo/yawg/atests/BakerCliScenario.html#BakerCliScenario">BakerCliScenario</a> scenario = BakerCliScenario.builder(
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>                  CliOptionPageVarIT.<strong class="jxr_keyword">class</strong>,
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>                  <span class="jxr_string">"givenPageVarOption_whenBakingAsciidocWithTemplate_thenVarIsVisibleInContent"</span>)
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>                  .addTemplatesPath()
@@ -105,7 +105,7 @@
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>                  .build();
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>  
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>          <em class="jxr_comment">// WHEN</em>
-<a class="jxr_linenumber" name="L100" href="#L100">100</a>         <a href="../../../../com/varmateo/yawg/atests/BakerCliResult.html">BakerCliResult</a> bakerResult = scenario.run();
+<a class="jxr_linenumber" name="L100" href="#L100">100</a>         <a name="BakerCliResult" href="../../../../com/varmateo/yawg/atests/BakerCliResult.html#BakerCliResult">BakerCliResult</a> bakerResult = scenario.run();
 <a class="jxr_linenumber" name="L101" href="#L101">101</a> 
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>         <em class="jxr_comment">// THEN</em>
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>         assertThat(bakerResult)
@@ -128,14 +128,14 @@
 <a class="jxr_linenumber" name="L120" href="#L120">120</a>         <strong class="jxr_keyword">final</strong> String PAGE_VAR_VALUE = <span class="jxr_string">"The world is my oyster"</span>;
 <a class="jxr_linenumber" name="L121" href="#L121">121</a> 
 <a class="jxr_linenumber" name="L122" href="#L122">122</a>         <em class="jxr_comment">// GIVEN</em>
-<a class="jxr_linenumber" name="L123" href="#L123">123</a>         <a href="../../../../com/varmateo/yawg/atests/BakerCliScenario.html">BakerCliScenario</a> scenario = BakerCliScenario.builder(
+<a class="jxr_linenumber" name="L123" href="#L123">123</a>         <a name="BakerCliScenario" href="../../../../com/varmateo/yawg/atests/BakerCliScenario.html#BakerCliScenario">BakerCliScenario</a> scenario = BakerCliScenario.builder(
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>                 CliOptionPageVarIT.<strong class="jxr_keyword">class</strong>,
 <a class="jxr_linenumber" name="L125" href="#L125">125</a>                 <span class="jxr_string">"givenPageVarOption_whenBakingAsciidocWithNoTemplate_thenVarIsVisibleInContent"</span>)
 <a class="jxr_linenumber" name="L126" href="#L126">126</a>                 .addArgs(<span class="jxr_string">"--page-var"</span>, <span class="jxr_string">"oneDemoVar="</span>+PAGE_VAR_VALUE)
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>                 .build();
 <a class="jxr_linenumber" name="L128" href="#L128">128</a> 
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>         <em class="jxr_comment">// WHEN</em>
-<a class="jxr_linenumber" name="L130" href="#L130">130</a>         <a href="../../../../com/varmateo/yawg/atests/BakerCliResult.html">BakerCliResult</a> bakerResult = scenario.run();
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>         <a name="BakerCliResult" href="../../../../com/varmateo/yawg/atests/BakerCliResult.html#BakerCliResult">BakerCliResult</a> bakerResult = scenario.run();
 <a class="jxr_linenumber" name="L131" href="#L131">131</a> 
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>         <em class="jxr_comment">// THEN</em>
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>         assertThat(bakerResult)

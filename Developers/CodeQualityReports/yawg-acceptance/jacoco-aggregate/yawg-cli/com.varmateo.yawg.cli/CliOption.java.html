@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>CliOption.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-cli</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.cli</a> &gt; <span class="el_source">CliOption.java</span></div><h1>CliOption.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2015-2017 Yawg project contributors.
+ * Copyright (c) 2015-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -63,27 +63,27 @@ public final class CliOption {
      */
     private static Option buildApacheOption(final CliOption option) {
 
-<span class="fc" id="L66">        String longName = option.getLongName();</span>
+<span class="fc" id="L66">        final String longName = option.longName();</span>
 <span class="fc bfc" id="L67" title="All 2 branches covered.">        if ( longName != null ) {</span>
 <span class="fc" id="L68">            OptionBuilder.withLongOpt(longName);</span>
         }
 
-<span class="fc" id="L71">        String description = option.getDescription();</span>
+<span class="fc" id="L71">        final String description = option.description();</span>
 <span class="fc bfc" id="L72" title="All 2 branches covered.">        if ( description != null ) {</span>
 <span class="fc" id="L73">            OptionBuilder.withDescription(description);</span>
         }
 
-<span class="fc" id="L76">        boolean isWithArg = option.isWithArg();</span>
+<span class="fc" id="L76">        final boolean isWithArg = option.isWithArg();</span>
 <span class="fc bfc" id="L77" title="All 2 branches covered.">        if ( isWithArg ) {</span>
 <span class="fc" id="L78">            OptionBuilder.hasArg();</span>
         }
 
-<span class="fc" id="L81">        String argName = option.getArgName();</span>
+<span class="fc" id="L81">        final String argName = option.argName();</span>
 <span class="fc bfc" id="L82" title="All 2 branches covered.">        if ( argName != null ) {</span>
 <span class="fc" id="L83">            OptionBuilder.withArgName(argName);</span>
         }
 
-<span class="fc" id="L86">        String shortName = option.getShortName();</span>
+<span class="fc" id="L86">        final String shortName = option.shortName();</span>
 
 <span class="fc bfc" id="L88" title="All 2 branches covered.">        return shortName != null</span>
 <span class="fc" id="L89">                ? OptionBuilder.create(shortName)</span>
@@ -94,7 +94,7 @@ public final class CliOption {
     /**
      *
      */
-    public String getShortName() {
+    public String shortName() {
 
 <span class="fc" id="L99">        return _shortName;</span>
     }
@@ -103,7 +103,7 @@ public final class CliOption {
     /**
      *
      */
-    public String getLongName() {
+    public String longName() {
 
 <span class="fc" id="L108">        return _longName;</span>
     }
@@ -112,7 +112,7 @@ public final class CliOption {
     /**
      *
      */
-    public String getDescription() {
+    public String description() {
 
 <span class="fc" id="L117">        return _description;</span>
     }
@@ -130,7 +130,7 @@ public final class CliOption {
     /**
      * Informative only.
      */
-    public String getArgName() {
+    public String argName() {
 
 <span class="fc" id="L135">        return _argName;</span>
     }
@@ -139,7 +139,7 @@ public final class CliOption {
     /**
      *
      */
-    public String getName() {
+    public String name() {
 
 <span class="fc" id="L144">        return _name;</span>
     }
@@ -148,7 +148,7 @@ public final class CliOption {
     /**
      *
      */
-    public String getLiteral() {
+    public String literal() {
 
 <span class="fc" id="L153">        return _literal;</span>
     }
@@ -186,7 +186,7 @@ public final class CliOption {
         /**
          *
          */
-        public Builder setShortName(final String shortName) {
+        public Builder shortName(final String shortName) {
 
 <span class="fc" id="L191">            _shortName = shortName;</span>
 
@@ -198,7 +198,7 @@ public final class CliOption {
          *
          */
 
-        public Builder setLongName(final String longName) {
+        public Builder longName(final String longName) {
 
 <span class="fc" id="L203">            _longName = longName;</span>
 
@@ -211,7 +211,7 @@ public final class CliOption {
          *
          */
 
-        public Builder setDescription(final String description) {
+        public Builder description(final String description) {
 
 <span class="fc" id="L216">            _description = description;</span>
 
@@ -222,7 +222,7 @@ public final class CliOption {
         /**
          *
          */
-        public Builder setArgName(final String argName) {
+        public Builder argName(final String argName) {
 
 <span class="fc" id="L227">            _argName = argName;</span>
 

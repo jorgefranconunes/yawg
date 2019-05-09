@@ -40,8 +40,8 @@
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment"> * A &lt;code&gt;Baker&lt;/code&gt; that translates text files in Asciidoc format</em>
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment"> * into HTML files.</em>
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_comment">/* package private */</em> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/varmateo/yawg/asciidoctor/AsciidoctorBakerService.html">AsciidoctorBakerService</a>
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>          <strong class="jxr_keyword">implements</strong> <a href="../../../../com/varmateo/yawg/spi/BakerService.html">BakerService</a> {
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_comment">/* package private */</em> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="AsciidoctorBakerService" href="../../../../com/varmateo/yawg/asciidoctor/AsciidoctorBakerService.html#AsciidoctorBakerService">AsciidoctorBakerService</a>
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>          <strong class="jxr_keyword">implements</strong> <a name="BakerService" href="../../../../com/varmateo/yawg/spi/BakerService.html#BakerService">BakerService</a> {
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String NAME = <span class="jxr_string">"asciidoc"</span>;
@@ -60,7 +60,7 @@
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  <em class="jxr_javadoccomment">     * </em>
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>      <a href="../../../../com/varmateo/yawg/asciidoctor/AsciidoctorBakerService.html">AsciidoctorBakerService</a>() {
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>      <a name="AsciidoctorBakerService" href="../../../../com/varmateo/yawg/asciidoctor/AsciidoctorBakerService.html#AsciidoctorBakerService">AsciidoctorBakerService</a>() {
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>          <em class="jxr_comment">// Nothing to do. Really.</em>
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>      }
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>  
@@ -116,9 +116,9 @@
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>     @Override
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> bake(
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>             <strong class="jxr_keyword">final</strong> Path sourcePath,
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/spi/PageContext.html">PageContext</a> context,
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>             <strong class="jxr_keyword">final</strong> <a name="PageContext" href="../../../../com/varmateo/yawg/spi/PageContext.html#PageContext">PageContext</a> context,
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>             <strong class="jxr_keyword">final</strong> Path targetDir)
-<a class="jxr_linenumber" name="L113" href="#L113">113</a>             <strong class="jxr_keyword">throws</strong> <a href="../../../../com/varmateo/yawg/api/YawgException.html">YawgException</a> {
+<a class="jxr_linenumber" name="L113" href="#L113">113</a>             <strong class="jxr_keyword">throws</strong> <a name="YawgException" href="../../../../com/varmateo/yawg/api/YawgException.html#YawgException">YawgException</a> {
 <a class="jxr_linenumber" name="L114" href="#L114">114</a> 
 <a class="jxr_linenumber" name="L115" href="#L115">115</a>         <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L116" href="#L116">116</a>             doBake(sourcePath, context, targetDir);
@@ -139,7 +139,7 @@
 <a class="jxr_linenumber" name="L131" href="#L131">131</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> doBake(
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>             <strong class="jxr_keyword">final</strong> Path sourcePath,
-<a class="jxr_linenumber" name="L134" href="#L134">134</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/spi/PageContext.html">PageContext</a> context,
+<a class="jxr_linenumber" name="L134" href="#L134">134</a>             <strong class="jxr_keyword">final</strong> <a name="PageContext" href="../../../../com/varmateo/yawg/spi/PageContext.html#PageContext">PageContext</a> context,
 <a class="jxr_linenumber" name="L135" href="#L135">135</a>             <strong class="jxr_keyword">final</strong> Path targetDir)
 <a class="jxr_linenumber" name="L136" href="#L136">136</a>             <strong class="jxr_keyword">throws</strong> AsciidoctorCoreException, IOException {
 <a class="jxr_linenumber" name="L137" href="#L137">137</a> 
@@ -182,7 +182,7 @@
 <a class="jxr_linenumber" name="L174" href="#L174">174</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L175" href="#L175">175</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> doBakeWithoutTemplate(
 <a class="jxr_linenumber" name="L176" href="#L176">176</a>             <strong class="jxr_keyword">final</strong> Path sourcePath,
-<a class="jxr_linenumber" name="L177" href="#L177">177</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/spi/PageContext.html">PageContext</a> context,
+<a class="jxr_linenumber" name="L177" href="#L177">177</a>             <strong class="jxr_keyword">final</strong> <a name="PageContext" href="../../../../com/varmateo/yawg/spi/PageContext.html#PageContext">PageContext</a> context,
 <a class="jxr_linenumber" name="L178" href="#L178">178</a>             <strong class="jxr_keyword">final</strong> Path targetDir,
 <a class="jxr_linenumber" name="L179" href="#L179">179</a>             <strong class="jxr_keyword">final</strong> Path targetPath)
 <a class="jxr_linenumber" name="L180" href="#L180">180</a>             <strong class="jxr_keyword">throws</strong> AsciidoctorCoreException {
@@ -203,13 +203,13 @@
 <a class="jxr_linenumber" name="L195" href="#L195">195</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L196" href="#L196">196</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> doBakeWithTemplate(
 <a class="jxr_linenumber" name="L197" href="#L197">197</a>             <strong class="jxr_keyword">final</strong> Path sourcePath,
-<a class="jxr_linenumber" name="L198" href="#L198">198</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/spi/PageContext.html">PageContext</a> context,
+<a class="jxr_linenumber" name="L198" href="#L198">198</a>             <strong class="jxr_keyword">final</strong> <a name="PageContext" href="../../../../com/varmateo/yawg/spi/PageContext.html#PageContext">PageContext</a> context,
 <a class="jxr_linenumber" name="L199" href="#L199">199</a>             <strong class="jxr_keyword">final</strong> Path targetDir,
 <a class="jxr_linenumber" name="L200" href="#L200">200</a>             <strong class="jxr_keyword">final</strong> Path targetPath,
-<a class="jxr_linenumber" name="L201" href="#L201">201</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/spi/Template.html">Template</a> template)
+<a class="jxr_linenumber" name="L201" href="#L201">201</a>             <strong class="jxr_keyword">final</strong> <a name="Template" href="../../../../com/varmateo/yawg/spi/Template.html#Template">Template</a> template)
 <a class="jxr_linenumber" name="L202" href="#L202">202</a>             <strong class="jxr_keyword">throws</strong> AsciidoctorCoreException, IOException {
 <a class="jxr_linenumber" name="L203" href="#L203">203</a> 
-<a class="jxr_linenumber" name="L204" href="#L204">204</a>         <a href="../../../../com/varmateo/yawg/spi/TemplateDataModel.html">TemplateDataModel</a> dataModel = _modelBuilder.get().build(
+<a class="jxr_linenumber" name="L204" href="#L204">204</a>         <a name="TemplateDataModel" href="../../../../com/varmateo/yawg/spi/TemplateDataModel.html#TemplateDataModel">TemplateDataModel</a> dataModel = _modelBuilder.get().build(
 <a class="jxr_linenumber" name="L205" href="#L205">205</a>                 sourcePath, targetDir, targetPath, context);
 <a class="jxr_linenumber" name="L206" href="#L206">206</a>         StringWriter buffer = <strong class="jxr_keyword">new</strong> StringWriter();
 <a class="jxr_linenumber" name="L207" href="#L207">207</a> 
@@ -241,8 +241,8 @@
 <a class="jxr_linenumber" name="L233" href="#L233">233</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L234" href="#L234">234</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L235" href="#L235">235</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L236" href="#L236">236</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../com/varmateo/yawg/asciidoctor/AsciidoctorBakerDataModelBuilder.html">AsciidoctorBakerDataModelBuilder</a> newAsciidoctorBakerDataModelBuilder() {
-<a class="jxr_linenumber" name="L237" href="#L237">237</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/varmateo/yawg/asciidoctor/AsciidoctorBakerDataModelBuilder.html">AsciidoctorBakerDataModelBuilder</a>(_asciidoctor.get());
+<a class="jxr_linenumber" name="L236" href="#L236">236</a>     <strong class="jxr_keyword">private</strong> <a name="AsciidoctorBakerDataModelBuilder" href="../../../../com/varmateo/yawg/asciidoctor/AsciidoctorBakerDataModelBuilder.html#AsciidoctorBakerDataModelBuilder">AsciidoctorBakerDataModelBuilder</a> newAsciidoctorBakerDataModelBuilder() {
+<a class="jxr_linenumber" name="L237" href="#L237">237</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a name="AsciidoctorBakerDataModelBuilder" href="../../../../com/varmateo/yawg/asciidoctor/AsciidoctorBakerDataModelBuilder.html#AsciidoctorBakerDataModelBuilder">AsciidoctorBakerDataModelBuilder</a>(_asciidoctor.get());
 <a class="jxr_linenumber" name="L238" href="#L238">238</a>     }
 <a class="jxr_linenumber" name="L239" href="#L239">239</a> 
 <a class="jxr_linenumber" name="L240" href="#L240">240</a> 

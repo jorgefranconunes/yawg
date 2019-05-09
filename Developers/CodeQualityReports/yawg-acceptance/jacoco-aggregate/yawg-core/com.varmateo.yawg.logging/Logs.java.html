@@ -57,7 +57,10 @@ public final class Logs {
 <span class="fc" id="L57">        return () -&gt; logDuration(</span>
                 log,
                 description,
-<span class="fc" id="L60">                () -&gt; { function.run(); return null; });</span>
+                () -&gt; {
+<span class="fc" id="L61">                    function.run();</span>
+<span class="fc" id="L62">                    return null;</span>
+                });
     }
 
 
@@ -69,10 +72,13 @@ public final class Logs {
             final BiFunction&lt;T, U, String&gt; description,
             final BiConsumer&lt;T, U&gt; function) {
 
-<span class="fc" id="L72">        return (t, u) -&gt; logDuration(</span>
+<span class="fc" id="L75">        return (t, u) -&gt; logDuration(</span>
                 log,
-<span class="fc" id="L74">                description.apply(t, u),</span>
-<span class="fc" id="L75">                () -&gt; { function.accept(t, u); return null; });</span>
+<span class="fc" id="L77">                description.apply(t, u),</span>
+                () -&gt; {
+<span class="fc" id="L79">                    function.accept(t, u);</span>
+<span class="fc" id="L80">                    return null;</span>
+                });
     }
 
 
@@ -85,30 +91,30 @@ public final class Logs {
             final Supplier&lt;Try&lt;T&gt;&gt; action,
             final boolean isVerbose) {
 
-<span class="fc" id="L88">        log.info(&quot;Starting {0}...&quot;, subject);</span>
+<span class="fc" id="L94">        log.info(&quot;Starting {0}...&quot;, subject);</span>
 
-<span class="fc" id="L90">        long startTime = System.currentTimeMillis();</span>
-<span class="fc" id="L91">        Try&lt;T&gt; result = Try.of(action::get).flatMap(x -&gt; x);</span>
-<span class="fc" id="L92">        long delay = System.currentTimeMillis() - startTime;</span>
+<span class="fc" id="L96">        long startTime = System.currentTimeMillis();</span>
+<span class="fc" id="L97">        Try&lt;T&gt; result = Try.of(action::get).flatMap(x -&gt; x);</span>
+<span class="fc" id="L98">        long delay = System.currentTimeMillis() - startTime;</span>
 
-<span class="fc bfc" id="L94" title="All 2 branches covered.">        if (result.isSuccess()) {</span>
-<span class="fc" id="L95">            log.info(&quot;Done {0} ({1} ms)&quot;, subject, delay);</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        if (result.isSuccess()) {</span>
+<span class="fc" id="L101">            log.info(&quot;Done {0} ({1} ms)&quot;, subject, delay);</span>
         } else {
-<span class="fc" id="L97">            final Throwable cause = result.getCause();</span>
+<span class="fc" id="L103">            final Throwable cause = result.getCause();</span>
 
-<span class="pc bpc" id="L99" title="1 of 2 branches missed.">            if (isVerbose) {</span>
+<span class="pc bpc" id="L105" title="1 of 2 branches missed.">            if (isVerbose) {</span>
                 // Log with stack trace.
-<span class="nc" id="L101">                log.warning(cause, &quot;Failed {0} ({1} ms)&quot;, subject, delay);</span>
+<span class="nc" id="L107">                log.warning(cause, &quot;Failed {0} ({1} ms)&quot;, subject, delay);</span>
             } else {
                 // Log without stack trace.
-<span class="fc" id="L104">                log.warning(</span>
+<span class="fc" id="L110">                log.warning(</span>
                         &quot;Failed {0} ({1} ms) - {2} - {3}&quot;,
-<span class="fc" id="L106">                        subject, delay,</span>
-<span class="fc" id="L107">                        cause.getClass().getName(), cause.getMessage());</span>
+<span class="fc" id="L112">                        subject, delay,</span>
+<span class="fc" id="L113">                        cause.getClass().getName(), cause.getMessage());</span>
             }
         }
 
-<span class="fc" id="L111">        return result;</span>
+<span class="fc" id="L117">        return result;</span>
     }
 
 }

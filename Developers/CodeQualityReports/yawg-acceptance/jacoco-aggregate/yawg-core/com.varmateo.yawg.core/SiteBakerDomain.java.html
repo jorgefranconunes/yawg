@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>SiteBakerDomain.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">SiteBakerDomain.java</span></div><h1>SiteBakerDomain.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -10,7 +10,7 @@ import io.vavr.collection.List;
 import io.vavr.collection.Seq;
 import io.vavr.control.Option;
 
-import com.varmateo.yawg.api.SiteBakerConf;
+import com.varmateo.yawg.api.SiteBakerOptions;
 import com.varmateo.yawg.core.CollectiveDirBakeListener;
 import com.varmateo.yawg.core.CollectiveTemplateService;
 import com.varmateo.yawg.core.CopyBakerService;
@@ -36,7 +36,7 @@ import com.varmateo.yawg.util.Services;
 /* package private */ final class SiteBakerDomain {
 
 
-    private final SiteBakerConf _conf;
+    private final SiteBakerOptions _conf;
 
 <span class="fc" id="L41">    private final Holder&lt;Seq&lt;BakerService&gt;&gt; _bakers =</span>
 <span class="fc" id="L42">            Holder.of(this::newBakers);</span>
@@ -69,7 +69,7 @@ import com.varmateo.yawg.util.Services;
     /**
      * @param conf Configuration parameters.
      */
-<span class="fc" id="L72">    SiteBakerDomain(final SiteBakerConf conf) {</span>
+<span class="fc" id="L72">    SiteBakerDomain(final SiteBakerOptions conf) {</span>
 
 <span class="fc" id="L74">        _conf = conf;</span>
 <span class="fc" id="L75">    }</span>
@@ -123,8 +123,8 @@ import com.varmateo.yawg.util.Services;
 
 <span class="fc" id="L124">        return new DirBaker(</span>
 <span class="fc" id="L125">                _log.get(),</span>
-<span class="fc" id="L126">                _conf.getSourceDir(),</span>
-<span class="fc" id="L127">                _conf.getTargetDir(),</span>
+<span class="fc" id="L126">                _conf.sourceDir(),</span>
+<span class="fc" id="L127">                _conf.targetDir(),</span>
 <span class="fc" id="L128">                _fileBaker.get(),</span>
 <span class="fc" id="L129">                _templateService.get(),</span>
 <span class="fc" id="L130">                _dirBakerConfDao.get(),</span>
@@ -160,7 +160,7 @@ import com.varmateo.yawg.util.Services;
     private TemplateService newTemplateService() {
 
 <span class="fc" id="L162">        Seq&lt;TemplateService&gt; allServices =</span>
-<span class="fc" id="L163">                Option.ofOptional(_conf.getTemplatesDir())</span>
+<span class="fc" id="L163">                Option.ofOptional(_conf.templatesDir())</span>
 <span class="fc" id="L164">                .map(dirPath -&gt;</span>
 <span class="fc" id="L165">                     Services.getAll(TemplateServiceFactory.class)</span>
 <span class="fc" id="L166">                     .map(f -&gt; f.newTemplateService(dirPath)))</span>

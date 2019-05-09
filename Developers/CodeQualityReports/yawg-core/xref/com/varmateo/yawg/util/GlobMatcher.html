@@ -29,7 +29,7 @@
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_javadoccomment"> * A predicate for checking if a path matches a given collection of</em>
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_javadoccomment"> * glob patterns.</em>
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">GlobMatcher</a>
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="GlobMatcher" href="../../../../com/varmateo/yawg/util/GlobMatcher.html#GlobMatcher">GlobMatcher</a>
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>          <strong class="jxr_keyword">implements</strong> Predicate&lt;Path&gt; {
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  
@@ -47,7 +47,7 @@
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment">     * @throws PatternSyntaxException If any of the given glob</em>
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment">     * patterns is invalid.</em>
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">GlobMatcher</a>(<strong class="jxr_keyword">final</strong> Seq&lt;String&gt; globPatterns)
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>      <strong class="jxr_keyword">public</strong> <a name="GlobMatcher" href="../../../../com/varmateo/yawg/util/GlobMatcher.html#GlobMatcher">GlobMatcher</a>(<strong class="jxr_keyword">final</strong> Seq&lt;String&gt; globPatterns)
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>              <strong class="jxr_keyword">throws</strong> PatternSyntaxException {
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>          _globPatterns = globPatterns;
@@ -60,7 +60,7 @@
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">GlobMatcher</a>(<strong class="jxr_keyword">final</strong> String... globPatterns)
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>      <strong class="jxr_keyword">public</strong> <a name="GlobMatcher" href="../../../../com/varmateo/yawg/util/GlobMatcher.html#GlobMatcher">GlobMatcher</a>(<strong class="jxr_keyword">final</strong> String... globPatterns)
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>              <strong class="jxr_keyword">throws</strong> PatternSyntaxException {
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>  
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>          <strong class="jxr_keyword">this</strong>(Array.of(globPatterns));
@@ -70,7 +70,7 @@
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">GlobMatcher</a>(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">Builder</a> builder) {
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>      <strong class="jxr_keyword">private</strong> <a name="GlobMatcher" href="../../../../com/varmateo/yawg/util/GlobMatcher.html#GlobMatcher">GlobMatcher</a>(<strong class="jxr_keyword">final</strong> Builder builder) {
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>          _globPatterns = builder._globPatterns;
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>          _matchers = builder._matchers;
@@ -80,7 +80,7 @@
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">GlobMatcher</a>(
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>      <strong class="jxr_keyword">private</strong> <a name="GlobMatcher" href="../../../../com/varmateo/yawg/util/GlobMatcher.html#GlobMatcher">GlobMatcher</a>(
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>              <strong class="jxr_keyword">final</strong> Seq&lt;String&gt; globPatterns,
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>              <strong class="jxr_keyword">final</strong> Seq&lt;PathMatcher&gt; matchers) {
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>  
@@ -94,9 +94,9 @@
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>  <em class="jxr_javadoccomment">     * @return A newly created &lt;code&gt;Builder&lt;/code&gt; instance.</em>
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">Builder</a> builder() {
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Builder builder() {
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>  
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">Builder</a>();
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> Builder();
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>      }
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>  
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>  
@@ -108,9 +108,9 @@
 <a class="jxr_linenumber" name="L100" href="#L100">100</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L101" href="#L101">101</a> <em class="jxr_javadoccomment">     * @return A newly created &lt;code&gt;Builder&lt;/code&gt; instance.</em>
 <a class="jxr_linenumber" name="L102" href="#L102">102</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L103" href="#L103">103</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">Builder</a> builder(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">GlobMatcher</a> data) {
+<a class="jxr_linenumber" name="L103" href="#L103">103</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Builder builder(<strong class="jxr_keyword">final</strong> <a name="GlobMatcher" href="../../../../com/varmateo/yawg/util/GlobMatcher.html#GlobMatcher">GlobMatcher</a> data) {
 <a class="jxr_linenumber" name="L104" href="#L104">104</a> 
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">Builder</a>(data);
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> Builder(data);
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>     }
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> 
 <a class="jxr_linenumber" name="L108" href="#L108">108</a> 
@@ -158,7 +158,7 @@
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L151" href="#L151">151</a> <em class="jxr_javadoccomment">     * A builder of &lt;code&gt;GlobMatcher&lt;/code&gt; instances.</em>
 <a class="jxr_linenumber" name="L152" href="#L152">152</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L153" href="#L153">153</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">Builder</a> {
+<a class="jxr_linenumber" name="L153" href="#L153">153</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> Builder {
 <a class="jxr_linenumber" name="L154" href="#L154">154</a> 
 <a class="jxr_linenumber" name="L155" href="#L155">155</a> 
 <a class="jxr_linenumber" name="L156" href="#L156">156</a>         <strong class="jxr_keyword">private</strong> Seq&lt;String&gt; _globPatterns;
@@ -168,7 +168,7 @@
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L161" href="#L161">161</a> <em class="jxr_javadoccomment">         *</em>
 <a class="jxr_linenumber" name="L162" href="#L162">162</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L163" href="#L163">163</a>         <strong class="jxr_keyword">private</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">Builder</a>() {
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>         <strong class="jxr_keyword">private</strong> Builder() {
 <a class="jxr_linenumber" name="L164" href="#L164">164</a> 
 <a class="jxr_linenumber" name="L165" href="#L165">165</a>             _globPatterns = Array.of();
 <a class="jxr_linenumber" name="L166" href="#L166">166</a>             _matchers = Array.of();
@@ -178,7 +178,7 @@
 <a class="jxr_linenumber" name="L170" href="#L170">170</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L171" href="#L171">171</a> <em class="jxr_javadoccomment">         *</em>
 <a class="jxr_linenumber" name="L172" href="#L172">172</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L173" href="#L173">173</a>         <strong class="jxr_keyword">private</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">Builder</a>(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">GlobMatcher</a> globMatcher) {
+<a class="jxr_linenumber" name="L173" href="#L173">173</a>         <strong class="jxr_keyword">private</strong> Builder(<strong class="jxr_keyword">final</strong> <a name="GlobMatcher" href="../../../../com/varmateo/yawg/util/GlobMatcher.html#GlobMatcher">GlobMatcher</a> globMatcher) {
 <a class="jxr_linenumber" name="L174" href="#L174">174</a> 
 <a class="jxr_linenumber" name="L175" href="#L175">175</a>             _globPatterns = globMatcher._globPatterns;
 <a class="jxr_linenumber" name="L176" href="#L176">176</a>             _matchers = globMatcher._matchers;
@@ -191,7 +191,7 @@
 <a class="jxr_linenumber" name="L183" href="#L183">183</a> <em class="jxr_javadoccomment">         * @throws PatternSyntaxException If the given glob pattern is</em>
 <a class="jxr_linenumber" name="L184" href="#L184">184</a> <em class="jxr_javadoccomment">         * invalid.</em>
 <a class="jxr_linenumber" name="L185" href="#L185">185</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L186" href="#L186">186</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">Builder</a> addGlobPattern(<strong class="jxr_keyword">final</strong> String globPattern) {
+<a class="jxr_linenumber" name="L186" href="#L186">186</a>         <strong class="jxr_keyword">public</strong> Builder addGlobPattern(<strong class="jxr_keyword">final</strong> String globPattern) {
 <a class="jxr_linenumber" name="L187" href="#L187">187</a> 
 <a class="jxr_linenumber" name="L188" href="#L188">188</a>             PathMatcher matcher =
 <a class="jxr_linenumber" name="L189" href="#L189">189</a>                     DEFAULT_FILESYSTEM.getPathMatcher(<span class="jxr_string">"glob:"</span> + globPattern);
@@ -206,7 +206,7 @@
 <a class="jxr_linenumber" name="L198" href="#L198">198</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L199" href="#L199">199</a> <em class="jxr_javadoccomment">         *</em>
 <a class="jxr_linenumber" name="L200" href="#L200">200</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L201" href="#L201">201</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">Builder</a> addGlobMatcher(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">GlobMatcher</a> globMatcher) {
+<a class="jxr_linenumber" name="L201" href="#L201">201</a>         <strong class="jxr_keyword">public</strong> Builder addGlobMatcher(<strong class="jxr_keyword">final</strong> <a name="GlobMatcher" href="../../../../com/varmateo/yawg/util/GlobMatcher.html#GlobMatcher">GlobMatcher</a> globMatcher) {
 <a class="jxr_linenumber" name="L202" href="#L202">202</a> 
 <a class="jxr_linenumber" name="L203" href="#L203">203</a>             _globPatterns = _globPatterns.appendAll(globMatcher._globPatterns);
 <a class="jxr_linenumber" name="L204" href="#L204">204</a>             _matchers = _matchers.appendAll(globMatcher._matchers);
@@ -218,9 +218,9 @@
 <a class="jxr_linenumber" name="L210" href="#L210">210</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L211" href="#L211">211</a> <em class="jxr_javadoccomment">         *</em>
 <a class="jxr_linenumber" name="L212" href="#L212">212</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L213" href="#L213">213</a>         <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">GlobMatcher</a> build() {
+<a class="jxr_linenumber" name="L213" href="#L213">213</a>         <strong class="jxr_keyword">public</strong> <a name="GlobMatcher" href="../../../../com/varmateo/yawg/util/GlobMatcher.html#GlobMatcher">GlobMatcher</a> build() {
 <a class="jxr_linenumber" name="L214" href="#L214">214</a> 
-<a class="jxr_linenumber" name="L215" href="#L215">215</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/varmateo/yawg/util/GlobMatcher.html">GlobMatcher</a>(<strong class="jxr_keyword">this</strong>);
+<a class="jxr_linenumber" name="L215" href="#L215">215</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a name="GlobMatcher" href="../../../../com/varmateo/yawg/util/GlobMatcher.html#GlobMatcher">GlobMatcher</a>(<strong class="jxr_keyword">this</strong>);
 <a class="jxr_linenumber" name="L216" href="#L216">216</a>         }
 <a class="jxr_linenumber" name="L217" href="#L217">217</a> 
 <a class="jxr_linenumber" name="L218" href="#L218">218</a> 

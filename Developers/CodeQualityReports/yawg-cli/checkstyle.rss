@@ -74,20 +74,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.CliOptions.java">com/varmateo/yawg/cli/CliOptions.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.InfoPrinter.java">com/varmateo/yawg/cli/InfoPrinter.java</a>
                 </td>
                 <td>
@@ -125,7 +111,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  2
+                  1
                 </td>
               </tr>
                           <tr>
@@ -153,12 +139,26 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
               </tr>
                           <tr>
                 <td>
                   <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.Main.java">com/varmateo/yawg/cli/Main.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.CliOptionSet.java">com/varmateo/yawg/cli/CliOptionSet.java</a>
                 </td>
                 <td>
                   0

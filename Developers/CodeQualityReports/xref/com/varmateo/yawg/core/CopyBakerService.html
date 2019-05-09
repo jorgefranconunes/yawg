@@ -28,8 +28,8 @@
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_javadoccomment"> * A &lt;code&gt;Baker&lt;/code&gt; that just copies the source file to the target</em>
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_javadoccomment"> * location.</em>
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_comment">/* default */</em> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/varmateo/yawg/core/CopyBakerService.html">CopyBakerService</a>
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>          <strong class="jxr_keyword">implements</strong> <a href="../../../../com/varmateo/yawg/spi/BakerService.html">BakerService</a> {
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_comment">/* default */</em> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="CopyBakerService" href="../../../../com/varmateo/yawg/core/CopyBakerService.html#CopyBakerService">CopyBakerService</a>
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>          <strong class="jxr_keyword">implements</strong> <a name="BakerService" href="../../../../com/varmateo/yawg/spi/BakerService.html#BakerService">BakerService</a> {
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String NAME = <span class="jxr_string">"copy"</span>;
@@ -38,7 +38,7 @@
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment">     * </em>
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>      <a href="../../../../com/varmateo/yawg/core/CopyBakerService.html">CopyBakerService</a>() {
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>      <a name="CopyBakerService" href="../../../../com/varmateo/yawg/core/CopyBakerService.html#CopyBakerService">CopyBakerService</a>() {
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>          <em class="jxr_comment">// Nothing to do.</em>
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>      }
@@ -85,9 +85,9 @@
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>      @Override
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> bake(
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>              <strong class="jxr_keyword">final</strong> Path sourcePath,
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>              <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/spi/PageContext.html">PageContext</a> context,
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>              <strong class="jxr_keyword">final</strong> <a name="PageContext" href="../../../../com/varmateo/yawg/spi/PageContext.html#PageContext">PageContext</a> context,
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>              <strong class="jxr_keyword">final</strong> Path targetDir)
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>              <strong class="jxr_keyword">throws</strong> <a href="../../../../com/varmateo/yawg/api/YawgException.html">YawgException</a> {
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>              <strong class="jxr_keyword">throws</strong> <a name="YawgException" href="../../../../com/varmateo/yawg/api/YawgException.html#YawgException">YawgException</a> {
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>  
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>          <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>              doBake(sourcePath, targetDir);

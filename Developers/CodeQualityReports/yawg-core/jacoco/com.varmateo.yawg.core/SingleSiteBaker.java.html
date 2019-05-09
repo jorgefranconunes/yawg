@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SingleSiteBaker.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">SingleSiteBaker.java</span></div><h1>SingleSiteBaker.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2016-2018 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -10,7 +10,7 @@ import java.nio.file.Path;
 import java.util.Map;
 import java.util.Optional;
 
-import com.varmateo.yawg.api.SiteBakerConf;
+import com.varmateo.yawg.api.SiteBakerOptions;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.api.YawgInfo;
 import com.varmateo.yawg.core.DirBaker;
@@ -27,7 +27,7 @@ import com.varmateo.yawg.spi.PageVarsBuilder;
 
 
     private final Log _log;
-    private final SiteBakerConf _conf;
+    private final SiteBakerOptions _conf;
     private final AssetsCopier _assetsCopier;
     private final SourceTreeBaker _sourceTreeBaker;
 
@@ -39,21 +39,21 @@ import com.varmateo.yawg.spi.PageVarsBuilder;
      */
     SingleSiteBaker(
             final Log log,
-            final SiteBakerConf conf,
+            final SiteBakerOptions conf,
 <span class="nc" id="L43">            final DirBaker dirBaker) {</span>
 
-<span class="nc" id="L45">        PageVars pageVars = mapToPageVars(conf.getExternalPageVars());</span>
+<span class="nc" id="L45">        PageVars pageVars = mapToPageVars(conf.externalPageVars());</span>
 
 <span class="nc" id="L47">        _log = log;</span>
 <span class="nc" id="L48">        _conf = conf;</span>
 <span class="nc" id="L49">        _assetsCopier = new AssetsCopier(</span>
                 log,
-<span class="nc" id="L51">                conf.getAssetsDir(),</span>
-<span class="nc" id="L52">                conf.getTargetDir());</span>
+<span class="nc" id="L51">                conf.assetsDir(),</span>
+<span class="nc" id="L52">                conf.targetDir());</span>
 <span class="nc" id="L53">        _sourceTreeBaker = new SourceTreeBaker(</span>
                 log,
-<span class="nc" id="L55">                conf.getSourceDir(),</span>
-<span class="nc" id="L56">                conf.getTargetDir(),</span>
+<span class="nc" id="L55">                conf.sourceDir(),</span>
+<span class="nc" id="L56">                conf.targetDir(),</span>
                 pageVars,
                 dirBaker);
 
@@ -87,10 +87,10 @@ import com.varmateo.yawg.spi.PageVarsBuilder;
     public void bake()
             throws YawgException {
 
-<span class="nc" id="L90">        Path sourceDir = _conf.getSourceDir();</span>
-<span class="nc" id="L91">        Path targetDir = _conf.getTargetDir();</span>
-<span class="nc" id="L92">        Optional&lt;Path&gt; templatesDir = _conf.getTemplatesDir();</span>
-<span class="nc" id="L93">        Optional&lt;Path&gt; assetsDir = _conf.getAssetsDir();</span>
+<span class="nc" id="L90">        Path sourceDir = _conf.sourceDir();</span>
+<span class="nc" id="L91">        Path targetDir = _conf.targetDir();</span>
+<span class="nc" id="L92">        Optional&lt;Path&gt; templatesDir = _conf.templatesDir();</span>
+<span class="nc" id="L93">        Optional&lt;Path&gt; assetsDir = _conf.assetsDir();</span>
 
 <span class="nc" id="L95">        _log.info(&quot;{0} {1}&quot;, YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);</span>
 <span class="nc" id="L96">        _log.info(&quot;    Source    : {0}&quot;, sourceDir);</span>

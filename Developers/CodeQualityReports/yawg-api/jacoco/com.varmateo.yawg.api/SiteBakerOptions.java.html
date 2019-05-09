@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SiteBakerOptions.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg API</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.api</a> &gt; <span class="el_source">SiteBakerOptions.java</span></div><h1>SiteBakerOptions.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2019 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.api;
+
+import java.nio.file.Path;
+import java.util.Map;
+import java.util.Optional;
+
+import org.inferred.freebuilder.FreeBuilder;
+
+
+/**
+ * Set of configuration parameters for baking a site with a
+ * &lt;code&gt;SiteBaker&lt;/code&gt; instance.
+ */
+@FreeBuilder
+public interface SiteBakerOptions {
+
+
+    /**
+     * Path of directory containing the assets files. These files will
+     * be copied without any changes to the target directory.
+     *
+     * &lt;p&gt;An empty &lt;code&gt;Optional&lt;/code&gt; means no assets will be
+     * copied.&lt;/p&gt;
+     */
+    Optional&lt;Path&gt; assetsDir();
+
+
+    /**
+     * Path of directory containing the documents to be baked.
+     */
+    Path sourceDir();
+
+
+    /**
+     * Path of directory where the results of the baking will be
+     * stored.
+     */
+    Path targetDir();
+
+
+    /**
+     * Path of directory containing the templates files.
+     *
+     * &lt;p&gt;An empty &lt;code&gt;Optional&lt;/code&gt; means no templates are
+     * available for use.&lt;/p&gt;
+     */
+    Optional&lt;Path&gt; templatesDir();
+
+
+    /**
+     * Set of page variables provided externally.
+     *
+     * &lt;p&gt;Page variables are intended to be used by templates.&lt;/p&gt;
+     *
+     * @return A read-only map containing the page variables. Keys in
+     * the map are the variable names.
+     */
+    Map&lt;String,Object&gt; externalPageVars();
+
+
+    /**
+     *
+     */
+    static Builder builder() {
+
+<span class="nc" id="L72">        return new Builder();</span>
+    }
+
+
+    /**
+     *
+     */
+    static final class Builder extends SiteBakerOptions_Builder {
+
+<span class="nc" id="L81">        private Builder() {</span>
+            // Nothing to do.
+<span class="nc" id="L83">        }</span>
+
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

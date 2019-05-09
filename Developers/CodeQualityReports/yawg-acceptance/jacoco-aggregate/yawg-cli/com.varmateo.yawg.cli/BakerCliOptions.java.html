@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BakerCliOptions.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-cli</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.cli</a> &gt; <span class="el_source">BakerCliOptions.java</span></div><h1>BakerCliOptions.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2015-2017 Yawg project contributors.
+ * Copyright (c) 2015-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -11,7 +11,7 @@ import io.vavr.collection.Set;
 
 import com.varmateo.yawg.cli.CliException;
 import com.varmateo.yawg.cli.CliOption;
-import com.varmateo.yawg.cli.CliOptions;
+import com.varmateo.yawg.cli.CliOptionSet;
 
 
 /**
@@ -20,67 +20,59 @@ import com.varmateo.yawg.cli.CliOptions;
 final class BakerCliOptions {
 
 
-    public static final CliOption ASSETS_DIR =
-<span class="fc" id="L24">            CliOption.builder()</span>
-<span class="fc" id="L25">            .setLongName(&quot;assets&quot;)</span>
-<span class="fc" id="L26">            .setArgName(&quot;PATH&quot;)</span>
-<span class="fc" id="L27">            .setDescription(&quot;path of assets directory&quot;)</span>
-<span class="fc" id="L28">            .build();</span>
+<span class="fc" id="L23">    public static final CliOption ASSETS_DIR = CliOption.builder()</span>
+<span class="fc" id="L24">            .longName(&quot;assets&quot;)</span>
+<span class="fc" id="L25">            .argName(&quot;PATH&quot;)</span>
+<span class="fc" id="L26">            .description(&quot;path of assets directory&quot;)</span>
+<span class="fc" id="L27">            .build();</span>
 
-    public static final CliOption HELP =
-<span class="fc" id="L31">            CliOption.builder()</span>
-<span class="fc" id="L32">            .setLongName(&quot;help&quot;)</span>
-<span class="fc" id="L33">            .setDescription(&quot;show this help text and exit&quot;)</span>
-<span class="fc" id="L34">            .setShortName(&quot;h&quot;)</span>
-<span class="fc" id="L35">            .build();</span>
+<span class="fc" id="L29">    public static final CliOption HELP = CliOption.builder()</span>
+<span class="fc" id="L30">            .longName(&quot;help&quot;)</span>
+<span class="fc" id="L31">            .description(&quot;show this help text and exit&quot;)</span>
+<span class="fc" id="L32">            .shortName(&quot;h&quot;)</span>
+<span class="fc" id="L33">            .build();</span>
 
-    public static final CliOption PAGE_VAR =
-<span class="fc" id="L38">            CliOption.builder()</span>
-<span class="fc" id="L39">            .setLongName(&quot;page-var&quot;)</span>
-<span class="fc" id="L40">            .setArgName(&quot;NAME=VALUE&quot;)</span>
-<span class="fc" id="L41">            .setDescription(&quot;additional page variable&quot;)</span>
-<span class="fc" id="L42">            .build();</span>
+<span class="fc" id="L35">    public static final CliOption PAGE_VAR = CliOption.builder()</span>
+<span class="fc" id="L36">            .longName(&quot;page-var&quot;)</span>
+<span class="fc" id="L37">            .argName(&quot;NAME=VALUE&quot;)</span>
+<span class="fc" id="L38">            .description(&quot;additional page variable&quot;)</span>
+<span class="fc" id="L39">            .build();</span>
 
-    public static final CliOption SOURCE_DIR =
-<span class="fc" id="L45">            CliOption.builder()</span>
-<span class="fc" id="L46">            .setLongName(&quot;source&quot;)</span>
-<span class="fc" id="L47">            .setArgName(&quot;PATH&quot;)</span>
-<span class="fc" id="L48">            .setDescription(&quot;path of source directory&quot;)</span>
-<span class="fc" id="L49">            .build();</span>
+<span class="fc" id="L41">    public static final CliOption SOURCE_DIR = CliOption.builder()</span>
+<span class="fc" id="L42">            .longName(&quot;source&quot;)</span>
+<span class="fc" id="L43">            .argName(&quot;PATH&quot;)</span>
+<span class="fc" id="L44">            .description(&quot;path of source directory&quot;)</span>
+<span class="fc" id="L45">            .build();</span>
 
-    public static final CliOption TARGET_DIR =
-<span class="fc" id="L52">            CliOption.builder()</span>
-<span class="fc" id="L53">            .setLongName(&quot;target&quot;)</span>
-<span class="fc" id="L54">            .setArgName(&quot;PATH&quot;)</span>
-<span class="fc" id="L55">            .setDescription(&quot;path of target directory&quot;)</span>
-<span class="fc" id="L56">            .build();</span>
+<span class="fc" id="L47">    public static final CliOption TARGET_DIR = CliOption.builder()</span>
+<span class="fc" id="L48">            .longName(&quot;target&quot;)</span>
+<span class="fc" id="L49">            .argName(&quot;PATH&quot;)</span>
+<span class="fc" id="L50">            .description(&quot;path of target directory&quot;)</span>
+<span class="fc" id="L51">            .build();</span>
 
-    public static final CliOption TEMPLATES_DIR =
-<span class="fc" id="L59">            CliOption.builder()</span>
-<span class="fc" id="L60">            .setLongName(&quot;templates&quot;)</span>
-<span class="fc" id="L61">            .setArgName(&quot;PATH&quot;)</span>
-<span class="fc" id="L62">            .setDescription(&quot;path of templates directory&quot;)</span>
-<span class="fc" id="L63">            .build();</span>
+<span class="fc" id="L53">    public static final CliOption TEMPLATES_DIR = CliOption.builder()</span>
+<span class="fc" id="L54">            .longName(&quot;templates&quot;)</span>
+<span class="fc" id="L55">            .argName(&quot;PATH&quot;)</span>
+<span class="fc" id="L56">            .description(&quot;path of templates directory&quot;)</span>
+<span class="fc" id="L57">            .build();</span>
 
-    public static final CliOption VERBOSE =
-<span class="fc" id="L66">            CliOption.builder()</span>
-<span class="fc" id="L67">            .setLongName(&quot;verbose&quot;)</span>
-<span class="fc" id="L68">            .setDescription(&quot;show abundant logging&quot;)</span>
-<span class="fc" id="L69">            .build();</span>
+<span class="fc" id="L59">    public static final CliOption VERBOSE = CliOption.builder()</span>
+<span class="fc" id="L60">            .longName(&quot;verbose&quot;)</span>
+<span class="fc" id="L61">            .description(&quot;show abundant logging&quot;)</span>
+<span class="fc" id="L62">            .build();</span>
 
-    public static final CliOption VERSION =
-<span class="fc" id="L72">            CliOption.builder()</span>
-<span class="fc" id="L73">            .setShortName(&quot;v&quot;)</span>
-<span class="fc" id="L74">            .setLongName(&quot;version&quot;)</span>
-<span class="fc" id="L75">            .setDescription(&quot;show version and exit&quot;)</span>
-<span class="fc" id="L76">            .build();</span>
+<span class="fc" id="L64">    public static final CliOption VERSION = CliOption.builder()</span>
+<span class="fc" id="L65">            .shortName(&quot;v&quot;)</span>
+<span class="fc" id="L66">            .longName(&quot;version&quot;)</span>
+<span class="fc" id="L67">            .description(&quot;show version and exit&quot;)</span>
+<span class="fc" id="L68">            .build();</span>
 
 
     /**
      *
      */
-<span class="fc" id="L82">    private static final Set&lt;CliOption&gt; ALL_OPTIONS =</span>
-<span class="fc" id="L83">            HashSet.of(</span>
+<span class="fc" id="L74">    private static final Set&lt;CliOption&gt; ALL_OPTIONS =</span>
+<span class="fc" id="L75">            HashSet.of(</span>
                     ASSETS_DIR,
                     HELP,
                     PAGE_VAR,
@@ -96,24 +88,24 @@ final class BakerCliOptions {
      */
     public static Set&lt;CliOption&gt; options() {
 
-<span class="fc" id="L99">        return ALL_OPTIONS;</span>
+<span class="fc" id="L91">        return ALL_OPTIONS;</span>
     }
 
 
     /**
      * No instances of this class are to be created.
      */
-<span class="nc" id="L106">    private BakerCliOptions() {</span>
-<span class="nc" id="L107">    }</span>
+<span class="nc" id="L98">    private BakerCliOptions() {</span>
+<span class="nc" id="L99">    }</span>
 
 
     /**
      *
      */
-    public static CliOptions parse(final String[] args)
+    public static CliOptionSet parse(final String[] args)
         throws CliException {
 
-<span class="fc" id="L116">        return CliOptions.parse(ALL_OPTIONS, args);</span>
+<span class="fc" id="L108">        return CliOptionSet.parse(ALL_OPTIONS, args);</span>
     }
 
 

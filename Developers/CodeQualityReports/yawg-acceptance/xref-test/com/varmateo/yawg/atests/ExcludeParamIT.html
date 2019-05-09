@@ -30,7 +30,7 @@
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment"> * Acceptance tests related with the "exclude" bake parameter.</em>
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/varmateo/yawg/atests/ExcludeParamIT.html">ExcludeParamIT</a> {
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="ExcludeParamIT" href="../../../../com/varmateo/yawg/atests/ExcludeParamIT.html#ExcludeParamIT">ExcludeParamIT</a> {
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>      @Rule
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> LogStartAndEndRule logRule = <strong class="jxr_keyword">new</strong> LogStartAndEndRule();
@@ -44,13 +44,13 @@
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>              <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>          <em class="jxr_comment">// GIVEN</em>
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>          <a href="../../../../com/varmateo/yawg/atests/BakerCliScenario.html">BakerCliScenario</a> scenario = BakerCliScenario.builder(
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>          <a name="BakerCliScenario" href="../../../../com/varmateo/yawg/atests/BakerCliScenario.html#BakerCliScenario">BakerCliScenario</a> scenario = BakerCliScenario.builder(
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>                  ExcludeParamIT.<strong class="jxr_keyword">class</strong>,
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>                  <span class="jxr_string">"givenExcludeParam_whenBaking_thenFilesAreExcludedInTopDir"</span>)
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>                  .build();
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>          <em class="jxr_comment">// WHEN</em>
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>          <a href="../../../../com/varmateo/yawg/atests/BakerCliResult.html">BakerCliResult</a> bakerResult = scenario.run();
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>          <a name="BakerCliResult" href="../../../../com/varmateo/yawg/atests/BakerCliResult.html#BakerCliResult">BakerCliResult</a> bakerResult = scenario.run();
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>          <em class="jxr_comment">// THEN</em>
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>          assertThat(bakerResult)
@@ -67,13 +67,13 @@
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>              <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>          <em class="jxr_comment">// GIVEN</em>
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>          <a href="../../../../com/varmateo/yawg/atests/BakerCliScenario.html">BakerCliScenario</a> scenario = BakerCliScenario.builder(
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>          <a name="BakerCliScenario" href="../../../../com/varmateo/yawg/atests/BakerCliScenario.html#BakerCliScenario">BakerCliScenario</a> scenario = BakerCliScenario.builder(
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>                  ExcludeParamIT.<strong class="jxr_keyword">class</strong>,
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>                  <span class="jxr_string">"givenExcludeParam_whenBaking_thenFilesAreExcludedInDirTree"</span>)
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>                  .build();
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>          <em class="jxr_comment">// WHEN</em>
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>          <a href="../../../../com/varmateo/yawg/atests/BakerCliResult.html">BakerCliResult</a> bakerResult = scenario.run();
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>          <a name="BakerCliResult" href="../../../../com/varmateo/yawg/atests/BakerCliResult.html#BakerCliResult">BakerCliResult</a> bakerResult = scenario.run();
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>  
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>          <em class="jxr_comment">// THEN</em>
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>          assertThat(bakerResult)

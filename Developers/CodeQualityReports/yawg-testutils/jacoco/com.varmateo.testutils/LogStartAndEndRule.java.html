@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LogStartAndEndRule.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg test utilities</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.testutils</a> &gt; <span class="el_source">LogStartAndEndRule.java</span></div><h1>LogStartAndEndRule.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2018 Yawg project contributors.
+ * Copyright (c) 2018-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -16,7 +16,7 @@ import org.junit.runners.model.Statement;
  */
 <span class="fc" id="L17">public final class LogStartAndEndRule implements TestRule {</span>
 
-    private static final String MSG_START = &quot;&gt;&gt;&gt;&gt;&gt;&gt; START - %s &lt;&lt;&lt;&lt;&lt;&lt;&quot;;
+    private static final String MSG_START = &quot;\n&gt;&gt;&gt;&gt;&gt;&gt; START - %s &lt;&lt;&lt;&lt;&lt;&lt;&quot;;
     private static final String MSG_END = &quot;&gt;&gt;&gt;&gt;&gt;&gt; END - %s (%.3f ms) &lt;&lt;&lt;&lt;&lt;&lt;&quot;;
 
     /**

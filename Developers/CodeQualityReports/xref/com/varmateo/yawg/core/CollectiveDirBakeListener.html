@@ -24,8 +24,8 @@
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_comment">/* default */</em> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/varmateo/yawg/core/CollectiveDirBakeListener.html">CollectiveDirBakeListener</a>
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>          <strong class="jxr_keyword">implements</strong> <a href="../../../../com/varmateo/yawg/spi/DirBakeListener.html">DirBakeListener</a> {
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_comment">/* default */</em> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="CollectiveDirBakeListener" href="../../../../com/varmateo/yawg/core/CollectiveDirBakeListener.html#CollectiveDirBakeListener">CollectiveDirBakeListener</a>
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>          <strong class="jxr_keyword">implements</strong> <a name="DirBakeListener" href="../../../../com/varmateo/yawg/spi/DirBakeListener.html#DirBakeListener">DirBakeListener</a> {
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>  
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Seq&lt;DirBakeListener&gt; _listeners;
@@ -34,7 +34,7 @@
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>      <a href="../../../../com/varmateo/yawg/core/CollectiveDirBakeListener.html">CollectiveDirBakeListener</a>(<strong class="jxr_keyword">final</strong> Seq&lt;DirBakeListener&gt; listeners) {
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>      <a name="CollectiveDirBakeListener" href="../../../../com/varmateo/yawg/core/CollectiveDirBakeListener.html#CollectiveDirBakeListener">CollectiveDirBakeListener</a>(<strong class="jxr_keyword">final</strong> Seq&lt;DirBakeListener&gt; listeners) {
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>          _listeners = listeners;
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>      }
@@ -44,7 +44,7 @@
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>      @Override
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../com/varmateo/yawg/spi/PageVars.html">PageVars</a> onDirBake(<strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/spi/PageContext.html">PageContext</a> context) {
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>      <strong class="jxr_keyword">public</strong> <a name="PageVars" href="../../../../com/varmateo/yawg/spi/PageVars.html#PageVars">PageVars</a> onDirBake(<strong class="jxr_keyword">final</strong> <a name="PageContext" href="../../../../com/varmateo/yawg/spi/PageContext.html#PageContext">PageContext</a> context) {
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>          <strong class="jxr_keyword">return</strong> _listeners
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>                  .foldLeft(
@@ -54,11 +54,11 @@
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>      }
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../com/varmateo/yawg/spi/PageContext.html">PageContext</a> augmentContext(
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>              <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/spi/PageContext.html">PageContext</a> context,
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>              <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/spi/DirBakeListener.html">DirBakeListener</a> listener) {
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <a name="PageContext" href="../../../../com/varmateo/yawg/spi/PageContext.html#PageContext">PageContext</a> augmentContext(
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>              <strong class="jxr_keyword">final</strong> <a name="PageContext" href="../../../../com/varmateo/yawg/spi/PageContext.html#PageContext">PageContext</a> context,
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>              <strong class="jxr_keyword">final</strong> <a name="DirBakeListener" href="../../../../com/varmateo/yawg/spi/DirBakeListener.html#DirBakeListener">DirBakeListener</a> listener) {
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../com/varmateo/yawg/spi/PageVars.html">PageVars</a> newVars = listener.onDirBake(context);
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>          <strong class="jxr_keyword">final</strong> <a name="PageVars" href="../../../../com/varmateo/yawg/spi/PageVars.html#PageVars">PageVars</a> newVars = listener.onDirBake(context);
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>          <strong class="jxr_keyword">return</strong> PageContextBuilder.create(context)
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>                  .setPageVars(newVars)

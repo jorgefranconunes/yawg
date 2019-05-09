@@ -89,7 +89,7 @@ import com.varmateo.yawg.util.Exceptions;
             throws YawgException {
 
 <span class="fc" id="L91">        return dirBakerConf.bakerTypes</span>
-<span class="pc" id="L92">                .flatMap(bakerTypes -&gt; bakerTypes.getBakerTypeFor(sourcePath))</span>
+<span class="pc" id="L92">                .flatMap(bakerTypes -&gt; bakerTypes.bakerTypeFor(sourcePath))</span>
 <span class="pc" id="L93">                .map(bakerType -&gt; findBakerWithType(bakerType))</span>
 <span class="fc" id="L94">                .getOrElse(() -&gt; findBakerFromAll(sourcePath));</span>
     }
