@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2017 Yawg project contributors.
+ * Copyright (c) 2017-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -77,7 +77,7 @@ public final class BakerCliConf {
          * command line. It will be used in informative or error
          * messages.
          */
-        public Builder setArgv0(final String argv0) {
+        public Builder argv0(final String argv0) {
 
             _argv0 = argv0;
 
@@ -100,7 +100,7 @@ public final class BakerCliConf {
         /**
          *
          */
-        public Builder setOutput(final OutputStream output) {
+        public Builder output(final OutputStream output) {
 
             _output = output;
 

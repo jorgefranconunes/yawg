@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2015-2017 Yawg project contributors.
+ * Copyright (c) 2015-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -11,7 +11,7 @@ import io.vavr.collection.Set;
 
 import com.varmateo.yawg.cli.CliException;
 import com.varmateo.yawg.cli.CliOption;
-import com.varmateo.yawg.cli.CliOptions;
+import com.varmateo.yawg.cli.CliOptionSet;
 
 
 /**
@@ -20,59 +20,51 @@ import com.varmateo.yawg.cli.CliOptions;
 final class BakerCliOptions {
 
 
-    public static final CliOption ASSETS_DIR =
-            CliOption.builder()
-            .setLongName("assets")
-            .setArgName("PATH")
-            .setDescription("path of assets directory")
+    public static final CliOption ASSETS_DIR = CliOption.builder()
+            .longName("assets")
+            .argName("PATH")
+            .description("path of assets directory")
             .build();
 
-    public static final CliOption HELP =
-            CliOption.builder()
-            .setLongName("help")
-            .setDescription("show this help text and exit")
-            .setShortName("h")
+    public static final CliOption HELP = CliOption.builder()
+            .longName("help")
+            .description("show this help text and exit")
+            .shortName("h")
             .build();
 
-    public static final CliOption PAGE_VAR =
-            CliOption.builder()
-            .setLongName("page-var")
-            .setArgName("NAME=VALUE")
-            .setDescription("additional page variable")
+    public static final CliOption PAGE_VAR = CliOption.builder()
+            .longName("page-var")
+            .argName("NAME=VALUE")
+            .description("additional page variable")
             .build();
 
-    public static final CliOption SOURCE_DIR =
-            CliOption.builder()
-            .setLongName("source")
-            .setArgName("PATH")
-            .setDescription("path of source directory")
+    public static final CliOption SOURCE_DIR = CliOption.builder()
+            .longName("source")
+            .argName("PATH")
+            .description("path of source directory")
             .build();
 
-    public static final CliOption TARGET_DIR =
-            CliOption.builder()
-            .setLongName("target")
-            .setArgName("PATH")
-            .setDescription("path of target directory")
+    public static final CliOption TARGET_DIR = CliOption.builder()
+            .longName("target")
+            .argName("PATH")
+            .description("path of target directory")
             .build();
 
-    public static final CliOption TEMPLATES_DIR =
-            CliOption.builder()
-            .setLongName("templates")
-            .setArgName("PATH")
-            .setDescription("path of templates directory")
+    public static final CliOption TEMPLATES_DIR = CliOption.builder()
+            .longName("templates")
+            .argName("PATH")
+            .description("path of templates directory")
             .build();
 
-    public static final CliOption VERBOSE =
-            CliOption.builder()
-            .setLongName("verbose")
-            .setDescription("show abundant logging")
+    public static final CliOption VERBOSE = CliOption.builder()
+            .longName("verbose")
+            .description("show abundant logging")
             .build();
 
-    public static final CliOption VERSION =
-            CliOption.builder()
-            .setShortName("v")
-            .setLongName("version")
-            .setDescription("show version and exit")
+    public static final CliOption VERSION = CliOption.builder()
+            .shortName("v")
+            .longName("version")
+            .description("show version and exit")
             .build();
 
 
@@ -110,10 +102,10 @@ final class BakerCliOptions {
     /**
      *
      */
-    public static CliOptions parse(final String[] args)
+    public static CliOptionSet parse(final String[] args)
         throws CliException {
 
-        return CliOptions.parse(ALL_OPTIONS, args);
+        return CliOptionSet.parse(ALL_OPTIONS, args);
     }
 
 

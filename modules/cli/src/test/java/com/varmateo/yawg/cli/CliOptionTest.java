@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -25,12 +25,11 @@ public final class CliOptionTest
     @Test
     public void withoutArg() {
 
-        CliOption option =
-            CliOption.builder()
-            .setShortName("demo")
-            .build();
+        final CliOption option = CliOption.builder()
+                .shortName("demo")
+                .build();
 
-        assertThat(option.getShortName()).isEqualTo("demo");
+        assertThat(option.shortName()).isEqualTo("demo");
         assertThat(option.isWithArg()).isFalse();
     }
 
@@ -41,15 +40,14 @@ public final class CliOptionTest
     @Test
     public void withArg() {
 
-        CliOption option =
-            CliOption.builder()
-            .setShortName("demo")
-            .setArgName("something")
-            .build();
+        final CliOption option = CliOption.builder()
+                .shortName("demo")
+                .argName("something")
+                .build();
 
-        assertThat(option.getShortName()).isEqualTo("demo");
+        assertThat(option.shortName()).isEqualTo("demo");
         assertThat(option.isWithArg()).isTrue();
-        assertThat(option.getArgName()).isEqualTo("something");
+        assertThat(option.argName()).isEqualTo("something");
     }
 
 
@@ -59,15 +57,14 @@ public final class CliOptionTest
     @Test
     public void shortName() {
 
-        CliOption option =
-            CliOption.builder()
-            .setShortName("s")
-            .build();
+        final CliOption option = CliOption.builder()
+                .shortName("s")
+                .build();
 
-        assertThat(option.getShortName()).isEqualTo("s");
-        assertThat(option.getLongName()).isNull();
-        assertThat(option.getName()).isEqualTo("s");
-        assertThat(option.getLiteral()).isEqualTo("-s");
+        assertThat(option.shortName()).isEqualTo("s");
+        assertThat(option.longName()).isNull();
+        assertThat(option.name()).isEqualTo("s");
+        assertThat(option.literal()).isEqualTo("-s");
     }
 
 
@@ -77,16 +74,15 @@ public final class CliOptionTest
     @Test
     public void longName() {
 
-        CliOption option =
-            CliOption.builder()
-            .setShortName("s")
-            .setLongName("something")
-            .build();
+        final CliOption option = CliOption.builder()
+                .shortName("s")
+                .longName("something")
+                .build();
 
-        assertThat(option.getShortName()).isEqualTo("s");
-        assertThat(option.getLongName()).isEqualTo("something");
-        assertThat(option.getName()).isEqualTo("something");
-        assertThat(option.getLiteral()).isEqualTo("--something");
+        assertThat(option.shortName()).isEqualTo("s");
+        assertThat(option.longName()).isEqualTo("something");
+        assertThat(option.name()).isEqualTo("something");
+        assertThat(option.literal()).isEqualTo("--something");
     }
 
 

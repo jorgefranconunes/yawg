@@ -30,6 +30,17 @@ public final class BakerCliRunner {
     /**
      *
      */
+    private BakerCliRunner(final Builder builder) {
+
+        _sourcePath = builder._sourcePath;
+        _targetPath = builder._targetPath;
+        _args = builder._args.toJavaArray(String.class);
+    }
+
+
+    /**
+     *
+     */
     public static Builder builder() {
 
         return new Builder();
@@ -48,24 +59,13 @@ public final class BakerCliRunner {
     /**
      *
      */
-    private BakerCliRunner(final Builder builder) {
-
-        _sourcePath = builder._sourcePath;
-        _targetPath = builder._targetPath;
-        _args = builder._args.toJavaArray(String.class);
-    }
-
-
-    /**
-     *
-     */
     public BakerCliResult run() {
 
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
         final BakerCliConf conf =
                 BakerCliConf.builder()
                 .addArgs(_args)
-                .setOutput(output)
+                .output(output)
                 .build();
         final BakerCli bakerCli = new BakerCli(conf);
         final int exitStatus = bakerCli.run();

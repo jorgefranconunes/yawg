@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2015-2017 Yawg project contributors.
+ * Copyright (c) 2015-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -31,19 +31,19 @@ import com.varmateo.yawg.cli.CliOption;
 /**
  * Represents the set of options supported in the command line.
  */
-/* default */ final class CliOptions {
+/* default */ final class CliOptionSet {
 
 
     private static final String FLAG_TRUE  = "true";
 
-    private Set<CliOption> _allOptions = null;
-    private CommandLine _cmdLine    = null;
+    private final Set<CliOption> _allOptions;
+    private final CommandLine _cmdLine;
 
 
     /**
      * Only used internally.
      */
-    private CliOptions(
+    private CliOptionSet(
             final Set<CliOption> allOptions,
             final CommandLine cmdLine) {
 
@@ -55,7 +55,7 @@ import com.varmateo.yawg.cli.CliOption;
     /**
      *
      */
-    public static CliOptions parse(
+    public static CliOptionSet parse(
             final Set<CliOption> options,
             final String[] args)
             throws CliException {
@@ -76,10 +76,10 @@ import com.varmateo.yawg.cli.CliOption;
             // There were arguments that were not options. We require
             // all arguments to be options, thus this is an invalid
             // command line.
-            throw CliException.raise("unknown option {0}", argList.get(0));
+            throw CliException.unknownOption(argList.get(0));
         }
 
-        return new CliOptions(options, cmdLine);
+        return new CliOptionSet(options, cmdLine);
     }
 
 
@@ -104,32 +104,27 @@ import com.varmateo.yawg.cli.CliOption;
             final ParseException e)
             throws CliException {
 
-        final String msg;
-        final Object[] fmtArgs;
+        final CliException cause;
 
         if ( e instanceof MissingOptionException ) {
-            MissingOptionException ex = (MissingOptionException)e;
-            String shortOpt = (String)ex.getMissingOptions().get(0);
-            org.apache.commons.cli.Option option = options.getOption(shortOpt);
-            String optionName = getApacheOptionName(option);
-            msg     = "missing mandatory option {0}";
-            fmtArgs = new Object[]{ optionName };
+            final MissingOptionException ex = (MissingOptionException)e;
+            final String shortOpt = (String)ex.getMissingOptions().get(0);
+            final org.apache.commons.cli.Option option = options.getOption(shortOpt);
+            final String optionName = getApacheOptionName(option);
+            cause = CliException.missingOption(optionName);
         } else if ( e instanceof UnrecognizedOptionException ) {
-            UnrecognizedOptionException ex = (UnrecognizedOptionException)e;
-            String optionName = ex.getOption();
-            msg     = "unknown option {0}";
-            fmtArgs = new Object[]{ optionName };
+            final UnrecognizedOptionException ex = (UnrecognizedOptionException)e;
+            final String optionName = ex.getOption();
+            cause = CliException.unknownOption(optionName);
         } else if ( e instanceof MissingArgumentException ) {
-            MissingArgumentException ex = (MissingArgumentException)e;
-            String optionName = getApacheOptionName(ex.getOption());
-            msg     = "argument for option {0} is missing";
-            fmtArgs = new Object[]{ optionName };
+            final MissingArgumentException ex = (MissingArgumentException)e;
+            final String optionName = getApacheOptionName(ex.getOption());
+            cause = CliException.missingOptionArg(optionName);
         } else {
-            msg     = "failed to parse options - {0} - {1}";
-            fmtArgs = new Object[]{ e.getClass().getName(), e.getMessage() };
+            cause = CliException.optionParseFailure(e);
         }
 
-        throw CliException.raise(msg, fmtArgs);
+        throw cause;
     }
 
 
@@ -167,7 +162,7 @@ import com.varmateo.yawg.cli.CliOption;
      */
     public boolean hasOption(final CliOption option) {
 
-        String optionName = option.getName();
+        final String optionName = option.name();
 
         return _cmdLine.hasOption(optionName);
     }
@@ -188,8 +183,8 @@ import com.varmateo.yawg.cli.CliOption;
      */
     public Seq<String> getAll(final CliOption option) {
 
-        String   optionName   = option.getName();
-        String[] optionValues = _cmdLine.getOptionValues(optionName);
+        final String   optionName   = option.name();
+        final String[] optionValues = _cmdLine.getOptionValues(optionName);
 
         return Option.of(optionValues)
                 .map(Array::of)
@@ -215,16 +210,14 @@ import com.varmateo.yawg.cli.CliOption;
             throws CliException {
 
         final String optionValue;
-        String optionName = option.getName();
-        String[] optionValues = _cmdLine.getOptionValues(optionName);
+        final String optionName = option.name();
+        final String[] optionValues = _cmdLine.getOptionValues(optionName);
 
         if ( optionValues != null ) {
-            int indexOfLast = optionValues.length-1;
+            final int indexOfLast = optionValues.length-1;
             optionValue = optionValues[indexOfLast];
         } else {
-            throw CliException.raise(
-                    "missing mandatory option --{0}",
-                    optionName);
+            throw CliException.missingOption(option.literal());
         }
 
         return optionValue;
@@ -245,11 +238,11 @@ import com.varmateo.yawg.cli.CliOption;
             final String defaultValue) {
 
         final String optionValue;
-        String optionName = option.getName();
-        String[] optionValues = _cmdLine.getOptionValues(optionName);
+        final String optionName = option.name();
+        final String[] optionValues = _cmdLine.getOptionValues(optionName);
 
         if ( optionValues != null ) {
-            int indexOfLast = optionValues.length-1;
+            final int indexOfLast = optionValues.length-1;
             optionValue = optionValues[indexOfLast];
         } else {
             optionValue = defaultValue;
@@ -298,10 +291,7 @@ import com.varmateo.yawg.cli.CliOption;
         try {
             return Paths.get(pathStr);
         } catch ( InvalidPathException e ) {
-            throw CliException.raise(
-                    "value of option {0} is an invalid path ({1})",
-                    option.getLiteral(),
-                    pathStr);
+            throw CliException.invalidPath(option.literal(), pathStr);
         }
     }
 

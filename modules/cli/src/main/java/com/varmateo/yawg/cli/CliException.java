@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2015-2017 Yawg project contributors.
+ * Copyright (c) 2015-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -20,7 +20,7 @@ public final class CliException
     /**
      *
      */
-    public CliException(final String msg) {
+    private CliException(final String msg) {
 
         super(msg);
     }
@@ -29,7 +29,7 @@ public final class CliException
     /**
      *
      */
-    public CliException(
+    private CliException(
             final String msg,
             final Throwable cause) {
 
@@ -38,31 +38,72 @@ public final class CliException
 
 
     /**
-     * Throws a newly created <code>CliException</code>.
+     *
      */
-    public static CliException raise(
-            final String    msgFmt,
-            final Object... fmtArgs)
-            throws CliException {
+    public static CliException bakeFailure(final Throwable cause) {
 
-        String message = MessageFormat.format(msgFmt, fmtArgs);
+        final String msg = String.format("Baking failed - %s", cause.getMessage());
 
-        throw new CliException(message);
+        return new CliException(msg, cause);
     }
 
 
     /**
-     * Throws a newly created <code>CliException</code>.
+     *
      */
-    public static CliException raise(
-            final Throwable cause,
-            final String    msgFmt,
-            final Object... fmtArgs)
-            throws CliException {
+    public static CliException unknownOption(final String optionName) {
 
-        String message = MessageFormat.format(msgFmt, fmtArgs);
+        final String msg = String.format("Unknown option \"%s\"", optionName);
 
-        throw new CliException(message, cause);
+        return new CliException(msg);
+    }
+
+
+    /**
+     *
+     */
+    public static CliException missingOption(final String optionName) {
+
+        final String msg = String.format("Missing mandatory option %s", optionName);
+
+        return new CliException(msg);
+    }
+
+
+    /**
+     *
+     */
+    public static CliException missingOptionArg(final String optionName) {
+
+        final String msg = String.format("Argument for option %s is missing", optionName);
+
+        return new CliException(msg);
+    }
+
+
+    /**
+     *
+     */
+    public static CliException optionParseFailure(final Throwable cause) {
+
+        final String msg = String.format(
+                "Failed to parse options - %s", cause.getClass().getName());
+
+        return new CliException(msg, cause);
+    }
+
+
+    /**
+     *
+     */
+    public static CliException invalidPath(
+            final String optionName,
+            final String path) {
+
+        final String msg = String.format(
+                "Value of option %s is an invalid path (%s)", optionName, path);
+
+        return new CliException(msg);
     }
 
 

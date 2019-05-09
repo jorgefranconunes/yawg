@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2018 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -41,16 +41,15 @@ public final class CliOptionSourceIT {
     public void sourceWithNoTarget()
             throws IOException {
 
-        Path sourcePath = TestUtils.newTempDir(CliOptionSourceIT.class);
-        BakerCliResult bakerResult =
-                BakerCliRunner.builder()
+        final Path sourcePath = TestUtils.newTempDir(CliOptionSourceIT.class);
+        final BakerCliResult bakerResult = BakerCliRunner.builder()
                 .addSourcePath(sourcePath)
                 .run();
 
         assertThat(bakerResult)
                 .hasExitStatusFailure()
                 .outputLine(1)
-                .contains("missing mandatory option")
+                .containsIgnoringCase("missing mandatory option")
                 .contains("--target");
     }
 
@@ -62,10 +61,9 @@ public final class CliOptionSourceIT {
     public void sourceNonExisting()
             throws IOException {
 
-        Path sourcePath = Paths.get("this-directory-does-not-exist-for-sure");
-        Path targetPath = TestUtils.newTempDir(CliOptionSourceIT.class);
-        BakerCliResult bakerResult =
-                BakerCliRunner.builder()
+        final Path sourcePath = Paths.get("this-directory-does-not-exist-for-sure");
+        final Path targetPath = TestUtils.newTempDir(CliOptionSourceIT.class);
+        final BakerCliResult bakerResult = BakerCliRunner.builder()
                 .addSourcePath(sourcePath)
                 .addTargetPath(targetPath)
                 .run();
@@ -84,15 +82,14 @@ public final class CliOptionSourceIT {
     public void sourceMissingValue()
             throws IOException {
 
-        BakerCliResult bakerResult =
-                BakerCliRunner.builder()
+        final BakerCliResult bakerResult = BakerCliRunner.builder()
                 .addArg("--source")
                 .run();
 
         assertThat(bakerResult)
                 .hasExitStatusFailure()
                 .outputLineFromEnd(1)
-                .contains("argument for option --source is missing");
+                .containsIgnoringCase("argument for option --source is missing");
     }
 
 
@@ -104,14 +101,13 @@ public final class CliOptionSourceIT {
             throws IOException {
 
         // GIVEN
-        Path sourceDirParent = TestUtils.newTempDir(CliOptionSourceIT.class);
-        Path sourceDir = sourceDirParent.resolve("emptySourceDir");
+        final Path sourceDirParent = TestUtils.newTempDir(CliOptionSourceIT.class);
+        final Path sourceDir = sourceDirParent.resolve("emptySourceDir");
         Files.createDirectory(sourceDir);
 
         // WHEN
-        Path targetDir = TestUtils.newTempDir(CliOptionSourceIT.class);
-        BakerCliResult bakerResult =
-                BakerCliRunner.builder()
+        final Path targetDir = TestUtils.newTempDir(CliOptionSourceIT.class);
+        final BakerCliResult bakerResult = BakerCliRunner.builder()
                 .addSourcePath(sourceDir)
                 .addTargetPath(targetDir)
                 .run();
@@ -132,13 +128,13 @@ public final class CliOptionSourceIT {
             throws IOException {
 
         // GIVEN
-        BakerCliScenario scenario = BakerCliScenario.builder(
+        final BakerCliScenario scenario = BakerCliScenario.builder(
                 CliOptionSourceIT.class,
                 "givenSourceDirHasEntries_whenBake_thenTargetDirHasSameEntries")
                 .build();
 
         // WHEN
-        BakerCliResult bakerResult = scenario.run();
+        final BakerCliResult bakerResult = scenario.run();
 
         // THEN
         assertThat(bakerResult)

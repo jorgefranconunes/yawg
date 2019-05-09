@@ -1,13 +1,10 @@
 /**************************************************************************
  *
- * Copyright (c) 2015-2017 Yawg project contributors.
+ * Copyright (c) 2015-2019 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.cli;
-
-import com.varmateo.yawg.cli.BakerCli;
-import com.varmateo.yawg.cli.BakerCliConf;
 
 
 /**
@@ -37,15 +34,15 @@ public final class Main {
      */
      public static void main(final String[] args) {
 
-         String argv0 = System.getProperty(PROP_ARGV, DEFAULT_ARGV0);
-         BakerCliConf conf =
+         final String argv0 = System.getProperty(PROP_ARGV, DEFAULT_ARGV0);
+         final BakerCliConf conf =
                  BakerCliConf.builder()
-                 .setArgv0(argv0)
+                 .argv0(argv0)
                  .addArgs(args)
-                 .setOutput(System.out)
+                 .output(System.out)
                  .build();
-         BakerCli bakerCli = new BakerCli(conf);
-         int exitStatus = bakerCli.run();
+         final BakerCli bakerCli = new BakerCli(conf);
+         final int exitStatus = bakerCli.run();
 
          System.exit(exitStatus);
     }

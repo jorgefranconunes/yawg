@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2015-2017 Yawg project contributors.
+ * Copyright (c) 2015-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -63,27 +63,27 @@ public final class CliOption {
      */
     private static Option buildApacheOption(final CliOption option) {
 
-        String longName = option.getLongName();
+        final String longName = option.longName();
         if ( longName != null ) {
             OptionBuilder.withLongOpt(longName);
         }
 
-        String description = option.getDescription();
+        final String description = option.description();
         if ( description != null ) {
             OptionBuilder.withDescription(description);
         }
 
-        boolean isWithArg = option.isWithArg();
+        final boolean isWithArg = option.isWithArg();
         if ( isWithArg ) {
             OptionBuilder.hasArg();
         }
 
-        String argName = option.getArgName();
+        final String argName = option.argName();
         if ( argName != null ) {
             OptionBuilder.withArgName(argName);
         }
 
-        String shortName = option.getShortName();
+        final String shortName = option.shortName();
 
         return shortName != null
                 ? OptionBuilder.create(shortName)
@@ -94,7 +94,7 @@ public final class CliOption {
     /**
      *
      */
-    public String getShortName() {
+    public String shortName() {
 
         return _shortName;
     }
@@ -103,7 +103,7 @@ public final class CliOption {
     /**
      *
      */
-    public String getLongName() {
+    public String longName() {
 
         return _longName;
     }
@@ -112,7 +112,7 @@ public final class CliOption {
     /**
      *
      */
-    public String getDescription() {
+    public String description() {
 
         return _description;
     }
@@ -130,7 +130,7 @@ public final class CliOption {
     /**
      * Informative only.
      */
-    public String getArgName() {
+    public String argName() {
 
         return _argName;
     }
@@ -139,7 +139,7 @@ public final class CliOption {
     /**
      *
      */
-    public String getName() {
+    public String name() {
 
         return _name;
     }
@@ -148,7 +148,7 @@ public final class CliOption {
     /**
      *
      */
-    public String getLiteral() {
+    public String literal() {
 
         return _literal;
     }
@@ -186,7 +186,7 @@ public final class CliOption {
         /**
          *
          */
-        public Builder setShortName(final String shortName) {
+        public Builder shortName(final String shortName) {
 
             _shortName = shortName;
 
@@ -198,7 +198,7 @@ public final class CliOption {
          *
          */
 
-        public Builder setLongName(final String longName) {
+        public Builder longName(final String longName) {
 
             _longName = longName;
 
@@ -211,7 +211,7 @@ public final class CliOption {
          *
          */
 
-        public Builder setDescription(final String description) {
+        public Builder description(final String description) {
 
             _description = description;
 
@@ -222,7 +222,7 @@ public final class CliOption {
         /**
          *
          */
-        public Builder setArgName(final String argName) {
+        public Builder argName(final String argName) {
 
             _argName = argName;
 

@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2018 Yawg project contributors.
+ * Copyright (c) 2018-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -16,7 +16,7 @@ import org.junit.runners.model.Statement;
  */
 public final class LogStartAndEndRule implements TestRule {
 
-    private static final String MSG_START = ">>>>>> START - %s <<<<<<";
+    private static final String MSG_START = "\n>>>>>> START - %s <<<<<<";
     private static final String MSG_END = ">>>>>> END - %s (%.3f ms) <<<<<<";
 
     /**

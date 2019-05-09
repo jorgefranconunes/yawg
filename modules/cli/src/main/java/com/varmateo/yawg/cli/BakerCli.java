@@ -25,7 +25,7 @@ import com.varmateo.yawg.cli.InfoPrinter;
 import com.varmateo.yawg.cli.BakerCliConf;
 import com.varmateo.yawg.cli.BakerCliOptions;
 import com.varmateo.yawg.cli.CliException;
-import com.varmateo.yawg.cli.CliOptions;
+import com.varmateo.yawg.cli.CliOptionSet;
 
 
 /**
@@ -58,7 +58,7 @@ public final class BakerCli {
      */
     public int run() {
 
-        InfoPrinter infoPrinter = buildInfoPrinter(_conf.argv0, _conf.output);
+        final InfoPrinter infoPrinter = buildInfoPrinter(_conf.argv0, _conf.output);
         CliException error = null;
 
         try {
@@ -87,11 +87,9 @@ public final class BakerCli {
             final String argv0,
             final OutputStream output) {
 
-        boolean autoFlush = true;
-        Writer stdoutWriter =
-                new OutputStreamWriter(output, StandardCharsets.UTF_8);
-        PrintWriter stdout =
-                new PrintWriter(stdoutWriter, autoFlush);
+        final boolean autoFlush = true;
+        final Writer stdoutWriter = new OutputStreamWriter(output, StandardCharsets.UTF_8);
+        final PrintWriter stdout = new PrintWriter(stdoutWriter, autoFlush);
 
         return InfoPrinter.builder()
                 .setArgv0(argv0)
@@ -111,7 +109,7 @@ public final class BakerCli {
         if ( args.length == 0 ) {
             infoPrinter.printHelp();
         } else {
-            CliOptions cliOptions = BakerCliOptions.parse(args);
+            final CliOptionSet cliOptions = BakerCliOptions.parse(args);
 
             if ( cliOptions.hasOption(BakerCliOptions.HELP) ) {
                 infoPrinter.printHelp();
@@ -121,8 +119,8 @@ public final class BakerCli {
                 Try<Void> result = doBake(cliOptions);
 
                 if ( result.isFailure() ) {
-                    Throwable e = result.getCause();
-                    CliException.raise(e, "Baking failed - {0}", e.getMessage());
+                    Throwable cause = result.getCause();
+                    throw CliException.bakeFailure(cause);
                 }
             }
         }
@@ -132,7 +130,7 @@ public final class BakerCli {
     /**
      *
      */
-    private static Try<Void> doBake(final CliOptions cliOptions)
+    private static Try<Void> doBake(final CliOptionSet cliOptions)
             throws CliException {
 
         SiteBakerConf conf = buildSiteBakerConf(cliOptions);
@@ -146,19 +144,14 @@ public final class BakerCli {
     /**
      *
      */
-    private static SiteBakerConf buildSiteBakerConf(final CliOptions cliOptions)
+    private static SiteBakerConf buildSiteBakerConf(final CliOptionSet cliOptions)
             throws CliException {
 
-        Path sourceDir =
-                cliOptions.getPath(BakerCliOptions.SOURCE_DIR);
-        Path targetDir =
-                cliOptions.getPath(BakerCliOptions.TARGET_DIR);
-        Path templatesDir =
-                cliOptions.getPath(BakerCliOptions.TEMPLATES_DIR, null);
-        Path assetsDir =
-                cliOptions.getPath(BakerCliOptions.ASSETS_DIR, null);
-        java.util.Map<String,Object> externalPageVars =
-                buildExternalPageVars(cliOptions);
+        final Path sourceDir = cliOptions.getPath(BakerCliOptions.SOURCE_DIR);
+        final Path targetDir = cliOptions.getPath(BakerCliOptions.TARGET_DIR);
+        final Path templatesDir = cliOptions.getPath(BakerCliOptions.TEMPLATES_DIR, null);
+        final Path assetsDir = cliOptions.getPath(BakerCliOptions.ASSETS_DIR, null);
+        final java.util.Map<String,Object> externalPageVars = buildExternalPageVars(cliOptions);
 
         return SiteBakerConfBuilder.create()
                 .setSourceDir(sourceDir)
@@ -174,7 +167,7 @@ public final class BakerCli {
      *
      */
     private static java.util.Map<String,Object> buildExternalPageVars(
-            final CliOptions cliOptions) {
+            final CliOptionSet cliOptions) {
 
         return cliOptions
                 .getAll(BakerCliOptions.PAGE_VAR)
@@ -190,7 +183,7 @@ public final class BakerCli {
 
         final String varName;
         final String varValue;
-        int indexOfEqSign = optionValue.indexOf('=');
+        final int indexOfEqSign = optionValue.indexOf('=');
 
         if ( indexOfEqSign < 0 ) {
             varName = optionValue;

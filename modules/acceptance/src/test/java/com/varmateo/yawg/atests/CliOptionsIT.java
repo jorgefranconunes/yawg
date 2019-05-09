@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2018 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -34,7 +34,7 @@ public final class CliOptionsIT {
     @Test
     public void noArgs() {
 
-        BakerCliResult bakerResult = BakerCliRunner.builder().run();
+        final BakerCliResult bakerResult = BakerCliRunner.builder().run();
 
         assertThat(bakerResult)
                 .hasExitStatusSuccess()
@@ -49,15 +49,14 @@ public final class CliOptionsIT {
     @Test
     public void unknownOption() {
 
-        BakerCliResult bakerResult =
-                BakerCliRunner.builder()
+        final BakerCliResult bakerResult = BakerCliRunner.builder()
                 .addArgs("--this-is-an-unknown-option")
                 .run();
 
         assertThat(bakerResult)
                 .hasExitStatusFailure()
                 .outputLine(1)
-                .contains("unknown option")
+                .containsIgnoringCase("unknown option")
                 .contains("--this-is-an-unknown-option");
     }
 
@@ -78,8 +77,7 @@ public final class CliOptionsIT {
      */
     private void helpOptionTest(final String option) {
 
-        BakerCliResult bakerResult =
-                BakerCliRunner.builder()
+        final BakerCliResult bakerResult = BakerCliRunner.builder()
                 .addArg(option)
                 .run();
 
