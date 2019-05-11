@@ -19,7 +19,7 @@ import org.asciidoctor.internal.AsciidoctorCoreException;
 
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.asciidoctor.AsciidoctorBakerDataModelBuilder;
-import com.varmateo.yawg.spi.BakerService;
+import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.Template;
 import com.varmateo.yawg.spi.TemplateDataModel;
@@ -32,8 +32,8 @@ import com.varmateo.yawg.util.Holder;
  * A <code>Baker</code> that translates text files in Asciidoc format
  * into HTML files.
  */
-/* package private */ final class AsciidoctorBakerService
-        implements BakerService {
+/* package private */ final class AsciidoctorPageBaker
+        implements PageBaker {
 
 
     private static final String NAME = "asciidoc";
@@ -52,7 +52,7 @@ import com.varmateo.yawg.util.Holder;
     /**
      * 
      */
-    AsciidoctorBakerService() {
+    AsciidoctorPageBaker() {
         // Nothing to do. Really.
     }
 
@@ -61,7 +61,7 @@ import com.varmateo.yawg.util.Holder;
      * {@inheritDoc}
      */
     @Override
-    public String getShortName() {
+    public String shortName() {
 
         return NAME;
     }

@@ -27,7 +27,7 @@ import com.varmateo.yawg.spi.PageVarsBuilder;
 
 
     private final Log _log;
-    private final SiteBakerOptions _conf;
+    private final SiteBakerOptions _options;
     private final AssetsCopier _assetsCopier;
     private final SourceTreeBaker _sourceTreeBaker;
 
@@ -35,25 +35,25 @@ import com.varmateo.yawg.spi.PageVarsBuilder;
 
 
     /**
-     * @param conf All the parameters needed for performing a bake.
+     * @param options All the parameters needed for performing a bake.
      */
     SingleSiteBaker(
             final Log log,
-            final SiteBakerOptions conf,
+            final SiteBakerOptions options,
             final DirBaker dirBaker) {
 
-        PageVars pageVars = mapToPageVars(conf.externalPageVars());
+        final PageVars pageVars = mapToPageVars(options.externalPageVars());
 
         _log = log;
-        _conf = conf;
+        _options = options;
         _assetsCopier = new AssetsCopier(
                 log,
-                conf.assetsDir(),
-                conf.targetDir());
+                options.assetsDir(),
+                options.targetDir());
         _sourceTreeBaker = new SourceTreeBaker(
                 log,
-                conf.sourceDir(),
-                conf.targetDir(),
+                options.sourceDir(),
+                options.targetDir(),
                 pageVars,
                 dirBaker);
 
@@ -70,7 +70,7 @@ import com.varmateo.yawg.spi.PageVarsBuilder;
     private static PageVars mapToPageVars(
             final Map<String,Object> pageVarsMap) {
 
-        PageVarsBuilder builder = PageVarsBuilder.create();
+        final PageVarsBuilder builder = PageVarsBuilder.create();
         pageVarsMap.entrySet().stream()
                 .forEach(x -> builder.addVar(x.getKey(), x.getValue()));
 
@@ -87,10 +87,10 @@ import com.varmateo.yawg.spi.PageVarsBuilder;
     public void bake()
             throws YawgException {
 
-        Path sourceDir = _conf.sourceDir();
-        Path targetDir = _conf.targetDir();
-        Optional<Path> templatesDir = _conf.templatesDir();
-        Optional<Path> assetsDir = _conf.assetsDir();
+        final Path sourceDir = _options.sourceDir();
+        final Path targetDir = _options.targetDir();
+        final Optional<Path> templatesDir = _options.templatesDir();
+        final Optional<Path> assetsDir = _options.assetsDir();
 
         _log.info("{0} {1}", YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);
         _log.info("    Source    : {0}", sourceDir);

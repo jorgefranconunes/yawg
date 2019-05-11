@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2018 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -14,7 +14,7 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import com.varmateo.testutils.LogStartAndEndRule;
-import com.varmateo.yawg.asciidoctor.AsciidoctorBakerService;
+import com.varmateo.yawg.asciidoctor.AsciidoctorPageBaker;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -22,12 +22,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  *
  */
-public final class AsciidoctorBakerServiceIT {
+public final class AsciidoctorPageBakerIT {
 
     @Rule
     public final LogStartAndEndRule logRule = new LogStartAndEndRule();
 
-    private AsciidoctorBakerService _baker = null;
+    private AsciidoctorPageBaker _baker = null;
 
 
     /**
@@ -36,7 +36,7 @@ public final class AsciidoctorBakerServiceIT {
     @Before
     public void setUp() {
 
-        _baker = new AsciidoctorBakerService();
+        _baker = new AsciidoctorPageBaker();
     }
 
 
@@ -46,11 +46,13 @@ public final class AsciidoctorBakerServiceIT {
     @Test
     public void checkIsBakeable() {
 
-        Path pathBakeable = Paths.get("SomethingBakeable.adoc");
-        assertThat(_baker.isBakeable(pathBakeable)).isTrue();
+        final Path pathBakeable = Paths.get("SomethingBakeable.adoc");
+        assertThat(_baker.isBakeable(pathBakeable))
+                .isTrue();
 
-        Path pathNonBakeable = Paths.get("SomethingNotBakeable.txt");
-        assertThat(_baker.isBakeable(pathNonBakeable)).isFalse();
+        final Path pathNonBakeable = Paths.get("SomethingNotBakeable.txt");
+        assertThat(_baker.isBakeable(pathNonBakeable))
+                .isFalse();
     }
 
 

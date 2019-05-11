@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.html.HtmlBakerDataModelBuilder;
-import com.varmateo.yawg.spi.BakerService;
+import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.Template;
 import com.varmateo.yawg.spi.TemplateDataModel;
@@ -25,8 +25,8 @@ import com.varmateo.yawg.util.FileUtils;
  * A <code>Baker</code> that transforms HTML files into other HTML
  * files.
  */
-/* package private */ final class HtmlBakerService
-        implements BakerService {
+/* package private */ final class HtmlPageBaker
+        implements PageBaker {
 
 
     private static final String NAME = "html";
@@ -39,7 +39,7 @@ import com.varmateo.yawg.util.FileUtils;
     /**
      * 
      */
-    HtmlBakerService() {
+    HtmlPageBaker() {
         // Nothing to do.
     }
 
@@ -48,7 +48,7 @@ import com.varmateo.yawg.util.FileUtils;
      * {@inheritDoc}
      */
     @Override
-    public String getShortName() {
+    public String shortName() {
 
         return NAME;
     }

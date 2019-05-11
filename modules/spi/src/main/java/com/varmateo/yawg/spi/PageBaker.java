@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -15,7 +15,7 @@ import com.varmateo.yawg.spi.PageContext;
 /**
  * A baker of files.
  */
-public interface BakerService {
+public interface PageBaker {
 
 
     /**
@@ -23,7 +23,7 @@ public interface BakerService {
      *
      * @return The baker name.
      */
-    String getShortName();
+    String shortName();
 
 
     /**

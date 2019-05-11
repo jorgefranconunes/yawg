@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 import com.varmateo.yawg.api.YawgException;
-import com.varmateo.yawg.spi.BakerService;
+import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.util.Exceptions;
 import com.varmateo.yawg.util.FileUtils;
@@ -20,8 +20,8 @@ import com.varmateo.yawg.util.FileUtils;
  * A <code>Baker</code> that just copies the source file to the target
  * location.
  */
-/* default */ final class CopyBakerService
-        implements BakerService {
+/* default */ final class CopyPageBaker
+        implements PageBaker {
 
 
     private static final String NAME = "copy";
@@ -30,7 +30,7 @@ import com.varmateo.yawg.util.FileUtils;
     /**
      * 
      */
-    CopyBakerService() {
+    CopyPageBaker() {
 
         // Nothing to do.
     }
@@ -40,7 +40,7 @@ import com.varmateo.yawg.util.FileUtils;
      * {@inheritDoc}
      */
     @Override
-    public String getShortName() {
+    public String shortName() {
 
         return NAME;
     }

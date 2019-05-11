@@ -22,7 +22,7 @@ import com.varmateo.yawg.core.DirBakerConf;
 import com.varmateo.yawg.core.FileBaker;
 import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogFactory;
-import com.varmateo.yawg.spi.BakerService;
+import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.DirBakeListener;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.TemplateService;
@@ -46,7 +46,7 @@ public final class DirBakerTest {
 
     private TemplateService _templateServiceMock;
     private DirBakeListener _dirBakeListenerMock;
-    private BakerService _bakerMock;
+    private PageBaker _bakerMock;
     private Seq<Path> _bakedFiles;
 
 
@@ -77,8 +77,8 @@ public final class DirBakerTest {
                         invocation -> ((PageContext)invocation.getArguments()[0]).pageVars());
 
         _bakedFiles = List.empty();
-        _bakerMock = mock(BakerService.class);
-        when(_bakerMock.getShortName()).thenReturn("mock");
+        _bakerMock = mock(PageBaker.class);
+        when(_bakerMock.shortName()).thenReturn("mock");
         when(_bakerMock.isBakeable(any())).thenReturn(true);
         doAnswer(
                 invocation -> {
@@ -126,17 +126,16 @@ public final class DirBakerTest {
     @Test
     public void bakeSomeWithConfFromDir() {
 
-        Path sourceDir = TestUtils.getPath(DirBaker.class, "source02");
-        Path targetDir = Paths.get(".");
-        DirBaker baker = buildDirBaker(sourceDir, targetDir, _bakerMock);
+        final Path sourceDir = TestUtils.getPath(DirBaker.class, "source02");
+        final Path targetDir = Paths.get(".");
+        final DirBaker baker = buildDirBaker(sourceDir, targetDir, _bakerMock);
 
         baker.bakeDirectory(sourceDir, targetDir, _emptyConf);
 
-        Seq<Path> actualBakedFiles = _bakedFiles;
-        Seq<String> expectedBakedFiles =
-                List.of(
-                        "file02.adoc",
-                        "file04.adoc");
+        final Seq<Path> actualBakedFiles = _bakedFiles;
+        final Seq<String> expectedBakedFiles = List.of(
+                "file02.adoc",
+                "file04.adoc");
 
         assertFileNameEquals(sourceDir, expectedBakedFiles, actualBakedFiles);
     }
@@ -148,24 +147,22 @@ public final class DirBakerTest {
     private DirBaker buildDirBaker(
             final Path sourceRootDir,
             final Path targetRootDir,
-            final BakerService baker) {
+            final PageBaker baker) {
 
-        Log log = LogFactory.createFor(DirBaker.class);
-        FileBaker fileBaker =
-                new FileBaker(
-                        log,
-                        List.of(),
-                        baker);
-        DirBaker result =
-                new DirBaker(
-                        log,
-                        sourceRootDir,
-                        targetRootDir,
-                        fileBaker,
-                        _templateServiceMock,
-                        _confDao,
-                        _dirBakeListenerMock);
-        return result;
+        final Log log = LogFactory.createFor(DirBaker.class);
+        final FileBaker fileBaker = new FileBaker(
+                log,
+                List.of(),
+                baker);
+
+        return new DirBaker(
+                log,
+                sourceRootDir,
+                targetRootDir,
+                fileBaker,
+                _templateServiceMock,
+                _confDao,
+                _dirBakeListenerMock);
     }
 
 
@@ -177,12 +174,12 @@ public final class DirBakerTest {
             final Seq<String> expectedRelFiles,
             final Seq<Path> actualFiles) {
 
-        Seq<String> actualRelFiles =
-                actualFiles
+        final Seq<String> actualRelFiles = actualFiles
                 .map(path -> rootDir.relativize(path))
                 .map(Path::toString);
 
-        assertThat(actualRelFiles).isEqualTo(expectedRelFiles);
+        assertThat(actualRelFiles)
+                .isEqualTo(expectedRelFiles);
     }
 
 
