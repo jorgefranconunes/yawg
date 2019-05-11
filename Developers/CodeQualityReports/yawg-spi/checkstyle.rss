@@ -144,6 +144,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.PageBakerFactory.java">com/varmateo/yawg/spi/PageBakerFactory.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.PageVarsBuilder.java">com/varmateo/yawg/spi/PageVarsBuilder.java</a>
                 </td>
                 <td>
@@ -186,20 +200,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.BakerServiceFactory.java">com/varmateo/yawg/spi/BakerServiceFactory.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.PageVars.java">com/varmateo/yawg/spi/PageVars.java</a>
                 </td>
                 <td>
@@ -228,7 +228,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.BakerService.java">com/varmateo/yawg/spi/BakerService.java</a>
+                  <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.PageBaker.java">com/varmateo/yawg/spi/PageBaker.java</a>
                 </td>
                 <td>
                   0

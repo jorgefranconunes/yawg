@@ -27,7 +27,7 @@ import com.varmateo.yawg.spi.PageVarsBuilder;
 
 
     private final Log _log;
-    private final SiteBakerOptions _conf;
+    private final SiteBakerOptions _options;
     private final AssetsCopier _assetsCopier;
     private final SourceTreeBaker _sourceTreeBaker;
 
@@ -35,25 +35,25 @@ import com.varmateo.yawg.spi.PageVarsBuilder;
 
 
     /**
-     * @param conf All the parameters needed for performing a bake.
+     * @param options All the parameters needed for performing a bake.
      */
     SingleSiteBaker(
             final Log log,
-            final SiteBakerOptions conf,
+            final SiteBakerOptions options,
 <span class="nc" id="L43">            final DirBaker dirBaker) {</span>
 
-<span class="nc" id="L45">        PageVars pageVars = mapToPageVars(conf.externalPageVars());</span>
+<span class="nc" id="L45">        final PageVars pageVars = mapToPageVars(options.externalPageVars());</span>
 
 <span class="nc" id="L47">        _log = log;</span>
-<span class="nc" id="L48">        _conf = conf;</span>
+<span class="nc" id="L48">        _options = options;</span>
 <span class="nc" id="L49">        _assetsCopier = new AssetsCopier(</span>
                 log,
-<span class="nc" id="L51">                conf.assetsDir(),</span>
-<span class="nc" id="L52">                conf.targetDir());</span>
+<span class="nc" id="L51">                options.assetsDir(),</span>
+<span class="nc" id="L52">                options.targetDir());</span>
 <span class="nc" id="L53">        _sourceTreeBaker = new SourceTreeBaker(</span>
                 log,
-<span class="nc" id="L55">                conf.sourceDir(),</span>
-<span class="nc" id="L56">                conf.targetDir(),</span>
+<span class="nc" id="L55">                options.sourceDir(),</span>
+<span class="nc" id="L56">                options.targetDir(),</span>
                 pageVars,
                 dirBaker);
 
@@ -70,7 +70,7 @@ import com.varmateo.yawg.spi.PageVarsBuilder;
     private static PageVars mapToPageVars(
             final Map&lt;String,Object&gt; pageVarsMap) {
 
-<span class="nc" id="L73">        PageVarsBuilder builder = PageVarsBuilder.create();</span>
+<span class="nc" id="L73">        final PageVarsBuilder builder = PageVarsBuilder.create();</span>
 <span class="nc" id="L74">        pageVarsMap.entrySet().stream()</span>
 <span class="nc" id="L75">                .forEach(x -&gt; builder.addVar(x.getKey(), x.getValue()));</span>
 
@@ -87,10 +87,10 @@ import com.varmateo.yawg.spi.PageVarsBuilder;
     public void bake()
             throws YawgException {
 
-<span class="nc" id="L90">        Path sourceDir = _conf.sourceDir();</span>
-<span class="nc" id="L91">        Path targetDir = _conf.targetDir();</span>
-<span class="nc" id="L92">        Optional&lt;Path&gt; templatesDir = _conf.templatesDir();</span>
-<span class="nc" id="L93">        Optional&lt;Path&gt; assetsDir = _conf.assetsDir();</span>
+<span class="nc" id="L90">        final Path sourceDir = _options.sourceDir();</span>
+<span class="nc" id="L91">        final Path targetDir = _options.targetDir();</span>
+<span class="nc" id="L92">        final Optional&lt;Path&gt; templatesDir = _options.templatesDir();</span>
+<span class="nc" id="L93">        final Optional&lt;Path&gt; assetsDir = _options.assetsDir();</span>
 
 <span class="nc" id="L95">        _log.info(&quot;{0} {1}&quot;, YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);</span>
 <span class="nc" id="L96">        _log.info(&quot;    Source    : {0}&quot;, sourceDir);</span>

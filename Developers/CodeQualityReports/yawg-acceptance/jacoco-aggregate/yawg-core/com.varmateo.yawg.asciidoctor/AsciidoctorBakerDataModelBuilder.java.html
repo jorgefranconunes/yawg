@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>AsciidoctorBakerDataModelBuilder.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.asciidoctor</a> &gt; <span class="el_source">AsciidoctorBakerDataModelBuilder.java</span></div><h1>AsciidoctorBakerDataModelBuilder.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -49,26 +49,26 @@ import org.asciidoctor.internal.AsciidoctorCoreException;
             final PageContext context)
             throws AsciidoctorCoreException, IOException {
 
-<span class="fc" id="L52">        String sourceContent = FileUtils.readAsString(sourcePath);</span>
-<span class="fc" id="L53">        OptionsBuilder options = AdocUtils.buildOptionsForBakeWithTemplate(</span>
+<span class="fc" id="L52">        final String sourceContent = FileUtils.readAsString(sourcePath);</span>
+<span class="fc" id="L53">        final OptionsBuilder options = AdocUtils.buildOptionsForBakeWithTemplate(</span>
                 sourcePath,
                 targetDir,
-<span class="fc" id="L56">                context.getPageVars());</span>
-<span class="fc" id="L57">        String body = _asciidoctor.render(sourceContent, options);</span>
-<span class="fc" id="L58">        String pageUrl = context.getDirUrl() + &quot;/&quot; + targetPath.getFileName();</span>
-<span class="fc" id="L59">        DocumentHeader header = _asciidoctor.readDocumentHeader(sourceContent);</span>
-<span class="fc" id="L60">        String title = Option.of(header)</span>
+<span class="fc" id="L56">                context.pageVars());</span>
+<span class="fc" id="L57">        final String body = _asciidoctor.render(sourceContent, options);</span>
+<span class="fc" id="L58">        final String pageUrl = context.dirUrl() + &quot;/&quot; + targetPath.getFileName();</span>
+<span class="fc" id="L59">        final DocumentHeader header = _asciidoctor.readDocumentHeader(sourceContent);</span>
+<span class="fc" id="L60">        final String title = Option.of(header)</span>
 <span class="fc" id="L61">                .flatMap(h -&gt; Option.of(h.getDocumentTitle()))</span>
 <span class="fc" id="L62">                .flatMap(t -&gt; Option.of(t.getMain()))</span>
 <span class="fc" id="L63">                .getOrElse(() -&gt; FileUtils.basename(sourcePath));</span>
 
-        TemplateDataModelBuilder modelBuilder =
+        final TemplateDataModelBuilder modelBuilder =
 <span class="fc" id="L66">                TemplateDataModelBuilder.create()</span>
 <span class="fc" id="L67">                .setTitle(title)</span>
 <span class="fc" id="L68">                .setBody(body)</span>
 <span class="fc" id="L69">                .setPageUrl(pageUrl)</span>
-<span class="fc" id="L70">                .setRootRelativeUrl(context.getRootRelativeUrl())</span>
-<span class="fc" id="L71">                .setPageVars(context.getPageVars());</span>
+<span class="fc" id="L70">                .setRootRelativeUrl(context.rootRelativeUrl())</span>
+<span class="fc" id="L71">                .setPageVars(context.pageVars());</span>
 <span class="fc" id="L72">        buildAuthors(modelBuilder, header);</span>
 
 <span class="fc" id="L74">        return modelBuilder.build();</span>

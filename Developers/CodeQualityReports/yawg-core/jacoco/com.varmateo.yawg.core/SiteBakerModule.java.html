@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SiteBakerModule.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">SiteBakerModule.java</span></div><h1>SiteBakerModule.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2016-2019 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.core;
+
+import io.vavr.collection.List;
+import io.vavr.collection.Seq;
+import io.vavr.control.Option;
+
+import com.varmateo.yawg.api.SiteBakerOptions;
+import com.varmateo.yawg.core.CollectiveDirBakeListener;
+import com.varmateo.yawg.core.CollectiveTemplateService;
+import com.varmateo.yawg.core.CopyPageBaker;
+import com.varmateo.yawg.core.DirBaker;
+import com.varmateo.yawg.core.DirBakerConfDao;
+import com.varmateo.yawg.core.FileBaker;
+import com.varmateo.yawg.core.SingleSiteBaker;
+import com.varmateo.yawg.logging.Log;
+import com.varmateo.yawg.logging.LogFactory;
+import com.varmateo.yawg.spi.PageBaker;
+import com.varmateo.yawg.spi.PageBakerFactory;
+import com.varmateo.yawg.spi.DirBakeListener;
+import com.varmateo.yawg.spi.DirBakeListenerFactory;
+import com.varmateo.yawg.spi.TemplateService;
+import com.varmateo.yawg.spi.TemplateServiceFactory;
+import com.varmateo.yawg.util.Holder;
+import com.varmateo.yawg.util.Services;
+
+
+/**
+ * Factory for all the objects required by the main baker.
+ */
+/* package private */ final class SiteBakerModule {
+
+
+    private final SiteBakerOptions _options;
+
+<span class="nc" id="L41">    private final Holder&lt;Seq&lt;PageBaker&gt;&gt; _bakers = Holder.of(this::newBakers);</span>
+
+<span class="nc" id="L43">    private final Holder&lt;PageBaker&gt; _copyBaker = Holder.of(this::newCopyPageBaker);</span>
+
+<span class="nc" id="L45">    private final Holder&lt;DirBakeListener&gt; _dirBakeListener = Holder.of(this::newDirBakeListener);</span>
+
+<span class="nc" id="L47">    private final Holder&lt;DirBaker&gt; _dirBaker = Holder.of(this::newDirBaker);</span>
+
+<span class="nc" id="L49">    private final Holder&lt;DirBakerConfDao&gt; _dirBakerConfDao = Holder.of(this::newDirBakerConfDao);</span>
+
+<span class="nc" id="L51">    private final Holder&lt;FileBaker&gt; _fileBaker = Holder.of(this::newFileBaker);</span>
+
+<span class="nc" id="L53">    private final Holder&lt;SingleSiteBaker&gt; _siteBaker = Holder.of(this::newSiteBaker);</span>
+
+<span class="nc" id="L55">    private final Holder&lt;TemplateService&gt; _templateService = Holder.of(this::newTemplateService);</span>
+
+<span class="nc" id="L57">    private final Holder&lt;Log&gt; _log = Holder.of(this::newLog);</span>
+
+
+    /**
+     * @param options Configuration parameters.
+     */
+<span class="nc" id="L63">    SiteBakerModule(final SiteBakerOptions options) {</span>
+
+<span class="nc" id="L65">        _options = options;</span>
+<span class="nc" id="L66">    }</span>
+
+
+    /**
+     * @return The baker object.
+     */
+    public SingleSiteBaker getSingleSiteBaker() {
+
+<span class="nc" id="L74">        return _siteBaker.get();</span>
+    }
+
+
+    /**
+     *
+     */
+    private Seq&lt;PageBaker&gt; newBakers() {
+
+<span class="nc" id="L83">        return Services.getAll(PageBakerFactory.class)</span>
+<span class="nc" id="L84">                .map(PageBakerFactory::createPageBaker);</span>
+    }
+
+
+    /**
+     *
+     */
+    private PageBaker newCopyPageBaker() {
+
+<span class="nc" id="L93">        return new CopyPageBaker();</span>
+    }
+
+
+    /**
+     *
+     */
+    private DirBakeListener newDirBakeListener() {
+
+<span class="nc" id="L102">        final Seq&lt;DirBakeListener&gt; allListeners = Services.getAll(DirBakeListenerFactory.class)</span>
+<span class="nc" id="L103">                .map(DirBakeListenerFactory::newDirBakeListener);</span>
+
+<span class="nc" id="L105">        return new CollectiveDirBakeListener(allListeners);</span>
+    }
+
+
+    /**
+     *
+     */
+    private DirBaker newDirBaker() {
+
+<span class="nc" id="L114">        return new DirBaker(</span>
+<span class="nc" id="L115">                _log.get(),</span>
+<span class="nc" id="L116">                _options.sourceDir(),</span>
+<span class="nc" id="L117">                _options.targetDir(),</span>
+<span class="nc" id="L118">                _fileBaker.get(),</span>
+<span class="nc" id="L119">                _templateService.get(),</span>
+<span class="nc" id="L120">                _dirBakerConfDao.get(),</span>
+<span class="nc" id="L121">                _dirBakeListener.get());</span>
+    }
+
+
+    /**
+     *
+     */
+    private DirBakerConfDao newDirBakerConfDao() {
+
+<span class="nc" id="L130">        return new DirBakerConfDao();</span>
+    }
+
+
+    /**
+     *
+     */
+    private FileBaker newFileBaker() {
+
+<span class="nc" id="L139">        final Log log = _log.get();</span>
+<span class="nc" id="L140">        final Seq&lt;PageBaker&gt; bakers = _bakers.get();</span>
+<span class="nc" id="L141">        final PageBaker defaultBaker = _copyBaker.get();</span>
+
+<span class="nc" id="L143">        return new FileBaker(log, bakers, defaultBaker);</span>
+    }
+
+
+    /**
+     *
+     */
+    private TemplateService newTemplateService() {
+
+<span class="nc" id="L152">        final Seq&lt;TemplateService&gt; allServices = Option.ofOptional(_options.templatesDir())</span>
+<span class="nc" id="L153">                .map(dirPath -&gt;</span>
+<span class="nc" id="L154">                     Services.getAll(TemplateServiceFactory.class)</span>
+<span class="nc" id="L155">                     .map(f -&gt; f.newTemplateService(dirPath)))</span>
+<span class="nc" id="L156">                .getOrElse(List::of);</span>
+
+<span class="nc" id="L158">        return new CollectiveTemplateService(allServices);</span>
+    }
+
+
+    /**
+     *
+     */
+    private Log newLog() {
+
+<span class="nc" id="L167">        return LogFactory.createFor(this);</span>
+    }
+
+
+    /**
+     *
+     */
+    private SingleSiteBaker newSiteBaker() {
+
+<span class="nc" id="L176">        return new SingleSiteBaker(_log.get(), _options, _dirBaker.get());</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

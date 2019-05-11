@@ -18,7 +18,7 @@
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.api.SiteBakerOptions;
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.api.SiteBakerFactory;
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.SingleSiteBaker;
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.SiteBakerDomain;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.SiteBakerModule;
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_javadoccomment">/**</em>
@@ -51,10 +51,10 @@
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment">         *</em>
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment">         */</em>
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>          @Override
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>          <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> bake(<strong class="jxr_keyword">final</strong> SiteBakerOptions conf) {
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>          <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> bake(<strong class="jxr_keyword">final</strong> SiteBakerOptions options) {
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>              <a name="SiteBakerDomain" href="../../../../com/varmateo/yawg/core<a name="SiteBakerDomain" href="../../../../com/varmateo/yawg/core/SiteBakerDomain.html#SiteBakerDomain">SiteBakerDomain</a>n.html#SiteBakerDomain">SiteBakerDomain</a> domain = <strong class="jxr_keyword">new</strong> <a name="SiteBakerDomain" href="../../../../com/varmateo/yawg/core/SiteBakerDomain.html#SiteBakerDomain">SiteBakerDomain</a>(conf);
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>              <a name="SingleSiteBaker" href="../../../../com/varmateo/yawg/core/SingleSiteBaker.html#SingleSiteBaker">SingleSiteBaker</a> singleSiteBaker = domain.getSingleSiteBaker();
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>              <strong class="jxr_keyword">final</strong> <a name="SiteBakerModule" href="../../../../com/varmateo/yawg/core<a name="SiteBakerModule" href="../../../../com/varmateo/yawg/core/SiteBakerModule.html#SiteBakerModule">SiteBakerModule</a>e.html#SiteBakerModule">SiteBakerModule</a> domain = <strong class="jxr_keyword">new</strong> <a name="SiteBakerModule" href="../../../../com/varmateo/yawg/core/SiteBakerModule.html#SiteBakerModule">SiteBakerModule</a>(options);
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>              <strong class="jxr_keyword">final</strong> <a name="SingleSiteBaker" href="../../../../com/varmateo/yawg/core/SingleSiteBaker.html#SingleSiteBaker">SingleSiteBaker</a> singleSiteBaker = domain.getSingleSiteBaker();
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>              singleSiteBaker.bake();
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>          }

@@ -10,7 +10,7 @@ import com.varmateo.yawg.api.SiteBaker;
 import com.varmateo.yawg.api.SiteBakerOptions;
 import com.varmateo.yawg.api.SiteBakerFactory;
 import com.varmateo.yawg.core.SingleSiteBaker;
-import com.varmateo.yawg.core.SiteBakerDomain;
+import com.varmateo.yawg.core.SiteBakerModule;
 
 
 /**
@@ -43,10 +43,10 @@ import com.varmateo.yawg.core.SiteBakerDomain;
          *
          */
         @Override
-        public void bake(final SiteBakerOptions conf) {
+        public void bake(final SiteBakerOptions options) {
 
-<span class="nc" id="L48">            SiteBakerDomain domain = new SiteBakerDomain(conf);</span>
-<span class="nc" id="L49">            SingleSiteBaker singleSiteBaker = domain.getSingleSiteBaker();</span>
+<span class="nc" id="L48">            final SiteBakerModule domain = new SiteBakerModule(options);</span>
+<span class="nc" id="L49">            final SingleSiteBaker singleSiteBaker = domain.getSingleSiteBaker();</span>
 
 <span class="nc" id="L51">            singleSiteBaker.bake();</span>
 <span class="nc" id="L52">        }</span>

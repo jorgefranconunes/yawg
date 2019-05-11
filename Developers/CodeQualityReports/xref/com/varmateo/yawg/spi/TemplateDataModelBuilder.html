@@ -8,7 +8,7 @@
 <div id="overview"><a href="../../../../../apidocs/com/varmateo/yawg/spi/TemplateDataModelBuilder.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_javadoccomment">/**************************************************************************</em>
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment"> * Copyright (c) 2017 Yawg project contributors.</em>
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment"> * Copyright (c) 2017-2019 Yawg project contributors.</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> **************************************************************************/</em>
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
@@ -170,7 +170,7 @@
 <a class="jxr_linenumber" name="L162" href="#L162">162</a> <em class="jxr_javadoccomment">         * {@inheritDoc}</em>
 <a class="jxr_linenumber" name="L163" href="#L163">163</a> <em class="jxr_javadoccomment">         */</em>
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>         @Override
-<a class="jxr_linenumber" name="L165" href="#L165">165</a>         <strong class="jxr_keyword">public</strong> Iterable&lt;Author&gt; getAuthors() {
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>         <strong class="jxr_keyword">public</strong> Iterable&lt;Author&gt; authors() {
 <a class="jxr_linenumber" name="L166" href="#L166">166</a>             <strong class="jxr_keyword">return</strong> _authors;
 <a class="jxr_linenumber" name="L167" href="#L167">167</a>         }
 <a class="jxr_linenumber" name="L168" href="#L168">168</a> 
@@ -179,7 +179,7 @@
 <a class="jxr_linenumber" name="L171" href="#L171">171</a> <em class="jxr_javadoccomment">         * {@inheritDoc}</em>
 <a class="jxr_linenumber" name="L172" href="#L172">172</a> <em class="jxr_javadoccomment">         */</em>
 <a class="jxr_linenumber" name="L173" href="#L173">173</a>         @Override
-<a class="jxr_linenumber" name="L174" href="#L174">174</a>         <strong class="jxr_keyword">public</strong> String getBody() {
+<a class="jxr_linenumber" name="L174" href="#L174">174</a>         <strong class="jxr_keyword">public</strong> String body() {
 <a class="jxr_linenumber" name="L175" href="#L175">175</a>             <strong class="jxr_keyword">return</strong> _body;
 <a class="jxr_linenumber" name="L176" href="#L176">176</a>         }
 <a class="jxr_linenumber" name="L177" href="#L177">177</a> 
@@ -188,7 +188,7 @@
 <a class="jxr_linenumber" name="L180" href="#L180">180</a> <em class="jxr_javadoccomment">         * {@inheritDoc}</em>
 <a class="jxr_linenumber" name="L181" href="#L181">181</a> <em class="jxr_javadoccomment">         */</em>
 <a class="jxr_linenumber" name="L182" href="#L182">182</a>         @Override
-<a class="jxr_linenumber" name="L183" href="#L183">183</a>         <strong class="jxr_keyword">public</strong> String getPageUrl() {
+<a class="jxr_linenumber" name="L183" href="#L183">183</a>         <strong class="jxr_keyword">public</strong> String pageUrl() {
 <a class="jxr_linenumber" name="L184" href="#L184">184</a>             <strong class="jxr_keyword">return</strong> _pageUrl;
 <a class="jxr_linenumber" name="L185" href="#L185">185</a>         }
 <a class="jxr_linenumber" name="L186" href="#L186">186</a> 
@@ -197,7 +197,7 @@
 <a class="jxr_linenumber" name="L189" href="#L189">189</a> <em class="jxr_javadoccomment">         * {@inheritDoc}</em>
 <a class="jxr_linenumber" name="L190" href="#L190">190</a> <em class="jxr_javadoccomment">         */</em>
 <a class="jxr_linenumber" name="L191" href="#L191">191</a>         @Override
-<a class="jxr_linenumber" name="L192" href="#L192">192</a>         <strong class="jxr_keyword">public</strong> <a name="PageVars" href="../../../../com/varmateo/yawg/spi/PageVars.html#PageVars">PageVars</a> getPageVars() {
+<a class="jxr_linenumber" name="L192" href="#L192">192</a>         <strong class="jxr_keyword">public</strong> <a name="PageVars" href="../../../../com/varmateo/yawg/spi/PageVars.html#PageVars">PageVars</a> pageVars() {
 <a class="jxr_linenumber" name="L193" href="#L193">193</a>             <strong class="jxr_keyword">return</strong> _pageVars;
 <a class="jxr_linenumber" name="L194" href="#L194">194</a>         }
 <a class="jxr_linenumber" name="L195" href="#L195">195</a> 
@@ -206,7 +206,7 @@
 <a class="jxr_linenumber" name="L198" href="#L198">198</a> <em class="jxr_javadoccomment">         * {@inheritDoc}</em>
 <a class="jxr_linenumber" name="L199" href="#L199">199</a> <em class="jxr_javadoccomment">         */</em>
 <a class="jxr_linenumber" name="L200" href="#L200">200</a>         @Override
-<a class="jxr_linenumber" name="L201" href="#L201">201</a>         <strong class="jxr_keyword">public</strong> String getRootRelativeUrl() {
+<a class="jxr_linenumber" name="L201" href="#L201">201</a>         <strong class="jxr_keyword">public</strong> String rootRelativeUrl() {
 <a class="jxr_linenumber" name="L202" href="#L202">202</a>             <strong class="jxr_keyword">return</strong> _rootRelativeUrl;
 <a class="jxr_linenumber" name="L203" href="#L203">203</a>         }
 <a class="jxr_linenumber" name="L204" href="#L204">204</a> 
@@ -215,7 +215,7 @@
 <a class="jxr_linenumber" name="L207" href="#L207">207</a> <em class="jxr_javadoccomment">         * {@inheritDoc}</em>
 <a class="jxr_linenumber" name="L208" href="#L208">208</a> <em class="jxr_javadoccomment">         */</em>
 <a class="jxr_linenumber" name="L209" href="#L209">209</a>         @Override
-<a class="jxr_linenumber" name="L210" href="#L210">210</a>         <strong class="jxr_keyword">public</strong> String getTitle() {
+<a class="jxr_linenumber" name="L210" href="#L210">210</a>         <strong class="jxr_keyword">public</strong> String title() {
 <a class="jxr_linenumber" name="L211" href="#L211">211</a>             <strong class="jxr_keyword">return</strong> _title;
 <a class="jxr_linenumber" name="L212" href="#L212">212</a>         }
 <a class="jxr_linenumber" name="L213" href="#L213">213</a> 

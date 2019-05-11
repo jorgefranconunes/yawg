@@ -45,10 +45,10 @@ public final class PageContextBuilder {
      */
 <span class="nc" id="L46">    private PageContextBuilder(final PageContext data) {</span>
 
-<span class="nc" id="L48">        _dirUrl = data.getDirUrl();</span>
-<span class="nc" id="L49">        _templateFetcher = data::getTemplateFor;</span>
-<span class="nc" id="L50">        _rootRelativeUrl = data.getRootRelativeUrl();</span>
-<span class="nc" id="L51">        _pageVarsBuilder = PageVarsBuilder.create(data.getPageVars());</span>
+<span class="nc" id="L48">        _dirUrl = data.dirUrl();</span>
+<span class="nc" id="L49">        _templateFetcher = data::templateFor;</span>
+<span class="nc" id="L50">        _rootRelativeUrl = data.rootRelativeUrl();</span>
+<span class="nc" id="L51">        _pageVarsBuilder = PageVarsBuilder.create(data.pageVars());</span>
 <span class="nc" id="L52">    }</span>
 
 
@@ -202,7 +202,7 @@ public final class PageContextBuilder {
          * {@inheritDoc}
          */
         @Override
-        public String getDirUrl() {
+        public String dirUrl() {
 <span class="fc" id="L206">            return _dirUrl;</span>
         }
 
@@ -211,7 +211,7 @@ public final class PageContextBuilder {
          * {@inheritDoc}
          */
         @Override
-        public Optional&lt;Template&gt; getTemplateFor(final Path path) {
+        public Optional&lt;Template&gt; templateFor(final Path path) {
 <span class="fc" id="L215">            return _templateFetcher.apply(path);</span>
         }
 
@@ -220,7 +220,7 @@ public final class PageContextBuilder {
          * {@inheritDoc}
          */
         @Override
-        public PageVars getPageVars() {
+        public PageVars pageVars() {
 <span class="fc" id="L224">            return _pageVars;</span>
         }
 
@@ -229,7 +229,7 @@ public final class PageContextBuilder {
          * {@inheritDoc}
          */
         @Override
-        public String getRootRelativeUrl() {
+        public String rootRelativeUrl() {
 <span class="fc" id="L233">            return _rootRelativeUrl;</span>
         }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BreadcrumbsBakeListener.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.breadcrumbs</a> &gt; <span class="el_source">BreadcrumbsBakeListener.java</span></div><h1>BreadcrumbsBakeListener.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2016-2018 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -38,14 +38,12 @@ import java.util.Optional;
     public PageVars onDirBake(final PageContext context)
             throws YawgException {
 
-<span class="nc" id="L41">        SimpleMap vars = new SimpleMap(context.getPageVars().asMap());</span>
-<span class="nc" id="L42">        Breadcrumbs oldBreadcrumbs = getBreadcrumbs(vars);</span>
-<span class="nc" id="L43">        BreadcrumbItem newBreadcrumbItem =</span>
-<span class="nc" id="L44">                buildBreadcrumbItem(vars, context.getDirUrl());</span>
-<span class="nc" id="L45">        Breadcrumbs newBreadcrumbs =</span>
-<span class="nc" id="L46">                extendBreadcrumbs(oldBreadcrumbs, newBreadcrumbItem);</span>
+<span class="nc" id="L41">        final SimpleMap vars = new SimpleMap(context.pageVars().asMap());</span>
+<span class="nc" id="L42">        final Breadcrumbs oldBreadcrumbs = getBreadcrumbs(vars);</span>
+<span class="nc" id="L43">        final BreadcrumbItem newBreadcrumbItem = buildBreadcrumbItem(vars, context.dirUrl());</span>
+<span class="nc" id="L44">        final Breadcrumbs newBreadcrumbs = extendBreadcrumbs(oldBreadcrumbs, newBreadcrumbItem);</span>
 
-<span class="nc" id="L48">        return updateBreadcrumbs(newBreadcrumbs);</span>
+<span class="nc" id="L46">        return updateBreadcrumbs(newBreadcrumbs);</span>
     }
 
 
@@ -54,8 +52,8 @@ import java.util.Optional;
      */
     private Breadcrumbs getBreadcrumbs(final SimpleMap vars) {
 
-<span class="nc" id="L57">        return vars.get(VAR_BREADCRUMB_LIST, Breadcrumbs.class)</span>
-<span class="nc" id="L58">                .orElseGet(Breadcrumbs::empty);</span>
+<span class="nc" id="L55">        return vars.get(VAR_BREADCRUMB_LIST, Breadcrumbs.class)</span>
+<span class="nc" id="L56">                .orElseGet(Breadcrumbs::empty);</span>
     }
 
 
@@ -66,18 +64,16 @@ import java.util.Optional;
             final SimpleMap vars,
             final String dirUrl) {
 
-<span class="nc" id="L69">        Optional&lt;SimpleMap&gt; itemData = vars.getMap(VAR_BREADCRUMB);</span>
-<span class="nc" id="L70">        String title =</span>
-                itemData
-<span class="nc" id="L72">                .flatMap(m -&gt; m.getString(ATTR_TITLE))</span>
-<span class="nc" id="L73">                .orElseGet(() -&gt; basenameOf(dirUrl));</span>
-<span class="nc" id="L74">        String url =</span>
-                itemData
-<span class="nc" id="L76">                .flatMap(m -&gt; m.getString(ATTR_URL))</span>
-<span class="nc" id="L77">                .map(s -&gt; dirUrl + &quot;/&quot; + s)</span>
-<span class="nc" id="L78">                .orElse(dirUrl);</span>
+<span class="nc" id="L67">        final Optional&lt;SimpleMap&gt; itemData = vars.getMap(VAR_BREADCRUMB);</span>
+<span class="nc" id="L68">        final String title = itemData</span>
+<span class="nc" id="L69">                .flatMap(m -&gt; m.getString(ATTR_TITLE))</span>
+<span class="nc" id="L70">                .orElseGet(() -&gt; basenameOf(dirUrl));</span>
+<span class="nc" id="L71">        final String url = itemData</span>
+<span class="nc" id="L72">                .flatMap(m -&gt; m.getString(ATTR_URL))</span>
+<span class="nc" id="L73">                .map(s -&gt; dirUrl + &quot;/&quot; + s)</span>
+<span class="nc" id="L74">                .orElse(dirUrl);</span>
 
-<span class="nc" id="L80">        return new BreadcrumbItem(title, url);</span>
+<span class="nc" id="L76">        return new BreadcrumbItem(title, url);</span>
     }
 
 
@@ -86,9 +82,9 @@ import java.util.Optional;
      */
     private String basenameOf(final String url) {
 
-<span class="nc" id="L89">        int index = url.lastIndexOf('/');</span>
+<span class="nc" id="L85">        final int index = url.lastIndexOf('/');</span>
 
-<span class="nc bnc" id="L91" title="All 2 branches missed.">        return (index!=-1) ? url.substring(index+1) : url;</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">        return (index != -1) ? url.substring(index+1) : url;</span>
     }
 
 
@@ -99,9 +95,9 @@ import java.util.Optional;
             final Breadcrumbs oldBreadcrumbs,
             final BreadcrumbItem newBreadcrumbItem) {
 
-<span class="nc" id="L102">        return Breadcrumbs.builder(oldBreadcrumbs)</span>
-<span class="nc" id="L103">                .addBreadcrumbItem(newBreadcrumbItem)</span>
-<span class="nc" id="L104">                .build();</span>
+<span class="nc" id="L98">        return Breadcrumbs.builder(oldBreadcrumbs)</span>
+<span class="nc" id="L99">                .addBreadcrumbItem(newBreadcrumbItem)</span>
+<span class="nc" id="L100">                .build();</span>
     }
 
 
@@ -110,9 +106,9 @@ import java.util.Optional;
      */
     private PageVars updateBreadcrumbs(final Breadcrumbs newBreadcrumbs) {
 
-<span class="nc" id="L113">        return PageVarsBuilder.create()</span>
-<span class="nc" id="L114">                .addVar(VAR_BREADCRUMB_LIST, newBreadcrumbs)</span>
-<span class="nc" id="L115">                .build();</span>
+<span class="nc" id="L109">        return PageVarsBuilder.create()</span>
+<span class="nc" id="L110">                .addVar(VAR_BREADCRUMB_LIST, newBreadcrumbs)</span>
+<span class="nc" id="L111">                .build();</span>
     }
 
 

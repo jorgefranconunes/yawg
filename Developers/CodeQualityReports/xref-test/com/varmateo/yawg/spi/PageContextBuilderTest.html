@@ -8,7 +8,7 @@
 <div id="overview"><a href="../../../../../testapidocs/com/varmateo/yawg/spi/PageContextBuilderTest.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_javadoccomment">/**************************************************************************</em>
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment"> * Copyright (c) 2016-2017 Yawg project contributors.</em>
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment"> * Copyright (c) 2016-2019 Yawg project contributors.</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> **************************************************************************/</em>
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
@@ -46,20 +46,19 @@
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>      @Test
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> mandatoryAttrs() {
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>          PageContext context =
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>                  PageContextBuilder.create()
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>                  .setDirUrl(<span class="jxr_string">"something"</span>)
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>                  .setRootRelativeUrl(<span class="jxr_string">"whatever"</span>)
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>                  .build();
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>  
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>          assertThat(context.getDirUrl()).isEqualTo(<span class="jxr_string">"something"</span>);
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>          assertThat(context.getRootRelativeUrl()).isEqualTo(<span class="jxr_string">"whatever"</span>);
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>          assertThat(context.getTemplateFor(Paths.get(<span class="jxr_string">"xxx"</span>))).isNotPresent();
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>          assertThat(context.getPageVars().asMap()).isEmpty();
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>      }
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>          <strong class="jxr_keyword">final</strong> PageContext context = PageContextBuilder.create()
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>                  .setDirUrl(<span class="jxr_string">"something"</span>)
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>                  .setRootRelativeUrl(<span class="jxr_string">"whatever"</span>)
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>                  .build();
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>          assertThat(context.dirUrl()).isEqualTo(<span class="jxr_string">"something"</span>);
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>          assertThat(context.rootRelativeUrl()).isEqualTo(<span class="jxr_string">"whatever"</span>);
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>          assertThat(context.templateFor(Paths.get(<span class="jxr_string">"xxx"</span>))).isNotPresent();
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>          assertThat(context.pageVars().asMap()).isEmpty();
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>      }
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>  
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>  
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>  }
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2015&#x2013;2019. All rights reserved.</div>

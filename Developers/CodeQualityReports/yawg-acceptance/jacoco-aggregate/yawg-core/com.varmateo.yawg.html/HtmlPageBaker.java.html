@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>HtmlPageBaker.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.html</a> &gt; <span class="el_source">HtmlPageBaker.java</span></div><h1>HtmlPageBaker.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2016-2019 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.html;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.regex.Pattern;
+
+import com.varmateo.yawg.api.YawgException;
+import com.varmateo.yawg.html.HtmlBakerDataModelBuilder;
+import com.varmateo.yawg.spi.PageBaker;
+import com.varmateo.yawg.spi.PageContext;
+import com.varmateo.yawg.spi.Template;
+import com.varmateo.yawg.spi.TemplateDataModel;
+import com.varmateo.yawg.util.Exceptions;
+import com.varmateo.yawg.util.FileUtils;
+
+
+/**
+ * A &lt;code&gt;Baker&lt;/code&gt; that transforms HTML files into other HTML
+ * files.
+ */
+/* package private */ final class HtmlPageBaker
+        implements PageBaker {
+
+
+    private static final String NAME = &quot;html&quot;;
+
+<span class="fc" id="L34">    private static final Pattern RE_HTML = Pattern.compile(&quot;.*\\.html$&quot;);</span>
+
+    private static final String TARGET_EXTENSION = &quot;.html&quot;;
+
+
+    /**
+     * 
+     */
+<span class="fc" id="L42">    HtmlPageBaker() {</span>
+        // Nothing to do.
+<span class="fc" id="L44">    }</span>
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String shortName() {
+
+<span class="fc" id="L53">        return NAME;</span>
+    }
+
+
+    /**
+     * Checks if the given file name has one of the known extensions.
+     *
+     * &lt;p&gt;The following extensions will be allowed:&lt;/p&gt;
+     *
+     * &lt;ul&gt;
+     *   &lt;li&gt;.adoc&lt;/li&gt;
+     * &lt;/ul&gt;
+     *
+     * @return True if the given file name has one of the allowed
+     * extensions.
+     */
+    @Override
+    public boolean isBakeable(final Path path) {
+
+<span class="fc" id="L72">        return FileUtils.isNameMatch(path, RE_HTML);</span>
+    }
+
+
+    /**
+     * Converts the given text file in HTML format into another HTML
+     * file processed through the template engine.
+     *
+     * &lt;p&gt;The target directory must already exist. Otherwise an
+     * exception will be thrown.&lt;/p&gt;
+     *
+     * @param sourcePath The file to be baked.
+     *
+     * @param context Provides the template for generating the target
+     * document. If no template is provided, then the source document
+     * is just copied to the target directory.
+     *
+     * @param targetDir The directory where the baked file will be
+     * copied to.
+     *
+     * @exception YawgException Thrown if the baking failed for
+     * whatever reason.
+     */
+    @Override
+    public void bake(
+            final Path sourcePath,
+            final PageContext context,
+            final Path targetDir)
+            throws YawgException {
+
+        try {
+<span class="fc" id="L103">            doBake(sourcePath, context, targetDir);</span>
+<span class="nc" id="L104">        } catch ( IOException e ) {</span>
+<span class="nc" id="L105">            Exceptions.raise(</span>
+                    e,
+                    &quot;Failed {0} on {1} - {2} - {3}&quot;,
+                    NAME,
+                    sourcePath,
+<span class="nc" id="L110">                    e.getClass().getSimpleName(),</span>
+<span class="nc" id="L111">                    e.getMessage());</span>
+<span class="fc" id="L112">        }</span>
+<span class="fc" id="L113">    }</span>
+
+
+    /**
+     *
+     */
+    private void doBake(
+            final Path sourcePath,
+            final PageContext context,
+            final Path targetDir)
+            throws IOException {
+
+<span class="fc" id="L125">        final Path targetPath = getTargetPath(sourcePath, targetDir);</span>
+<span class="fc" id="L126">        final Optional&lt;Template&gt; template = context.templateFor(sourcePath);</span>
+
+<span class="fc bfc" id="L128" title="All 2 branches covered.">        if ( template.isPresent() ) {</span>
+<span class="fc" id="L129">            doBakeWithTemplate(sourcePath, context, targetPath, template.get());</span>
+        } else {
+<span class="fc" id="L131">            doBakeWithoutTemplate(sourcePath, targetPath);</span>
+        }
+<span class="fc" id="L133">    }</span>
+
+
+    /**
+     *
+     */
+    private Path getTargetPath(
+            final Path sourcePath,
+            final Path targetDir) {
+
+<span class="fc" id="L143">        final String sourceBasename = FileUtils.basename(sourcePath);</span>
+<span class="fc" id="L144">        final String targetName = sourceBasename + TARGET_EXTENSION;</span>
+
+<span class="fc" id="L146">        return targetDir.resolve(targetName);</span>
+    }
+
+
+    /**
+     * Baking without a template just copies the source HTML file to
+     * the target location.
+     */
+    private void doBakeWithoutTemplate(
+            final Path sourcePath,
+            final Path targetPath)
+            throws IOException {
+
+<span class="fc" id="L159">        FileUtils.copy(sourcePath, targetPath);</span>
+<span class="fc" id="L160">    }</span>
+
+
+    /**
+     *
+     */
+    private void doBakeWithTemplate(
+            final Path sourcePath,
+            final PageContext context,
+            final Path targetPath,
+            final Template template)
+            throws IOException {
+
+<span class="fc" id="L173">        final HtmlBakerDataModelBuilder modelBuilder = new HtmlBakerDataModelBuilder();</span>
+<span class="fc" id="L174">        final TemplateDataModel dataModel = modelBuilder.build(sourcePath, targetPath, context);</span>
+
+<span class="fc" id="L176">        FileUtils.newWriter(</span>
+                targetPath,
+<span class="fc" id="L178">                writer -&gt; template.process(dataModel, writer));</span>
+<span class="fc" id="L179">    }</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
