@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -38,16 +38,15 @@ public final class PageContextBuilderTest {
     @Test
     public void mandatoryAttrs() {
 
-        PageContext context =
-                PageContextBuilder.create()
+        final PageContext context = PageContextBuilder.create()
                 .setDirUrl("something")
                 .setRootRelativeUrl("whatever")
                 .build();
 
-        assertThat(context.getDirUrl()).isEqualTo("something");
-        assertThat(context.getRootRelativeUrl()).isEqualTo("whatever");
-        assertThat(context.getTemplateFor(Paths.get("xxx"))).isNotPresent();
-        assertThat(context.getPageVars().asMap()).isEmpty();
+        assertThat(context.dirUrl()).isEqualTo("something");
+        assertThat(context.rootRelativeUrl()).isEqualTo("whatever");
+        assertThat(context.templateFor(Paths.get("xxx"))).isNotPresent();
+        assertThat(context.pageVars().asMap()).isEmpty();
     }
 
 

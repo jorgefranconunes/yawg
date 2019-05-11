@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -49,26 +49,26 @@ import org.asciidoctor.internal.AsciidoctorCoreException;
             final PageContext context)
             throws AsciidoctorCoreException, IOException {
 
-        String sourceContent = FileUtils.readAsString(sourcePath);
-        OptionsBuilder options = AdocUtils.buildOptionsForBakeWithTemplate(
+        final String sourceContent = FileUtils.readAsString(sourcePath);
+        final OptionsBuilder options = AdocUtils.buildOptionsForBakeWithTemplate(
                 sourcePath,
                 targetDir,
-                context.getPageVars());
-        String body = _asciidoctor.render(sourceContent, options);
-        String pageUrl = context.getDirUrl() + "/" + targetPath.getFileName();
-        DocumentHeader header = _asciidoctor.readDocumentHeader(sourceContent);
-        String title = Option.of(header)
+                context.pageVars());
+        final String body = _asciidoctor.render(sourceContent, options);
+        final String pageUrl = context.dirUrl() + "/" + targetPath.getFileName();
+        final DocumentHeader header = _asciidoctor.readDocumentHeader(sourceContent);
+        final String title = Option.of(header)
                 .flatMap(h -> Option.of(h.getDocumentTitle()))
                 .flatMap(t -> Option.of(t.getMain()))
                 .getOrElse(() -> FileUtils.basename(sourcePath));
 
-        TemplateDataModelBuilder modelBuilder =
+        final TemplateDataModelBuilder modelBuilder =
                 TemplateDataModelBuilder.create()
                 .setTitle(title)
                 .setBody(body)
                 .setPageUrl(pageUrl)
-                .setRootRelativeUrl(context.getRootRelativeUrl())
-                .setPageVars(context.getPageVars());
+                .setRootRelativeUrl(context.rootRelativeUrl())
+                .setPageVars(context.pageVars());
         buildAuthors(modelBuilder, header);
 
         return modelBuilder.build();

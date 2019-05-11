@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -32,7 +32,7 @@ public final class FreemarkerDataModel {
     public FreemarkerDataModel(final TemplateDataModel templateDataModel) {
 
         _data = new YawgFreemarkerDataModel(templateDataModel);
-        _pageVars = templateDataModel.getPageVars();
+        _pageVars = templateDataModel.pageVars();
     }
 
 
@@ -115,31 +115,31 @@ public final class FreemarkerDataModel {
 
         public Iterable<Author> getAuthors() {
 
-            return _templateDataModel.getAuthors();
+            return _templateDataModel.authors();
         }
 
 
         public String getBody() {
 
-            return _templateDataModel.getBody();
+            return _templateDataModel.body();
         }
 
 
         public String getPageUrl() {
 
-            return _templateDataModel.getPageUrl();
+            return _templateDataModel.pageUrl();
         }
 
 
         public String getRootRelativeUrl() {
 
-            return _templateDataModel.getRootRelativeUrl();
+            return _templateDataModel.rootRelativeUrl();
         }
 
 
         public String getTitle() {
 
-            return _templateDataModel.getTitle();
+            return _templateDataModel.title();
         }
 
     }

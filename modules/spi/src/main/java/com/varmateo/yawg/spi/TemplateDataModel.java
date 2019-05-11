@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -18,7 +18,7 @@ public interface TemplateDataModel {
     /**
      * The authors of the document. It may be an empty list.
      */
-    Iterable<Author> getAuthors();
+    Iterable<Author> authors();
 
 
     /**
@@ -27,34 +27,34 @@ public interface TemplateDataModel {
      * <code>&lt;body&gt;</code> tag, or any other block level
      * element.
      */
-    String getBody();
+    String body();
 
 
     /**
      * The URL of the page being baked relative to the root directory
      * of the site.
      */
-    String getPageUrl();
+    String pageUrl();
 
 
     /**
      * Set of variables available to the page template. These
      * variables are immutable.
      */
-    PageVars getPageVars();
+    PageVars pageVars();
 
 
     /**
      * The URL of the root directory of the site being baked relative
      * to the document about to be baked.
      */
-    String getRootRelativeUrl();
+    String rootRelativeUrl();
 
 
     /**
      * The title of the document, as extracted from its source.
      */
-    String getTitle();
+    String title();
 
 
     /**
@@ -93,7 +93,7 @@ public interface TemplateDataModel {
         /**
          * @return Author's name. It is never null.
          */
-        public String getName() {
+        public String name() {
 
             return _name;
         }
@@ -102,7 +102,7 @@ public interface TemplateDataModel {
         /**
          * @return Author's email. It might be null.
          */
-        public String getEmail() {
+        public String email() {
 
             return _email;
         }

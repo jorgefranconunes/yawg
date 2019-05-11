@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -135,8 +135,8 @@ import com.varmateo.yawg.util.Holder;
             final Path targetDir)
             throws AsciidoctorCoreException, IOException {
 
-        Path targetPath = getTargetPath(sourcePath, targetDir);
-        Optional<Template> template = context.getTemplateFor(sourcePath);
+        final Path targetPath = getTargetPath(sourcePath, targetDir);
+        final Optional<Template> template = context.templateFor(sourcePath);
 
         if ( template.isPresent() ) {
             doBakeWithTemplate(
@@ -162,8 +162,8 @@ import com.varmateo.yawg.util.Holder;
             final Path sourcePath,
             final Path targetDir) {
 
-        String sourceBasename = FileUtils.basename(sourcePath);
-        String targetName = sourceBasename + TARGET_EXTENSION;
+        final String sourceBasename = FileUtils.basename(sourcePath);
+        final String targetName = sourceBasename + TARGET_EXTENSION;
 
         return targetDir.resolve(targetName);
     }
@@ -179,12 +179,12 @@ import com.varmateo.yawg.util.Holder;
             final Path targetPath)
             throws AsciidoctorCoreException {
 
-        OptionsBuilder options = AdocUtils.buildOptionsForBakeWithoutTemplate(
+        final OptionsBuilder options = AdocUtils.buildOptionsForBakeWithoutTemplate(
                 sourcePath,
                 targetDir,
                 targetPath,
-                context.getPageVars());
-        File sourceFile = sourcePath.toFile();
+                context.pageVars());
+        final File sourceFile = sourcePath.toFile();
 
         _asciidoctor.get().convertFile(sourceFile, options);
     }
@@ -201,13 +201,13 @@ import com.varmateo.yawg.util.Holder;
             final Template template)
             throws AsciidoctorCoreException, IOException {
 
-        TemplateDataModel dataModel = _modelBuilder.get().build(
+        final TemplateDataModel dataModel = _modelBuilder.get().build(
                 sourcePath, targetDir, targetPath, context);
-        StringWriter buffer = new StringWriter();
+        final StringWriter buffer = new StringWriter();
 
         template.process(dataModel, buffer);
 
-        String content = buffer.toString();
+        final String content = buffer.toString();
 
         FileUtils.newWriter(
                 targetPath,
@@ -220,7 +220,7 @@ import com.varmateo.yawg.util.Holder;
      */
     private Asciidoctor newAsciidoctor() {
 
-        Asciidoctor asciidoctor = Asciidoctor.Factory.create();
+        final Asciidoctor asciidoctor = Asciidoctor.Factory.create();
 
         // The following is required for supporting PlantUML diagrams
         // (cf. http://asciidoctor.org/docs/asciidoctor-diagram/).

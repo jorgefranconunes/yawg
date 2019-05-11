@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -46,17 +46,14 @@ final class HtmlBakerDataModelBuilder {
             final PageContext context)
             throws IOException {
 
-        Optional<Document> document =
-                Optional.of(Jsoup.parse(sourcePath.toFile(), null));
-        String body =
-                document
+        final Optional<Document> document = Optional.of(Jsoup.parse(sourcePath.toFile(), null));
+        final String body = document
                 .map(doc -> doc.getElementsByTag(TAG_BODY))
                 .flatMap(elems -> Optional.ofNullable(elems.first()))
                 .map(Element::html)
                 .orElse("");
-        String pageUrl = context.getDirUrl() + "/" + targetPath.getFileName();
-        String title =
-                document
+        final String pageUrl = context.dirUrl() + "/" + targetPath.getFileName();
+        final String title = document
                 .map(doc -> doc.getElementsByTag(TAG_TITLE))
                 .flatMap(elems -> Optional.ofNullable(elems.first()))
                 .map(Element::text)
@@ -66,8 +63,8 @@ final class HtmlBakerDataModelBuilder {
                 .setTitle(title)
                 .setBody(body)
                 .setPageUrl(pageUrl)
-                .setRootRelativeUrl(context.getRootRelativeUrl())
-                .setPageVars(context.getPageVars())
+                .setRootRelativeUrl(context.rootRelativeUrl())
+                .setPageVars(context.pageVars())
                 .build();
     }
 

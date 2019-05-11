@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -32,7 +32,7 @@ public final class MockTemplate
             throws YawgException {
 
         try {
-            output.write(model.getBody());
+            output.write(model.body());
         } catch ( IOException e ) {
             Exceptions.raise(
                     e,

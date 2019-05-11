@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2017 Yawg project contributors.
+ * Copyright (c) 2017-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -162,7 +162,7 @@ public final class TemplateDataModelBuilder {
          * {@inheritDoc}
          */
         @Override
-        public Iterable<Author> getAuthors() {
+        public Iterable<Author> authors() {
             return _authors;
         }
 
@@ -171,7 +171,7 @@ public final class TemplateDataModelBuilder {
          * {@inheritDoc}
          */
         @Override
-        public String getBody() {
+        public String body() {
             return _body;
         }
 
@@ -180,7 +180,7 @@ public final class TemplateDataModelBuilder {
          * {@inheritDoc}
          */
         @Override
-        public String getPageUrl() {
+        public String pageUrl() {
             return _pageUrl;
         }
 
@@ -189,7 +189,7 @@ public final class TemplateDataModelBuilder {
          * {@inheritDoc}
          */
         @Override
-        public PageVars getPageVars() {
+        public PageVars pageVars() {
             return _pageVars;
         }
 
@@ -198,7 +198,7 @@ public final class TemplateDataModelBuilder {
          * {@inheritDoc}
          */
         @Override
-        public String getRootRelativeUrl() {
+        public String rootRelativeUrl() {
             return _rootRelativeUrl;
         }
 
@@ -207,7 +207,7 @@ public final class TemplateDataModelBuilder {
          * {@inheritDoc}
          */
         @Override
-        public String getTitle() {
+        public String title() {
             return _title;
         }
 

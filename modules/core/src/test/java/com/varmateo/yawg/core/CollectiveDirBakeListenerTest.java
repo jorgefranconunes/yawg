@@ -191,7 +191,7 @@ public final class CollectiveDirBakeListenerTest
         public PageVars onDirBake(final PageContext context) {
 
             PageVars newVars =
-                    PageVarsBuilder.create(context.getPageVars())
+                    PageVarsBuilder.create(context.pageVars())
                     .addVar(_varName, _varValue)
                     .build();
 

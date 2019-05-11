@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -46,10 +46,11 @@ public final class HtmlBakerDataModelBuilderTest
     public void withTitle()
             throws IOException {
 
-        TemplateDataModel model = buildModel("DocumentWithTitle.html");
+        final TemplateDataModel model = buildModel("DocumentWithTitle.html");
 
-        assertThat(model.getTitle()).isEqualTo("Document with Title");
-        assertThat(model.getBody())
+        assertThat(model.title())
+                .isEqualTo("Document with Title");
+        assertThat(model.body())
                 .isEqualTo("<p>The body of the document with a title.</p>");
     }
 
@@ -61,10 +62,11 @@ public final class HtmlBakerDataModelBuilderTest
     public void withoutTitle()
             throws IOException {
 
-        TemplateDataModel model = buildModel("DocumentWithoutTitle.html");
+        final TemplateDataModel model = buildModel("DocumentWithoutTitle.html");
 
-        assertThat(model.getTitle()).isEqualTo("DocumentWithoutTitle");
-        assertThat(model.getBody())
+        assertThat(model.title())
+                .isEqualTo("DocumentWithoutTitle");
+        assertThat(model.body())
                 .isEqualTo("<p>The body of the document without a title.</p>");
     }
 
@@ -75,17 +77,14 @@ public final class HtmlBakerDataModelBuilderTest
     private TemplateDataModel buildModel(final String relPath)
             throws IOException {
 
-        String dirUrl = ".";
-        String rootRelativeUrl = ".";
-        PageContext context =
-                PageContextBuilder.create()
+        final String dirUrl = ".";
+        final String rootRelativeUrl = ".";
+        final PageContext context = PageContextBuilder.create()
                 .setDirUrl(dirUrl)
                 .setRootRelativeUrl(rootRelativeUrl)
                 .build();
-        Path sourcePath =
-                TestUtils.getPath(HtmlBakerDataModelBuilder.class, relPath);
-        TemplateDataModel model =
-                _modelBuilder.build(sourcePath, sourcePath, context);
+        final Path sourcePath = TestUtils.getPath(HtmlBakerDataModelBuilder.class, relPath);
+        final TemplateDataModel model = _modelBuilder.build(sourcePath, sourcePath, context);
 
         return model;
     }

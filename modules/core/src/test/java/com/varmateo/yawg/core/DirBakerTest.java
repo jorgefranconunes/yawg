@@ -74,9 +74,9 @@ public final class DirBakerTest {
         _dirBakeListenerMock = mock(DirBakeListener.class);
         when(_dirBakeListenerMock.onDirBake(any(PageContext.class)))
                 .thenAnswer(
-                        invocation -> ((PageContext)invocation.getArguments()[0]).getPageVars());
+                        invocation -> ((PageContext)invocation.getArguments()[0]).pageVars());
 
-        _bakedFiles = List.of();
+        _bakedFiles = List.empty();
         _bakerMock = mock(BakerService.class);
         when(_bakerMock.getShortName()).thenReturn("mock");
         when(_bakerMock.isBakeable(any())).thenReturn(true);

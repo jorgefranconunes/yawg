@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2018 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -42,7 +42,7 @@ public final class AsciidoctorBakerDataModelBuilderIT {
     @Before
     public void setUp() {
 
-        Asciidoctor asciidoctor = Asciidoctor.Factory.create();
+        final Asciidoctor asciidoctor = Asciidoctor.Factory.create();
 
         _modelBuilder = new AsciidoctorBakerDataModelBuilder(asciidoctor);
     }
@@ -55,11 +55,12 @@ public final class AsciidoctorBakerDataModelBuilderIT {
     public void withTitle()
             throws IOException {
 
-        TemplateDataModel model = buildModel("DocumentWithTitle.adoc");
+        final TemplateDataModel model = buildModel("DocumentWithTitle.adoc");
 
-        assertThat(model.getTitle()).isEqualTo("Document with Title");
-        assertThat(model.getBody()).contains(
-                "The body of the document with a title.");
+        assertThat(model.title())
+                .isEqualTo("Document with Title");
+        assertThat(model.body())
+                .contains("The body of the document with a title.");
     }
 
 
@@ -70,11 +71,12 @@ public final class AsciidoctorBakerDataModelBuilderIT {
     public void withoutTitle()
             throws IOException {
 
-        TemplateDataModel model = buildModel("DocumentWithoutTitle.adoc");
+        final TemplateDataModel model = buildModel("DocumentWithoutTitle.adoc");
 
-        assertThat(model.getTitle()).isEqualTo("DocumentWithoutTitle");
-        assertThat(model.getBody()).contains(
-                "The body of the document without a title.");
+        assertThat(model.title())
+                .isEqualTo("DocumentWithoutTitle");
+        assertThat(model.body())
+                .contains("The body of the document without a title.");
     }
 
 
@@ -85,10 +87,11 @@ public final class AsciidoctorBakerDataModelBuilderIT {
     public void withAuthor00()
             throws IOException {
 
-        TemplateDataModel model = buildModel("DocumentWithAuthor00.adoc");
-        Iterable<TemplateDataModel.Author> authors = model.getAuthors();
+        final TemplateDataModel model = buildModel("DocumentWithAuthor00.adoc");
+        final Iterable<TemplateDataModel.Author> authors = model.authors();
 
-        assertThat(authors).isEmpty();
+        assertThat(authors)
+                .isEmpty();
     }
 
 
@@ -99,11 +102,11 @@ public final class AsciidoctorBakerDataModelBuilderIT {
     public void withAuthor01()
             throws IOException {
 
-        TemplateDataModel model = buildModel("DocumentWithAuthor01.adoc");
-        Iterable<TemplateDataModel.Author> authors = model.getAuthors();
+        final TemplateDataModel model = buildModel("DocumentWithAuthor01.adoc");
+        final Iterable<TemplateDataModel.Author> authors = model.authors();
 
         assertThat(authors)
-                .extracting("name", "email")
+                .extracting(author -> tuple(author.name(), author.email()))
                 .containsExactly(
                         tuple("John Doe", "john.doe@example.com"));
     }
@@ -116,11 +119,11 @@ public final class AsciidoctorBakerDataModelBuilderIT {
     public void withAuthor02()
             throws IOException {
 
-        TemplateDataModel model = buildModel("DocumentWithAuthor02.adoc");
-        Iterable<TemplateDataModel.Author> authors = model.getAuthors();
+        final TemplateDataModel model = buildModel("DocumentWithAuthor02.adoc");
+        final Iterable<TemplateDataModel.Author> authors = model.authors();
 
         assertThat(authors)
-                .extracting("name", "email")
+                .extracting(author -> tuple(author.name(), author.email()))
                 .containsExactly(
                         tuple("John Doe", "john.doe@example.com"));
     }
@@ -133,11 +136,11 @@ public final class AsciidoctorBakerDataModelBuilderIT {
     public void withAuthor03()
             throws IOException {
 
-        TemplateDataModel model = buildModel("DocumentWithAuthor03.adoc");
-        Iterable<TemplateDataModel.Author> authors = model.getAuthors();
+        final TemplateDataModel model = buildModel("DocumentWithAuthor03.adoc");
+        final Iterable<TemplateDataModel.Author> authors = model.authors();
 
         assertThat(authors)
-                .extracting("name", "email")
+                .extracting(author -> tuple(author.name(), author.email()))
                 .containsExactly(
                         tuple("John Doe", "john.doe@example.com"),
                         tuple("Jane Doe", "jane.doe@example.com"));
@@ -150,23 +153,20 @@ public final class AsciidoctorBakerDataModelBuilderIT {
     private TemplateDataModel buildModel(final String relPath)
             throws IOException {
 
-        String dirUrl = ".";
-        String rootRelativeUrl = ".";
-        PageContext context =
-                PageContextBuilder.create()
+        final String dirUrl = ".";
+        final String rootRelativeUrl = ".";
+        final PageContext context = PageContextBuilder.create()
                 .setDirUrl(dirUrl)
                 .setRootRelativeUrl(rootRelativeUrl)
                 .build();
-        Path sourcePath =
-                TestUtils.getPath(
-                        AsciidoctorBakerDataModelBuilder.class,
-                        relPath);
-        TemplateDataModel model =
-                _modelBuilder.build(
-                        sourcePath,
-                        sourcePath.getParent(),
-                        sourcePath,
-                        context);
+        final Path sourcePath = TestUtils.getPath(
+                AsciidoctorBakerDataModelBuilder.class,
+                relPath);
+        final TemplateDataModel model = _modelBuilder.build(
+                sourcePath,
+                sourcePath.getParent(),
+                sourcePath,
+                context);
 
         return model;
     }

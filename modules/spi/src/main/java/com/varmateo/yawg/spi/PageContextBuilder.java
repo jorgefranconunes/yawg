@@ -45,10 +45,10 @@ public final class PageContextBuilder {
      */
     private PageContextBuilder(final PageContext data) {
 
-        _dirUrl = data.getDirUrl();
-        _templateFetcher = data::getTemplateFor;
-        _rootRelativeUrl = data.getRootRelativeUrl();
-        _pageVarsBuilder = PageVarsBuilder.create(data.getPageVars());
+        _dirUrl = data.dirUrl();
+        _templateFetcher = data::templateFor;
+        _rootRelativeUrl = data.rootRelativeUrl();
+        _pageVarsBuilder = PageVarsBuilder.create(data.pageVars());
     }
 
 
@@ -202,7 +202,7 @@ public final class PageContextBuilder {
          * {@inheritDoc}
          */
         @Override
-        public String getDirUrl() {
+        public String dirUrl() {
             return _dirUrl;
         }
 
@@ -211,7 +211,7 @@ public final class PageContextBuilder {
          * {@inheritDoc}
          */
         @Override
-        public Optional<Template> getTemplateFor(final Path path) {
+        public Optional<Template> templateFor(final Path path) {
             return _templateFetcher.apply(path);
         }
 
@@ -220,7 +220,7 @@ public final class PageContextBuilder {
          * {@inheritDoc}
          */
         @Override
-        public PageVars getPageVars() {
+        public PageVars pageVars() {
             return _pageVars;
         }
 
@@ -229,7 +229,7 @@ public final class PageContextBuilder {
          * {@inheritDoc}
          */
         @Override
-        public String getRootRelativeUrl() {
+        public String rootRelativeUrl() {
             return _rootRelativeUrl;
         }
 

@@ -42,7 +42,7 @@ import io.vavr.collection.Seq;
                 .foldLeft(
                         context,
                         (xs, listener) -> augmentContext(xs, listener))
-                .getPageVars();
+                .pageVars();
     }
 
 

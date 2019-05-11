@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2018 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -23,19 +23,19 @@ public interface PageContext {
      * The URL of the directory containing the current page relative
      * to the top of the document tree.
      */
-    String getDirUrl();
+    String dirUrl();
 
 
     /**
      * Template to be used when generating the target page.
      */
-    Optional<Template> getTemplateFor(Path path);
+    Optional<Template> templateFor(Path path);
 
 
     /**
      * Additional variables made available to the template.
      */
-    PageVars getPageVars();
+    PageVars pageVars();
 
 
     /**
@@ -43,6 +43,6 @@ public interface PageContext {
      * page. Useful for refering to resources at the top of the
      * document tree.
      */
-    String getRootRelativeUrl();
+    String rootRelativeUrl();
 
 }

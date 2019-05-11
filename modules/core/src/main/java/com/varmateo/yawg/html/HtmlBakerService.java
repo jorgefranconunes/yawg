@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -122,8 +122,8 @@ import com.varmateo.yawg.util.FileUtils;
             final Path targetDir)
             throws IOException {
 
-        Path targetPath = getTargetPath(sourcePath, targetDir);
-        Optional<Template> template = context.getTemplateFor(sourcePath);
+        final Path targetPath = getTargetPath(sourcePath, targetDir);
+        final Optional<Template> template = context.templateFor(sourcePath);
 
         if ( template.isPresent() ) {
             doBakeWithTemplate(sourcePath, context, targetPath, template.get());
@@ -140,8 +140,8 @@ import com.varmateo.yawg.util.FileUtils;
             final Path sourcePath,
             final Path targetDir) {
 
-        String sourceBasename = FileUtils.basename(sourcePath);
-        String targetName = sourceBasename + TARGET_EXTENSION;
+        final String sourceBasename = FileUtils.basename(sourcePath);
+        final String targetName = sourceBasename + TARGET_EXTENSION;
 
         return targetDir.resolve(targetName);
     }
@@ -170,10 +170,8 @@ import com.varmateo.yawg.util.FileUtils;
             final Template template)
             throws IOException {
 
-        HtmlBakerDataModelBuilder modelBuilder =
-                new HtmlBakerDataModelBuilder();
-        TemplateDataModel dataModel =
-                modelBuilder.build(sourcePath, targetPath, context);
+        final HtmlBakerDataModelBuilder modelBuilder = new HtmlBakerDataModelBuilder();
+        final TemplateDataModel dataModel = modelBuilder.build(sourcePath, targetPath, context);
 
         FileUtils.newWriter(
                 targetPath,

@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2018 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -38,12 +38,10 @@ public final class BreadcrumbsBakeListener
     public PageVars onDirBake(final PageContext context)
             throws YawgException {
 
-        SimpleMap vars = new SimpleMap(context.getPageVars().asMap());
-        Breadcrumbs oldBreadcrumbs = getBreadcrumbs(vars);
-        BreadcrumbItem newBreadcrumbItem =
-                buildBreadcrumbItem(vars, context.getDirUrl());
-        Breadcrumbs newBreadcrumbs =
-                extendBreadcrumbs(oldBreadcrumbs, newBreadcrumbItem);
+        final SimpleMap vars = new SimpleMap(context.pageVars().asMap());
+        final Breadcrumbs oldBreadcrumbs = getBreadcrumbs(vars);
+        final BreadcrumbItem newBreadcrumbItem = buildBreadcrumbItem(vars, context.dirUrl());
+        final Breadcrumbs newBreadcrumbs = extendBreadcrumbs(oldBreadcrumbs, newBreadcrumbItem);
 
         return updateBreadcrumbs(newBreadcrumbs);
     }
@@ -66,13 +64,11 @@ public final class BreadcrumbsBakeListener
             final SimpleMap vars,
             final String dirUrl) {
 
-        Optional<SimpleMap> itemData = vars.getMap(VAR_BREADCRUMB);
-        String title =
-                itemData
+        final Optional<SimpleMap> itemData = vars.getMap(VAR_BREADCRUMB);
+        final String title = itemData
                 .flatMap(m -> m.getString(ATTR_TITLE))
                 .orElseGet(() -> basenameOf(dirUrl));
-        String url =
-                itemData
+        final String url = itemData
                 .flatMap(m -> m.getString(ATTR_URL))
                 .map(s -> dirUrl + "/" + s)
                 .orElse(dirUrl);
@@ -86,9 +82,9 @@ public final class BreadcrumbsBakeListener
      */
     private String basenameOf(final String url) {
 
-        int index = url.lastIndexOf('/');
+        final int index = url.lastIndexOf('/');
 
-        return (index!=-1) ? url.substring(index+1) : url;
+        return (index != -1) ? url.substring(index+1) : url;
     }
 
 
