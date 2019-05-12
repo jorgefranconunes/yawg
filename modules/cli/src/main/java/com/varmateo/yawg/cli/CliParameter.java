@@ -13,7 +13,7 @@ import org.apache.commons.cli.OptionBuilder;
 /**
  * A description of a command line option.
  */
-public final class CliOption {
+public final class CliParameter {
 
 
     private String  _shortName   = null;
@@ -32,7 +32,7 @@ public final class CliOption {
     /**
      * Only for internal use.
      */
-    private CliOption(final Builder builder) {
+    private CliParameter(final Builder builder) {
 
         _shortName   = builder._shortName;
         _longName    = builder._longName;
@@ -61,7 +61,7 @@ public final class CliOption {
     /**
      *
      */
-    private static Option buildApacheOption(final CliOption option) {
+    private static Option buildApacheOption(final CliParameter option) {
 
         final String longName = option.longName();
         if ( longName != null ) {
@@ -164,7 +164,7 @@ public final class CliOption {
 
 
     /**
-     * A builder of <code>CliOption</code> instances.
+     * A builder of <code>CliParameter</code> instances.
      */
     public static final class Builder {
 
@@ -233,9 +233,9 @@ public final class CliOption {
         /**
          *
          */
-        public CliOption build() {
+        public CliParameter build() {
 
-            return new CliOption(this);
+            return new CliParameter(this);
         }
 
 

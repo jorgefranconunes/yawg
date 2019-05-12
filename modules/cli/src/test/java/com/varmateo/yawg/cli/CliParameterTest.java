@@ -6,16 +6,15 @@
 
 package com.varmateo.yawg.cli;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
 
-import com.varmateo.yawg.cli.CliOption;
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 /**
  *
  */
-public final class CliOptionTest
+public final class CliParameterTest
  {
 
 
@@ -25,7 +24,7 @@ public final class CliOptionTest
     @Test
     public void withoutArg() {
 
-        final CliOption option = CliOption.builder()
+        final CliParameter option = CliParameter.builder()
                 .shortName("demo")
                 .build();
 
@@ -40,7 +39,7 @@ public final class CliOptionTest
     @Test
     public void withArg() {
 
-        final CliOption option = CliOption.builder()
+        final CliParameter option = CliParameter.builder()
                 .shortName("demo")
                 .argName("something")
                 .build();
@@ -57,7 +56,7 @@ public final class CliOptionTest
     @Test
     public void shortName() {
 
-        final CliOption option = CliOption.builder()
+        final CliParameter option = CliParameter.builder()
                 .shortName("s")
                 .build();
 
@@ -74,7 +73,7 @@ public final class CliOptionTest
     @Test
     public void longName() {
 
-        final CliOption option = CliOption.builder()
+        final CliParameter option = CliParameter.builder()
                 .shortName("s")
                 .longName("something")
                 .build();

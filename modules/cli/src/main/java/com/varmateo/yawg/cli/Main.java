@@ -35,13 +35,12 @@ public final class Main {
      public static void main(final String[] args) {
 
          final String argv0 = System.getProperty(PROP_ARGV, DEFAULT_ARGV0);
-         final BakerCliConf conf =
-                 BakerCliConf.builder()
+         final BakerCliOptions options = BakerCliOptions.builder()
                  .argv0(argv0)
                  .addArgs(args)
                  .output(System.out)
                  .build();
-         final BakerCli bakerCli = new BakerCli(conf);
+         final BakerCli bakerCli = new BakerCli(options);
          final int exitStatus = bakerCli.run();
 
          System.exit(exitStatus);

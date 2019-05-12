@@ -21,11 +21,6 @@ import io.vavr.control.Try;
 import com.varmateo.yawg.api.SiteBaker;
 import com.varmateo.yawg.api.SiteBakerOptions;
 import com.varmateo.yawg.api.SiteBakerFactory;
-import com.varmateo.yawg.cli.InfoPrinter;
-import com.varmateo.yawg.cli.BakerCliConf;
-import com.varmateo.yawg.cli.BakerCliOptions;
-import com.varmateo.yawg.cli.CliException;
-import com.varmateo.yawg.cli.CliOptionSet;
 
 
 /**
@@ -38,15 +33,15 @@ public final class BakerCli {
     private static final int EXIT_STATUS_FAILURE = 1;
 
 
-    private final BakerCliConf _conf;
+    private final BakerCliOptions _options;
 
 
     /**
-     * @param conf Configuration settings.
+     * @param options Configuration settings.
      */
-    public BakerCli(final BakerCliConf conf) {
+    public BakerCli(final BakerCliOptions options) {
 
-        _conf = conf;
+        _options = options;
     }
 
 
@@ -58,11 +53,11 @@ public final class BakerCli {
      */
     public int run() {
 
-        final InfoPrinter infoPrinter = buildInfoPrinter(_conf.argv0, _conf.output);
+        final InfoPrinter infoPrinter = buildInfoPrinter(_options.argv0, _options.output);
         CliException error = null;
 
         try {
-            doEverything(infoPrinter, _conf.args);
+            doEverything(infoPrinter, _options.args);
         } catch ( CliException e ) {
             error = e;
         }
@@ -92,8 +87,8 @@ public final class BakerCli {
         final PrintWriter stdout = new PrintWriter(stdoutWriter, autoFlush);
 
         return InfoPrinter.builder()
-                .setArgv0(argv0)
-                .setOutput(stdout)
+                .argv0(argv0)
+                .output(stdout)
                 .build();
     }
 
@@ -109,11 +104,11 @@ public final class BakerCli {
         if ( args.length == 0 ) {
             infoPrinter.printHelp();
         } else {
-            final CliOptionSet cliOptions = BakerCliOptions.parse(args);
+            final CliParameterSet cliOptions = BakerCliParameters.parse(args);
 
-            if ( cliOptions.hasOption(BakerCliOptions.HELP) ) {
+            if ( cliOptions.hasOption(BakerCliParameters.HELP) ) {
                 infoPrinter.printHelp();
-            } else if ( cliOptions.hasOption(BakerCliOptions.VERSION) ) {
+            } else if ( cliOptions.hasOption(BakerCliParameters.VERSION) ) {
                 infoPrinter.printVersion();
             } else {
                 Try<Void> result = doBake(cliOptions);
@@ -130,27 +125,27 @@ public final class BakerCli {
     /**
      *
      */
-    private static Try<Void> doBake(final CliOptionSet cliOptions)
+    private static Try<Void> doBake(final CliParameterSet cliOptions)
             throws CliException {
 
-        SiteBakerOptions conf = buildSiteBakerOptions(cliOptions);
-        SiteBakerFactory factory = SiteBakerFactory.get();
-        SiteBaker siteBaker = factory.newSiteBaker();
+        final SiteBakerOptions options = buildSiteBakerOptions(cliOptions);
+        final SiteBakerFactory factory = SiteBakerFactory.get();
+        final SiteBaker siteBaker = factory.newSiteBaker();
 
-        return Try.run(() -> siteBaker.bake(conf));
+        return Try.run(() -> siteBaker.bake(options));
     }
 
 
     /**
      *
      */
-    private static SiteBakerOptions buildSiteBakerOptions(final CliOptionSet cliOptions)
+    private static SiteBakerOptions buildSiteBakerOptions(final CliParameterSet cliOptions)
             throws CliException {
 
-        final Path sourceDir = cliOptions.getPath(BakerCliOptions.SOURCE_DIR);
-        final Path targetDir = cliOptions.getPath(BakerCliOptions.TARGET_DIR);
-        final Path templatesDir = cliOptions.getPath(BakerCliOptions.TEMPLATES_DIR, null);
-        final Path assetsDir = cliOptions.getPath(BakerCliOptions.ASSETS_DIR, null);
+        final Path sourceDir = cliOptions.getPath(BakerCliParameters.SOURCE_DIR);
+        final Path targetDir = cliOptions.getPath(BakerCliParameters.TARGET_DIR);
+        final Path templatesDir = cliOptions.getPath(BakerCliParameters.TEMPLATES_DIR, null);
+        final Path assetsDir = cliOptions.getPath(BakerCliParameters.ASSETS_DIR, null);
         final java.util.Map<String,Object> externalPageVars = buildExternalPageVars(cliOptions);
 
         return SiteBakerOptions.builder()
@@ -167,10 +162,10 @@ public final class BakerCli {
      *
      */
     private static java.util.Map<String,Object> buildExternalPageVars(
-            final CliOptionSet cliOptions) {
+            final CliParameterSet cliOptions) {
 
         return cliOptions
-                .getAll(BakerCliOptions.PAGE_VAR)
+                .getAll(BakerCliParameters.PAGE_VAR)
                 .map(BakerCli::getVarNameAndValueFromOptionValue)
                 .foldLeft(
                         new java.util.HashMap<>(),

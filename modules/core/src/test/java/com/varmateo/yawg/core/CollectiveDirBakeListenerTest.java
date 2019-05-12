@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -31,14 +31,14 @@ public final class CollectiveDirBakeListenerTest
     @Test
     public void oneListenerAddVar() {
 
-        MyListener listener01 = new MyListener("var01", "hello");
-        CollectiveDirBakeListener listener =
-                new CollectiveDirBakeListener(List.of(listener01));
-        PageContext context = buildContext("var02", "world");
+        final MyListener listener01 = new MyListener("var01", "hello");
+        final CollectiveDirBakeListener listener = new CollectiveDirBakeListener(
+                List.of(listener01));
+        final PageContext context = buildContext("var02", "world");
 
         assertThat(listener01.getEventCount()).isEqualTo(0);
 
-        PageVars vars = listener.onDirBake(context);
+        final PageVars vars = listener.onDirBake(context);
 
         assertThat(listener01.getEventCount()).isEqualTo(1);
         assertThat(vars.get("var01")).hasValue("hello");
@@ -52,14 +52,14 @@ public final class CollectiveDirBakeListenerTest
     @Test
     public void oneListenerOverrideVar() {
 
-        MyListener listener01 = new MyListener("var01", "hello");
-        CollectiveDirBakeListener listener =
-                new CollectiveDirBakeListener(List.of(listener01));
-        PageContext context = buildContext("var01", "world");
+        final MyListener listener01 = new MyListener("var01", "hello");
+        final CollectiveDirBakeListener listener = new CollectiveDirBakeListener(
+                List.of(listener01));
+        final PageContext context = buildContext("var01", "world");
 
         assertThat(listener01.getEventCount()).isEqualTo(0);
 
-        PageVars vars = listener.onDirBake(context);
+        final PageVars vars = listener.onDirBake(context);
 
         assertThat(listener01.getEventCount()).isEqualTo(1);
         assertThat(vars.get("var01")).hasValue("hello");
@@ -72,17 +72,16 @@ public final class CollectiveDirBakeListenerTest
     @Test
     public void twoListenersAddVar() {
 
-        MyListener listener01 = new MyListener("var01", "hello");
-        MyListener listener02 = new MyListener("var02", "world");
-        CollectiveDirBakeListener listener =
-                new CollectiveDirBakeListener(
-                        List.of(listener01, listener02));
-        PageContext context = buildContext("var03", "VALUE03");
+        final MyListener listener01 = new MyListener("var01", "hello");
+        final MyListener listener02 = new MyListener("var02", "world");
+        final CollectiveDirBakeListener listener = new CollectiveDirBakeListener(
+                List.of(listener01, listener02));
+        final PageContext context = buildContext("var03", "VALUE03");
 
         assertThat(listener01.getEventCount()).isEqualTo(0);
         assertThat(listener02.getEventCount()).isEqualTo(0);
 
-        PageVars vars = listener.onDirBake(context);
+        final PageVars vars = listener.onDirBake(context);
 
         assertThat(listener01.getEventCount()).isEqualTo(1);
         assertThat(listener02.getEventCount()).isEqualTo(1);
@@ -98,17 +97,16 @@ public final class CollectiveDirBakeListenerTest
     @Test
     public void twoListenersOverrideVar01() {
 
-        MyListener listener01 = new MyListener("var01", "hello");
-        MyListener listener02 = new MyListener("var01", "world");
-        CollectiveDirBakeListener listener =
-                new CollectiveDirBakeListener(
-                        List.of(listener01, listener02));
-        PageContext context = buildContext("var03", "VALUE03");
+        final MyListener listener01 = new MyListener("var01", "hello");
+        final MyListener listener02 = new MyListener("var01", "world");
+        final CollectiveDirBakeListener listener = new CollectiveDirBakeListener(
+                List.of(listener01, listener02));
+        final PageContext context = buildContext("var03", "VALUE03");
 
         assertThat(listener01.getEventCount()).isEqualTo(0);
         assertThat(listener02.getEventCount()).isEqualTo(0);
 
-        PageVars vars = listener.onDirBake(context);
+        final PageVars vars = listener.onDirBake(context);
 
         assertThat(listener01.getEventCount()).isEqualTo(1);
         assertThat(listener02.getEventCount()).isEqualTo(1);
@@ -123,17 +121,16 @@ public final class CollectiveDirBakeListenerTest
     @Test
     public void twoListenersOverrideVar02() {
 
-        MyListener listener01 = new MyListener("var01", "hello");
-        MyListener listener02 = new MyListener("var03", "world");
-        CollectiveDirBakeListener listener =
-                new CollectiveDirBakeListener(
-                        List.of(listener01, listener02));
-        PageContext context = buildContext("var03", "VALUE03");
+        final MyListener listener01 = new MyListener("var01", "hello");
+        final MyListener listener02 = new MyListener("var03", "world");
+        final CollectiveDirBakeListener listener = new CollectiveDirBakeListener(
+                List.of(listener01, listener02));
+        final PageContext context = buildContext("var03", "VALUE03");
 
         assertThat(listener01.getEventCount()).isEqualTo(0);
         assertThat(listener02.getEventCount()).isEqualTo(0);
 
-        PageVars vars = listener.onDirBake(context);
+        final PageVars vars = listener.onDirBake(context);
 
         assertThat(listener01.getEventCount()).isEqualTo(1);
         assertThat(listener02.getEventCount()).isEqualTo(1);
@@ -149,13 +146,11 @@ public final class CollectiveDirBakeListenerTest
             final String varName,
             final String varValue) {
 
-        PageContext context = PageContextBuilder.create()
+        return PageContextBuilder.create()
                 .setDirUrl(".")
                 .setRootRelativeUrl(".")
                 .addVar(varName, varValue)
                 .build();
-
-        return context;
     }
 
 
@@ -190,8 +185,7 @@ public final class CollectiveDirBakeListenerTest
         @Override
         public PageVars onDirBake(final PageContext context) {
 
-            PageVars newVars =
-                    PageVarsBuilder.create(context.pageVars())
+            final PageVars newVars = PageVarsBuilder.create(context.pageVars())
                     .addVar(_varName, _varValue)
                     .build();
 

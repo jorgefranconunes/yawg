@@ -162,13 +162,12 @@ public final class AsciidoctorBakerDataModelBuilderIT {
         final Path sourcePath = TestUtils.getPath(
                 AsciidoctorBakerDataModelBuilder.class,
                 relPath);
-        final TemplateDataModel model = _modelBuilder.build(
+
+        return _modelBuilder.build(
                 sourcePath,
                 sourcePath.getParent(),
                 sourcePath,
                 context);
-
-        return model;
     }
 
 

@@ -84,9 +84,8 @@ public final class HtmlBakerDataModelBuilderTest
                 .setRootRelativeUrl(rootRelativeUrl)
                 .build();
         final Path sourcePath = TestUtils.getPath(HtmlBakerDataModelBuilder.class, relPath);
-        final TemplateDataModel model = _modelBuilder.build(sourcePath, sourcePath, context);
 
-        return model;
+        return _modelBuilder.build(sourcePath, sourcePath, context);
     }
 
 

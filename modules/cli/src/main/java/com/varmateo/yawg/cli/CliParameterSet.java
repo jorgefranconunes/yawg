@@ -24,27 +24,24 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.UnrecognizedOptionException;
 
-import com.varmateo.yawg.cli.CliException;
-import com.varmateo.yawg.cli.CliOption;
-
 
 /**
  * Represents the set of options supported in the command line.
  */
-/* default */ final class CliOptionSet {
+/* default */ final class CliParameterSet {
 
 
     private static final String FLAG_TRUE  = "true";
 
-    private final Set<CliOption> _allOptions;
+    private final Set<CliParameter> _allOptions;
     private final CommandLine _cmdLine;
 
 
     /**
      * Only used internally.
      */
-    private CliOptionSet(
-            final Set<CliOption> allOptions,
+    private CliParameterSet(
+            final Set<CliParameter> allOptions,
             final CommandLine cmdLine) {
 
         _allOptions = allOptions;
@@ -55,8 +52,8 @@ import com.varmateo.yawg.cli.CliOption;
     /**
      *
      */
-    public static CliOptionSet parse(
-            final Set<CliOption> options,
+    public static CliParameterSet parse(
+            final Set<CliParameter> options,
             final String[] args)
             throws CliException {
 
@@ -79,17 +76,17 @@ import com.varmateo.yawg.cli.CliOption;
             throw CliException.unknownOption(argList.get(0));
         }
 
-        return new CliOptionSet(options, cmdLine);
+        return new CliParameterSet(options, cmdLine);
     }
 
 
     /**
      *
      */
-    private static Options buildApacheOptions(final Set<CliOption> options) {
+    private static Options buildApacheOptions(final Set<CliParameter> options) {
 
         return options
-                .map(CliOption::apacheOption)
+                .map(CliParameter::apacheOption)
                 .foldLeft(
                         new Options(),
                         (xs, x) -> xs.addOption(x));
@@ -151,7 +148,7 @@ import com.varmateo.yawg.cli.CliOption;
     /**
      *
      */
-    public Set<CliOption> supportedOptions() {
+    public Set<CliParameter> supportedOptions() {
 
         return _allOptions;
     }
@@ -160,7 +157,7 @@ import com.varmateo.yawg.cli.CliOption;
     /**
      *
      */
-    public boolean hasOption(final CliOption option) {
+    public boolean hasOption(final CliParameter option) {
 
         final String optionName = option.name();
 
@@ -181,7 +178,7 @@ import com.varmateo.yawg.cli.CliOption;
      * order theay appeared in the command line. It will be empty if
      * the option was not given in the command line.
      */
-    public Seq<String> getAll(final CliOption option) {
+    public Seq<String> getAll(final CliParameter option) {
 
         final String   optionName   = option.name();
         final String[] optionValues = _cmdLine.getOptionValues(optionName);
@@ -206,7 +203,7 @@ import com.varmateo.yawg.cli.CliOption;
      * @exception CliException Thrown if the given command line does
      * not contain the option.
      */
-    public String get(final CliOption option)
+    public String get(final CliParameter option)
             throws CliException {
 
         final String optionValue;
@@ -234,7 +231,7 @@ import com.varmateo.yawg.cli.CliOption;
      * not present.
      */
     public String get(
-            final CliOption option,
+            final CliParameter option,
             final String defaultValue) {
 
         final String optionValue;
@@ -255,7 +252,7 @@ import com.varmateo.yawg.cli.CliOption;
     /**
      * Retrieves the value of a mandatory option as a path.
      */
-    public Path getPath(final CliOption option)
+    public Path getPath(final CliParameter option)
             throws CliException {
 
         String pathStr = get(option);
@@ -268,7 +265,7 @@ import com.varmateo.yawg.cli.CliOption;
      *
      */
     public Path getPath(
-            final CliOption option,
+            final CliParameter option,
             final Path defaultValue)
             throws CliException {
 
@@ -284,7 +281,7 @@ import com.varmateo.yawg.cli.CliOption;
      *
      */
     private Path stringToPath(
-            final CliOption option,
+            final CliParameter option,
             final String pathStr)
             throws CliException {
 
@@ -299,7 +296,7 @@ import com.varmateo.yawg.cli.CliOption;
     /**
      * Checks the given option represents a "true" valued flag.
      */
-    public boolean isTrue(final CliOption option) {
+    public boolean isTrue(final CliParameter option) {
 
         boolean result = false;
 

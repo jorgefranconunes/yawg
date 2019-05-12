@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2018 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -48,10 +48,10 @@ public final class TestUtils {
      */
     public static String getSystemProperty(final String key) {
 
-        String value = System.getProperty(key);
+        final String value = System.getProperty(key);
 
         if ( value == null ) {
-            String msg =
+            final String msg =
                     MessageFormat.format(
                     "System property \"{0}\" is not defined",
                     key);
@@ -90,14 +90,10 @@ public final class TestUtils {
      */
     public static Path getInputsDir(final Class<?> testsuiteClass) {
 
-        String inputsDirPrefix =
-                getSystemProperty(PROP_INPUTS_DIR_PREFIX);
-        String[] pathComponents =
-                testsuiteClass.getName().split("\\.");
-        Path inputsDirPath =
-                Paths.get(inputsDirPrefix, pathComponents);
+        final String inputsDirPrefix = getSystemProperty(PROP_INPUTS_DIR_PREFIX);
+        final String[] pathComponents = testsuiteClass.getName().split("\\.");
 
-        return inputsDirPath;
+        return Paths.get(inputsDirPrefix, pathComponents);
     }
 
 
@@ -129,9 +125,9 @@ public final class TestUtils {
     public static Path newTempDir(final Class<?> testSuiteClass)
             throws IOException {
 
-        String tmpDirRoot = getSystemProperty(PROP_TMP_DIR_PREFIX);
-        String[] pathComponents = testSuiteClass.getName().split("\\.");
-        Path tmpDirParent = Paths.get(tmpDirRoot, pathComponents);
+        final String tmpDirRoot = getSystemProperty(PROP_TMP_DIR_PREFIX);
+        final String[] pathComponents = testSuiteClass.getName().split("\\.");
+        final Path tmpDirParent = Paths.get(tmpDirRoot, pathComponents);
 
         Files.createDirectories(tmpDirParent);
 
@@ -159,7 +155,7 @@ public final class TestUtils {
             final Class<?> testSuiteClass,
             final String   pathName) {
 
-        Path inputsDir = getInputsDir(testSuiteClass);
+        final Path inputsDir = getInputsDir(testSuiteClass);
 
         return inputsDir.resolve(pathName);
     }

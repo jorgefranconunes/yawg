@@ -50,9 +50,9 @@ public final class DirBakerConfDaoTest
     public void emptyConf()
             throws IOException {
 
-        String confContents = "";
-        DirBakerConf actualConf = readFromString(confContents);
-        DirBakerConf expectedConf = _emptyConf;
+        final String confContents = "";
+        final DirBakerConf actualConf = readFromString(confContents);
+        final DirBakerConf expectedConf = _emptyConf;
 
         assertConfEquals(expectedConf, actualConf);
     }
@@ -93,7 +93,7 @@ public final class DirBakerConfDaoTest
     public void withTemplateParamFail()
             throws IOException {
 
-        String confContents = ""
+        final String confContents = ""
                 + "template: \n"
                 + "  - something: wrong";
 
@@ -140,7 +140,7 @@ public final class DirBakerConfDaoTest
     public void withExcludeParamFail()
             throws IOException {
 
-        String confContents = ""
+        final String confContents = ""
                 + "exclude: \n"
                 + "  - something: wrong";
 
@@ -156,7 +156,7 @@ public final class DirBakerConfDaoTest
     public void withExcludeParamInvalidRegex()
             throws IOException {
 
-        String confContents = ""
+        final String confContents = ""
                 + "exclude: \n"
                 + "  - \"[\""; 
 
@@ -223,15 +223,15 @@ public final class DirBakerConfDaoTest
     public void withBakerTypesParamOk()
             throws IOException {
 
-        String confContents = ""
+        final String confContents = ""
                 + "bakerTypes:\n"
                 + "  something :\n"
                 + "      - '*.txt'\n"
                 + "      - '*.html'\n"
                 + "  other :\n"
                 +"       - '*.adoc'\n";
-        DirBakerConf actualConf = readFromString(confContents);
-        DirBakerConf expectedConf =
+        final DirBakerConf actualConf = readFromString(confContents);
+        final DirBakerConf expectedConf =
                 DirBakerConf.builder()
                 .addBakerType("something", "*.txt", "*.html")
                 .addBakerType("other", "*.adoc")
@@ -248,12 +248,12 @@ public final class DirBakerConfDaoTest
     public void withPageVars()
             throws IOException {
 
-        String confContents = ""
+        final String confContents = ""
                 + "pageVars:\n"
                 + "  hello : 'world'\n";
-        DirBakerConf actualConf = readFromString(confContents);
-        PageVars vars = actualConf.pageVars;
-        Optional<Object> value = vars.get("hello");
+        final DirBakerConf actualConf = readFromString(confContents);
+        final PageVars vars = actualConf.pageVars;
+        final Optional<Object> value = vars.get("hello");
 
         assertThat(value).isPresent();
         assertThat(value).containsInstanceOf(String.class);
@@ -304,7 +304,7 @@ public final class DirBakerConfDaoTest
     @Test
     public void loadFromFileNoFile() {
 
-        Path noSuchPath = Paths.get("this/file/does/not/exist");
+        final Path noSuchPath = Paths.get("this/file/does/not/exist");
 
         assertThatThrownBy(() -> _dao.loadFromFile(noSuchPath))
                 .isInstanceOf(YawgException.class);
@@ -334,12 +334,11 @@ public final class DirBakerConfDaoTest
     @Test
     public void loadNoYawgYml() {
 
-        Path sourceDir =
-                TestUtils
+        final Path sourceDir = TestUtils
                 .getInputsDir(DirBakerConfDao.class)
                 .resolve("dirWithNoYawgYml");
-        DirBakerConf actualConf = _dao.loadFromDir(sourceDir);
-        DirBakerConf expectedConf = _emptyConf;
+        final DirBakerConf actualConf = _dao.loadFromDir(sourceDir);
+        final DirBakerConf expectedConf = _emptyConf;
 
         assertConfEquals(expectedConf, actualConf);
     }
@@ -351,9 +350,7 @@ public final class DirBakerConfDaoTest
     private DirBakerConf readFromString(final String confContents)
             throws IOException {
 
-        DirBakerConf result = _dao.read(new StringReader(confContents));
-
-        return result;
+        return _dao.read(new StringReader(confContents));
     }
 
 

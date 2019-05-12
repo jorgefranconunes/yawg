@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2015-2018 Yawg project contributors.
+ * Copyright (c) 2015-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -10,9 +10,6 @@ import java.io.PrintWriter;
 import java.text.MessageFormat;
 
 import com.varmateo.yawg.api.YawgInfo;
-import com.varmateo.yawg.cli.BakerCliOptions;
-import com.varmateo.yawg.cli.CliException;
-import com.varmateo.yawg.cli.CliInfoPrinter;
 
 
 /**
@@ -28,12 +25,12 @@ import com.varmateo.yawg.cli.CliInfoPrinter;
         + "\n"
         + "{0} {1} - {2}\n"
         + "{3}\n";
-    private static final String PRODUCT_HEADER =
-        MessageFormat.format(PRODUCT_HEADER_FMT,
-                             YawgInfo.PRODUCT_NAME,
-                             YawgInfo.VERSION,
-                             TOOL_NAME,
-                             YawgInfo.COPYRIGHT_HEADER);
+    private static final String PRODUCT_HEADER = MessageFormat.format(
+            PRODUCT_HEADER_FMT,
+            YawgInfo.PRODUCT_NAME,
+            YawgInfo.VERSION,
+            TOOL_NAME,
+            YawgInfo.COPYRIGHT_HEADER);
 
     private static final String USAGE_HEADER_FMT = ""
         + PRODUCT_HEADER
@@ -48,8 +45,8 @@ import com.varmateo.yawg.cli.CliInfoPrinter;
             + "\n"
             + "Find additional information at http://yawg.varmateo.com/\n";
 
-    private PrintWriter    _output         = null;
-    private CliInfoPrinter _cliInfoPrinter = null;
+    private final PrintWriter    _output;
+    private final CliInfoPrinter _cliInfoPrinter;
 
 
     /**
@@ -57,16 +54,15 @@ import com.varmateo.yawg.cli.CliInfoPrinter;
      */
     private InfoPrinter(final Builder builder) {
 
-        String argv0 = builder._argv0;
+        final String argv0 = builder._argv0;
 
         _output = builder._output;
-        _cliInfoPrinter =
-            CliInfoPrinter.builder()
-            .setArgv0(argv0)
-            .setVersionMessage(PRODUCT_HEADER)
-            .setUsageMessageHeader(USAGE_HEADER_FMT)
-            .setUsageMessageFooter(USAGE_FOOTER)
-            .build();
+        _cliInfoPrinter = CliInfoPrinter.builder()
+                .argv0(argv0)
+                .versionMessage(PRODUCT_HEADER)
+                .usageMessageHeader(USAGE_HEADER_FMT)
+                .usageMessageFooter(USAGE_FOOTER)
+                .build();
     }
 
 
@@ -86,7 +82,7 @@ import com.varmateo.yawg.cli.CliInfoPrinter;
      */
     public void printHelp() {
 
-        _cliInfoPrinter.printUsage(_output, BakerCliOptions.options());
+        _cliInfoPrinter.printUsage(_output, BakerCliParameters.options());
     }
 
 
@@ -129,7 +125,7 @@ import com.varmateo.yawg.cli.CliInfoPrinter;
         /**
          *
          */
-        public Builder setArgv0(final String argv0) {
+        public Builder argv0(final String argv0) {
 
             _argv0 = argv0;
 
@@ -140,7 +136,7 @@ import com.varmateo.yawg.cli.CliInfoPrinter;
         /**
          *
          */
-        public Builder setOutput(final PrintWriter output) {
+        public Builder output(final PrintWriter output) {
 
             _output = output;
 
@@ -153,9 +149,7 @@ import com.varmateo.yawg.cli.CliInfoPrinter;
          */
         public InfoPrinter build() {
 
-            InfoPrinter result = new InfoPrinter(this);
-
-            return result;
+            return new InfoPrinter(this);
         }
 
 

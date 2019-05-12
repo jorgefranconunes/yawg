@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2015-2017 Yawg project contributors.
+ * Copyright (c) 2015-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -15,7 +15,7 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 
 import com.varmateo.yawg.cli.CliException;
-import com.varmateo.yawg.cli.CliOption;
+import com.varmateo.yawg.cli.CliParameter;
 
 
 /**
@@ -70,15 +70,15 @@ import com.varmateo.yawg.cli.CliOption;
      */
     public void printUsage(
             final PrintWriter output,
-            final Set<CliOption> options) {
+            final Set<CliParameter> options) {
 
-        String header = MessageFormat.format(_usageMessageHeader, _argv0);
-        String footer = _usageMessageFooter;
+        final String header = MessageFormat.format(_usageMessageHeader, _argv0);
+        final String footer = _usageMessageFooter;
 
         output.println(header);
 
-        Options       apacheOptions = buildApacheOptions(options);
-        HelpFormatter formatter = new HelpFormatter();
+        final Options       apacheOptions = buildApacheOptions(options);
+        final HelpFormatter formatter = new HelpFormatter();
 
         formatter.printOptions(
                 output,
@@ -95,10 +95,10 @@ import com.varmateo.yawg.cli.CliOption;
      *
      */
     private static Options
-        buildApacheOptions(final Set<CliOption> options) {
+        buildApacheOptions(final Set<CliParameter> options) {
 
         return options
-                .map(CliOption::apacheOption)
+                .map(CliParameter::apacheOption)
                 .foldLeft(
                         new Options(),
                         (xs, x) -> xs.addOption(x));
@@ -121,8 +121,8 @@ import com.varmateo.yawg.cli.CliOption;
             final PrintWriter  output,
             final CliException error) {
 
-        String errorMsg = error.getMessage();
-        String msg      = MessageFormat.format(ERROR_FMT, _argv0, errorMsg);
+        final String errorMsg = error.getMessage();
+        final String msg      = MessageFormat.format(ERROR_FMT, _argv0, errorMsg);
 
         output.println(msg);
     }
@@ -151,7 +151,7 @@ import com.varmateo.yawg.cli.CliOption;
         /**
          *
          */
-        public Builder setArgv0(final String argv0) {
+        public Builder argv0(final String argv0) {
 
             _argv0 = argv0;
 
@@ -162,7 +162,7 @@ import com.varmateo.yawg.cli.CliOption;
         /**
          *
          */
-        public Builder setVersionMessage(final String versionMessage) {
+        public Builder versionMessage(final String versionMessage) {
 
             _versionMessage = versionMessage;
 
@@ -173,7 +173,7 @@ import com.varmateo.yawg.cli.CliOption;
         /**
          *
          */
-        public Builder setUsageMessageHeader(final String usageMessageHeader) {
+        public Builder usageMessageHeader(final String usageMessageHeader) {
 
             _usageMessageHeader = usageMessageHeader;
 
@@ -184,7 +184,7 @@ import com.varmateo.yawg.cli.CliOption;
         /**
          *
          */
-        public Builder setUsageMessageFooter(final String usageMessageFooter) {
+        public Builder usageMessageFooter(final String usageMessageFooter) {
 
             _usageMessageFooter = usageMessageFooter;
 
@@ -200,19 +200,6 @@ import com.varmateo.yawg.cli.CliOption;
             return new CliInfoPrinter(this);
         }
 
-
     }
 
-
 }
-
-
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-

@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -34,9 +34,7 @@ public final class BakerCliResult {
      */
     public static Builder builder() {
 
-        Builder builder = new Builder();
-
-        return builder;
+        return new Builder();
     }
 
 
@@ -90,15 +88,14 @@ public final class BakerCliResult {
                                 new ByteArrayInputStream(_output),
                                 StandardCharsets.UTF_8))
                 .lines();
-        Stream<String> result = Stream.ofAll(
+
+        return Stream.ofAll(
                 new Iterable<String>() {
                     @Override
                     public Iterator<String> iterator() {
                         return lines.iterator();
                     }
                 });
-
-        return result;
     }
 
 

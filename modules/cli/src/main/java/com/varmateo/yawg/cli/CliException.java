@@ -6,8 +6,6 @@
 
 package com.varmateo.yawg.cli;
 
-import java.text.MessageFormat;
-
 
 /**
  * An exception signaling an occurrence intended to be communicated to

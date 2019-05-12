@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -40,9 +40,8 @@ public final class YawgInfoTest
     private String getYawgVersion() {
 
         String key = YawgInfoTest.class.getSimpleName() + ".version";
-        String version = TestUtils.getSystemProperty(key);
 
-        return version;
+        return TestUtils.getSystemProperty(key);
     }
 
 
