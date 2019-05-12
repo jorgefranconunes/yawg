@@ -34,7 +34,7 @@ Yawg core,com.varmateo.yawg.core,BakerMatcher.Entry,0,9,0,0,0,4,0,1,0,1
 Yawg core,com.varmateo.yawg.core,SiteBakerModule,177,0,0,0,40,0,14,0,14,0
 Yawg core,com.varmateo.yawg.core,CoreSiteBakerFactory,5,3,0,0,1,1,1,1,1,1
 Yawg core,com.varmateo.yawg.core,BakerMatcher.Builder,6,66,0,0,3,16,1,8,1,8
-Yawg core,com.varmateo.yawg.core,DirBaker,91,195,3,5,20,54,5,13,2,12
+Yawg core,com.varmateo.yawg.core,DirBaker,91,193,3,5,18,50,5,13,2,12
 Yawg core,com.varmateo.yawg.core,TemplateNameMatcher,27,6,0,0,8,3,4,1,4,1
 Yawg core,com.varmateo.yawg.core,FileBaker,38,91,2,0,4,25,6,5,5,5
 Yawg core,com.varmateo.yawg.core,TemplateNameMatcher.Builder,21,0,0,0,6,0,3,0,3,0

@@ -1,5 +1,5 @@
 -classpath
-'/home/travis/.m2/repository/com/esotericsoftware/yamlbeans/yamlbeans/1.09/yamlbeans-1.09.jar:/home/travis/.m2/repository/io/vavr/vavr/0.10.0/vavr-0.10.0.jar:/home/travis/.m2/repository/io/vavr/vavr-match/0.10.0/vavr-match-0.10.0.jar:/home/travis/.m2/repository/junit/junit/4.12/junit-4.12.jar:/home/travis/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/travis/.m2/repository/org/asciidoctor/asciidoctorj/1.5.4/asciidoctorj-1.5.4.jar:/home/travis/.m2/repository/org/jruby/jruby-complete/1.7.21/jruby-complete-1.7.21.jar:/home/travis/.m2/repository/com/beust/jcommander/1.35/jcommander-1.35.jar:/home/travis/.m2/repository/org/asciidoctor/asciidoctorj-diagram/1.3.1/asciidoctorj-diagram-1.3.1.jar:/home/travis/.m2/repository/org/assertj/assertj-core/3.11.1/assertj-core-3.11.1.jar:/home/travis/.m2/repository/org/freemarker/freemarker/2.3.24-incubating/freemarker-2.3.24-incubating.jar:/home/travis/.m2/repository/org/jsoup/jsoup/1.8.3/jsoup-1.8.3.jar:/home/travis/.m2/repository/org/mockito/mockito-core/2.2.27/mockito-core-2.2.27.jar:/home/travis/.m2/repository/net/bytebuddy/byte-buddy/1.5.5/byte-buddy-1.5.5.jar:/home/travis/.m2/repository/net/bytebuddy/byte-buddy-agent/1.5.5/byte-buddy-agent-1.5.5.jar:/home/travis/.m2/repository/org/objenesis/objenesis/2.4/objenesis-2.4.jar:/home/travis/build/jorgefranconunes/yawg/modules/testutils/target/yawg-testutils-1.0.0-RC1-201905111016.jar:/home/travis/build/jorgefranconunes/yawg/modules/api/target/yawg-api-1.0.0-RC1-201905111016.jar:/home/travis/build/jorgefranconunes/yawg/modules/spi/target/yawg-spi-1.0.0-RC1-201905111016.jar'
+'/home/travis/.m2/repository/com/esotericsoftware/yamlbeans/yamlbeans/1.09/yamlbeans-1.09.jar:/home/travis/.m2/repository/io/vavr/vavr/0.10.0/vavr-0.10.0.jar:/home/travis/.m2/repository/io/vavr/vavr-match/0.10.0/vavr-match-0.10.0.jar:/home/travis/.m2/repository/junit/junit/4.12/junit-4.12.jar:/home/travis/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/travis/.m2/repository/org/asciidoctor/asciidoctorj/1.5.4/asciidoctorj-1.5.4.jar:/home/travis/.m2/repository/org/jruby/jruby-complete/1.7.21/jruby-complete-1.7.21.jar:/home/travis/.m2/repository/com/beust/jcommander/1.35/jcommander-1.35.jar:/home/travis/.m2/repository/org/asciidoctor/asciidoctorj-diagram/1.3.1/asciidoctorj-diagram-1.3.1.jar:/home/travis/.m2/repository/org/assertj/assertj-core/3.11.1/assertj-core-3.11.1.jar:/home/travis/.m2/repository/org/freemarker/freemarker/2.3.24-incubating/freemarker-2.3.24-incubating.jar:/home/travis/.m2/repository/org/jsoup/jsoup/1.8.3/jsoup-1.8.3.jar:/home/travis/.m2/repository/org/mockito/mockito-core/2.2.27/mockito-core-2.2.27.jar:/home/travis/.m2/repository/net/bytebuddy/byte-buddy/1.5.5/byte-buddy-1.5.5.jar:/home/travis/.m2/repository/net/bytebuddy/byte-buddy-agent/1.5.5/byte-buddy-agent-1.5.5.jar:/home/travis/.m2/repository/org/objenesis/objenesis/2.4/objenesis-2.4.jar:/home/travis/build/jorgefranconunes/yawg/modules/testutils/target/yawg-testutils-1.0.0-RC1-201905121139.jar:/home/travis/build/jorgefranconunes/yawg/modules/api/target/yawg-api-1.0.0-RC1-201905121139.jar:/home/travis/build/jorgefranconunes/yawg/modules/spi/target/yawg-spi-1.0.0-RC1-201905121139.jar'
 -encoding
 'UTF-8'
 -protected
@@ -8,7 +8,7 @@
 '/home/travis/build/jorgefranconunes/yawg/modules/core/src/main/java:/home/travis/build/jorgefranconunes/yawg/modules/core/target/generated-sources/annotations'
 -author
 -bottom
-'Yawg 1.0.0-RC1-201905111016<br/>Copyright © 2015–2019 Yawg project contributors. All rights reserved.'
+'Yawg 1.0.0-RC1-201905121139<br/>Copyright © 2015–2019 Yawg project contributors. All rights reserved.'
 -charset
 'UTF-8'
 -d
@@ -16,7 +16,7 @@
 -docencoding
 'UTF-8'
 -doctitle
-'Yawg core 1.0.0-RC1-201905111016 API'
+'Yawg core 1.0.0-RC1-201905121139 API'
 -linkoffline
 'https://docs.oracle.com/javase/8/docs/api' '/home/travis/build/jorgefranconunes/yawg/modules/core/target/javadoc-bundle-options'
 -linkoffline
@@ -29,4 +29,4 @@
 -use
 -version
 -windowtitle
-'Yawg core 1.0.0-RC1-201905111016'
+'Yawg core 1.0.0-RC1-201905121139'

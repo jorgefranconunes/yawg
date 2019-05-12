@@ -35,17 +35,16 @@ public final class Main {
      public static void main(final String[] args) {
 
 <span class="nc" id="L37">         final String argv0 = System.getProperty(PROP_ARGV, DEFAULT_ARGV0);</span>
-         final BakerCliConf conf =
-<span class="nc" id="L39">                 BakerCliConf.builder()</span>
-<span class="nc" id="L40">                 .argv0(argv0)</span>
-<span class="nc" id="L41">                 .addArgs(args)</span>
-<span class="nc" id="L42">                 .output(System.out)</span>
-<span class="nc" id="L43">                 .build();</span>
-<span class="nc" id="L44">         final BakerCli bakerCli = new BakerCli(conf);</span>
-<span class="nc" id="L45">         final int exitStatus = bakerCli.run();</span>
+<span class="nc" id="L38">         final BakerCliOptions options = BakerCliOptions.builder()</span>
+<span class="nc" id="L39">                 .argv0(argv0)</span>
+<span class="nc" id="L40">                 .addArgs(args)</span>
+<span class="nc" id="L41">                 .output(System.out)</span>
+<span class="nc" id="L42">                 .build();</span>
+<span class="nc" id="L43">         final BakerCli bakerCli = new BakerCli(options);</span>
+<span class="nc" id="L44">         final int exitStatus = bakerCli.run();</span>
 
-<span class="nc" id="L47">         System.exit(exitStatus);</span>
-<span class="nc" id="L48">    }</span>
+<span class="nc" id="L46">         System.exit(exitStatus);</span>
+<span class="nc" id="L47">    }</span>
 
 
 }

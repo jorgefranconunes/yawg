@@ -76,9 +76,8 @@ import java.nio.file.Path;
 <span class="fc" id="L76">        _fileBaker = fileBaker;</span>
 <span class="fc" id="L77">        _dirBakerConfDao = dirBakerConfDao;</span>
 <span class="fc" id="L78">        _listener = dirBakeListener;</span>
-<span class="fc" id="L79">        _dirPageContextBuilder =</span>
-                new DirPageContextBuilder(targetRootDir, templateService);
-<span class="fc" id="L81">    }</span>
+<span class="fc" id="L79">        _dirPageContextBuilder = new DirPageContextBuilder(targetRootDir, templateService);</span>
+<span class="fc" id="L80">    }</span>
 
 
     /**
@@ -90,14 +89,14 @@ import java.nio.file.Path;
             final DirBakerConf parentDirBakerConf)
             throws YawgException {
 
-<span class="fc" id="L93">        PageVars parentExtensionVars = PageVars.empty();</span>
+<span class="fc" id="L92">        final PageVars parentExtensionVars = PageVars.empty();</span>
 
-<span class="fc" id="L95">        doBakeDirectory(</span>
+<span class="fc" id="L94">        doBakeDirectory(</span>
                 sourceDir,
                 targetDir,
                 parentDirBakerConf,
                 parentExtensionVars);
-<span class="fc" id="L100">    }</span>
+<span class="fc" id="L99">    }</span>
 
 
     /**
@@ -110,39 +109,31 @@ import java.nio.file.Path;
             final PageVars parentExtensionVars)
             throws YawgException {
 
-<span class="fc" id="L113">        Path relSourceDir = _sourceRootDir.relativize(sourceDir);</span>
-<span class="fc" id="L114">        _log.debug(&quot;Baking directory {0}&quot;, relSourceDir);</span>
+<span class="fc" id="L112">        final Path relSourceDir = _sourceRootDir.relativize(sourceDir);</span>
+<span class="fc" id="L113">        _log.debug(&quot;Baking directory {0}&quot;, relSourceDir);</span>
 
-<span class="fc" id="L116">        createDirIfNeeded(targetDir);</span>
+<span class="fc" id="L115">        createDirIfNeeded(targetDir);</span>
 
-<span class="fc" id="L118">        DirBakerConf dirBakerConf =</span>
-                _dirBakerConfDao
-<span class="fc" id="L120">                .loadFromDir(sourceDir)</span>
-<span class="fc" id="L121">                .mergeOnTopOf(parentDirBakerConf);</span>
-<span class="fc" id="L122">        PageContext context =</span>
-<span class="fc" id="L123">                _dirPageContextBuilder.buildPageContext(</span>
-                        targetDir,
-                        dirBakerConf,
-                        parentExtensionVars);
-<span class="fc" id="L127">        PageVars thisDirExtensionVars = _listener.onDirBake(context);</span>
-<span class="fc" id="L128">        PageVars extensionVars =</span>
-<span class="fc" id="L129">                PageVarsBuilder.create(parentExtensionVars)</span>
-<span class="fc" id="L130">                .addPageVars(thisDirExtensionVars)</span>
-<span class="fc" id="L131">                .build();</span>
-<span class="fc" id="L132">        PageContext extendedContext =</span>
-<span class="fc" id="L133">                PageContextBuilder.create(context)</span>
-<span class="fc" id="L134">                .addPageVars(extensionVars)</span>
-<span class="fc" id="L135">                .build();</span>
-<span class="fc" id="L136">        Seq&lt;Path&gt; dirEntries = getDirEntries(sourceDir, dirBakerConf);</span>
-
-<span class="fc" id="L138">        bakeChildFiles(dirEntries, targetDir, dirBakerConf, extendedContext);</span>
-<span class="fc" id="L139">        bakeChildDirectories(dirEntries, targetDir, dirBakerConf,extensionVars);</span>
-<span class="fc" id="L140">        bakeExtraDirectories(</span>
-                sourceDir,
+<span class="fc" id="L117">        final DirBakerConf dirBakerConf = _dirBakerConfDao</span>
+<span class="fc" id="L118">                .loadFromDir(sourceDir)</span>
+<span class="fc" id="L119">                .mergeOnTopOf(parentDirBakerConf);</span>
+<span class="fc" id="L120">        final PageContext context = _dirPageContextBuilder.buildPageContext(</span>
                 targetDir,
                 dirBakerConf,
-                extensionVars);
-<span class="fc" id="L145">    }</span>
+                parentExtensionVars);
+<span class="fc" id="L124">        final PageVars thisDirExtensionVars = _listener.onDirBake(context);</span>
+<span class="fc" id="L125">        final PageVars extensionVars = PageVarsBuilder.create(parentExtensionVars)</span>
+<span class="fc" id="L126">                .addPageVars(thisDirExtensionVars)</span>
+<span class="fc" id="L127">                .build();</span>
+<span class="fc" id="L128">        final PageContext extendedContext = PageContextBuilder.create(context)</span>
+<span class="fc" id="L129">                .addPageVars(extensionVars)</span>
+<span class="fc" id="L130">                .build();</span>
+<span class="fc" id="L131">        final Seq&lt;Path&gt; dirEntries = getDirEntries(sourceDir, dirBakerConf);</span>
+
+<span class="fc" id="L133">        bakeChildFiles(dirEntries, targetDir, dirBakerConf, extendedContext);</span>
+<span class="fc" id="L134">        bakeChildDirectories(dirEntries, targetDir, dirBakerConf,extensionVars);</span>
+<span class="fc" id="L135">        bakeExtraDirectories(sourceDir, targetDir, dirBakerConf, extensionVars);</span>
+<span class="fc" id="L136">    }</span>
 
 
     /**
@@ -150,12 +141,12 @@ import java.nio.file.Path;
      */
     private void createDirIfNeeded(final Path targetDir) {
 
-<span class="fc bfc" id="L153" title="All 2 branches covered.">        if ( !Files.exists(targetDir) ) {</span>
-<span class="fc" id="L154">            doIoAction(</span>
+<span class="fc bfc" id="L144" title="All 2 branches covered.">        if ( !Files.exists(targetDir) ) {</span>
+<span class="fc" id="L145">            doIoAction(</span>
                     &quot;create directory&quot;,
-<span class="fc" id="L156">                    () -&gt; Files.createDirectory(targetDir));</span>
+<span class="fc" id="L147">                    () -&gt; Files.createDirectory(targetDir));</span>
         }
-<span class="fc" id="L158">    }</span>
+<span class="fc" id="L149">    }</span>
 
 
     /**
@@ -165,11 +156,11 @@ import java.nio.file.Path;
             final Path dir,
             final DirBakerConf dirBakerConf) {
 
-<span class="fc" id="L168">        DirEntryScanner scanner = new DirEntryScanner(dirBakerConf);</span>
+<span class="fc" id="L159">        final DirEntryScanner scanner = new DirEntryScanner(dirBakerConf);</span>
 
-<span class="fc" id="L170">        return doIoAction(</span>
+<span class="fc" id="L161">        return doIoAction(</span>
                 &quot;list directory&quot;,
-<span class="fc" id="L172">                () -&gt; scanner.getDirEntries(dir));</span>
+<span class="fc" id="L163">                () -&gt; scanner.getDirEntries(dir));</span>
     }
 
 
@@ -183,12 +174,12 @@ import java.nio.file.Path;
             final PageContext context)
             throws YawgException {
 
-<span class="fc" id="L186">        Seq&lt;Path&gt; filePathList = dirEntries.filter(Files::isRegularFile);</span>
+<span class="fc" id="L177">        final Seq&lt;Path&gt; filePathList = dirEntries.filter(Files::isRegularFile);</span>
 
-<span class="fc bfc" id="L188" title="All 2 branches covered.">        for ( Path path : filePathList ) {</span>
-<span class="fc" id="L189">            _fileBaker.bakeFile(path, context, targetDir, dirBakerConf);</span>
-<span class="fc" id="L190">        }</span>
-<span class="fc" id="L191">    }</span>
+<span class="fc bfc" id="L179" title="All 2 branches covered.">        for ( final Path path : filePathList ) {</span>
+<span class="fc" id="L180">            _fileBaker.bakeFile(path, context, targetDir, dirBakerConf);</span>
+<span class="fc" id="L181">        }</span>
+<span class="fc" id="L182">    }</span>
 
 
     /**
@@ -200,18 +191,15 @@ import java.nio.file.Path;
             final DirBakerConf dirBakerConf,
             final PageVars extensionVars) {
 
-<span class="fc" id="L203">        Seq&lt;Path&gt; dirPathList = dirEntries.filter(Files::isDirectory);</span>
+<span class="fc" id="L194">        final Seq&lt;Path&gt; dirPathList = dirEntries.filter(Files::isDirectory);</span>
 
-<span class="fc bfc" id="L205" title="All 2 branches covered.">        for ( Path childSourceDir : dirPathList ) {</span>
-<span class="fc" id="L206">            Path dirBasename = childSourceDir.getFileName();</span>
-<span class="fc" id="L207">            Path childTargetDir = targetDir.resolve(dirBasename);</span>
-<span class="fc" id="L208">            doBakeDirectory(</span>
-                    childSourceDir,
-                    childTargetDir,
-                    dirBakerConf,
-                    extensionVars);
-<span class="fc" id="L213">        }</span>
-<span class="fc" id="L214">    }</span>
+<span class="fc bfc" id="L196" title="All 2 branches covered.">        for ( final Path childSourceDir : dirPathList ) {</span>
+<span class="fc" id="L197">            final Path dirBasename = childSourceDir.getFileName();</span>
+<span class="fc" id="L198">            final Path childTargetDir = targetDir.resolve(dirBasename);</span>
+
+<span class="fc" id="L200">            doBakeDirectory(childSourceDir, childTargetDir, dirBakerConf, extensionVars);</span>
+<span class="fc" id="L201">        }</span>
+<span class="fc" id="L202">    }</span>
 
 
     /**
@@ -223,35 +211,23 @@ import java.nio.file.Path;
             final DirBakerConf dirBakerConf,
             final PageVars extensionVars) {
 
-<span class="fc" id="L226">        Seq&lt;Path&gt; extraDirPathList =</span>
-                dirBakerConf.extraDirsHere
-<span class="fc" id="L228">                .map(path -&gt; sourceDir.resolve(path));</span>
+<span class="fc" id="L214">        final Seq&lt;Path&gt; extraDirPathList = dirBakerConf.extraDirsHere</span>
+<span class="fc" id="L215">                .map(path -&gt; sourceDir.resolve(path));</span>
 
-<span class="fc bfc" id="L230" title="All 2 branches covered.">        for ( Path extraSourceDir : extraDirPathList ) {</span>
-<span class="fc" id="L231">            DirBakerConf extraDirBakerConf =</span>
-                    _dirBakerConfDao
-<span class="fc" id="L233">                    .loadFromDir(extraSourceDir)</span>
-<span class="fc" id="L234">                    .mergeOnTopOf(dirBakerConf);</span>
-<span class="fc" id="L235">            Seq&lt;Path&gt; dirEntries =</span>
-<span class="fc" id="L236">                    getDirEntries(extraSourceDir, extraDirBakerConf);</span>
-<span class="fc" id="L237">            PageContext extraContext =</span>
-<span class="fc" id="L238">                    _dirPageContextBuilder.buildPageContext(</span>
-                            targetDir,
-                            extraDirBakerConf,
-                            extensionVars);
-
-<span class="fc" id="L243">            bakeChildFiles(</span>
-                    dirEntries,
-                    targetDir,
-                    extraDirBakerConf,
-                    extraContext);
-<span class="fc" id="L248">            bakeChildDirectories(</span>
-                    dirEntries,
+<span class="fc bfc" id="L217" title="All 2 branches covered.">        for ( final Path extraSourceDir : extraDirPathList ) {</span>
+<span class="fc" id="L218">            final DirBakerConf extraDirBakerConf = _dirBakerConfDao</span>
+<span class="fc" id="L219">                    .loadFromDir(extraSourceDir)</span>
+<span class="fc" id="L220">                    .mergeOnTopOf(dirBakerConf);</span>
+<span class="fc" id="L221">            final Seq&lt;Path&gt; dirEntries = getDirEntries(extraSourceDir, extraDirBakerConf);</span>
+<span class="fc" id="L222">            final PageContext extraContext = _dirPageContextBuilder.buildPageContext(</span>
                     targetDir,
                     extraDirBakerConf,
                     extensionVars);
-<span class="fc" id="L253">        }</span>
-<span class="fc" id="L254">    }</span>
+
+<span class="fc" id="L227">            bakeChildFiles(dirEntries, targetDir, extraDirBakerConf, extraContext);</span>
+<span class="fc" id="L228">            bakeChildDirectories(dirEntries, targetDir, extraDirBakerConf, extensionVars);</span>
+<span class="fc" id="L229">        }</span>
+<span class="fc" id="L230">    }</span>
 
 
     /**
@@ -263,20 +239,20 @@ import java.nio.file.Path;
             final IoSupplier&lt;T&gt; supplier)
             throws YawgException {
 
-<span class="fc" id="L266">        T result = null;</span>
+        final T result;
 
         try {
-<span class="fc" id="L269">            result = supplier.get();</span>
-<span class="fc" id="L270">        } catch ( IOException e ) {</span>
-<span class="pc" id="L271">            Exceptions.raise(</span>
+<span class="fc" id="L245">            result = supplier.get();</span>
+<span class="fc" id="L246">        } catch ( IOException e ) {</span>
+<span class="pc" id="L247">            throw Exceptions.raise(</span>
                     e,
                     &quot;Failed to {0} - {1} - {2}&quot;,
                     description,
-<span class="fc" id="L275">                    e.getClass().getSimpleName(),</span>
-<span class="fc" id="L276">                    e.getMessage());</span>
-<span class="fc" id="L277">        }</span>
+<span class="fc" id="L251">                    e.getClass().getSimpleName(),</span>
+<span class="fc" id="L252">                    e.getMessage());</span>
+<span class="fc" id="L253">        }</span>
 
-<span class="fc" id="L279">        return result;</span>
+<span class="fc" id="L255">        return result;</span>
     }
 
 

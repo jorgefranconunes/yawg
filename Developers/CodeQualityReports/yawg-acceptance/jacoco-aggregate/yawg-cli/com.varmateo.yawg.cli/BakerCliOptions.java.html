@@ -1,111 +1,122 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BakerCliOptions.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-cli</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.cli</a> &gt; <span class="el_source">BakerCliOptions.java</span></div><h1>BakerCliOptions.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2015-2019 Yawg project contributors.
+ * Copyright (c) 2017-2019 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.cli;
 
-import io.vavr.collection.HashSet;
-import io.vavr.collection.Set;
+import java.io.OutputStream;
 
-import com.varmateo.yawg.cli.CliException;
-import com.varmateo.yawg.cli.CliOption;
-import com.varmateo.yawg.cli.CliOptionSet;
+import io.vavr.collection.List;
+import io.vavr.collection.Seq;
 
 
 /**
- * Represents the set of supported command line options.
+ * Set of parameters requires to create a &lt;code&gt;BakerCli&lt;/code&gt;
+ * instance.
  */
-final class BakerCliOptions {
+public final class BakerCliOptions {
 
 
-<span class="fc" id="L23">    public static final CliOption ASSETS_DIR = CliOption.builder()</span>
-<span class="fc" id="L24">            .longName(&quot;assets&quot;)</span>
-<span class="fc" id="L25">            .argName(&quot;PATH&quot;)</span>
-<span class="fc" id="L26">            .description(&quot;path of assets directory&quot;)</span>
-<span class="fc" id="L27">            .build();</span>
+    private static final String DEFAULT_ARGV0 = &quot;yawg&quot;;
 
-<span class="fc" id="L29">    public static final CliOption HELP = CliOption.builder()</span>
-<span class="fc" id="L30">            .longName(&quot;help&quot;)</span>
-<span class="fc" id="L31">            .description(&quot;show this help text and exit&quot;)</span>
-<span class="fc" id="L32">            .shortName(&quot;h&quot;)</span>
-<span class="fc" id="L33">            .build();</span>
 
-<span class="fc" id="L35">    public static final CliOption PAGE_VAR = CliOption.builder()</span>
-<span class="fc" id="L36">            .longName(&quot;page-var&quot;)</span>
-<span class="fc" id="L37">            .argName(&quot;NAME=VALUE&quot;)</span>
-<span class="fc" id="L38">            .description(&quot;additional page variable&quot;)</span>
-<span class="fc" id="L39">            .build();</span>
-
-<span class="fc" id="L41">    public static final CliOption SOURCE_DIR = CliOption.builder()</span>
-<span class="fc" id="L42">            .longName(&quot;source&quot;)</span>
-<span class="fc" id="L43">            .argName(&quot;PATH&quot;)</span>
-<span class="fc" id="L44">            .description(&quot;path of source directory&quot;)</span>
-<span class="fc" id="L45">            .build();</span>
-
-<span class="fc" id="L47">    public static final CliOption TARGET_DIR = CliOption.builder()</span>
-<span class="fc" id="L48">            .longName(&quot;target&quot;)</span>
-<span class="fc" id="L49">            .argName(&quot;PATH&quot;)</span>
-<span class="fc" id="L50">            .description(&quot;path of target directory&quot;)</span>
-<span class="fc" id="L51">            .build();</span>
-
-<span class="fc" id="L53">    public static final CliOption TEMPLATES_DIR = CliOption.builder()</span>
-<span class="fc" id="L54">            .longName(&quot;templates&quot;)</span>
-<span class="fc" id="L55">            .argName(&quot;PATH&quot;)</span>
-<span class="fc" id="L56">            .description(&quot;path of templates directory&quot;)</span>
-<span class="fc" id="L57">            .build();</span>
-
-<span class="fc" id="L59">    public static final CliOption VERBOSE = CliOption.builder()</span>
-<span class="fc" id="L60">            .longName(&quot;verbose&quot;)</span>
-<span class="fc" id="L61">            .description(&quot;show abundant logging&quot;)</span>
-<span class="fc" id="L62">            .build();</span>
-
-<span class="fc" id="L64">    public static final CliOption VERSION = CliOption.builder()</span>
-<span class="fc" id="L65">            .shortName(&quot;v&quot;)</span>
-<span class="fc" id="L66">            .longName(&quot;version&quot;)</span>
-<span class="fc" id="L67">            .description(&quot;show version and exit&quot;)</span>
-<span class="fc" id="L68">            .build();</span>
+    public final String argv0;
+    public final String[] args;
+    public final OutputStream output;
 
 
     /**
      *
      */
-<span class="fc" id="L74">    private static final Set&lt;CliOption&gt; ALL_OPTIONS =</span>
-<span class="fc" id="L75">            HashSet.of(</span>
-                    ASSETS_DIR,
-                    HELP,
-                    PAGE_VAR,
-                    SOURCE_DIR,
-                    TARGET_DIR,
-                    TEMPLATES_DIR,
-                    VERBOSE,
-                    VERSION);
+<span class="fc" id="L33">    private BakerCliOptions(final Builder builder) {</span>
+
+<span class="fc" id="L35">        argv0 = builder._argv0;</span>
+<span class="fc" id="L36">        args = builder._args.toJavaArray(String.class);</span>
+<span class="fc" id="L37">        output = builder._output;</span>
+<span class="fc" id="L38">    }</span>
 
 
     /**
+     * Creates a newly initialized builder for creating a
+     * &lt;code&gt;BakerCliOptions&lt;/code&gt; instance.
      *
+     * @return A new builder.
      */
-    public static Set&lt;CliOption&gt; options() {
+    public static Builder builder() {
 
-<span class="fc" id="L91">        return ALL_OPTIONS;</span>
+<span class="fc" id="L49">        return new Builder();</span>
     }
 
 
     /**
-     * No instances of this class are to be created.
-     */
-<span class="nc" id="L98">    private BakerCliOptions() {</span>
-<span class="nc" id="L99">    }</span>
-
-
-    /**
      *
      */
-    public static CliOptionSet parse(final String[] args)
-        throws CliException {
+    public static final class Builder {
 
-<span class="fc" id="L108">        return CliOptionSet.parse(ALL_OPTIONS, args);</span>
+
+        private String _argv0;
+        private Seq&lt;String&gt; _args;
+        private OutputStream _output;
+
+
+        /**
+         *
+         */
+<span class="fc" id="L67">        private Builder() {</span>
+
+<span class="fc" id="L69">            _argv0 = DEFAULT_ARGV0;</span>
+<span class="fc" id="L70">            _args = List.of();</span>
+<span class="fc" id="L71">            _output = System.out;</span>
+<span class="fc" id="L72">        }</span>
+
+
+        /**
+         * @param argv0 The name the utility was launched with on the
+         * command line. It will be used in informative or error
+         * messages.
+         */
+        public Builder argv0(final String argv0) {
+
+<span class="nc" id="L82">            _argv0 = argv0;</span>
+
+<span class="nc" id="L84">            return this;</span>
+        }
+
+
+        /**
+         * @param args The command line arguments passed to the
+         * utility.
+         */
+        public Builder addArgs(final String... args) {
+
+<span class="fc" id="L94">            _args = _args.appendAll(List.of(args));</span>
+
+<span class="fc" id="L96">            return this;</span>
+        }
+
+
+        /**
+         *
+         */
+        public Builder output(final OutputStream output) {
+
+<span class="fc" id="L105">            _output = output;</span>
+
+<span class="fc" id="L107">            return this;</span>
+        }
+
+
+        /**
+         *
+         */
+        public BakerCliOptions build() {
+
+<span class="fc" id="L116">            return new BakerCliOptions(this);</span>
+        }
+
+
     }
 
 

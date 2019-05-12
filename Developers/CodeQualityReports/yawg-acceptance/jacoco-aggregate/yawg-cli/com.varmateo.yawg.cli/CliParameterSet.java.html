@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>CliParameterSet.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-cli</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.cli</a> &gt; <span class="el_source">CliParameterSet.java</span></div><h1>CliParameterSet.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2015-2019 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.cli;
+
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import io.vavr.collection.Array;
+import io.vavr.collection.Seq;
+import io.vavr.collection.Set;
+import io.vavr.control.Option;
+
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.GnuParser;
+import org.apache.commons.cli.MissingArgumentException;
+import org.apache.commons.cli.MissingOptionException;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.UnrecognizedOptionException;
+
+
+/**
+ * Represents the set of options supported in the command line.
+ */
+/* default */ final class CliParameterSet {
+
+
+    private static final String FLAG_TRUE  = &quot;true&quot;;
+
+    private final Set&lt;CliParameter&gt; _allOptions;
+    private final CommandLine _cmdLine;
+
+
+    /**
+     * Only used internally.
+     */
+    private CliParameterSet(
+            final Set&lt;CliParameter&gt; allOptions,
+<span class="fc" id="L45">            final CommandLine cmdLine) {</span>
+
+<span class="fc" id="L47">        _allOptions = allOptions;</span>
+<span class="fc" id="L48">        _cmdLine = cmdLine;</span>
+<span class="fc" id="L49">    }</span>
+
+
+    /**
+     *
+     */
+    public static CliParameterSet parse(
+            final Set&lt;CliParameter&gt; options,
+            final String[] args)
+            throws CliException {
+
+<span class="fc" id="L60">        Options apacheOptions = buildApacheOptions(options);</span>
+<span class="fc" id="L61">        CommandLineParser cliParser = new GnuParser();</span>
+        final CommandLine cmdLine;
+
+        try {
+<span class="fc" id="L65">            cmdLine = cliParser.parse(apacheOptions, args, false);</span>
+<span class="fc" id="L66">        } catch ( ParseException e ) {</span>
+<span class="nc" id="L67">            throw raiseCliException(apacheOptions, e);</span>
+<span class="fc" id="L68">        }</span>
+
+        @SuppressWarnings(&quot;unchecked&quot;)
+<span class="fc" id="L71">        java.util.List&lt;String&gt; argList = cmdLine.getArgList();</span>
+<span class="pc bpc" id="L72" title="1 of 4 branches missed.">        if ( (argList!=null) &amp;&amp; !argList.isEmpty() ) {</span>
+            // There were arguments that were not options. We require
+            // all arguments to be options, thus this is an invalid
+            // command line.
+<span class="fc" id="L76">            throw CliException.unknownOption(argList.get(0));</span>
+        }
+
+<span class="fc" id="L79">        return new CliParameterSet(options, cmdLine);</span>
+    }
+
+
+    /**
+     *
+     */
+    private static Options buildApacheOptions(final Set&lt;CliParameter&gt; options) {
+
+<span class="fc" id="L88">        return options</span>
+<span class="fc" id="L89">                .map(CliParameter::apacheOption)</span>
+<span class="fc" id="L90">                .foldLeft(</span>
+                        new Options(),
+<span class="fc" id="L92">                        (xs, x) -&gt; xs.addOption(x));</span>
+    }
+
+
+    /**
+     *
+     */
+    private static CliException raiseCliException(
+            final Options options,
+            final ParseException e)
+            throws CliException {
+
+        final CliException cause;
+
+<span class="pc bpc" id="L106" title="1 of 2 branches missed.">        if ( e instanceof MissingOptionException ) {</span>
+<span class="nc" id="L107">            final MissingOptionException ex = (MissingOptionException)e;</span>
+<span class="nc" id="L108">            final String shortOpt = (String)ex.getMissingOptions().get(0);</span>
+<span class="nc" id="L109">            final org.apache.commons.cli.Option option = options.getOption(shortOpt);</span>
+<span class="nc" id="L110">            final String optionName = getApacheOptionName(option);</span>
+<span class="nc" id="L111">            cause = CliException.missingOption(optionName);</span>
+<span class="pc bfc" id="L112" title="All 2 branches covered.">        } else if ( e instanceof UnrecognizedOptionException ) {</span>
+<span class="fc" id="L113">            final UnrecognizedOptionException ex = (UnrecognizedOptionException)e;</span>
+<span class="fc" id="L114">            final String optionName = ex.getOption();</span>
+<span class="fc" id="L115">            cause = CliException.unknownOption(optionName);</span>
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">        } else if ( e instanceof MissingArgumentException ) {</span>
+<span class="fc" id="L117">            final MissingArgumentException ex = (MissingArgumentException)e;</span>
+<span class="fc" id="L118">            final String optionName = getApacheOptionName(ex.getOption());</span>
+<span class="fc" id="L119">            cause = CliException.missingOptionArg(optionName);</span>
+<span class="fc" id="L120">        } else {</span>
+<span class="nc" id="L121">            cause = CliException.optionParseFailure(e);</span>
+        }
+
+<span class="fc" id="L124">        throw cause;</span>
+    }
+
+
+    /**
+     *
+     */
+    private static String getApacheOptionName(
+            final org.apache.commons.cli.Option apacheOption) {
+
+        final String result;
+
+<span class="fc" id="L136">        String longName = apacheOption.getLongOpt();</span>
+<span class="pc bpc" id="L137" title="1 of 2 branches missed.">        if ( longName != null ) {</span>
+<span class="fc" id="L138">            result = &quot;--&quot; + longName;</span>
+        } else {
+<span class="nc" id="L140">            String shortName = apacheOption.getOpt();</span>
+<span class="nc" id="L141">            result = &quot;-&quot; + shortName;</span>
+        }
+
+<span class="fc" id="L144">        return result;</span>
+    }
+
+
+    /**
+     *
+     */
+    public Set&lt;CliParameter&gt; supportedOptions() {
+
+<span class="fc" id="L153">        return _allOptions;</span>
+    }
+
+
+    /**
+     *
+     */
+    public boolean hasOption(final CliParameter option) {
+
+<span class="fc" id="L162">        final String optionName = option.name();</span>
+
+<span class="fc" id="L164">        return _cmdLine.hasOption(optionName);</span>
+    }
+
+
+    /**
+     * Retrieves all the values for an option.
+     *
+     * &lt;p&gt;An option will have multiple values when it is given more
+     * than onde in the list of command line arguments.&lt;/p&gt;
+     *
+     * @param option The name of the option whose values are to be
+     * returned.
+     *
+     * @return A list with the values of the given option, in the same
+     * order theay appeared in the command line. It will be empty if
+     * the option was not given in the command line.
+     */
+    public Seq&lt;String&gt; getAll(final CliParameter option) {
+
+<span class="fc" id="L183">        final String   optionName   = option.name();</span>
+<span class="fc" id="L184">        final String[] optionValues = _cmdLine.getOptionValues(optionName);</span>
+
+<span class="fc" id="L186">        return Option.of(optionValues)</span>
+<span class="fc" id="L187">                .map(Array::of)</span>
+<span class="fc" id="L188">                .getOrElse(Array::of);</span>
+    }
+
+
+    /**
+     * Retrieves the value of a mandatory option.
+     *
+     * &lt;p&gt;If the given option does not exist, then a
+     * &lt;code&gt;CliException&lt;/code&gt; will be thrown.
+     *
+     * @param option The name (short or long) of the option whose
+     * value is to be retrieved.
+     *
+     * @return The value of the given option.
+     *
+     * @exception CliException Thrown if the given command line does
+     * not contain the option.
+     */
+    public String get(final CliParameter option)
+            throws CliException {
+
+        final String optionValue;
+<span class="fc" id="L210">        final String optionName = option.name();</span>
+<span class="fc" id="L211">        final String[] optionValues = _cmdLine.getOptionValues(optionName);</span>
+
+<span class="fc bfc" id="L213" title="All 2 branches covered.">        if ( optionValues != null ) {</span>
+<span class="fc" id="L214">            final int indexOfLast = optionValues.length-1;</span>
+<span class="fc" id="L215">            optionValue = optionValues[indexOfLast];</span>
+<span class="fc" id="L216">        } else {</span>
+<span class="fc" id="L217">            throw CliException.missingOption(option.literal());</span>
+        }
+
+<span class="fc" id="L220">        return optionValue;</span>
+    }
+
+
+    /**
+     * Retrieves the value of a conditional option.
+     *
+     * @param option The name (short or long) of the option whose
+     * value is to be retrieved.
+     *
+     * @param defaultValue The value to be returned if the option is
+     * not present.
+     */
+    public String get(
+            final CliParameter option,
+            final String defaultValue) {
+
+        final String optionValue;
+<span class="fc" id="L238">        final String optionName = option.name();</span>
+<span class="fc" id="L239">        final String[] optionValues = _cmdLine.getOptionValues(optionName);</span>
+
+<span class="fc bfc" id="L241" title="All 2 branches covered.">        if ( optionValues != null ) {</span>
+<span class="fc" id="L242">            final int indexOfLast = optionValues.length-1;</span>
+<span class="fc" id="L243">            optionValue = optionValues[indexOfLast];</span>
+<span class="fc" id="L244">        } else {</span>
+<span class="fc" id="L245">            optionValue = defaultValue;</span>
+        }
+
+<span class="fc" id="L248">        return optionValue;</span>
+    }
+
+
+    /**
+     * Retrieves the value of a mandatory option as a path.
+     */
+    public Path getPath(final CliParameter option)
+            throws CliException {
+
+<span class="fc" id="L258">        String pathStr = get(option);</span>
+
+<span class="fc" id="L260">        return stringToPath(option, pathStr);</span>
+    }
+
+
+    /**
+     *
+     */
+    public Path getPath(
+            final CliParameter option,
+            final Path defaultValue)
+            throws CliException {
+
+<span class="fc" id="L272">        String pathStr = get(option, null);</span>
+
+<span class="fc bfc" id="L274" title="All 2 branches covered.">        return pathStr == null</span>
+                ? defaultValue
+<span class="fc" id="L276">                : stringToPath(option, pathStr);</span>
+    }
+
+
+    /**
+     *
+     */
+    private Path stringToPath(
+            final CliParameter option,
+            final String pathStr)
+            throws CliException {
+
+        try {
+<span class="fc" id="L289">            return Paths.get(pathStr);</span>
+<span class="nc" id="L290">        } catch ( InvalidPathException e ) {</span>
+<span class="nc" id="L291">            throw CliException.invalidPath(option.literal(), pathStr);</span>
+        }
+    }
+
+
+    /**
+     * Checks the given option represents a &quot;true&quot; valued flag.
+     */
+    public boolean isTrue(final CliParameter option) {
+
+<span class="fc" id="L301">        boolean result = false;</span>
+
+<span class="fc bfc" id="L303" title="All 2 branches covered.">        if ( hasOption(option) ) {</span>
+<span class="fc" id="L304">            String value = get(option, FLAG_TRUE);</span>
+
+<span class="fc" id="L306">            result = FLAG_TRUE.equals(value);</span>
+        }
+
+<span class="fc" id="L309">        return result;</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BakerCliParameters.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-cli</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.cli</a> &gt; <span class="el_source">BakerCliParameters.java</span></div><h1>BakerCliParameters.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2015-2019 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.cli;
+
+import io.vavr.collection.HashSet;
+import io.vavr.collection.Set;
+
+
+/**
+ * Represents the set of supported command line options.
+ */
+final class BakerCliParameters {
+
+
+<span class="fc" id="L19">    public static final CliParameter ASSETS_DIR = CliParameter.builder()</span>
+<span class="fc" id="L20">            .longName(&quot;assets&quot;)</span>
+<span class="fc" id="L21">            .argName(&quot;PATH&quot;)</span>
+<span class="fc" id="L22">            .description(&quot;path of assets directory&quot;)</span>
+<span class="fc" id="L23">            .build();</span>
+
+<span class="fc" id="L25">    public static final CliParameter HELP = CliParameter.builder()</span>
+<span class="fc" id="L26">            .longName(&quot;help&quot;)</span>
+<span class="fc" id="L27">            .description(&quot;show this help text and exit&quot;)</span>
+<span class="fc" id="L28">            .shortName(&quot;h&quot;)</span>
+<span class="fc" id="L29">            .build();</span>
+
+<span class="fc" id="L31">    public static final CliParameter PAGE_VAR = CliParameter.builder()</span>
+<span class="fc" id="L32">            .longName(&quot;page-var&quot;)</span>
+<span class="fc" id="L33">            .argName(&quot;NAME=VALUE&quot;)</span>
+<span class="fc" id="L34">            .description(&quot;additional page variable&quot;)</span>
+<span class="fc" id="L35">            .build();</span>
+
+<span class="fc" id="L37">    public static final CliParameter SOURCE_DIR = CliParameter.builder()</span>
+<span class="fc" id="L38">            .longName(&quot;source&quot;)</span>
+<span class="fc" id="L39">            .argName(&quot;PATH&quot;)</span>
+<span class="fc" id="L40">            .description(&quot;path of source directory&quot;)</span>
+<span class="fc" id="L41">            .build();</span>
+
+<span class="fc" id="L43">    public static final CliParameter TARGET_DIR = CliParameter.builder()</span>
+<span class="fc" id="L44">            .longName(&quot;target&quot;)</span>
+<span class="fc" id="L45">            .argName(&quot;PATH&quot;)</span>
+<span class="fc" id="L46">            .description(&quot;path of target directory&quot;)</span>
+<span class="fc" id="L47">            .build();</span>
+
+<span class="fc" id="L49">    public static final CliParameter TEMPLATES_DIR = CliParameter.builder()</span>
+<span class="fc" id="L50">            .longName(&quot;templates&quot;)</span>
+<span class="fc" id="L51">            .argName(&quot;PATH&quot;)</span>
+<span class="fc" id="L52">            .description(&quot;path of templates directory&quot;)</span>
+<span class="fc" id="L53">            .build();</span>
+
+<span class="fc" id="L55">    public static final CliParameter VERBOSE = CliParameter.builder()</span>
+<span class="fc" id="L56">            .longName(&quot;verbose&quot;)</span>
+<span class="fc" id="L57">            .description(&quot;show abundant logging&quot;)</span>
+<span class="fc" id="L58">            .build();</span>
+
+<span class="fc" id="L60">    public static final CliParameter VERSION = CliParameter.builder()</span>
+<span class="fc" id="L61">            .shortName(&quot;v&quot;)</span>
+<span class="fc" id="L62">            .longName(&quot;version&quot;)</span>
+<span class="fc" id="L63">            .description(&quot;show version and exit&quot;)</span>
+<span class="fc" id="L64">            .build();</span>
+
+
+    /**
+     *
+     */
+<span class="fc" id="L70">    private static final Set&lt;CliParameter&gt; ALL_OPTIONS = HashSet.of(</span>
+            ASSETS_DIR,
+            HELP,
+            PAGE_VAR,
+            SOURCE_DIR,
+            TARGET_DIR,
+            TEMPLATES_DIR,
+            VERBOSE,
+            VERSION);
+
+
+    /**
+     * No instances of this class are to be created.
+     */
+<span class="nc" id="L84">    private BakerCliParameters() {</span>
+<span class="nc" id="L85">    }</span>
+
+
+    /**
+     *
+     */
+    public static Set&lt;CliParameter&gt; options() {
+
+<span class="fc" id="L93">        return ALL_OPTIONS;</span>
+    }
+
+
+    /**
+     *
+     */
+    public static CliParameterSet parse(final String[] args)
+        throws CliException {
+
+<span class="fc" id="L103">        return CliParameterSet.parse(ALL_OPTIONS, args);</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

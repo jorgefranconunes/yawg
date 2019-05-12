@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CliInfoPrinter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg CLI</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.cli</a> &gt; <span class="el_source">CliInfoPrinter.java</span></div><h1>CliInfoPrinter.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2015-2017 Yawg project contributors.
+ * Copyright (c) 2015-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -15,7 +15,7 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 
 import com.varmateo.yawg.cli.CliException;
-import com.varmateo.yawg.cli.CliOption;
+import com.varmateo.yawg.cli.CliParameter;
 
 
 /**
@@ -70,15 +70,15 @@ import com.varmateo.yawg.cli.CliOption;
      */
     public void printUsage(
             final PrintWriter output,
-            final Set&lt;CliOption&gt; options) {
+            final Set&lt;CliParameter&gt; options) {
 
-<span class="nc" id="L75">        String header = MessageFormat.format(_usageMessageHeader, _argv0);</span>
-<span class="nc" id="L76">        String footer = _usageMessageFooter;</span>
+<span class="nc" id="L75">        final String header = MessageFormat.format(_usageMessageHeader, _argv0);</span>
+<span class="nc" id="L76">        final String footer = _usageMessageFooter;</span>
 
 <span class="nc" id="L78">        output.println(header);</span>
 
-<span class="nc" id="L80">        Options       apacheOptions = buildApacheOptions(options);</span>
-<span class="nc" id="L81">        HelpFormatter formatter = new HelpFormatter();</span>
+<span class="nc" id="L80">        final Options       apacheOptions = buildApacheOptions(options);</span>
+<span class="nc" id="L81">        final HelpFormatter formatter = new HelpFormatter();</span>
 
 <span class="nc" id="L83">        formatter.printOptions(</span>
                 output,
@@ -95,10 +95,10 @@ import com.varmateo.yawg.cli.CliOption;
      *
      */
     private static Options
-        buildApacheOptions(final Set&lt;CliOption&gt; options) {
+        buildApacheOptions(final Set&lt;CliParameter&gt; options) {
 
 <span class="nc" id="L100">        return options</span>
-<span class="nc" id="L101">                .map(CliOption::apacheOption)</span>
+<span class="nc" id="L101">                .map(CliParameter::apacheOption)</span>
 <span class="nc" id="L102">                .foldLeft(</span>
                         new Options(),
 <span class="nc" id="L104">                        (xs, x) -&gt; xs.addOption(x));</span>
@@ -121,8 +121,8 @@ import com.varmateo.yawg.cli.CliOption;
             final PrintWriter  output,
             final CliException error) {
 
-<span class="nc" id="L124">        String errorMsg = error.getMessage();</span>
-<span class="nc" id="L125">        String msg      = MessageFormat.format(ERROR_FMT, _argv0, errorMsg);</span>
+<span class="nc" id="L124">        final String errorMsg = error.getMessage();</span>
+<span class="nc" id="L125">        final String msg      = MessageFormat.format(ERROR_FMT, _argv0, errorMsg);</span>
 
 <span class="nc" id="L127">        output.println(msg);</span>
 <span class="nc" id="L128">    }</span>
@@ -151,7 +151,7 @@ import com.varmateo.yawg.cli.CliOption;
         /**
          *
          */
-        public Builder setArgv0(final String argv0) {
+        public Builder argv0(final String argv0) {
 
 <span class="nc" id="L156">            _argv0 = argv0;</span>
 
@@ -162,7 +162,7 @@ import com.varmateo.yawg.cli.CliOption;
         /**
          *
          */
-        public Builder setVersionMessage(final String versionMessage) {
+        public Builder versionMessage(final String versionMessage) {
 
 <span class="nc" id="L167">            _versionMessage = versionMessage;</span>
 
@@ -173,7 +173,7 @@ import com.varmateo.yawg.cli.CliOption;
         /**
          *
          */
-        public Builder setUsageMessageHeader(final String usageMessageHeader) {
+        public Builder usageMessageHeader(final String usageMessageHeader) {
 
 <span class="nc" id="L178">            _usageMessageHeader = usageMessageHeader;</span>
 
@@ -184,7 +184,7 @@ import com.varmateo.yawg.cli.CliOption;
         /**
          *
          */
-        public Builder setUsageMessageFooter(final String usageMessageFooter) {
+        public Builder usageMessageFooter(final String usageMessageFooter) {
 
 <span class="nc" id="L189">            _usageMessageFooter = usageMessageFooter;</span>
 
@@ -200,20 +200,7 @@ import com.varmateo.yawg.cli.CliOption;
 <span class="nc" id="L200">            return new CliInfoPrinter(this);</span>
         }
 
-
     }
 
-
 }
-
-
-
-
-
-/**************************************************************************
- *
- * 
- *
- **************************************************************************/
-
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

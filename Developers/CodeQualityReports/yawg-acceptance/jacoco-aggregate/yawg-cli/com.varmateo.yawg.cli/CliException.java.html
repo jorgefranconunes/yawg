@@ -6,8 +6,6 @@
 
 package com.varmateo.yawg.cli;
 
-import java.text.MessageFormat;
-
 
 /**
  * An exception signaling an occurrence intended to be communicated to
@@ -22,8 +20,8 @@ public final class CliException
      */
     private CliException(final String msg) {
 
-<span class="fc" id="L25">        super(msg);</span>
-<span class="fc" id="L26">    }</span>
+<span class="fc" id="L23">        super(msg);</span>
+<span class="fc" id="L24">    }</span>
 
 
     /**
@@ -33,8 +31,8 @@ public final class CliException
             final String msg,
             final Throwable cause) {
 
-<span class="fc" id="L36">        super(msg, cause);</span>
-<span class="fc" id="L37">    }</span>
+<span class="fc" id="L34">        super(msg, cause);</span>
+<span class="fc" id="L35">    }</span>
 
 
     /**
@@ -42,9 +40,9 @@ public final class CliException
      */
     public static CliException bakeFailure(final Throwable cause) {
 
-<span class="fc" id="L45">        final String msg = String.format(&quot;Baking failed - %s&quot;, cause.getMessage());</span>
+<span class="fc" id="L43">        final String msg = String.format(&quot;Baking failed - %s&quot;, cause.getMessage());</span>
 
-<span class="fc" id="L47">        return new CliException(msg, cause);</span>
+<span class="fc" id="L45">        return new CliException(msg, cause);</span>
     }
 
 
@@ -53,9 +51,9 @@ public final class CliException
      */
     public static CliException unknownOption(final String optionName) {
 
-<span class="fc" id="L56">        final String msg = String.format(&quot;Unknown option \&quot;%s\&quot;&quot;, optionName);</span>
+<span class="fc" id="L54">        final String msg = String.format(&quot;Unknown option \&quot;%s\&quot;&quot;, optionName);</span>
 
-<span class="fc" id="L58">        return new CliException(msg);</span>
+<span class="fc" id="L56">        return new CliException(msg);</span>
     }
 
 
@@ -64,9 +62,9 @@ public final class CliException
      */
     public static CliException missingOption(final String optionName) {
 
-<span class="fc" id="L67">        final String msg = String.format(&quot;Missing mandatory option %s&quot;, optionName);</span>
+<span class="fc" id="L65">        final String msg = String.format(&quot;Missing mandatory option %s&quot;, optionName);</span>
 
-<span class="fc" id="L69">        return new CliException(msg);</span>
+<span class="fc" id="L67">        return new CliException(msg);</span>
     }
 
 
@@ -75,9 +73,9 @@ public final class CliException
      */
     public static CliException missingOptionArg(final String optionName) {
 
-<span class="fc" id="L78">        final String msg = String.format(&quot;Argument for option %s is missing&quot;, optionName);</span>
+<span class="fc" id="L76">        final String msg = String.format(&quot;Argument for option %s is missing&quot;, optionName);</span>
 
-<span class="fc" id="L80">        return new CliException(msg);</span>
+<span class="fc" id="L78">        return new CliException(msg);</span>
     }
 
 
@@ -86,10 +84,10 @@ public final class CliException
      */
     public static CliException optionParseFailure(final Throwable cause) {
 
-<span class="nc" id="L89">        final String msg = String.format(</span>
-<span class="nc" id="L90">                &quot;Failed to parse options - %s&quot;, cause.getClass().getName());</span>
+<span class="nc" id="L87">        final String msg = String.format(</span>
+<span class="nc" id="L88">                &quot;Failed to parse options - %s&quot;, cause.getClass().getName());</span>
 
-<span class="nc" id="L92">        return new CliException(msg, cause);</span>
+<span class="nc" id="L90">        return new CliException(msg, cause);</span>
     }
 
 
@@ -100,10 +98,10 @@ public final class CliException
             final String optionName,
             final String path) {
 
-<span class="nc" id="L103">        final String msg = String.format(</span>
+<span class="nc" id="L101">        final String msg = String.format(</span>
                 &quot;Value of option %s is an invalid path (%s)&quot;, optionName, path);
 
-<span class="nc" id="L106">        return new CliException(msg);</span>
+<span class="nc" id="L104">        return new CliException(msg);</span>
     }
 
 
