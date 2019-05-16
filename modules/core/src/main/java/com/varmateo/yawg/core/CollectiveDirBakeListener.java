@@ -53,7 +53,7 @@ import io.vavr.collection.Seq;
         final PageVars newVars = listener.onDirBake(context);
 
         return PageContextBuilder.create(context)
-                .setPageVars(newVars)
+                .pageVars(newVars)
                 .build();
     }
 

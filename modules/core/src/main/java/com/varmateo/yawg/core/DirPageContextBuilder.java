@@ -50,26 +50,25 @@ final class DirPageContextBuilder {
      */
     public PageContext buildPageContext(
             final Path targetDir,
-            final DirBakeOptions dirBakerConf,
+            final DirBakeOptions dirBakeOptions,
             final PageVars extensionVars)
             throws YawgException {
 
-        Function<Path,Optional<Template>> templateFetcher =
-                buildTemplateFetcher(dirBakerConf);
-        String dirUrl = buildRelativeUrl(targetDir, _targetRootDir);
-        String rootRelativeUrl = buildRelativeUrl(_targetRootDir, targetDir);
-        PageVars allPageVars =
-                PageVarsBuilder.create()
+        final Function<Path,Optional<Template>> templateFetcher =
+                buildTemplateFetcher(dirBakeOptions);
+        final String dirUrl = buildRelativeUrl(targetDir, _targetRootDir);
+        final String rootRelativeUrl = buildRelativeUrl(_targetRootDir, targetDir);
+        final PageVars allPageVars = PageVarsBuilder.create()
+                .addPageVars(dirBakeOptions.pageVars)
+                .addPageVars(dirBakeOptions.pageVarsHere)
                 .addPageVars(extensionVars)
-                .addPageVars(dirBakerConf.pageVars)
-                .addPageVars(dirBakerConf.pageVarsHere)
                 .build();
 
         return PageContextBuilder.create()
-                .setDirUrl(dirUrl)
-                .setRootRelativeUrl(rootRelativeUrl)
-                .setTemplateFetcher(templateFetcher)
-                .setPageVars(allPageVars)
+                .dirUrl(dirUrl)
+                .rootRelativeUrl(rootRelativeUrl)
+                .templateFetcher(templateFetcher)
+                .pageVars(allPageVars)
                 .build();
     }
 
@@ -79,12 +78,12 @@ final class DirPageContextBuilder {
      * exception.
      */
     private Function<Path,Optional<Template>> buildTemplateFetcher(
-            final DirBakeOptions dirBakerConf)
+            final DirBakeOptions dirBakeOptions)
             throws YawgException {
 
-        Option<String> templateName = dirBakerConf.templateName;
-        TemplateNameMatcher templateNameMatcher = dirBakerConf.templatesHere;
-        TemplateService templateService = _templateService;
+        final Option<String> templateName = dirBakeOptions.templateName;
+        final TemplateNameMatcher templateNameMatcher = dirBakeOptions.templatesHere;
+        final TemplateService templateService = _templateService;
 
         return path -> getTemplate(
                 path,
@@ -144,8 +143,8 @@ final class DirPageContextBuilder {
             final Path dir,
             final Path baseDir) {
 
-        Path relDir = baseDir.relativize(dir);
-        String relativeUrl = relDir.toString().replace(File.separatorChar, '/');
+        final Path relDir = baseDir.relativize(dir);
+        final String relativeUrl = relDir.toString().replace(File.separatorChar, '/');
 
         return relativeUrl.length() == 0
                 ? "."

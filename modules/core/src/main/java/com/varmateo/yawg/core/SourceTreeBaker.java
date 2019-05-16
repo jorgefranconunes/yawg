@@ -12,6 +12,7 @@ import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.core.DirBaker;
 import com.varmateo.yawg.core.DirBakeOptions;
 import com.varmateo.yawg.logging.Log;
+import com.varmateo.yawg.logging.LogFactory;
 import com.varmateo.yawg.logging.Logs;
 import com.varmateo.yawg.spi.PageVars;
 
@@ -24,56 +25,61 @@ import com.varmateo.yawg.spi.PageVars;
 
     private static final String DEFAULT_TEMPLATE_NAME = "default.ftlh";
 
-
-    private final Path _sourceDir;
-    private final Path _targetDir;
-    private final PageVars _externalPageVars;
+    private final Log _log;
     private final DirBaker _dirBaker;
-
-    private final Runnable _bakeAction;
 
 
     /* default */ SourceTreeBaker(
             final Log log,
-            final Path sourceDir,
-            final Path targetDir,
-            final PageVars externalPageVars,
             final DirBaker dirBaker) {
 
-        _sourceDir = sourceDir;
-        _targetDir = targetDir;
-        _externalPageVars = externalPageVars;
+        _log = log;
         _dirBaker = dirBaker;
-
-        _bakeAction = Logs.decorateWithLogDuration(
-                log,
-                "baking source tree",
-                this::doBake);
     }
 
 
     /**
      *
      */
-    public void bake()
+    public static SourceTreeBaker create(final DirBaker dirBaker) {
+
+        final Log log = LogFactory.createFor(SourceTreeBaker.class);
+
+        return new SourceTreeBaker(log, dirBaker);
+    }
+
+
+    /**
+     *
+     */
+    public void bake(
+            final Path sourceDir,
+            final Path targetDir,
+            final PageVars externalPageVars)
             throws YawgException {
 
-        _bakeAction.run();
+        Logs.logDuration(
+                _log,
+                "baking source tree",
+                () -> doBake(sourceDir, targetDir, externalPageVars));
     }
 
 
     /**
      *
      */
-    private void doBake()
+    private void doBake(
+            final Path sourceDir,
+            final Path targetDir,
+            final PageVars externalPageVars)
             throws YawgException {
 
         final DirBakeOptions dirBakeOptions = DirBakeOptions.builder()
                 .templateName(DEFAULT_TEMPLATE_NAME)
-                .pageVars(_externalPageVars)
+                .pageVars(externalPageVars)
                 .build();
 
-        _dirBaker.bakeDirectory(_sourceDir, _targetDir, dirBakeOptions);
+        _dirBaker.bakeDirectory(sourceDir, targetDir, dirBakeOptions);
     }
 
 

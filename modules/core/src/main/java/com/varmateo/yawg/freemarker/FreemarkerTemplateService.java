@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -52,16 +52,15 @@ public final class FreemarkerTemplateService
     /**
      *
      */
-    /* default */ static FreemarkerTemplateService build(
-            final Path templatesDir)
+    static TemplateService create(final Path templatesDir)
             throws YawgException {
 
-        Configuration fmConfig = null;
+        final Configuration fmConfig;
 
         try {
             fmConfig = buildConfiguration(templatesDir);
         } catch ( IOException e ) {
-            Exceptions.raise(
+            throw Exceptions.raise(
                     e,
                     "Failed to initialize {0} - {1} - {2}",
                     FreemarkerTemplateService.class.getSimpleName(),
@@ -79,8 +78,7 @@ public final class FreemarkerTemplateService
     private static Configuration buildConfiguration(final Path templatesDir)
             throws IOException{
 
-        Configuration fmConfig =
-                new Configuration(Configuration.VERSION_2_3_24);
+        final Configuration fmConfig = new Configuration(Configuration.VERSION_2_3_24);
 
         fmConfig.setDirectoryForTemplateLoading(templatesDir.toFile());
         fmConfig.setDefaultEncoding("UTF-8");
@@ -160,8 +158,7 @@ public final class FreemarkerTemplateService
                 final Writer writer)
                 throws YawgException {
 
-            FreemarkerDataModel fmDataModel =
-                    new FreemarkerDataModel(dataModel);
+            final FreemarkerDataModel fmDataModel = new FreemarkerDataModel(dataModel);
 
             try {
                 _fmTemplate.process(fmDataModel, writer);

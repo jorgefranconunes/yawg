@@ -107,7 +107,7 @@ public final class DirBakerTest {
 
         final Path sourceDir = TestUtils.getPath(DirBaker.class, "source01");
         final Path targetDir = Paths.get(".");
-        final DirBaker baker = buildDirBaker(sourceDir, targetDir, _bakerMock);
+        final DirBaker baker = buildDirBaker(_bakerMock);
 
         baker.bakeDirectory(sourceDir, targetDir, conf);
 
@@ -128,7 +128,7 @@ public final class DirBakerTest {
 
         final Path sourceDir = TestUtils.getPath(DirBaker.class, "source02");
         final Path targetDir = Paths.get(".");
-        final DirBaker baker = buildDirBaker(sourceDir, targetDir, _bakerMock);
+        final DirBaker baker = buildDirBaker(_bakerMock);
 
         baker.bakeDirectory(sourceDir, targetDir, _emptyConf);
 
@@ -144,21 +144,11 @@ public final class DirBakerTest {
     /**
      *
      */
-    private DirBaker buildDirBaker(
-            final Path sourceRootDir,
-            final Path targetRootDir,
-            final PageBaker baker) {
+    private DirBaker buildDirBaker(final PageBaker baker) {
 
-        final Log log = LogFactory.createFor(DirBaker.class);
-        final FileBaker fileBaker = new FileBaker(
-                log,
-                List.of(),
-                baker);
+        final FileBaker fileBaker = new FileBaker(List.empty(), baker);
 
         return new DirBaker(
-                log,
-                sourceRootDir,
-                targetRootDir,
                 fileBaker,
                 _templateServiceMock,
                 _confDao,

@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2017-2018 Yawg project contributors.
+ * Copyright (c) 2017-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -13,11 +13,11 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.Optional;
 import java.util.function.BiConsumer;
 
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.logging.Log;
+import com.varmateo.yawg.logging.LogFactory;
 import com.varmateo.yawg.logging.Logs;
 import com.varmateo.yawg.util.Exceptions;
 
@@ -29,27 +29,18 @@ import com.varmateo.yawg.util.Exceptions;
 
 
     private final Log _log;
-    private final Optional<Path> _assetsDir;
-    private final Path _targetDir;
-
-    private BiConsumer<Path, Path> _copyAction;
+    private final BiConsumer<Path, Path> _copyAction;
 
 
     /**
      * @param conf All the parameters needed for performing a bake.
      */
-    AssetsCopier(
-            final Log log,
-            final Optional<Path> assetsDir,
-            final Path targetDir) {
+    AssetsCopier(final Log log) {
 
         _log = log;
-        _assetsDir = assetsDir;
-        _targetDir = targetDir;
-
         _copyAction = Logs.decorateWithLogDuration(
                 log,
-                (source, target) -> "copying assets",
+                (source, target) -> "copy assets",
                 AssetsCopier::doCopy);
     }
 
@@ -57,14 +48,23 @@ import com.varmateo.yawg.util.Exceptions;
     /**
      *
      */
-    public void copy()
+    public static AssetsCopier create() {
+
+        final Log log = LogFactory.createFor(AssetsCopier.class);
+
+        return new AssetsCopier(log);
+    }
+
+
+    /**
+     *
+     */
+    public void copy(
+            final Path assetsDir,
+            final Path targetDir)
             throws YawgException {
 
-        if ( _assetsDir.isPresent() ) {
-            _copyAction.accept(_assetsDir.get(), _targetDir);
-        } else {
-            _log.debug("No assets directory to copy");
-        }
+        _copyAction.accept(assetsDir, targetDir);
     }
 
 

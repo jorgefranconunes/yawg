@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -27,7 +27,7 @@ public final class FreemarkerTemplateServiceFactory
     public TemplateService newTemplateService(final Path templatesDir)
             throws YawgException {
 
-        return FreemarkerTemplateService.build(templatesDir);
+        return FreemarkerTemplateService.create(templatesDir);
     }
 
 

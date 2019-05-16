@@ -147,8 +147,8 @@ public final class CollectiveDirBakeListenerTest
             final String varValue) {
 
         return PageContextBuilder.create()
-                .setDirUrl(".")
-                .setRootRelativeUrl(".")
+                .dirUrl(".")
+                .rootRelativeUrl(".")
                 .addVar(varName, varValue)
                 .build();
     }

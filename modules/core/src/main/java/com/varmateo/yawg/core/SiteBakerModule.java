@@ -18,8 +18,6 @@ import com.varmateo.yawg.core.DirBaker;
 import com.varmateo.yawg.core.DirBakeOptionsDao;
 import com.varmateo.yawg.core.FileBaker;
 import com.varmateo.yawg.core.SingleSiteBaker;
-import com.varmateo.yawg.logging.Log;
-import com.varmateo.yawg.logging.LogFactory;
 import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.PageBakerFactory;
 import com.varmateo.yawg.spi.DirBakeListener;
@@ -54,8 +52,6 @@ import com.varmateo.yawg.util.Services;
 
     private final Holder<TemplateService> _templateService = Holder.of(this::newTemplateService);
 
-    private final Holder<Log> _log = Holder.of(this::newLog);
-
 
     /**
      * @param options Configuration parameters.
@@ -69,7 +65,7 @@ import com.varmateo.yawg.util.Services;
     /**
      * @return The baker object.
      */
-    public SingleSiteBaker getSingleSiteBaker() {
+    public SingleSiteBaker singleSiteBaker() {
 
         return _siteBaker.get();
     }
@@ -112,9 +108,6 @@ import com.varmateo.yawg.util.Services;
     private DirBaker newDirBaker() {
 
         return new DirBaker(
-                _log.get(),
-                _options.sourceDir(),
-                _options.targetDir(),
                 _fileBaker.get(),
                 _templateService.get(),
                 _dirBakerConfDao.get(),
@@ -136,11 +129,10 @@ import com.varmateo.yawg.util.Services;
      */
     private FileBaker newFileBaker() {
 
-        final Log log = _log.get();
         final Seq<PageBaker> bakers = _bakers.get();
         final PageBaker defaultBaker = _copyBaker.get();
 
-        return new FileBaker(log, bakers, defaultBaker);
+        return new FileBaker(bakers, defaultBaker);
     }
 
 
@@ -162,18 +154,9 @@ import com.varmateo.yawg.util.Services;
     /**
      *
      */
-    private Log newLog() {
-
-        return LogFactory.createFor(this);
-    }
-
-
-    /**
-     *
-     */
     private SingleSiteBaker newSiteBaker() {
 
-        return new SingleSiteBaker(_log.get(), _options, _dirBaker.get());
+        return new SingleSiteBaker(_dirBaker.get());
     }
 
 

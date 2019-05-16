@@ -41,9 +41,9 @@ public final class FreemarkerTemplateServiceTest
     @Test
     public void wrongTemplatesDir() {
 
-        Path templatesDir = Paths.get("this/directory/does/not/exist");
+        final Path templatesDir = Paths.get("this/directory/does/not/exist");
 
-        assertThatThrownBy(() -> FreemarkerTemplateService.build(templatesDir))
+        assertThatThrownBy(() -> FreemarkerTemplateService.create(templatesDir))
                 .isInstanceOf(YawgException.class);
     }
 
@@ -54,12 +54,11 @@ public final class FreemarkerTemplateServiceTest
     @Test
     public void withTemplateExists() {
 
-        Path templatesDir =
-                TestUtils.getPath(
-                        FreemarkerTemplateService.class,
-                        TEMPLATE_DIR_OK);
-        TemplateService service = FreemarkerTemplateService.build(templatesDir);
-        Optional<Template> template = service.getTemplate(TEMPLATE_NAME_OK);
+        final Path templatesDir = TestUtils.getPath(
+                FreemarkerTemplateService.class,
+                TEMPLATE_DIR_OK);
+        final TemplateService service = FreemarkerTemplateService.create(templatesDir);
+        final Optional<Template> template = service.getTemplate(TEMPLATE_NAME_OK);
 
         assertThat(template).isPresent();
     }
@@ -71,11 +70,10 @@ public final class FreemarkerTemplateServiceTest
     @Test
     public void withTemplateMissing() {
 
-        Path templatesDir =
-                TestUtils.getPath(
-                        FreemarkerTemplateService.class,
-                        TEMPLATE_DIR_OK);
-        TemplateService service = FreemarkerTemplateService.build(templatesDir);
+        final Path templatesDir = TestUtils.getPath(
+                FreemarkerTemplateService.class,
+                TEMPLATE_DIR_OK);
+        final TemplateService service = FreemarkerTemplateService.create(templatesDir);
 
         assertThatThrownBy(() -> service.getTemplate("NoSuchTemplate.ftlh"))
                 .isInstanceOf(YawgException.class);
@@ -88,28 +86,26 @@ public final class FreemarkerTemplateServiceTest
     @Test
     public void processTemplateOk() {
 
-        Path templatesDir =
-                TestUtils.getPath(
-                        FreemarkerTemplateService.class,
-                        TEMPLATE_DIR_OK);
-        TemplateService service = FreemarkerTemplateService.build(templatesDir);
-        Template template = service.getTemplate("template02.ftlh").get();
+        final Path templatesDir = TestUtils.getPath(
+                FreemarkerTemplateService.class,
+                TEMPLATE_DIR_OK);
+        final TemplateService service = FreemarkerTemplateService.create(templatesDir);
+        final Template template = service.getTemplate("template02.ftlh").get();
 
-        String title = "Simple title";
-        String body = "Hello, world!";
-        TemplateDataModel model =
-                TemplateDataModelBuilder.create()
+        final String title = "Simple title";
+        final String body = "Hello, world!";
+        final TemplateDataModel model = TemplateDataModelBuilder.create()
                 .setBody(body)
                 .setPageUrl("MyPage.html")
                 .setRootRelativeUrl(".")
                 .setTitle(title)
                 .build();
-        StringWriter buffer = new StringWriter();
+        final StringWriter buffer = new StringWriter();
 
         template.process(model, buffer);
 
-        String actualBakedContents = buffer.toString();
-        String expectedBakedContents = "Demo02: " + body + "\n";
+        final String actualBakedContents = buffer.toString();
+        final String expectedBakedContents = "Demo02: " + body + "\n";
 
         assertThat(actualBakedContents).isEqualTo(expectedBakedContents);
     }
@@ -121,21 +117,21 @@ public final class FreemarkerTemplateServiceTest
     @Test
     public void processTemplateNotOk() {
 
-        Path templatesDir = TestUtils.getPath(
+        final Path templatesDir = TestUtils.getPath(
                 FreemarkerTemplateService.class,
                 TEMPLATE_DIR_OK);
-        TemplateService service = FreemarkerTemplateService.build(templatesDir);
-        Template template = service.getTemplate("template03.ftlh").get();
+        final TemplateService service = FreemarkerTemplateService.create(templatesDir);
+        final Template template = service.getTemplate("template03.ftlh").get();
 
-        String title = "Simple title";
-        String body = "Hello, world!";
-        TemplateDataModel model = TemplateDataModelBuilder.create()
+        final String title = "Simple title";
+        final String body = "Hello, world!";
+        final TemplateDataModel model = TemplateDataModelBuilder.create()
                 .setBody(body)
                 .setPageUrl("MyPage.html")
                 .setRootRelativeUrl(".")
                 .setTitle(title)
                 .build();
-        StringWriter buffer = new StringWriter();
+        final StringWriter buffer = new StringWriter();
 
         assertThatThrownBy(() -> template.process(model, buffer))
                 .hasCauseInstanceOf(TemplateException.class);

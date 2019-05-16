@@ -49,6 +49,23 @@ public final class Logs {
     /**
      *
      */
+    public static void logDuration(
+            final Log log,
+            final String subject,
+            final Runnable action) {
+
+        final Supplier<Void> wrappedAction = () -> {
+            action.run();
+            return null;
+        };
+
+        logDuration(log, subject, wrappedAction);
+    }
+
+
+    /**
+     *
+     */
     public static Runnable decorateWithLogDuration(
             final Log log,
             final String description,

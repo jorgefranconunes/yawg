@@ -16,6 +16,7 @@ import io.vavr.control.Option;
 
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.logging.Log;
+import com.varmateo.yawg.logging.LogFactory;
 import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.util.Exceptions;
@@ -40,16 +41,13 @@ import com.varmateo.yawg.util.Exceptions;
      * @param log The logger that will be used for logging.
      */
     FileBaker(
-            final Log log,
             final Seq<PageBaker> bakers,
             final PageBaker defaultBaker) {
 
-        _log = log;
+        _log = LogFactory.createFor(FileBaker.class);
         _bakers = bakers;
         _defaultBaker = defaultBaker;
-        _allBakersByType = HashMap
-                .ofEntries(
-                        bakers.map(b -> Tuple.of(b.shortName(), b)))
+        _allBakersByType = HashMap.ofEntries(bakers.map(b -> Tuple.of(b.shortName(), b)))
                 .put(defaultBaker.shortName(), defaultBaker);
     }
 

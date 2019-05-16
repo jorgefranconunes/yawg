@@ -9,8 +9,6 @@ package com.varmateo.yawg.core;
 import com.varmateo.yawg.api.SiteBaker;
 import com.varmateo.yawg.api.BakeOptions;
 import com.varmateo.yawg.api.SiteBakerFactory;
-import com.varmateo.yawg.core.SingleSiteBaker;
-import com.varmateo.yawg.core.SiteBakerModule;
 
 
 /**
@@ -28,30 +26,7 @@ public final class CoreSiteBakerFactory
     @Override
     public SiteBaker newSiteBaker() {
 
-        return new SiteBakerImpl();
-    }
-
-
-    /**
-     *
-     */
-    private static final class SiteBakerImpl
-            implements SiteBaker {
-
-
-        /**
-         *
-         */
-        @Override
-        public void bake(final BakeOptions options) {
-
-            final SiteBakerModule domain = new SiteBakerModule(options);
-            final SingleSiteBaker singleSiteBaker = domain.getSingleSiteBaker();
-
-            singleSiteBaker.bake();
-        }
-
-
+        return CoreSiteBaker.create();
     }
 
 

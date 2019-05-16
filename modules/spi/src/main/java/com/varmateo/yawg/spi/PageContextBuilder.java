@@ -82,7 +82,7 @@ public final class PageContextBuilder {
     /**
      * @return A reference to this builder.
      */
-    public PageContextBuilder setDirUrl(final String dirUrl) {
+    public PageContextBuilder dirUrl(final String dirUrl) {
 
         _dirUrl = dirUrl;
         return this;
@@ -95,7 +95,7 @@ public final class PageContextBuilder {
      *
      * @return A reference to this builder.
      */
-    public PageContextBuilder setTemplateFetcher(
+    public PageContextBuilder templateFetcher(
             final Function<Path,Optional<Template>> templateFetcher) {
 
         _templateFetcher = templateFetcher;
@@ -106,7 +106,7 @@ public final class PageContextBuilder {
     /**
      * @return A reference to this builder.
      */
-    public PageContextBuilder setRootRelativeUrl(final String rootRelativeUrl) {
+    public PageContextBuilder rootRelativeUrl(final String rootRelativeUrl) {
 
         _rootRelativeUrl = rootRelativeUrl;
         return this;
@@ -116,7 +116,7 @@ public final class PageContextBuilder {
     /**
      * @return A reference to this builder.
      */
-    public PageContextBuilder setPageVars(final PageVars pageVars) {
+    public PageContextBuilder pageVars(final PageVars pageVars) {
 
         _pageVarsBuilder = PageVarsBuilder.create(pageVars);
         return this;

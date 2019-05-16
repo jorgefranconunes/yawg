@@ -39,14 +39,18 @@ public final class PageContextBuilderTest {
     public void mandatoryAttrs() {
 
         final PageContext context = PageContextBuilder.create()
-                .setDirUrl("something")
-                .setRootRelativeUrl("whatever")
+                .dirUrl("something")
+                .rootRelativeUrl("whatever")
                 .build();
 
-        assertThat(context.dirUrl()).isEqualTo("something");
-        assertThat(context.rootRelativeUrl()).isEqualTo("whatever");
-        assertThat(context.templateFor(Paths.get("xxx"))).isNotPresent();
-        assertThat(context.pageVars().asMap()).isEmpty();
+        assertThat(context.dirUrl())
+                .isEqualTo("something");
+        assertThat(context.rootRelativeUrl())
+                .isEqualTo("whatever");
+        assertThat(context.templateFor(Paths.get("xxx")))
+                .isNotPresent();
+        assertThat(context.pageVars().asMap())
+                .isEmpty();
     }
 
 
