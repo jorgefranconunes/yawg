@@ -7,8 +7,8 @@
 package com.varmateo.yawg.core;
 
 import com.varmateo.yawg.api.YawgException;
-import com.varmateo.yawg.core.DirBakerConf;
-import com.varmateo.yawg.core.DirBakerConfDao;
+import com.varmateo.yawg.core.DirBakeOptions;
+import com.varmateo.yawg.core.DirBakeOptionsDao;
 import com.varmateo.yawg.core.DirEntryScanner;
 import com.varmateo.yawg.core.DirPageContextBuilder;
 import com.varmateo.yawg.core.FileBaker;
@@ -36,7 +36,7 @@ import java.nio.file.Path;
     private final Log _log;
     private final Path _sourceRootDir;
     private final FileBaker _fileBaker;
-    private final DirBakerConfDao _dirBakerConfDao;
+    private final DirBakeOptionsDao _dirBakerConfDao;
     private final DirBakeListener _listener;
     private final DirPageContextBuilder _dirPageContextBuilder;
 
@@ -68,7 +68,7 @@ import java.nio.file.Path;
             final Path targetRootDir,
             final FileBaker fileBaker,
             final TemplateService templateService,
-            final DirBakerConfDao dirBakerConfDao,
+            final DirBakeOptionsDao dirBakerConfDao,
             final DirBakeListener dirBakeListener) {
 
         _log = log;
@@ -86,7 +86,7 @@ import java.nio.file.Path;
     public void bakeDirectory(
             final Path sourceDir,
             final Path targetDir,
-            final DirBakerConf parentDirBakerConf)
+            final DirBakeOptions parentDirBakeOptions)
             throws YawgException {
 
         final PageVars parentExtensionVars = PageVars.empty();
@@ -94,7 +94,7 @@ import java.nio.file.Path;
         doBakeDirectory(
                 sourceDir,
                 targetDir,
-                parentDirBakerConf,
+                parentDirBakeOptions,
                 parentExtensionVars);
     }
 
@@ -105,7 +105,7 @@ import java.nio.file.Path;
     private void doBakeDirectory(
             final Path sourceDir,
             final Path targetDir,
-            final DirBakerConf parentDirBakerConf,
+            final DirBakeOptions parentDirBakeOptions,
             final PageVars parentExtensionVars)
             throws YawgException {
 
@@ -114,9 +114,9 @@ import java.nio.file.Path;
 
         createDirIfNeeded(targetDir);
 
-        final DirBakerConf dirBakerConf = _dirBakerConfDao
+        final DirBakeOptions dirBakerConf = _dirBakerConfDao
                 .loadFromDir(sourceDir)
-                .mergeOnTopOf(parentDirBakerConf);
+                .mergeOnTopOf(parentDirBakeOptions);
         final PageContext context = _dirPageContextBuilder.buildPageContext(
                 targetDir,
                 dirBakerConf,
@@ -154,7 +154,7 @@ import java.nio.file.Path;
      */
     private Seq<Path> getDirEntries(
             final Path dir,
-            final DirBakerConf dirBakerConf) {
+            final DirBakeOptions dirBakerConf) {
 
         final DirEntryScanner scanner = new DirEntryScanner(dirBakerConf);
 
@@ -170,7 +170,7 @@ import java.nio.file.Path;
     private void bakeChildFiles(
             final Seq<Path> dirEntries,
             final Path targetDir,
-            final DirBakerConf dirBakerConf,
+            final DirBakeOptions dirBakerConf,
             final PageContext context)
             throws YawgException {
 
@@ -188,7 +188,7 @@ import java.nio.file.Path;
     private void bakeChildDirectories(
             final Seq<Path> dirEntries,
             final Path targetDir,
-            final DirBakerConf dirBakerConf,
+            final DirBakeOptions dirBakerConf,
             final PageVars extensionVars) {
 
         final Seq<Path> dirPathList = dirEntries.filter(Files::isDirectory);
@@ -208,24 +208,24 @@ import java.nio.file.Path;
     private void bakeExtraDirectories(
             final Path sourceDir,
             final Path targetDir,
-            final DirBakerConf dirBakerConf,
+            final DirBakeOptions dirBakerConf,
             final PageVars extensionVars) {
 
         final Seq<Path> extraDirPathList = dirBakerConf.extraDirsHere
                 .map(path -> sourceDir.resolve(path));
 
         for ( final Path extraSourceDir : extraDirPathList ) {
-            final DirBakerConf extraDirBakerConf = _dirBakerConfDao
+            final DirBakeOptions extraDirBakeOptions = _dirBakerConfDao
                     .loadFromDir(extraSourceDir)
                     .mergeOnTopOf(dirBakerConf);
-            final Seq<Path> dirEntries = getDirEntries(extraSourceDir, extraDirBakerConf);
+            final Seq<Path> dirEntries = getDirEntries(extraSourceDir, extraDirBakeOptions);
             final PageContext extraContext = _dirPageContextBuilder.buildPageContext(
                     targetDir,
-                    extraDirBakerConf,
+                    extraDirBakeOptions,
                     extensionVars);
 
-            bakeChildFiles(dirEntries, targetDir, extraDirBakerConf, extraContext);
-            bakeChildDirectories(dirEntries, targetDir, extraDirBakerConf, extensionVars);
+            bakeChildFiles(dirEntries, targetDir, extraDirBakeOptions, extraContext);
+            bakeChildDirectories(dirEntries, targetDir, extraDirBakeOptions, extensionVars);
         }
     }
 

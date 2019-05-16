@@ -8,15 +8,15 @@ package com.varmateo.yawg.core;
 
 import org.junit.Test;
 
-import static com.varmateo.yawg.core.DirBakerConfTestUtils.assertConfEquals;
+import static com.varmateo.yawg.core.DirBakeOptionsTestUtils.assertConfEquals;
 
-import com.varmateo.yawg.core.DirBakerConf;
+import com.varmateo.yawg.core.DirBakeOptions;
 
 
 /**
  *
  */
-public final class DirBakerConfTest
+public final class DirBakeOptionsTest
  {
 
 
@@ -26,12 +26,12 @@ public final class DirBakerConfTest
     @Test
     public void mergeFromEmpty() {
 
-        final DirBakerConf confEmpty = DirBakerConf.empty();
-        final DirBakerConf conf = DirBakerConf.builder()
+        final DirBakeOptions confEmpty = DirBakeOptions.empty();
+        final DirBakeOptions conf = DirBakeOptions.builder()
                 .filesToExclude("hello")
                 .build()
                 .mergeOnTopOf(confEmpty);
-        final DirBakerConf expectedConf = DirBakerConf.builder()
+        final DirBakeOptions expectedConf = DirBakeOptions.builder()
                 .filesToExclude("hello")
                 .build();
 
@@ -45,14 +45,14 @@ public final class DirBakerConfTest
     @Test
     public void mergeOne() {
 
-        final DirBakerConf conf01 = DirBakerConf.builder()
+        final DirBakeOptions conf01 = DirBakeOptions.builder()
                 .filesToExclude("hello")
                 .build();
-        final DirBakerConf conf02 = DirBakerConf.builder()
+        final DirBakeOptions conf02 = DirBakeOptions.builder()
                 .filesToExclude("world")
                 .build()
                 .mergeOnTopOf(conf01);
-        final DirBakerConf expectedConf = DirBakerConf.builder()
+        final DirBakeOptions expectedConf = DirBakeOptions.builder()
                 .filesToExclude("hello", "world")
                 .build();
 

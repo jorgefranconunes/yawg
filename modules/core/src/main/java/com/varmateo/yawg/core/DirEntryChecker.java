@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -10,7 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.function.Predicate;
 
-import com.varmateo.yawg.core.DirBakerConf;
+import com.varmateo.yawg.core.DirBakeOptions;
 
 
 /**
@@ -19,17 +19,17 @@ import com.varmateo.yawg.core.DirBakerConf;
 /* package private */ final class DirEntryChecker {
 
 
-    private final DirBakerConf _conf;
+    private final DirBakeOptions _options;
     private final boolean _isIncludeHere;
 
 
     /**
      *
      */
-    DirEntryChecker(final DirBakerConf conf) {
+    DirEntryChecker(final DirBakeOptions options) {
 
-        _conf = conf;
-        _isIncludeHere = conf.filesToIncludeHere.isDefined();
+        _options = options;
+        _isIncludeHere = options.filesToIncludeHere.isDefined();
     }
 
 
@@ -78,7 +78,7 @@ import com.varmateo.yawg.core.DirBakerConf;
      */
     private boolean testForIncludeHere(final Path path) {
 
-        return _conf.filesToIncludeHere
+        return _options.filesToIncludeHere
                 .map(matcher -> matcher.test(path))
                 .getOrElse(false);
     }
@@ -89,10 +89,10 @@ import com.varmateo.yawg.core.DirBakerConf;
      */
     private boolean testForExclude(final Path path) {
 
-        return _conf.filesToExclude
+        return _options.filesToExclude
                 .map(matcher -> matcher.test(path))
                 .getOrElse(false)
-                || _conf.filesToExcludeHere
+                || _options.filesToExcludeHere
                 .map(matcher -> matcher.test(path))
                 .getOrElse(false);
     }

@@ -14,7 +14,7 @@ import io.vavr.collection.Seq;
 import org.junit.Test;
 
 import com.varmateo.testutils.TestUtils;
-import com.varmateo.yawg.core.DirBakerConf;
+import com.varmateo.yawg.core.DirBakeOptions;
 import com.varmateo.yawg.core.DirEntryScanner;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -33,7 +33,7 @@ public final class DirEntryScannerTest {
     public void allFiles()
             throws IOException {
 
-        DirBakerConf conf = DirBakerConf.empty();
+        DirBakeOptions conf = DirBakeOptions.empty();
         Path dirPath = TestUtils.getInputsDir(DirEntryScanner.class);
         DirEntryScanner scanner = new DirEntryScanner(conf);
         Seq<Path> actualEntries = scanner.getDirEntries(dirPath);
@@ -56,7 +56,7 @@ public final class DirEntryScannerTest {
     public void someFiles()
             throws IOException {
 
-        final DirBakerConf conf = DirBakerConf.builder()
+        final DirBakeOptions conf = DirBakeOptions.builder()
                 .filesToExclude("*.txt", "*.html")
                 .build();
         final Path dirPath = TestUtils.getInputsDir(DirEntryScanner.class);

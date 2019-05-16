@@ -6,7 +6,7 @@
 
 package com.varmateo.yawg.api;
 
-import com.varmateo.yawg.api.SiteBakerOptions;
+import com.varmateo.yawg.api.BakeOptions;
 import com.varmateo.yawg.api.YawgException;
 
 
@@ -24,7 +24,7 @@ public interface SiteBaker {
      * @exception YawgException Thrown if the baking could not be
      * completed for whatever reason.
      */
-    void bake(SiteBakerOptions conf)
+    void bake(BakeOptions conf)
             throws YawgException;
 
 

@@ -20,7 +20,7 @@ import io.vavr.control.Option;
  * Set of configuration parameters used for baking the files in a
  * directory.
  */
-/* package private */ final class DirBakerConf {
+/* package private */ final class DirBakeOptions {
 
 
     /**
@@ -83,7 +83,7 @@ import io.vavr.control.Option;
     /**
      *
      */
-    private DirBakerConf(final Builder builder) {
+    private DirBakeOptions(final Builder builder) {
 
         this.templateName = builder._templateName;
         this.filesToExclude = builder._filesToExclude;
@@ -111,9 +111,9 @@ import io.vavr.control.Option;
     /**
      *
      */
-    public static DirBakerConf empty() {
+    public static DirBakeOptions empty() {
 
-        return DirBakerConf.builder().build();
+        return DirBakeOptions.builder().build();
     }
 
 
@@ -127,7 +127,7 @@ import io.vavr.control.Option;
      * and using as default values the ones contained in
      * <code>that</code>.
      */
-    public DirBakerConf mergeOnTopOf(final DirBakerConf that) {
+    public DirBakeOptions mergeOnTopOf(final DirBakeOptions that) {
 
         final Builder builder = new Builder(that);
 
@@ -148,7 +148,7 @@ import io.vavr.control.Option;
 
 
     /**
-     * A builder of <code>DirBakerConf</code> instances.
+     * A builder of <code>DirBakeOptions</code> instances.
      */
     public static final class Builder {
 
@@ -184,7 +184,7 @@ import io.vavr.control.Option;
         /**
          * Prepares a Builder for performing a merge.
          */
-        /* default */ Builder(final DirBakerConf defaults) {
+        /* default */ Builder(final DirBakeOptions defaults) {
 
             _templateName = defaults.templateName;
             _filesToExclude = defaults.filesToExclude;
@@ -390,9 +390,9 @@ import io.vavr.control.Option;
         /**
          *
          */
-        public DirBakerConf build() {
+        public DirBakeOptions build() {
 
-            return new DirBakerConf(this);
+            return new DirBakeOptions(this);
         }
 
 

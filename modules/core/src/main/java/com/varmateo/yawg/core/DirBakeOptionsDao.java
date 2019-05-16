@@ -21,7 +21,7 @@ import io.vavr.collection.Seq;
 import io.vavr.collection.Stream;
 
 import com.varmateo.yawg.api.YawgException;
-import com.varmateo.yawg.core.DirBakerConf;
+import com.varmateo.yawg.core.DirBakeOptions;
 import com.varmateo.yawg.core.TemplateNameMatcher;
 import com.varmateo.yawg.spi.PageVars;
 import com.varmateo.yawg.spi.PageVarsBuilder;
@@ -34,7 +34,7 @@ import com.varmateo.yawg.util.YamlParser;
 /**
  * Reads the baker configuration for one given directory.
  */
-/* default */ final class DirBakerConfDao {
+/* default */ final class DirBakeOptionsDao {
 
 
     private static final String CONF_FILE_NAME = ".yawg.yml";
@@ -64,24 +64,24 @@ import com.varmateo.yawg.util.YamlParser;
      * @throws YawgException Thrown if the configuration file could
      * not be read or had syntax problems.
      */
-    public DirBakerConf loadFromDir(final Path sourceDir)
+    public DirBakeOptions loadFromDir(final Path sourceDir)
             throws YawgException {
 
         Path confFile = sourceDir.resolve(CONF_FILE_NAME);
 
         return Files.isRegularFile(confFile)
                 ? loadFromFile(confFile)
-                : DirBakerConf.empty();
+                : DirBakeOptions.empty();
     }
 
 
     /**
      *
      */
-    public DirBakerConf loadFromFile(final Path confFile)
+    public DirBakeOptions loadFromFile(final Path confFile)
             throws YawgException {
 
-        final DirBakerConf result;
+        final DirBakeOptions result;
 
         try {
             result = doLoadFromFile(confFile);
@@ -101,10 +101,10 @@ import com.varmateo.yawg.util.YamlParser;
     /**
      *
      */
-    private DirBakerConf doLoadFromFile(final Path confFile)
+    private DirBakeOptions doLoadFromFile(final Path confFile)
             throws YawgException, IOException {
 
-        final DirBakerConf result;
+        final DirBakeOptions result;
 
         try ( Reader reader =
                 Files.newBufferedReader(confFile, StandardCharsets.UTF_8) ) {
@@ -118,11 +118,11 @@ import com.varmateo.yawg.util.YamlParser;
     /**
      *
      */
-    public DirBakerConf read(final Reader reader)
+    public DirBakeOptions read(final Reader reader)
             throws IOException, YawgException {
 
         SimpleMap confMap = new YamlParser().parse(reader);
-        DirBakerConf.Builder builder = DirBakerConf.builder();
+        DirBakeOptions.Builder builder = DirBakeOptions.builder();
 
         confMap.getString(PARAM_TEMPLATE)
                 .ifPresent(builder::templateName);

@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
-import com.varmateo.yawg.core.DirBakerConf;
+import com.varmateo.yawg.core.DirBakeOptions;
 import com.varmateo.yawg.core.DirEntryChecker;
 
 
@@ -31,7 +31,7 @@ public final class DirEntryCheckerTest
     @Test
     public void withEmptyConf() {
 
-        DirBakerConf conf = DirBakerConf.empty();
+        DirBakeOptions conf = DirBakeOptions.empty();
         DirEntryChecker checker = new DirEntryChecker(conf);
         Predicate<String> predicate = checker.asStringPredicate();
 
@@ -45,7 +45,7 @@ public final class DirEntryCheckerTest
     @Test
     public void withExcludeOne() {
 
-        final DirBakerConf conf = DirBakerConf.builder()
+        final DirBakeOptions conf = DirBakeOptions.builder()
                 .filesToExclude("*.txt")
                 .build();
         final DirEntryChecker checker = new DirEntryChecker(conf);
@@ -63,7 +63,7 @@ public final class DirEntryCheckerTest
     @Test
     public void withExcludeMany() {
 
-        final DirBakerConf conf = DirBakerConf.builder()
+        final DirBakeOptions conf = DirBakeOptions.builder()
                 .filesToExclude("*.txt", "*.puml", "*~")
                 .build();
         final DirEntryChecker checker = new DirEntryChecker(conf);
@@ -84,7 +84,7 @@ public final class DirEntryCheckerTest
     @Test
     public void withExcludeHere() {
 
-        final DirBakerConf conf = DirBakerConf.builder()
+        final DirBakeOptions conf = DirBakeOptions.builder()
                 .filesToExcludeHere("*.txt", "*.puml", "*~")
                 .build();
         final DirEntryChecker checker = new DirEntryChecker(conf);
@@ -105,7 +105,7 @@ public final class DirEntryCheckerTest
     @Test
     public void withExcludeAndExcludeHere() {
 
-        final DirBakerConf conf = DirBakerConf.builder()
+        final DirBakeOptions conf = DirBakeOptions.builder()
                 .filesToExclude("*.txt")
                 .filesToExcludeHere("*.puml", "*~")
                 .build();
@@ -127,7 +127,7 @@ public final class DirEntryCheckerTest
     @Test
     public void withIncludeHereOne() {
 
-        final DirBakerConf conf = DirBakerConf.builder()
+        final DirBakeOptions conf = DirBakeOptions.builder()
                 .filesToIncludeHere("*.adoc")
                 .build();
         final DirEntryChecker checker = new DirEntryChecker(conf);
@@ -145,7 +145,7 @@ public final class DirEntryCheckerTest
     @Test
     public void withIncludeHereTwo() {
 
-        final DirBakerConf conf = DirBakerConf.builder()
+        final DirBakeOptions conf = DirBakeOptions.builder()
                 .filesToIncludeHere("*.adoc", "*.svg")
                 .build();
         final DirEntryChecker checker = new DirEntryChecker(conf);
@@ -167,7 +167,7 @@ public final class DirEntryCheckerTest
     @Test
     public void withExcludeAndInclude() {
 
-        final DirBakerConf conf = DirBakerConf.builder()
+        final DirBakeOptions conf = DirBakeOptions.builder()
                 .filesToExclude("*.txt")
                 .filesToIncludeHere("*.adoc")
                 .build();
@@ -188,7 +188,7 @@ public final class DirEntryCheckerTest
     @Test
     public void pathWithExcludeOne() {
 
-        final DirBakerConf conf = DirBakerConf.builder()
+        final DirBakeOptions conf = DirBakeOptions.builder()
                 .filesToExclude("*.txt")
                 .build();
         final DirEntryChecker checker = new DirEntryChecker(conf);

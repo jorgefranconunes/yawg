@@ -18,7 +18,7 @@ import org.junit.Test;
 
 import com.varmateo.testutils.TestUtils;
 import com.varmateo.yawg.core.DirBaker;
-import com.varmateo.yawg.core.DirBakerConf;
+import com.varmateo.yawg.core.DirBakeOptions;
 import com.varmateo.yawg.core.FileBaker;
 import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogFactory;
@@ -41,8 +41,8 @@ import static org.mockito.Mockito.when;
 public final class DirBakerTest {
 
 
-    private static DirBakerConf _emptyConf;
-    private static DirBakerConfDao _confDao;
+    private static DirBakeOptions _emptyConf;
+    private static DirBakeOptionsDao _confDao;
 
     private TemplateService _templateServiceMock;
     private DirBakeListener _dirBakeListenerMock;
@@ -56,8 +56,8 @@ public final class DirBakerTest {
     @BeforeClass
     public static void classSetUp() {
 
-        _emptyConf = DirBakerConf.builder().build();
-        _confDao = new DirBakerConfDao();
+        _emptyConf = DirBakeOptions.builder().build();
+        _confDao = new DirBakeOptionsDao();
     }
 
 
@@ -101,7 +101,7 @@ public final class DirBakerTest {
     @Test
     public void bakeSomeWithConfFixed() {
 
-        final DirBakerConf conf = DirBakerConf.builder()
+        final DirBakeOptions conf = DirBakeOptions.builder()
                 .filesToExclude("*.txt")
                 .build();
 

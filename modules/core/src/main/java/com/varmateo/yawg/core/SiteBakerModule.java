@@ -10,12 +10,12 @@ import io.vavr.collection.List;
 import io.vavr.collection.Seq;
 import io.vavr.control.Option;
 
-import com.varmateo.yawg.api.SiteBakerOptions;
+import com.varmateo.yawg.api.BakeOptions;
 import com.varmateo.yawg.core.CollectiveDirBakeListener;
 import com.varmateo.yawg.core.CollectiveTemplateService;
 import com.varmateo.yawg.core.CopyPageBaker;
 import com.varmateo.yawg.core.DirBaker;
-import com.varmateo.yawg.core.DirBakerConfDao;
+import com.varmateo.yawg.core.DirBakeOptionsDao;
 import com.varmateo.yawg.core.FileBaker;
 import com.varmateo.yawg.core.SingleSiteBaker;
 import com.varmateo.yawg.logging.Log;
@@ -36,7 +36,7 @@ import com.varmateo.yawg.util.Services;
 /* package private */ final class SiteBakerModule {
 
 
-    private final SiteBakerOptions _options;
+    private final BakeOptions _options;
 
     private final Holder<Seq<PageBaker>> _bakers = Holder.of(this::newBakers);
 
@@ -46,7 +46,7 @@ import com.varmateo.yawg.util.Services;
 
     private final Holder<DirBaker> _dirBaker = Holder.of(this::newDirBaker);
 
-    private final Holder<DirBakerConfDao> _dirBakerConfDao = Holder.of(this::newDirBakerConfDao);
+    private final Holder<DirBakeOptionsDao> _dirBakerConfDao = Holder.of(this::newDirBakeOptionsDao);
 
     private final Holder<FileBaker> _fileBaker = Holder.of(this::newFileBaker);
 
@@ -60,7 +60,7 @@ import com.varmateo.yawg.util.Services;
     /**
      * @param options Configuration parameters.
      */
-    SiteBakerModule(final SiteBakerOptions options) {
+    SiteBakerModule(final BakeOptions options) {
 
         _options = options;
     }
@@ -125,9 +125,9 @@ import com.varmateo.yawg.util.Services;
     /**
      *
      */
-    private DirBakerConfDao newDirBakerConfDao() {
+    private DirBakeOptionsDao newDirBakeOptionsDao() {
 
-        return new DirBakerConfDao();
+        return new DirBakeOptionsDao();
     }
 
 

@@ -17,10 +17,10 @@ import org.junit.Test;
 
 import com.varmateo.testutils.TestUtils;
 import com.varmateo.yawg.api.YawgException;
-import com.varmateo.yawg.core.DirBakerConfDao;
+import com.varmateo.yawg.core.DirBakeOptionsDao;
 import com.varmateo.yawg.spi.PageVars;
 
-import static com.varmateo.yawg.core.DirBakerConfTestUtils.assertConfEquals;
+import static com.varmateo.yawg.core.DirBakeOptionsTestUtils.assertConfEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -28,18 +28,18 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 /**
  *
  */
-public final class DirBakerConfDaoTest
+public final class DirBakeOptionsDaoTest
  {
 
 
-    private final DirBakerConf _emptyConf = DirBakerConf.empty();
-    private DirBakerConfDao _dao = null;
+    private final DirBakeOptions _emptyConf = DirBakeOptions.empty();
+    private DirBakeOptionsDao _dao = null;
 
 
     @Before
     public void setUp() {
 
-        _dao = new DirBakerConfDao();
+        _dao = new DirBakeOptionsDao();
     }
 
 
@@ -51,8 +51,8 @@ public final class DirBakerConfDaoTest
             throws IOException {
 
         final String confContents = "";
-        final DirBakerConf actualConf = readFromString(confContents);
-        final DirBakerConf expectedConf = _emptyConf;
+        final DirBakeOptions actualConf = readFromString(confContents);
+        final DirBakeOptions expectedConf = _emptyConf;
 
         assertConfEquals(expectedConf, actualConf);
     }
@@ -67,8 +67,8 @@ public final class DirBakerConfDaoTest
 
         final String templateName = "demo";
         final String confContents = "template: " + templateName;
-        final DirBakerConf actualConf = readFromString(confContents);
-        final DirBakerConf expectedConf = DirBakerConf.builder()
+        final DirBakeOptions actualConf = readFromString(confContents);
+        final DirBakeOptions expectedConf = DirBakeOptions.builder()
                 .templateName(templateName)
                 .build();
 
@@ -113,8 +113,8 @@ public final class DirBakerConfDaoTest
                 + "exclude:\n"
                 + "  - one\n"
                 + "  - .*~\n";
-        final DirBakerConf actualConf = readFromString(confContents);
-        final DirBakerConf expectedConf = DirBakerConf.builder()
+        final DirBakeOptions actualConf = readFromString(confContents);
+        final DirBakeOptions expectedConf = DirBakeOptions.builder()
                 .filesToExclude("one", ".*~")
                 .build();
 
@@ -176,8 +176,8 @@ public final class DirBakerConfDaoTest
                 + "excludeHere:\n"
                 + "  - one\n"
                 + "  - two\n";
-        final DirBakerConf actualConf = readFromString(confContents);
-        final DirBakerConf expectedConf = DirBakerConf.builder()
+        final DirBakeOptions actualConf = readFromString(confContents);
+        final DirBakeOptions expectedConf = DirBakeOptions.builder()
                 .filesToExcludeHere("one", "two")
                 .build();
 
@@ -196,8 +196,8 @@ public final class DirBakerConfDaoTest
                 + "includeHere:\n"
                 + "  - one\n"
                 + "  - two\n";
-        final DirBakerConf actualConf = readFromString(confContents);
-        final DirBakerConf expectedConf = DirBakerConf.builder()
+        final DirBakeOptions actualConf = readFromString(confContents);
+        final DirBakeOptions expectedConf = DirBakeOptions.builder()
                 .filesToIncludeHere("one", "two")
                 .build();
 
@@ -230,9 +230,9 @@ public final class DirBakerConfDaoTest
                 + "      - '*.html'\n"
                 + "  other :\n"
                 +"       - '*.adoc'\n";
-        final DirBakerConf actualConf = readFromString(confContents);
-        final DirBakerConf expectedConf =
-                DirBakerConf.builder()
+        final DirBakeOptions actualConf = readFromString(confContents);
+        final DirBakeOptions expectedConf =
+                DirBakeOptions.builder()
                 .addBakerType("something", "*.txt", "*.html")
                 .addBakerType("other", "*.adoc")
                 .build();
@@ -251,7 +251,7 @@ public final class DirBakerConfDaoTest
         final String confContents = ""
                 + "pageVars:\n"
                 + "  hello : 'world'\n";
-        final DirBakerConf actualConf = readFromString(confContents);
+        final DirBakeOptions actualConf = readFromString(confContents);
         final PageVars vars = actualConf.pageVars;
         final Optional<Object> value = vars.get("hello");
 
@@ -271,7 +271,7 @@ public final class DirBakerConfDaoTest
         final String confContents = ""
                 + "pageVarsHere:\n"
                 + "  hello : 'world'\n";
-        final DirBakerConf actualConf = readFromString(confContents);
+        final DirBakeOptions actualConf = readFromString(confContents);
         final PageVars vars = actualConf.pageVarsHere;
         final Optional<Object> value = vars.get("hello");
 
@@ -287,10 +287,10 @@ public final class DirBakerConfDaoTest
     @Test
     public void loadFromFileOk() {
 
-        final Path confFile = TestUtils.getInputsDir(DirBakerConfDao.class)
+        final Path confFile = TestUtils.getInputsDir(DirBakeOptionsDao.class)
                 .resolve("dirWithYawgYml/.yawg.yml");
-        final DirBakerConf actualConf = _dao.loadFromFile(confFile);
-        final DirBakerConf expectedConf = DirBakerConf.builder()
+        final DirBakeOptions actualConf = _dao.loadFromFile(confFile);
+        final DirBakeOptions expectedConf = DirBakeOptions.builder()
                 .templateName("demo")
                 .build();
 
@@ -317,10 +317,10 @@ public final class DirBakerConfDaoTest
     @Test
     public void loadOk() {
 
-        final Path sourceDir = TestUtils.getInputsDir(DirBakerConfDao.class)
+        final Path sourceDir = TestUtils.getInputsDir(DirBakeOptionsDao.class)
                 .resolve("dirWithYawgYml");
-        final DirBakerConf actualConf = _dao.loadFromDir(sourceDir);
-        final DirBakerConf expectedConf = DirBakerConf.builder()
+        final DirBakeOptions actualConf = _dao.loadFromDir(sourceDir);
+        final DirBakeOptions expectedConf = DirBakeOptions.builder()
                 .templateName("demo")
                 .build();
 
@@ -335,10 +335,10 @@ public final class DirBakerConfDaoTest
     public void loadNoYawgYml() {
 
         final Path sourceDir = TestUtils
-                .getInputsDir(DirBakerConfDao.class)
+                .getInputsDir(DirBakeOptionsDao.class)
                 .resolve("dirWithNoYawgYml");
-        final DirBakerConf actualConf = _dao.loadFromDir(sourceDir);
-        final DirBakerConf expectedConf = _emptyConf;
+        final DirBakeOptions actualConf = _dao.loadFromDir(sourceDir);
+        final DirBakeOptions expectedConf = _emptyConf;
 
         assertConfEquals(expectedConf, actualConf);
     }
@@ -347,7 +347,7 @@ public final class DirBakerConfDaoTest
     /**
      *
      */
-    private DirBakerConf readFromString(final String confContents)
+    private DirBakeOptions readFromString(final String confContents)
             throws IOException {
 
         return _dao.read(new StringReader(confContents));

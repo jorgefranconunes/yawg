@@ -18,7 +18,7 @@ import org.inferred.freebuilder.FreeBuilder;
  * <code>SiteBaker</code> instance.
  */
 @FreeBuilder
-public interface SiteBakerOptions {
+public interface BakeOptions {
 
 
     /**
@@ -76,7 +76,7 @@ public interface SiteBakerOptions {
     /**
      *
      */
-    static final class Builder extends SiteBakerOptions_Builder {
+    static final class Builder extends BakeOptions_Builder {
 
         private Builder() {
             // Nothing to do.

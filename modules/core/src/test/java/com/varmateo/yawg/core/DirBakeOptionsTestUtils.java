@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -8,21 +8,21 @@ package com.varmateo.yawg.core;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.varmateo.yawg.core.DirBakerConf;
+import com.varmateo.yawg.core.DirBakeOptions;
 import com.varmateo.yawg.util.GlobMatcher;
 
 
 /**
  * Utility methods used by unit tests.
  */
-/* package private */ final class DirBakerConfTestUtils
+/* package private */ final class DirBakeOptionsTestUtils
  {
 
 
     /**
      * No instances of this class are to be created.
      */
-    private DirBakerConfTestUtils() {
+    private DirBakeOptionsTestUtils() {
         // Nothing to do.
     }
 
@@ -31,8 +31,8 @@ import com.varmateo.yawg.util.GlobMatcher;
      *
      */
     public static void assertConfEquals(
-            final DirBakerConf expectedConf,
-            final DirBakerConf actualConf) {
+            final DirBakeOptions expectedConf,
+            final DirBakeOptions actualConf) {
 
         assertThat(actualConf.templateName)
                 .isEqualTo(expectedConf.templateName);

@@ -19,7 +19,7 @@ import io.vavr.Tuple2;
 import io.vavr.control.Try;
 
 import com.varmateo.yawg.api.SiteBaker;
-import com.varmateo.yawg.api.SiteBakerOptions;
+import com.varmateo.yawg.api.BakeOptions;
 import com.varmateo.yawg.api.SiteBakerFactory;
 
 
@@ -128,7 +128,7 @@ public final class BakerCli {
     private static Try<Void> doBake(final CliParameterSet cliOptions)
             throws CliException {
 
-        final SiteBakerOptions options = buildSiteBakerOptions(cliOptions);
+        final BakeOptions options = buildBakeOptions(cliOptions);
         final SiteBakerFactory factory = SiteBakerFactory.get();
         final SiteBaker siteBaker = factory.newSiteBaker();
 
@@ -139,7 +139,7 @@ public final class BakerCli {
     /**
      *
      */
-    private static SiteBakerOptions buildSiteBakerOptions(final CliParameterSet cliOptions)
+    private static BakeOptions buildBakeOptions(final CliParameterSet cliOptions)
             throws CliException {
 
         final Path sourceDir = cliOptions.getPath(BakerCliParameters.SOURCE_DIR);
@@ -148,7 +148,7 @@ public final class BakerCli {
         final Path assetsDir = cliOptions.getPath(BakerCliParameters.ASSETS_DIR, null);
         final java.util.Map<String,Object> externalPageVars = buildExternalPageVars(cliOptions);
 
-        return SiteBakerOptions.builder()
+        return BakeOptions.builder()
                 .sourceDir(sourceDir)
                 .targetDir(targetDir)
                 .templatesDir(Optional.ofNullable(templatesDir))

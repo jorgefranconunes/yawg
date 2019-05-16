@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 import io.vavr.collection.List;
 import io.vavr.collection.Seq;
 
-import com.varmateo.yawg.core.DirBakerConf;
+import com.varmateo.yawg.core.DirBakeOptions;
 import com.varmateo.yawg.core.DirEntryChecker;
 
 
@@ -32,9 +32,9 @@ import com.varmateo.yawg.core.DirEntryChecker;
     /**
      *
      */
-    DirEntryScanner(final DirBakerConf conf) {
+    DirEntryScanner(final DirBakeOptions options) {
 
-        _entryFilter = new DirEntryChecker(conf).asPathPredicate();
+        _entryFilter = new DirEntryChecker(options).asPathPredicate();
     }
 
 

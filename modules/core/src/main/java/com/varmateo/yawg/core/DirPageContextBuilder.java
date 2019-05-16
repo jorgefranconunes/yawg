@@ -1,13 +1,13 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.core;
 
 import com.varmateo.yawg.api.YawgException;
-import com.varmateo.yawg.core.DirBakerConf;
+import com.varmateo.yawg.core.DirBakeOptions;
 import com.varmateo.yawg.core.TemplateNameMatcher;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.PageContextBuilder;
@@ -50,7 +50,7 @@ final class DirPageContextBuilder {
      */
     public PageContext buildPageContext(
             final Path targetDir,
-            final DirBakerConf dirBakerConf,
+            final DirBakeOptions dirBakerConf,
             final PageVars extensionVars)
             throws YawgException {
 
@@ -79,7 +79,7 @@ final class DirPageContextBuilder {
      * exception.
      */
     private Function<Path,Optional<Template>> buildTemplateFetcher(
-            final DirBakerConf dirBakerConf)
+            final DirBakeOptions dirBakerConf)
             throws YawgException {
 
         Option<String> templateName = dirBakerConf.templateName;
