@@ -18,7 +18,7 @@
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.util.Optional;
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.api.SiteBakerOptions;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.api.BakeOptions;
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.api.YawgException;
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.api.YawgInfo;
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.DirBaker;
@@ -35,7 +35,7 @@
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="Log" href="../../../../com/varmateo/yawg/logging/Log.html#Log">Log</a> _log;
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="SiteBakerOptions" href="../../../../com/varmateo/yawg/api/SiteBakerOptions.html#SiteBakerOptions">SiteBakerOptions</a> _options;
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="BakeOptions" href="../../../../com/varmateo/yawg/api/BakeOptions.html#BakeOptions">BakeOptions</a> _options;
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="AssetsCopier" href="../../../../com/varmateo/yawg/core/AssetsCopier.html#AssetsCopier">AssetsCopier</a> _assetsCopier;
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="SourceTreeBaker" href="../../../../com/varmateo/yawg/core/SourceTreeBaker.html#SourceTreeBaker">SourceTreeBaker</a> _sourceTreeBaker;
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  
@@ -47,7 +47,7 @@
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>      <a name="SingleSiteBaker" href="../../../../com/varmateo/yawg/core/SingleSiteBaker.html#SingleSiteBaker">SingleSiteBaker</a>(
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>              <strong class="jxr_keyword">final</strong> <a name="Log" href="../../../../com/varmateo/yawg/logging/Log.html#Log">Log</a> log,
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>              <strong class="jxr_keyword">final</strong> <a name="SiteBakerOptions" href="../../../../com/varmateo/yawg/api/SiteBakerOptions.html#SiteBakerOptions">SiteBakerOptions</a> options,
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>              <strong class="jxr_keyword">final</strong> <a name="BakeOptions" href="../../../../com/varmateo/yawg/api/BakeOptions.html#BakeOptions">BakeOptions</a> options,
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>              <strong class="jxr_keyword">final</strong> <a name="DirBaker" href="../../../../com/varmateo/yawg/core/DirBaker.html#DirBaker">DirBaker</a> dirBaker) {
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>          <strong class="jxr_keyword">final</strong> <a name="PageVars" href="../../../../com/varmateo/yawg/spi/PageVars.html#PageVars">PageVars</a> pageVars = mapToPageVars(options.externalPageVars());

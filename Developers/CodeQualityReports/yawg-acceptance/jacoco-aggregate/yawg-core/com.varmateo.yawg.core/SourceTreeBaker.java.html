@@ -10,7 +10,7 @@ import java.nio.file.Path;
 
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.core.DirBaker;
-import com.varmateo.yawg.core.DirBakerConf;
+import com.varmateo.yawg.core.DirBakeOptions;
 import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.Logs;
 import com.varmateo.yawg.spi.PageVars;
@@ -68,12 +68,12 @@ import com.varmateo.yawg.spi.PageVars;
     private void doBake()
             throws YawgException {
 
-<span class="fc" id="L71">        final DirBakerConf dirBakerConf = DirBakerConf.builder()</span>
+<span class="fc" id="L71">        final DirBakeOptions dirBakeOptions = DirBakeOptions.builder()</span>
 <span class="fc" id="L72">                .templateName(DEFAULT_TEMPLATE_NAME)</span>
 <span class="fc" id="L73">                .pageVars(_externalPageVars)</span>
 <span class="fc" id="L74">                .build();</span>
 
-<span class="fc" id="L76">        _dirBaker.bakeDirectory(_sourceDir, _targetDir, dirBakerConf);</span>
+<span class="fc" id="L76">        _dirBaker.bakeDirectory(_sourceDir, _targetDir, dirBakeOptions);</span>
 <span class="fc" id="L77">    }</span>
 
 

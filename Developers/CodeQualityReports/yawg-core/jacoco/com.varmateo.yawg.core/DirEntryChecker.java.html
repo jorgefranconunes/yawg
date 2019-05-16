@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DirEntryChecker.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">DirEntryChecker.java</span></div><h1>DirEntryChecker.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -10,7 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.function.Predicate;
 
-import com.varmateo.yawg.core.DirBakerConf;
+import com.varmateo.yawg.core.DirBakeOptions;
 
 
 /**
@@ -19,17 +19,17 @@ import com.varmateo.yawg.core.DirBakerConf;
 /* package private */ final class DirEntryChecker {
 
 
-    private final DirBakerConf _conf;
+    private final DirBakeOptions _options;
     private final boolean _isIncludeHere;
 
 
     /**
      *
      */
-<span class="fc" id="L29">    DirEntryChecker(final DirBakerConf conf) {</span>
+<span class="fc" id="L29">    DirEntryChecker(final DirBakeOptions options) {</span>
 
-<span class="fc" id="L31">        _conf = conf;</span>
-<span class="fc" id="L32">        _isIncludeHere = conf.filesToIncludeHere.isDefined();</span>
+<span class="fc" id="L31">        _options = options;</span>
+<span class="fc" id="L32">        _isIncludeHere = options.filesToIncludeHere.isDefined();</span>
 <span class="fc" id="L33">    }</span>
 
 
@@ -78,7 +78,7 @@ import com.varmateo.yawg.core.DirBakerConf;
      */
     private boolean testForIncludeHere(final Path path) {
 
-<span class="fc" id="L81">        return _conf.filesToIncludeHere</span>
+<span class="fc" id="L81">        return _options.filesToIncludeHere</span>
 <span class="fc" id="L82">                .map(matcher -&gt; matcher.test(path))</span>
 <span class="fc" id="L83">                .getOrElse(false);</span>
     }
@@ -89,10 +89,10 @@ import com.varmateo.yawg.core.DirBakerConf;
      */
     private boolean testForExclude(final Path path) {
 
-<span class="fc" id="L92">        return _conf.filesToExclude</span>
+<span class="fc" id="L92">        return _options.filesToExclude</span>
 <span class="fc" id="L93">                .map(matcher -&gt; matcher.test(path))</span>
 <span class="fc bfc" id="L94" title="All 2 branches covered.">                .getOrElse(false)</span>
-                || _conf.filesToExcludeHere
+                || _options.filesToExcludeHere
 <span class="fc" id="L96">                .map(matcher -&gt; matcher.test(path))</span>
 <span class="fc bfc" id="L97" title="All 2 branches covered.">                .getOrElse(false);</span>
     }

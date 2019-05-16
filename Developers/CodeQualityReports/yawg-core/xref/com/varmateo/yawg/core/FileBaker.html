@@ -69,10 +69,10 @@
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>              <strong class="jxr_keyword">final</strong> Path sourcePath,
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>              <strong class="jxr_keyword">final</strong> PageContext context,
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>              <strong class="jxr_keyword">final</strong> Path targetDir,
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>              <strong class="jxr_keyword">final</strong> <a name="DirBakerConf" href="../../../../com/varmateo/yawg/core/DirBakerConf.html#DirBakerConf">DirBakerConf</a> dirBakerConf)
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>              <strong class="jxr_keyword">final</strong> <a name="DirBakeOptions" href="../../../../com/varmateo/yawg/core/DirBakeOptions.html#DirBakeOptions">DirBakeOptions</a> dirBakeOptions)
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>              <strong class="jxr_keyword">throws</strong> YawgException {
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>          <strong class="jxr_keyword">final</strong> PageBaker baker = findBaker(sourcePath, dirBakerConf);
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>          <strong class="jxr_keyword">final</strong> PageBaker baker = findBaker(sourcePath, dirBakeOptions);
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>          <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> startTime = System.currentTimeMillis();
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>  
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>          baker.bake(sourcePath, context, targetDir);
@@ -90,10 +90,10 @@
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>      <strong class="jxr_keyword">private</strong> PageBaker findBaker(
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>              <strong class="jxr_keyword">final</strong> Path sourcePath,
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>              <strong class="jxr_keyword">final</strong> <a name="DirBakerConf" href="../../../../com/varmateo/yawg/core/DirBakerConf.html#DirBakerConf">DirBakerConf</a> dirBakerConf)
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>              <strong class="jxr_keyword">final</strong> <a name="DirBakeOptions" href="../../../../com/varmateo/yawg/core/DirBakeOptions.html#DirBakeOptions">DirBakeOptions</a> dirBakeOptions)
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>              <strong class="jxr_keyword">throws</strong> YawgException {
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>  
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>          <strong class="jxr_keyword">return</strong> dirBakerConf.bakerTypes
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>          <strong class="jxr_keyword">return</strong> dirBakeOptions.bakerTypes
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>                  .flatMap(bakerTypes -&gt; bakerTypes.bakerTypeFor(sourcePath))
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>                  .map(bakerType -&gt; findBakerWithType(bakerType))
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>                  .getOrElse(() -&gt; findBakerFromAll(sourcePath));

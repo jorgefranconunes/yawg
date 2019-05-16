@@ -7,8 +7,8 @@
 package com.varmateo.yawg.core;
 
 import com.varmateo.yawg.api.YawgException;
-import com.varmateo.yawg.core.DirBakerConf;
-import com.varmateo.yawg.core.DirBakerConfDao;
+import com.varmateo.yawg.core.DirBakeOptions;
+import com.varmateo.yawg.core.DirBakeOptionsDao;
 import com.varmateo.yawg.core.DirEntryScanner;
 import com.varmateo.yawg.core.DirPageContextBuilder;
 import com.varmateo.yawg.core.FileBaker;
@@ -36,7 +36,7 @@ import java.nio.file.Path;
     private final Log _log;
     private final Path _sourceRootDir;
     private final FileBaker _fileBaker;
-    private final DirBakerConfDao _dirBakerConfDao;
+    private final DirBakeOptionsDao _dirBakerConfDao;
     private final DirBakeListener _listener;
     private final DirPageContextBuilder _dirPageContextBuilder;
 
@@ -68,7 +68,7 @@ import java.nio.file.Path;
             final Path targetRootDir,
             final FileBaker fileBaker,
             final TemplateService templateService,
-            final DirBakerConfDao dirBakerConfDao,
+            final DirBakeOptionsDao dirBakerConfDao,
 <span class="fc" id="L72">            final DirBakeListener dirBakeListener) {</span>
 
 <span class="fc" id="L74">        _log = log;</span>
@@ -86,7 +86,7 @@ import java.nio.file.Path;
     public void bakeDirectory(
             final Path sourceDir,
             final Path targetDir,
-            final DirBakerConf parentDirBakerConf)
+            final DirBakeOptions parentDirBakeOptions)
             throws YawgException {
 
 <span class="fc" id="L92">        final PageVars parentExtensionVars = PageVars.empty();</span>
@@ -94,7 +94,7 @@ import java.nio.file.Path;
 <span class="fc" id="L94">        doBakeDirectory(</span>
                 sourceDir,
                 targetDir,
-                parentDirBakerConf,
+                parentDirBakeOptions,
                 parentExtensionVars);
 <span class="fc" id="L99">    }</span>
 
@@ -105,7 +105,7 @@ import java.nio.file.Path;
     private void doBakeDirectory(
             final Path sourceDir,
             final Path targetDir,
-            final DirBakerConf parentDirBakerConf,
+            final DirBakeOptions parentDirBakeOptions,
             final PageVars parentExtensionVars)
             throws YawgException {
 
@@ -114,9 +114,9 @@ import java.nio.file.Path;
 
 <span class="fc" id="L115">        createDirIfNeeded(targetDir);</span>
 
-<span class="fc" id="L117">        final DirBakerConf dirBakerConf = _dirBakerConfDao</span>
+<span class="fc" id="L117">        final DirBakeOptions dirBakerConf = _dirBakerConfDao</span>
 <span class="fc" id="L118">                .loadFromDir(sourceDir)</span>
-<span class="fc" id="L119">                .mergeOnTopOf(parentDirBakerConf);</span>
+<span class="fc" id="L119">                .mergeOnTopOf(parentDirBakeOptions);</span>
 <span class="fc" id="L120">        final PageContext context = _dirPageContextBuilder.buildPageContext(</span>
                 targetDir,
                 dirBakerConf,
@@ -154,7 +154,7 @@ import java.nio.file.Path;
      */
     private Seq&lt;Path&gt; getDirEntries(
             final Path dir,
-            final DirBakerConf dirBakerConf) {
+            final DirBakeOptions dirBakerConf) {
 
 <span class="fc" id="L159">        final DirEntryScanner scanner = new DirEntryScanner(dirBakerConf);</span>
 
@@ -170,7 +170,7 @@ import java.nio.file.Path;
     private void bakeChildFiles(
             final Seq&lt;Path&gt; dirEntries,
             final Path targetDir,
-            final DirBakerConf dirBakerConf,
+            final DirBakeOptions dirBakerConf,
             final PageContext context)
             throws YawgException {
 
@@ -188,7 +188,7 @@ import java.nio.file.Path;
     private void bakeChildDirectories(
             final Seq&lt;Path&gt; dirEntries,
             final Path targetDir,
-            final DirBakerConf dirBakerConf,
+            final DirBakeOptions dirBakerConf,
             final PageVars extensionVars) {
 
 <span class="fc" id="L194">        final Seq&lt;Path&gt; dirPathList = dirEntries.filter(Files::isDirectory);</span>
@@ -208,24 +208,24 @@ import java.nio.file.Path;
     private void bakeExtraDirectories(
             final Path sourceDir,
             final Path targetDir,
-            final DirBakerConf dirBakerConf,
+            final DirBakeOptions dirBakerConf,
             final PageVars extensionVars) {
 
 <span class="fc" id="L214">        final Seq&lt;Path&gt; extraDirPathList = dirBakerConf.extraDirsHere</span>
 <span class="fc" id="L215">                .map(path -&gt; sourceDir.resolve(path));</span>
 
 <span class="fc bfc" id="L217" title="All 2 branches covered.">        for ( final Path extraSourceDir : extraDirPathList ) {</span>
-<span class="fc" id="L218">            final DirBakerConf extraDirBakerConf = _dirBakerConfDao</span>
+<span class="fc" id="L218">            final DirBakeOptions extraDirBakeOptions = _dirBakerConfDao</span>
 <span class="fc" id="L219">                    .loadFromDir(extraSourceDir)</span>
 <span class="fc" id="L220">                    .mergeOnTopOf(dirBakerConf);</span>
-<span class="fc" id="L221">            final Seq&lt;Path&gt; dirEntries = getDirEntries(extraSourceDir, extraDirBakerConf);</span>
+<span class="fc" id="L221">            final Seq&lt;Path&gt; dirEntries = getDirEntries(extraSourceDir, extraDirBakeOptions);</span>
 <span class="fc" id="L222">            final PageContext extraContext = _dirPageContextBuilder.buildPageContext(</span>
                     targetDir,
-                    extraDirBakerConf,
+                    extraDirBakeOptions,
                     extensionVars);
 
-<span class="fc" id="L227">            bakeChildFiles(dirEntries, targetDir, extraDirBakerConf, extraContext);</span>
-<span class="fc" id="L228">            bakeChildDirectories(dirEntries, targetDir, extraDirBakerConf, extensionVars);</span>
+<span class="fc" id="L227">            bakeChildFiles(dirEntries, targetDir, extraDirBakeOptions, extraContext);</span>
+<span class="fc" id="L228">            bakeChildDirectories(dirEntries, targetDir, extraDirBakeOptions, extensionVars);</span>
 <span class="fc" id="L229">        }</span>
 <span class="fc" id="L230">    }</span>
 

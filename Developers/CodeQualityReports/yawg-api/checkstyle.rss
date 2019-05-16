@@ -46,6 +46,20 @@ under the License.
           <tbody>
                           <tr>
                 <td>
+                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.BakeOptions_Builder.java">com/varmateo/yawg/api/BakeOptions_Builder.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  59
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.SiteBaker.java">com/varmateo/yawg/api/SiteBaker.java</a>
                 </td>
                 <td>
@@ -60,7 +74,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.SiteBakerOptions.java">com/varmateo/yawg/api/SiteBakerOptions.java</a>
+                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.BakeOptions.java">com/varmateo/yawg/api/BakeOptions.java</a>
                 </td>
                 <td>
                   0
@@ -70,20 +84,6 @@ under the License.
                 </td>
                 <td>
                   1
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.SiteBakerOptions_Builder.java">com/varmateo/yawg/api/SiteBakerOptions_Builder.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  59
                 </td>
               </tr>
                           <tr>

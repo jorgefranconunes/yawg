@@ -22,7 +22,7 @@
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> org.junit.Test;
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.DirBakerConf;
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.DirBakeOptions;
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.DirEntryChecker;
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>  
@@ -39,7 +39,7 @@
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>      @Test
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> withEmptyConf() {
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>          DirBakerConf conf = DirBakerConf.empty();
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>          DirBakeOptions conf = DirBakeOptions.empty();
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>          DirEntryChecker checker = <strong class="jxr_keyword">new</strong> DirEntryChecker(conf);
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>          Predicate&lt;String&gt; predicate = checker.asStringPredicate();
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  
@@ -53,7 +53,7 @@
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>      @Test
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> withExcludeOne() {
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>          <strong class="jxr_keyword">final</strong> DirBakerConf conf = DirBakerConf.builder()
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>          <strong class="jxr_keyword">final</strong> DirBakeOptions conf = DirBakeOptions.builder()
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>                  .filesToExclude(<span class="jxr_string">"*.txt"</span>)
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>                  .build();
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>          <strong class="jxr_keyword">final</strong> DirEntryChecker checker = <strong class="jxr_keyword">new</strong> DirEntryChecker(conf);
@@ -71,7 +71,7 @@
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>      @Test
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> withExcludeMany() {
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>          <strong class="jxr_keyword">final</strong> DirBakerConf conf = DirBakerConf.builder()
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>          <strong class="jxr_keyword">final</strong> DirBakeOptions conf = DirBakeOptions.builder()
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>                  .filesToExclude(<span class="jxr_string">"*.txt"</span>, <span class="jxr_string">"*.puml"</span>, <span class="jxr_string">"*~"</span>)
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>                  .build();
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>          <strong class="jxr_keyword">final</strong> DirEntryChecker checker = <strong class="jxr_keyword">new</strong> DirEntryChecker(conf);
@@ -92,7 +92,7 @@
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>      @Test
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> withExcludeHere() {
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>  
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>          <strong class="jxr_keyword">final</strong> DirBakerConf conf = DirBakerConf.builder()
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>          <strong class="jxr_keyword">final</strong> DirBakeOptions conf = DirBakeOptions.builder()
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>                  .filesToExcludeHere(<span class="jxr_string">"*.txt"</span>, <span class="jxr_string">"*.puml"</span>, <span class="jxr_string">"*~"</span>)
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>                  .build();
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>          <strong class="jxr_keyword">final</strong> DirEntryChecker checker = <strong class="jxr_keyword">new</strong> DirEntryChecker(conf);
@@ -113,7 +113,7 @@
 <a class="jxr_linenumber" name="L105" href="#L105">105</a>     @Test
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> withExcludeAndExcludeHere() {
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> 
-<a class="jxr_linenumber" name="L108" href="#L108">108</a>         <strong class="jxr_keyword">final</strong> DirBakerConf conf = DirBakerConf.builder()
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>         <strong class="jxr_keyword">final</strong> DirBakeOptions conf = DirBakeOptions.builder()
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>                 .filesToExclude(<span class="jxr_string">"*.txt"</span>)
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>                 .filesToExcludeHere(<span class="jxr_string">"*.puml"</span>, <span class="jxr_string">"*~"</span>)
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>                 .build();
@@ -135,7 +135,7 @@
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>     @Test
 <a class="jxr_linenumber" name="L128" href="#L128">128</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> withIncludeHereOne() {
 <a class="jxr_linenumber" name="L129" href="#L129">129</a> 
-<a class="jxr_linenumber" name="L130" href="#L130">130</a>         <strong class="jxr_keyword">final</strong> DirBakerConf conf = DirBakerConf.builder()
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>         <strong class="jxr_keyword">final</strong> DirBakeOptions conf = DirBakeOptions.builder()
 <a class="jxr_linenumber" name="L131" href="#L131">131</a>                 .filesToIncludeHere(<span class="jxr_string">"*.adoc"</span>)
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>                 .build();
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>         <strong class="jxr_keyword">final</strong> DirEntryChecker checker = <strong class="jxr_keyword">new</strong> DirEntryChecker(conf);
@@ -153,7 +153,7 @@
 <a class="jxr_linenumber" name="L145" href="#L145">145</a>     @Test
 <a class="jxr_linenumber" name="L146" href="#L146">146</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> withIncludeHereTwo() {
 <a class="jxr_linenumber" name="L147" href="#L147">147</a> 
-<a class="jxr_linenumber" name="L148" href="#L148">148</a>         <strong class="jxr_keyword">final</strong> DirBakerConf conf = DirBakerConf.builder()
+<a class="jxr_linenumber" name="L148" href="#L148">148</a>         <strong class="jxr_keyword">final</strong> DirBakeOptions conf = DirBakeOptions.builder()
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>                 .filesToIncludeHere(<span class="jxr_string">"*.adoc"</span>, <span class="jxr_string">"*.svg"</span>)
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>                 .build();
 <a class="jxr_linenumber" name="L151" href="#L151">151</a>         <strong class="jxr_keyword">final</strong> DirEntryChecker checker = <strong class="jxr_keyword">new</strong> DirEntryChecker(conf);
@@ -175,7 +175,7 @@
 <a class="jxr_linenumber" name="L167" href="#L167">167</a>     @Test
 <a class="jxr_linenumber" name="L168" href="#L168">168</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> withExcludeAndInclude() {
 <a class="jxr_linenumber" name="L169" href="#L169">169</a> 
-<a class="jxr_linenumber" name="L170" href="#L170">170</a>         <strong class="jxr_keyword">final</strong> DirBakerConf conf = DirBakerConf.builder()
+<a class="jxr_linenumber" name="L170" href="#L170">170</a>         <strong class="jxr_keyword">final</strong> DirBakeOptions conf = DirBakeOptions.builder()
 <a class="jxr_linenumber" name="L171" href="#L171">171</a>                 .filesToExclude(<span class="jxr_string">"*.txt"</span>)
 <a class="jxr_linenumber" name="L172" href="#L172">172</a>                 .filesToIncludeHere(<span class="jxr_string">"*.adoc"</span>)
 <a class="jxr_linenumber" name="L173" href="#L173">173</a>                 .build();
@@ -196,7 +196,7 @@
 <a class="jxr_linenumber" name="L188" href="#L188">188</a>     @Test
 <a class="jxr_linenumber" name="L189" href="#L189">189</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> pathWithExcludeOne() {
 <a class="jxr_linenumber" name="L190" href="#L190">190</a> 
-<a class="jxr_linenumber" name="L191" href="#L191">191</a>         <strong class="jxr_keyword">final</strong> DirBakerConf conf = DirBakerConf.builder()
+<a class="jxr_linenumber" name="L191" href="#L191">191</a>         <strong class="jxr_keyword">final</strong> DirBakeOptions conf = DirBakeOptions.builder()
 <a class="jxr_linenumber" name="L192" href="#L192">192</a>                 .filesToExclude(<span class="jxr_string">"*.txt"</span>)
 <a class="jxr_linenumber" name="L193" href="#L193">193</a>                 .build();
 <a class="jxr_linenumber" name="L194" href="#L194">194</a>         <strong class="jxr_keyword">final</strong> DirEntryChecker checker = <strong class="jxr_keyword">new</strong> DirEntryChecker(conf);

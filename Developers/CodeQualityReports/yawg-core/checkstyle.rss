@@ -26,7 +26,7 @@ under the License.
     <copyright>&#169;2015 - 2019</copyright>
     <item>
       <title>File: 50,
-             Errors: 4,
+             Errors: 5,
              Warnings: 0,
              Infos: 0
       </title>
@@ -60,6 +60,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.core.DirBakeOptions.java">com/varmateo/yawg/core/DirBakeOptions.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.core.SiteBakerModule.java">com/varmateo/yawg/core/SiteBakerModule.java</a>
                 </td>
                 <td>
@@ -69,7 +83,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
               </tr>
                           <tr>
@@ -312,6 +326,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.core.DirBakeOptionsDao.java">com/varmateo/yawg/core/DirBakeOptionsDao.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.util.Services.java">com/varmateo/yawg/util/Services.java</a>
                 </td>
                 <td>
@@ -536,20 +564,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.core.DirBakerConf.java">com/varmateo/yawg/core/DirBakerConf.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.core.BakerMatcher.java">com/varmateo/yawg/core/BakerMatcher.java</a>
                 </td>
                 <td>
@@ -565,20 +579,6 @@ under the License.
                           <tr>
                 <td>
                   <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.util.Holder.java">com/varmateo/yawg/util/Holder.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.core.DirBakerConfDao.java">com/varmateo/yawg/core/DirBakerConfDao.java</a>
                 </td>
                 <td>
                   0

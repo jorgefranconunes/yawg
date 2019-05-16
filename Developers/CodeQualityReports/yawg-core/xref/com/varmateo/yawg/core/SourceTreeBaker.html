@@ -18,7 +18,7 @@
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.api.YawgException;
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.DirBaker;
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.DirBakerConf;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.core.DirBakeOptions;
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.logging.Log;
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.logging.Logs;
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.PageVars;
@@ -76,12 +76,12 @@
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> doBake()
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>              <strong class="jxr_keyword">throws</strong> YawgException {
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>  
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>          <strong class="jxr_keyword">final</strong> <a name="DirBakerConf" href="../../../../com/varmateo/yawg/core/DirBakerConf.html#DirBakerConf">DirBakerConf</a> dirBakerConf = DirBakerConf.builder()
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>          <strong class="jxr_keyword">final</strong> <a name="DirBakeOptions" href="../../../../com/varmateo/yawg/core/DirBakeOptions.html#DirBakeOptions">DirBakeOptions</a> dirBakeOptions = DirBakeOptions.builder()
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>                  .templateName(DEFAULT_TEMPLATE_NAME)
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>                  .pageVars(_externalPageVars)
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>                  .build();
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>  
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>          _dirBaker.bakeDirectory(_sourceDir, _targetDir, dirBakerConf);
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>          _dirBaker.bakeDirectory(_sourceDir, _targetDir, dirBakeOptions);
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>      }
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>  
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>  

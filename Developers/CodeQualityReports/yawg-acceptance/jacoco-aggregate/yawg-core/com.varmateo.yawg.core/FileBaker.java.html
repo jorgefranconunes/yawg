@@ -61,10 +61,10 @@ import com.varmateo.yawg.util.Exceptions;
             final Path sourcePath,
             final PageContext context,
             final Path targetDir,
-            final DirBakerConf dirBakerConf)
+            final DirBakeOptions dirBakeOptions)
             throws YawgException {
 
-<span class="fc" id="L67">        final PageBaker baker = findBaker(sourcePath, dirBakerConf);</span>
+<span class="fc" id="L67">        final PageBaker baker = findBaker(sourcePath, dirBakeOptions);</span>
 <span class="fc" id="L68">        final long startTime = System.currentTimeMillis();</span>
 
 <span class="fc" id="L70">        baker.bake(sourcePath, context, targetDir);</span>
@@ -82,10 +82,10 @@ import com.varmateo.yawg.util.Exceptions;
      */
     private PageBaker findBaker(
             final Path sourcePath,
-            final DirBakerConf dirBakerConf)
+            final DirBakeOptions dirBakeOptions)
             throws YawgException {
 
-<span class="fc" id="L88">        return dirBakerConf.bakerTypes</span>
+<span class="fc" id="L88">        return dirBakeOptions.bakerTypes</span>
 <span class="pc" id="L89">                .flatMap(bakerTypes -&gt; bakerTypes.bakerTypeFor(sourcePath))</span>
 <span class="pc" id="L90">                .map(bakerType -&gt; findBakerWithType(bakerType))</span>
 <span class="fc" id="L91">                .getOrElse(() -&gt; findBakerFromAll(sourcePath));</span>

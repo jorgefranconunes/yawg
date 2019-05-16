@@ -19,7 +19,7 @@ import io.vavr.Tuple2;
 import io.vavr.control.Try;
 
 import com.varmateo.yawg.api.SiteBaker;
-import com.varmateo.yawg.api.SiteBakerOptions;
+import com.varmateo.yawg.api.BakeOptions;
 import com.varmateo.yawg.api.SiteBakerFactory;
 
 
@@ -128,7 +128,7 @@ public final class BakerCli {
     private static Try&lt;Void&gt; doBake(final CliParameterSet cliOptions)
             throws CliException {
 
-<span class="nc" id="L131">        final SiteBakerOptions options = buildSiteBakerOptions(cliOptions);</span>
+<span class="nc" id="L131">        final BakeOptions options = buildBakeOptions(cliOptions);</span>
 <span class="nc" id="L132">        final SiteBakerFactory factory = SiteBakerFactory.get();</span>
 <span class="nc" id="L133">        final SiteBaker siteBaker = factory.newSiteBaker();</span>
 
@@ -139,7 +139,7 @@ public final class BakerCli {
     /**
      *
      */
-    private static SiteBakerOptions buildSiteBakerOptions(final CliParameterSet cliOptions)
+    private static BakeOptions buildBakeOptions(final CliParameterSet cliOptions)
             throws CliException {
 
 <span class="nc" id="L145">        final Path sourceDir = cliOptions.getPath(BakerCliParameters.SOURCE_DIR);</span>
@@ -148,7 +148,7 @@ public final class BakerCli {
 <span class="nc" id="L148">        final Path assetsDir = cliOptions.getPath(BakerCliParameters.ASSETS_DIR, null);</span>
 <span class="nc" id="L149">        final java.util.Map&lt;String,Object&gt; externalPageVars = buildExternalPageVars(cliOptions);</span>
 
-<span class="nc" id="L151">        return SiteBakerOptions.builder()</span>
+<span class="nc" id="L151">        return BakeOptions.builder()</span>
 <span class="nc" id="L152">                .sourceDir(sourceDir)</span>
 <span class="nc" id="L153">                .targetDir(targetDir)</span>
 <span class="nc" id="L154">                .templatesDir(Optional.ofNullable(templatesDir))</span>

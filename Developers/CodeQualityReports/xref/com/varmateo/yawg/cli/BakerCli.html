@@ -27,7 +27,7 @@
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> io.vavr.control.Try;
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>  
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.api.SiteBaker;
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.api.SiteBakerOptions;
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.api.BakeOptions;
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.api.SiteBakerFactory;
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  
@@ -136,7 +136,7 @@
 <a class="jxr_linenumber" name="L128" href="#L128">128</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Try&lt;Void&gt; doBake(<strong class="jxr_keyword">final</strong> <a name="CliParameterSet" href="../../../../com/varmateo/yawg/cli/CliParameterSet.html#CliParameterSet">CliParameterSet</a> cliOptions)
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>             <strong class="jxr_keyword">throws</strong> <a name="CliException" href="../../../../com/varmateo/yawg/cli/CliException.html#CliException">CliException</a> {
 <a class="jxr_linenumber" name="L130" href="#L130">130</a> 
-<a class="jxr_linenumber" name="L131" href="#L131">131</a>         <strong class="jxr_keyword">final</strong> <a name="SiteBakerOptions" href="../../../../com/varmateo/yawg/api/SiteBakerOptions.html#SiteBakerOptions">SiteBakerOptions</a> options = buildSiteBakerOptions(cliOptions);
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>         <strong class="jxr_keyword">final</strong> <a name="BakeOptions" href="../../../../com/varmateo/yawg/api/BakeOptions.html#BakeOptions">BakeOptions</a> options = buildBakeOptions(cliOptions);
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>         <strong class="jxr_keyword">final</strong> <a name="SiteBakerFactory" href="../../../../com/varmateo/yawg/api/SiteBakerFactory.html#SiteBakerFactory">SiteBakerFactory</a> factory = SiteBakerFactory.get();
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>         <strong class="jxr_keyword">final</strong> <a name="SiteBaker" href="../../../../com/varmateo/yawg/api/SiteBaker.html#SiteBaker">SiteBaker</a> siteBaker = factory.newSiteBaker();
 <a class="jxr_linenumber" name="L134" href="#L134">134</a> 
@@ -147,7 +147,7 @@
 <a class="jxr_linenumber" name="L139" href="#L139">139</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L140" href="#L140">140</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L141" href="#L141">141</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L142" href="#L142">142</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <a name="SiteBakerOptions" href="../../../../com/varmateo/yawg/api/SiteBakerOptions.html#SiteBakerOptions">SiteBakerOptions</a> buildSiteBakerOptions(<strong class="jxr_keyword">final</strong> <a name="CliParameterSet" href="../../../../com/varmateo/yawg/cli/CliParameterSet.html#CliParameterSet">CliParameterSet</a> cliOptions)
+<a class="jxr_linenumber" name="L142" href="#L142">142</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <a name="BakeOptions" href="../../../../com/varmateo/yawg/api/BakeOptions.html#BakeOptions">BakeOptions</a> buildBakeOptions(<strong class="jxr_keyword">final</strong> <a name="CliParameterSet" href="../../../../com/varmateo/yawg/cli/CliParameterSet.html#CliParameterSet">CliParameterSet</a> cliOptions)
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>             <strong class="jxr_keyword">throws</strong> <a name="CliException" href="../../../../com/varmateo/yawg/cli/CliException.html#CliException">CliException</a> {
 <a class="jxr_linenumber" name="L144" href="#L144">144</a> 
 <a class="jxr_linenumber" name="L145" href="#L145">145</a>         <strong class="jxr_keyword">final</strong> Path sourceDir = cliOptions.getPath(BakerCliParameters.SOURCE_DIR);
@@ -156,7 +156,7 @@
 <a class="jxr_linenumber" name="L148" href="#L148">148</a>         <strong class="jxr_keyword">final</strong> Path assetsDir = cliOptions.getPath(BakerCliParameters.ASSETS_DIR, <strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>         <strong class="jxr_keyword">final</strong> java.util.Map&lt;String,Object&gt; externalPageVars = buildExternalPageVars(cliOptions);
 <a class="jxr_linenumber" name="L150" href="#L150">150</a> 
-<a class="jxr_linenumber" name="L151" href="#L151">151</a>         <strong class="jxr_keyword">return</strong> SiteBakerOptions.builder()
+<a class="jxr_linenumber" name="L151" href="#L151">151</a>         <strong class="jxr_keyword">return</strong> BakeOptions.builder()
 <a class="jxr_linenumber" name="L152" href="#L152">152</a>                 .sourceDir(sourceDir)
 <a class="jxr_linenumber" name="L153" href="#L153">153</a>                 .targetDir(targetDir)
 <a class="jxr_linenumber" name="L154" href="#L154">154</a>                 .templatesDir(Optional.ofNullable(templatesDir))

@@ -10,12 +10,12 @@ import io.vavr.collection.List;
 import io.vavr.collection.Seq;
 import io.vavr.control.Option;
 
-import com.varmateo.yawg.api.SiteBakerOptions;
+import com.varmateo.yawg.api.BakeOptions;
 import com.varmateo.yawg.core.CollectiveDirBakeListener;
 import com.varmateo.yawg.core.CollectiveTemplateService;
 import com.varmateo.yawg.core.CopyPageBaker;
 import com.varmateo.yawg.core.DirBaker;
-import com.varmateo.yawg.core.DirBakerConfDao;
+import com.varmateo.yawg.core.DirBakeOptionsDao;
 import com.varmateo.yawg.core.FileBaker;
 import com.varmateo.yawg.core.SingleSiteBaker;
 import com.varmateo.yawg.logging.Log;
@@ -36,7 +36,7 @@ import com.varmateo.yawg.util.Services;
 /* package private */ final class SiteBakerModule {
 
 
-    private final SiteBakerOptions _options;
+    private final BakeOptions _options;
 
 <span class="nc" id="L41">    private final Holder&lt;Seq&lt;PageBaker&gt;&gt; _bakers = Holder.of(this::newBakers);</span>
 
@@ -46,7 +46,7 @@ import com.varmateo.yawg.util.Services;
 
 <span class="nc" id="L47">    private final Holder&lt;DirBaker&gt; _dirBaker = Holder.of(this::newDirBaker);</span>
 
-<span class="nc" id="L49">    private final Holder&lt;DirBakerConfDao&gt; _dirBakerConfDao = Holder.of(this::newDirBakerConfDao);</span>
+<span class="nc" id="L49">    private final Holder&lt;DirBakeOptionsDao&gt; _dirBakerConfDao = Holder.of(this::newDirBakeOptionsDao);</span>
 
 <span class="nc" id="L51">    private final Holder&lt;FileBaker&gt; _fileBaker = Holder.of(this::newFileBaker);</span>
 
@@ -60,7 +60,7 @@ import com.varmateo.yawg.util.Services;
     /**
      * @param options Configuration parameters.
      */
-<span class="nc" id="L63">    SiteBakerModule(final SiteBakerOptions options) {</span>
+<span class="nc" id="L63">    SiteBakerModule(final BakeOptions options) {</span>
 
 <span class="nc" id="L65">        _options = options;</span>
 <span class="nc" id="L66">    }</span>
@@ -125,9 +125,9 @@ import com.varmateo.yawg.util.Services;
     /**
      *
      */
-    private DirBakerConfDao newDirBakerConfDao() {
+    private DirBakeOptionsDao newDirBakeOptionsDao() {
 
-<span class="nc" id="L130">        return new DirBakerConfDao();</span>
+<span class="nc" id="L130">        return new DirBakeOptionsDao();</span>
     }
 
 

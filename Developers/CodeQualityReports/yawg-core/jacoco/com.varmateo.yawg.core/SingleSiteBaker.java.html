@@ -10,7 +10,7 @@ import java.nio.file.Path;
 import java.util.Map;
 import java.util.Optional;
 
-import com.varmateo.yawg.api.SiteBakerOptions;
+import com.varmateo.yawg.api.BakeOptions;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.api.YawgInfo;
 import com.varmateo.yawg.core.DirBaker;
@@ -27,7 +27,7 @@ import com.varmateo.yawg.spi.PageVarsBuilder;
 
 
     private final Log _log;
-    private final SiteBakerOptions _options;
+    private final BakeOptions _options;
     private final AssetsCopier _assetsCopier;
     private final SourceTreeBaker _sourceTreeBaker;
 
@@ -39,7 +39,7 @@ import com.varmateo.yawg.spi.PageVarsBuilder;
      */
     SingleSiteBaker(
             final Log log,
-            final SiteBakerOptions options,
+            final BakeOptions options,
 <span class="nc" id="L43">            final DirBaker dirBaker) {</span>
 
 <span class="nc" id="L45">        final PageVars pageVars = mapToPageVars(options.externalPageVars());</span>
