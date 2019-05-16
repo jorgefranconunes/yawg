@@ -50,27 +50,26 @@ final class DirPageContextBuilder {
      */
     public PageContext buildPageContext(
             final Path targetDir,
-            final DirBakeOptions dirBakerConf,
+            final DirBakeOptions dirBakeOptions,
             final PageVars extensionVars)
             throws YawgException {
 
-<span class="fc" id="L57">        Function&lt;Path,Optional&lt;Template&gt;&gt; templateFetcher =</span>
-<span class="fc" id="L58">                buildTemplateFetcher(dirBakerConf);</span>
-<span class="fc" id="L59">        String dirUrl = buildRelativeUrl(targetDir, _targetRootDir);</span>
-<span class="fc" id="L60">        String rootRelativeUrl = buildRelativeUrl(_targetRootDir, targetDir);</span>
-        PageVars allPageVars =
-<span class="fc" id="L62">                PageVarsBuilder.create()</span>
-<span class="fc" id="L63">                .addPageVars(extensionVars)</span>
-<span class="fc" id="L64">                .addPageVars(dirBakerConf.pageVars)</span>
-<span class="fc" id="L65">                .addPageVars(dirBakerConf.pageVarsHere)</span>
-<span class="fc" id="L66">                .build();</span>
+<span class="fc" id="L57">        final Function&lt;Path,Optional&lt;Template&gt;&gt; templateFetcher =</span>
+<span class="fc" id="L58">                buildTemplateFetcher(dirBakeOptions);</span>
+<span class="fc" id="L59">        final String dirUrl = buildRelativeUrl(targetDir, _targetRootDir);</span>
+<span class="fc" id="L60">        final String rootRelativeUrl = buildRelativeUrl(_targetRootDir, targetDir);</span>
+<span class="fc" id="L61">        final PageVars allPageVars = PageVarsBuilder.create()</span>
+<span class="fc" id="L62">                .addPageVars(dirBakeOptions.pageVars)</span>
+<span class="fc" id="L63">                .addPageVars(dirBakeOptions.pageVarsHere)</span>
+<span class="fc" id="L64">                .addPageVars(extensionVars)</span>
+<span class="fc" id="L65">                .build();</span>
 
-<span class="fc" id="L68">        return PageContextBuilder.create()</span>
-<span class="fc" id="L69">                .setDirUrl(dirUrl)</span>
-<span class="fc" id="L70">                .setRootRelativeUrl(rootRelativeUrl)</span>
-<span class="fc" id="L71">                .setTemplateFetcher(templateFetcher)</span>
-<span class="fc" id="L72">                .setPageVars(allPageVars)</span>
-<span class="fc" id="L73">                .build();</span>
+<span class="fc" id="L67">        return PageContextBuilder.create()</span>
+<span class="fc" id="L68">                .dirUrl(dirUrl)</span>
+<span class="fc" id="L69">                .rootRelativeUrl(rootRelativeUrl)</span>
+<span class="fc" id="L70">                .templateFetcher(templateFetcher)</span>
+<span class="fc" id="L71">                .pageVars(allPageVars)</span>
+<span class="fc" id="L72">                .build();</span>
     }
 
 
@@ -79,19 +78,19 @@ final class DirPageContextBuilder {
      * exception.
      */
     private Function&lt;Path,Optional&lt;Template&gt;&gt; buildTemplateFetcher(
-            final DirBakeOptions dirBakerConf)
+            final DirBakeOptions dirBakeOptions)
             throws YawgException {
 
-<span class="fc" id="L85">        Option&lt;String&gt; templateName = dirBakerConf.templateName;</span>
-<span class="fc" id="L86">        TemplateNameMatcher templateNameMatcher = dirBakerConf.templatesHere;</span>
-<span class="fc" id="L87">        TemplateService templateService = _templateService;</span>
+<span class="fc" id="L84">        final Option&lt;String&gt; templateName = dirBakeOptions.templateName;</span>
+<span class="fc" id="L85">        final TemplateNameMatcher templateNameMatcher = dirBakeOptions.templatesHere;</span>
+<span class="fc" id="L86">        final TemplateService templateService = _templateService;</span>
 
-<span class="pc" id="L89">        return path -&gt; getTemplate(</span>
+<span class="pc" id="L88">        return path -&gt; getTemplate(</span>
                 path,
                 templateNameMatcher,
                 templateName,
                 templateService)
-<span class="nc" id="L94">                .toJavaOptional();</span>
+<span class="nc" id="L93">                .toJavaOptional();</span>
     }
 
 
@@ -104,8 +103,8 @@ final class DirPageContextBuilder {
             final Option&lt;String&gt; templateName,
             final TemplateService templateService) {
 
-<span class="nc" id="L107">        return getTemplateForPath(path, templateNameMatcher, templateService)</span>
-<span class="nc" id="L108">                .orElse(() -&gt; getDefaultTemplate(templateName, templateService));</span>
+<span class="nc" id="L106">        return getTemplateForPath(path, templateNameMatcher, templateService)</span>
+<span class="nc" id="L107">                .orElse(() -&gt; getDefaultTemplate(templateName, templateService));</span>
     }
 
 
@@ -117,10 +116,10 @@ final class DirPageContextBuilder {
             final TemplateNameMatcher templateNameMatcher,
             final TemplateService templateService) {
 
-<span class="nc" id="L120">        return templateNameMatcher</span>
-<span class="nc" id="L121">                .getTemplateNameFor(path)</span>
-<span class="nc" id="L122">                .flatMap(name -&gt;</span>
-<span class="nc" id="L123">                         Option.ofOptional(templateService.getTemplate(name)));</span>
+<span class="nc" id="L119">        return templateNameMatcher</span>
+<span class="nc" id="L120">                .getTemplateNameFor(path)</span>
+<span class="nc" id="L121">                .flatMap(name -&gt;</span>
+<span class="nc" id="L122">                         Option.ofOptional(templateService.getTemplate(name)));</span>
     }
 
 
@@ -131,8 +130,8 @@ final class DirPageContextBuilder {
             final Option&lt;String&gt; templateName,
             final TemplateService templateService) {
 
-<span class="nc" id="L134">        return templateName.flatMap(</span>
-<span class="nc" id="L135">                name -&gt; Option.ofOptional(templateService.getTemplate(name)));</span>
+<span class="nc" id="L133">        return templateName.flatMap(</span>
+<span class="nc" id="L134">                name -&gt; Option.ofOptional(templateService.getTemplate(name)));</span>
     }
 
 
@@ -144,10 +143,10 @@ final class DirPageContextBuilder {
             final Path dir,
             final Path baseDir) {
 
-<span class="fc" id="L147">        Path relDir = baseDir.relativize(dir);</span>
-<span class="fc" id="L148">        String relativeUrl = relDir.toString().replace(File.separatorChar, '/');</span>
+<span class="fc" id="L146">        final Path relDir = baseDir.relativize(dir);</span>
+<span class="fc" id="L147">        final String relativeUrl = relDir.toString().replace(File.separatorChar, '/');</span>
 
-<span class="pc bpc" id="L150" title="1 of 2 branches missed.">        return relativeUrl.length() == 0</span>
+<span class="pc bpc" id="L149" title="1 of 2 branches missed.">        return relativeUrl.length() == 0</span>
                 ? &quot;.&quot;
                 : relativeUrl;
     }

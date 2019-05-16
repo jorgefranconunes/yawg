@@ -12,6 +12,7 @@ import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.core.DirBaker;
 import com.varmateo.yawg.core.DirBakeOptions;
 import com.varmateo.yawg.logging.Log;
+import com.varmateo.yawg.logging.LogFactory;
 import com.varmateo.yawg.logging.Logs;
 import com.varmateo.yawg.spi.PageVars;
 
@@ -24,57 +25,62 @@ import com.varmateo.yawg.spi.PageVars;
 
     private static final String DEFAULT_TEMPLATE_NAME = &quot;default.ftlh&quot;;
 
-
-    private final Path _sourceDir;
-    private final Path _targetDir;
-    private final PageVars _externalPageVars;
+    private final Log _log;
     private final DirBaker _dirBaker;
-
-    private final Runnable _bakeAction;
 
 
     /* default */ SourceTreeBaker(
             final Log log,
+<span class="nc" id="L34">            final DirBaker dirBaker) {</span>
+
+<span class="nc" id="L36">        _log = log;</span>
+<span class="nc" id="L37">        _dirBaker = dirBaker;</span>
+<span class="nc" id="L38">    }</span>
+
+
+    /**
+     *
+     */
+    public static SourceTreeBaker create(final DirBaker dirBaker) {
+
+<span class="nc" id="L46">        final Log log = LogFactory.createFor(SourceTreeBaker.class);</span>
+
+<span class="nc" id="L48">        return new SourceTreeBaker(log, dirBaker);</span>
+    }
+
+
+    /**
+     *
+     */
+    public void bake(
             final Path sourceDir,
             final Path targetDir,
-            final PageVars externalPageVars,
-<span class="nc" id="L41">            final DirBaker dirBaker) {</span>
+            final PageVars externalPageVars)
+            throws YawgException {
 
-<span class="nc" id="L43">        _sourceDir = sourceDir;</span>
-<span class="nc" id="L44">        _targetDir = targetDir;</span>
-<span class="nc" id="L45">        _externalPageVars = externalPageVars;</span>
-<span class="nc" id="L46">        _dirBaker = dirBaker;</span>
-
-<span class="nc" id="L48">        _bakeAction = Logs.decorateWithLogDuration(</span>
-                log,
+<span class="nc" id="L61">        Logs.logDuration(</span>
+                _log,
                 &quot;baking source tree&quot;,
-                this::doBake);
-<span class="nc" id="L52">    }</span>
+<span class="nc" id="L64">                () -&gt; doBake(sourceDir, targetDir, externalPageVars));</span>
+<span class="nc" id="L65">    }</span>
 
 
     /**
      *
      */
-    public void bake()
+    private void doBake(
+            final Path sourceDir,
+            final Path targetDir,
+            final PageVars externalPageVars)
             throws YawgException {
 
-<span class="nc" id="L61">        _bakeAction.run();</span>
-<span class="nc" id="L62">    }</span>
+<span class="nc" id="L77">        final DirBakeOptions dirBakeOptions = DirBakeOptions.builder()</span>
+<span class="nc" id="L78">                .templateName(DEFAULT_TEMPLATE_NAME)</span>
+<span class="nc" id="L79">                .pageVars(externalPageVars)</span>
+<span class="nc" id="L80">                .build();</span>
 
-
-    /**
-     *
-     */
-    private void doBake()
-            throws YawgException {
-
-<span class="nc" id="L71">        final DirBakeOptions dirBakeOptions = DirBakeOptions.builder()</span>
-<span class="nc" id="L72">                .templateName(DEFAULT_TEMPLATE_NAME)</span>
-<span class="nc" id="L73">                .pageVars(_externalPageVars)</span>
-<span class="nc" id="L74">                .build();</span>
-
-<span class="nc" id="L76">        _dirBaker.bakeDirectory(_sourceDir, _targetDir, dirBakeOptions);</span>
-<span class="nc" id="L77">    }</span>
+<span class="nc" id="L82">        _dirBaker.bakeDirectory(sourceDir, targetDir, dirBakeOptions);</span>
+<span class="nc" id="L83">    }</span>
 
 
 }

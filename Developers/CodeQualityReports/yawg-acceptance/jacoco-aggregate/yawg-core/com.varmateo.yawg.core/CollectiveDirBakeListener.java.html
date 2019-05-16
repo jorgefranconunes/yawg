@@ -53,7 +53,7 @@ import io.vavr.collection.Seq;
 <span class="fc" id="L53">        final PageVars newVars = listener.onDirBake(context);</span>
 
 <span class="fc" id="L55">        return PageContextBuilder.create(context)</span>
-<span class="fc" id="L56">                .setPageVars(newVars)</span>
+<span class="fc" id="L56">                .pageVars(newVars)</span>
 <span class="fc" id="L57">                .build();</span>
     }
 

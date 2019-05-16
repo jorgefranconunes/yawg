@@ -8,7 +8,7 @@
 <div id="overview"><a href="../../../../../apidocs/com/varmateo/yawg/freemarker/FreemarkerTemplateServiceFactory.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_javadoccomment">/**************************************************************************</em>
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment"> * Copyright (c) 2016-2017 Yawg project contributors.</em>
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment"> * Copyright (c) 2016-2019 Yawg project contributors.</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> **************************************************************************/</em>
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
@@ -35,7 +35,7 @@
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>      <strong class="jxr_keyword">public</strong> <a name="TemplateService" href="../../../../com/varmateo/yawg/spi/TemplateService.html#TemplateService">TemplateService</a> newTemplateService(<strong class="jxr_keyword">final</strong> Path templatesDir)
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>              <strong class="jxr_keyword">throws</strong> <a name="YawgException" href="../../../../com/varmateo/yawg/api/YawgException.html#YawgException">YawgException</a> {
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>          <strong class="jxr_keyword">return</strong> FreemarkerTemplateService.build(templatesDir);
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>          <strong class="jxr_keyword">return</strong> FreemarkerTemplateService.create(templatesDir);
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>      }
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  

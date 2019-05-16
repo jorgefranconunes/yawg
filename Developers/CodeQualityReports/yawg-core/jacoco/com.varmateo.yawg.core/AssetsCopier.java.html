@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AssetsCopier.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">AssetsCopier.java</span></div><h1>AssetsCopier.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2017-2018 Yawg project contributors.
+ * Copyright (c) 2017-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -13,11 +13,11 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.Optional;
 import java.util.function.BiConsumer;
 
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.logging.Log;
+import com.varmateo.yawg.logging.LogFactory;
 import com.varmateo.yawg.logging.Logs;
 import com.varmateo.yawg.util.Exceptions;
 
@@ -29,42 +29,42 @@ import com.varmateo.yawg.util.Exceptions;
 
 
     private final Log _log;
-    private final Optional&lt;Path&gt; _assetsDir;
-    private final Path _targetDir;
-
-    private BiConsumer&lt;Path, Path&gt; _copyAction;
+    private final BiConsumer&lt;Path, Path&gt; _copyAction;
 
 
     /**
      * @param conf All the parameters needed for performing a bake.
      */
-    AssetsCopier(
-            final Log log,
-            final Optional&lt;Path&gt; assetsDir,
-<span class="nc" id="L44">            final Path targetDir) {</span>
+<span class="nc" id="L38">    AssetsCopier(final Log log) {</span>
 
-<span class="nc" id="L46">        _log = log;</span>
-<span class="nc" id="L47">        _assetsDir = assetsDir;</span>
-<span class="nc" id="L48">        _targetDir = targetDir;</span>
-
-<span class="nc" id="L50">        _copyAction = Logs.decorateWithLogDuration(</span>
+<span class="nc" id="L40">        _log = log;</span>
+<span class="nc" id="L41">        _copyAction = Logs.decorateWithLogDuration(</span>
                 log,
-<span class="nc" id="L52">                (source, target) -&gt; &quot;copying assets&quot;,</span>
+<span class="nc" id="L43">                (source, target) -&gt; &quot;copy assets&quot;,</span>
                 AssetsCopier::doCopy);
-<span class="nc" id="L54">    }</span>
+<span class="nc" id="L45">    }</span>
 
 
     /**
      *
      */
-    public void copy()
+    public static AssetsCopier create() {
+
+<span class="nc" id="L53">        final Log log = LogFactory.createFor(AssetsCopier.class);</span>
+
+<span class="nc" id="L55">        return new AssetsCopier(log);</span>
+    }
+
+
+    /**
+     *
+     */
+    public void copy(
+            final Path assetsDir,
+            final Path targetDir)
             throws YawgException {
 
-<span class="nc bnc" id="L63" title="All 2 branches missed.">        if ( _assetsDir.isPresent() ) {</span>
-<span class="nc" id="L64">            _copyAction.accept(_assetsDir.get(), _targetDir);</span>
-        } else {
-<span class="nc" id="L66">            _log.debug(&quot;No assets directory to copy&quot;);</span>
-        }
+<span class="nc" id="L67">        _copyAction.accept(assetsDir, targetDir);</span>
 <span class="nc" id="L68">    }</span>
 
 

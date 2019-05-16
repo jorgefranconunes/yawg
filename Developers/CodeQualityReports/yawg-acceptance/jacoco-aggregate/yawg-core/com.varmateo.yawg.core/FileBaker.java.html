@@ -16,6 +16,7 @@ import io.vavr.control.Option;
 
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.logging.Log;
+import com.varmateo.yawg.logging.LogFactory;
 import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.util.Exceptions;
@@ -40,18 +41,15 @@ import com.varmateo.yawg.util.Exceptions;
      * @param log The logger that will be used for logging.
      */
     FileBaker(
-            final Log log,
             final Seq&lt;PageBaker&gt; bakers,
 <span class="fc" id="L45">            final PageBaker defaultBaker) {</span>
 
-<span class="fc" id="L47">        _log = log;</span>
+<span class="fc" id="L47">        _log = LogFactory.createFor(FileBaker.class);</span>
 <span class="fc" id="L48">        _bakers = bakers;</span>
 <span class="fc" id="L49">        _defaultBaker = defaultBaker;</span>
-<span class="fc" id="L50">        _allBakersByType = HashMap</span>
-<span class="fc" id="L51">                .ofEntries(</span>
-<span class="fc" id="L52">                        bakers.map(b -&gt; Tuple.of(b.shortName(), b)))</span>
-<span class="fc" id="L53">                .put(defaultBaker.shortName(), defaultBaker);</span>
-<span class="fc" id="L54">    }</span>
+<span class="fc" id="L50">        _allBakersByType = HashMap.ofEntries(bakers.map(b -&gt; Tuple.of(b.shortName(), b)))</span>
+<span class="fc" id="L51">                .put(defaultBaker.shortName(), defaultBaker);</span>
+<span class="fc" id="L52">    }</span>
 
 
     /**
@@ -64,16 +62,16 @@ import com.varmateo.yawg.util.Exceptions;
             final DirBakeOptions dirBakeOptions)
             throws YawgException {
 
-<span class="fc" id="L67">        final PageBaker baker = findBaker(sourcePath, dirBakeOptions);</span>
-<span class="fc" id="L68">        final long startTime = System.currentTimeMillis();</span>
+<span class="fc" id="L65">        final PageBaker baker = findBaker(sourcePath, dirBakeOptions);</span>
+<span class="fc" id="L66">        final long startTime = System.currentTimeMillis();</span>
 
-<span class="fc" id="L70">        baker.bake(sourcePath, context, targetDir);</span>
+<span class="fc" id="L68">        baker.bake(sourcePath, context, targetDir);</span>
 
-<span class="fc" id="L72">        final long delay = System.currentTimeMillis() - startTime;</span>
-<span class="fc" id="L73">        final Path sourceBasename = sourcePath.getFileName();</span>
-<span class="fc" id="L74">        _log.debug(</span>
-<span class="fc" id="L75">                &quot;    {1}: {0} ({2}ms)&quot;, sourceBasename, baker.shortName(), String.valueOf(delay));</span>
-<span class="fc" id="L76">    }</span>
+<span class="fc" id="L70">        final long delay = System.currentTimeMillis() - startTime;</span>
+<span class="fc" id="L71">        final Path sourceBasename = sourcePath.getFileName();</span>
+<span class="fc" id="L72">        _log.debug(</span>
+<span class="fc" id="L73">                &quot;    {1}: {0} ({2}ms)&quot;, sourceBasename, baker.shortName(), String.valueOf(delay));</span>
+<span class="fc" id="L74">    }</span>
 
 
     /**
@@ -85,10 +83,10 @@ import com.varmateo.yawg.util.Exceptions;
             final DirBakeOptions dirBakeOptions)
             throws YawgException {
 
-<span class="fc" id="L88">        return dirBakeOptions.bakerTypes</span>
-<span class="pc" id="L89">                .flatMap(bakerTypes -&gt; bakerTypes.bakerTypeFor(sourcePath))</span>
-<span class="pc" id="L90">                .map(bakerType -&gt; findBakerWithType(bakerType))</span>
-<span class="fc" id="L91">                .getOrElse(() -&gt; findBakerFromAll(sourcePath));</span>
+<span class="fc" id="L86">        return dirBakeOptions.bakerTypes</span>
+<span class="pc" id="L87">                .flatMap(bakerTypes -&gt; bakerTypes.bakerTypeFor(sourcePath))</span>
+<span class="pc" id="L88">                .map(bakerType -&gt; findBakerWithType(bakerType))</span>
+<span class="fc" id="L89">                .getOrElse(() -&gt; findBakerFromAll(sourcePath));</span>
     }
 
 
@@ -98,13 +96,13 @@ import com.varmateo.yawg.util.Exceptions;
     private PageBaker findBakerWithType(final String bakerType)
             throws YawgException {
 
-<span class="nc" id="L101">        final Option&lt;PageBaker&gt; baker = _allBakersByType.get(bakerType);</span>
+<span class="nc" id="L99">        final Option&lt;PageBaker&gt; baker = _allBakersByType.get(bakerType);</span>
 
-<span class="nc bnc" id="L103" title="All 2 branches missed.">        if ( !baker.isDefined() ) {</span>
-<span class="nc" id="L104">            throw Exceptions.raise(&quot;Unknown baker type \&quot;{0}\&quot;&quot;, bakerType);</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        if ( !baker.isDefined() ) {</span>
+<span class="nc" id="L102">            throw Exceptions.raise(&quot;Unknown baker type \&quot;{0}\&quot;&quot;, bakerType);</span>
         }
 
-<span class="nc" id="L107">        return baker.get();</span>
+<span class="nc" id="L105">        return baker.get();</span>
     }
 
 
@@ -113,10 +111,10 @@ import com.varmateo.yawg.util.Exceptions;
      */
     private PageBaker findBakerFromAll(final Path sourcePath) {
 
-<span class="fc" id="L116">        return _bakers</span>
-<span class="fc" id="L117">                .filter(candidate -&gt; candidate.isBakeable(sourcePath))</span>
-<span class="fc" id="L118">                .headOption()</span>
-<span class="fc" id="L119">                .getOrElse(_defaultBaker);</span>
+<span class="fc" id="L114">        return _bakers</span>
+<span class="fc" id="L115">                .filter(candidate -&gt; candidate.isBakeable(sourcePath))</span>
+<span class="fc" id="L116">                .headOption()</span>
+<span class="fc" id="L117">                .getOrElse(_defaultBaker);</span>
     }
 
 

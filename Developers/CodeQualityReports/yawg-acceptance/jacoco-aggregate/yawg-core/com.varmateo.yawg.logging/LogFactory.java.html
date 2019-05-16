@@ -59,10 +59,10 @@ public final class LogFactory {
      */
     public static Log createFor(final Object obj) {
 
-<span class="fc" id="L62">        String className  = obj.getClass().getName();</span>
-<span class="fc" id="L63">        Logger javaLogger = Logger.getLogger(className);</span>
+<span class="nc" id="L62">        String className  = obj.getClass().getName();</span>
+<span class="nc" id="L63">        Logger javaLogger = Logger.getLogger(className);</span>
 
-<span class="fc" id="L65">        return create(javaLogger);</span>
+<span class="nc" id="L65">        return create(javaLogger);</span>
     }
 
 

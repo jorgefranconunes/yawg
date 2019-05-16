@@ -10,11 +10,14 @@ import java.nio.file.Path;
 import java.util.Map;
 import java.util.Optional;
 
+import io.vavr.control.Option;
+
 import com.varmateo.yawg.api.BakeOptions;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.api.YawgInfo;
 import com.varmateo.yawg.core.DirBaker;
 import com.varmateo.yawg.logging.Log;
+import com.varmateo.yawg.logging.LogFactory;
 import com.varmateo.yawg.logging.Logs;
 import com.varmateo.yawg.spi.PageVars;
 import com.varmateo.yawg.spi.PageVarsBuilder;
@@ -27,55 +30,19 @@ import com.varmateo.yawg.spi.PageVarsBuilder;
 
 
     private final Log _log;
-    private final BakeOptions _options;
     private final AssetsCopier _assetsCopier;
     private final SourceTreeBaker _sourceTreeBaker;
-
-    private final Runnable _bakeAction;
 
 
     /**
      * @param options All the parameters needed for performing a bake.
      */
-    SingleSiteBaker(
-            final Log log,
-            final BakeOptions options,
-<span class="nc" id="L43">            final DirBaker dirBaker) {</span>
+<span class="nc" id="L40">    SingleSiteBaker(final DirBaker dirBaker) {</span>
 
-<span class="nc" id="L45">        final PageVars pageVars = mapToPageVars(options.externalPageVars());</span>
-
-<span class="nc" id="L47">        _log = log;</span>
-<span class="nc" id="L48">        _options = options;</span>
-<span class="nc" id="L49">        _assetsCopier = new AssetsCopier(</span>
-                log,
-<span class="nc" id="L51">                options.assetsDir(),</span>
-<span class="nc" id="L52">                options.targetDir());</span>
-<span class="nc" id="L53">        _sourceTreeBaker = new SourceTreeBaker(</span>
-                log,
-<span class="nc" id="L55">                options.sourceDir(),</span>
-<span class="nc" id="L56">                options.targetDir(),</span>
-                pageVars,
-                dirBaker);
-
-<span class="nc" id="L60">        _bakeAction = Logs.decorateWithLogDuration(</span>
-                log,
-                &quot;bake&quot;,
-                this::doBake);
-<span class="nc" id="L64">    }</span>
-
-
-    /**
-     *
-     */
-    private static PageVars mapToPageVars(
-            final Map&lt;String,Object&gt; pageVarsMap) {
-
-<span class="nc" id="L73">        final PageVarsBuilder builder = PageVarsBuilder.create();</span>
-<span class="nc" id="L74">        pageVarsMap.entrySet().stream()</span>
-<span class="nc" id="L75">                .forEach(x -&gt; builder.addVar(x.getKey(), x.getValue()));</span>
-
-<span class="nc" id="L77">        return builder.build();</span>
-    }
+<span class="nc" id="L42">        _log = LogFactory.createFor(SingleSiteBaker.class);</span>
+<span class="nc" id="L43">        _assetsCopier = AssetsCopier.create();</span>
+<span class="nc" id="L44">        _sourceTreeBaker = SourceTreeBaker.create(dirBaker);</span>
+<span class="nc" id="L45">    }</span>
 
 
     /**
@@ -84,37 +51,44 @@ import com.varmateo.yawg.spi.PageVarsBuilder;
      * @exception YawgException Thrown if the baking could not be
      * completed for whatever reason.
      */
-    public void bake()
+    public void bake(final BakeOptions options)
             throws YawgException {
 
-<span class="nc" id="L90">        final Path sourceDir = _options.sourceDir();</span>
-<span class="nc" id="L91">        final Path targetDir = _options.targetDir();</span>
-<span class="nc" id="L92">        final Optional&lt;Path&gt; templatesDir = _options.templatesDir();</span>
-<span class="nc" id="L93">        final Optional&lt;Path&gt; assetsDir = _options.assetsDir();</span>
-
-<span class="nc" id="L95">        _log.info(&quot;{0} {1}&quot;, YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);</span>
-<span class="nc" id="L96">        _log.info(&quot;    Source    : {0}&quot;, sourceDir);</span>
-<span class="nc" id="L97">        _log.info(&quot;    Target    : {0}&quot;, targetDir);</span>
-<span class="nc" id="L98">        _log.info(</span>
-                &quot;    Templates : {0}&quot;,
-<span class="nc" id="L100">                templatesDir.map(Path::toString).orElse(&quot;NONE&quot;));</span>
-<span class="nc" id="L101">        _log.info(</span>
-                &quot;    Assets    : {0}&quot;,
-<span class="nc" id="L103">                assetsDir.map(Path::toString).orElse(&quot;NONE&quot;));</span>
-
-<span class="nc" id="L105">        _bakeAction.run();</span>
-<span class="nc" id="L106">    }</span>
+<span class="nc" id="L57">        Logs.logDuration(</span>
+                _log,
+                &quot;baking&quot;,
+<span class="nc" id="L60">                () -&gt; doBake(options));</span>
+<span class="nc" id="L61">    }</span>
 
 
     /**
      *
      */
-    private void doBake()
+    private void doBake(final BakeOptions options)
             throws YawgException {
 
-<span class="nc" id="L115">        _assetsCopier.copy();</span>
-<span class="nc" id="L116">        _sourceTreeBaker.bake();</span>
-<span class="nc" id="L117">    }</span>
+<span class="nc" id="L70">        Option.ofOptional(options.assetsDir())</span>
+<span class="nc" id="L71">                .peek(assetsDir -&gt; _assetsCopier.copy(assetsDir, options.targetDir()))</span>
+<span class="nc" id="L72">                .onEmpty(() -&gt; _log.debug(&quot;No assets directory to copy&quot;));</span>
+
+<span class="nc" id="L74">        final PageVars externalPageVars = mapToPageVars(options.externalPageVars());</span>
+
+<span class="nc" id="L76">        _sourceTreeBaker.bake(options.sourceDir(), options.targetDir(), externalPageVars);</span>
+<span class="nc" id="L77">    }</span>
+
+
+    /**
+     *
+     */
+    private static PageVars mapToPageVars(
+            final Map&lt;String,Object&gt; pageVarsMap) {
+
+<span class="nc" id="L86">        final PageVarsBuilder builder = PageVarsBuilder.create();</span>
+<span class="nc" id="L87">        pageVarsMap.entrySet().stream()</span>
+<span class="nc" id="L88">                .forEach(x -&gt; builder.addVar(x.getKey(), x.getValue()));</span>
+
+<span class="nc" id="L90">        return builder.build();</span>
+    }
 
 
 }

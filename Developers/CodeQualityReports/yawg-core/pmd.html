@@ -25,7 +25,7 @@ Yawg core
     <div id="breadcrumbs">
       <div class="xleft">
         <span id="publishDate">Last Published: 2019-05-16</span>
-          &nbsp;| <span id="projectVersion">Version: 1.0.0-RC1-201905160832</span>
+          &nbsp;| <span id="projectVersion">Version: 1.0.0-RC1-201905161619</span>
       </div>
       <div class="xright"><a href="./" title="Yawg core">Yawg core</a>      </div>
       <div class="clear">
@@ -67,42 +67,93 @@ Yawg core
 <div class="section">
 <h2><a name="Files"></a>Files</h2>
 <div class="section">
-<h3><a name="com.2Fvarmateo.2Fyawg.2Flogging.2FLog.java"></a>com/varmateo/yawg/logging/Log.java</h3>
+<h3><a name="com.2Fvarmateo.2Fyawg.2Fcore.2FAssetsCopier.java"></a>com/varmateo/yawg/core/AssetsCopier.java</h3>
 <table border="0" class="bodyTable">
 <tr class="a">
 <th>Violation</th>
 <th>Line</th></tr>
 <tr class="b">
+<td>Perhaps '_log' could be replaced by a local variable.</td>
+<td><a href="./xref/com/varmateo/yawg/core/AssetsCopier.html#L31">31</a></td></tr></table></div>
+<div class="section">
+<h3><a name="com.2Fvarmateo.2Fyawg.2Fcore.2FCoreSiteBakerFactory.java"></a>com/varmateo/yawg/core/CoreSiteBakerFactory.java</h3>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>Violation</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>Avoid unused imports such as 'com.varmateo.yawg.api.BakeOptions'</td>
+<td><a href="./xref/com/varmateo/yawg/core/CoreSiteBakerFactory.html#L10">10</a></td></tr></table></div>
+<div class="section">
+<h3><a name="com.2Fvarmateo.2Fyawg.2Fcore.2FDirBaker.java"></a>com/varmateo/yawg/core/DirBaker.java</h3>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>Violation</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>Avoid unused imports such as 'com.varmateo.yawg.core.DirPageContextBuilder'</td>
+<td><a href="./xref/com/varmateo/yawg/core/DirBaker.html#L19">19</a></td></tr>
+<tr class="a">
+<td>Avoid unused imports such as 'com.varmateo.yawg.spi.PageContextBuilder'</td>
+<td><a href="./xref/com/varmateo/yawg/core/DirBaker.html#L25">25</a></td></tr>
+<tr class="b">
+<td>Avoid unused imports such as 'com.varmateo.yawg.spi.PageVars'</td>
+<td><a href="./xref/com/varmateo/yawg/core/DirBaker.html#L26">26</a></td></tr>
+<tr class="a">
+<td>Avoid unused imports such as 'com.varmateo.yawg.spi.PageVarsBuilder'</td>
+<td><a href="./xref/com/varmateo/yawg/core/DirBaker.html#L27">27</a></td></tr></table></div>
+<div class="section">
+<h3><a name="com.2Fvarmateo.2Fyawg.2Fcore.2FSingleSiteBaker.java"></a>com/varmateo/yawg/core/SingleSiteBaker.java</h3>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>Violation</th>
+<th>Line</th></tr>
+<tr class="a">
+<td>Avoid unused imports such as 'java.nio.file.Path'</td>
+<td><a href="./xref/com/varmateo/yawg/core/SingleSiteBaker.html#L9">9</a></td></tr>
+<tr class="b">
+<td>Avoid unused imports such as 'java.util.Optional'</td>
+<td><a href="./xref/com/varmateo/yawg/core/SingleSiteBaker.html#L11">11</a></td></tr>
+<tr class="a">
+<td>Avoid unused imports such as 'com.varmateo.yawg.api.YawgInfo'</td>
+<td><a href="./xref/com/varmateo/yawg/core/SingleSiteBaker.html#L17">17</a></td></tr></table></div>
+<div class="section">
+<h3><a name="com.2Fvarmateo.2Fyawg.2Flogging.2FLog.java"></a>com/varmateo/yawg/logging/Log.java</h3>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>Violation</th>
+<th>Line</th></tr>
+<tr class="a">
 <td>Avoid short class names like Log</td>
 <td><a href="./xref/com/varmateo/yawg/logging/Log.html#L19">19</a>&#x2013;<a href="./xref/com/varmateo/yawg/logging/Log.html#L139">139</a></td></tr></table></div>
 <div class="section">
 <h3><a name="com.2Fvarmateo.2Fyawg.2Flogging.2FLoggerLog.java"></a>com/varmateo/yawg/logging/LoggerLog.java</h3>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>Violation</th>
 <th>Line</th></tr>
-<tr class="b">
+<tr class="a">
 <td>Consider using varargs for methods or constructors which take an array the last parameter.</td>
 <td><a href="./xref/com/varmateo/yawg/logging/LoggerLog.html#L172">172</a></td></tr>
-<tr class="a">
+<tr class="b">
 <td>Consider using varargs for methods or constructors which take an array the last parameter.</td>
 <td><a href="./xref/com/varmateo/yawg/logging/LoggerLog.html#L187">187</a></td></tr></table></div>
 <div class="section">
 <h3><a name="com.2Fvarmateo.2Fyawg.2Flogging.2FLogs.java"></a>com/varmateo/yawg/logging/Logs.java</h3>
 <table border="0" class="bodyTable">
-<tr class="b">
+<tr class="a">
 <th>Violation</th>
 <th>Line</th></tr>
-<tr class="a">
+<tr class="b">
 <td>Avoid short class names like Logs</td>
-<td><a href="./xref/com/varmateo/yawg/logging/Logs.html#L22">22</a>&#x2013;<a href="./xref/com/varmateo/yawg/logging/Logs.html#L120">120</a></td></tr></table></div>
+<td><a href="./xref/com/varmateo/yawg/logging/Logs.html#L22">22</a>&#x2013;<a href="./xref/com/varmateo/yawg/logging/Logs.html#L137">137</a></td></tr></table></div>
 <div class="section">
 <h3><a name="com.2Fvarmateo.2Fyawg.2Futil.2FExceptions.java"></a>com/varmateo/yawg/util/Exceptions.java</h3>
 <table border="0" class="bodyTable">
-<tr class="b">
+<tr class="a">
 <th>Violation</th>
 <th>Line</th></tr>
-<tr class="a">
+<tr class="b">
 <td>New exception is thrown in catch block, original stack trace may be lost</td>
 <td><a href="./xref/com/varmateo/yawg/util/Exceptions.html#L232">232</a></td></tr></table></div></div>
       </div>

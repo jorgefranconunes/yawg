@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DirBakerContext.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">DirBakerContext.java</span></div><h1>DirBakerContext.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2019 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.core;
+
+import java.nio.file.Path;
+import java.util.function.Function;
+
+import com.varmateo.yawg.spi.PageContext;
+import com.varmateo.yawg.spi.PageContextBuilder;
+import com.varmateo.yawg.spi.PageVars;
+import com.varmateo.yawg.spi.PageVarsBuilder;
+import com.varmateo.yawg.spi.TemplateService;
+
+
+/**
+ *
+ */
+/* default */ final class DirBakerContext {
+
+
+    private final Path _sourceRootDir;
+    private final Path _targetRootDir;
+    private final DirPageContextBuilder _dirPageContextBuilder;
+    private final DirBakeOptions _dirBakeOptions;
+    private final PageContext _pageContext;
+    private final PageVars _extensionVars;
+
+
+    private DirBakerContext(
+            final Path sourceRootDir,
+            final Path targetRootDir,
+            final DirPageContextBuilder dirPageContextBuilder,
+            final DirBakeOptions dirBakeOptions,
+            final PageContext pageContext,
+<span class="fc" id="L39">            final PageVars extensionVars) {</span>
+
+<span class="fc" id="L41">        _sourceRootDir = sourceRootDir;</span>
+<span class="fc" id="L42">        _targetRootDir = targetRootDir;</span>
+<span class="fc" id="L43">        _dirPageContextBuilder = dirPageContextBuilder;</span>
+<span class="fc" id="L44">        _dirBakeOptions = dirBakeOptions;</span>
+<span class="fc" id="L45">        _pageContext = pageContext;</span>
+<span class="fc" id="L46">        _extensionVars = extensionVars;</span>
+<span class="fc" id="L47">    }</span>
+
+
+    /**
+     *
+     */
+    public static DirBakerContext create(
+            final Path sourceRootDir,
+            final Path targetRootDir,
+            final TemplateService templateService,
+            final DirBakeOptions dirBakeOptions) {
+
+<span class="fc" id="L59">        final DirPageContextBuilder dirPageContextBuilder = new DirPageContextBuilder(</span>
+                targetRootDir, templateService);
+<span class="fc" id="L61">        final PageVars extensionVars = PageVars.empty();</span>
+<span class="fc" id="L62">        final PageContext pageContext = dirPageContextBuilder.buildPageContext(</span>
+                targetRootDir, dirBakeOptions, extensionVars);
+
+<span class="fc" id="L65">        return new DirBakerContext(</span>
+                sourceRootDir,
+                targetRootDir,
+                dirPageContextBuilder,
+                dirBakeOptions,
+                pageContext,
+                extensionVars);
+    }
+
+
+    /**
+     *
+     */
+    public Path sourceRootDir() {
+<span class="fc" id="L79">        return _sourceRootDir;</span>
+    }
+
+
+    /**
+     *
+     */
+    public DirBakeOptions dirBakeOptions() {
+<span class="fc" id="L87">        return _dirBakeOptions;</span>
+    }
+
+
+    /**
+     *
+     */
+    public PageContext pageContext() {
+<span class="fc" id="L95">        return _pageContext;</span>
+    }
+
+
+    /**
+     *
+     */
+    public DirBakerContext buildForChildDir(
+            final Path childTargetDir,
+            final DirBakeOptions childSpecificDirBakeOptions,
+            final Function&lt;PageContext, PageVars&gt; contextEnricher) {
+
+<span class="fc" id="L107">        final DirBakeOptions childDirBakeOptions =</span>
+<span class="fc" id="L108">                childSpecificDirBakeOptions.mergeOnTopOf(_dirBakeOptions);</span>
+<span class="fc" id="L109">        final PageContext childPageContext = _dirPageContextBuilder.buildPageContext(</span>
+                childTargetDir, childDirBakeOptions, _extensionVars);
+<span class="fc" id="L111">        final PageVars childNewExtensionVars = contextEnricher.apply(childPageContext);</span>
+<span class="fc" id="L112">        final PageVars childExtensionVars = PageVarsBuilder.create(_extensionVars)</span>
+<span class="fc" id="L113">                .addPageVars(childNewExtensionVars)</span>
+<span class="fc" id="L114">                .build();</span>
+<span class="fc" id="L115">        final PageContext extendedChildPageContext = PageContextBuilder.create(childPageContext)</span>
+<span class="fc" id="L116">                .addPageVars(childExtensionVars)</span>
+<span class="fc" id="L117">                .build();</span>
+
+<span class="fc" id="L119">        return new DirBakerContext(</span>
+                _sourceRootDir,
+                _targetRootDir,
+                _dirPageContextBuilder,
+                childDirBakeOptions,
+                extendedChildPageContext,
+                childExtensionVars);
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

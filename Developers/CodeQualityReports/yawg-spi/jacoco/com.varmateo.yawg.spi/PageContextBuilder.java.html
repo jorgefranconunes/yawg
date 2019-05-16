@@ -82,7 +82,7 @@ public final class PageContextBuilder {
     /**
      * @return A reference to this builder.
      */
-    public PageContextBuilder setDirUrl(final String dirUrl) {
+    public PageContextBuilder dirUrl(final String dirUrl) {
 
 <span class="fc" id="L87">        _dirUrl = dirUrl;</span>
 <span class="fc" id="L88">        return this;</span>
@@ -95,7 +95,7 @@ public final class PageContextBuilder {
      *
      * @return A reference to this builder.
      */
-    public PageContextBuilder setTemplateFetcher(
+    public PageContextBuilder templateFetcher(
             final Function&lt;Path,Optional&lt;Template&gt;&gt; templateFetcher) {
 
 <span class="nc" id="L101">        _templateFetcher = templateFetcher;</span>
@@ -106,7 +106,7 @@ public final class PageContextBuilder {
     /**
      * @return A reference to this builder.
      */
-    public PageContextBuilder setRootRelativeUrl(final String rootRelativeUrl) {
+    public PageContextBuilder rootRelativeUrl(final String rootRelativeUrl) {
 
 <span class="fc" id="L111">        _rootRelativeUrl = rootRelativeUrl;</span>
 <span class="fc" id="L112">        return this;</span>
@@ -116,7 +116,7 @@ public final class PageContextBuilder {
     /**
      * @return A reference to this builder.
      */
-    public PageContextBuilder setPageVars(final PageVars pageVars) {
+    public PageContextBuilder pageVars(final PageVars pageVars) {
 
 <span class="nc" id="L121">        _pageVarsBuilder = PageVarsBuilder.create(pageVars);</span>
 <span class="nc" id="L122">        return this;</span>

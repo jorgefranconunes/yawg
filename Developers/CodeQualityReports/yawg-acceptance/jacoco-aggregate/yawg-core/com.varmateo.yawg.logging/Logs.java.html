@@ -49,17 +49,34 @@ public final class Logs {
     /**
      *
      */
+    public static void logDuration(
+            final Log log,
+            final String subject,
+            final Runnable action) {
+
+<span class="fc" id="L57">        final Supplier&lt;Void&gt; wrappedAction = () -&gt; {</span>
+<span class="fc" id="L58">            action.run();</span>
+<span class="fc" id="L59">            return null;</span>
+        };
+
+<span class="fc" id="L62">        logDuration(log, subject, wrappedAction);</span>
+<span class="fc" id="L63">    }</span>
+
+
+    /**
+     *
+     */
     public static Runnable decorateWithLogDuration(
             final Log log,
             final String description,
             final Runnable function) {
 
-<span class="fc" id="L57">        return () -&gt; logDuration(</span>
+<span class="nc" id="L74">        return () -&gt; logDuration(</span>
                 log,
                 description,
                 () -&gt; {
-<span class="fc" id="L61">                    function.run();</span>
-<span class="fc" id="L62">                    return null;</span>
+<span class="nc" id="L78">                    function.run();</span>
+<span class="nc" id="L79">                    return null;</span>
                 });
     }
 
@@ -72,12 +89,12 @@ public final class Logs {
             final BiFunction&lt;T, U, String&gt; description,
             final BiConsumer&lt;T, U&gt; function) {
 
-<span class="fc" id="L75">        return (t, u) -&gt; logDuration(</span>
+<span class="fc" id="L92">        return (t, u) -&gt; logDuration(</span>
                 log,
-<span class="fc" id="L77">                description.apply(t, u),</span>
+<span class="fc" id="L94">                description.apply(t, u),</span>
                 () -&gt; {
-<span class="fc" id="L79">                    function.accept(t, u);</span>
-<span class="fc" id="L80">                    return null;</span>
+<span class="fc" id="L96">                    function.accept(t, u);</span>
+<span class="fc" id="L97">                    return null;</span>
                 });
     }
 
@@ -91,30 +108,30 @@ public final class Logs {
             final Supplier&lt;Try&lt;T&gt;&gt; action,
             final boolean isVerbose) {
 
-<span class="fc" id="L94">        log.info(&quot;Starting {0}...&quot;, subject);</span>
+<span class="fc" id="L111">        log.info(&quot;Starting {0}...&quot;, subject);</span>
 
-<span class="fc" id="L96">        long startTime = System.currentTimeMillis();</span>
-<span class="fc" id="L97">        Try&lt;T&gt; result = Try.of(action::get).flatMap(x -&gt; x);</span>
-<span class="fc" id="L98">        long delay = System.currentTimeMillis() - startTime;</span>
+<span class="fc" id="L113">        long startTime = System.currentTimeMillis();</span>
+<span class="fc" id="L114">        Try&lt;T&gt; result = Try.of(action::get).flatMap(x -&gt; x);</span>
+<span class="fc" id="L115">        long delay = System.currentTimeMillis() - startTime;</span>
 
-<span class="fc bfc" id="L100" title="All 2 branches covered.">        if (result.isSuccess()) {</span>
-<span class="fc" id="L101">            log.info(&quot;Done {0} ({1} ms)&quot;, subject, delay);</span>
+<span class="fc bfc" id="L117" title="All 2 branches covered.">        if (result.isSuccess()) {</span>
+<span class="fc" id="L118">            log.info(&quot;Done {0} ({1} ms)&quot;, subject, delay);</span>
         } else {
-<span class="fc" id="L103">            final Throwable cause = result.getCause();</span>
+<span class="fc" id="L120">            final Throwable cause = result.getCause();</span>
 
-<span class="pc bpc" id="L105" title="1 of 2 branches missed.">            if (isVerbose) {</span>
+<span class="pc bpc" id="L122" title="1 of 2 branches missed.">            if (isVerbose) {</span>
                 // Log with stack trace.
-<span class="nc" id="L107">                log.warning(cause, &quot;Failed {0} ({1} ms)&quot;, subject, delay);</span>
+<span class="nc" id="L124">                log.warning(cause, &quot;Failed {0} ({1} ms)&quot;, subject, delay);</span>
             } else {
                 // Log without stack trace.
-<span class="fc" id="L110">                log.warning(</span>
+<span class="fc" id="L127">                log.warning(</span>
                         &quot;Failed {0} ({1} ms) - {2} - {3}&quot;,
-<span class="fc" id="L112">                        subject, delay,</span>
-<span class="fc" id="L113">                        cause.getClass().getName(), cause.getMessage());</span>
+<span class="fc" id="L129">                        subject, delay,</span>
+<span class="fc" id="L130">                        cause.getClass().getName(), cause.getMessage());</span>
             }
         }
 
-<span class="fc" id="L117">        return result;</span>
+<span class="fc" id="L134">        return result;</span>
     }
 
 }
