@@ -29,9 +29,11 @@ import com.varmateo.yawg.spi.PageVarsBuilder;
 /* default */ final class SingleSiteBaker {
 
 
+    private static final String DEFAULT_TEMPLATE_NAME = "default.ftlh";
+
     private final Log _log;
     private final AssetsCopier _assetsCopier;
-    private final SourceTreeBaker _sourceTreeBaker;
+    private final DirBaker _dirBaker;
 
 
     /**
@@ -41,7 +43,7 @@ import com.varmateo.yawg.spi.PageVarsBuilder;
 
         _log = LogFactory.createFor(SingleSiteBaker.class);
         _assetsCopier = AssetsCopier.create();
-        _sourceTreeBaker = SourceTreeBaker.create(dirBaker);
+        _dirBaker = dirBaker;
     }
 
 
@@ -67,13 +69,41 @@ import com.varmateo.yawg.spi.PageVarsBuilder;
     private void doBake(final BakeOptions options)
             throws YawgException {
 
+        copyAssets(options);
+        bakeSourceTree(options);
+    }
+
+
+    private void copyAssets(final BakeOptions options) {
+
         Option.ofOptional(options.assetsDir())
                 .peek(assetsDir -> _assetsCopier.copy(assetsDir, options.targetDir()))
                 .onEmpty(() -> _log.debug("No assets directory to copy"));
+    }
 
+
+    private void bakeSourceTree(final BakeOptions options)
+            throws YawgException {
+
+        Logs.logDuration(
+                _log,
+                "baking source tree",
+                () -> doBakeSourceTree(options));
+    }
+
+
+    private void doBakeSourceTree(final BakeOptions options)
+            throws YawgException {
+
+        final Path sourceDir = options.sourceDir();
+        final Path targetDir = options.targetDir();
         final PageVars externalPageVars = mapToPageVars(options.externalPageVars());
+        final DirBakeOptions dirBakeOptions = DirBakeOptions.builder()
+                .templateName(DEFAULT_TEMPLATE_NAME)
+                .pageVars(externalPageVars)
+                .build();
 
-        _sourceTreeBaker.bake(options.sourceDir(), options.targetDir(), externalPageVars);
+        _dirBaker.bakeDirectory(sourceDir, targetDir, dirBakeOptions);
     }
 
 

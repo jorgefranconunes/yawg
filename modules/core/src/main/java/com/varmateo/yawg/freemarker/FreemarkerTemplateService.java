@@ -52,7 +52,7 @@ public final class FreemarkerTemplateService
     /**
      *
      */
-    static TemplateService create(final Path templatesDir)
+    public static TemplateService create(final Path templatesDir)
             throws YawgException {
 
         final Configuration fmConfig;

@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -45,6 +45,7 @@ import com.varmateo.yawg.util.Exceptions;
     /**
      * {@inheritDoc}
      */
+    @Override
     public Optional<Template> getTemplate(final String name)
             throws YawgException {
 
@@ -60,7 +61,7 @@ import com.varmateo.yawg.util.Exceptions;
             final String name)
             throws YawgException {
 
-        Option<Template> result = services
+        final Option<Template> result = services
                 .map(service -> service.getTemplate(name))
                 .map(Option::ofOptional)
                 .filter(Option::isDefined)
