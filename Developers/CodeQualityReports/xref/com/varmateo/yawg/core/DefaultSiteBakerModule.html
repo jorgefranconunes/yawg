@@ -17,18 +17,18 @@
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> java.nio.file.Path;
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.util.function.Function;
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> io.vavr.collection.List;
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> io.vavr.collection.Seq;
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> io.vavr.control.Option;
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.api.SiteBaker;
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.PageBaker;
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.PageBakerFactory;
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.DirBakeListener;
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.DirBakeListenerFactory;
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.TemplateService;
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.TemplateServiceFactory;
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.util.Holder;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> io.vavr.Lazy;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> io.vavr.collection.List;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> io.vavr.collection.Seq;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> io.vavr.control.Option;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.api.SiteBaker;
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.PageBaker;
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.PageBakerFactory;
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.DirBakeListener;
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.DirBakeListenerFactory;
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.TemplateService;
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.TemplateServiceFactory;
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.util.Services;
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  
@@ -38,21 +38,21 @@
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_comment">/* default */</em> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="DefaultSiteBakerModule" href="../../../../com/varmateo/yawg/core/DefaultSiteBakerModule.html#DefaultSiteBakerModule">DefaultSiteBakerModule</a> {
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Holder&lt;SiteBaker&gt; _siteBaker = Holder.of(<strong class="jxr_keyword">this</strong>::newSiteBaker);
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Lazy&lt;SiteBaker&gt; _siteBaker = Lazy.of(<strong class="jxr_keyword">this</strong>::newSiteBaker);
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Holder&lt;Seq&lt;TemplateServiceFactory&gt;&gt; _templateServiceFactories =
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>              Holder.of(<strong class="jxr_keyword">this</strong>::newTemplateServiceFactories);
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Lazy&lt;Seq&lt;TemplateServiceFactory&gt;&gt; _templateServiceFactories =
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>              Lazy.of(<strong class="jxr_keyword">this</strong>::newTemplateServiceFactories);
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Holder&lt;FileBaker&gt; _fileBaker = Holder.of(<strong class="jxr_keyword">this</strong>::newFileBaker);
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Lazy&lt;FileBaker&gt; _fileBaker = Lazy.of(<strong class="jxr_keyword">this</strong>::newFileBaker);
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Holder&lt;DirBakeOptionsDao&gt; _dirBakerOptionsDao =
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>              Holder.of(<strong class="jxr_keyword">this</strong>::newDirBakeOptionsDao);
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Lazy&lt;DirBakeOptionsDao&gt; _dirBakerOptionsDao =
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>              Lazy.of(<strong class="jxr_keyword">this</strong>::newDirBakeOptionsDao);
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Holder&lt;DirBakeListener&gt; _dirBakeListener = Holder.of(<strong class="jxr_keyword">this</strong>::newDirBakeListener);
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Lazy&lt;DirBakeListener&gt; _dirBakeListener = Lazy.of(<strong class="jxr_keyword">this</strong>::newDirBakeListener);
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Holder&lt;Seq&lt;PageBaker&gt;&gt; _pageBakers = Holder.of(<strong class="jxr_keyword">this</strong>::newPageBakers);
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Lazy&lt;Seq&lt;PageBaker&gt;&gt; _pageBakers = Lazy.of(<strong class="jxr_keyword">this</strong>::newPageBakers);
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Holder&lt;PageBaker&gt; _defaultPageBaker = Holder.of(<strong class="jxr_keyword">this</strong>::newDefaultPageBaker);
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Lazy&lt;PageBaker&gt; _defaultPageBaker = Lazy.of(<strong class="jxr_keyword">this</strong>::newDefaultPageBaker);
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>  
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>      <em class="jxr_javadoccomment">/**</em>

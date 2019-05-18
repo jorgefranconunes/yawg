@@ -13,6 +13,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
+import io.vavr.Lazy;
 import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.OptionsBuilder;
 import org.asciidoctor.internal.AsciidoctorCoreException;
@@ -25,7 +26,6 @@ import com.varmateo.yawg.spi.Template;
 import com.varmateo.yawg.spi.TemplateDataModel;
 import com.varmateo.yawg.util.Exceptions;
 import com.varmateo.yawg.util.FileUtils;
-import com.varmateo.yawg.util.Holder;
 
 
 /**
@@ -42,11 +42,11 @@ import com.varmateo.yawg.util.Holder;
 
     private static final String TARGET_EXTENSION = &quot;.html&quot;;
 
-<span class="fc" id="L45">    private final Holder&lt;Asciidoctor&gt; _asciidoctor =</span>
-<span class="fc" id="L46">            Holder.of(this::newAsciidoctor);</span>
+<span class="fc" id="L45">    private final Lazy&lt;Asciidoctor&gt; _asciidoctor =</span>
+<span class="fc" id="L46">            Lazy.of(this::newAsciidoctor);</span>
 
-<span class="fc" id="L48">    private final Holder&lt;AsciidoctorBakerDataModelBuilder&gt; _modelBuilder =</span>
-<span class="fc" id="L49">            Holder.of(this::newAsciidoctorBakerDataModelBuilder);</span>
+<span class="fc" id="L48">    private final Lazy&lt;AsciidoctorBakerDataModelBuilder&gt; _modelBuilder =</span>
+<span class="fc" id="L49">            Lazy.of(this::newAsciidoctorBakerDataModelBuilder);</span>
 
 
     /**
