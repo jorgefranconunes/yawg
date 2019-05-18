@@ -13,6 +13,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
+import io.vavr.Lazy;
 import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.OptionsBuilder;
 import org.asciidoctor.internal.AsciidoctorCoreException;
@@ -25,7 +26,6 @@ import com.varmateo.yawg.spi.Template;
 import com.varmateo.yawg.spi.TemplateDataModel;
 import com.varmateo.yawg.util.Exceptions;
 import com.varmateo.yawg.util.FileUtils;
-import com.varmateo.yawg.util.Holder;
 
 
 /**
@@ -42,11 +42,11 @@ import com.varmateo.yawg.util.Holder;
 
     private static final String TARGET_EXTENSION = ".html";
 
-    private final Holder<Asciidoctor> _asciidoctor =
-            Holder.of(this::newAsciidoctor);
+    private final Lazy<Asciidoctor> _asciidoctor =
+            Lazy.of(this::newAsciidoctor);
 
-    private final Holder<AsciidoctorBakerDataModelBuilder> _modelBuilder =
-            Holder.of(this::newAsciidoctorBakerDataModelBuilder);
+    private final Lazy<AsciidoctorBakerDataModelBuilder> _modelBuilder =
+            Lazy.of(this::newAsciidoctorBakerDataModelBuilder);
 
 
     /**

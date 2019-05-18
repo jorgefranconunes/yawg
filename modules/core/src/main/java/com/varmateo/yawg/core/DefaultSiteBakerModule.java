@@ -9,6 +9,7 @@ package com.varmateo.yawg.core;
 import java.nio.file.Path;
 import java.util.function.Function;
 
+import io.vavr.Lazy;
 import io.vavr.collection.List;
 import io.vavr.collection.Seq;
 import io.vavr.control.Option;
@@ -20,7 +21,6 @@ import com.varmateo.yawg.spi.DirBakeListener;
 import com.varmateo.yawg.spi.DirBakeListenerFactory;
 import com.varmateo.yawg.spi.TemplateService;
 import com.varmateo.yawg.spi.TemplateServiceFactory;
-import com.varmateo.yawg.util.Holder;
 import com.varmateo.yawg.util.Services;
 
 
@@ -30,21 +30,21 @@ import com.varmateo.yawg.util.Services;
 /* default */ final class DefaultSiteBakerModule {
 
 
-    private final Holder<SiteBaker> _siteBaker = Holder.of(this::newSiteBaker);
+    private final Lazy<SiteBaker> _siteBaker = Lazy.of(this::newSiteBaker);
 
-    private final Holder<Seq<TemplateServiceFactory>> _templateServiceFactories =
-            Holder.of(this::newTemplateServiceFactories);
+    private final Lazy<Seq<TemplateServiceFactory>> _templateServiceFactories =
+            Lazy.of(this::newTemplateServiceFactories);
 
-    private final Holder<FileBaker> _fileBaker = Holder.of(this::newFileBaker);
+    private final Lazy<FileBaker> _fileBaker = Lazy.of(this::newFileBaker);
 
-    private final Holder<DirBakeOptionsDao> _dirBakerOptionsDao =
-            Holder.of(this::newDirBakeOptionsDao);
+    private final Lazy<DirBakeOptionsDao> _dirBakerOptionsDao =
+            Lazy.of(this::newDirBakeOptionsDao);
 
-    private final Holder<DirBakeListener> _dirBakeListener = Holder.of(this::newDirBakeListener);
+    private final Lazy<DirBakeListener> _dirBakeListener = Lazy.of(this::newDirBakeListener);
 
-    private final Holder<Seq<PageBaker>> _pageBakers = Holder.of(this::newPageBakers);
+    private final Lazy<Seq<PageBaker>> _pageBakers = Lazy.of(this::newPageBakers);
 
-    private final Holder<PageBaker> _defaultPageBaker = Holder.of(this::newDefaultPageBaker);
+    private final Lazy<PageBaker> _defaultPageBaker = Lazy.of(this::newDefaultPageBaker);
 
 
     /**
