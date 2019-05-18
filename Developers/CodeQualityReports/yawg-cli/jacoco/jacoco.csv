@@ -1,7 +1,7 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 Yawg CLI,com.varmateo.yawg.cli,InfoPrinter.Builder,25,0,0,0,9,0,4,0,4,0
 Yawg CLI,com.varmateo.yawg.cli,CliInfoPrinter.Builder,41,0,0,0,15,0,6,0,6,0
-Yawg CLI,com.varmateo.yawg.cli,BakerCli,195,0,12,0,61,0,16,0,10,0
+Yawg CLI,com.varmateo.yawg.cli,BakerCli,211,0,12,0,62,0,16,0,10,0
 Yawg CLI,com.varmateo.yawg.cli,CliParameterSet,79,199,6,14,19,59,8,18,3,13
 Yawg CLI,com.varmateo.yawg.cli,CliInfoPrinter,111,0,0,0,29,0,7,0,7,0
 Yawg CLI,com.varmateo.yawg.cli,Main,38,0,0,0,13,0,3,0,3,0

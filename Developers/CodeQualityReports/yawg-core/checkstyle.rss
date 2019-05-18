@@ -25,8 +25,8 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2015 - 2019</copyright>
     <item>
-      <title>File: 52,
-             Errors: 13,
+      <title>File: 50,
+             Errors: 5,
              Warnings: 0,
              Infos: 0
       </title>
@@ -74,7 +74,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.core.SiteBakerModule.java">com/varmateo/yawg/core/SiteBakerModule.java</a>
+                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.core.DefaultSiteBakerModule.java">com/varmateo/yawg/core/DefaultSiteBakerModule.java</a>
                 </td>
                 <td>
                   0
@@ -83,7 +83,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
               </tr>
                           <tr>
@@ -368,20 +368,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.core.CoreSiteBaker.java">com/varmateo/yawg/core/CoreSiteBaker.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.asciidoctor.AsciidoctorPageBaker.java">com/varmateo/yawg/asciidoctor/AsciidoctorPageBaker.java</a>
                 </td>
                 <td>
@@ -424,7 +410,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.core.SingleSiteBaker.java">com/varmateo/yawg/core/SingleSiteBaker.java</a>
+                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.core.MainSiteBaker.java">com/varmateo/yawg/core/MainSiteBaker.java</a>
                 </td>
                 <td>
                   0
@@ -433,7 +419,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  3
+                  0
                 </td>
               </tr>
                           <tr>
@@ -522,20 +508,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.core.SourceTreeBaker.java">com/varmateo/yawg/core/SourceTreeBaker.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.freemarker.package-info.java">com/varmateo/yawg/freemarker/package-info.java</a>
                 </td>
                 <td>
@@ -550,7 +522,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.core.CoreSiteBakerFactory.java">com/varmateo/yawg/core/CoreSiteBakerFactory.java</a>
+                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.core.DefaultSiteBaker.java">com/varmateo/yawg/core/DefaultSiteBaker.java</a>
                 </td>
                 <td>
                   0
@@ -559,7 +531,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
               </tr>
                           <tr>
@@ -769,7 +741,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  4
+                  1
                 </td>
               </tr>
                       </tbody>

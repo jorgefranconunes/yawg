@@ -28,21 +28,19 @@ import com.varmateo.yawg.util.Exceptions;
 /* package private */ final class AssetsCopier {
 
 
-    private final Log _log;
     private final BiConsumer&lt;Path, Path&gt; _copyAction;
 
 
     /**
      * @param conf All the parameters needed for performing a bake.
      */
-<span class="nc" id="L38">    AssetsCopier(final Log log) {</span>
+<span class="nc" id="L37">    AssetsCopier(final Log log) {</span>
 
-<span class="nc" id="L40">        _log = log;</span>
-<span class="nc" id="L41">        _copyAction = Logs.decorateWithLogDuration(</span>
+<span class="nc" id="L39">        _copyAction = Logs.decorateWithLogDuration(</span>
                 log,
-<span class="nc" id="L43">                (source, target) -&gt; &quot;copy assets&quot;,</span>
+<span class="nc" id="L41">                (source, target) -&gt; &quot;copy assets&quot;,</span>
                 AssetsCopier::doCopy);
-<span class="nc" id="L45">    }</span>
+<span class="nc" id="L43">    }</span>
 
 
     /**
@@ -50,9 +48,9 @@ import com.varmateo.yawg.util.Exceptions;
      */
     public static AssetsCopier create() {
 
-<span class="nc" id="L53">        final Log log = LogFactory.createFor(AssetsCopier.class);</span>
+<span class="nc" id="L51">        final Log log = LogFactory.createFor(AssetsCopier.class);</span>
 
-<span class="nc" id="L55">        return new AssetsCopier(log);</span>
+<span class="nc" id="L53">        return new AssetsCopier(log);</span>
     }
 
 
@@ -64,8 +62,8 @@ import com.varmateo.yawg.util.Exceptions;
             final Path targetDir)
             throws YawgException {
 
-<span class="nc" id="L67">        _copyAction.accept(assetsDir, targetDir);</span>
-<span class="nc" id="L68">    }</span>
+<span class="nc" id="L65">        _copyAction.accept(assetsDir, targetDir);</span>
+<span class="nc" id="L66">    }</span>
 
 
     /**
@@ -77,15 +75,15 @@ import com.varmateo.yawg.util.Exceptions;
             throws YawgException {
 
         try {
-<span class="nc" id="L80">            copyDirectoryTree(sourceDir, targetDir);</span>
-<span class="nc" id="L81">        } catch ( IOException e ) {</span>
-<span class="nc" id="L82">            Exceptions.raise(</span>
+<span class="nc" id="L78">            copyDirectoryTree(sourceDir, targetDir);</span>
+<span class="nc" id="L79">        } catch ( IOException e ) {</span>
+<span class="nc" id="L80">            Exceptions.raise(</span>
                     e,
                     &quot;Failed to copy assets - {0} - {1}&quot;,
-<span class="nc" id="L85">                    e.getClass().getSimpleName(),</span>
-<span class="nc" id="L86">                    e.getMessage());</span>
-<span class="nc" id="L87">        }</span>
-<span class="nc" id="L88">    }</span>
+<span class="nc" id="L83">                    e.getClass().getSimpleName(),</span>
+<span class="nc" id="L84">                    e.getMessage());</span>
+<span class="nc" id="L85">        }</span>
+<span class="nc" id="L86">    }</span>
 
 
     /**
@@ -96,35 +94,35 @@ import com.varmateo.yawg.util.Exceptions;
             final Path targetDir)
             throws IOException {
 
-<span class="nc" id="L99">        Files.walkFileTree(</span>
+<span class="nc" id="L97">        Files.walkFileTree(</span>
                 sourceDir,
-<span class="nc" id="L101">                new SimpleFileVisitor&lt;Path&gt;() {</span>
+<span class="nc" id="L99">                new SimpleFileVisitor&lt;Path&gt;() {</span>
                     @Override
                     public FileVisitResult preVisitDirectory(
                             final Path dir,
                             final BasicFileAttributes attrs)
                             throws IOException {
-<span class="nc" id="L107">                        Path childTargetDir =</span>
-<span class="nc" id="L108">                                targetDir.resolve(sourceDir.relativize(dir));</span>
-<span class="nc bnc" id="L109" title="All 2 branches missed.">                        if ( !Files.exists(childTargetDir) ) {</span>
-<span class="nc" id="L110">                            Files.createDirectory(childTargetDir);</span>
+<span class="nc" id="L105">                        Path childTargetDir =</span>
+<span class="nc" id="L106">                                targetDir.resolve(sourceDir.relativize(dir));</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">                        if ( !Files.exists(childTargetDir) ) {</span>
+<span class="nc" id="L108">                            Files.createDirectory(childTargetDir);</span>
                         }
-<span class="nc" id="L112">                        return FileVisitResult.CONTINUE;</span>
+<span class="nc" id="L110">                        return FileVisitResult.CONTINUE;</span>
                     }
                     @Override
                     public FileVisitResult visitFile(
                             final Path file,
                             final BasicFileAttributes attrs)
                             throws IOException {
-<span class="nc" id="L119">                        Files.copy(</span>
+<span class="nc" id="L117">                        Files.copy(</span>
                                 file,
-<span class="nc" id="L121">                                targetDir.resolve(sourceDir.relativize(file)),</span>
+<span class="nc" id="L119">                                targetDir.resolve(sourceDir.relativize(file)),</span>
                                 StandardCopyOption.REPLACE_EXISTING,
                                 StandardCopyOption.COPY_ATTRIBUTES);
-<span class="nc" id="L124">                        return FileVisitResult.CONTINUE;</span>
+<span class="nc" id="L122">                        return FileVisitResult.CONTINUE;</span>
                     }
                 });
-<span class="nc" id="L127">    }</span>
+<span class="nc" id="L125">    }</span>
 
 
 }

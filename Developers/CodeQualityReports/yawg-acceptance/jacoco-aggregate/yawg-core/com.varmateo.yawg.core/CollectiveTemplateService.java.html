@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>CollectiveTemplateService.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">CollectiveTemplateService.java</span></div><h1>CollectiveTemplateService.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -45,10 +45,11 @@ import com.varmateo.yawg.util.Exceptions;
     /**
      * {@inheritDoc}
      */
+    @Override
     public Optional&lt;Template&gt; getTemplate(final String name)
             throws YawgException {
 
-<span class="fc" id="L51">        return _templateFetcher.apply(name);</span>
+<span class="fc" id="L52">        return _templateFetcher.apply(name);</span>
     }
 
 
@@ -60,18 +61,18 @@ import com.varmateo.yawg.util.Exceptions;
             final String name)
             throws YawgException {
 
-<span class="fc" id="L63">        Option&lt;Template&gt; result = services</span>
-<span class="fc" id="L64">                .map(service -&gt; service.getTemplate(name))</span>
-<span class="fc" id="L65">                .map(Option::ofOptional)</span>
-<span class="fc" id="L66">                .filter(Option::isDefined)</span>
-<span class="fc" id="L67">                .map(Option::get)</span>
-<span class="fc" id="L68">                .headOption();</span>
+<span class="fc" id="L64">        final Option&lt;Template&gt; result = services</span>
+<span class="fc" id="L65">                .map(service -&gt; service.getTemplate(name))</span>
+<span class="fc" id="L66">                .map(Option::ofOptional)</span>
+<span class="fc" id="L67">                .filter(Option::isDefined)</span>
+<span class="fc" id="L68">                .map(Option::get)</span>
+<span class="fc" id="L69">                .headOption();</span>
 
-<span class="pc bpc" id="L70" title="1 of 2 branches missed.">        if ( !result.isDefined() ) {</span>
-<span class="nc" id="L71">            throw Exceptions.raise(&quot;Unsupported template format \&quot;{0}\&quot;&quot;, name);</span>
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">        if ( !result.isDefined() ) {</span>
+<span class="nc" id="L72">            throw Exceptions.raise(&quot;Unsupported template format \&quot;{0}\&quot;&quot;, name);</span>
         }
 
-<span class="fc" id="L74">        return result.toJavaOptional();</span>
+<span class="fc" id="L75">        return result.toJavaOptional();</span>
     }
 
 
