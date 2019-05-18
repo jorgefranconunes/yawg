@@ -18,9 +18,12 @@ import io.vavr.Tuple;
 import io.vavr.Tuple2;
 import io.vavr.control.Try;
 
-import com.varmateo.yawg.api.SiteBaker;
 import com.varmateo.yawg.api.BakeOptions;
-import com.varmateo.yawg.api.SiteBakerFactory;
+import com.varmateo.yawg.api.SiteBaker;
+import com.varmateo.yawg.api.YawgInfo;
+import com.varmateo.yawg.core.MainSiteBaker;
+import com.varmateo.yawg.logging.Log;
+import com.varmateo.yawg.logging.LogFactory;
 
 
 /**
@@ -33,6 +36,7 @@ public final class BakerCli {
     private static final int EXIT_STATUS_FAILURE = 1;
 
 
+    private final Log _log;
     private final BakerCliOptions _options;
 
 
@@ -41,6 +45,7 @@ public final class BakerCli {
      */
     public BakerCli(final BakerCliOptions options) {
 
+        _log = LogFactory.createFor(BakerCli.class);
         _options = options;
     }
 
@@ -125,12 +130,13 @@ public final class BakerCli {
     /**
      *
      */
-    private static Try<Void> doBake(final CliParameterSet cliOptions)
+    private Try<Void> doBake(final CliParameterSet cliOptions)
             throws CliException {
 
         final BakeOptions options = buildBakeOptions(cliOptions);
-        final SiteBakerFactory factory = SiteBakerFactory.get();
-        final SiteBaker siteBaker = factory.newSiteBaker();
+        final SiteBaker siteBaker = MainSiteBaker.create();
+
+        _log.info("{0} {1}", YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);
 
         return Try.run(() -> siteBaker.bake(options));
     }
