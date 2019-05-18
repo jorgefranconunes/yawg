@@ -28,7 +28,6 @@ import com.varmateo.yawg.util.Exceptions;
 /* package private */ final class AssetsCopier {
 
 
-    private final Log _log;
     private final BiConsumer<Path, Path> _copyAction;
 
 
@@ -37,7 +36,6 @@ import com.varmateo.yawg.util.Exceptions;
      */
     AssetsCopier(final Log log) {
 
-        _log = log;
         _copyAction = Logs.decorateWithLogDuration(
                 log,
                 (source, target) -> "copy assets",

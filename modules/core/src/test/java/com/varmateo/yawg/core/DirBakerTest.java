@@ -20,8 +20,6 @@ import com.varmateo.testutils.TestUtils;
 import com.varmateo.yawg.core.DirBaker;
 import com.varmateo.yawg.core.DirBakeOptions;
 import com.varmateo.yawg.core.FileBaker;
-import com.varmateo.yawg.logging.Log;
-import com.varmateo.yawg.logging.LogFactory;
 import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.DirBakeListener;
 import com.varmateo.yawg.spi.PageContext;

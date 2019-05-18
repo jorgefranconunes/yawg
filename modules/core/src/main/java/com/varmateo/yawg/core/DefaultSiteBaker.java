@@ -8,7 +8,6 @@ package com.varmateo.yawg.core;
 
 import java.nio.file.Path;
 import java.util.Map;
-import java.util.Optional;
 
 import io.vavr.control.Option;
 
