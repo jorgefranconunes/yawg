@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultExtensionsModule.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">DefaultExtensionsModule.java</span></div><h1>DefaultExtensionsModule.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2019 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.core;
+
+import io.vavr.Lazy;
+import io.vavr.collection.List;
+import io.vavr.collection.Seq;
+
+import com.varmateo.yawg.asciidoctor.AsciidoctorPageBaker;
+import com.varmateo.yawg.breadcrumbs.BreadcrumbsBakeListener;
+import com.varmateo.yawg.freemarker.FreemarkerTemplateServiceFactory;
+import com.varmateo.yawg.html.HtmlPageBaker;
+import com.varmateo.yawg.spi.PageBaker;
+import com.varmateo.yawg.spi.DirBakeListener;
+import com.varmateo.yawg.spi.TemplateServiceFactory;
+
+
+/**
+ *
+ */
+/* default */ final class DefaultExtensionsModule {
+
+
+<span class="nc" id="L28">    private final Lazy&lt;Seq&lt;PageBaker&gt;&gt; _pageBakers = Lazy.of(this::createPageBakers);</span>
+
+<span class="nc" id="L30">    private final Lazy&lt;Seq&lt;TemplateServiceFactory&gt;&gt; _templateServiceFactories =</span>
+<span class="nc" id="L31">            Lazy.of(this::createTemplateServiceFactories);</span>
+
+<span class="nc" id="L33">    private final Lazy&lt;Seq&lt;DirBakeListener&gt;&gt; _dirBakeListeners =</span>
+<span class="nc" id="L34">            Lazy.of(this::createDirBakeListeners);</span>
+
+
+<span class="nc" id="L37">    private DefaultExtensionsModule() {</span>
+        // Nothiong to do.
+<span class="nc" id="L39">    }</span>
+
+
+    /**
+     *
+     */
+    public static DefaultExtensionsModule create() {
+
+<span class="nc" id="L47">        return new DefaultExtensionsModule();</span>
+    }
+
+
+    /**
+     *
+     */
+    public Seq&lt;PageBaker&gt; pageBakers() {
+
+<span class="nc" id="L56">        return _pageBakers.get();</span>
+    }
+
+
+    /**
+     *
+     */
+    public Seq&lt;TemplateServiceFactory&gt; templateServiceFactories() {
+
+<span class="nc" id="L65">        return _templateServiceFactories.get();</span>
+    }
+
+
+    /**
+     *
+     */
+    public Seq&lt;DirBakeListener&gt; dirBakeListeners() {
+
+<span class="nc" id="L74">        return _dirBakeListeners.get();</span>
+    }
+
+
+    private Seq&lt;PageBaker&gt; createPageBakers() {
+
+<span class="nc" id="L80">        return List.of(</span>
+<span class="nc" id="L81">                AsciidoctorPageBaker.create(),</span>
+<span class="nc" id="L82">                HtmlPageBaker.create());</span>
+    }
+
+
+    private Seq&lt;TemplateServiceFactory&gt; createTemplateServiceFactories() {
+
+<span class="nc" id="L88">        return List.of(</span>
+<span class="nc" id="L89">                FreemarkerTemplateServiceFactory.create());</span>
+    }
+
+
+    private Seq&lt;DirBakeListener&gt; createDirBakeListeners() {
+
+<span class="nc" id="L95">        return List.of(</span>
+<span class="nc" id="L96">                BreadcrumbsBakeListener.create());</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

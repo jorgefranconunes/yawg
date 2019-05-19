@@ -20,7 +20,7 @@ import java.util.Optional;
 /**
  *
  */
-<span class="fc" id="L23">public final class BreadcrumbsBakeListener</span>
+public final class BreadcrumbsBakeListener
         implements DirBakeListener {
 
 
@@ -31,6 +31,20 @@ import java.util.Optional;
     private static final String ATTR_URL = &quot;url&quot;;
 
 
+<span class="fc" id="L34">    private BreadcrumbsBakeListener() {</span>
+        // Nothing to do.
+<span class="fc" id="L36">    }</span>
+
+
+    /**
+     *
+     */
+    public static DirBakeListener create() {
+
+<span class="fc" id="L44">        return new BreadcrumbsBakeListener();</span>
+    }
+
+
     /**
      *
      */
@@ -38,12 +52,12 @@ import java.util.Optional;
     public PageVars onDirBake(final PageContext context)
             throws YawgException {
 
-<span class="fc" id="L41">        final SimpleMap vars = new SimpleMap(context.pageVars().asMap());</span>
-<span class="fc" id="L42">        final Breadcrumbs oldBreadcrumbs = getBreadcrumbs(vars);</span>
-<span class="fc" id="L43">        final BreadcrumbItem newBreadcrumbItem = buildBreadcrumbItem(vars, context.dirUrl());</span>
-<span class="fc" id="L44">        final Breadcrumbs newBreadcrumbs = extendBreadcrumbs(oldBreadcrumbs, newBreadcrumbItem);</span>
+<span class="fc" id="L55">        final SimpleMap vars = new SimpleMap(context.pageVars().asMap());</span>
+<span class="fc" id="L56">        final Breadcrumbs oldBreadcrumbs = getBreadcrumbs(vars);</span>
+<span class="fc" id="L57">        final BreadcrumbItem newBreadcrumbItem = buildBreadcrumbItem(vars, context.dirUrl());</span>
+<span class="fc" id="L58">        final Breadcrumbs newBreadcrumbs = extendBreadcrumbs(oldBreadcrumbs, newBreadcrumbItem);</span>
 
-<span class="fc" id="L46">        return updateBreadcrumbs(newBreadcrumbs);</span>
+<span class="fc" id="L60">        return updateBreadcrumbs(newBreadcrumbs);</span>
     }
 
 
@@ -52,8 +66,8 @@ import java.util.Optional;
      */
     private Breadcrumbs getBreadcrumbs(final SimpleMap vars) {
 
-<span class="fc" id="L55">        return vars.get(VAR_BREADCRUMB_LIST, Breadcrumbs.class)</span>
-<span class="fc" id="L56">                .orElseGet(Breadcrumbs::empty);</span>
+<span class="fc" id="L69">        return vars.get(VAR_BREADCRUMB_LIST, Breadcrumbs.class)</span>
+<span class="fc" id="L70">                .orElseGet(Breadcrumbs::empty);</span>
     }
 
 
@@ -64,16 +78,16 @@ import java.util.Optional;
             final SimpleMap vars,
             final String dirUrl) {
 
-<span class="fc" id="L67">        final Optional&lt;SimpleMap&gt; itemData = vars.getMap(VAR_BREADCRUMB);</span>
-<span class="fc" id="L68">        final String title = itemData</span>
-<span class="pc" id="L69">                .flatMap(m -&gt; m.getString(ATTR_TITLE))</span>
-<span class="fc" id="L70">                .orElseGet(() -&gt; basenameOf(dirUrl));</span>
-<span class="fc" id="L71">        final String url = itemData</span>
-<span class="pc" id="L72">                .flatMap(m -&gt; m.getString(ATTR_URL))</span>
-<span class="pc" id="L73">                .map(s -&gt; dirUrl + &quot;/&quot; + s)</span>
-<span class="fc" id="L74">                .orElse(dirUrl);</span>
+<span class="fc" id="L81">        final Optional&lt;SimpleMap&gt; itemData = vars.getMap(VAR_BREADCRUMB);</span>
+<span class="fc" id="L82">        final String title = itemData</span>
+<span class="pc" id="L83">                .flatMap(m -&gt; m.getString(ATTR_TITLE))</span>
+<span class="fc" id="L84">                .orElseGet(() -&gt; basenameOf(dirUrl));</span>
+<span class="fc" id="L85">        final String url = itemData</span>
+<span class="pc" id="L86">                .flatMap(m -&gt; m.getString(ATTR_URL))</span>
+<span class="pc" id="L87">                .map(s -&gt; dirUrl + &quot;/&quot; + s)</span>
+<span class="fc" id="L88">                .orElse(dirUrl);</span>
 
-<span class="fc" id="L76">        return new BreadcrumbItem(title, url);</span>
+<span class="fc" id="L90">        return new BreadcrumbItem(title, url);</span>
     }
 
 
@@ -82,9 +96,9 @@ import java.util.Optional;
      */
     private String basenameOf(final String url) {
 
-<span class="fc" id="L85">        final int index = url.lastIndexOf('/');</span>
+<span class="fc" id="L99">        final int index = url.lastIndexOf('/');</span>
 
-<span class="pc bpc" id="L87" title="1 of 2 branches missed.">        return (index != -1) ? url.substring(index+1) : url;</span>
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">        return (index != -1) ? url.substring(index+1) : url;</span>
     }
 
 
@@ -95,9 +109,9 @@ import java.util.Optional;
             final Breadcrumbs oldBreadcrumbs,
             final BreadcrumbItem newBreadcrumbItem) {
 
-<span class="fc" id="L98">        return Breadcrumbs.builder(oldBreadcrumbs)</span>
-<span class="fc" id="L99">                .addBreadcrumbItem(newBreadcrumbItem)</span>
-<span class="fc" id="L100">                .build();</span>
+<span class="fc" id="L112">        return Breadcrumbs.builder(oldBreadcrumbs)</span>
+<span class="fc" id="L113">                .addBreadcrumbItem(newBreadcrumbItem)</span>
+<span class="fc" id="L114">                .build();</span>
     }
 
 
@@ -106,9 +120,9 @@ import java.util.Optional;
      */
     private PageVars updateBreadcrumbs(final Breadcrumbs newBreadcrumbs) {
 
-<span class="fc" id="L109">        return PageVarsBuilder.create()</span>
-<span class="fc" id="L110">                .addVar(VAR_BREADCRUMB_LIST, newBreadcrumbs)</span>
-<span class="fc" id="L111">                .build();</span>
+<span class="fc" id="L123">        return PageVarsBuilder.create()</span>
+<span class="fc" id="L124">                .addVar(VAR_BREADCRUMB_LIST, newBreadcrumbs)</span>
+<span class="fc" id="L125">                .build();</span>
     }
 
 

@@ -8,6 +8,7 @@ package com.varmateo.yawg.core;
 
 import java.nio.file.Path;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import io.vavr.Lazy;
 import io.vavr.collection.List;
@@ -16,43 +17,48 @@ import io.vavr.control.Option;
 
 import com.varmateo.yawg.api.SiteBaker;
 import com.varmateo.yawg.spi.PageBaker;
-import com.varmateo.yawg.spi.PageBakerFactory;
 import com.varmateo.yawg.spi.DirBakeListener;
-import com.varmateo.yawg.spi.DirBakeListenerFactory;
 import com.varmateo.yawg.spi.TemplateService;
 import com.varmateo.yawg.spi.TemplateServiceFactory;
-import com.varmateo.yawg.util.Services;
 
 
 /**
- * Factory for all the objects required by the main baker.
+ * Module for all the objects required by the main baker.
  */
 /* default */ final class DefaultSiteBakerModule {
 
 
-<span class="fc" id="L33">    private final Lazy&lt;SiteBaker&gt; _siteBaker = Lazy.of(this::newSiteBaker);</span>
+<span class="fc" id="L31">    private final Lazy&lt;SiteBaker&gt; _siteBaker = Lazy.of(this::newSiteBaker);</span>
+<span class="fc" id="L32">    private final Lazy&lt;FileBaker&gt; _fileBaker = Lazy.of(this::newFileBaker);</span>
+<span class="fc" id="L33">    private final Lazy&lt;DirBakeOptionsDao&gt; _dirBakerOptionsDao = Lazy.of(this::newDirBakeOptionsDao);</span>
+<span class="fc" id="L34">    private final Lazy&lt;PageBaker&gt; _defaultPageBaker = Lazy.of(this::newDefaultPageBaker);</span>
 
-<span class="fc" id="L35">    private final Lazy&lt;Seq&lt;TemplateServiceFactory&gt;&gt; _templateServiceFactories =</span>
-<span class="fc" id="L36">            Lazy.of(this::newTemplateServiceFactories);</span>
+    private final Supplier&lt;Seq&lt;PageBaker&gt;&gt; _pageBakers;
+    private final Supplier&lt;Seq&lt;TemplateServiceFactory&gt;&gt; _templateServiceFactories;
+    private final Supplier&lt;Seq&lt;DirBakeListener&gt;&gt; _dirBakeListeners;
 
-<span class="fc" id="L38">    private final Lazy&lt;FileBaker&gt; _fileBaker = Lazy.of(this::newFileBaker);</span>
 
-<span class="fc" id="L40">    private final Lazy&lt;DirBakeOptionsDao&gt; _dirBakerOptionsDao =</span>
-<span class="fc" id="L41">            Lazy.of(this::newDirBakeOptionsDao);</span>
+    private DefaultSiteBakerModule(
+            final Supplier&lt;Seq&lt;PageBaker&gt;&gt; pageBakers,
+            final Supplier&lt;Seq&lt;TemplateServiceFactory&gt;&gt; templateServiceFactories,
+<span class="fc" id="L44">            final Supplier&lt;Seq&lt;DirBakeListener&gt;&gt; dirBakeListeners) {</span>
 
-<span class="fc" id="L43">    private final Lazy&lt;DirBakeListener&gt; _dirBakeListener = Lazy.of(this::newDirBakeListener);</span>
-
-<span class="fc" id="L45">    private final Lazy&lt;Seq&lt;PageBaker&gt;&gt; _pageBakers = Lazy.of(this::newPageBakers);</span>
-
-<span class="fc" id="L47">    private final Lazy&lt;PageBaker&gt; _defaultPageBaker = Lazy.of(this::newDefaultPageBaker);</span>
+<span class="fc" id="L46">        _pageBakers = pageBakers;</span>
+<span class="fc" id="L47">        _templateServiceFactories = templateServiceFactories;</span>
+<span class="fc" id="L48">        _dirBakeListeners = dirBakeListeners;</span>
+<span class="fc" id="L49">    }</span>
 
 
     /**
-     * @param options Configuration parameters.
+     *
      */
-<span class="fc" id="L53">    DefaultSiteBakerModule() {</span>
-        // Nothing to do.
-<span class="fc" id="L55">    }</span>
+    public static DefaultSiteBakerModule create(
+            final Supplier&lt;Seq&lt;PageBaker&gt;&gt; pageBakers,
+            final Supplier&lt;Seq&lt;TemplateServiceFactory&gt;&gt; templateServiceFactories,
+            final Supplier&lt;Seq&lt;DirBakeListener&gt;&gt; dirBakeListeners) {
+
+<span class="fc" id="L60">        return new DefaultSiteBakerModule(pageBakers, templateServiceFactories, dirBakeListeners);</span>
+    }
 
 
     /**
@@ -60,16 +66,16 @@ import com.varmateo.yawg.util.Services;
      */
     public SiteBaker siteBaker() {
 
-<span class="fc" id="L63">        return _siteBaker.get();</span>
+<span class="fc" id="L69">        return _siteBaker.get();</span>
     }
 
 
     private SiteBaker newSiteBaker() {
 
-<span class="fc" id="L69">        final AssetsCopier assetsCopier = AssetsCopier.create();</span>
-<span class="fc" id="L70">        final Function&lt;Option&lt;Path&gt;, DirBaker&gt; dirBakerFactory = this::newDirBaker;</span>
+<span class="fc" id="L75">        final AssetsCopier assetsCopier = AssetsCopier.create();</span>
+<span class="fc" id="L76">        final Function&lt;Option&lt;Path&gt;, DirBaker&gt; dirBakerFactory = this::newDirBaker;</span>
 
-<span class="fc" id="L72">        return DefaultSiteBaker.create(assetsCopier, dirBakerFactory);</span>
+<span class="fc" id="L78">        return DefaultSiteBaker.create(assetsCopier, dirBakerFactory);</span>
     }
 
 
@@ -78,24 +84,21 @@ import com.varmateo.yawg.util.Services;
      */
     private DirBaker newDirBaker(final Option&lt;Path&gt; templatesDir) {
 
-<span class="fc" id="L81">        final Function&lt;Path, Seq&lt;TemplateService&gt;&gt; createTemplateServices =</span>
-<span class="fc" id="L82">                path -&gt; _templateServiceFactories.get().map(f -&gt; f.newTemplateService(path));</span>
-<span class="fc" id="L83">        final Seq&lt;TemplateService&gt; allTemplateServices = templatesDir</span>
-<span class="fc" id="L84">                .map(createTemplateServices)</span>
-<span class="fc" id="L85">                .getOrElse(List::empty);</span>
-<span class="fc" id="L86">        final TemplateService templateService = new CollectiveTemplateService(allTemplateServices);</span>
+<span class="fc" id="L87">        final Function&lt;Path, Seq&lt;TemplateService&gt;&gt; createTemplateServices =</span>
+<span class="fc" id="L88">                path -&gt; _templateServiceFactories.get().map(f -&gt; f.newTemplateService(path));</span>
+<span class="fc" id="L89">        final Seq&lt;TemplateService&gt; allTemplateServices = templatesDir</span>
+<span class="fc" id="L90">                .map(createTemplateServices)</span>
+<span class="fc" id="L91">                .getOrElse(List::empty);</span>
+<span class="fc" id="L92">        final TemplateService templateService =</span>
+                new CollectiveTemplateService(allTemplateServices);
+<span class="fc" id="L94">        final DirBakeListener dirBakeListener =</span>
+<span class="fc" id="L95">                new CollectiveDirBakeListener(_dirBakeListeners.get());</span>
 
-<span class="fc" id="L88">        return new DirBaker(</span>
-<span class="fc" id="L89">                _fileBaker.get(),</span>
+<span class="fc" id="L97">        return new DirBaker(</span>
+<span class="fc" id="L98">                _fileBaker.get(),</span>
                 templateService,
-<span class="fc" id="L91">                _dirBakerOptionsDao.get(),</span>
-<span class="fc" id="L92">                _dirBakeListener.get());</span>
-    }
-
-
-    private Seq&lt;TemplateServiceFactory&gt; newTemplateServiceFactories() {
-
-<span class="fc" id="L98">        return Services.getAll(TemplateServiceFactory.class);</span>
+<span class="fc" id="L100">                _dirBakerOptionsDao.get(),</span>
+                dirBakeListener);
     }
 
 
@@ -104,10 +107,10 @@ import com.varmateo.yawg.util.Services;
      */
     private FileBaker newFileBaker() {
 
-<span class="fc" id="L107">        final Seq&lt;PageBaker&gt; bakers = _pageBakers.get();</span>
-<span class="fc" id="L108">        final PageBaker defaultBaker = _defaultPageBaker.get();</span>
+<span class="fc" id="L110">        final Seq&lt;PageBaker&gt; bakers = _pageBakers.get();</span>
+<span class="fc" id="L111">        final PageBaker defaultBaker = _defaultPageBaker.get();</span>
 
-<span class="fc" id="L110">        return new FileBaker(bakers, defaultBaker);</span>
+<span class="fc" id="L113">        return new FileBaker(bakers, defaultBaker);</span>
     }
 
 
@@ -116,29 +119,7 @@ import com.varmateo.yawg.util.Services;
      */
     private DirBakeOptionsDao newDirBakeOptionsDao() {
 
-<span class="fc" id="L119">        return new DirBakeOptionsDao();</span>
-    }
-
-
-    /**
-     *
-     */
-    private DirBakeListener newDirBakeListener() {
-
-<span class="fc" id="L128">        final Seq&lt;DirBakeListener&gt; allListeners = Services.getAll(DirBakeListenerFactory.class)</span>
-<span class="fc" id="L129">                .map(DirBakeListenerFactory::newDirBakeListener);</span>
-
-<span class="fc" id="L131">        return new CollectiveDirBakeListener(allListeners);</span>
-    }
-
-
-    /**
-     *
-     */
-    private Seq&lt;PageBaker&gt; newPageBakers() {
-
-<span class="fc" id="L140">        return Services.getAll(PageBakerFactory.class)</span>
-<span class="fc" id="L141">                .map(PageBakerFactory::createPageBaker);</span>
+<span class="fc" id="L122">        return new DirBakeOptionsDao();</span>
     }
 
 
@@ -147,7 +128,7 @@ import com.varmateo.yawg.util.Services;
      */
     private PageBaker newDefaultPageBaker() {
 
-<span class="fc" id="L150">        return new CopyPageBaker();</span>
+<span class="fc" id="L131">        return new CopyPageBaker();</span>
     }
 
 

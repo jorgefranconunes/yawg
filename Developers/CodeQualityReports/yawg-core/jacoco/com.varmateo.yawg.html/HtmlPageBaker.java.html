@@ -25,7 +25,7 @@ import com.varmateo.yawg.util.FileUtils;
  * A &lt;code&gt;Baker&lt;/code&gt; that transforms HTML files into other HTML
  * files.
  */
-/* package private */ final class HtmlPageBaker
+public final class HtmlPageBaker
         implements PageBaker {
 
 
@@ -36,12 +36,18 @@ import com.varmateo.yawg.util.FileUtils;
     private static final String TARGET_EXTENSION = &quot;.html&quot;;
 
 
-    /**
-     * 
-     */
-<span class="nc" id="L42">    HtmlPageBaker() {</span>
+<span class="nc" id="L39">    private HtmlPageBaker() {</span>
         // Nothing to do.
-<span class="nc" id="L44">    }</span>
+<span class="nc" id="L41">    }</span>
+
+
+    /**
+     *
+     */
+    public static PageBaker create() {
+
+<span class="nc" id="L49">        return new HtmlPageBaker();</span>
+    }
 
 
     /**
@@ -50,7 +56,7 @@ import com.varmateo.yawg.util.FileUtils;
     @Override
     public String shortName() {
 
-<span class="nc" id="L53">        return NAME;</span>
+<span class="nc" id="L59">        return NAME;</span>
     }
 
 
@@ -69,7 +75,7 @@ import com.varmateo.yawg.util.FileUtils;
     @Override
     public boolean isBakeable(final Path path) {
 
-<span class="nc" id="L72">        return FileUtils.isNameMatch(path, RE_HTML);</span>
+<span class="nc" id="L78">        return FileUtils.isNameMatch(path, RE_HTML);</span>
     }
 
 
@@ -100,17 +106,17 @@ import com.varmateo.yawg.util.FileUtils;
             throws YawgException {
 
         try {
-<span class="nc" id="L103">            doBake(sourcePath, context, targetDir);</span>
-<span class="nc" id="L104">        } catch ( IOException e ) {</span>
-<span class="nc" id="L105">            Exceptions.raise(</span>
+<span class="nc" id="L109">            doBake(sourcePath, context, targetDir);</span>
+<span class="nc" id="L110">        } catch ( IOException e ) {</span>
+<span class="nc" id="L111">            Exceptions.raise(</span>
                     e,
                     &quot;Failed {0} on {1} - {2} - {3}&quot;,
                     NAME,
                     sourcePath,
-<span class="nc" id="L110">                    e.getClass().getSimpleName(),</span>
-<span class="nc" id="L111">                    e.getMessage());</span>
-<span class="nc" id="L112">        }</span>
-<span class="nc" id="L113">    }</span>
+<span class="nc" id="L116">                    e.getClass().getSimpleName(),</span>
+<span class="nc" id="L117">                    e.getMessage());</span>
+<span class="nc" id="L118">        }</span>
+<span class="nc" id="L119">    }</span>
 
 
     /**
@@ -122,15 +128,15 @@ import com.varmateo.yawg.util.FileUtils;
             final Path targetDir)
             throws IOException {
 
-<span class="nc" id="L125">        final Path targetPath = getTargetPath(sourcePath, targetDir);</span>
-<span class="nc" id="L126">        final Optional&lt;Template&gt; template = context.templateFor(sourcePath);</span>
+<span class="nc" id="L131">        final Path targetPath = getTargetPath(sourcePath, targetDir);</span>
+<span class="nc" id="L132">        final Optional&lt;Template&gt; template = context.templateFor(sourcePath);</span>
 
-<span class="nc bnc" id="L128" title="All 2 branches missed.">        if ( template.isPresent() ) {</span>
-<span class="nc" id="L129">            doBakeWithTemplate(sourcePath, context, targetPath, template.get());</span>
+<span class="nc bnc" id="L134" title="All 2 branches missed.">        if ( template.isPresent() ) {</span>
+<span class="nc" id="L135">            doBakeWithTemplate(sourcePath, context, targetPath, template.get());</span>
         } else {
-<span class="nc" id="L131">            doBakeWithoutTemplate(sourcePath, targetPath);</span>
+<span class="nc" id="L137">            doBakeWithoutTemplate(sourcePath, targetPath);</span>
         }
-<span class="nc" id="L133">    }</span>
+<span class="nc" id="L139">    }</span>
 
 
     /**
@@ -140,10 +146,10 @@ import com.varmateo.yawg.util.FileUtils;
             final Path sourcePath,
             final Path targetDir) {
 
-<span class="nc" id="L143">        final String sourceBasename = FileUtils.basename(sourcePath);</span>
-<span class="nc" id="L144">        final String targetName = sourceBasename + TARGET_EXTENSION;</span>
+<span class="nc" id="L149">        final String sourceBasename = FileUtils.basename(sourcePath);</span>
+<span class="nc" id="L150">        final String targetName = sourceBasename + TARGET_EXTENSION;</span>
 
-<span class="nc" id="L146">        return targetDir.resolve(targetName);</span>
+<span class="nc" id="L152">        return targetDir.resolve(targetName);</span>
     }
 
 
@@ -156,8 +162,8 @@ import com.varmateo.yawg.util.FileUtils;
             final Path targetPath)
             throws IOException {
 
-<span class="nc" id="L159">        FileUtils.copy(sourcePath, targetPath);</span>
-<span class="nc" id="L160">    }</span>
+<span class="nc" id="L165">        FileUtils.copy(sourcePath, targetPath);</span>
+<span class="nc" id="L166">    }</span>
 
 
     /**
@@ -170,13 +176,13 @@ import com.varmateo.yawg.util.FileUtils;
             final Template template)
             throws IOException {
 
-<span class="nc" id="L173">        final HtmlBakerDataModelBuilder modelBuilder = new HtmlBakerDataModelBuilder();</span>
-<span class="nc" id="L174">        final TemplateDataModel dataModel = modelBuilder.build(sourcePath, targetPath, context);</span>
+<span class="nc" id="L179">        final HtmlBakerDataModelBuilder modelBuilder = new HtmlBakerDataModelBuilder();</span>
+<span class="nc" id="L180">        final TemplateDataModel dataModel = modelBuilder.build(sourcePath, targetPath, context);</span>
 
-<span class="nc" id="L176">        FileUtils.newWriter(</span>
+<span class="nc" id="L182">        FileUtils.newWriter(</span>
                 targetPath,
-<span class="nc" id="L178">                writer -&gt; template.process(dataModel, writer));</span>
-<span class="nc" id="L179">    }</span>
+<span class="nc" id="L184">                writer -&gt; template.process(dataModel, writer));</span>
+<span class="nc" id="L185">    }</span>
 
 
 }

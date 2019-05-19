@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>MainSiteBakerModule.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">MainSiteBakerModule.java</span></div><h1>MainSiteBakerModule.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2019 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.core;
+
+import io.vavr.Lazy;
+
+import com.varmateo.yawg.api.SiteBaker;
+
+
+/**
+ *
+ */
+final class MainSiteBakerModule {
+
+
+<span class="fc" id="L20">    private final Lazy&lt;DefaultSiteBakerModule&gt; _defaultSiteBakerModule =</span>
+<span class="fc" id="L21">            Lazy.of(this::createDefaultSiteBakerModule);</span>
+
+<span class="fc" id="L23">    private final Lazy&lt;DefaultExtensionsModule&gt; _defaultExtensionsModule =</span>
+<span class="fc" id="L24">            Lazy.of(this::createDefaultExtensionsModule);</span>
+
+
+<span class="fc" id="L27">    private MainSiteBakerModule() {</span>
+        // Nothing to do.
+<span class="fc" id="L29">    }</span>
+
+
+    /**
+     *
+     */
+    public static MainSiteBakerModule create() {
+
+<span class="fc" id="L37">        return new MainSiteBakerModule();</span>
+    }
+
+
+    /**
+     *
+     */
+    public SiteBaker siteBaker() {
+
+<span class="fc" id="L46">        return _defaultSiteBakerModule.get().siteBaker();</span>
+    }
+
+
+    private DefaultSiteBakerModule createDefaultSiteBakerModule() {
+
+<span class="fc" id="L52">        return DefaultSiteBakerModule.create(</span>
+<span class="fc" id="L53">                () -&gt; _defaultExtensionsModule.get().pageBakers(),</span>
+<span class="fc" id="L54">                () -&gt; _defaultExtensionsModule.get().templateServiceFactories(),</span>
+<span class="fc" id="L55">                () -&gt; _defaultExtensionsModule.get().dirBakeListeners());</span>
+    }
+
+
+    private DefaultExtensionsModule createDefaultExtensionsModule() {
+
+<span class="fc" id="L61">        return DefaultExtensionsModule.create();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
