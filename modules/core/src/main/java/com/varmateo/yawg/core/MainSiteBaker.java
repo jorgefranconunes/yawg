@@ -25,7 +25,7 @@ public final class MainSiteBaker {
      */
     public static SiteBaker create() {
 
-        final DefaultSiteBakerModule module = new DefaultSiteBakerModule();
+        final MainSiteBakerModule module = MainSiteBakerModule.create();
 
         return module.siteBaker();
     }
