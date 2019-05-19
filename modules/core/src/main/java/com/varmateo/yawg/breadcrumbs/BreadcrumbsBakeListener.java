@@ -31,6 +31,20 @@ public final class BreadcrumbsBakeListener
     private static final String ATTR_URL = "url";
 
 
+    private BreadcrumbsBakeListener() {
+        // Nothing to do.
+    }
+
+
+    /**
+     *
+     */
+    public static DirBakeListener create() {
+
+        return new BreadcrumbsBakeListener();
+    }
+
+
     /**
      *
      */

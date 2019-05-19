@@ -21,6 +21,20 @@ public final class FreemarkerTemplateServiceFactory
         implements TemplateServiceFactory {
 
 
+    private FreemarkerTemplateServiceFactory() {
+        // Nothing to do.
+    }
+
+
+    /**
+     *
+     */
+    public static TemplateServiceFactory create() {
+
+        return new FreemarkerTemplateServiceFactory();
+    }
+
+
     /**
      * {@inheritDoc}
      */

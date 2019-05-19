@@ -15,6 +15,7 @@ import org.junit.Test;
 
 import com.varmateo.testutils.LogStartAndEndRule;
 import com.varmateo.yawg.asciidoctor.AsciidoctorPageBaker;
+import com.varmateo.yawg.spi.PageBaker;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -27,7 +28,7 @@ public final class AsciidoctorPageBakerIT {
     @Rule
     public final LogStartAndEndRule logRule = new LogStartAndEndRule();
 
-    private AsciidoctorPageBaker _baker = null;
+    private PageBaker _baker = null;
 
 
     /**
@@ -36,7 +37,7 @@ public final class AsciidoctorPageBakerIT {
     @Before
     public void setUp() {
 
-        _baker = new AsciidoctorPageBaker();
+        _baker = AsciidoctorPageBaker.create();
     }
 
 

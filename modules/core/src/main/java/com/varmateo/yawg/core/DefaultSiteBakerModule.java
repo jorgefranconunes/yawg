@@ -17,12 +17,9 @@ import io.vavr.control.Option;
 
 import com.varmateo.yawg.api.SiteBaker;
 import com.varmateo.yawg.spi.PageBaker;
-import com.varmateo.yawg.spi.PageBakerFactory;
 import com.varmateo.yawg.spi.DirBakeListener;
-import com.varmateo.yawg.spi.DirBakeListenerFactory;
 import com.varmateo.yawg.spi.TemplateService;
 import com.varmateo.yawg.spi.TemplateServiceFactory;
-import com.varmateo.yawg.util.Services;
 
 
 /**
@@ -123,28 +120,6 @@ import com.varmateo.yawg.util.Services;
     private DirBakeOptionsDao newDirBakeOptionsDao() {
 
         return new DirBakeOptionsDao();
-    }
-
-
-    /**
-     *
-     */
-    private DirBakeListener newDirBakeListener() {
-
-        final Seq<DirBakeListener> allListeners = Services.getAll(DirBakeListenerFactory.class)
-                .map(DirBakeListenerFactory::newDirBakeListener);
-
-        return new CollectiveDirBakeListener(allListeners);
-    }
-
-
-    /**
-     *
-     */
-    private Seq<PageBaker> newPageBakers() {
-
-        return Services.getAll(PageBakerFactory.class)
-                .map(PageBakerFactory::createPageBaker);
     }
 
 

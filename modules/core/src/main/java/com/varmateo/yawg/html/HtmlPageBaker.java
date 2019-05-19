@@ -25,7 +25,7 @@ import com.varmateo.yawg.util.FileUtils;
  * A <code>Baker</code> that transforms HTML files into other HTML
  * files.
  */
-/* package private */ final class HtmlPageBaker
+public final class HtmlPageBaker
         implements PageBaker {
 
 
@@ -36,11 +36,17 @@ import com.varmateo.yawg.util.FileUtils;
     private static final String TARGET_EXTENSION = ".html";
 
 
-    /**
-     * 
-     */
-    HtmlPageBaker() {
+    private HtmlPageBaker() {
         // Nothing to do.
+    }
+
+
+    /**
+     *
+     */
+    public static PageBaker create() {
+
+        return new HtmlPageBaker();
     }
 
 

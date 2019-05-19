@@ -32,7 +32,7 @@ import com.varmateo.yawg.util.FileUtils;
  * A <code>Baker</code> that translates text files in Asciidoc format
  * into HTML files.
  */
-/* package private */ final class AsciidoctorPageBaker
+public final class AsciidoctorPageBaker
         implements PageBaker {
 
 
@@ -49,11 +49,17 @@ import com.varmateo.yawg.util.FileUtils;
             Lazy.of(this::newAsciidoctorBakerDataModelBuilder);
 
 
+    private AsciidoctorPageBaker() {
+        // Nothing to do.
+    }
+
+
     /**
-     * 
+     *
      */
-    AsciidoctorPageBaker() {
-        // Nothing to do. Really.
+    public static PageBaker create() {
+
+        return new AsciidoctorPageBaker();
     }
 
 

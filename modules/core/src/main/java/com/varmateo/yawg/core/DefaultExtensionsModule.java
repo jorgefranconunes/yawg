@@ -10,12 +10,13 @@ import io.vavr.Lazy;
 import io.vavr.collection.List;
 import io.vavr.collection.Seq;
 
+import com.varmateo.yawg.asciidoctor.AsciidoctorPageBaker;
+import com.varmateo.yawg.breadcrumbs.BreadcrumbsBakeListener;
+import com.varmateo.yawg.freemarker.FreemarkerTemplateServiceFactory;
+import com.varmateo.yawg.html.HtmlPageBaker;
 import com.varmateo.yawg.spi.PageBaker;
-import com.varmateo.yawg.spi.PageBakerFactory;
 import com.varmateo.yawg.spi.DirBakeListener;
-import com.varmateo.yawg.spi.DirBakeListenerFactory;
 import com.varmateo.yawg.spi.TemplateServiceFactory;
-import com.varmateo.yawg.util.Services;
 
 
 /**
@@ -76,21 +77,23 @@ import com.varmateo.yawg.util.Services;
 
     private Seq<PageBaker> createPageBakers() {
 
-        return Services.getAll(PageBakerFactory.class)
-                .map(PageBakerFactory::createPageBaker);
+        return List.of(
+                AsciidoctorPageBaker.create(),
+                HtmlPageBaker.create());
     }
 
 
     private Seq<TemplateServiceFactory> createTemplateServiceFactories() {
 
-        return Services.getAll(TemplateServiceFactory.class);
+        return List.of(
+                FreemarkerTemplateServiceFactory.create());
     }
 
 
     private Seq<DirBakeListener> createDirBakeListeners() {
 
-        return Services.getAll(DirBakeListenerFactory.class)
-                .map(DirBakeListenerFactory::newDirBakeListener);
+        return List.of(
+                BreadcrumbsBakeListener.create());
     }
 
 }
