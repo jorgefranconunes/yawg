@@ -13,6 +13,7 @@ import io.vavr.collection.Seq;
 import com.varmateo.yawg.asciidoctor.AsciidoctorPageBaker;
 import com.varmateo.yawg.breadcrumbs.BreadcrumbsBakeListener;
 import com.varmateo.yawg.freemarker.FreemarkerTemplateServiceFactory;
+import com.varmateo.yawg.commonmark.CommonMarkPageBaker;
 import com.varmateo.yawg.html.HtmlPageBaker;
 import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.DirBakeListener;
@@ -79,7 +80,8 @@ import com.varmateo.yawg.spi.TemplateServiceFactory;
 
         return List.of(
                 AsciidoctorPageBaker.create(),
-                HtmlPageBaker.create());
+                HtmlPageBaker.create(),
+                CommonMarkPageBaker.create());
     }
 
 

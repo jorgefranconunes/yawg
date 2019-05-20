@@ -1,10 +1,10 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2019 Yawg project contributors.
  *
  **************************************************************************/
 
-package com.varmateo.yawg.asciidoctor;
+package com.varmateo.yawg.commonmark;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,12 +14,11 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 import io.vavr.Lazy;
-import org.asciidoctor.Asciidoctor;
-import org.asciidoctor.OptionsBuilder;
-import org.asciidoctor.internal.AsciidoctorCoreException;
+import org.commonmark.node.Node;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
 
 import com.varmateo.yawg.api.YawgException;
-import com.varmateo.yawg.asciidoctor.AsciidoctorBakerDataModelBuilder;
 import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.Template;
@@ -29,27 +28,30 @@ import com.varmateo.yawg.util.FileUtils;
 
 
 /**
- * A <code>Baker</code> that translates text files in Asciidoc format
+ * A <code>Baker</code> that translates text files in Markdown format
  * into HTML files.
  */
-public final class AsciidoctorPageBaker
+public final class CommonMarkPageBaker
         implements PageBaker {
 
 
-    private static final String NAME = "asciidoc";
+    private static final String NAME = "markdown";
 
-    private static final Pattern RE_ADOC = Pattern.compile(".*\\.adoc$");
+    private static final Pattern RE_ADOC = Pattern.compile(".*\\.md$");
 
     private static final String TARGET_EXTENSION = ".html";
 
-    private final Lazy<Asciidoctor> _asciidoctor =
-            Lazy.of(this::newAsciidoctor);
+    private final Lazy<Parser> _markdownParser =
+            Lazy.of(this::createMarkdownParser);
 
-    private final Lazy<AsciidoctorBakerDataModelBuilder> _modelBuilder =
-            Lazy.of(this::newAsciidoctorBakerDataModelBuilder);
+    private final Lazy<HtmlRenderer> _htmlRenderer =
+            Lazy.of(this::createHtmlRenderer);
+
+    private final Lazy<CommonMarkTemplateDataModelBuilder> _templateModelBuilder =
+            Lazy.of(this::createCommonMarkTemplateDataModelBuilder);
 
 
-    private AsciidoctorPageBaker() {
+    private CommonMarkPageBaker() {
         // Nothing to do.
     }
 
@@ -59,7 +61,7 @@ public final class AsciidoctorPageBaker
      */
     public static PageBaker create() {
 
-        return new AsciidoctorPageBaker();
+        return new CommonMarkPageBaker();
     }
 
 
@@ -120,7 +122,7 @@ public final class AsciidoctorPageBaker
 
         try {
             doBake(sourcePath, context, targetDir);
-        } catch ( AsciidoctorCoreException | IOException e ) {
+        } catch ( IOException e ) {
             Exceptions.raise(
                     e,
                     "Failed {0} on {1} - {2} - {3}",
@@ -139,7 +141,7 @@ public final class AsciidoctorPageBaker
             final Path sourcePath,
             final PageContext context,
             final Path targetDir)
-            throws AsciidoctorCoreException, IOException {
+            throws IOException {
 
         final Path targetPath = getTargetPath(sourcePath, targetDir);
         final Optional<Template> template = context.templateFor(sourcePath);
@@ -183,16 +185,28 @@ public final class AsciidoctorPageBaker
             final PageContext context,
             final Path targetDir,
             final Path targetPath)
-            throws AsciidoctorCoreException {
+            throws IOException {
 
-        final OptionsBuilder options = AdocUtils.buildOptionsForBakeWithoutTemplate(
-                sourcePath,
-                targetDir,
+        final String body = renderBody(sourcePath);
+        final String contentTemplate = ""
+                + "<!DOCTYPE html>\n"
+                + "<html><body>%s</body></html>";
+        final String content = String.format(contentTemplate, body);
+
+        FileUtils.newWriter(
                 targetPath,
-                context.pageVars());
-        final File sourceFile = sourcePath.toFile();
+                writer -> writer.write(content));
+    }
 
-        _asciidoctor.get().convertFile(sourceFile, options);
+
+    private String renderBody(final Path sourcePath)
+            throws IOException {
+
+        final Node document = FileUtils.newReader(
+                sourcePath,
+                reader -> _markdownParser.get().parseReader(reader));
+
+        return _htmlRenderer.get().render(document);
     }
 
 
@@ -205,9 +219,9 @@ public final class AsciidoctorPageBaker
             final Path targetDir,
             final Path targetPath,
             final Template template)
-            throws AsciidoctorCoreException, IOException {
+            throws IOException {
 
-        final TemplateDataModel dataModel = _modelBuilder.get().build(
+        final TemplateDataModel dataModel = _templateModelBuilder.get().build(
                 sourcePath, targetDir, targetPath, context);
 
         FileUtils.newWriter(
@@ -216,26 +230,21 @@ public final class AsciidoctorPageBaker
     }
 
 
-    /**
-     *
-     */
-    private Asciidoctor newAsciidoctor() {
+    private Parser createMarkdownParser() {
 
-        final Asciidoctor asciidoctor = Asciidoctor.Factory.create();
-
-        // The following is required for supporting PlantUML diagrams
-        // (cf. http://asciidoctor.org/docs/asciidoctor-diagram/).
-        asciidoctor.requireLibrary("asciidoctor-diagram/plantuml");
-
-        return asciidoctor;
+        return Parser.builder().build();
     }
 
 
-    /**
-     *
-     */
-    private AsciidoctorBakerDataModelBuilder newAsciidoctorBakerDataModelBuilder() {
-        return new AsciidoctorBakerDataModelBuilder(_asciidoctor.get());
+    private HtmlRenderer createHtmlRenderer() {
+
+        return HtmlRenderer.builder().build();
+    }
+
+
+    private CommonMarkTemplateDataModelBuilder createCommonMarkTemplateDataModelBuilder() {
+
+        return new CommonMarkTemplateDataModelBuilder(_markdownParser.get(), _htmlRenderer.get());
     }
 
 
