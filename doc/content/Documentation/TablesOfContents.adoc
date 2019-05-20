@@ -14,7 +14,7 @@ contents is a list of links to the sections contained in the page
 itself. Its purpose is to give the reader an overview of the page
 contents, and a quick way to jump to a specific section of the page.
 
-The support for tables of contents in Ywag comes directly from
+The support for tables of contents in Yawg comes directly from
 Asciidoctor. You can read all about it in the
 http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/#table-of-contents-toc[Asciidoctor
 documentation]. The following sections give just some additional

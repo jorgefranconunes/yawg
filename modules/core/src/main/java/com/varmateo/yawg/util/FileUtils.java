@@ -9,6 +9,7 @@ package com.varmateo.yawg.util;
 import io.vavr.control.Option;
 
 import java.io.IOException;
+import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -139,9 +140,22 @@ public final class FileUtils {
             final ConsumerWithIOException<Writer> consumer)
             throws IOException {
 
-        try ( Writer writer =
-                  Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {
+        try ( Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {
             consumer.accept(writer);
+        }
+    }
+
+
+    /**
+     *
+     */
+    public static <T> T newReader(
+            final Path source,
+            final FunctionWithIOException<Reader, T> transformer)
+            throws IOException {
+
+        try ( Reader reader = Files.newBufferedReader(source, StandardCharsets.UTF_8) ) {
+            return transformer.apply(reader);
         }
     }
 
@@ -157,7 +171,6 @@ public final class FileUtils {
     @FunctionalInterface
     public interface ConsumerWithIOException<T> {
 
-
         /**
          * Performs the operation on the given argument.
          *
@@ -167,8 +180,20 @@ public final class FileUtils {
          */
         void accept(T input)
                 throws IOException;
+    }
 
 
+    /**
+     *
+     */
+    @FunctionalInterface
+    public interface FunctionWithIOException<T, R> {
+
+        /**
+         *
+         */
+        R apply(T input)
+                throws IOException;
     }
 
 
