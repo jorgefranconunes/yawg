@@ -209,16 +209,11 @@ public final class AsciidoctorPageBaker
 
 <span class="nc" id="L210">        final TemplateDataModel dataModel = _modelBuilder.get().build(</span>
                 sourcePath, targetDir, targetPath, context);
-<span class="nc" id="L212">        final StringWriter buffer = new StringWriter();</span>
 
-<span class="nc" id="L214">        template.process(dataModel, buffer);</span>
-
-<span class="nc" id="L216">        final String content = buffer.toString();</span>
-
-<span class="nc" id="L218">        FileUtils.newWriter(</span>
+<span class="nc" id="L213">        FileUtils.newWriter(</span>
                 targetPath,
-<span class="nc" id="L220">                writer -&gt; writer.write(content));</span>
-<span class="nc" id="L221">    }</span>
+<span class="nc" id="L215">                writer -&gt; template.process(dataModel, writer));</span>
+<span class="nc" id="L216">    }</span>
 
 
     /**
@@ -226,13 +221,13 @@ public final class AsciidoctorPageBaker
      */
     private Asciidoctor newAsciidoctor() {
 
-<span class="nc" id="L229">        final Asciidoctor asciidoctor = Asciidoctor.Factory.create();</span>
+<span class="nc" id="L224">        final Asciidoctor asciidoctor = Asciidoctor.Factory.create();</span>
 
         // The following is required for supporting PlantUML diagrams
         // (cf. http://asciidoctor.org/docs/asciidoctor-diagram/).
-<span class="nc" id="L233">        asciidoctor.requireLibrary(&quot;asciidoctor-diagram/plantuml&quot;);</span>
+<span class="nc" id="L228">        asciidoctor.requireLibrary(&quot;asciidoctor-diagram/plantuml&quot;);</span>
 
-<span class="nc" id="L235">        return asciidoctor;</span>
+<span class="nc" id="L230">        return asciidoctor;</span>
     }
 
 
@@ -240,7 +235,7 @@ public final class AsciidoctorPageBaker
      *
      */
     private AsciidoctorBakerDataModelBuilder newAsciidoctorBakerDataModelBuilder() {
-<span class="nc" id="L243">        return new AsciidoctorBakerDataModelBuilder(_asciidoctor.get());</span>
+<span class="nc" id="L238">        return new AsciidoctorBakerDataModelBuilder(_asciidoctor.get());</span>
     }
 
 

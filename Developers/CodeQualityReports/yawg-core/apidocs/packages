@@ -5,3 +5,4 @@ com.varmateo.yawg.logging
 com.varmateo.yawg.util
 com.varmateo.yawg.breadcrumbs
 com.varmateo.yawg.core
+com.varmateo.yawg.commonmark

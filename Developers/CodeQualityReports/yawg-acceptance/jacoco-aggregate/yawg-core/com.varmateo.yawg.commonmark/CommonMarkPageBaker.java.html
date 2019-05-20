@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>CommonMarkPageBaker.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.commonmark</a> &gt; <span class="el_source">CommonMarkPageBaker.java</span></div><h1>CommonMarkPageBaker.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2019 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.commonmark;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.regex.Pattern;
+
+import io.vavr.Lazy;
+import org.commonmark.node.Node;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
+
+import com.varmateo.yawg.api.YawgException;
+import com.varmateo.yawg.spi.PageBaker;
+import com.varmateo.yawg.spi.PageContext;
+import com.varmateo.yawg.spi.Template;
+import com.varmateo.yawg.spi.TemplateDataModel;
+import com.varmateo.yawg.util.Exceptions;
+import com.varmateo.yawg.util.FileUtils;
+
+
+/**
+ * A &lt;code&gt;Baker&lt;/code&gt; that translates text files in Markdown format
+ * into HTML files.
+ */
+public final class CommonMarkPageBaker
+        implements PageBaker {
+
+
+    private static final String NAME = &quot;markdown&quot;;
+
+<span class="fc" id="L40">    private static final Pattern RE_ADOC = Pattern.compile(&quot;.*\\.md$&quot;);</span>
+
+    private static final String TARGET_EXTENSION = &quot;.html&quot;;
+
+<span class="fc" id="L44">    private final Lazy&lt;Parser&gt; _markdownParser =</span>
+<span class="fc" id="L45">            Lazy.of(this::createMarkdownParser);</span>
+
+<span class="fc" id="L47">    private final Lazy&lt;HtmlRenderer&gt; _htmlRenderer =</span>
+<span class="fc" id="L48">            Lazy.of(this::createHtmlRenderer);</span>
+
+<span class="fc" id="L50">    private final Lazy&lt;CommonMarkTemplateDataModelBuilder&gt; _templateModelBuilder =</span>
+<span class="fc" id="L51">            Lazy.of(this::createCommonMarkTemplateDataModelBuilder);</span>
+
+
+<span class="fc" id="L54">    private CommonMarkPageBaker() {</span>
+        // Nothing to do.
+<span class="fc" id="L56">    }</span>
+
+
+    /**
+     *
+     */
+    public static PageBaker create() {
+
+<span class="fc" id="L64">        return new CommonMarkPageBaker();</span>
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String shortName() {
+
+<span class="fc" id="L74">        return NAME;</span>
+    }
+
+
+    /**
+     * Checks if the given file name has one of the known extensions.
+     *
+     * &lt;p&gt;The following extensions will be allowed:&lt;/p&gt;
+     *
+     * &lt;ul&gt;
+     *   &lt;li&gt;.adoc&lt;/li&gt;
+     * &lt;/ul&gt;
+     *
+     * @return True if the given file name has one of the allowed
+     * extensions.
+     */
+    @Override
+    public boolean isBakeable(final Path path) {
+
+<span class="fc" id="L93">        return FileUtils.isNameMatch(path, RE_ADOC);</span>
+    }
+
+
+    /**
+     * Converts the given text file in Asciidoc format into an HTML
+     * file.
+     *
+     * &lt;p&gt;The target directory must already exist. Otherwise an
+     * exception will be thrown.&lt;/p&gt;
+     *
+     * @param sourcePath The file to be baked.
+     *
+     * @param context Provides the template for generating the target
+     * document. If no template is provided, then the default
+     * AsciidoctorJ document generator will be used.
+     *
+     * @param targetDir The directory where the source file will be
+     * copied to.
+     *
+     * @exception YawgException Thrown if the copying failed for
+     * whatever reason.
+     */
+    @Override
+    public void bake(
+            final Path sourcePath,
+            final PageContext context,
+            final Path targetDir)
+            throws YawgException {
+
+        try {
+<span class="nc" id="L124">            doBake(sourcePath, context, targetDir);</span>
+<span class="nc" id="L125">        } catch ( IOException e ) {</span>
+<span class="nc" id="L126">            Exceptions.raise(</span>
+                    e,
+                    &quot;Failed {0} on {1} - {2} - {3}&quot;,
+                    NAME,
+                    sourcePath,
+<span class="nc" id="L131">                    e.getClass().getSimpleName(),</span>
+<span class="nc" id="L132">                    e.getMessage());</span>
+<span class="nc" id="L133">        }</span>
+<span class="nc" id="L134">    }</span>
+
+
+    /**
+     *
+     */
+    private void doBake(
+            final Path sourcePath,
+            final PageContext context,
+            final Path targetDir)
+            throws IOException {
+
+<span class="nc" id="L146">        final Path targetPath = getTargetPath(sourcePath, targetDir);</span>
+<span class="nc" id="L147">        final Optional&lt;Template&gt; template = context.templateFor(sourcePath);</span>
+
+<span class="nc bnc" id="L149" title="All 2 branches missed.">        if ( template.isPresent() ) {</span>
+<span class="nc" id="L150">            doBakeWithTemplate(</span>
+                    sourcePath,
+                    context,
+                    targetDir,
+                    targetPath,
+<span class="nc" id="L155">                    template.get());</span>
+        } else {
+<span class="nc" id="L157">            doBakeWithoutTemplate(</span>
+                    sourcePath,
+                    context,
+                    targetDir,
+                    targetPath);
+        }
+<span class="nc" id="L163">    }</span>
+
+
+    /**
+     *
+     */
+    private Path getTargetPath(
+            final Path sourcePath,
+            final Path targetDir) {
+
+<span class="nc" id="L173">        final String sourceBasename = FileUtils.basename(sourcePath);</span>
+<span class="nc" id="L174">        final String targetName = sourceBasename + TARGET_EXTENSION;</span>
+
+<span class="nc" id="L176">        return targetDir.resolve(targetName);</span>
+    }
+
+
+    /**
+     *
+     */
+    private void doBakeWithoutTemplate(
+            final Path sourcePath,
+            final PageContext context,
+            final Path targetDir,
+            final Path targetPath)
+            throws IOException {
+
+<span class="nc" id="L190">        final String body = renderBody(sourcePath);</span>
+<span class="nc" id="L191">        final String contentTemplate = &quot;&quot;</span>
+                + &quot;&lt;!DOCTYPE html&gt;\n&quot;
+                + &quot;&lt;html&gt;&lt;body&gt;%s&lt;/body&gt;&lt;/html&gt;&quot;;
+<span class="nc" id="L194">        final String content = String.format(contentTemplate, body);</span>
+
+<span class="nc" id="L196">        FileUtils.newWriter(</span>
+                targetPath,
+<span class="nc" id="L198">                writer -&gt; writer.write(content));</span>
+<span class="nc" id="L199">    }</span>
+
+
+    private String renderBody(final Path sourcePath)
+            throws IOException {
+
+<span class="nc" id="L205">        final Node document = FileUtils.newReader(</span>
+                sourcePath,
+<span class="nc" id="L207">                reader -&gt; _markdownParser.get().parseReader(reader));</span>
+
+<span class="nc" id="L209">        return _htmlRenderer.get().render(document);</span>
+    }
+
+
+    /**
+     *
+     */
+    private void doBakeWithTemplate(
+            final Path sourcePath,
+            final PageContext context,
+            final Path targetDir,
+            final Path targetPath,
+            final Template template)
+            throws IOException {
+
+<span class="nc" id="L224">        final TemplateDataModel dataModel = _templateModelBuilder.get().build(</span>
+                sourcePath, targetDir, targetPath, context);
+
+<span class="nc" id="L227">        FileUtils.newWriter(</span>
+                targetPath,
+<span class="nc" id="L229">                writer -&gt; template.process(dataModel, writer));</span>
+<span class="nc" id="L230">    }</span>
+
+
+    private Parser createMarkdownParser() {
+
+<span class="nc" id="L235">        return Parser.builder().build();</span>
+    }
+
+
+    private HtmlRenderer createHtmlRenderer() {
+
+<span class="nc" id="L241">        return HtmlRenderer.builder().build();</span>
+    }
+
+
+    private CommonMarkTemplateDataModelBuilder createCommonMarkTemplateDataModelBuilder() {
+
+<span class="nc" id="L247">        return new CommonMarkTemplateDataModelBuilder(_markdownParser.get(), _htmlRenderer.get());</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

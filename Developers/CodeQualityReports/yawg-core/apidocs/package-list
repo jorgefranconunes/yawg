@@ -1,5 +1,6 @@
 com.varmateo.yawg.asciidoctor
 com.varmateo.yawg.breadcrumbs
+com.varmateo.yawg.commonmark
 com.varmateo.yawg.core
 com.varmateo.yawg.freemarker
 com.varmateo.yawg.html
