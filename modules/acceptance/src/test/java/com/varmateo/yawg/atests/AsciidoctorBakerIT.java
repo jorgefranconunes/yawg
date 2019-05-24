@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2018 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -37,12 +37,12 @@ public final class AsciidoctorBakerIT {
             throws IOException {
 
         // GIVEN
-        BakerCliScenario scenario = BakerCliScenario.builder(
+        final BakerCliScenario scenario = BakerCliScenario.builder(
                 AsciidoctorBakerIT.class,
                 "givenDocWithExternalPuml_whenBakingWithoutTemplate_thenTargetHasSvg")
                 .build();
 
-        testPuml(scenario);
+        verifyPlantUml(scenario);
     }
 
 
@@ -54,13 +54,13 @@ public final class AsciidoctorBakerIT {
             throws IOException {
 
         // GIVEN
-        BakerCliScenario scenario = BakerCliScenario.builder(
+        final BakerCliScenario scenario = BakerCliScenario.builder(
                 AsciidoctorBakerIT.class,
                 "givenDocWithExternalPuml_whenBakingWithTemplate_thenTargetHasSvg")
                 .addTemplatesPath()
                 .build();
 
-        testPuml(scenario);
+        verifyPlantUml(scenario);
     }
 
 
@@ -72,12 +72,12 @@ public final class AsciidoctorBakerIT {
             throws IOException {
 
         // GIVEN
-        BakerCliScenario scenario = BakerCliScenario.builder(
+        final BakerCliScenario scenario = BakerCliScenario.builder(
                 AsciidoctorBakerIT.class,
                 "givenDocWithEmbededPuml_whenBakingWithoutTemplate_thenTargetHasSvg")
                 .build();
 
-        testPuml(scenario);
+        verifyPlantUml(scenario);
     }
 
 
@@ -89,24 +89,24 @@ public final class AsciidoctorBakerIT {
             throws IOException {
 
         // GIVEN
-        BakerCliScenario scenario = BakerCliScenario.builder(
+        final BakerCliScenario scenario = BakerCliScenario.builder(
                 AsciidoctorBakerIT.class,
                 "givenDocWithEmbededPuml_whenBakingWithTemplate_thenTargetHasSvg")
                 .addTemplatesPath()
                 .build();
 
-        testPuml(scenario);
+        verifyPlantUml(scenario);
     }
 
 
     /**
      *
      */
-    private static void testPuml(final BakerCliScenario scenario)
+    private static void verifyPlantUml(final BakerCliScenario scenario)
             throws IOException {
 
         // WHEN
-        BakerCliResult bakerResult = scenario.run();
+        final BakerCliResult bakerResult = scenario.run();
 
         // THEN
         assertThat(bakerResult)
