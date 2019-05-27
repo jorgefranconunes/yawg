@@ -76,7 +76,7 @@ Maven POM for the "core" sub-project of the Yawg project.
     <dependency>
       <groupId>org.freemarker</groupId>
       <artifactId>freemarker</artifactId>
-      <version>${freemaker.version}</version>
+      <version>${freemarker.version}</version>
     </dependency>
 
     <dependency>

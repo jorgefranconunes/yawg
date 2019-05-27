@@ -43,10 +43,19 @@ public final class BakerCli {
     /**
      * @param options Configuration settings.
      */
-    public BakerCli(final BakerCliOptions options) {
+    private BakerCli(final BakerCliOptions options) {
 
         _log = LogFactory.createFor(BakerCli.class);
         _options = options;
+    }
+
+
+    /**
+     *
+     */
+    public static BakerCli create(final BakerCliOptions options) {
+
+        return new BakerCli(options);
     }
 
 
