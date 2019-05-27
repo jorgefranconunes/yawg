@@ -6,13 +6,10 @@
 
 package com.varmateo.yawg.core;
 
-import java.nio.file.Path;
 import java.util.function.Supplier;
 
 import io.vavr.Lazy;
-import io.vavr.collection.List;
 import io.vavr.collection.Seq;
-import io.vavr.control.Option;
 
 import com.varmateo.yawg.api.SiteBaker;
 import com.varmateo.yawg.spi.PageBaker;
