@@ -9,8 +9,8 @@ software.
 
 == Maven coordinates
 
-When using the Yawg librarry for baking sites from within your code
-you need to include the Maven dependencies shown below.
+When using the Yawg library for baking sites from within your code you
+need to include the Maven dependencies shown below.
 
 [source,xml,subs=attributes+]
 ----

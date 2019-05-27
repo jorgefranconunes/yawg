@@ -16,6 +16,7 @@ import java.util.Optional;
 
 import io.vavr.Tuple;
 import io.vavr.Tuple2;
+import io.vavr.control.Option;
 import io.vavr.control.Try;
 
 import com.varmateo.yawg.api.BakeOptions;
@@ -143,11 +144,32 @@ public final class BakerCli {
             throws CliException {
 
         final BakeOptions options = buildBakeOptions(cliOptions);
-        final SiteBaker siteBaker = MainSiteBaker.create();
+        final Option<Path> templatesDir = Option.of(
+                cliOptions.getPath(BakerCliParameters.TEMPLATES_DIR, null));
+        final SiteBaker siteBaker = templatesDir
+                .map(path -> MainSiteBaker.create(path))
+                .getOrElse(() -> MainSiteBaker.create());
 
-        _log.info("{0} {1}", YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);
+        logParameters(options, templatesDir);
 
         return Try.run(() -> siteBaker.bake(options));
+    }
+
+
+    private void logParameters(
+            final BakeOptions options,
+            final Option<Path> optionTemplatesDir) {
+
+        final Path sourceDir = options.sourceDir();
+        final Path targetDir = options.targetDir();
+        final String templatesDir = optionTemplatesDir.map(Path::toString).getOrElse("NONE");
+        final String assetsDir = options.assetsDir().map(Path::toString).orElse("NONE");
+
+        _log.info("{0} {1}", YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);
+        _log.info("    Source    : {0}", sourceDir);
+        _log.info("    Target    : {0}", targetDir);
+        _log.info("    Templates : {0}", templatesDir);
+        _log.info("    Assets    : {0}", assetsDir);
     }
 
 
@@ -159,14 +181,12 @@ public final class BakerCli {
 
         final Path sourceDir = cliOptions.getPath(BakerCliParameters.SOURCE_DIR);
         final Path targetDir = cliOptions.getPath(BakerCliParameters.TARGET_DIR);
-        final Path templatesDir = cliOptions.getPath(BakerCliParameters.TEMPLATES_DIR, null);
         final Path assetsDir = cliOptions.getPath(BakerCliParameters.ASSETS_DIR, null);
         final java.util.Map<String,Object> externalPageVars = buildExternalPageVars(cliOptions);
 
         return BakeOptions.builder()
                 .sourceDir(sourceDir)
                 .targetDir(targetDir)
-                .templatesDir(Optional.ofNullable(templatesDir))
                 .assetsDir(Optional.ofNullable(assetsDir))
                 .putAllExternalPageVars(externalPageVars)
                 .build();
