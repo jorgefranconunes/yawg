@@ -45,15 +45,6 @@ public interface BakeOptions {
 
 
     /**
-     * Path of directory containing the templates files.
-     *
-     * <p>An empty <code>Optional</code> means no templates are
-     * available for use.</p>
-     */
-    Optional<Path> templatesDir();
-
-
-    /**
      * Set of page variables provided externally.
      *
      * <p>Page variables are intended to be used by templates.</p>

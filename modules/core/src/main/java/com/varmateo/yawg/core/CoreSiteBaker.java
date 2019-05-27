@@ -20,13 +20,11 @@ import com.varmateo.yawg.logging.Logs;
 import com.varmateo.yawg.spi.PageVars;
 import com.varmateo.yawg.spi.PageVarsBuilder;
 
-import java.util.function.Function;
-
 
 /**
  * 
  */
-/* default */ final class DefaultSiteBaker
+/* default */ final class CoreSiteBaker
         implements SiteBaker {
 
 
@@ -34,17 +32,17 @@ import java.util.function.Function;
 
     private final Log _log;
     private final AssetsCopier _assetsCopier;
-    private final Function<Option<Path>, DirBaker> _dirBakerFactory;
+    private final DirBaker _dirBaker;
 
 
-    private DefaultSiteBaker(
+    private CoreSiteBaker(
             final Log log,
             final AssetsCopier assetsCopier,
-            final Function<Option<Path>, DirBaker> dirBakerFactory) {
+            final DirBaker dirBaker) {
 
         _log = log;
         _assetsCopier = assetsCopier;
-        _dirBakerFactory = dirBakerFactory;
+        _dirBaker = dirBaker;
     }
 
 
@@ -53,11 +51,11 @@ import java.util.function.Function;
      */
     public static SiteBaker create(
             final AssetsCopier assetsCopier,
-            final Function<Option<Path>, DirBaker> dirBakerFactory) {
+            final DirBaker dirBaker) {
 
-        final Log log = LogFactory.createFor(DefaultSiteBaker.class);
+        final Log log = LogFactory.createFor(CoreSiteBaker.class);
 
-        return new DefaultSiteBaker(log, assetsCopier, dirBakerFactory);
+        return new CoreSiteBaker(log, assetsCopier, dirBaker);
     }
 
 
@@ -67,12 +65,10 @@ import java.util.function.Function;
     @Override
     public void bake(final BakeOptions options) {
 
-        final DirBaker dirBaker = _dirBakerFactory.apply(Option.ofOptional(options.templatesDir()));
-
         Logs.logDuration(
                 _log,
                 "baking",
-                () -> doBake(options, dirBaker));
+                () -> doBake(options, _dirBaker));
     }
 
 
@@ -83,16 +79,6 @@ import java.util.function.Function;
             final BakeOptions options,
             final DirBaker dirBaker)
             throws YawgException {
-
-        final Path sourceDir = options.sourceDir();
-        final Path targetDir = options.targetDir();
-        final String templatesDir = options.templatesDir().map(Path::toString).orElse("NONE");
-        final String assetsDir = options.assetsDir().map(Path::toString).orElse("NONE");
-
-        _log.info("    Source    : {0}", sourceDir);
-        _log.info("    Target    : {0}", targetDir);
-        _log.info("    Templates : {0}", templatesDir);
-        _log.info("    Assets    : {0}", assetsDir);
 
         copyAssets(options);
         bakeSourceTree(options, dirBaker);

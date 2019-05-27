@@ -6,7 +6,10 @@
 
 package com.varmateo.yawg.core;
 
+import java.nio.file.Path;
+
 import io.vavr.Lazy;
+import io.vavr.control.Option;
 
 import com.varmateo.yawg.api.SiteBaker;
 
@@ -14,27 +17,30 @@ import com.varmateo.yawg.api.SiteBaker;
 /**
  *
  */
-final class MainSiteBakerModule {
+/* default */ final class MainSiteBakerModule {
 
 
-    private final Lazy<DefaultSiteBakerModule> _defaultSiteBakerModule =
-            Lazy.of(this::createDefaultSiteBakerModule);
+    private final Option<Path> _templatesDir;
+
+    private final Lazy<CoreSiteBakerModule> _defaultSiteBakerModule =
+            Lazy.of(this::createCoreSiteBakerModule);
 
     private final Lazy<DefaultExtensionsModule> _defaultExtensionsModule =
             Lazy.of(this::createDefaultExtensionsModule);
 
 
-    private MainSiteBakerModule() {
-        // Nothing to do.
+    private MainSiteBakerModule(final Option<Path> templatesDir) {
+
+        _templatesDir = templatesDir;
     }
 
 
     /**
      *
      */
-    public static MainSiteBakerModule create() {
+    public static MainSiteBakerModule create(final Option<Path> templatesDir) {
 
-        return new MainSiteBakerModule();
+        return new MainSiteBakerModule(templatesDir);
     }
 
 
@@ -47,18 +53,18 @@ final class MainSiteBakerModule {
     }
 
 
-    private DefaultSiteBakerModule createDefaultSiteBakerModule() {
+    private CoreSiteBakerModule createCoreSiteBakerModule() {
 
-        return DefaultSiteBakerModule.create(
+        return CoreSiteBakerModule.create(
                 () -> _defaultExtensionsModule.get().pageBakers(),
-                () -> _defaultExtensionsModule.get().templateServiceFactories(),
+                () -> _defaultExtensionsModule.get().templateServices(),
                 () -> _defaultExtensionsModule.get().dirBakeListeners());
     }
 
 
     private DefaultExtensionsModule createDefaultExtensionsModule() {
 
-        return DefaultExtensionsModule.create();
+        return DefaultExtensionsModule.create(_templatesDir);
     }
 
 }
