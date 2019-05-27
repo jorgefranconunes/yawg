@@ -66,7 +66,7 @@ public final class BakerCliRunner {
                 .addArgs(_args)
                 .output(output)
                 .build();
-        final BakerCli bakerCli = new BakerCli(options);
+        final BakerCli bakerCli = BakerCli.create(options);
         final int exitStatus = bakerCli.run();
 
         return BakerCliResult.builder()

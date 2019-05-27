@@ -40,7 +40,7 @@ public final class Main {
                  .addArgs(args)
                  .output(System.out)
                  .build();
-         final BakerCli bakerCli = new BakerCli(options);
+         final BakerCli bakerCli = BakerCli.create(options);
          final int exitStatus = bakerCli.run();
 
          System.exit(exitStatus);
