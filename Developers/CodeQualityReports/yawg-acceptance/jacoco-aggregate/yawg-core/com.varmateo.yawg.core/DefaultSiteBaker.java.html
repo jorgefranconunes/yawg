@@ -7,148 +7,46 @@
 package com.varmateo.yawg.core;
 
 import java.nio.file.Path;
-import java.util.Map;
 
 import io.vavr.control.Option;
 
-import com.varmateo.yawg.api.BakeOptions;
 import com.varmateo.yawg.api.SiteBaker;
-import com.varmateo.yawg.api.YawgException;
-import com.varmateo.yawg.logging.Log;
-import com.varmateo.yawg.logging.LogFactory;
-import com.varmateo.yawg.logging.Logs;
-import com.varmateo.yawg.spi.PageVars;
-import com.varmateo.yawg.spi.PageVarsBuilder;
-
-import java.util.function.Function;
 
 
 /**
- * 
+ * Entry point for obtaining a {@code SiteBaker} instance.
  */
-/* default */ final class DefaultSiteBaker
-        implements SiteBaker {
+public final class DefaultSiteBaker {
 
 
-    private static final String DEFAULT_TEMPLATE_NAME = &quot;default.ftlh&quot;;
-
-    private final Log _log;
-    private final AssetsCopier _assetsCopier;
-    private final Function&lt;Option&lt;Path&gt;, DirBaker&gt; _dirBakerFactory;
-
-
-    private DefaultSiteBaker(
-            final Log log,
-            final AssetsCopier assetsCopier,
-<span class="fc" id="L43">            final Function&lt;Option&lt;Path&gt;, DirBaker&gt; dirBakerFactory) {</span>
-
-<span class="fc" id="L45">        _log = log;</span>
-<span class="fc" id="L46">        _assetsCopier = assetsCopier;</span>
-<span class="fc" id="L47">        _dirBakerFactory = dirBakerFactory;</span>
-<span class="fc" id="L48">    }</span>
+<span class="nc" id="L22">    private DefaultSiteBaker() {</span>
+        // Nothing to do.
+<span class="nc" id="L24">    }</span>
 
 
     /**
-     *
+     * Creates a new {@code SiteBaker} without any templates.
      */
-    public static SiteBaker create(
-            final AssetsCopier assetsCopier,
-            final Function&lt;Option&lt;Path&gt;, DirBaker&gt; dirBakerFactory) {
+    public static SiteBaker create() {
 
-<span class="fc" id="L58">        final Log log = LogFactory.createFor(DefaultSiteBaker.class);</span>
+<span class="fc" id="L32">        final Option&lt;Path&gt; noneTemplatesDir = Option.none();</span>
+<span class="fc" id="L33">        final DefaultSiteBakerModule module = DefaultSiteBakerModule.create(noneTemplatesDir);</span>
 
-<span class="fc" id="L60">        return new DefaultSiteBaker(log, assetsCopier, dirBakerFactory);</span>
+<span class="fc" id="L35">        return module.siteBaker();</span>
     }
 
 
     /**
-     *
+     * Creates a new {@code SiteBaker} that uses templates from the
+     * specified directory.
      */
-    @Override
-    public void bake(final BakeOptions options) {
+    public static SiteBaker create(final Path templatesDir) {
 
-<span class="fc" id="L70">        final DirBaker dirBaker = _dirBakerFactory.apply(Option.ofOptional(options.templatesDir()));</span>
+<span class="fc" id="L45">        final Option&lt;Path&gt; someTemplatesDir = Option.some(templatesDir);</span>
+<span class="fc" id="L46">        final DefaultSiteBakerModule module = DefaultSiteBakerModule.create(someTemplatesDir);</span>
 
-<span class="fc" id="L72">        Logs.logDuration(</span>
-                _log,
-                &quot;baking&quot;,
-<span class="fc" id="L75">                () -&gt; doBake(options, dirBaker));</span>
-<span class="fc" id="L76">    }</span>
-
-
-    /**
-     *
-     */
-    private void doBake(
-            final BakeOptions options,
-            final DirBaker dirBaker)
-            throws YawgException {
-
-<span class="fc" id="L87">        final Path sourceDir = options.sourceDir();</span>
-<span class="fc" id="L88">        final Path targetDir = options.targetDir();</span>
-<span class="fc" id="L89">        final String templatesDir = options.templatesDir().map(Path::toString).orElse(&quot;NONE&quot;);</span>
-<span class="fc" id="L90">        final String assetsDir = options.assetsDir().map(Path::toString).orElse(&quot;NONE&quot;);</span>
-
-<span class="fc" id="L92">        _log.info(&quot;    Source    : {0}&quot;, sourceDir);</span>
-<span class="fc" id="L93">        _log.info(&quot;    Target    : {0}&quot;, targetDir);</span>
-<span class="fc" id="L94">        _log.info(&quot;    Templates : {0}&quot;, templatesDir);</span>
-<span class="fc" id="L95">        _log.info(&quot;    Assets    : {0}&quot;, assetsDir);</span>
-
-<span class="fc" id="L97">        copyAssets(options);</span>
-<span class="fc" id="L98">        bakeSourceTree(options, dirBaker);</span>
-<span class="fc" id="L99">    }</span>
-
-
-    private void copyAssets(final BakeOptions options) {
-
-<span class="fc" id="L104">        Option.ofOptional(options.assetsDir())</span>
-<span class="fc" id="L105">                .peek(assetsDir -&gt; _assetsCopier.copy(assetsDir, options.targetDir()))</span>
-<span class="fc" id="L106">                .onEmpty(() -&gt; _log.debug(&quot;No assets directory to copy&quot;));</span>
-<span class="fc" id="L107">    }</span>
-
-
-    private void bakeSourceTree(
-            final BakeOptions options,
-            final DirBaker dirBaker)
-            throws YawgException {
-
-<span class="fc" id="L115">        Logs.logDuration(</span>
-                _log,
-                &quot;baking source tree&quot;,
-<span class="fc" id="L118">                () -&gt; doBakeSourceTree(options, dirBaker));</span>
-<span class="fc" id="L119">    }</span>
-
-
-    private void doBakeSourceTree(
-            final BakeOptions options,
-            final DirBaker dirBaker)
-            throws YawgException {
-
-<span class="fc" id="L127">        final Path sourceDir = options.sourceDir();</span>
-<span class="fc" id="L128">        final Path targetDir = options.targetDir();</span>
-<span class="fc" id="L129">        final PageVars externalPageVars = mapToPageVars(options.externalPageVars());</span>
-<span class="fc" id="L130">        final DirBakeOptions dirBakeOptions = DirBakeOptions.builder()</span>
-<span class="fc" id="L131">                .templateName(DEFAULT_TEMPLATE_NAME)</span>
-<span class="fc" id="L132">                .pageVars(externalPageVars)</span>
-<span class="fc" id="L133">                .build();</span>
-
-<span class="fc" id="L135">        dirBaker.bakeDirectory(sourceDir, targetDir, dirBakeOptions);</span>
-<span class="fc" id="L136">    }</span>
-
-
-    /**
-     *
-     */
-    private static PageVars mapToPageVars(
-            final Map&lt;String,Object&gt; pageVarsMap) {
-
-<span class="fc" id="L145">        final PageVarsBuilder builder = PageVarsBuilder.create();</span>
-<span class="fc" id="L146">        pageVarsMap.entrySet().stream()</span>
-<span class="fc" id="L147">                .forEach(x -&gt; builder.addVar(x.getKey(), x.getValue()));</span>
-
-<span class="fc" id="L149">        return builder.build();</span>
+<span class="fc" id="L48">        return module.siteBaker();</span>
     }
-
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

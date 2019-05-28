@@ -25,7 +25,7 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2015 - 2019</copyright>
     <item>
-      <title>File: 14,
+      <title>File: 11,
              Errors: 3,
              Warnings: 0,
              Infos: 0
@@ -46,90 +46,6 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.TemplateDataModelBuilder.java">com/varmateo/yawg/spi/TemplateDataModelBuilder.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.TemplateServiceFactory.java">com/varmateo/yawg/spi/TemplateServiceFactory.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.DirBakeListenerFactory.java">com/varmateo/yawg/spi/DirBakeListenerFactory.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.DirBakeListener.java">com/varmateo/yawg/spi/DirBakeListener.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.package-info.java">com/varmateo/yawg/spi/package-info.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.TemplateDataModel.java">com/varmateo/yawg/spi/TemplateDataModel.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  1
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.PageContext.java">com/varmateo/yawg/spi/PageContext.java</a>
                 </td>
                 <td>
@@ -144,7 +60,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.PageBakerFactory.java">com/varmateo/yawg/spi/PageBakerFactory.java</a>
+                  <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.TemplateDataModelBuilder.java">com/varmateo/yawg/spi/TemplateDataModelBuilder.java</a>
                 </td>
                 <td>
                   0
@@ -214,6 +130,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.DirBakeListener.java">com/varmateo/yawg/spi/DirBakeListener.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.Template.java">com/varmateo/yawg/spi/Template.java</a>
                 </td>
                 <td>
@@ -224,6 +154,34 @@ under the License.
                 </td>
                 <td>
                   0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.package-info.java">com/varmateo/yawg/spi/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.TemplateDataModel.java">com/varmateo/yawg/spi/TemplateDataModel.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
                 </td>
               </tr>
                           <tr>

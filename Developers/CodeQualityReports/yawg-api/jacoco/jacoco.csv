@@ -2,9 +2,9 @@ GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_
 Yawg API,com.varmateo.yawg.api,BakeOptions.Builder,3,0,0,0,2,0,1,0,1,0
 Yawg API,com.varmateo.yawg.api,BakeOptions,5,0,0,0,1,0,1,0,1,0
 Yawg API,com.varmateo.yawg.api,YawgException,9,0,0,0,4,0,2,0,2,0
-Yawg API,com.varmateo.yawg.api,BakeOptions_Builder,461,0,41,0,107,0,53,0,32,0
+Yawg API,com.varmateo.yawg.api,BakeOptions_Builder,398,0,37,0,91,0,45,0,26,0
 Yawg API,com.varmateo.yawg.api,YawgInfo,67,41,7,3,6,12,6,1,1,1
 Yawg API,com.varmateo.yawg.api,BakeOptions_Builder.Property,46,0,0,0,7,0,5,0,5,0
-Yawg API,com.varmateo.yawg.api,BakeOptions_Builder.Partial,220,0,26,0,38,0,23,0,10,0
+Yawg API,com.varmateo.yawg.api,BakeOptions_Builder.Partial,189,0,22,0,33,0,20,0,9,0
 Yawg API,com.varmateo.yawg.api,BakeOptions_Builder.Rebuildable,3,0,0,0,1,0,1,0,1,0
-Yawg API,com.varmateo.yawg.api,BakeOptions_Builder.Value,195,0,16,0,36,0,18,0,10,0
+Yawg API,com.varmateo.yawg.api,BakeOptions_Builder.Value,159,0,12,0,37,0,15,0,9,0

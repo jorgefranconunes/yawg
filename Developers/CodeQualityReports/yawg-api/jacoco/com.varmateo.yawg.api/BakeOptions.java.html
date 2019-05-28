@@ -45,15 +45,6 @@ public interface BakeOptions {
 
 
     /**
-     * Path of directory containing the templates files.
-     *
-     * &lt;p&gt;An empty &lt;code&gt;Optional&lt;/code&gt; means no templates are
-     * available for use.&lt;/p&gt;
-     */
-    Optional&lt;Path&gt; templatesDir();
-
-
-    /**
      * Set of page variables provided externally.
      *
      * &lt;p&gt;Page variables are intended to be used by templates.&lt;/p&gt;
@@ -69,7 +60,7 @@ public interface BakeOptions {
      */
     static Builder builder() {
 
-<span class="nc" id="L72">        return new Builder();</span>
+<span class="nc" id="L63">        return new Builder();</span>
     }
 
 
@@ -78,9 +69,9 @@ public interface BakeOptions {
      */
     static final class Builder extends BakeOptions_Builder {
 
-<span class="nc" id="L81">        private Builder() {</span>
+<span class="nc" id="L72">        private Builder() {</span>
             // Nothing to do.
-<span class="nc" id="L83">        }</span>
+<span class="nc" id="L74">        }</span>
 
     }
 

@@ -40,7 +40,7 @@ public final class Main {
 <span class="nc" id="L40">                 .addArgs(args)</span>
 <span class="nc" id="L41">                 .output(System.out)</span>
 <span class="nc" id="L42">                 .build();</span>
-<span class="nc" id="L43">         final BakerCli bakerCli = new BakerCli(options);</span>
+<span class="nc" id="L43">         final BakerCli bakerCli = BakerCli.create(options);</span>
 <span class="nc" id="L44">         final int exitStatus = bakerCli.run();</span>
 
 <span class="nc" id="L46">         System.exit(exitStatus);</span>

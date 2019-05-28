@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>CoreSiteBakerModule.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">CoreSiteBakerModule.java</span></div><h1>CoreSiteBakerModule.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2016-2019 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.core;
+
+import java.util.function.Supplier;
+
+import io.vavr.Lazy;
+import io.vavr.collection.Seq;
+
+import com.varmateo.yawg.api.SiteBaker;
+import com.varmateo.yawg.spi.PageBaker;
+import com.varmateo.yawg.spi.DirBakeListener;
+import com.varmateo.yawg.spi.TemplateService;
+
+
+/**
+ * Module for all the objects required by the main baker.
+ */
+/* default */ final class CoreSiteBakerModule {
+
+
+<span class="fc" id="L26">    private final Lazy&lt;SiteBaker&gt; _siteBaker = Lazy.of(this::newSiteBaker);</span>
+
+    private final Supplier&lt;Seq&lt;PageBaker&gt;&gt; _pageBakers;
+    private final Supplier&lt;Seq&lt;TemplateService&gt;&gt; _templateServices;
+    private final Supplier&lt;Seq&lt;DirBakeListener&gt;&gt; _dirBakeListeners;
+
+
+    private CoreSiteBakerModule(
+            final Supplier&lt;Seq&lt;PageBaker&gt;&gt; pageBakers,
+            final Supplier&lt;Seq&lt;TemplateService&gt;&gt; templateServices,
+<span class="fc" id="L36">            final Supplier&lt;Seq&lt;DirBakeListener&gt;&gt; dirBakeListeners) {</span>
+
+<span class="fc" id="L38">        _pageBakers = pageBakers;</span>
+<span class="fc" id="L39">        _templateServices = templateServices;</span>
+<span class="fc" id="L40">        _dirBakeListeners = dirBakeListeners;</span>
+<span class="fc" id="L41">    }</span>
+
+
+    /**
+     *
+     */
+    public static CoreSiteBakerModule create(
+            final Supplier&lt;Seq&lt;PageBaker&gt;&gt; pageBakers,
+            final Supplier&lt;Seq&lt;TemplateService&gt;&gt; templateServices,
+            final Supplier&lt;Seq&lt;DirBakeListener&gt;&gt; dirBakeListeners) {
+
+<span class="fc" id="L52">        return new CoreSiteBakerModule(pageBakers, templateServices, dirBakeListeners);</span>
+    }
+
+
+    /**
+     * @return The baker object.
+     */
+    public SiteBaker siteBaker() {
+
+<span class="fc" id="L61">        return _siteBaker.get();</span>
+    }
+
+
+    private SiteBaker newSiteBaker() {
+
+<span class="fc" id="L67">        final AssetsCopier assetsCopier = AssetsCopier.create();</span>
+<span class="fc" id="L68">        final DirBaker dirBaker = newDirBaker();</span>
+
+<span class="fc" id="L70">        return CoreSiteBaker.create(assetsCopier, dirBaker);</span>
+    }
+
+
+    /**
+     *
+     */
+    private DirBaker newDirBaker() {
+
+<span class="fc" id="L79">        final FileBaker fileBaker =</span>
+<span class="fc" id="L80">                newFileBaker();</span>
+<span class="fc" id="L81">        final TemplateService collectiveTemplateService =</span>
+<span class="fc" id="L82">                new CollectiveTemplateService(_templateServices.get());</span>
+<span class="fc" id="L83">        final DirBakeOptionsDao dirBakerOptionsDao =</span>
+                new DirBakeOptionsDao();
+<span class="fc" id="L85">        final DirBakeListener dirBakeListener =</span>
+<span class="fc" id="L86">                new CollectiveDirBakeListener(_dirBakeListeners.get());</span>
+
+<span class="fc" id="L88">        return new DirBaker(</span>
+                fileBaker,
+                collectiveTemplateService,
+                dirBakerOptionsDao,
+                dirBakeListener);
+    }
+
+
+    /**
+     *
+     */
+    private FileBaker newFileBaker() {
+
+<span class="fc" id="L101">        final Seq&lt;PageBaker&gt; bakers = _pageBakers.get();</span>
+<span class="fc" id="L102">        final PageBaker defaultBaker = new CopyPageBaker();</span>
+
+<span class="fc" id="L104">        return new FileBaker(bakers, defaultBaker);</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

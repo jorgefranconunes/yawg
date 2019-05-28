@@ -6,18 +6,22 @@
 
 package com.varmateo.yawg.core;
 
+import java.nio.file.Path;
+import java.util.function.Function;
+
 import io.vavr.Lazy;
 import io.vavr.collection.List;
 import io.vavr.collection.Seq;
+import io.vavr.control.Option;
 
 import com.varmateo.yawg.asciidoctor.AsciidoctorPageBaker;
 import com.varmateo.yawg.breadcrumbs.BreadcrumbsBakeListener;
-import com.varmateo.yawg.freemarker.FreemarkerTemplateServiceFactory;
+import com.varmateo.yawg.freemarker.FreemarkerTemplateService;
 import com.varmateo.yawg.commonmark.CommonMarkPageBaker;
 import com.varmateo.yawg.html.HtmlPageBaker;
 import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.DirBakeListener;
-import com.varmateo.yawg.spi.TemplateServiceFactory;
+import com.varmateo.yawg.spi.TemplateService;
 
 
 /**
@@ -26,26 +30,31 @@ import com.varmateo.yawg.spi.TemplateServiceFactory;
 /* default */ final class DefaultExtensionsModule {
 
 
-<span class="nc" id="L29">    private final Lazy&lt;Seq&lt;PageBaker&gt;&gt; _pageBakers = Lazy.of(this::createPageBakers);</span>
+    private final Option&lt;Path&gt; _templatesDir;
 
-<span class="nc" id="L31">    private final Lazy&lt;Seq&lt;TemplateServiceFactory&gt;&gt; _templateServiceFactories =</span>
-<span class="nc" id="L32">            Lazy.of(this::createTemplateServiceFactories);</span>
+<span class="nc" id="L35">    private final Lazy&lt;Seq&lt;PageBaker&gt;&gt; _pageBakers =</span>
+<span class="nc" id="L36">            Lazy.of(this::createPageBakers);</span>
 
-<span class="nc" id="L34">    private final Lazy&lt;Seq&lt;DirBakeListener&gt;&gt; _dirBakeListeners =</span>
-<span class="nc" id="L35">            Lazy.of(this::createDirBakeListeners);</span>
+<span class="nc" id="L38">    private final Lazy&lt;Seq&lt;TemplateService&gt;&gt; _templateServices =</span>
+<span class="nc" id="L39">            Lazy.of(this::createTemplateServices);</span>
+
+<span class="nc" id="L41">    private final Lazy&lt;Seq&lt;DirBakeListener&gt;&gt; _dirBakeListeners =</span>
+<span class="nc" id="L42">            Lazy.of(this::createDirBakeListeners);</span>
 
 
-<span class="nc" id="L38">    private DefaultExtensionsModule() {</span>
-        // Nothiong to do.
-<span class="nc" id="L40">    }</span>
+<span class="nc" id="L45">    private DefaultExtensionsModule(final Option&lt;Path&gt; templatesDir) {</span>
+
+
+<span class="nc" id="L48">        _templatesDir = templatesDir;</span>
+<span class="nc" id="L49">    }</span>
 
 
     /**
      *
      */
-    public static DefaultExtensionsModule create() {
+    public static DefaultExtensionsModule create(final Option&lt;Path&gt; templatesDir) {
 
-<span class="nc" id="L48">        return new DefaultExtensionsModule();</span>
+<span class="nc" id="L57">        return new DefaultExtensionsModule(templatesDir);</span>
     }
 
 
@@ -54,16 +63,16 @@ import com.varmateo.yawg.spi.TemplateServiceFactory;
      */
     public Seq&lt;PageBaker&gt; pageBakers() {
 
-<span class="nc" id="L57">        return _pageBakers.get();</span>
+<span class="nc" id="L66">        return _pageBakers.get();</span>
     }
 
 
     /**
      *
      */
-    public Seq&lt;TemplateServiceFactory&gt; templateServiceFactories() {
+    public Seq&lt;TemplateService&gt; templateServices() {
 
-<span class="nc" id="L66">        return _templateServiceFactories.get();</span>
+<span class="nc" id="L75">        return _templateServices.get();</span>
     }
 
 
@@ -72,30 +81,36 @@ import com.varmateo.yawg.spi.TemplateServiceFactory;
      */
     public Seq&lt;DirBakeListener&gt; dirBakeListeners() {
 
-<span class="nc" id="L75">        return _dirBakeListeners.get();</span>
+<span class="nc" id="L84">        return _dirBakeListeners.get();</span>
     }
 
 
     private Seq&lt;PageBaker&gt; createPageBakers() {
 
-<span class="nc" id="L81">        return List.of(</span>
-<span class="nc" id="L82">                AsciidoctorPageBaker.create(),</span>
-<span class="nc" id="L83">                HtmlPageBaker.create(),</span>
-<span class="nc" id="L84">                CommonMarkPageBaker.create());</span>
+<span class="nc" id="L90">        return List.of(</span>
+<span class="nc" id="L91">                AsciidoctorPageBaker.create(),</span>
+<span class="nc" id="L92">                HtmlPageBaker.create(),</span>
+<span class="nc" id="L93">                CommonMarkPageBaker.create());</span>
     }
 
 
-    private Seq&lt;TemplateServiceFactory&gt; createTemplateServiceFactories() {
+    private Seq&lt;TemplateService&gt; createTemplateServices() {
 
-<span class="nc" id="L90">        return List.of(</span>
-<span class="nc" id="L91">                FreemarkerTemplateServiceFactory.create());</span>
+<span class="nc" id="L99">        final List&lt;Function&lt;Path, TemplateService&gt;&gt; templateServiceFactories = List.of(</span>
+                FreemarkerTemplateService::create);
+<span class="nc" id="L101">        final Function&lt;Path, List&lt;TemplateService&gt;&gt; createTemplateServices =</span>
+<span class="nc" id="L102">                path -&gt; templateServiceFactories.map(factory -&gt; factory.apply(path));</span>
+
+<span class="nc" id="L104">        return _templatesDir</span>
+<span class="nc" id="L105">                .map(createTemplateServices)</span>
+<span class="nc" id="L106">                .getOrElse(List::empty);</span>
     }
 
 
     private Seq&lt;DirBakeListener&gt; createDirBakeListeners() {
 
-<span class="nc" id="L97">        return List.of(</span>
-<span class="nc" id="L98">                BreadcrumbsBakeListener.create());</span>
+<span class="nc" id="L112">        return List.of(</span>
+<span class="nc" id="L113">                BreadcrumbsBakeListener.create());</span>
     }
 
 }
