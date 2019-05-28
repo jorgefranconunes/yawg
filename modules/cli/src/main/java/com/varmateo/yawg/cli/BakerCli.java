@@ -22,7 +22,7 @@ import io.vavr.control.Try;
 import com.varmateo.yawg.api.BakeOptions;
 import com.varmateo.yawg.api.SiteBaker;
 import com.varmateo.yawg.api.YawgInfo;
-import com.varmateo.yawg.core.MainSiteBaker;
+import com.varmateo.yawg.core.DefaultSiteBaker;
 import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogFactory;
 
@@ -147,8 +147,8 @@ public final class BakerCli {
         final Option<Path> templatesDir = Option.of(
                 cliOptions.getPath(BakerCliParameters.TEMPLATES_DIR, null));
         final SiteBaker siteBaker = templatesDir
-                .map(path -> MainSiteBaker.create(path))
-                .getOrElse(() -> MainSiteBaker.create());
+                .map(path -> DefaultSiteBaker.create(path))
+                .getOrElse(() -> DefaultSiteBaker.create());
 
         logParameters(options, templatesDir);
 

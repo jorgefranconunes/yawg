@@ -217,7 +217,7 @@ at `./target/CodeQualityReports/index.html`.
 To generate the tarball for an engineering build do the following:
 
 ----
-./devtools/bin/build-create-bundle
+./devtools/bin/build-bundle
 ----
 
 The above will perform a full build and create a tarball named

@@ -141,7 +141,7 @@ chmod 600 ~/.m2/settings.xml
 == Deploy to the staging respository
 
 ----
-./devtools/bin/build-create-bundle --release
+./devtools/bin/build-bundle --release
 ----
 
 
