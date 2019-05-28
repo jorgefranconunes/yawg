@@ -63,8 +63,8 @@ branches.
 
 == Implementation steps
 
-* Update `build-create-bundle` to place the `.tar.gz` and the code
-  quality reports into a `target` folder. This is because we want the
+* Update `build-bundle` to place the `.tar.gz` and the code quality
+  reports into a `target` folder. This is because we want the
   publishing related tools to also have their working directories
   under `target`. The name `target` is chosen to follow Maven
   conventions. OPTIONAL

@@ -125,6 +125,7 @@ Maven POM for the "core" sub-project of the Yawg project.
 
 
     <plugins>
+
       <!-- Deploy to OSSRH. This goal is bound to the deploy lifecycle
            phase. -->
       <plugin>
@@ -164,6 +165,10 @@ Maven POM for the "core" sub-project of the Yawg project.
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
             <version>${maven-javadoc-plugin.version}</version>
+            <configuration>
+              <subpackages>com.varmateo.yawg.core</subpackages>
+              <excludePackageNames>com.varmateo.yawg.core.impl</excludePackageNames>
+            </configuration>
             <executions>
               <execution>
                 <id>attach-javadocs</id>

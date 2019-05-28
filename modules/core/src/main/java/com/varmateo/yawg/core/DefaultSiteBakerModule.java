@@ -17,7 +17,7 @@ import com.varmateo.yawg.api.SiteBaker;
 /**
  *
  */
-/* default */ final class MainSiteBakerModule {
+/* default */ final class DefaultSiteBakerModule {
 
 
     private final Option<Path> _templatesDir;
@@ -29,7 +29,7 @@ import com.varmateo.yawg.api.SiteBaker;
             Lazy.of(this::createDefaultExtensionsModule);
 
 
-    private MainSiteBakerModule(final Option<Path> templatesDir) {
+    private DefaultSiteBakerModule(final Option<Path> templatesDir) {
 
         _templatesDir = templatesDir;
     }
@@ -38,9 +38,9 @@ import com.varmateo.yawg.api.SiteBaker;
     /**
      *
      */
-    public static MainSiteBakerModule create(final Option<Path> templatesDir) {
+    public static DefaultSiteBakerModule create(final Option<Path> templatesDir) {
 
-        return new MainSiteBakerModule(templatesDir);
+        return new DefaultSiteBakerModule(templatesDir);
     }
 
 

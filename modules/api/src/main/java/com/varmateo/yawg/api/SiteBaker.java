@@ -6,9 +6,6 @@
 
 package com.varmateo.yawg.api;
 
-import com.varmateo.yawg.api.BakeOptions;
-import com.varmateo.yawg.api.YawgException;
-
 
 /**
  * Baker of sites.
