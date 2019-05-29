@@ -12,4 +12,4 @@
  * href="https://github.com/atlassian/commonmark-java">
  * https://github.com/atlassian/commonmark-java</a>.
  */
-package com.varmateo.yawg.asciidoctor;
+package com.varmateo.yawg.commonmark;

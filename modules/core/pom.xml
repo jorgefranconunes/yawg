@@ -69,6 +69,12 @@ Maven POM for the "core" sub-project of the Yawg project.
 
     <dependency>
       <groupId>com.atlassian.commonmark</groupId>
+      <artifactId>commonmark-ext-yaml-front-matter</artifactId>
+      <version>${commonmark.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.atlassian.commonmark</groupId>
       <artifactId>commonmark</artifactId>
       <version>${commonmark.version}</version>
     </dependency>
