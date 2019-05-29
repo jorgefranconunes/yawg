@@ -84,4 +84,60 @@ public final class CommonMarkBakerIT {
     }
 
 
+    /**
+     *
+     */
+    @Test
+    public void givenDocWithoutFrontMatter_whenBake_thenTitleIsSourceBasename()
+            throws IOException {
+
+        // GIVEN
+        final BakerCliScenario scenario = BakerCliScenario.builder(
+                CommonMarkBakerIT.class,
+                "givenDocWithoutFrontMatter_whenBake_thenTitleIsSourceBasename")
+                .addTemplatesPath()
+                .build();
+
+        // WHEN
+        final BakerCliResult bakerResult = scenario.run();
+
+        // THEN
+        assertThat(bakerResult)
+                .hasExitStatusSuccess()
+                .targetDirContains("file01.html");
+
+        assertThat(bakerResult)
+                .targetContentAsString("file01.html")
+                .contains("<title>file01</title>");
+    }
+
+
+    /**
+     *
+     */
+    @Test
+    public void givenDocWithFrontMatter_whenBake_thenTitleIsCorrect()
+            throws IOException {
+
+        // GIVEN
+        final BakerCliScenario scenario = BakerCliScenario.builder(
+                CommonMarkBakerIT.class,
+                "givenDocWithFrontMatter_whenBake_thenTitleIsCorrect")
+                .addTemplatesPath()
+                .build();
+
+        // WHEN
+        final BakerCliResult bakerResult = scenario.run();
+
+        // THEN
+        assertThat(bakerResult)
+                .hasExitStatusSuccess()
+                .targetDirContains("file01.html");
+
+        assertThat(bakerResult)
+                .targetContentAsString("file01.html")
+                .contains("<title>My Pretty Title</title>");
+    }
+
+
 }

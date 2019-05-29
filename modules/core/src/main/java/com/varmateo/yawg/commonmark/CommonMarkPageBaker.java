@@ -14,6 +14,9 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 import io.vavr.Lazy;
+import io.vavr.collection.List;
+import org.commonmark.Extension;
+import org.commonmark.ext.front.matter.YamlFrontMatterExtension;
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
@@ -232,7 +235,12 @@ public final class CommonMarkPageBaker
 
     private Parser createMarkdownParser() {
 
-        return Parser.builder().build();
+        final Extension frontMatterExtension = YamlFrontMatterExtension.create();
+        final List<Extension> extensions = List.of(frontMatterExtension);
+
+        return Parser.builder()
+                .extensions(extensions)
+                .build();
     }
 
 
