@@ -32,8 +32,7 @@ public final class BakerCliResultAssert
     /**
      *
      */
-    public static BakerCliResultAssert assertThat(
-            final BakerCliResult actual) {
+    public static BakerCliResultAssert assertThat(final BakerCliResult actual) {
 
         return new BakerCliResultAssert(actual);
     }
@@ -106,8 +105,7 @@ public final class BakerCliResultAssert
     /**
      *
      */
-    public AbstractCharSequenceAssert<?,String> outputLineFromEnd(
-            final int index) {
+    public AbstractCharSequenceAssert<?,String> outputLineFromEnd(final int index) {
 
         isNotNull();
 
@@ -118,12 +116,11 @@ public final class BakerCliResultAssert
     /**
      *
      */
-    public AbstractCharSequenceAssert<?,String> targetContentAsString(
-            final String relPath) {
+    public AbstractCharSequenceAssert<?, String> targetContentAsString(final String relPath) {
 
-        Path path = this.actual.getTargetPath().resolve(relPath);
-        byte[] rawContent = readBytes(path);
-        String contentAsString = new String(rawContent, StandardCharsets.UTF_8);
+        final Path path = this.actual.getTargetPath().resolve(relPath);
+        final byte[] rawContent = readBytes(path);
+        final String contentAsString = new String(rawContent, StandardCharsets.UTF_8);
 
         return Assertions.assertThat(contentAsString);
     }
@@ -138,7 +135,7 @@ public final class BakerCliResultAssert
 
         try {
             result = Files.readAllBytes(path);
-        } catch ( IOException e ) {
+        } catch ( final IOException e ) {
             failWithMessage(
                     "Failed to read file '%s' - '%s' - '%s'",
                     path,
@@ -153,14 +150,13 @@ public final class BakerCliResultAssert
     /**
      *
      */
-    public BakerCliResultAssert targetDirContainsExactly(
-            final String... fileNames) {
+    public BakerCliResultAssert targetDirContainsExactly(final String... fileNames) {
 
         isNotNull();
 
-        List<Path> expectedFiles = List.of(fileNames).map(Paths::get);
-        Path targetPath = this.actual.getTargetPath();
-        List<Path> targetFiles = lsR(targetPath);
+        final List<Path> expectedFiles = List.of(fileNames).map(Paths::get);
+        final Path targetPath = this.actual.getTargetPath();
+        final List<Path> targetFiles = lsR(targetPath);
 
         Assertions.assertThat(targetFiles).isEqualTo(expectedFiles);
 
@@ -171,12 +167,11 @@ public final class BakerCliResultAssert
     /**
      *
      */
-    public BakerCliResultAssert targetDirContains(
-            final String... fileNames) {
+    public BakerCliResultAssert targetDirContains(final String... fileNames) {
 
         isNotNull();
 
-        Path targetDir = this.actual.getTargetPath();
+        final Path targetDir = this.actual.getTargetPath();
 
         List.of(fileNames)
                 .map(Paths::get)
@@ -196,12 +191,12 @@ public final class BakerCliResultAssert
 
         isNotNull();
 
-        Path expectedResultsPath = scenario.getExpectedResultsPath();
-        Path targetPath = this.actual.getTargetPath();
+        final Path expectedResultsPath = scenario.getExpectedResultsPath();
+        final Path targetPath = this.actual.getTargetPath();
 
-        for ( String fileName : fileNames ) {
-            Path expectedFile = expectedResultsPath.resolve(fileName);
-            Path actualFile = targetPath.resolve(fileName);
+        for ( final String fileName : fileNames ) {
+            final Path expectedFile = expectedResultsPath.resolve(fileName);
+            final Path actualFile = targetPath.resolve(fileName);
             Assertions.assertThat(actualFile)
                     .usingCharset(StandardCharsets.UTF_8)
                     .hasSameContentAs(expectedFile);
@@ -214,21 +209,20 @@ public final class BakerCliResultAssert
     /**
      *
      */
-    public BakerCliResultAssert targetDirContainsExpectedContent(
-            final BakerCliScenario scenario) {
+    public BakerCliResultAssert targetDirContainsExpectedContent(final BakerCliScenario scenario) {
 
         isNotNull();
 
-        Path expectedResultsPath = scenario.getExpectedResultsPath();
-        Path targetPath = this.actual.getTargetPath();
-        List<Path> expectedFiles = lsR(expectedResultsPath);
-        List<Path> targetFiles = lsR(targetPath);
+        final Path expectedResultsPath = scenario.getExpectedResultsPath();
+        final Path targetPath = this.actual.getTargetPath();
+        final List<Path> expectedFiles = lsR(expectedResultsPath);
+        final List<Path> targetFiles = lsR(targetPath);
 
         Assertions.assertThat(expectedFiles).isEqualTo(targetFiles);
 
         expectedFiles.forEach(path -> {
-                Path expectedFile = expectedResultsPath.resolve(path);
-                Path actualFile = targetPath.resolve(path);
+                final Path expectedFile = expectedResultsPath.resolve(path);
+                final Path actualFile = targetPath.resolve(path);
                 Assertions.assertThat(actualFile)
                         .usingCharset(StandardCharsets.UTF_8)
                         .hasSameContentAs(expectedFile);
@@ -260,9 +254,8 @@ public final class BakerCliResultAssert
 
         try {
             javaStream = Files.walk(dirPath);
-        } catch ( IOException e ) {
-            String msg =
-                    String.format("Failed walkding directory \"%s\"", dirPath);
+        } catch ( final IOException e ) {
+            final String msg = String.format("Failed walkding directory \"%s\"", dirPath);
             throw new AssertionError(msg, e);
         }
 

@@ -1,6 +1,6 @@
 = Programmer\'s guide
 
-Here you can find information in integrating Yawg with your own
+Here you can find information about integrating Yawg with your own
 software.
 
 

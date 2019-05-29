@@ -58,6 +58,13 @@ public interface TemplateDataModel {
 
 
     /**
+     * Randomly generated unique bake identifier. Each bake will have
+     * a different identifier.
+     */
+    String bakeId();
+
+
+    /**
      * Document author data.
      */
     public static final class Author {

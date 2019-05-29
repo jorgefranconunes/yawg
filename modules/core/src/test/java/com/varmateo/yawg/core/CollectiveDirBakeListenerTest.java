@@ -150,6 +150,7 @@ public final class CollectiveDirBakeListenerTest
                 .dirUrl(".")
                 .rootRelativeUrl(".")
                 .addVar(varName, varValue)
+                .bakeId("TestBakeId")
                 .build();
     }
 

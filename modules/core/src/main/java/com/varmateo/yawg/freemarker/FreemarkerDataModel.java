@@ -10,7 +10,6 @@ import com.varmateo.yawg.api.YawgInfo;
 import com.varmateo.yawg.spi.PageVars;
 import com.varmateo.yawg.spi.TemplateDataModel;
 import com.varmateo.yawg.spi.TemplateDataModel.Author;
-import java.util.UUID;
 
 
 /**
@@ -68,7 +67,6 @@ public final class FreemarkerDataModel {
 
 
         private final TemplateDataModel _templateDataModel;
-        private final String _bakeId;
         private final String _productName;
         private final String _version;
 
@@ -80,7 +78,6 @@ public final class FreemarkerDataModel {
                 final TemplateDataModel templateDataModel) {
 
             _templateDataModel = templateDataModel;
-            _bakeId = UUID.randomUUID().toString();
             _productName = YawgInfo.PRODUCT_NAME;
             _version = YawgInfo.VERSION;
         }
@@ -91,7 +88,7 @@ public final class FreemarkerDataModel {
          */
         public String getBakeId() {
 
-            return _bakeId;
+            return _templateDataModel.bakeId();
         }
 
 

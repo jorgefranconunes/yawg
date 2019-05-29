@@ -38,9 +38,11 @@ public final class PageContextBuilderTest {
     @Test
     public void mandatoryAttrs() {
 
+        final String bakeId = "TestBakeId";
         final PageContext context = PageContextBuilder.create()
                 .dirUrl("something")
                 .rootRelativeUrl("whatever")
+                .bakeId(bakeId)
                 .build();
 
         assertThat(context.dirUrl())
@@ -51,6 +53,8 @@ public final class PageContextBuilderTest {
                 .isNotPresent();
         assertThat(context.pageVars().asMap())
                 .isEmpty();
+        assertThat(context.bakeId())
+                .isEqualTo(bakeId);
     }
 
 

@@ -7,6 +7,7 @@
 package com.varmateo.yawg.core;
 
 import java.nio.file.Path;
+import java.util.UUID;
 import java.util.function.Function;
 
 import com.varmateo.yawg.spi.PageContext;
@@ -56,8 +57,9 @@ import com.varmateo.yawg.spi.TemplateService;
             final TemplateService templateService,
             final DirBakeOptions dirBakeOptions) {
 
+        final String bakeId = UUID.randomUUID().toString();
         final DirPageContextBuilder dirPageContextBuilder = new DirPageContextBuilder(
-                targetRootDir, templateService);
+                targetRootDir, templateService, bakeId);
         final PageVars extensionVars = PageVars.empty();
         final PageContext pageContext = dirPageContextBuilder.buildPageContext(
                 targetRootDir, dirBakeOptions, extensionVars);

@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -99,6 +99,7 @@ public final class FreemarkerTemplateServiceTest
                 .setPageUrl("MyPage.html")
                 .setRootRelativeUrl(".")
                 .setTitle(title)
+                .bakeId("TestBakeId")
                 .build();
         final StringWriter buffer = new StringWriter();
 
@@ -130,6 +131,7 @@ public final class FreemarkerTemplateServiceTest
                 .setPageUrl("MyPage.html")
                 .setRootRelativeUrl(".")
                 .setTitle(title)
+                .bakeId("TestBakeId")
                 .build();
         final StringWriter buffer = new StringWriter();
 

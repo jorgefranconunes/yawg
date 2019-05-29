@@ -65,6 +65,7 @@ final class HtmlBakerDataModelBuilder {
                 .setPageUrl(pageUrl)
                 .setRootRelativeUrl(context.rootRelativeUrl())
                 .setPageVars(context.pageVars())
+                .bakeId(context.bakeId())
                 .build();
     }
 

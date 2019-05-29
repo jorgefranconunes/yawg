@@ -26,11 +26,12 @@ import java.util.function.Function;
  * Builds the <code>PageContext</code> to be used in the baking of
  * files in one given directory.
  */
-final class DirPageContextBuilder {
+/* default */ final class DirPageContextBuilder {
 
 
     private final Path _targetRootDir;
     private final TemplateService _templateService;
+    private final String _bakeId;
 
 
     /**
@@ -38,10 +39,12 @@ final class DirPageContextBuilder {
      */
     DirPageContextBuilder(
             final Path targetRootDir,
-            final TemplateService templateService) {
+            final TemplateService templateService,
+            final String bakeId) {
 
         _targetRootDir = targetRootDir;
         _templateService = templateService;
+        _bakeId = bakeId;
     }
 
 
@@ -69,6 +72,7 @@ final class DirPageContextBuilder {
                 .rootRelativeUrl(rootRelativeUrl)
                 .templateFetcher(templateFetcher)
                 .pageVars(allPageVars)
+                .bakeId(_bakeId)
                 .build();
     }
 

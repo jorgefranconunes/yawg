@@ -82,6 +82,7 @@ public final class HtmlBakerDataModelBuilderTest
         final PageContext context = PageContextBuilder.create()
                 .dirUrl(dirUrl)
                 .rootRelativeUrl(rootRelativeUrl)
+                .bakeId("TestBakeId")
                 .build();
         final Path sourcePath = TestUtils.getPath(HtmlBakerDataModelBuilder.class, relPath);
 

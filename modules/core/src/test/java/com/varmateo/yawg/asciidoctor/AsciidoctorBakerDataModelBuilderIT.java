@@ -158,6 +158,7 @@ public final class AsciidoctorBakerDataModelBuilderIT {
         final PageContext context = PageContextBuilder.create()
                 .dirUrl(dirUrl)
                 .rootRelativeUrl(rootRelativeUrl)
+                .bakeId("TestBakeId")
                 .build();
         final Path sourcePath = TestUtils.getPath(
                 AsciidoctorBakerDataModelBuilder.class,

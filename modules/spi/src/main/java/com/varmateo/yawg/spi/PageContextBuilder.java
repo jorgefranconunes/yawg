@@ -26,6 +26,7 @@ public final class PageContextBuilder {
     private Function<Path,Optional<Template>> _templateFetcher;
     private String _rootRelativeUrl;
     private PageVarsBuilder _pageVarsBuilder;
+    private String _bakeId;
 
 
     /**
@@ -37,6 +38,7 @@ public final class PageContextBuilder {
         _templateFetcher = (path -> Optional.empty());
         _rootRelativeUrl = null;
         _pageVarsBuilder = PageVarsBuilder.create();
+        _bakeId = null;
     }
 
 
@@ -49,6 +51,7 @@ public final class PageContextBuilder {
         _templateFetcher = data::templateFor;
         _rootRelativeUrl = data.rootRelativeUrl();
         _pageVarsBuilder = PageVarsBuilder.create(data.pageVars());
+        _bakeId = data.bakeId();
     }
 
 
@@ -162,6 +165,16 @@ public final class PageContextBuilder {
 
 
     /**
+     *
+     */
+    public PageContextBuilder bakeId(final String bakeId) {
+
+        _bakeId = bakeId;
+        return this;
+    }
+
+
+    /**
      * Creates a new <code>PageContext</code> instance initialized
      * with the current values in this builder.
      *
@@ -184,6 +197,7 @@ public final class PageContextBuilder {
         private final Function<Path,Optional<Template>> _templateFetcher;
         private final PageVars _pageVars;
         private final String _rootRelativeUrl;
+        private final String _bakeId;
 
 
         /**
@@ -195,6 +209,7 @@ public final class PageContextBuilder {
             _templateFetcher = builder._templateFetcher;
             _rootRelativeUrl = Objects.requireNonNull(builder._rootRelativeUrl);
             _pageVars = builder._pageVarsBuilder.build();
+            _bakeId = Objects.requireNonNull(builder._bakeId);
         }
 
 
@@ -231,6 +246,15 @@ public final class PageContextBuilder {
         @Override
         public String rootRelativeUrl() {
             return _rootRelativeUrl;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public String bakeId() {
+            return _bakeId;
         }
 
     }

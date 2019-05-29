@@ -68,7 +68,8 @@ import org.asciidoctor.internal.AsciidoctorCoreException;
                 .setBody(body)
                 .setPageUrl(pageUrl)
                 .setRootRelativeUrl(context.rootRelativeUrl())
-                .setPageVars(context.pageVars());
+                .setPageVars(context.pageVars())
+                .bakeId(context.bakeId());
         buildAuthors(modelBuilder, header);
 
         return modelBuilder.build();

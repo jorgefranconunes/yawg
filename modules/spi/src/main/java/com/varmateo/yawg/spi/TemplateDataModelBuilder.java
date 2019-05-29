@@ -27,6 +27,7 @@ public final class TemplateDataModelBuilder {
     private String _rootRelativeUrl;
     private PageVars _pageVars;
     private String _title;
+    private String _bakeId;
 
 
     /**
@@ -40,6 +41,7 @@ public final class TemplateDataModelBuilder {
         _rootRelativeUrl = null;
         _pageVars = PageVars.empty();
         _title = null;
+        _bakeId = null;
     }
 
 
@@ -122,6 +124,16 @@ public final class TemplateDataModelBuilder {
     /**
      *
      */
+    public TemplateDataModelBuilder bakeId(final String bakeId) {
+
+        _bakeId = bakeId;
+        return this;
+    }
+
+
+    /**
+     *
+     */
     public TemplateDataModel build() {
 
         return new TemplateDataModelImpl(this);
@@ -141,6 +153,7 @@ public final class TemplateDataModelBuilder {
         private final PageVars _pageVars;
         private final String _rootRelativeUrl;
         private final String _title;
+        private final String _bakeId;
 
 
         /**
@@ -148,13 +161,13 @@ public final class TemplateDataModelBuilder {
          */
         TemplateDataModelImpl(final TemplateDataModelBuilder builder) {
 
-            _authors =
-                Collections.unmodifiableList(new ArrayList<>(builder._authors));
+            _authors = Collections.unmodifiableList(new ArrayList<>(builder._authors));
             _body = Objects.requireNonNull(builder._body);
             _pageUrl = Objects.requireNonNull(builder._pageUrl);
             _pageVars = Objects.requireNonNull(builder._pageVars);
             _rootRelativeUrl = Objects.requireNonNull(builder._rootRelativeUrl);
             _title = Objects.requireNonNull(builder._title);
+            _bakeId = Objects.requireNonNull(builder._bakeId);
         }
 
 
@@ -209,6 +222,15 @@ public final class TemplateDataModelBuilder {
         @Override
         public String title() {
             return _title;
+        }
+
+
+        /**
+         *
+         */
+        @Override
+        public String bakeId() {
+            return _bakeId;
         }
 
     }

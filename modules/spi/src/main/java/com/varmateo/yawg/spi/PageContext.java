@@ -45,4 +45,11 @@ public interface PageContext {
      */
     String rootRelativeUrl();
 
+
+    /**
+     * Randomly generated unique bake identifier. Each bake will have
+     * a different identifier.
+     */
+    String bakeId();
+
 }
