@@ -14,6 +14,9 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 import io.vavr.Lazy;
+import io.vavr.collection.List;
+import org.commonmark.Extension;
+import org.commonmark.ext.front.matter.YamlFrontMatterExtension;
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
@@ -37,23 +40,23 @@ public final class CommonMarkPageBaker
 
     private static final String NAME = &quot;markdown&quot;;
 
-<span class="nc" id="L40">    private static final Pattern RE_ADOC = Pattern.compile(&quot;.*\\.md$&quot;);</span>
+<span class="nc" id="L43">    private static final Pattern RE_ADOC = Pattern.compile(&quot;.*\\.md$&quot;);</span>
 
     private static final String TARGET_EXTENSION = &quot;.html&quot;;
 
-<span class="nc" id="L44">    private final Lazy&lt;Parser&gt; _markdownParser =</span>
-<span class="nc" id="L45">            Lazy.of(this::createMarkdownParser);</span>
+<span class="nc" id="L47">    private final Lazy&lt;Parser&gt; _markdownParser =</span>
+<span class="nc" id="L48">            Lazy.of(this::createMarkdownParser);</span>
 
-<span class="nc" id="L47">    private final Lazy&lt;HtmlRenderer&gt; _htmlRenderer =</span>
-<span class="nc" id="L48">            Lazy.of(this::createHtmlRenderer);</span>
+<span class="nc" id="L50">    private final Lazy&lt;HtmlRenderer&gt; _htmlRenderer =</span>
+<span class="nc" id="L51">            Lazy.of(this::createHtmlRenderer);</span>
 
-<span class="nc" id="L50">    private final Lazy&lt;CommonMarkTemplateDataModelBuilder&gt; _templateModelBuilder =</span>
-<span class="nc" id="L51">            Lazy.of(this::createCommonMarkTemplateDataModelBuilder);</span>
+<span class="nc" id="L53">    private final Lazy&lt;CommonMarkTemplateDataModelBuilder&gt; _templateModelBuilder =</span>
+<span class="nc" id="L54">            Lazy.of(this::createCommonMarkTemplateDataModelBuilder);</span>
 
 
-<span class="nc" id="L54">    private CommonMarkPageBaker() {</span>
+<span class="nc" id="L57">    private CommonMarkPageBaker() {</span>
         // Nothing to do.
-<span class="nc" id="L56">    }</span>
+<span class="nc" id="L59">    }</span>
 
 
     /**
@@ -61,7 +64,7 @@ public final class CommonMarkPageBaker
      */
     public static PageBaker create() {
 
-<span class="nc" id="L64">        return new CommonMarkPageBaker();</span>
+<span class="nc" id="L67">        return new CommonMarkPageBaker();</span>
     }
 
 
@@ -71,7 +74,7 @@ public final class CommonMarkPageBaker
     @Override
     public String shortName() {
 
-<span class="nc" id="L74">        return NAME;</span>
+<span class="nc" id="L77">        return NAME;</span>
     }
 
 
@@ -90,7 +93,7 @@ public final class CommonMarkPageBaker
     @Override
     public boolean isBakeable(final Path path) {
 
-<span class="nc" id="L93">        return FileUtils.isNameMatch(path, RE_ADOC);</span>
+<span class="nc" id="L96">        return FileUtils.isNameMatch(path, RE_ADOC);</span>
     }
 
 
@@ -121,17 +124,17 @@ public final class CommonMarkPageBaker
             throws YawgException {
 
         try {
-<span class="nc" id="L124">            doBake(sourcePath, context, targetDir);</span>
-<span class="nc" id="L125">        } catch ( IOException e ) {</span>
-<span class="nc" id="L126">            Exceptions.raise(</span>
+<span class="nc" id="L127">            doBake(sourcePath, context, targetDir);</span>
+<span class="nc" id="L128">        } catch ( IOException e ) {</span>
+<span class="nc" id="L129">            Exceptions.raise(</span>
                     e,
                     &quot;Failed {0} on {1} - {2} - {3}&quot;,
                     NAME,
                     sourcePath,
-<span class="nc" id="L131">                    e.getClass().getSimpleName(),</span>
-<span class="nc" id="L132">                    e.getMessage());</span>
-<span class="nc" id="L133">        }</span>
-<span class="nc" id="L134">    }</span>
+<span class="nc" id="L134">                    e.getClass().getSimpleName(),</span>
+<span class="nc" id="L135">                    e.getMessage());</span>
+<span class="nc" id="L136">        }</span>
+<span class="nc" id="L137">    }</span>
 
 
     /**
@@ -143,24 +146,24 @@ public final class CommonMarkPageBaker
             final Path targetDir)
             throws IOException {
 
-<span class="nc" id="L146">        final Path targetPath = getTargetPath(sourcePath, targetDir);</span>
-<span class="nc" id="L147">        final Optional&lt;Template&gt; template = context.templateFor(sourcePath);</span>
+<span class="nc" id="L149">        final Path targetPath = getTargetPath(sourcePath, targetDir);</span>
+<span class="nc" id="L150">        final Optional&lt;Template&gt; template = context.templateFor(sourcePath);</span>
 
-<span class="nc bnc" id="L149" title="All 2 branches missed.">        if ( template.isPresent() ) {</span>
-<span class="nc" id="L150">            doBakeWithTemplate(</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">        if ( template.isPresent() ) {</span>
+<span class="nc" id="L153">            doBakeWithTemplate(</span>
                     sourcePath,
                     context,
                     targetDir,
                     targetPath,
-<span class="nc" id="L155">                    template.get());</span>
+<span class="nc" id="L158">                    template.get());</span>
         } else {
-<span class="nc" id="L157">            doBakeWithoutTemplate(</span>
+<span class="nc" id="L160">            doBakeWithoutTemplate(</span>
                     sourcePath,
                     context,
                     targetDir,
                     targetPath);
         }
-<span class="nc" id="L163">    }</span>
+<span class="nc" id="L166">    }</span>
 
 
     /**
@@ -170,10 +173,10 @@ public final class CommonMarkPageBaker
             final Path sourcePath,
             final Path targetDir) {
 
-<span class="nc" id="L173">        final String sourceBasename = FileUtils.basename(sourcePath);</span>
-<span class="nc" id="L174">        final String targetName = sourceBasename + TARGET_EXTENSION;</span>
+<span class="nc" id="L176">        final String sourceBasename = FileUtils.basename(sourcePath);</span>
+<span class="nc" id="L177">        final String targetName = sourceBasename + TARGET_EXTENSION;</span>
 
-<span class="nc" id="L176">        return targetDir.resolve(targetName);</span>
+<span class="nc" id="L179">        return targetDir.resolve(targetName);</span>
     }
 
 
@@ -187,26 +190,26 @@ public final class CommonMarkPageBaker
             final Path targetPath)
             throws IOException {
 
-<span class="nc" id="L190">        final String body = renderBody(sourcePath);</span>
-<span class="nc" id="L191">        final String contentTemplate = &quot;&quot;</span>
+<span class="nc" id="L193">        final String body = renderBody(sourcePath);</span>
+<span class="nc" id="L194">        final String contentTemplate = &quot;&quot;</span>
                 + &quot;&lt;!DOCTYPE html&gt;\n&quot;
                 + &quot;&lt;html&gt;&lt;body&gt;%s&lt;/body&gt;&lt;/html&gt;&quot;;
-<span class="nc" id="L194">        final String content = String.format(contentTemplate, body);</span>
+<span class="nc" id="L197">        final String content = String.format(contentTemplate, body);</span>
 
-<span class="nc" id="L196">        FileUtils.newWriter(</span>
+<span class="nc" id="L199">        FileUtils.newWriter(</span>
                 targetPath,
-<span class="nc" id="L198">                writer -&gt; writer.write(content));</span>
-<span class="nc" id="L199">    }</span>
+<span class="nc" id="L201">                writer -&gt; writer.write(content));</span>
+<span class="nc" id="L202">    }</span>
 
 
     private String renderBody(final Path sourcePath)
             throws IOException {
 
-<span class="nc" id="L205">        final Node document = FileUtils.newReader(</span>
+<span class="nc" id="L208">        final Node document = FileUtils.newReader(</span>
                 sourcePath,
-<span class="nc" id="L207">                reader -&gt; _markdownParser.get().parseReader(reader));</span>
+<span class="nc" id="L210">                reader -&gt; _markdownParser.get().parseReader(reader));</span>
 
-<span class="nc" id="L209">        return _htmlRenderer.get().render(document);</span>
+<span class="nc" id="L212">        return _htmlRenderer.get().render(document);</span>
     }
 
 
@@ -221,30 +224,35 @@ public final class CommonMarkPageBaker
             final Template template)
             throws IOException {
 
-<span class="nc" id="L224">        final TemplateDataModel dataModel = _templateModelBuilder.get().build(</span>
+<span class="nc" id="L227">        final TemplateDataModel dataModel = _templateModelBuilder.get().build(</span>
                 sourcePath, targetDir, targetPath, context);
 
-<span class="nc" id="L227">        FileUtils.newWriter(</span>
+<span class="nc" id="L230">        FileUtils.newWriter(</span>
                 targetPath,
-<span class="nc" id="L229">                writer -&gt; template.process(dataModel, writer));</span>
-<span class="nc" id="L230">    }</span>
+<span class="nc" id="L232">                writer -&gt; template.process(dataModel, writer));</span>
+<span class="nc" id="L233">    }</span>
 
 
     private Parser createMarkdownParser() {
 
-<span class="nc" id="L235">        return Parser.builder().build();</span>
+<span class="nc" id="L238">        final Extension frontMatterExtension = YamlFrontMatterExtension.create();</span>
+<span class="nc" id="L239">        final List&lt;Extension&gt; extensions = List.of(frontMatterExtension);</span>
+
+<span class="nc" id="L241">        return Parser.builder()</span>
+<span class="nc" id="L242">                .extensions(extensions)</span>
+<span class="nc" id="L243">                .build();</span>
     }
 
 
     private HtmlRenderer createHtmlRenderer() {
 
-<span class="nc" id="L241">        return HtmlRenderer.builder().build();</span>
+<span class="nc" id="L249">        return HtmlRenderer.builder().build();</span>
     }
 
 
     private CommonMarkTemplateDataModelBuilder createCommonMarkTemplateDataModelBuilder() {
 
-<span class="nc" id="L247">        return new CommonMarkTemplateDataModelBuilder(_markdownParser.get(), _htmlRenderer.get());</span>
+<span class="nc" id="L255">        return new CommonMarkTemplateDataModelBuilder(_markdownParser.get(), _htmlRenderer.get());</span>
     }
 
 
