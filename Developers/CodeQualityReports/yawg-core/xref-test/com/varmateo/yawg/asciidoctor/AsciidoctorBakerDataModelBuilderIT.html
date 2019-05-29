@@ -166,20 +166,21 @@
 <a class="jxr_linenumber" name="L158" href="#L158">158</a>         <strong class="jxr_keyword">final</strong> PageContext context = PageContextBuilder.create()
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>                 .dirUrl(dirUrl)
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>                 .rootRelativeUrl(rootRelativeUrl)
-<a class="jxr_linenumber" name="L161" href="#L161">161</a>                 .build();
-<a class="jxr_linenumber" name="L162" href="#L162">162</a>         <strong class="jxr_keyword">final</strong> Path sourcePath = TestUtils.getPath(
-<a class="jxr_linenumber" name="L163" href="#L163">163</a>                 AsciidoctorBakerDataModelBuilder.<strong class="jxr_keyword">class</strong>,
-<a class="jxr_linenumber" name="L164" href="#L164">164</a>                 relPath);
-<a class="jxr_linenumber" name="L165" href="#L165">165</a> 
-<a class="jxr_linenumber" name="L166" href="#L166">166</a>         <strong class="jxr_keyword">return</strong> _modelBuilder.build(
-<a class="jxr_linenumber" name="L167" href="#L167">167</a>                 sourcePath,
-<a class="jxr_linenumber" name="L168" href="#L168">168</a>                 sourcePath.getParent(),
-<a class="jxr_linenumber" name="L169" href="#L169">169</a>                 sourcePath,
-<a class="jxr_linenumber" name="L170" href="#L170">170</a>                 context);
-<a class="jxr_linenumber" name="L171" href="#L171">171</a>     }
-<a class="jxr_linenumber" name="L172" href="#L172">172</a> 
+<a class="jxr_linenumber" name="L161" href="#L161">161</a>                 .bakeId(<span class="jxr_string">"TestBakeId"</span>)
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>                 .build();
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>         <strong class="jxr_keyword">final</strong> Path sourcePath = TestUtils.getPath(
+<a class="jxr_linenumber" name="L164" href="#L164">164</a>                 AsciidoctorBakerDataModelBuilder.<strong class="jxr_keyword">class</strong>,
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>                 relPath);
+<a class="jxr_linenumber" name="L166" href="#L166">166</a> 
+<a class="jxr_linenumber" name="L167" href="#L167">167</a>         <strong class="jxr_keyword">return</strong> _modelBuilder.build(
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>                 sourcePath,
+<a class="jxr_linenumber" name="L169" href="#L169">169</a>                 sourcePath.getParent(),
+<a class="jxr_linenumber" name="L170" href="#L170">170</a>                 sourcePath,
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>                 context);
+<a class="jxr_linenumber" name="L172" href="#L172">172</a>     }
 <a class="jxr_linenumber" name="L173" href="#L173">173</a> 
-<a class="jxr_linenumber" name="L174" href="#L174">174</a> }
+<a class="jxr_linenumber" name="L174" href="#L174">174</a> 
+<a class="jxr_linenumber" name="L175" href="#L175">175</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2015&#x2013;2019. All rights reserved.</div>

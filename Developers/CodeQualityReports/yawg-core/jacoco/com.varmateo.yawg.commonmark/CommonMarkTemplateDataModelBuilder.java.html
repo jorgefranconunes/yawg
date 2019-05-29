@@ -67,7 +67,8 @@ import com.varmateo.yawg.util.FileUtils;
 <span class="nc" id="L67">                .setPageUrl(pageUrl)</span>
 <span class="nc" id="L68">                .setRootRelativeUrl(context.rootRelativeUrl())</span>
 <span class="nc" id="L69">                .setPageVars(context.pageVars())</span>
-<span class="nc" id="L70">                .build();</span>
+<span class="nc" id="L70">                .bakeId(context.bakeId())</span>
+<span class="nc" id="L71">                .build();</span>
     }
 
 
@@ -75,19 +76,19 @@ import com.varmateo.yawg.util.FileUtils;
             final Path sourcePath,
             final Node document) {
 
-<span class="nc" id="L78">        return frontMatterTitle(document)</span>
-<span class="nc" id="L79">                .getOrElse(() -&gt; FileUtils.basename(sourcePath));</span>
+<span class="nc" id="L79">        return frontMatterTitle(document)</span>
+<span class="nc" id="L80">                .getOrElse(() -&gt; FileUtils.basename(sourcePath));</span>
     }
 
 
     private Option&lt;String&gt; frontMatterTitle(final Node document) {
 
-<span class="nc" id="L85">        final YamlFrontMatterVisitor frontMatterVisitor = new YamlFrontMatterVisitor();</span>
-<span class="nc" id="L86">        document.accept(frontMatterVisitor);</span>
+<span class="nc" id="L86">        final YamlFrontMatterVisitor frontMatterVisitor = new YamlFrontMatterVisitor();</span>
+<span class="nc" id="L87">        document.accept(frontMatterVisitor);</span>
 
-<span class="nc" id="L88">        return Option.of(frontMatterVisitor.getData().get(KEY_TITLE))</span>
-<span class="nc bnc" id="L89" title="All 2 branches missed.">                .filter(xs -&gt; xs.size() &gt; 0)</span>
-<span class="nc" id="L90">                .map(xs -&gt; xs.get(0));</span>
+<span class="nc" id="L89">        return Option.of(frontMatterVisitor.getData().get(KEY_TITLE))</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">                .filter(xs -&gt; xs.size() &gt; 0)</span>
+<span class="nc" id="L91">                .map(xs -&gt; xs.get(0));</span>
     }
 
 

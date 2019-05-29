@@ -58,6 +58,13 @@ public interface TemplateDataModel {
 
 
     /**
+     * Randomly generated unique bake identifier. Each bake will have
+     * a different identifier.
+     */
+    String bakeId();
+
+
+    /**
      * Document author data.
      */
     public static final class Author {
@@ -72,11 +79,11 @@ public interface TemplateDataModel {
          */
         private Author(
                 final String name,
-<span class="nc" id="L75">                final String email) {</span>
+<span class="nc" id="L82">                final String email) {</span>
 
-<span class="nc" id="L77">            _name = name;</span>
-<span class="nc" id="L78">            _email = email;</span>
-<span class="nc" id="L79">        }</span>
+<span class="nc" id="L84">            _name = name;</span>
+<span class="nc" id="L85">            _email = email;</span>
+<span class="nc" id="L86">        }</span>
 
 
         /**
@@ -86,7 +93,7 @@ public interface TemplateDataModel {
                 final String name,
                 final String email) {
 
-<span class="nc" id="L89">            return new Author(name, email);</span>
+<span class="nc" id="L96">            return new Author(name, email);</span>
         }
 
 
@@ -95,7 +102,7 @@ public interface TemplateDataModel {
          */
         public String name() {
 
-<span class="nc" id="L98">            return _name;</span>
+<span class="nc" id="L105">            return _name;</span>
         }
 
 
@@ -104,7 +111,7 @@ public interface TemplateDataModel {
          */
         public String email() {
 
-<span class="nc" id="L107">            return _email;</span>
+<span class="nc" id="L114">            return _email;</span>
         }
 
 
