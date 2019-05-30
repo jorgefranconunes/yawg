@@ -7,8 +7,8 @@
 package com.varmateo.yawg.spi;
 
 import com.varmateo.yawg.spi.PageVars;
-import com.varmateo.yawg.spi.TemplateDataModel;
-import com.varmateo.yawg.spi.TemplateDataModel.Author;
+import com.varmateo.yawg.spi.TemplateContext;
+import com.varmateo.yawg.spi.TemplateContext.Author;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,9 +16,9 @@ import java.util.Objects;
 
 
 /**
- * Builder of <code>TemplateDataModel</code> instances.
+ * Builder of <code>TemplateContext</code> instances.
  */
-public final class TemplateDataModelBuilder {
+public final class TemplateContextBuilder {
 
 
     private List<Author> _authors;
@@ -33,7 +33,7 @@ public final class TemplateDataModelBuilder {
     /**
      *
      */
-    private TemplateDataModelBuilder() {
+    private TemplateContextBuilder() {
 
         _authors = new ArrayList<>();
         _body = null;
@@ -48,19 +48,19 @@ public final class TemplateDataModelBuilder {
     /**
      * Creates a new empty builder.
      *
-     * @return A newly created <code>TemplateDataModelBuilder</code>
+     * @return A newly created <code>TemplateContextBuilder</code>
      * instance.
      */
-    public static TemplateDataModelBuilder create() {
+    public static TemplateContextBuilder create() {
 
-        return new TemplateDataModelBuilder();
+        return new TemplateContextBuilder();
     }
 
 
     /**
      *
      */
-    public TemplateDataModelBuilder addAuthor(
+    public TemplateContextBuilder addAuthor(
             final String name,
             final String email) {
 
@@ -73,7 +73,7 @@ public final class TemplateDataModelBuilder {
     /**
      *
      */
-    public TemplateDataModelBuilder setBody(final String body) {
+    public TemplateContextBuilder body(final String body) {
 
         _body = Objects.requireNonNull(body);
         return this;
@@ -83,7 +83,7 @@ public final class TemplateDataModelBuilder {
     /**
      *
      */
-    public TemplateDataModelBuilder setPageUrl(final String pageUrl) {
+    public TemplateContextBuilder pageUrl(final String pageUrl) {
 
         _pageUrl = pageUrl;
         return this;
@@ -93,7 +93,7 @@ public final class TemplateDataModelBuilder {
     /**
      *
      */
-    public TemplateDataModelBuilder setRootRelativeUrl(
+    public TemplateContextBuilder rootRelativeUrl(
             final String rootRelativeUrl) {
 
         _rootRelativeUrl = rootRelativeUrl;
@@ -104,7 +104,7 @@ public final class TemplateDataModelBuilder {
     /**
      *
      */
-    public TemplateDataModelBuilder setPageVars(final PageVars pageVars) {
+    public TemplateContextBuilder pageVars(final PageVars pageVars) {
 
         _pageVars = pageVars;
         return this;
@@ -114,7 +114,7 @@ public final class TemplateDataModelBuilder {
     /**
      *
      */
-    public TemplateDataModelBuilder setTitle(final String title) {
+    public TemplateContextBuilder title(final String title) {
 
         _title = Objects.requireNonNull(title);
         return this;
@@ -124,7 +124,7 @@ public final class TemplateDataModelBuilder {
     /**
      *
      */
-    public TemplateDataModelBuilder bakeId(final String bakeId) {
+    public TemplateContextBuilder bakeId(final String bakeId) {
 
         _bakeId = bakeId;
         return this;
@@ -134,17 +134,17 @@ public final class TemplateDataModelBuilder {
     /**
      *
      */
-    public TemplateDataModel build() {
+    public TemplateContext build() {
 
-        return new TemplateDataModelImpl(this);
+        return new TemplateContextImpl(this);
     }
 
 
     /**
      *
      */
-    private static final class TemplateDataModelImpl
-        implements TemplateDataModel {
+    private static final class TemplateContextImpl
+        implements TemplateContext {
 
 
         private final List<Author> _authors;
@@ -159,7 +159,7 @@ public final class TemplateDataModelBuilder {
         /**
          *
          */
-        TemplateDataModelImpl(final TemplateDataModelBuilder builder) {
+        TemplateContextImpl(final TemplateContextBuilder builder) {
 
             _authors = Collections.unmodifiableList(new ArrayList<>(builder._authors));
             _body = Objects.requireNonNull(builder._body);

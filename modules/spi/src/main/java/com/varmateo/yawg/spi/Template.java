@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -9,7 +9,6 @@ package com.varmateo.yawg.spi;
 import java.io.Writer;
 
 import com.varmateo.yawg.api.YawgException;
-import com.varmateo.yawg.spi.TemplateDataModel;
 
 
 /**
@@ -23,13 +22,14 @@ public interface Template {
      *
      * @param dataModel Data that can be used by the template.
      *
-     * @param output The target where the final document is written to.
+     * @param output The target where the final document is to be
+     * written to.
      *
      * @throws YawgException Thrown if there were any problems
      * processing the template or writing into the given writer.
      */
     void process(
-            TemplateDataModel dataModel,
+            TemplateContext dataModel,
             Writer output)
             throws YawgException;
 }

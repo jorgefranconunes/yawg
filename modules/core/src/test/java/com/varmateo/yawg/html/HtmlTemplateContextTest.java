@@ -6,15 +6,16 @@
 
 package com.varmateo.yawg.html;
 
-import com.varmateo.testutils.TestUtils;
-import com.varmateo.yawg.html.HtmlBakerDataModelBuilder;
-import com.varmateo.yawg.spi.PageContext;
-import com.varmateo.yawg.spi.PageContextBuilder;
-import com.varmateo.yawg.spi.TemplateDataModel;
 import java.io.IOException;
 import java.nio.file.Path;
-import org.junit.Before;
+
 import org.junit.Test;
+
+import com.varmateo.testutils.TestUtils;
+import com.varmateo.yawg.html.HtmlTemplateContext;
+import com.varmateo.yawg.spi.PageContext;
+import com.varmateo.yawg.spi.PageContextBuilder;
+import com.varmateo.yawg.spi.TemplateContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -22,21 +23,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  *
  */
-public final class HtmlBakerDataModelBuilderTest
+public final class HtmlTemplateContextTest
  {
-
-
-    private HtmlBakerDataModelBuilder _modelBuilder = null;
-
-
-    /**
-     *
-     */
-    @Before
-    public void setUp() {
-
-        _modelBuilder = new HtmlBakerDataModelBuilder();
-    }
 
 
     /**
@@ -46,7 +34,7 @@ public final class HtmlBakerDataModelBuilderTest
     public void withTitle()
             throws IOException {
 
-        final TemplateDataModel model = buildModel("DocumentWithTitle.html");
+        final TemplateContext model = buildModel("DocumentWithTitle.html");
 
         assertThat(model.title())
                 .isEqualTo("Document with Title");
@@ -62,7 +50,7 @@ public final class HtmlBakerDataModelBuilderTest
     public void withoutTitle()
             throws IOException {
 
-        final TemplateDataModel model = buildModel("DocumentWithoutTitle.html");
+        final TemplateContext model = buildModel("DocumentWithoutTitle.html");
 
         assertThat(model.title())
                 .isEqualTo("DocumentWithoutTitle");
@@ -74,7 +62,7 @@ public final class HtmlBakerDataModelBuilderTest
     /**
      *
      */
-    private TemplateDataModel buildModel(final String relPath)
+    private TemplateContext buildModel(final String relPath)
             throws IOException {
 
         final String dirUrl = ".";
@@ -84,9 +72,9 @@ public final class HtmlBakerDataModelBuilderTest
                 .rootRelativeUrl(rootRelativeUrl)
                 .bakeId("TestBakeId")
                 .build();
-        final Path sourcePath = TestUtils.getPath(HtmlBakerDataModelBuilder.class, relPath);
+        final Path sourcePath = TestUtils.getPath(HtmlTemplateContext.class, relPath);
 
-        return _modelBuilder.build(sourcePath, sourcePath, context);
+        return HtmlTemplateContext.create(sourcePath, sourcePath, context);
     }
 
 

@@ -25,7 +25,7 @@ import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.Template;
-import com.varmateo.yawg.spi.TemplateDataModel;
+import com.varmateo.yawg.spi.TemplateContext;
 import com.varmateo.yawg.util.Exceptions;
 import com.varmateo.yawg.util.FileUtils;
 
@@ -50,8 +50,8 @@ public final class CommonMarkPageBaker
     private final Lazy<HtmlRenderer> _htmlRenderer =
             Lazy.of(this::createHtmlRenderer);
 
-    private final Lazy<CommonMarkTemplateDataModelBuilder> _templateModelBuilder =
-            Lazy.of(this::createCommonMarkTemplateDataModelBuilder);
+    private final Lazy<CommonMarkTemplateContextBuilder> _templateContextBuilder =
+            Lazy.of(this::createTemplateContextBuilder);
 
 
     private CommonMarkPageBaker() {
@@ -224,7 +224,7 @@ public final class CommonMarkPageBaker
             final Template template)
             throws IOException {
 
-        final TemplateDataModel dataModel = _templateModelBuilder.get().build(
+        final TemplateContext dataModel = _templateContextBuilder.get().build(
                 sourcePath, targetDir, targetPath, context);
 
         FileUtils.newWriter(
@@ -250,9 +250,9 @@ public final class CommonMarkPageBaker
     }
 
 
-    private CommonMarkTemplateDataModelBuilder createCommonMarkTemplateDataModelBuilder() {
+    private CommonMarkTemplateContextBuilder createTemplateContextBuilder() {
 
-        return new CommonMarkTemplateDataModelBuilder(_markdownParser.get(), _htmlRenderer.get());
+        return new CommonMarkTemplateContextBuilder(_markdownParser.get(), _htmlRenderer.get());
     }
 
 

@@ -12,11 +12,10 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 import com.varmateo.yawg.api.YawgException;
-import com.varmateo.yawg.html.HtmlBakerDataModelBuilder;
 import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.Template;
-import com.varmateo.yawg.spi.TemplateDataModel;
+import com.varmateo.yawg.spi.TemplateContext;
 import com.varmateo.yawg.util.Exceptions;
 import com.varmateo.yawg.util.FileUtils;
 
@@ -176,12 +175,12 @@ public final class HtmlPageBaker
             final Template template)
             throws IOException {
 
-        final HtmlBakerDataModelBuilder modelBuilder = new HtmlBakerDataModelBuilder();
-        final TemplateDataModel dataModel = modelBuilder.build(sourcePath, targetPath, context);
+        final TemplateContext templateContext = HtmlTemplateContext.create(
+                sourcePath, targetPath, context);
 
         FileUtils.newWriter(
                 targetPath,
-                writer -> template.process(dataModel, writer));
+                writer -> template.process(templateContext, writer));
     }
 
 

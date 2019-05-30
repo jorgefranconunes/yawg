@@ -12,7 +12,7 @@ import com.varmateo.yawg.spi.PageVars;
 /**
  * Data available to a template during processing.
  */
-public interface TemplateDataModel {
+public interface TemplateContext {
 
 
     /**

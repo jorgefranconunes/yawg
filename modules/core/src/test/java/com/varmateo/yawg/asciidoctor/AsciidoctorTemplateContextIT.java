@@ -16,10 +16,9 @@ import org.junit.Test;
 
 import com.varmateo.testutils.LogStartAndEndRule;
 import com.varmateo.testutils.TestUtils;
-import com.varmateo.yawg.asciidoctor.AsciidoctorBakerDataModelBuilder;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.PageContextBuilder;
-import com.varmateo.yawg.spi.TemplateDataModel;
+import com.varmateo.yawg.spi.TemplateContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
@@ -28,12 +27,12 @@ import static org.assertj.core.api.Assertions.tuple;
 /**
  *
  */
-public final class AsciidoctorBakerDataModelBuilderIT {
+public final class AsciidoctorTemplateContextIT {
 
     @Rule
     public final LogStartAndEndRule logRule = new LogStartAndEndRule();
 
-    private AsciidoctorBakerDataModelBuilder _modelBuilder = null;
+    private Asciidoctor _asciidoctor = null;
 
 
     /**
@@ -42,9 +41,7 @@ public final class AsciidoctorBakerDataModelBuilderIT {
     @Before
     public void setUp() {
 
-        final Asciidoctor asciidoctor = Asciidoctor.Factory.create();
-
-        _modelBuilder = new AsciidoctorBakerDataModelBuilder(asciidoctor);
+        _asciidoctor = Asciidoctor.Factory.create();
     }
 
 
@@ -55,7 +52,7 @@ public final class AsciidoctorBakerDataModelBuilderIT {
     public void withTitle()
             throws IOException {
 
-        final TemplateDataModel model = buildModel("DocumentWithTitle.adoc");
+        final TemplateContext model = buildTemplateContext("DocumentWithTitle.adoc");
 
         assertThat(model.title())
                 .isEqualTo("Document with Title");
@@ -71,7 +68,7 @@ public final class AsciidoctorBakerDataModelBuilderIT {
     public void withoutTitle()
             throws IOException {
 
-        final TemplateDataModel model = buildModel("DocumentWithoutTitle.adoc");
+        final TemplateContext model = buildTemplateContext("DocumentWithoutTitle.adoc");
 
         assertThat(model.title())
                 .isEqualTo("DocumentWithoutTitle");
@@ -87,8 +84,8 @@ public final class AsciidoctorBakerDataModelBuilderIT {
     public void withAuthor00()
             throws IOException {
 
-        final TemplateDataModel model = buildModel("DocumentWithAuthor00.adoc");
-        final Iterable<TemplateDataModel.Author> authors = model.authors();
+        final TemplateContext model = buildTemplateContext("DocumentWithAuthor00.adoc");
+        final Iterable<TemplateContext.Author> authors = model.authors();
 
         assertThat(authors)
                 .isEmpty();
@@ -102,8 +99,8 @@ public final class AsciidoctorBakerDataModelBuilderIT {
     public void withAuthor01()
             throws IOException {
 
-        final TemplateDataModel model = buildModel("DocumentWithAuthor01.adoc");
-        final Iterable<TemplateDataModel.Author> authors = model.authors();
+        final TemplateContext model = buildTemplateContext("DocumentWithAuthor01.adoc");
+        final Iterable<TemplateContext.Author> authors = model.authors();
 
         assertThat(authors)
                 .extracting(author -> tuple(author.name(), author.email()))
@@ -119,8 +116,8 @@ public final class AsciidoctorBakerDataModelBuilderIT {
     public void withAuthor02()
             throws IOException {
 
-        final TemplateDataModel model = buildModel("DocumentWithAuthor02.adoc");
-        final Iterable<TemplateDataModel.Author> authors = model.authors();
+        final TemplateContext model = buildTemplateContext("DocumentWithAuthor02.adoc");
+        final Iterable<TemplateContext.Author> authors = model.authors();
 
         assertThat(authors)
                 .extracting(author -> tuple(author.name(), author.email()))
@@ -136,8 +133,8 @@ public final class AsciidoctorBakerDataModelBuilderIT {
     public void withAuthor03()
             throws IOException {
 
-        final TemplateDataModel model = buildModel("DocumentWithAuthor03.adoc");
-        final Iterable<TemplateDataModel.Author> authors = model.authors();
+        final TemplateContext model = buildTemplateContext("DocumentWithAuthor03.adoc");
+        final Iterable<TemplateContext.Author> authors = model.authors();
 
         assertThat(authors)
                 .extracting(author -> tuple(author.name(), author.email()))
@@ -150,7 +147,7 @@ public final class AsciidoctorBakerDataModelBuilderIT {
     /**
      *
      */
-    private TemplateDataModel buildModel(final String relPath)
+    private TemplateContext buildTemplateContext(final String relPath)
             throws IOException {
 
         final String dirUrl = ".";
@@ -161,10 +158,11 @@ public final class AsciidoctorBakerDataModelBuilderIT {
                 .bakeId("TestBakeId")
                 .build();
         final Path sourcePath = TestUtils.getPath(
-                AsciidoctorBakerDataModelBuilder.class,
+                AsciidoctorTemplateContext.class,
                 relPath);
 
-        return _modelBuilder.build(
+        return AsciidoctorTemplateContext.create(
+                _asciidoctor,
                 sourcePath,
                 sourcePath.getParent(),
                 sourcePath,

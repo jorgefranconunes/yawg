@@ -8,8 +8,8 @@ package com.varmateo.yawg.freemarker;
 
 import com.varmateo.yawg.api.YawgInfo;
 import com.varmateo.yawg.spi.PageVars;
-import com.varmateo.yawg.spi.TemplateDataModel;
-import com.varmateo.yawg.spi.TemplateDataModel.Author;
+import com.varmateo.yawg.spi.TemplateContext;
+import com.varmateo.yawg.spi.TemplateContext.Author;
 
 
 /**
@@ -26,12 +26,12 @@ public final class FreemarkerDataModel {
 
 
     /**
-     * @param templateDataModel Source of page variables.
+     * @param templateContext Source of page variables.
      */
-    public FreemarkerDataModel(final TemplateDataModel templateDataModel) {
+    public FreemarkerDataModel(final TemplateContext templateContext) {
 
-        _data = new YawgFreemarkerDataModel(templateDataModel);
-        _pageVars = templateDataModel.pageVars();
+        _data = new YawgFreemarkerDataModel(templateContext);
+        _pageVars = templateContext.pageVars();
     }
 
 
@@ -66,7 +66,7 @@ public final class FreemarkerDataModel {
     public static final class YawgFreemarkerDataModel {
 
 
-        private final TemplateDataModel _templateDataModel;
+        private final TemplateContext _templateContext;
         private final String _productName;
         private final String _version;
 
@@ -74,10 +74,9 @@ public final class FreemarkerDataModel {
         /**
          *
          */
-        /* default */ YawgFreemarkerDataModel(
-                final TemplateDataModel templateDataModel) {
+        /* default */ YawgFreemarkerDataModel(final TemplateContext templateContext) {
 
-            _templateDataModel = templateDataModel;
+            _templateContext = templateContext;
             _productName = YawgInfo.PRODUCT_NAME;
             _version = YawgInfo.VERSION;
         }
@@ -88,7 +87,7 @@ public final class FreemarkerDataModel {
          */
         public String getBakeId() {
 
-            return _templateDataModel.bakeId();
+            return _templateContext.bakeId();
         }
 
 
@@ -112,31 +111,31 @@ public final class FreemarkerDataModel {
 
         public Iterable<Author> getAuthors() {
 
-            return _templateDataModel.authors();
+            return _templateContext.authors();
         }
 
 
         public String getBody() {
 
-            return _templateDataModel.body();
+            return _templateContext.body();
         }
 
 
         public String getPageUrl() {
 
-            return _templateDataModel.pageUrl();
+            return _templateContext.pageUrl();
         }
 
 
         public String getRootRelativeUrl() {
 
-            return _templateDataModel.rootRelativeUrl();
+            return _templateContext.rootRelativeUrl();
         }
 
 
         public String getTitle() {
 
-            return _templateDataModel.title();
+            return _templateContext.title();
         }
 
     }

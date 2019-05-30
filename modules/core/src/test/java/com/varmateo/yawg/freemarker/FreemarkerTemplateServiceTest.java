@@ -8,8 +8,8 @@ package com.varmateo.yawg.freemarker;
 
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.spi.Template;
-import com.varmateo.yawg.spi.TemplateDataModel;
-import com.varmateo.yawg.spi.TemplateDataModelBuilder;
+import com.varmateo.yawg.spi.TemplateContext;
+import com.varmateo.yawg.spi.TemplateContextBuilder;
 import com.varmateo.yawg.spi.TemplateService;
 import com.varmateo.yawg.freemarker.FreemarkerTemplateService;
 import com.varmateo.testutils.TestUtils;
@@ -94,11 +94,11 @@ public final class FreemarkerTemplateServiceTest
 
         final String title = "Simple title";
         final String body = "Hello, world!";
-        final TemplateDataModel model = TemplateDataModelBuilder.create()
-                .setBody(body)
-                .setPageUrl("MyPage.html")
-                .setRootRelativeUrl(".")
-                .setTitle(title)
+        final TemplateContext model = TemplateContextBuilder.create()
+                .body(body)
+                .pageUrl("MyPage.html")
+                .rootRelativeUrl(".")
+                .title(title)
                 .bakeId("TestBakeId")
                 .build();
         final StringWriter buffer = new StringWriter();
@@ -126,11 +126,11 @@ public final class FreemarkerTemplateServiceTest
 
         final String title = "Simple title";
         final String body = "Hello, world!";
-        final TemplateDataModel model = TemplateDataModelBuilder.create()
-                .setBody(body)
-                .setPageUrl("MyPage.html")
-                .setRootRelativeUrl(".")
-                .setTitle(title)
+        final TemplateContext model = TemplateContextBuilder.create()
+                .body(body)
+                .pageUrl("MyPage.html")
+                .rootRelativeUrl(".")
+                .title(title)
                 .bakeId("TestBakeId")
                 .build();
         final StringWriter buffer = new StringWriter();

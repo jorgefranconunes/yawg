@@ -7,8 +7,8 @@
 package com.varmateo.yawg.asciidoctor;
 
 import com.varmateo.yawg.spi.PageContext;
-import com.varmateo.yawg.spi.TemplateDataModel;
-import com.varmateo.yawg.spi.TemplateDataModelBuilder;
+import com.varmateo.yawg.spi.TemplateContext;
+import com.varmateo.yawg.spi.TemplateContextBuilder;
 import com.varmateo.yawg.util.FileUtils;
 import io.vavr.collection.List;
 import io.vavr.control.Option;
@@ -24,25 +24,19 @@ import org.asciidoctor.internal.AsciidoctorCoreException;
 /**
  *
  */
-/* package private */ final class AsciidoctorBakerDataModelBuilder {
+/* package private */ final class AsciidoctorTemplateContext {
 
 
-    private final Asciidoctor _asciidoctor;
-
-
-    /**
-     *
-     */
-    AsciidoctorBakerDataModelBuilder(final Asciidoctor asciidoctor) {
-
-        _asciidoctor = asciidoctor;
+    private AsciidoctorTemplateContext() {
+        // Nothing to do.
     }
 
 
     /**
      *
      */
-    public TemplateDataModel build(
+    public static TemplateContext create(
+            final Asciidoctor asciidoctor,
             final Path sourcePath,
             final Path targetDir,
             final Path targetPath,
@@ -54,36 +48,36 @@ import org.asciidoctor.internal.AsciidoctorCoreException;
                 sourcePath,
                 targetDir,
                 context.pageVars());
-        final String body = _asciidoctor.render(sourceContent, options);
+        final String body = asciidoctor.render(sourceContent, options);
         final String pageUrl = context.dirUrl() + "/" + targetPath.getFileName();
-        final DocumentHeader header = _asciidoctor.readDocumentHeader(sourceContent);
+        final DocumentHeader header = asciidoctor.readDocumentHeader(sourceContent);
         final String title = Option.of(header)
                 .flatMap(h -> Option.of(h.getDocumentTitle()))
                 .flatMap(t -> Option.of(t.getMain()))
                 .getOrElse(() -> FileUtils.basename(sourcePath));
 
-        final TemplateDataModelBuilder modelBuilder =
-                TemplateDataModelBuilder.create()
-                .setTitle(title)
-                .setBody(body)
-                .setPageUrl(pageUrl)
-                .setRootRelativeUrl(context.rootRelativeUrl())
-                .setPageVars(context.pageVars())
+        final TemplateContextBuilder templateContextBuilder =
+                TemplateContextBuilder.create()
+                .title(title)
+                .body(body)
+                .pageUrl(pageUrl)
+                .rootRelativeUrl(context.rootRelativeUrl())
+                .pageVars(context.pageVars())
                 .bakeId(context.bakeId());
-        buildAuthors(modelBuilder, header);
+        buildAuthors(templateContextBuilder, header);
 
-        return modelBuilder.build();
+        return templateContextBuilder.build();
     }
 
 
     /**
      *
      */
-    private void buildAuthors(
-            final TemplateDataModelBuilder modelBuilder,
+    private static void buildAuthors(
+            final TemplateContextBuilder templateContextBuilder,
             final DocumentHeader header) {
 
-        java.util.List<Author> authors = header.getAuthors();
+        final java.util.List<Author> authors = header.getAuthors();
 
         // This convoluted logic is needed because
         // DocumentHeader.getAuthor(), DocumentHeader.getAuthors() do
@@ -91,12 +85,12 @@ import org.asciidoctor.internal.AsciidoctorCoreException;
 
         if ( !authors.isEmpty() ) {
             List.ofAll(authors).forEach(
-                    a -> modelBuilder.addAuthor(a.getFullName(), a.getEmail()));
+                    a -> templateContextBuilder.addAuthor(a.getFullName(), a.getEmail()));
         } else {
-            Author singleAuthor = header.getAuthor();
+            final Author singleAuthor = header.getAuthor();
 
             if ( (singleAuthor!=null) && (singleAuthor.getFullName()!=null) )  {
-                modelBuilder.addAuthor(
+                templateContextBuilder.addAuthor(
                         singleAuthor.getFullName(),
                         singleAuthor.getEmail());
             }

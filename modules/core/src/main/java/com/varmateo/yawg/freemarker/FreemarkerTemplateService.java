@@ -21,7 +21,7 @@ import freemarker.template.TemplateException;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.freemarker.FreemarkerDataModel;
 import com.varmateo.yawg.spi.Template;
-import com.varmateo.yawg.spi.TemplateDataModel;
+import com.varmateo.yawg.spi.TemplateContext;
 import com.varmateo.yawg.spi.TemplateService;
 import com.varmateo.yawg.util.Exceptions;
 
@@ -154,11 +154,11 @@ public final class FreemarkerTemplateService
          */
         @Override
         public void process(
-                final TemplateDataModel dataModel,
+                final TemplateContext context,
                 final Writer writer)
                 throws YawgException {
 
-            final FreemarkerDataModel fmDataModel = new FreemarkerDataModel(dataModel);
+            final FreemarkerDataModel fmDataModel = new FreemarkerDataModel(context);
 
             try {
                 _fmTemplate.process(fmDataModel, writer);

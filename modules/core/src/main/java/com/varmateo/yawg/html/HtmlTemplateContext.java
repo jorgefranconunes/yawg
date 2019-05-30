@@ -7,8 +7,8 @@
 package com.varmateo.yawg.html;
 
 import com.varmateo.yawg.spi.PageContext;
-import com.varmateo.yawg.spi.TemplateDataModel;
-import com.varmateo.yawg.spi.TemplateDataModelBuilder;
+import com.varmateo.yawg.spi.TemplateContext;
+import com.varmateo.yawg.spi.TemplateContextBuilder;
 import com.varmateo.yawg.util.FileUtils;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -19,20 +19,17 @@ import org.jsoup.nodes.Element;
 
 
 /**
- * Creates a <code>TemplateDataModel</code> from an input HTML
+ * Creates a <code>TemplateContext</code> from an input HTML
  * file.
  */
-final class HtmlBakerDataModelBuilder {
+final class HtmlTemplateContext {
 
 
     private static final String TAG_BODY = "body";
     private static final String TAG_TITLE = "title";
 
 
-    /**
-     *
-     */
-    HtmlBakerDataModelBuilder() {
+    private HtmlTemplateContext() {
         // Nothing to do.
     }
 
@@ -40,7 +37,7 @@ final class HtmlBakerDataModelBuilder {
     /**
      *
      */
-    public TemplateDataModel build(
+    public static TemplateContext create(
             final Path sourcePath,
             final Path targetPath,
             final PageContext context)
@@ -59,12 +56,12 @@ final class HtmlBakerDataModelBuilder {
                 .map(Element::text)
                 .orElseGet(() -> FileUtils.basename(sourcePath));
 
-        return TemplateDataModelBuilder.create()
-                .setTitle(title)
-                .setBody(body)
-                .setPageUrl(pageUrl)
-                .setRootRelativeUrl(context.rootRelativeUrl())
-                .setPageVars(context.pageVars())
+        return TemplateContextBuilder.create()
+                .title(title)
+                .body(body)
+                .pageUrl(pageUrl)
+                .rootRelativeUrl(context.rootRelativeUrl())
+                .pageVars(context.pageVars())
                 .bakeId(context.bakeId())
                 .build();
     }

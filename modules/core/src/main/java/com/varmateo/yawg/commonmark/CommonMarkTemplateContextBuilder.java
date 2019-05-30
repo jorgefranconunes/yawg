@@ -17,15 +17,15 @@ import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
 
 import com.varmateo.yawg.spi.PageContext;
-import com.varmateo.yawg.spi.TemplateDataModel;
-import com.varmateo.yawg.spi.TemplateDataModelBuilder;
+import com.varmateo.yawg.spi.TemplateContext;
+import com.varmateo.yawg.spi.TemplateContextBuilder;
 import com.varmateo.yawg.util.FileUtils;
 
 
 /**
  *
  */
-/* default */ final class CommonMarkTemplateDataModelBuilder {
+/* default */ final class CommonMarkTemplateContextBuilder {
 
 
     private static final String KEY_TITLE = "title";
@@ -37,7 +37,7 @@ import com.varmateo.yawg.util.FileUtils;
     /**
      *
      */
-    CommonMarkTemplateDataModelBuilder(
+    CommonMarkTemplateContextBuilder(
             final Parser markdownParser,
             final HtmlRenderer htmlRenderer) {
 
@@ -49,7 +49,7 @@ import com.varmateo.yawg.util.FileUtils;
     /**
      *
      */
-    public TemplateDataModel build(
+    public TemplateContext build(
             final Path sourcePath,
             final Path targetDir,
             final Path targetPath,
@@ -61,12 +61,12 @@ import com.varmateo.yawg.util.FileUtils;
         final String title = documentTitle(sourcePath, document);
         final String pageUrl = context.dirUrl() + "/" + targetPath.getFileName();
 
-        return TemplateDataModelBuilder.create()
-                .setTitle(title)
-                .setBody(body)
-                .setPageUrl(pageUrl)
-                .setRootRelativeUrl(context.rootRelativeUrl())
-                .setPageVars(context.pageVars())
+        return TemplateContextBuilder.create()
+                .title(title)
+                .body(body)
+                .pageUrl(pageUrl)
+                .rootRelativeUrl(context.rootRelativeUrl())
+                .pageVars(context.pageVars())
                 .bakeId(context.bakeId())
                 .build();
     }

@@ -19,11 +19,10 @@ import org.asciidoctor.OptionsBuilder;
 import org.asciidoctor.internal.AsciidoctorCoreException;
 
 import com.varmateo.yawg.api.YawgException;
-import com.varmateo.yawg.asciidoctor.AsciidoctorBakerDataModelBuilder;
 import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.Template;
-import com.varmateo.yawg.spi.TemplateDataModel;
+import com.varmateo.yawg.spi.TemplateContext;
 import com.varmateo.yawg.util.Exceptions;
 import com.varmateo.yawg.util.FileUtils;
 
@@ -42,11 +41,7 @@ public final class AsciidoctorPageBaker
 
     private static final String TARGET_EXTENSION = ".html";
 
-    private final Lazy<Asciidoctor> _asciidoctor =
-            Lazy.of(this::newAsciidoctor);
-
-    private final Lazy<AsciidoctorBakerDataModelBuilder> _modelBuilder =
-            Lazy.of(this::newAsciidoctorBakerDataModelBuilder);
+    private final Lazy<Asciidoctor> _asciidoctor = Lazy.of(this::newAsciidoctor);
 
 
     private AsciidoctorPageBaker() {
@@ -207,12 +202,12 @@ public final class AsciidoctorPageBaker
             final Template template)
             throws AsciidoctorCoreException, IOException {
 
-        final TemplateDataModel dataModel = _modelBuilder.get().build(
-                sourcePath, targetDir, targetPath, context);
+        final TemplateContext templateContext = AsciidoctorTemplateContext.create(
+                _asciidoctor.get(), sourcePath, targetDir, targetPath, context);
 
         FileUtils.newWriter(
                 targetPath,
-                writer -> template.process(dataModel, writer));
+                writer -> template.process(templateContext, writer));
     }
 
 
@@ -228,14 +223,6 @@ public final class AsciidoctorPageBaker
         asciidoctor.requireLibrary("asciidoctor-diagram/plantuml");
 
         return asciidoctor;
-    }
-
-
-    /**
-     *
-     */
-    private AsciidoctorBakerDataModelBuilder newAsciidoctorBakerDataModelBuilder() {
-        return new AsciidoctorBakerDataModelBuilder(_asciidoctor.get());
     }
 
 
