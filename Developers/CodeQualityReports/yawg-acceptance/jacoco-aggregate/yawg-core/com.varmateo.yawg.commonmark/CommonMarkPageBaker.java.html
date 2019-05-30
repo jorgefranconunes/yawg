@@ -25,7 +25,7 @@ import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.Template;
-import com.varmateo.yawg.spi.TemplateDataModel;
+import com.varmateo.yawg.spi.TemplateContext;
 import com.varmateo.yawg.util.Exceptions;
 import com.varmateo.yawg.util.FileUtils;
 
@@ -50,8 +50,8 @@ public final class CommonMarkPageBaker
 <span class="fc" id="L50">    private final Lazy&lt;HtmlRenderer&gt; _htmlRenderer =</span>
 <span class="fc" id="L51">            Lazy.of(this::createHtmlRenderer);</span>
 
-<span class="fc" id="L53">    private final Lazy&lt;CommonMarkTemplateDataModelBuilder&gt; _templateModelBuilder =</span>
-<span class="fc" id="L54">            Lazy.of(this::createCommonMarkTemplateDataModelBuilder);</span>
+<span class="fc" id="L53">    private final Lazy&lt;CommonMarkTemplateContextBuilder&gt; _templateContextBuilder =</span>
+<span class="fc" id="L54">            Lazy.of(this::createTemplateContextBuilder);</span>
 
 
 <span class="fc" id="L57">    private CommonMarkPageBaker() {</span>
@@ -224,7 +224,7 @@ public final class CommonMarkPageBaker
             final Template template)
             throws IOException {
 
-<span class="fc" id="L227">        final TemplateDataModel dataModel = _templateModelBuilder.get().build(</span>
+<span class="fc" id="L227">        final TemplateContext dataModel = _templateContextBuilder.get().build(</span>
                 sourcePath, targetDir, targetPath, context);
 
 <span class="fc" id="L230">        FileUtils.newWriter(</span>
@@ -250,9 +250,9 @@ public final class CommonMarkPageBaker
     }
 
 
-    private CommonMarkTemplateDataModelBuilder createCommonMarkTemplateDataModelBuilder() {
+    private CommonMarkTemplateContextBuilder createTemplateContextBuilder() {
 
-<span class="fc" id="L255">        return new CommonMarkTemplateDataModelBuilder(_markdownParser.get(), _htmlRenderer.get());</span>
+<span class="fc" id="L255">        return new CommonMarkTemplateContextBuilder(_markdownParser.get(), _htmlRenderer.get());</span>
     }
 
 

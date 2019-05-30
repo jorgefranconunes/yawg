@@ -33,7 +33,7 @@
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.PageBaker;
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.PageContext;
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.Template;
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.TemplateDataModel;
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.spi.TemplateContext;
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.util.Exceptions;
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.util.FileUtils;
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  
@@ -58,8 +58,8 @@
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Lazy&lt;HtmlRenderer&gt; _htmlRenderer =
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>              Lazy.of(<strong class="jxr_keyword">this</strong>::createHtmlRenderer);
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Lazy&lt;CommonMarkTemplateDataModelBuilder&gt; _templateModelBuilder =
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>              Lazy.of(<strong class="jxr_keyword">this</strong>::createCommonMarkTemplateDataModelBuilder);
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Lazy&lt;CommonMarkTemplateContextBuilder&gt; _templateContextBuilder =
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>              Lazy.of(<strong class="jxr_keyword">this</strong>::createTemplateContextBuilder);
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>  
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>  
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>      <strong class="jxr_keyword">private</strong> <a name="CommonMarkPageBaker" href="../../../../com/varmateo/yawg/commonmark/CommonMarkPageBaker.html#CommonMarkPageBaker">CommonMarkPageBaker</a>() {
@@ -232,7 +232,7 @@
 <a class="jxr_linenumber" name="L224" href="#L224">224</a>             <strong class="jxr_keyword">final</strong> Template template)
 <a class="jxr_linenumber" name="L225" href="#L225">225</a>             <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L226" href="#L226">226</a> 
-<a class="jxr_linenumber" name="L227" href="#L227">227</a>         <strong class="jxr_keyword">final</strong> TemplateDataModel dataModel = _templateModelBuilder.get().build(
+<a class="jxr_linenumber" name="L227" href="#L227">227</a>         <strong class="jxr_keyword">final</strong> TemplateContext dataModel = _templateContextBuilder.get().build(
 <a class="jxr_linenumber" name="L228" href="#L228">228</a>                 sourcePath, targetDir, targetPath, context);
 <a class="jxr_linenumber" name="L229" href="#L229">229</a> 
 <a class="jxr_linenumber" name="L230" href="#L230">230</a>         FileUtils.newWriter(
@@ -258,9 +258,9 @@
 <a class="jxr_linenumber" name="L250" href="#L250">250</a>     }
 <a class="jxr_linenumber" name="L251" href="#L251">251</a> 
 <a class="jxr_linenumber" name="L252" href="#L252">252</a> 
-<a class="jxr_linenumber" name="L253" href="#L253">253</a>     <strong class="jxr_keyword">private</strong> <a name="CommonMarkTemplateDataModelBuilder" href="../../../../com/varmateo/yawg/commonmark/CommonMarkTemplateDataModelBuilder.html#CommonMarkTemplateDataModelBuilder">CommonMarkTemplateDataModelBuilder</a> createCommonMarkTemplateDataModelBuilder() {
+<a class="jxr_linenumber" name="L253" href="#L253">253</a>     <strong class="jxr_keyword">private</strong> <a name="CommonMarkTemplateContextBuilder" href="../../../../com/varmateo/yawg/commonmark/CommonMarkTemplateContextBuilder.html#CommonMarkTemplateContextBuilder">CommonMarkTemplateContextBuilder</a> createTemplateContextBuilder() {
 <a class="jxr_linenumber" name="L254" href="#L254">254</a> 
-<a class="jxr_linenumber" name="L255" href="#L255">255</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a name="CommonMarkTemplateDataModelBuilder" href="../../../../com/varmateo/yawg/commonmark/CommonMarkTemplateDataModelBuilder.html#CommonMarkTemplateDataModelBuilder">CommonMarkTemplateDataModelBuilder</a>(_markdownParser.get(), _htmlRenderer.get());
+<a class="jxr_linenumber" name="L255" href="#L255">255</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a name="CommonMarkTemplateContextBuilder" href="../../../../com/varmateo/yawg/commonmark/CommonMarkTemplateContextBuilder.html#CommonMarkTemplateContextBuilder">CommonMarkTemplateContextBuilder</a>(_markdownParser.get(), _htmlRenderer.get());
 <a class="jxr_linenumber" name="L256" href="#L256">256</a>     }
 <a class="jxr_linenumber" name="L257" href="#L257">257</a> 
 <a class="jxr_linenumber" name="L258" href="#L258">258</a> 

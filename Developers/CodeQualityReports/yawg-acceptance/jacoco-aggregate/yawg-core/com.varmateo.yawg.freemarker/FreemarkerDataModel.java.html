@@ -8,8 +8,8 @@ package com.varmateo.yawg.freemarker;
 
 import com.varmateo.yawg.api.YawgInfo;
 import com.varmateo.yawg.spi.PageVars;
-import com.varmateo.yawg.spi.TemplateDataModel;
-import com.varmateo.yawg.spi.TemplateDataModel.Author;
+import com.varmateo.yawg.spi.TemplateContext;
+import com.varmateo.yawg.spi.TemplateContext.Author;
 
 
 /**
@@ -26,12 +26,12 @@ public final class FreemarkerDataModel {
 
 
     /**
-     * @param templateDataModel Source of page variables.
+     * @param templateContext Source of page variables.
      */
-<span class="fc" id="L31">    public FreemarkerDataModel(final TemplateDataModel templateDataModel) {</span>
+<span class="fc" id="L31">    public FreemarkerDataModel(final TemplateContext templateContext) {</span>
 
-<span class="fc" id="L33">        _data = new YawgFreemarkerDataModel(templateDataModel);</span>
-<span class="fc" id="L34">        _pageVars = templateDataModel.pageVars();</span>
+<span class="fc" id="L33">        _data = new YawgFreemarkerDataModel(templateContext);</span>
+<span class="fc" id="L34">        _pageVars = templateContext.pageVars();</span>
 <span class="fc" id="L35">    }</span>
 
 
@@ -66,7 +66,7 @@ public final class FreemarkerDataModel {
     public static final class YawgFreemarkerDataModel {
 
 
-        private final TemplateDataModel _templateDataModel;
+        private final TemplateContext _templateContext;
         private final String _productName;
         private final String _version;
 
@@ -74,13 +74,12 @@ public final class FreemarkerDataModel {
         /**
          *
          */
-        /* default */ YawgFreemarkerDataModel(
-<span class="fc" id="L78">                final TemplateDataModel templateDataModel) {</span>
+<span class="fc" id="L77">        /* default */ YawgFreemarkerDataModel(final TemplateContext templateContext) {</span>
 
-<span class="fc" id="L80">            _templateDataModel = templateDataModel;</span>
-<span class="fc" id="L81">            _productName = YawgInfo.PRODUCT_NAME;</span>
-<span class="fc" id="L82">            _version = YawgInfo.VERSION;</span>
-<span class="fc" id="L83">        }</span>
+<span class="fc" id="L79">            _templateContext = templateContext;</span>
+<span class="fc" id="L80">            _productName = YawgInfo.PRODUCT_NAME;</span>
+<span class="fc" id="L81">            _version = YawgInfo.VERSION;</span>
+<span class="fc" id="L82">        }</span>
 
         /**
          * Randomly generated unique bake identifier. Each bake will have
@@ -88,7 +87,7 @@ public final class FreemarkerDataModel {
          */
         public String getBakeId() {
 
-<span class="fc" id="L91">            return _templateDataModel.bakeId();</span>
+<span class="fc" id="L90">            return _templateContext.bakeId();</span>
         }
 
 
@@ -97,7 +96,7 @@ public final class FreemarkerDataModel {
          */
         public String getProductName() {
 
-<span class="nc" id="L100">            return _productName;</span>
+<span class="nc" id="L99">            return _productName;</span>
         }
 
 
@@ -106,37 +105,37 @@ public final class FreemarkerDataModel {
          */
         public String getVersion() {
 
-<span class="nc" id="L109">            return _version;</span>
+<span class="nc" id="L108">            return _version;</span>
         }
 
 
         public Iterable&lt;Author&gt; getAuthors() {
 
-<span class="nc" id="L115">            return _templateDataModel.authors();</span>
+<span class="nc" id="L114">            return _templateContext.authors();</span>
         }
 
 
         public String getBody() {
 
-<span class="fc" id="L121">            return _templateDataModel.body();</span>
+<span class="fc" id="L120">            return _templateContext.body();</span>
         }
 
 
         public String getPageUrl() {
 
-<span class="nc" id="L127">            return _templateDataModel.pageUrl();</span>
+<span class="nc" id="L126">            return _templateContext.pageUrl();</span>
         }
 
 
         public String getRootRelativeUrl() {
 
-<span class="nc" id="L133">            return _templateDataModel.rootRelativeUrl();</span>
+<span class="nc" id="L132">            return _templateContext.rootRelativeUrl();</span>
         }
 
 
         public String getTitle() {
 
-<span class="fc" id="L139">            return _templateDataModel.title();</span>
+<span class="fc" id="L138">            return _templateContext.title();</span>
         }
 
     }

@@ -60,7 +60,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.TemplateDataModelBuilder.java">com/varmateo/yawg/spi/TemplateDataModelBuilder.java</a>
+                  <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.TemplateContext.java">com/varmateo/yawg/spi/TemplateContext.java</a>
                 </td>
                 <td>
                   0
@@ -69,7 +69,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
               </tr>
                           <tr>
@@ -172,7 +172,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.TemplateDataModel.java">com/varmateo/yawg/spi/TemplateDataModel.java</a>
+                  <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.PageBaker.java">com/varmateo/yawg/spi/PageBaker.java</a>
                 </td>
                 <td>
                   0
@@ -181,12 +181,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.PageBaker.java">com/varmateo/yawg/spi/PageBaker.java</a>
+                  <a href="http://yawg.varmateo.com/yawg-spi//checkstyle.html#com.varmateo.yawg.spi.TemplateContextBuilder.java">com/varmateo/yawg/spi/TemplateContextBuilder.java</a>
                 </td>
                 <td>
                   0

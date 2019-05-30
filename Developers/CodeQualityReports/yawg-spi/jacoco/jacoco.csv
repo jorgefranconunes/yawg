@@ -1,10 +1,10 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 Yawg SPI,com.varmateo.yawg.spi,PageVarsBuilder.PageVarsImpl,14,10,0,0,5,4,2,2,2,2
 Yawg SPI,com.varmateo.yawg.spi,PageVars.new PageVars() {...},7,0,0,0,3,0,3,0,3,0
-Yawg SPI,com.varmateo.yawg.spi,TemplateDataModelBuilder,80,0,0,0,26,0,10,0,10,0
-Yawg SPI,com.varmateo.yawg.spi,TemplateDataModelBuilder.TemplateDataModelImpl,68,0,0,0,16,0,8,0,8,0
 Yawg SPI,com.varmateo.yawg.spi,PageContextBuilder,58,46,0,0,16,15,6,7,6,7
+Yawg SPI,com.varmateo.yawg.spi,TemplateContextBuilder,80,0,0,0,26,0,10,0,10,0
 Yawg SPI,com.varmateo.yawg.spi,PageContextBuilder.PageContextImpl,0,51,0,0,0,12,0,6,0,6
+Yawg SPI,com.varmateo.yawg.spi,TemplateContextBuilder.TemplateContextImpl,68,0,0,0,16,0,8,0,8,0
 Yawg SPI,com.varmateo.yawg.spi,PageVarsBuilder,26,21,0,0,6,5,4,3,4,3
 Yawg SPI,com.varmateo.yawg.spi,PageVars,4,0,0,0,1,0,1,0,1,0
-Yawg SPI,com.varmateo.yawg.spi,TemplateDataModel.Author,21,0,0,0,7,0,4,0,4,0
+Yawg SPI,com.varmateo.yawg.spi,TemplateContext.Author,21,0,0,0,7,0,4,0,4,0

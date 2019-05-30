@@ -12,11 +12,10 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 import com.varmateo.yawg.api.YawgException;
-import com.varmateo.yawg.html.HtmlBakerDataModelBuilder;
 import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.Template;
-import com.varmateo.yawg.spi.TemplateDataModel;
+import com.varmateo.yawg.spi.TemplateContext;
 import com.varmateo.yawg.util.Exceptions;
 import com.varmateo.yawg.util.FileUtils;
 
@@ -31,14 +30,14 @@ public final class HtmlPageBaker
 
     private static final String NAME = &quot;html&quot;;
 
-<span class="nc" id="L34">    private static final Pattern RE_HTML = Pattern.compile(&quot;.*\\.html$&quot;);</span>
+<span class="nc" id="L33">    private static final Pattern RE_HTML = Pattern.compile(&quot;.*\\.html$&quot;);</span>
 
     private static final String TARGET_EXTENSION = &quot;.html&quot;;
 
 
-<span class="nc" id="L39">    private HtmlPageBaker() {</span>
+<span class="nc" id="L38">    private HtmlPageBaker() {</span>
         // Nothing to do.
-<span class="nc" id="L41">    }</span>
+<span class="nc" id="L40">    }</span>
 
 
     /**
@@ -46,7 +45,7 @@ public final class HtmlPageBaker
      */
     public static PageBaker create() {
 
-<span class="nc" id="L49">        return new HtmlPageBaker();</span>
+<span class="nc" id="L48">        return new HtmlPageBaker();</span>
     }
 
 
@@ -56,7 +55,7 @@ public final class HtmlPageBaker
     @Override
     public String shortName() {
 
-<span class="nc" id="L59">        return NAME;</span>
+<span class="nc" id="L58">        return NAME;</span>
     }
 
 
@@ -75,7 +74,7 @@ public final class HtmlPageBaker
     @Override
     public boolean isBakeable(final Path path) {
 
-<span class="nc" id="L78">        return FileUtils.isNameMatch(path, RE_HTML);</span>
+<span class="nc" id="L77">        return FileUtils.isNameMatch(path, RE_HTML);</span>
     }
 
 
@@ -106,17 +105,17 @@ public final class HtmlPageBaker
             throws YawgException {
 
         try {
-<span class="nc" id="L109">            doBake(sourcePath, context, targetDir);</span>
-<span class="nc" id="L110">        } catch ( IOException e ) {</span>
-<span class="nc" id="L111">            Exceptions.raise(</span>
+<span class="nc" id="L108">            doBake(sourcePath, context, targetDir);</span>
+<span class="nc" id="L109">        } catch ( IOException e ) {</span>
+<span class="nc" id="L110">            Exceptions.raise(</span>
                     e,
                     &quot;Failed {0} on {1} - {2} - {3}&quot;,
                     NAME,
                     sourcePath,
-<span class="nc" id="L116">                    e.getClass().getSimpleName(),</span>
-<span class="nc" id="L117">                    e.getMessage());</span>
-<span class="nc" id="L118">        }</span>
-<span class="nc" id="L119">    }</span>
+<span class="nc" id="L115">                    e.getClass().getSimpleName(),</span>
+<span class="nc" id="L116">                    e.getMessage());</span>
+<span class="nc" id="L117">        }</span>
+<span class="nc" id="L118">    }</span>
 
 
     /**
@@ -128,15 +127,15 @@ public final class HtmlPageBaker
             final Path targetDir)
             throws IOException {
 
-<span class="nc" id="L131">        final Path targetPath = getTargetPath(sourcePath, targetDir);</span>
-<span class="nc" id="L132">        final Optional&lt;Template&gt; template = context.templateFor(sourcePath);</span>
+<span class="nc" id="L130">        final Path targetPath = getTargetPath(sourcePath, targetDir);</span>
+<span class="nc" id="L131">        final Optional&lt;Template&gt; template = context.templateFor(sourcePath);</span>
 
-<span class="nc bnc" id="L134" title="All 2 branches missed.">        if ( template.isPresent() ) {</span>
-<span class="nc" id="L135">            doBakeWithTemplate(sourcePath, context, targetPath, template.get());</span>
+<span class="nc bnc" id="L133" title="All 2 branches missed.">        if ( template.isPresent() ) {</span>
+<span class="nc" id="L134">            doBakeWithTemplate(sourcePath, context, targetPath, template.get());</span>
         } else {
-<span class="nc" id="L137">            doBakeWithoutTemplate(sourcePath, targetPath);</span>
+<span class="nc" id="L136">            doBakeWithoutTemplate(sourcePath, targetPath);</span>
         }
-<span class="nc" id="L139">    }</span>
+<span class="nc" id="L138">    }</span>
 
 
     /**
@@ -146,10 +145,10 @@ public final class HtmlPageBaker
             final Path sourcePath,
             final Path targetDir) {
 
-<span class="nc" id="L149">        final String sourceBasename = FileUtils.basename(sourcePath);</span>
-<span class="nc" id="L150">        final String targetName = sourceBasename + TARGET_EXTENSION;</span>
+<span class="nc" id="L148">        final String sourceBasename = FileUtils.basename(sourcePath);</span>
+<span class="nc" id="L149">        final String targetName = sourceBasename + TARGET_EXTENSION;</span>
 
-<span class="nc" id="L152">        return targetDir.resolve(targetName);</span>
+<span class="nc" id="L151">        return targetDir.resolve(targetName);</span>
     }
 
 
@@ -162,8 +161,8 @@ public final class HtmlPageBaker
             final Path targetPath)
             throws IOException {
 
-<span class="nc" id="L165">        FileUtils.copy(sourcePath, targetPath);</span>
-<span class="nc" id="L166">    }</span>
+<span class="nc" id="L164">        FileUtils.copy(sourcePath, targetPath);</span>
+<span class="nc" id="L165">    }</span>
 
 
     /**
@@ -176,13 +175,13 @@ public final class HtmlPageBaker
             final Template template)
             throws IOException {
 
-<span class="nc" id="L179">        final HtmlBakerDataModelBuilder modelBuilder = new HtmlBakerDataModelBuilder();</span>
-<span class="nc" id="L180">        final TemplateDataModel dataModel = modelBuilder.build(sourcePath, targetPath, context);</span>
+<span class="nc" id="L178">        final TemplateContext templateContext = HtmlTemplateContext.create(</span>
+                sourcePath, targetPath, context);
 
-<span class="nc" id="L182">        FileUtils.newWriter(</span>
+<span class="nc" id="L181">        FileUtils.newWriter(</span>
                 targetPath,
-<span class="nc" id="L184">                writer -&gt; template.process(dataModel, writer));</span>
-<span class="nc" id="L185">    }</span>
+<span class="nc" id="L183">                writer -&gt; template.process(templateContext, writer));</span>
+<span class="nc" id="L184">    }</span>
 
 
 }

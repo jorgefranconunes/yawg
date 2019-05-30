@@ -172,20 +172,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.commonmark.CommonMarkTemplateDataModelBuilder.java">com/varmateo/yawg/commonmark/CommonMarkTemplateDataModelBuilder.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.util.FileUtils.java">com/varmateo/yawg/util/FileUtils.java</a>
                 </td>
                 <td>
@@ -201,6 +187,20 @@ under the License.
                           <tr>
                 <td>
                   <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.asciidoctor.AdocUtils.java">com/varmateo/yawg/asciidoctor/AdocUtils.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.html.HtmlTemplateContext.java">com/varmateo/yawg/html/HtmlTemplateContext.java</a>
                 </td>
                 <td>
                   0
@@ -243,20 +243,6 @@ under the License.
                           <tr>
                 <td>
                   <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.html.package-info.java">com/varmateo/yawg/html/package-info.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.asciidoctor.AsciidoctorBakerDataModelBuilder.java">com/varmateo/yawg/asciidoctor/AsciidoctorBakerDataModelBuilder.java</a>
                 </td>
                 <td>
                   0
@@ -536,6 +522,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.asciidoctor.AsciidoctorTemplateContext.java">com/varmateo/yawg/asciidoctor/AsciidoctorTemplateContext.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.core.BakerMatcher.java">com/varmateo/yawg/core/BakerMatcher.java</a>
                 </td>
                 <td>
@@ -676,7 +676,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.html.HtmlBakerDataModelBuilder.java">com/varmateo/yawg/html/HtmlBakerDataModelBuilder.java</a>
+                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.commonmark.CommonMarkTemplateContextBuilder.java">com/varmateo/yawg/commonmark/CommonMarkTemplateContextBuilder.java</a>
                 </td>
                 <td>
                   0
