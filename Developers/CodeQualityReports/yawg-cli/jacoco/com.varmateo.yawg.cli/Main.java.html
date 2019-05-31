@@ -6,6 +6,11 @@
 
 package com.varmateo.yawg.cli;
 
+import java.io.IOException;
+import java.util.logging.LogManager;
+
+import com.varmateo.yawg.util.FileUtils;
+
 
 /**
  * Program for baking a site from a directory tree.
@@ -16,15 +21,15 @@ public final class Main {
     private static final String DEFAULT_ARGV0 = &quot;yawg&quot;;
 
     // Name of system property whose value is to be used as argv0.
-<span class="nc" id="L19">    private static final String PROP_ARGV = Main.class.getName() + &quot;.argv0&quot;;</span>
+<span class="nc" id="L24">    private static final String PROP_ARGV = Main.class.getName() + &quot;.argv0&quot;;</span>
 
 
     /**
      * No instances of this class are to be created.
      */
-<span class="nc" id="L25">    private Main() {</span>
+<span class="nc" id="L30">    private Main() {</span>
         // Nothing to do.
-<span class="nc" id="L27">    }</span>
+<span class="nc" id="L32">    }</span>
 
 
     /**
@@ -32,19 +37,31 @@ public final class Main {
      *
      * @param args Command line arguments.
      */
-     public static void main(final String[] args) {
+     public static void main(final String[] args)
+             throws IOException {
 
-<span class="nc" id="L37">         final String argv0 = System.getProperty(PROP_ARGV, DEFAULT_ARGV0);</span>
-<span class="nc" id="L38">         final BakerCliOptions options = BakerCliOptions.builder()</span>
-<span class="nc" id="L39">                 .argv0(argv0)</span>
-<span class="nc" id="L40">                 .addArgs(args)</span>
-<span class="nc" id="L41">                 .output(System.out)</span>
-<span class="nc" id="L42">                 .build();</span>
-<span class="nc" id="L43">         final BakerCli bakerCli = BakerCli.create(options);</span>
-<span class="nc" id="L44">         final int exitStatus = bakerCli.run();</span>
+<span class="nc" id="L43">         setupLogging();</span>
 
-<span class="nc" id="L46">         System.exit(exitStatus);</span>
-<span class="nc" id="L47">    }</span>
+<span class="nc" id="L45">         final String argv0 = System.getProperty(PROP_ARGV, DEFAULT_ARGV0);</span>
+<span class="nc" id="L46">         final BakerCliOptions options = BakerCliOptions.builder()</span>
+<span class="nc" id="L47">                 .argv0(argv0)</span>
+<span class="nc" id="L48">                 .addArgs(args)</span>
+<span class="nc" id="L49">                 .output(System.out)</span>
+<span class="nc" id="L50">                 .build();</span>
+<span class="nc" id="L51">         final BakerCli bakerCli = BakerCli.create(options);</span>
+<span class="nc" id="L52">         final int exitStatus = bakerCli.run();</span>
+
+<span class="nc" id="L54">         System.exit(exitStatus);</span>
+<span class="nc" id="L55">    }</span>
+
+
+    private static void setupLogging()
+            throws IOException {
+
+<span class="nc" id="L61">        FileUtils.doWithConsumer(</span>
+<span class="nc" id="L62">                () -&gt; Main.class.getResourceAsStream(&quot;/logging.properties&quot;),</span>
+<span class="nc" id="L63">                input -&gt; LogManager.getLogManager().readConfiguration(input));</span>
+<span class="nc" id="L64">    }</span>
 
 
 }

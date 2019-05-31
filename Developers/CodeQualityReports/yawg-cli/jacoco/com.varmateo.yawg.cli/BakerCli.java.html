@@ -126,7 +126,7 @@ public final class BakerCli {
 <span class="nc bnc" id="L126" title="All 2 branches missed.">            } else if ( cliOptions.hasOption(BakerCliParameters.VERSION) ) {</span>
 <span class="nc" id="L127">                infoPrinter.printVersion();</span>
             } else {
-<span class="nc" id="L129">                Try&lt;Void&gt; result = doBake(cliOptions);</span>
+<span class="nc" id="L129">                final Try&lt;Void&gt; result = doBake(cliOptions);</span>
 
 <span class="nc bnc" id="L131" title="All 2 branches missed.">                if ( result.isFailure() ) {</span>
 <span class="nc" id="L132">                    Throwable cause = result.getCause();</span>

@@ -8,6 +8,7 @@ package com.varmateo.yawg.util;
 
 import io.vavr.control.Option;
 
+import java.io.InputStream;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
@@ -28,9 +29,9 @@ public final class FileUtils {
     /**
      * No instances of this class are to be created.
      */
-<span class="nc" id="L31">    private FileUtils() {</span>
+<span class="nc" id="L32">    private FileUtils() {</span>
         // Nothing to do.
-<span class="nc" id="L33">    }</span>
+<span class="nc" id="L34">    }</span>
 
 
     /**
@@ -45,14 +46,14 @@ public final class FileUtils {
      */
     public static String basename(final Path path) {
 
-<span class="fc" id="L48">        final String basenameWithExtension =</span>
-<span class="fc" id="L49">                Option.of(path.getFileName())</span>
-<span class="fc" id="L50">                .map(Object::toString)</span>
-<span class="fc" id="L51">                .getOrElse(&quot;&quot;);</span>
-<span class="fc" id="L52">        final int extensionIndex = basenameWithExtension.lastIndexOf('.');</span>
+<span class="fc" id="L49">        final String basenameWithExtension =</span>
+<span class="fc" id="L50">                Option.of(path.getFileName())</span>
+<span class="fc" id="L51">                .map(Object::toString)</span>
+<span class="fc" id="L52">                .getOrElse(&quot;&quot;);</span>
+<span class="fc" id="L53">        final int extensionIndex = basenameWithExtension.lastIndexOf('.');</span>
 
-<span class="fc bfc" id="L54" title="All 2 branches covered.">        return (extensionIndex&gt;-1)</span>
-<span class="fc" id="L55">                ? basenameWithExtension.substring(0, extensionIndex)</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        return (extensionIndex&gt;-1)</span>
+<span class="fc" id="L56">                ? basenameWithExtension.substring(0, extensionIndex)</span>
                 : basenameWithExtension;
     }
 
@@ -64,10 +65,10 @@ public final class FileUtils {
             final Path path,
             final Pattern pattern) {
 
-<span class="fc" id="L67">        return  Optional.ofNullable(path.getFileName())</span>
-<span class="fc" id="L68">                .map(Path::toString)</span>
-<span class="fc" id="L69">                .map(basename -&gt; pattern.matcher(basename).matches())</span>
-<span class="fc" id="L70">                .orElse(false);</span>
+<span class="fc" id="L68">        return  Optional.ofNullable(path.getFileName())</span>
+<span class="fc" id="L69">                .map(Path::toString)</span>
+<span class="fc" id="L70">                .map(basename -&gt; pattern.matcher(basename).matches())</span>
+<span class="fc" id="L71">                .orElse(false);</span>
     }
 
 
@@ -89,12 +90,12 @@ public final class FileUtils {
             final Path target)
             throws IOException {
 
-<span class="fc" id="L92">        Files.copy(</span>
+<span class="fc" id="L93">        Files.copy(</span>
                 source,
                 target,
                 StandardCopyOption.REPLACE_EXISTING,
                 StandardCopyOption.COPY_ATTRIBUTES);
-<span class="fc" id="L97">    }</span>
+<span class="fc" id="L98">    }</span>
 
 
     /**
@@ -112,9 +113,9 @@ public final class FileUtils {
     public static String readAsString(final Path sourcePath)
             throws IOException {
 
-<span class="fc" id="L115">        final byte[] contentBytes = Files.readAllBytes(sourcePath);</span>
+<span class="fc" id="L116">        final byte[] contentBytes = Files.readAllBytes(sourcePath);</span>
 
-<span class="fc" id="L117">        return new String(contentBytes, StandardCharsets.UTF_8);</span>
+<span class="fc" id="L118">        return new String(contentBytes, StandardCharsets.UTF_8);</span>
     }
 
 
@@ -140,10 +141,10 @@ public final class FileUtils {
             final ConsumerWithIOException&lt;Writer&gt; consumer)
             throws IOException {
 
-<span class="pc" id="L143">        try ( Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {</span>
-<span class="fc" id="L144">            consumer.accept(writer);</span>
-<span class="pc bpc" id="L145" title="6 of 8 branches missed.">        }</span>
-<span class="fc" id="L146">    }</span>
+<span class="pc" id="L144">        try ( Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {</span>
+<span class="fc" id="L145">            consumer.accept(writer);</span>
+<span class="pc bpc" id="L146" title="6 of 8 branches missed.">        }</span>
+<span class="fc" id="L147">    }</span>
 
 
     /**
@@ -154,10 +155,38 @@ public final class FileUtils {
             final FunctionWithIOException&lt;Reader, T&gt; transformer)
             throws IOException {
 
-<span class="pc" id="L157">        try ( Reader reader = Files.newBufferedReader(source, StandardCharsets.UTF_8) ) {</span>
-<span class="fc" id="L158">            return transformer.apply(reader);</span>
-<span class="pc bpc" id="L159" title="6 of 8 branches missed.">        }</span>
+<span class="pc" id="L158">        try ( Reader reader = Files.newBufferedReader(source, StandardCharsets.UTF_8) ) {</span>
+<span class="fc" id="L159">            return transformer.apply(reader);</span>
+<span class="pc bpc" id="L160" title="6 of 8 branches missed.">        }</span>
     }
+
+
+    /**
+     *
+     */
+    public static &lt;R&gt; R doWithFunction(
+            final SupplierWithIOException&lt;InputStream&gt; supplier,
+            final FunctionWithIOException&lt;InputStream, R&gt; transformer)
+    throws IOException {
+
+<span class="nc" id="L172">        try ( InputStream input = supplier.get() ) {</span>
+<span class="nc" id="L173">            return transformer.apply(input);</span>
+<span class="nc bnc" id="L174" title="All 8 branches missed.">        }</span>
+    }
+
+
+    /**
+     *
+     */
+    public static void doWithConsumer(
+            final SupplierWithIOException&lt;InputStream&gt; supplier,
+            final ConsumerWithIOException&lt;InputStream&gt; consumer)
+    throws IOException {
+
+<span class="nc" id="L186">        try ( InputStream input = supplier.get() ) {</span>
+<span class="nc" id="L187">            consumer.accept(input);</span>
+<span class="nc bnc" id="L188" title="All 8 branches missed.">        }</span>
+<span class="nc" id="L189">    }</span>
 
 
     /**
@@ -179,6 +208,20 @@ public final class FileUtils {
          * @throws IOException For whatever reason.
          */
         void accept(T input)
+                throws IOException;
+    }
+
+
+    /**
+     *
+     */
+    @FunctionalInterface
+    public interface SupplierWithIOException&lt;T&gt; {
+
+        /**
+         *
+         */
+        T get()
                 throws IOException;
     }
 
