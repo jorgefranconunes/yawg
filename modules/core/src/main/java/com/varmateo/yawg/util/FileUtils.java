@@ -8,6 +8,7 @@ package com.varmateo.yawg.util;
 
 import io.vavr.control.Option;
 
+import java.io.InputStream;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
@@ -161,6 +162,34 @@ public final class FileUtils {
 
 
     /**
+     *
+     */
+    public static <R> R doWithFunction(
+            final SupplierWithIOException<InputStream> supplier,
+            final FunctionWithIOException<InputStream, R> transformer)
+    throws IOException {
+
+        try ( InputStream input = supplier.get() ) {
+            return transformer.apply(input);
+        }
+    }
+
+
+    /**
+     *
+     */
+    public static void doWithConsumer(
+            final SupplierWithIOException<InputStream> supplier,
+            final ConsumerWithIOException<InputStream> consumer)
+    throws IOException {
+
+        try ( InputStream input = supplier.get() ) {
+            consumer.accept(input);
+        }
+    }
+
+
+    /**
      * Similar to a <code>java.util.function.Consumer</code> but
      * throws <code>IOException</code>. Intended for simplifying the
      * use of lambdas when calling the <code>newWriter(...)</code>
@@ -179,6 +208,20 @@ public final class FileUtils {
          * @throws IOException For whatever reason.
          */
         void accept(T input)
+                throws IOException;
+    }
+
+
+    /**
+     *
+     */
+    @FunctionalInterface
+    public interface SupplierWithIOException<T> {
+
+        /**
+         *
+         */
+        T get()
                 throws IOException;
     }
 

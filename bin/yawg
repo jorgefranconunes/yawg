@@ -40,7 +40,6 @@ function main () {
 
     exec "${_yawgJre}" \
          "-Dcom.varmateo.yawg.cli.Main.argv0=${_scriptName}" \
-         "-Djava.util.logging.config.file=${logConf}" \
          -jar "${mainJar}" \
          "$@"
 }

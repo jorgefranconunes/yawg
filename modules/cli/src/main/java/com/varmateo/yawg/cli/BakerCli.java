@@ -126,7 +126,7 @@ public final class BakerCli {
             } else if ( cliOptions.hasOption(BakerCliParameters.VERSION) ) {
                 infoPrinter.printVersion();
             } else {
-                Try<Void> result = doBake(cliOptions);
+                final Try<Void> result = doBake(cliOptions);
 
                 if ( result.isFailure() ) {
                     Throwable cause = result.getCause();
