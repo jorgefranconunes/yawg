@@ -52,7 +52,7 @@ public interface BakeOptions {
      * @return A read-only map containing the page variables. Keys in
      * the map are the variable names.
      */
-    Map<String,Object> externalPageVars();
+    Map<String, Object> externalPageVars();
 
 
     /**

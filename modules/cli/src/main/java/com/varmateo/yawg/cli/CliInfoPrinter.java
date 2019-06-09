@@ -119,7 +119,7 @@ import com.varmateo.yawg.cli.CliParameter;
      */
     public void printError(
             final PrintWriter  output,
-            final CliException error) {
+            final Throwable error) {
 
         final String errorMsg = error.getMessage();
         final String msg      = MessageFormat.format(ERROR_FMT, _argv0, errorMsg);

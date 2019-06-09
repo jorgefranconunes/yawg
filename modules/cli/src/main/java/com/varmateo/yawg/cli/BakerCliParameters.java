@@ -8,6 +8,7 @@ package com.varmateo.yawg.cli;
 
 import io.vavr.collection.HashSet;
 import io.vavr.collection.Set;
+import io.vavr.control.Try;
 
 
 /**
@@ -82,6 +83,7 @@ final class BakerCliParameters {
      * No instances of this class are to be created.
      */
     private BakerCliParameters() {
+        // Nothin to do.
     }
 
 
@@ -97,11 +99,9 @@ final class BakerCliParameters {
     /**
      *
      */
-    public static CliParameterSet parse(final String[] args)
-        throws CliException {
+    public static Try<CliParameterSet> parse(final String[] args) {
 
-        return CliParameterSet.parse(ALL_OPTIONS, args);
+        return Try.of(() -> CliParameterSet.parse(ALL_OPTIONS, args));
     }
-
 
 }

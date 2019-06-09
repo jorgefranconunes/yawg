@@ -98,7 +98,7 @@ import com.varmateo.yawg.api.YawgInfo;
     /**
      *
      */
-    public void printError(final CliException error) {
+    public void printError(final Throwable error) {
 
         _cliInfoPrinter.printError(_output, error);
     }

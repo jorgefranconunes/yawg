@@ -53,7 +53,7 @@ public final class BakerCliResult {
     /**
      *
      */
-    public Path getSourcePath() {
+    public Path sourcePath() {
 
         return Objects.requireNonNull(_sourcePath);
     }
@@ -62,7 +62,7 @@ public final class BakerCliResult {
     /**
      *
      */
-    public Path getTargetPath() {
+    public Path targetPath() {
 
         return Objects.requireNonNull(_targetPath);
     }
@@ -120,18 +120,9 @@ public final class BakerCliResult {
     /**
      *
      */
-    public int getExitStatus() {
+    public int exitStatus() {
 
         return _exitStatus;
-    }
-
-
-    /**
-     *
-     */
-    public String getOutputAsString() {
-
-        return new String(_output, StandardCharsets.UTF_8);
     }
 
 
@@ -161,7 +152,7 @@ public final class BakerCliResult {
         /**
          *
          */
-        public Builder setSourcePath(final Path sourcePath) {
+        public Builder sourcePath(final Path sourcePath) {
 
             _sourcePath = sourcePath;
 
@@ -172,7 +163,7 @@ public final class BakerCliResult {
         /**
          *
          */
-        public Builder setTargetPath(final Path targetPath) {
+        public Builder targetPath(final Path targetPath) {
 
             _targetPath = targetPath;
 
@@ -183,7 +174,7 @@ public final class BakerCliResult {
         /**
          *
          */
-        public Builder setOutput(final byte[] output) {
+        public Builder output(final byte[] output) {
 
             _output = output;
 
@@ -194,7 +185,7 @@ public final class BakerCliResult {
         /**
          *
          */
-        public Builder setExitStatus(final int exitStatus) {
+        public Builder exitStatus(final int exitStatus) {
 
             _exitStatus = exitStatus;
 

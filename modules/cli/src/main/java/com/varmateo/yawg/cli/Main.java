@@ -43,13 +43,13 @@ public final class Main {
          setupLogging();
 
          final String argv0 = System.getProperty(PROP_ARGV, DEFAULT_ARGV0);
-         final BakerCliOptions options = BakerCliOptions.builder()
+         final BakerCliRunOptions options = BakerCliRunOptions.builder()
                  .argv0(argv0)
                  .addArgs(args)
                  .output(System.out)
                  .build();
-         final BakerCli bakerCli = BakerCli.create(options);
-         final int exitStatus = bakerCli.run();
+         final BakerCli bakerCli = BakerCli.create();
+         final int exitStatus = bakerCli.run(options);
 
          System.exit(exitStatus);
     }

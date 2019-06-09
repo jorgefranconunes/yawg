@@ -13,7 +13,7 @@ import io.vavr.collection.List;
 import io.vavr.collection.Seq;
 
 import com.varmateo.yawg.cli.BakerCli;
-import com.varmateo.yawg.cli.BakerCliOptions;
+import com.varmateo.yawg.cli.BakerCliRunOptions;
 
 
 /**
@@ -62,18 +62,18 @@ public final class BakerCliRunner {
     public BakerCliResult run() {
 
         final ByteArrayOutputStream output = new ByteArrayOutputStream();
-        final BakerCliOptions options = BakerCliOptions.builder()
+        final BakerCliRunOptions options = BakerCliRunOptions.builder()
                 .addArgs(_args)
                 .output(output)
                 .build();
-        final BakerCli bakerCli = BakerCli.create(options);
-        final int exitStatus = bakerCli.run();
+        final BakerCli bakerCli = BakerCli.create();
+        final int exitStatus = bakerCli.run(options);
 
         return BakerCliResult.builder()
-                .setSourcePath(_sourcePath)
-                .setTargetPath(_targetPath)
-                .setOutput(output.toByteArray())
-                .setExitStatus(exitStatus)
+                .sourcePath(_sourcePath)
+                .targetPath(_targetPath)
+                .output(output.toByteArray())
+                .exitStatus(exitStatus)
                 .build();
     }
 

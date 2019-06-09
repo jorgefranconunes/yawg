@@ -56,10 +56,10 @@ public final class TemplateDataModelIT {
                         "file01.html",
                         "file02.html");
 
-        final Path target01 = bakerResult.getTargetPath().resolve("file01.html");
+        final Path target01 = bakerResult.targetPath().resolve("file01.html");
         final String line01 = Files.readAllLines(target01, StandardCharsets.UTF_8).get(0);
 
-        final Path target02 = bakerResult.getTargetPath().resolve("file02.html");
+        final Path target02 = bakerResult.targetPath().resolve("file02.html");
         final String line02 = Files.readAllLines(target02, StandardCharsets.UTF_8).get(0);
 
         assertThat(line01)
@@ -98,12 +98,12 @@ public final class TemplateDataModelIT {
                 .hasExitStatusSuccess()
                 .targetDirContains("file01.html");
 
-        final Path target01 = bakerResult01.getTargetPath().resolve("file01.html");
+        final Path target01 = bakerResult01.targetPath().resolve("file01.html");
         final String line01 = Files.readAllLines(target01, StandardCharsets.UTF_8).get(0);
         assertThat(line01)
                 .startsWith("Bake ID:");
 
-        final Path target02 = bakerResult02.getTargetPath().resolve("file01.html");
+        final Path target02 = bakerResult02.targetPath().resolve("file01.html");
         final String line02 = Files.readAllLines(target02, StandardCharsets.UTF_8).get(0);
         assertThat(line02)
                 .startsWith("Bake ID:");

@@ -16,7 +16,7 @@ import io.vavr.collection.Seq;
  * Set of parameters requires to create a <code>BakerCli</code>
  * instance.
  */
-public final class BakerCliOptions {
+public final class BakerCliRunOptions {
 
 
     private static final String DEFAULT_ARGV0 = "yawg";
@@ -30,7 +30,7 @@ public final class BakerCliOptions {
     /**
      *
      */
-    private BakerCliOptions(final Builder builder) {
+    private BakerCliRunOptions(final Builder builder) {
 
         argv0 = builder._argv0;
         args = builder._args.toJavaArray(String.class);
@@ -40,7 +40,7 @@ public final class BakerCliOptions {
 
     /**
      * Creates a newly initialized builder for creating a
-     * <code>BakerCliOptions</code> instance.
+     * <code>BakerCliRunOptions</code> instance.
      *
      * @return A new builder.
      */
@@ -111,9 +111,9 @@ public final class BakerCliOptions {
         /**
          *
          */
-        public BakerCliOptions build() {
+        public BakerCliRunOptions build() {
 
-            return new BakerCliOptions(this);
+            return new BakerCliRunOptions(this);
         }
 
 

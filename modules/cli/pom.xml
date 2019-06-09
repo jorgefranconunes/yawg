@@ -52,6 +52,13 @@ Copyright (c) 2015-2019 Yawg project contributors.
     </dependency>
 
     <dependency>
+      <groupId>org.inferred</groupId>
+      <artifactId>freebuilder</artifactId>
+      <version>${freebuilder.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>yawg-api</artifactId>
       <version>${project.version}</version>
