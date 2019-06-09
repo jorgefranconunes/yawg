@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BakerCliBakeOptions.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-cli</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.cli</a> &gt; <span class="el_source">BakerCliBakeOptions.java</span></div><h1>BakerCliBakeOptions.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2019 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.cli;
+
+import java.nio.file.Path;
+
+import io.vavr.collection.Map;
+import io.vavr.control.Option;
+import org.inferred.freebuilder.FreeBuilder;
+
+
+/**
+ *
+ */
+@FreeBuilder
+/* default */ interface BakerCliBakeOptions {
+
+
+    Path sourceDir();
+    Path targetDir();
+    Option&lt;Path&gt; assetsDir();
+    Option&lt;Path&gt; templatesDir();
+    Map&lt;String, String&gt; externalPageVars();
+
+
+    /**
+     *
+     */
+    static Builder builder() {
+
+<span class="fc" id="L35">        return new Builder();</span>
+    }
+
+
+    /**
+     *
+     */
+    static final class Builder extends BakerCliBakeOptions_Builder {
+
+<span class="fc" id="L44">        private Builder() {</span>
+            // Nothing to do.
+<span class="fc" id="L46">        }</span>
+
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

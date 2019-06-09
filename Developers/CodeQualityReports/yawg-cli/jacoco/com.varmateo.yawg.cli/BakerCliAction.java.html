@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BakerCliAction.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg CLI</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.cli</a> &gt; <span class="el_source">BakerCliAction.java</span></div><h1>BakerCliAction.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2019 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.cli;
+
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
+import io.vavr.control.Try;
+
+
+/**
+ * ADR represeting one of the possible actions to be performed by the
+ * CLI app.
+ */
+<span class="nc" id="L20">/* default */ abstract class BakerCliAction {</span>
+
+
+    /**
+     *
+     */
+    public static Try&lt;BakerCliAction&gt; parse(final String[] args) {
+
+<span class="nc bnc" id="L28" title="All 2 branches missed.">        if ( args.length == 0 ) {</span>
+<span class="nc" id="L29">            return Try.success(printHelp());</span>
+        } else {
+<span class="nc" id="L31">            return BakerCliParameters.parse(args)</span>
+<span class="nc" id="L32">                    .flatMap(BakerCliAction::parseParameters);</span>
+        }
+    }
+
+
+    private static Try&lt;BakerCliAction&gt; parseParameters(final CliParameterSet cliParams) {
+
+<span class="nc bnc" id="L39" title="All 2 branches missed.">        if ( cliParams.hasOption(BakerCliParameters.HELP) ) {</span>
+<span class="nc" id="L40">            return Try.success(printHelp());</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">        } else if ( cliParams.hasOption(BakerCliParameters.VERSION) ) {</span>
+<span class="nc" id="L42">            return Try.success(printVersion());</span>
+        } else {
+<span class="nc" id="L44">            return BakerCliBakeOptionsParser.parse(cliParams)</span>
+<span class="nc" id="L45">                    .map(BakerCliAction::bake);</span>
+        }
+    }
+
+
+    /**
+     *
+     */
+    public abstract &lt;T&gt; T match(
+            Supplier&lt;T&gt; a,
+            Supplier&lt;T&gt; b,
+            Function&lt;Bake, T&gt; c);
+
+
+    /**
+     *
+     */
+    public abstract void onMatch(
+            Runnable a,
+            Runnable b,
+            Consumer&lt;Bake&gt; c);
+
+
+    /**
+     *
+     */
+    public static BakerCliAction printHelp() {
+
+<span class="nc" id="L73">        return new PrintHelp();</span>
+    }
+
+
+    /**
+     *
+     */
+    public static BakerCliAction printVersion() {
+
+<span class="nc" id="L82">        return new PrintVersion();</span>
+    }
+
+
+    /**
+     *
+     */
+    public static BakerCliAction bake(final BakerCliBakeOptions options) {
+
+<span class="nc" id="L91">        return new Bake(options);</span>
+    }
+
+
+    /**
+     *
+     */
+    public static final class PrintHelp
+            extends BakerCliAction {
+
+
+<span class="nc" id="L102">        private PrintHelp() {</span>
+            // Nothing to do.
+<span class="nc" id="L104">        }</span>
+
+
+        /**
+         *
+         */
+        @Override
+        public &lt;T&gt; T match(
+                final Supplier&lt;T&gt; a,
+                final Supplier&lt;T&gt; b,
+                final Function&lt;Bake, T&gt; c) {
+
+<span class="nc" id="L116">            return a.get();</span>
+        }
+
+
+        /**
+         *
+         */
+        @Override
+        public void onMatch(
+                final Runnable a,
+                final Runnable b,
+                final Consumer&lt;Bake&gt; c) {
+
+<span class="nc" id="L129">            a.run();</span>
+<span class="nc" id="L130">        }</span>
+    }
+
+
+    /**
+     *
+     */
+    public static final class PrintVersion
+            extends BakerCliAction {
+
+
+<span class="nc" id="L141">        private PrintVersion() {</span>
+            // Nothing to do.
+<span class="nc" id="L143">        }</span>
+
+
+        /**
+         *
+         */
+        @Override
+        public &lt;T&gt; T match(
+                final Supplier&lt;T&gt; a,
+                final Supplier&lt;T&gt; b,
+                final Function&lt;Bake, T&gt; c) {
+
+<span class="nc" id="L155">            return b.get();</span>
+        }
+
+
+        /**
+         *
+         */
+        @Override
+        public void onMatch(
+                final Runnable a,
+                final Runnable b,
+                final Consumer&lt;Bake&gt; c) {
+
+<span class="nc" id="L168">            b.run();</span>
+<span class="nc" id="L169">        }</span>
+    }
+
+
+    /**
+     *
+     */
+    public static final class Bake
+            extends BakerCliAction {
+
+
+        public final BakerCliBakeOptions options;
+
+
+<span class="nc" id="L183">        private Bake(final BakerCliBakeOptions options) {</span>
+<span class="nc" id="L184">            this.options = options;</span>
+<span class="nc" id="L185">        }</span>
+
+
+        /**
+         *
+         */
+        @Override
+        public &lt;T&gt; T match(
+                final Supplier&lt;T&gt; a,
+                final Supplier&lt;T&gt; b,
+                final Function&lt;Bake, T&gt; c) {
+
+<span class="nc" id="L197">            return c.apply(this);</span>
+        }
+
+
+        /**
+         *
+         */
+        @Override
+        public void onMatch(
+                final Runnable a,
+                final Runnable b,
+                final Consumer&lt;Bake&gt; c) {
+
+<span class="nc" id="L210">            c.accept(this);</span>
+<span class="nc" id="L211">        }</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BakerCliOptions.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-cli</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.cli</a> &gt; <span class="el_source">BakerCliOptions.java</span></div><h1>BakerCliOptions.java</h1><pre class="source lang-java linenums">/**************************************************************************
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BakerCliRunOptions.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-cli</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.cli</a> &gt; <span class="el_source">BakerCliRunOptions.java</span></div><h1>BakerCliRunOptions.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
  * Copyright (c) 2017-2019 Yawg project contributors.
  *
@@ -16,7 +16,7 @@ import io.vavr.collection.Seq;
  * Set of parameters requires to create a &lt;code&gt;BakerCli&lt;/code&gt;
  * instance.
  */
-public final class BakerCliOptions {
+public final class BakerCliRunOptions {
 
 
     private static final String DEFAULT_ARGV0 = &quot;yawg&quot;;
@@ -30,7 +30,7 @@ public final class BakerCliOptions {
     /**
      *
      */
-<span class="fc" id="L33">    private BakerCliOptions(final Builder builder) {</span>
+<span class="fc" id="L33">    private BakerCliRunOptions(final Builder builder) {</span>
 
 <span class="fc" id="L35">        argv0 = builder._argv0;</span>
 <span class="fc" id="L36">        args = builder._args.toJavaArray(String.class);</span>
@@ -40,7 +40,7 @@ public final class BakerCliOptions {
 
     /**
      * Creates a newly initialized builder for creating a
-     * &lt;code&gt;BakerCliOptions&lt;/code&gt; instance.
+     * &lt;code&gt;BakerCliRunOptions&lt;/code&gt; instance.
      *
      * @return A new builder.
      */
@@ -111,9 +111,9 @@ public final class BakerCliOptions {
         /**
          *
          */
-        public BakerCliOptions build() {
+        public BakerCliRunOptions build() {
 
-<span class="fc" id="L116">            return new BakerCliOptions(this);</span>
+<span class="fc" id="L116">            return new BakerCliRunOptions(this);</span>
         }
 
 

@@ -51,13 +51,13 @@
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>           setupLogging();
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>           <strong class="jxr_keyword">final</strong> String argv0 = System.getProperty(PROP_ARGV, DEFAULT_ARGV0);
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>           <strong class="jxr_keyword">final</strong> <a name="BakerCliOptions" href="../../../../com/varmateo/yawg/cli/BakerCliOptions.html#BakerCliOptions">BakerCliOptions</a> options = BakerCliOptions.builder()
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>           <strong class="jxr_keyword">final</strong> <a name="BakerCliRunOptions" href="../../../../com/varmateo/yawg/cli/BakerCliRunOptions.html#BakerCliRunOptions">BakerCliRunOptions</a> options = BakerCliRunOptions.builder()
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>                   .argv0(argv0)
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>                   .addArgs(args)
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>                   .output(System.out)
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>                   .build();
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>           <strong class="jxr_keyword">final</strong> <a name="BakerCli" href="../../../../com/varmateo/yawg/cli/BakerCli.html#BakerCli">BakerCli</a> bakerCli = BakerCli.create(options);
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>           <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> exitStatus = bakerCli.run();
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>           <strong class="jxr_keyword">final</strong> <a name="BakerCli" href="../../../../com/varmateo/yawg/cli/BakerCli.html#BakerCli">BakerCli</a> bakerCli = BakerCli.create();
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>           <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> exitStatus = bakerCli.run(options);
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>           System.exit(exitStatus);
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>      }

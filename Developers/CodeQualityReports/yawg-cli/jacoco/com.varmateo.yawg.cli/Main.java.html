@@ -43,13 +43,13 @@ public final class Main {
 <span class="nc" id="L43">         setupLogging();</span>
 
 <span class="nc" id="L45">         final String argv0 = System.getProperty(PROP_ARGV, DEFAULT_ARGV0);</span>
-<span class="nc" id="L46">         final BakerCliOptions options = BakerCliOptions.builder()</span>
+<span class="nc" id="L46">         final BakerCliRunOptions options = BakerCliRunOptions.builder()</span>
 <span class="nc" id="L47">                 .argv0(argv0)</span>
 <span class="nc" id="L48">                 .addArgs(args)</span>
 <span class="nc" id="L49">                 .output(System.out)</span>
 <span class="nc" id="L50">                 .build();</span>
-<span class="nc" id="L51">         final BakerCli bakerCli = BakerCli.create(options);</span>
-<span class="nc" id="L52">         final int exitStatus = bakerCli.run();</span>
+<span class="nc" id="L51">         final BakerCli bakerCli = BakerCli.create();</span>
+<span class="nc" id="L52">         final int exitStatus = bakerCli.run(options);</span>
 
 <span class="nc" id="L54">         System.exit(exitStatus);</span>
 <span class="nc" id="L55">    }</span>

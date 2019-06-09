@@ -64,10 +64,10 @@
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>                          <span class="jxr_string">"file01.html"</span>,
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>                          <span class="jxr_string">"file02.html"</span>);
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>  
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>          <strong class="jxr_keyword">final</strong> Path target01 = bakerResult.getTargetPath().resolve(<span class="jxr_string">"file01.html"</span>);
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>          <strong class="jxr_keyword">final</strong> Path target01 = bakerResult.targetPath().resolve(<span class="jxr_string">"file01.html"</span>);
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>          <strong class="jxr_keyword">final</strong> String line01 = Files.readAllLines(target01, StandardCharsets.UTF_8).get(0);
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>          <strong class="jxr_keyword">final</strong> Path target02 = bakerResult.getTargetPath().resolve(<span class="jxr_string">"file02.html"</span>);
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>          <strong class="jxr_keyword">final</strong> Path target02 = bakerResult.targetPath().resolve(<span class="jxr_string">"file02.html"</span>);
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>          <strong class="jxr_keyword">final</strong> String line02 = Files.readAllLines(target02, StandardCharsets.UTF_8).get(0);
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>          assertThat(line01)
@@ -106,12 +106,12 @@
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>                  .hasExitStatusSuccess()
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>                  .targetDirContains(<span class="jxr_string">"file01.html"</span>);
 <a class="jxr_linenumber" name="L100" href="#L100">100</a> 
-<a class="jxr_linenumber" name="L101" href="#L101">101</a>         <strong class="jxr_keyword">final</strong> Path target01 = bakerResult01.getTargetPath().resolve(<span class="jxr_string">"file01.html"</span>);
+<a class="jxr_linenumber" name="L101" href="#L101">101</a>         <strong class="jxr_keyword">final</strong> Path target01 = bakerResult01.targetPath().resolve(<span class="jxr_string">"file01.html"</span>);
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>         <strong class="jxr_keyword">final</strong> String line01 = Files.readAllLines(target01, StandardCharsets.UTF_8).get(0);
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>         assertThat(line01)
 <a class="jxr_linenumber" name="L104" href="#L104">104</a>                 .startsWith(<span class="jxr_string">"Bake ID:"</span>);
 <a class="jxr_linenumber" name="L105" href="#L105">105</a> 
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>         <strong class="jxr_keyword">final</strong> Path target02 = bakerResult02.getTargetPath().resolve(<span class="jxr_string">"file01.html"</span>);
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>         <strong class="jxr_keyword">final</strong> Path target02 = bakerResult02.targetPath().resolve(<span class="jxr_string">"file01.html"</span>);
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>         <strong class="jxr_keyword">final</strong> String line02 = Files.readAllLines(target02, StandardCharsets.UTF_8).get(0);
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>         assertThat(line02)
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>                 .startsWith(<span class="jxr_string">"Bake ID:"</span>);

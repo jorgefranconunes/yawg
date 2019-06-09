@@ -62,11 +62,11 @@
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>          isNotNull();
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>  
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>          <strong class="jxr_keyword">if</strong> ( <strong class="jxr_keyword">this</strong>.actual.getExitStatus() != 0 ) {
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>          <strong class="jxr_keyword">if</strong> ( <strong class="jxr_keyword">this</strong>.actual.exitStatus() != 0 ) {
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>              failWithMessage(
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>                      <span class="jxr_string">"Expected exit status to be zero but was %d - %s"</span>,
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>                      <strong class="jxr_keyword">this</strong>.actual.getExitStatus(),
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>                      <strong class="jxr_keyword">this</strong>.actual.getOutputAsString());
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>                      <strong class="jxr_keyword">this</strong>.actual.exitStatus(),
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>                      <strong class="jxr_keyword">this</strong>.actual.outputAsString());
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>          }
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>;
@@ -80,7 +80,7 @@
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>  
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>          isNotNull();
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>  
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>          <strong class="jxr_keyword">if</strong> ( <strong class="jxr_keyword">this</strong>.actual.getExitStatus() == 0 ) {
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>          <strong class="jxr_keyword">if</strong> ( <strong class="jxr_keyword">this</strong>.actual.exitStatus() == 0 ) {
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>              failWithMessage(<span class="jxr_string">"Expected exit status to be non-zero but was zero"</span>);
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>          }
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>  
@@ -126,7 +126,7 @@
 <a class="jxr_linenumber" name="L118" href="#L118">118</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L119" href="#L119">119</a>     <strong class="jxr_keyword">public</strong> AbstractCharSequenceAssert&lt;?, String&gt; targetContentAsString(<strong class="jxr_keyword">final</strong> String relPath) {
 <a class="jxr_linenumber" name="L120" href="#L120">120</a> 
-<a class="jxr_linenumber" name="L121" href="#L121">121</a>         <strong class="jxr_keyword">final</strong> Path path = <strong class="jxr_keyword">this</strong>.actual.getTargetPath().resolve(relPath);
+<a class="jxr_linenumber" name="L121" href="#L121">121</a>         <strong class="jxr_keyword">final</strong> Path path = <strong class="jxr_keyword">this</strong>.actual.targetPath().resolve(relPath);
 <a class="jxr_linenumber" name="L122" href="#L122">122</a>         <strong class="jxr_keyword">final</strong> byte[] rawContent = readBytes(path);
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>         <strong class="jxr_keyword">final</strong> String contentAsString = <strong class="jxr_keyword">new</strong> String(rawContent, StandardCharsets.UTF_8);
 <a class="jxr_linenumber" name="L124" href="#L124">124</a> 
@@ -163,7 +163,7 @@
 <a class="jxr_linenumber" name="L155" href="#L155">155</a>         isNotNull();
 <a class="jxr_linenumber" name="L156" href="#L156">156</a> 
 <a class="jxr_linenumber" name="L157" href="#L157">157</a>         <strong class="jxr_keyword">final</strong> List&lt;Path&gt; expectedFiles = List.of(fileNames).map(Paths::get);
-<a class="jxr_linenumber" name="L158" href="#L158">158</a>         <strong class="jxr_keyword">final</strong> Path targetPath = <strong class="jxr_keyword">this</strong>.actual.getTargetPath();
+<a class="jxr_linenumber" name="L158" href="#L158">158</a>         <strong class="jxr_keyword">final</strong> Path targetPath = <strong class="jxr_keyword">this</strong>.actual.targetPath();
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>         <strong class="jxr_keyword">final</strong> List&lt;Path&gt; targetFiles = lsR(targetPath);
 <a class="jxr_linenumber" name="L160" href="#L160">160</a> 
 <a class="jxr_linenumber" name="L161" href="#L161">161</a>         Assertions.assertThat(targetFiles).isEqualTo(expectedFiles);
@@ -179,7 +179,7 @@
 <a class="jxr_linenumber" name="L171" href="#L171">171</a> 
 <a class="jxr_linenumber" name="L172" href="#L172">172</a>         isNotNull();
 <a class="jxr_linenumber" name="L173" href="#L173">173</a> 
-<a class="jxr_linenumber" name="L174" href="#L174">174</a>         <strong class="jxr_keyword">final</strong> Path targetDir = <strong class="jxr_keyword">this</strong>.actual.getTargetPath();
+<a class="jxr_linenumber" name="L174" href="#L174">174</a>         <strong class="jxr_keyword">final</strong> Path targetDir = <strong class="jxr_keyword">this</strong>.actual.targetPath();
 <a class="jxr_linenumber" name="L175" href="#L175">175</a> 
 <a class="jxr_linenumber" name="L176" href="#L176">176</a>         List.of(fileNames)
 <a class="jxr_linenumber" name="L177" href="#L177">177</a>                 .map(Paths::get)
@@ -200,7 +200,7 @@
 <a class="jxr_linenumber" name="L192" href="#L192">192</a>         isNotNull();
 <a class="jxr_linenumber" name="L193" href="#L193">193</a> 
 <a class="jxr_linenumber" name="L194" href="#L194">194</a>         <strong class="jxr_keyword">final</strong> Path expectedResultsPath = scenario.getExpectedResultsPath();
-<a class="jxr_linenumber" name="L195" href="#L195">195</a>         <strong class="jxr_keyword">final</strong> Path targetPath = <strong class="jxr_keyword">this</strong>.actual.getTargetPath();
+<a class="jxr_linenumber" name="L195" href="#L195">195</a>         <strong class="jxr_keyword">final</strong> Path targetPath = <strong class="jxr_keyword">this</strong>.actual.targetPath();
 <a class="jxr_linenumber" name="L196" href="#L196">196</a> 
 <a class="jxr_linenumber" name="L197" href="#L197">197</a>         <strong class="jxr_keyword">for</strong> ( <strong class="jxr_keyword">final</strong> String fileName : fileNames ) {
 <a class="jxr_linenumber" name="L198" href="#L198">198</a>             <strong class="jxr_keyword">final</strong> Path expectedFile = expectedResultsPath.resolve(fileName);
@@ -222,7 +222,7 @@
 <a class="jxr_linenumber" name="L214" href="#L214">214</a>         isNotNull();
 <a class="jxr_linenumber" name="L215" href="#L215">215</a> 
 <a class="jxr_linenumber" name="L216" href="#L216">216</a>         <strong class="jxr_keyword">final</strong> Path expectedResultsPath = scenario.getExpectedResultsPath();
-<a class="jxr_linenumber" name="L217" href="#L217">217</a>         <strong class="jxr_keyword">final</strong> Path targetPath = <strong class="jxr_keyword">this</strong>.actual.getTargetPath();
+<a class="jxr_linenumber" name="L217" href="#L217">217</a>         <strong class="jxr_keyword">final</strong> Path targetPath = <strong class="jxr_keyword">this</strong>.actual.targetPath();
 <a class="jxr_linenumber" name="L218" href="#L218">218</a>         <strong class="jxr_keyword">final</strong> List&lt;Path&gt; expectedFiles = lsR(expectedResultsPath);
 <a class="jxr_linenumber" name="L219" href="#L219">219</a>         <strong class="jxr_keyword">final</strong> List&lt;Path&gt; targetFiles = lsR(targetPath);
 <a class="jxr_linenumber" name="L220" href="#L220">220</a> 

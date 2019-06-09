@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Trys.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.util</a> &gt; <span class="el_source">Trys.java</span></div><h1>Trys.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2019 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.util;
+
+import java.util.function.BiFunction;
+import java.util.function.Supplier;
+
+import io.vavr.control.Try;
+
+
+/**
+ * Utility functions related with {@code io.vavr.control.Try}.
+ */
+public final class Trys {
+
+
+    /**
+     * No instances of this class are to be created.
+     */
+<span class="nc" id="L24">    private Trys() {</span>
+        // Nothing to do.
+<span class="nc" id="L26">    }</span>
+
+
+    /**
+     *
+     */
+    public static Try&lt;Void&gt; success() {
+
+<span class="nc" id="L34">        return Try.success(null);</span>
+    }
+
+
+    /**
+     *
+     */
+    public static &lt;T&gt; Try&lt;T&gt; flatten(final Try&lt;Try&lt;T&gt;&gt; x) {
+
+<span class="nc bnc" id="L43" title="All 2 branches missed.">        if ( x.isSuccess() ) {</span>
+<span class="nc" id="L44">            return x.get();</span>
+        } else {
+<span class="nc" id="L46">            return Try.failure(x.getCause());</span>
+        }
+    }
+
+
+    /**
+     * Applies the given function to the values contained in the given
+     * results.
+     *
+     * If any of the results is not a success, then the function is
+     * not called at all, and a failure is returned. The returned
+     * failure is either the failure contained in the first, or in the
+     * second result.
+     */
+    public static &lt;T, U, R&gt; Try&lt;R&gt; apply(
+            final BiFunction&lt;T, U, Try&lt;R&gt;&gt; f,
+            final Try&lt;T&gt; x,
+            final Try&lt;U&gt; y) {
+
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        if ( x.isSuccess() ) {</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">            if ( y.isSuccess() ) {</span>
+<span class="nc" id="L67">                return flatten(Try.of(() -&gt; f.apply(x.get(), y.get())));</span>
+            } else {
+<span class="nc" id="L69">                return Try.failure(y.getCause());</span>
+            }
+        } else {
+<span class="nc" id="L72">            return Try.failure(x.getCause());</span>
+        }
+    }
+
+    /**
+     * Applies the given function to the values returned by the given
+     * suppliers.
+     *
+     * If any of the results is not a success, then the function is
+     * not called at all, and a failure is returned. If the first
+     * result is not a success, then the second supplier will not be
+     * called. The returned failure is either the failure contained in
+     * the first, or in the second result.
+     */
+    public static &lt;T, U, R&gt; Try&lt;R&gt; apply(
+            final BiFunction&lt;T, U, Try&lt;R&gt;&gt; f,
+            final Supplier&lt;Try&lt;T&gt;&gt; x,
+            final Supplier&lt;Try&lt;U&gt;&gt; y) {
+
+<span class="nc" id="L91">        final Try&lt;T&gt; xResult = flatten(Try.of(() -&gt; x.get()));</span>
+
+<span class="nc bnc" id="L93" title="All 2 branches missed.">        if ( xResult.isSuccess() ) {</span>
+<span class="nc" id="L94">            final Try&lt;U&gt; yResult = flatten(Try.of(() -&gt; y.get()));</span>
+
+<span class="nc bnc" id="L96" title="All 2 branches missed.">            if ( yResult.isSuccess() ) {</span>
+<span class="nc" id="L97">                return flatten(Try.of(() -&gt; f.apply(xResult.get(), yResult.get())));</span>
+            } else {
+<span class="nc" id="L99">                return Try.failure(yResult.getCause());</span>
+            }
+        } else {
+<span class="nc" id="L102">            return Try.failure(xResult.getCause());</span>
+        }
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

@@ -21,7 +21,7 @@
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> io.vavr.collection.Seq;
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.cli.BakerCli;
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.cli.BakerCliOptions;
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> com.varmateo.yawg.cli.BakerCliRunOptions;
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment">/**</em>
@@ -70,18 +70,18 @@
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">public</strong> <a name="BakerCliResult" href="../../../../com/varmateo/yawg/atests/BakerCliResult.html#BakerCliResult">BakerCliResult</a> run() {
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>          <strong class="jxr_keyword">final</strong> ByteArrayOutputStream output = <strong class="jxr_keyword">new</strong> ByteArrayOutputStream();
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>          <strong class="jxr_keyword">final</strong> BakerCliOptions options = BakerCliOptions.builder()
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>          <strong class="jxr_keyword">final</strong> BakerCliRunOptions options = BakerCliRunOptions.builder()
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>                  .addArgs(_args)
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>                  .output(output)
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>                  .build();
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>          <strong class="jxr_keyword">final</strong> BakerCli bakerCli = BakerCli.create(options);
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>          <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> exitStatus = bakerCli.run();
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>          <strong class="jxr_keyword">final</strong> BakerCli bakerCli = BakerCli.create();
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>          <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> exitStatus = bakerCli.run(options);
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>  
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>          <strong class="jxr_keyword">return</strong> BakerCliResult.builder()
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>                  .setSourcePath(_sourcePath)
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>                  .setTargetPath(_targetPath)
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>                  .setOutput(output.toByteArray())
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>                  .setExitStatus(exitStatus)
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>                  .sourcePath(_sourcePath)
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>                  .targetPath(_targetPath)
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>                  .output(output.toByteArray())
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>                  .exitStatus(exitStatus)
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>                  .build();
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>      }
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>  

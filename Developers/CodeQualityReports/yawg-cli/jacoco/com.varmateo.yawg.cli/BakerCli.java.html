@@ -37,26 +37,20 @@ public final class BakerCli {
     private static final int EXIT_STATUS_FAILURE = 1;
 
 
-    private final Log _log;
-    private final BakerCliOptions _options;
+<span class="nc" id="L40">    private final Log _log = LogFactory.createFor(BakerCli.class);</span>
 
 
-    /**
-     * @param options Configuration settings.
-     */
-<span class="nc" id="L47">    private BakerCli(final BakerCliOptions options) {</span>
-
-<span class="nc" id="L49">        _log = LogFactory.createFor(BakerCli.class);</span>
-<span class="nc" id="L50">        _options = options;</span>
-<span class="nc" id="L51">    }</span>
+<span class="nc" id="L43">    private BakerCli() {</span>
+        // Nothing to do.
+<span class="nc" id="L45">    }</span>
 
 
     /**
      *
      */
-    public static BakerCli create(final BakerCliOptions options) {
+    public static BakerCli create() {
 
-<span class="nc" id="L59">        return new BakerCli(options);</span>
+<span class="nc" id="L53">        return new BakerCli();</span>
     }
 
 
@@ -66,27 +60,18 @@ public final class BakerCli {
      * @return The utility exit status. Zero means all went
      * well. Non-zero means something failed.
      */
-    public int run() {
+    public int run(final BakerCliRunOptions options) {
 
-<span class="nc" id="L71">        final InfoPrinter infoPrinter = buildInfoPrinter(_options.argv0, _options.output);</span>
-<span class="nc" id="L72">        CliException error = null;</span>
+<span class="nc" id="L65">        final InfoPrinter infoPrinter = buildInfoPrinter(options.argv0, options.output);</span>
+<span class="nc" id="L66">        final Try&lt;Void&gt; bakeResult = tryRun(infoPrinter, options.args)</span>
+<span class="nc" id="L67">                .onFailure(cause -&gt; infoPrinter.printError(cause));</span>
 
-        try {
-<span class="nc" id="L75">            doEverything(infoPrinter, _options.args);</span>
-<span class="nc" id="L76">        } catch ( CliException e ) {</span>
-<span class="nc" id="L77">            error = e;</span>
-<span class="nc" id="L78">        }</span>
+<span class="nc" id="L69">        final int exitStatus = bakeResult</span>
+<span class="nc" id="L70">                .map(x -&gt; EXIT_STATUS_OK)</span>
+<span class="nc" id="L71">                .recover(x -&gt; EXIT_STATUS_FAILURE)</span>
+<span class="nc" id="L72">                .get();</span>
 
-        final int exitStatus;
-
-<span class="nc bnc" id="L82" title="All 2 branches missed.">        if ( error != null ) {</span>
-<span class="nc" id="L83">            infoPrinter.printError(error);</span>
-<span class="nc" id="L84">            exitStatus = EXIT_STATUS_FAILURE;</span>
-        } else {
-<span class="nc" id="L86">            exitStatus = EXIT_STATUS_OK;</span>
-        }
-
-<span class="nc" id="L89">        return exitStatus;</span>
+<span class="nc" id="L74">        return exitStatus;</span>
     }
 
 
@@ -97,135 +82,73 @@ public final class BakerCli {
             final String argv0,
             final OutputStream output) {
 
-<span class="nc" id="L100">        final boolean autoFlush = true;</span>
-<span class="nc" id="L101">        final Writer stdoutWriter = new OutputStreamWriter(output, StandardCharsets.UTF_8);</span>
-<span class="nc" id="L102">        final PrintWriter stdout = new PrintWriter(stdoutWriter, autoFlush);</span>
+<span class="nc" id="L85">        final boolean autoFlush = true;</span>
+<span class="nc" id="L86">        final Writer stdoutWriter = new OutputStreamWriter(output, StandardCharsets.UTF_8);</span>
+<span class="nc" id="L87">        final PrintWriter stdout = new PrintWriter(stdoutWriter, autoFlush);</span>
 
-<span class="nc" id="L104">        return InfoPrinter.builder()</span>
-<span class="nc" id="L105">                .argv0(argv0)</span>
-<span class="nc" id="L106">                .output(stdout)</span>
-<span class="nc" id="L107">                .build();</span>
+<span class="nc" id="L89">        return InfoPrinter.builder()</span>
+<span class="nc" id="L90">                .argv0(argv0)</span>
+<span class="nc" id="L91">                .output(stdout)</span>
+<span class="nc" id="L92">                .build();</span>
     }
 
 
     /**
      *
      */
-    private void doEverything(
+    private Try&lt;Void&gt; tryRun(
             final InfoPrinter infoPrinter,
-            final String[] args)
-            throws CliException {
+            final String[] args) {
 
-<span class="nc bnc" id="L119" title="All 2 branches missed.">        if ( args.length == 0 ) {</span>
-<span class="nc" id="L120">            infoPrinter.printHelp();</span>
-        } else {
-<span class="nc" id="L122">            final CliParameterSet cliOptions = BakerCliParameters.parse(args);</span>
-
-<span class="nc bnc" id="L124" title="All 2 branches missed.">            if ( cliOptions.hasOption(BakerCliParameters.HELP) ) {</span>
-<span class="nc" id="L125">                infoPrinter.printHelp();</span>
-<span class="nc bnc" id="L126" title="All 2 branches missed.">            } else if ( cliOptions.hasOption(BakerCliParameters.VERSION) ) {</span>
-<span class="nc" id="L127">                infoPrinter.printVersion();</span>
-            } else {
-<span class="nc" id="L129">                final Try&lt;Void&gt; result = doBake(cliOptions);</span>
-
-<span class="nc bnc" id="L131" title="All 2 branches missed.">                if ( result.isFailure() ) {</span>
-<span class="nc" id="L132">                    Throwable cause = result.getCause();</span>
-<span class="nc" id="L133">                    throw CliException.bakeFailure(cause);</span>
-                }
-            }
-        }
-<span class="nc" id="L137">    }</span>
-
-
-    /**
-     *
-     */
-    private Try&lt;Void&gt; doBake(final CliParameterSet cliOptions)
-            throws CliException {
-
-<span class="nc" id="L146">        final BakeOptions options = buildBakeOptions(cliOptions);</span>
-<span class="nc" id="L147">        final Option&lt;Path&gt; templatesDir = Option.of(</span>
-<span class="nc" id="L148">                cliOptions.getPath(BakerCliParameters.TEMPLATES_DIR, null));</span>
-<span class="nc" id="L149">        final SiteBaker siteBaker = templatesDir</span>
-<span class="nc" id="L150">                .map(path -&gt; DefaultSiteBaker.create(path))</span>
-<span class="nc" id="L151">                .getOrElse(() -&gt; DefaultSiteBaker.create());</span>
-
-<span class="nc" id="L153">        logParameters(options, templatesDir);</span>
-
-<span class="nc" id="L155">        return Try.run(() -&gt; siteBaker.bake(options));</span>
+<span class="nc" id="L103">        return BakerCliAction.parse(args)</span>
+<span class="nc" id="L104">                .flatMap(action -&gt; performAction(infoPrinter, action));</span>
     }
 
 
-    private void logParameters(
-            final BakeOptions options,
-            final Option&lt;Path&gt; optionTemplatesDir) {
+    private Try&lt;Void&gt; performAction(
+            final InfoPrinter infoPrinter,
+            final BakerCliAction action) {
 
-<span class="nc" id="L163">        final Path sourceDir = options.sourceDir();</span>
-<span class="nc" id="L164">        final Path targetDir = options.targetDir();</span>
-<span class="nc" id="L165">        final String templatesDir = optionTemplatesDir.map(Path::toString).getOrElse(&quot;NONE&quot;);</span>
-<span class="nc" id="L166">        final String assetsDir = options.assetsDir().map(Path::toString).orElse(&quot;NONE&quot;);</span>
-
-<span class="nc" id="L168">        _log.info(&quot;{0} {1}&quot;, YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);</span>
-<span class="nc" id="L169">        _log.info(&quot;    Source    : {0}&quot;, sourceDir);</span>
-<span class="nc" id="L170">        _log.info(&quot;    Target    : {0}&quot;, targetDir);</span>
-<span class="nc" id="L171">        _log.info(&quot;    Templates : {0}&quot;, templatesDir);</span>
-<span class="nc" id="L172">        _log.info(&quot;    Assets    : {0}&quot;, assetsDir);</span>
-<span class="nc" id="L173">    }</span>
-
-
-    /**
-     *
-     */
-    private static BakeOptions buildBakeOptions(final CliParameterSet cliOptions)
-            throws CliException {
-
-<span class="nc" id="L182">        final Path sourceDir = cliOptions.getPath(BakerCliParameters.SOURCE_DIR);</span>
-<span class="nc" id="L183">        final Path targetDir = cliOptions.getPath(BakerCliParameters.TARGET_DIR);</span>
-<span class="nc" id="L184">        final Path assetsDir = cliOptions.getPath(BakerCliParameters.ASSETS_DIR, null);</span>
-<span class="nc" id="L185">        final java.util.Map&lt;String,Object&gt; externalPageVars = buildExternalPageVars(cliOptions);</span>
-
-<span class="nc" id="L187">        return BakeOptions.builder()</span>
-<span class="nc" id="L188">                .sourceDir(sourceDir)</span>
-<span class="nc" id="L189">                .targetDir(targetDir)</span>
-<span class="nc" id="L190">                .assetsDir(Optional.ofNullable(assetsDir))</span>
-<span class="nc" id="L191">                .putAllExternalPageVars(externalPageVars)</span>
-<span class="nc" id="L192">                .build();</span>
+<span class="nc" id="L112">        return action.match(</span>
+<span class="nc" id="L113">                () -&gt; Try.run(infoPrinter::printHelp),</span>
+<span class="nc" id="L114">                () -&gt; Try.run(infoPrinter::printVersion),</span>
+<span class="nc" id="L115">                bake -&gt; doBake(bake.options));</span>
     }
 
 
-    /**
-     *
-     */
-    private static java.util.Map&lt;String,Object&gt; buildExternalPageVars(
-            final CliParameterSet cliOptions) {
+    private Try&lt;Void&gt; doBake(final BakerCliBakeOptions options) {
 
-<span class="nc" id="L202">        return cliOptions</span>
-<span class="nc" id="L203">                .getAll(BakerCliParameters.PAGE_VAR)</span>
-<span class="nc" id="L204">                .map(BakerCli::getVarNameAndValueFromOptionValue)</span>
-<span class="nc" id="L205">                .foldLeft(</span>
-                        new java.util.HashMap&lt;&gt;(),
-<span class="nc" id="L207">                        (map, t) -&gt; { map.put(t._1, t._2); return map; });</span>
+<span class="nc" id="L121">        logOptions(options);</span>
+
+<span class="nc" id="L123">        final SiteBaker siteBaker = options.templatesDir()</span>
+<span class="nc" id="L124">                .map(path -&gt; DefaultSiteBaker.create(path))</span>
+<span class="nc" id="L125">                .getOrElse(() -&gt; DefaultSiteBaker.create());</span>
+
+<span class="nc" id="L127">        final BakeOptions bakeOptions = BakeOptions.builder()</span>
+<span class="nc" id="L128">                .sourceDir(options.sourceDir())</span>
+<span class="nc" id="L129">                .targetDir(options.targetDir())</span>
+<span class="nc" id="L130">                .assetsDir(options.assetsDir().toJavaOptional())</span>
+<span class="nc" id="L131">                .putAllExternalPageVars(options.externalPageVars().toJavaMap())</span>
+<span class="nc" id="L132">                .build();</span>
+
+<span class="nc" id="L134">        return Try.run(() -&gt; siteBaker.bake(bakeOptions))</span>
+<span class="nc" id="L135">                .recoverWith(cause -&gt; Try.failure(CliException.bakeFailure(cause)));</span>
     }
 
 
-    private static Tuple2&lt;String,String&gt; getVarNameAndValueFromOptionValue(
-            final String optionValue) {
+    private void logOptions(final BakerCliBakeOptions options) {
 
-        final String varName;
-        final String varValue;
-<span class="nc" id="L216">        final int indexOfEqSign = optionValue.indexOf('=');</span>
+<span class="nc" id="L141">        final Path sourceDir = options.sourceDir();</span>
+<span class="nc" id="L142">        final Path targetDir = options.targetDir();</span>
+<span class="nc" id="L143">        final String templatesDir = options.templatesDir().map(Path::toString).getOrElse(&quot;NONE&quot;);</span>
+<span class="nc" id="L144">        final String assetsDir = options.assetsDir().map(Path::toString).getOrElse(&quot;NONE&quot;);</span>
 
-<span class="nc bnc" id="L218" title="All 2 branches missed.">        if ( indexOfEqSign &lt; 0 ) {</span>
-<span class="nc" id="L219">            varName = optionValue;</span>
-<span class="nc" id="L220">            varValue = &quot;&quot;;</span>
-        } else {
-<span class="nc" id="L222">            varName = optionValue.substring(0, indexOfEqSign);</span>
-<span class="nc" id="L223">            varValue = optionValue.substring(indexOfEqSign+1);</span>
-        }
-
-<span class="nc" id="L226">        return Tuple.of(varName, varValue);</span>
-    }
-
+<span class="nc" id="L146">        _log.info(&quot;{0} {1}&quot;, YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);</span>
+<span class="nc" id="L147">        _log.info(&quot;    Source    : {0}&quot;, sourceDir);</span>
+<span class="nc" id="L148">        _log.info(&quot;    Target    : {0}&quot;, targetDir);</span>
+<span class="nc" id="L149">        _log.info(&quot;    Templates : {0}&quot;, templatesDir);</span>
+<span class="nc" id="L150">        _log.info(&quot;    Assets    : {0}&quot;, assetsDir);</span>
+<span class="nc" id="L151">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
