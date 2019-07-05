@@ -46,21 +46,21 @@ function findJre () {
     if [ -z "${candidateJre}" ] ; then
         if [ ! -z "${YAWG_JAVA_HOME}" ] ; then
             candidateJre=${YAWG_JAVA_HOME}/bin/java
-            checkJre YAWG_JAVA_HOME ${candidateJre}
+            checkJre YAWG_JAVA_HOME "${candidateJre}"
         fi
     fi
 
     if [ -z "${candidateJre}" ] ; then
         if [ ! -z "${JAVA_HOME}" ] ; then
             candidateJre=${JAVA_HOME}/bin/java
-            checkJre JAVA_HOME ${candidateJre}
+            checkJre JAVA_HOME "${candidateJre}"
         fi
     fi
 
     if [ -z "${candidateJre}" ] ; then
         if type java > /dev/null 2>&1 ; then
             candidateJre="java"
-            checkJre PATH ${candidateJre}
+            checkJre PATH "${candidateJre}"
         fi
     fi
 
