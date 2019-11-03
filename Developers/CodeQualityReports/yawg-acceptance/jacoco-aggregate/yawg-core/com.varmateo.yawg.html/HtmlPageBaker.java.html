@@ -16,7 +16,6 @@ import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.Template;
 import com.varmateo.yawg.spi.TemplateContext;
-import com.varmateo.yawg.util.Exceptions;
 import com.varmateo.yawg.util.FileUtils;
 
 
@@ -30,14 +29,14 @@ public final class HtmlPageBaker
 
     private static final String NAME = &quot;html&quot;;
 
-<span class="fc" id="L33">    private static final Pattern RE_HTML = Pattern.compile(&quot;.*\\.html$&quot;);</span>
+<span class="fc" id="L32">    private static final Pattern RE_HTML = Pattern.compile(&quot;.*\\.html$&quot;);</span>
 
     private static final String TARGET_EXTENSION = &quot;.html&quot;;
 
 
-<span class="fc" id="L38">    private HtmlPageBaker() {</span>
+<span class="fc" id="L37">    private HtmlPageBaker() {</span>
         // Nothing to do.
-<span class="fc" id="L40">    }</span>
+<span class="fc" id="L39">    }</span>
 
 
     /**
@@ -45,7 +44,7 @@ public final class HtmlPageBaker
      */
     public static PageBaker create() {
 
-<span class="fc" id="L48">        return new HtmlPageBaker();</span>
+<span class="fc" id="L47">        return new HtmlPageBaker();</span>
     }
 
 
@@ -55,7 +54,7 @@ public final class HtmlPageBaker
     @Override
     public String shortName() {
 
-<span class="fc" id="L58">        return NAME;</span>
+<span class="fc" id="L57">        return NAME;</span>
     }
 
 
@@ -74,7 +73,7 @@ public final class HtmlPageBaker
     @Override
     public boolean isBakeable(final Path path) {
 
-<span class="fc" id="L77">        return FileUtils.isNameMatch(path, RE_HTML);</span>
+<span class="fc" id="L76">        return FileUtils.isNameMatch(path, RE_HTML);</span>
     }
 
 
@@ -105,17 +104,11 @@ public final class HtmlPageBaker
             throws YawgException {
 
         try {
-<span class="fc" id="L108">            doBake(sourcePath, context, targetDir);</span>
-<span class="nc" id="L109">        } catch ( IOException e ) {</span>
-<span class="nc" id="L110">            Exceptions.raise(</span>
-                    e,
-                    &quot;Failed {0} on {1} - {2} - {3}&quot;,
-                    NAME,
-                    sourcePath,
-<span class="nc" id="L115">                    e.getClass().getSimpleName(),</span>
-<span class="nc" id="L116">                    e.getMessage());</span>
-<span class="fc" id="L117">        }</span>
-<span class="fc" id="L118">    }</span>
+<span class="fc" id="L107">            doBake(sourcePath, context, targetDir);</span>
+<span class="nc" id="L108">        } catch ( IOException e ) {</span>
+<span class="nc" id="L109">            throw HtmlPageBakerException.bakeFailure(sourcePath, targetDir, e);</span>
+<span class="fc" id="L110">        }</span>
+<span class="fc" id="L111">    }</span>
 
 
     /**
@@ -127,15 +120,15 @@ public final class HtmlPageBaker
             final Path targetDir)
             throws IOException {
 
-<span class="fc" id="L130">        final Path targetPath = getTargetPath(sourcePath, targetDir);</span>
-<span class="fc" id="L131">        final Optional&lt;Template&gt; template = context.templateFor(sourcePath);</span>
+<span class="fc" id="L123">        final Path targetPath = getTargetPath(sourcePath, targetDir);</span>
+<span class="fc" id="L124">        final Optional&lt;Template&gt; template = context.templateFor(sourcePath);</span>
 
-<span class="fc bfc" id="L133" title="All 2 branches covered.">        if ( template.isPresent() ) {</span>
-<span class="fc" id="L134">            doBakeWithTemplate(sourcePath, context, targetPath, template.get());</span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">        if ( template.isPresent() ) {</span>
+<span class="fc" id="L127">            doBakeWithTemplate(sourcePath, context, targetPath, template.get());</span>
         } else {
-<span class="fc" id="L136">            doBakeWithoutTemplate(sourcePath, targetPath);</span>
+<span class="fc" id="L129">            doBakeWithoutTemplate(sourcePath, targetPath);</span>
         }
-<span class="fc" id="L138">    }</span>
+<span class="fc" id="L131">    }</span>
 
 
     /**
@@ -145,10 +138,10 @@ public final class HtmlPageBaker
             final Path sourcePath,
             final Path targetDir) {
 
-<span class="fc" id="L148">        final String sourceBasename = FileUtils.basename(sourcePath);</span>
-<span class="fc" id="L149">        final String targetName = sourceBasename + TARGET_EXTENSION;</span>
+<span class="fc" id="L141">        final String sourceBasename = FileUtils.basename(sourcePath);</span>
+<span class="fc" id="L142">        final String targetName = sourceBasename + TARGET_EXTENSION;</span>
 
-<span class="fc" id="L151">        return targetDir.resolve(targetName);</span>
+<span class="fc" id="L144">        return targetDir.resolve(targetName);</span>
     }
 
 
@@ -161,8 +154,8 @@ public final class HtmlPageBaker
             final Path targetPath)
             throws IOException {
 
-<span class="fc" id="L164">        FileUtils.copy(sourcePath, targetPath);</span>
-<span class="fc" id="L165">    }</span>
+<span class="fc" id="L157">        FileUtils.copy(sourcePath, targetPath);</span>
+<span class="fc" id="L158">    }</span>
 
 
     /**
@@ -175,13 +168,13 @@ public final class HtmlPageBaker
             final Template template)
             throws IOException {
 
-<span class="fc" id="L178">        final TemplateContext templateContext = HtmlTemplateContext.create(</span>
+<span class="fc" id="L171">        final TemplateContext templateContext = HtmlTemplateContext.create(</span>
                 sourcePath, targetPath, context);
 
-<span class="fc" id="L181">        FileUtils.newWriter(</span>
+<span class="fc" id="L174">        FileUtils.newWriter(</span>
                 targetPath,
-<span class="fc" id="L183">                writer -&gt; template.process(templateContext, writer));</span>
-<span class="fc" id="L184">    }</span>
+<span class="fc" id="L176">                writer -&gt; template.process(templateContext, writer));</span>
+<span class="fc" id="L177">    }</span>
 
 
 }

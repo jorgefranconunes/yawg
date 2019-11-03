@@ -12,7 +12,6 @@ import java.nio.file.Path;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.PageContext;
-import com.varmateo.yawg.util.Exceptions;
 import com.varmateo.yawg.util.FileUtils;
 
 
@@ -30,10 +29,10 @@ import com.varmateo.yawg.util.FileUtils;
     /**
      * 
      */
-<span class="nc" id="L33">    CopyPageBaker() {</span>
+<span class="nc" id="L32">    CopyPageBaker() {</span>
 
         // Nothing to do.
-<span class="nc" id="L36">    }</span>
+<span class="nc" id="L35">    }</span>
 
 
     /**
@@ -42,7 +41,7 @@ import com.varmateo.yawg.util.FileUtils;
     @Override
     public String shortName() {
 
-<span class="nc" id="L45">        return NAME;</span>
+<span class="nc" id="L44">        return NAME;</span>
     }
 
 
@@ -54,7 +53,7 @@ import com.varmateo.yawg.util.FileUtils;
      */
     public boolean isBakeable(final Path path) {
 
-<span class="nc" id="L57">        return true;</span>
+<span class="nc" id="L56">        return true;</span>
     }
 
 
@@ -82,16 +81,11 @@ import com.varmateo.yawg.util.FileUtils;
             throws YawgException {
 
         try {
-<span class="nc" id="L85">            doBake(sourcePath, targetDir);</span>
-<span class="nc" id="L86">        } catch ( IOException e ) {</span>
-<span class="nc" id="L87">            throw Exceptions.raise(</span>
-                    e,
-                    &quot;Failed copying {0} - {1} - {2}&quot;,
-                    sourcePath,
-<span class="nc" id="L91">                    e.getClass().getSimpleName(),</span>
-<span class="nc" id="L92">                    e.getMessage());</span>
-<span class="nc" id="L93">        }</span>
-<span class="nc" id="L94">    }</span>
+<span class="nc" id="L84">            doBake(sourcePath, targetDir);</span>
+<span class="nc" id="L85">        } catch ( IOException e ) {</span>
+<span class="nc" id="L86">            throw CopyPageBakerException.copyFailure(sourcePath, targetDir, e);</span>
+<span class="nc" id="L87">        }</span>
+<span class="nc" id="L88">    }</span>
 
 
     /**
@@ -102,11 +96,11 @@ import com.varmateo.yawg.util.FileUtils;
             final Path targetDir)
             throws IOException {
 
-<span class="nc" id="L105">        Path sourceBasename = sourcePath.getFileName();</span>
-<span class="nc" id="L106">        Path targetPath = targetDir.resolve(sourceBasename);</span>
+<span class="nc" id="L99">        Path sourceBasename = sourcePath.getFileName();</span>
+<span class="nc" id="L100">        Path targetPath = targetDir.resolve(sourceBasename);</span>
 
-<span class="nc" id="L108">        FileUtils.copy(sourcePath, targetPath);</span>
-<span class="nc" id="L109">    }</span>
+<span class="nc" id="L102">        FileUtils.copy(sourcePath, targetPath);</span>
+<span class="nc" id="L103">    }</span>
 
 
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>DirBaker.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">DirBaker.java</span></div><h1>DirBaker.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2016-2018 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -9,6 +9,7 @@ package com.varmateo.yawg.core;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.function.Function;
 
 import io.vavr.collection.Seq;
 
@@ -18,7 +19,6 @@ import com.varmateo.yawg.logging.LogFactory;
 import com.varmateo.yawg.spi.DirBakeListener;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.TemplateService;
-import com.varmateo.yawg.util.Exceptions;
 
 
 /**
@@ -114,9 +114,10 @@ import com.varmateo.yawg.util.Exceptions;
 <span class="fc bfc" id="L114" title="All 2 branches covered.">        if ( !Files.exists(targetDir) ) {</span>
 <span class="fc" id="L115">            doIoAction(</span>
                     &quot;create directory&quot;,
-<span class="fc" id="L117">                    () -&gt; Files.createDirectory(targetDir));</span>
+<span class="fc" id="L117">                    () -&gt; Files.createDirectory(targetDir),</span>
+<span class="fc" id="L118">                    DirBakerException.directoryCreationFailure(targetDir));</span>
         }
-<span class="fc" id="L119">    }</span>
+<span class="fc" id="L120">    }</span>
 
 
     /**
@@ -126,11 +127,12 @@ import com.varmateo.yawg.util.Exceptions;
             final Path dir,
             final DirBakeOptions dirBakeOptions) {
 
-<span class="fc" id="L129">        final DirEntryScanner scanner = new DirEntryScanner(dirBakeOptions);</span>
+<span class="fc" id="L130">        final DirEntryScanner scanner = new DirEntryScanner(dirBakeOptions);</span>
 
-<span class="fc" id="L131">        return doIoAction(</span>
+<span class="fc" id="L132">        return doIoAction(</span>
                 &quot;list directory&quot;,
-<span class="fc" id="L133">                () -&gt; scanner.getDirEntries(dir));</span>
+<span class="fc" id="L134">                () -&gt; scanner.getDirEntries(dir),</span>
+<span class="fc" id="L135">                DirBakerException.directoryListFailure(dir));</span>
     }
 
 
@@ -144,12 +146,12 @@ import com.varmateo.yawg.util.Exceptions;
             final PageContext context)
             throws YawgException {
 
-<span class="fc" id="L147">        final Seq&lt;Path&gt; filePathList = dirEntries.filter(Files::isRegularFile);</span>
+<span class="fc" id="L149">        final Seq&lt;Path&gt; filePathList = dirEntries.filter(Files::isRegularFile);</span>
 
-<span class="fc bfc" id="L149" title="All 2 branches covered.">        for ( final Path path : filePathList ) {</span>
-<span class="fc" id="L150">            _fileBaker.bakeFile(path, context, targetDir, dirBakeOptions);</span>
-<span class="fc" id="L151">        }</span>
-<span class="fc" id="L152">    }</span>
+<span class="fc bfc" id="L151" title="All 2 branches covered.">        for ( final Path path : filePathList ) {</span>
+<span class="fc" id="L152">            _fileBaker.bakeFile(path, context, targetDir, dirBakeOptions);</span>
+<span class="fc" id="L153">        }</span>
+<span class="fc" id="L154">    }</span>
 
 
     /**
@@ -160,15 +162,15 @@ import com.varmateo.yawg.util.Exceptions;
             final Path targetDir,
             final DirBakerContext context) {
 
-<span class="fc" id="L163">        final Seq&lt;Path&gt; dirPathList = dirEntries.filter(Files::isDirectory);</span>
+<span class="fc" id="L165">        final Seq&lt;Path&gt; dirPathList = dirEntries.filter(Files::isDirectory);</span>
 
-<span class="fc bfc" id="L165" title="All 2 branches covered.">        for ( final Path childSourceDir : dirPathList ) {</span>
-<span class="fc" id="L166">            final Path dirBasename = childSourceDir.getFileName();</span>
-<span class="fc" id="L167">            final Path childTargetDir = targetDir.resolve(dirBasename);</span>
+<span class="fc bfc" id="L167" title="All 2 branches covered.">        for ( final Path childSourceDir : dirPathList ) {</span>
+<span class="fc" id="L168">            final Path dirBasename = childSourceDir.getFileName();</span>
+<span class="fc" id="L169">            final Path childTargetDir = targetDir.resolve(dirBasename);</span>
 
-<span class="fc" id="L169">            doBakeDirectory(childSourceDir, childTargetDir, context);</span>
-<span class="fc" id="L170">        }</span>
-<span class="fc" id="L171">    }</span>
+<span class="fc" id="L171">            doBakeDirectory(childSourceDir, childTargetDir, context);</span>
+<span class="fc" id="L172">        }</span>
+<span class="fc" id="L173">    }</span>
 
 
     /**
@@ -179,14 +181,14 @@ import com.varmateo.yawg.util.Exceptions;
             final Path targetDir,
             final DirBakerContext context) {
 
-<span class="fc" id="L182">        final Seq&lt;Path&gt; extraDirPathList = context.dirBakeOptions()</span>
+<span class="fc" id="L184">        final Seq&lt;Path&gt; extraDirPathList = context.dirBakeOptions()</span>
                 .extraDirsHere
-<span class="fc" id="L184">                .map(path -&gt; sourceDir.resolve(path));</span>
+<span class="fc" id="L186">                .map(path -&gt; sourceDir.resolve(path));</span>
 
-<span class="fc bfc" id="L186" title="All 2 branches covered.">        for ( final Path extraSourceDir : extraDirPathList ) {</span>
-<span class="fc" id="L187">            doBakeDirectory(extraSourceDir, targetDir, context);</span>
-<span class="fc" id="L188">        }</span>
-<span class="fc" id="L189">    }</span>
+<span class="fc bfc" id="L188" title="All 2 branches covered.">        for ( final Path extraSourceDir : extraDirPathList ) {</span>
+<span class="fc" id="L189">            doBakeDirectory(extraSourceDir, targetDir, context);</span>
+<span class="fc" id="L190">        }</span>
+<span class="fc" id="L191">    }</span>
 
 
     /**
@@ -195,23 +197,19 @@ import com.varmateo.yawg.util.Exceptions;
      */
     private &lt;T&gt; T doIoAction(
             final String description,
-            final IoSupplier&lt;T&gt; supplier)
+            final IoSupplier&lt;T&gt; supplier,
+            final Function&lt;IOException, DirBakerException&gt; exceptionBuilder)
             throws YawgException {
 
         final T result;
 
         try {
-<span class="fc" id="L204">            result = supplier.get();</span>
-<span class="fc" id="L205">        } catch ( IOException e ) {</span>
-<span class="pc" id="L206">            throw Exceptions.raise(</span>
-                    e,
-                    &quot;Failed to {0} - {1} - {2}&quot;,
-                    description,
-<span class="fc" id="L210">                    e.getClass().getSimpleName(),</span>
-<span class="fc" id="L211">                    e.getMessage());</span>
-<span class="fc" id="L212">        }</span>
+<span class="fc" id="L207">            result = supplier.get();</span>
+<span class="fc" id="L208">        } catch ( IOException e ) {</span>
+<span class="fc" id="L209">            throw exceptionBuilder.apply(e);</span>
+<span class="fc" id="L210">        }</span>
 
-<span class="fc" id="L214">        return result;</span>
+<span class="fc" id="L212">        return result;</span>
     }
 
 

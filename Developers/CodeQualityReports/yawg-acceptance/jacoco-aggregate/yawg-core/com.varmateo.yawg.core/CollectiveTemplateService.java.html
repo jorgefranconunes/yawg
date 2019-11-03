@@ -16,8 +16,6 @@ import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.spi.Template;
 import com.varmateo.yawg.spi.TemplateService;
 
-import com.varmateo.yawg.util.Exceptions;
-
 
 /**
  * 
@@ -32,24 +30,23 @@ import com.varmateo.yawg.util.Exceptions;
     /**
      *
      */
-<span class="fc" id="L35">    CollectiveTemplateService(final Seq&lt;TemplateService&gt; services) {</span>
+<span class="fc" id="L33">    CollectiveTemplateService(final Seq&lt;TemplateService&gt; services) {</span>
 
-<span class="fc bfc" id="L37" title="All 2 branches covered.">        if ( services.isEmpty() ) {</span>
-<span class="fc" id="L38">            _templateFetcher = name -&gt; Optional.empty();</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        if ( services.isEmpty() ) {</span>
+<span class="fc" id="L36">            _templateFetcher = name -&gt; Optional.empty();</span>
         } else {
-<span class="fc" id="L40">            _templateFetcher = name -&gt; getTemplateFromServices(services, name);</span>
+<span class="fc" id="L38">            _templateFetcher = name -&gt; getTemplateFromServices(services, name);</span>
         }
-<span class="fc" id="L42">    }</span>
+<span class="fc" id="L40">    }</span>
 
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Optional&lt;Template&gt; getTemplate(final String name)
-            throws YawgException {
+    public Optional&lt;Template&gt; getTemplate(final String name) {
 
-<span class="fc" id="L52">        return _templateFetcher.apply(name);</span>
+<span class="fc" id="L49">        return _templateFetcher.apply(name);</span>
     }
 
 
@@ -61,18 +58,18 @@ import com.varmateo.yawg.util.Exceptions;
             final String name)
             throws YawgException {
 
-<span class="fc" id="L64">        final Option&lt;Template&gt; result = services</span>
-<span class="fc" id="L65">                .map(service -&gt; service.getTemplate(name))</span>
-<span class="fc" id="L66">                .map(Option::ofOptional)</span>
-<span class="fc" id="L67">                .filter(Option::isDefined)</span>
-<span class="fc" id="L68">                .map(Option::get)</span>
-<span class="fc" id="L69">                .headOption();</span>
+<span class="fc" id="L61">        final Option&lt;Template&gt; result = services</span>
+<span class="fc" id="L62">                .map(service -&gt; service.getTemplate(name))</span>
+<span class="fc" id="L63">                .map(Option::ofOptional)</span>
+<span class="fc" id="L64">                .filter(Option::isDefined)</span>
+<span class="fc" id="L65">                .map(Option::get)</span>
+<span class="fc" id="L66">                .headOption();</span>
 
-<span class="pc bpc" id="L71" title="1 of 2 branches missed.">        if ( !result.isDefined() ) {</span>
-<span class="nc" id="L72">            throw Exceptions.raise(&quot;Unsupported template format \&quot;{0}\&quot;&quot;, name);</span>
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">        if ( !result.isDefined() ) {</span>
+<span class="nc" id="L69">            throw CollectiveTemplateServiceException.unsupportedTemplateFormat(name);</span>
         }
 
-<span class="fc" id="L75">        return result.toJavaOptional();</span>
+<span class="fc" id="L72">        return result.toJavaOptional();</span>
     }
 
 

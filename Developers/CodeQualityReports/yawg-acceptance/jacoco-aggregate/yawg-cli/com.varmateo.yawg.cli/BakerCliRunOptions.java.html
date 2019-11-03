@@ -13,8 +13,7 @@ import io.vavr.collection.Seq;
 
 
 /**
- * Set of parameters requires to create a &lt;code&gt;BakerCli&lt;/code&gt;
- * instance.
+ * Set of parameters required to create a {@code BakerCli} instance.
  */
 public final class BakerCliRunOptions {
 
@@ -30,12 +29,12 @@ public final class BakerCliRunOptions {
     /**
      *
      */
-<span class="fc" id="L33">    private BakerCliRunOptions(final Builder builder) {</span>
+<span class="fc" id="L32">    private BakerCliRunOptions(final Builder builder) {</span>
 
-<span class="fc" id="L35">        argv0 = builder._argv0;</span>
-<span class="fc" id="L36">        args = builder._args.toJavaArray(String.class);</span>
-<span class="fc" id="L37">        output = builder._output;</span>
-<span class="fc" id="L38">    }</span>
+<span class="fc" id="L34">        argv0 = builder._argv0;</span>
+<span class="fc" id="L35">        args = builder._args.toJavaArray(String.class);</span>
+<span class="fc" id="L36">        output = builder._output;</span>
+<span class="fc" id="L37">    }</span>
 
 
     /**
@@ -46,7 +45,7 @@ public final class BakerCliRunOptions {
      */
     public static Builder builder() {
 
-<span class="fc" id="L49">        return new Builder();</span>
+<span class="fc" id="L48">        return new Builder();</span>
     }
 
 
@@ -64,12 +63,12 @@ public final class BakerCliRunOptions {
         /**
          *
          */
-<span class="fc" id="L67">        private Builder() {</span>
+<span class="fc" id="L66">        private Builder() {</span>
 
-<span class="fc" id="L69">            _argv0 = DEFAULT_ARGV0;</span>
-<span class="fc" id="L70">            _args = List.of();</span>
-<span class="fc" id="L71">            _output = System.out;</span>
-<span class="fc" id="L72">        }</span>
+<span class="fc" id="L68">            _argv0 = DEFAULT_ARGV0;</span>
+<span class="fc" id="L69">            _args = List.of();</span>
+<span class="fc" id="L70">            _output = System.out;</span>
+<span class="fc" id="L71">        }</span>
 
 
         /**
@@ -79,9 +78,9 @@ public final class BakerCliRunOptions {
          */
         public Builder argv0(final String argv0) {
 
-<span class="nc" id="L82">            _argv0 = argv0;</span>
+<span class="nc" id="L81">            _argv0 = argv0;</span>
 
-<span class="nc" id="L84">            return this;</span>
+<span class="nc" id="L83">            return this;</span>
         }
 
 
@@ -91,9 +90,9 @@ public final class BakerCliRunOptions {
          */
         public Builder addArgs(final String... args) {
 
-<span class="fc" id="L94">            _args = _args.appendAll(List.of(args));</span>
+<span class="fc" id="L93">            _args = _args.appendAll(List.of(args));</span>
 
-<span class="fc" id="L96">            return this;</span>
+<span class="fc" id="L95">            return this;</span>
         }
 
 
@@ -102,9 +101,9 @@ public final class BakerCliRunOptions {
          */
         public Builder output(final OutputStream output) {
 
-<span class="fc" id="L105">            _output = output;</span>
+<span class="fc" id="L104">            _output = output;</span>
 
-<span class="fc" id="L107">            return this;</span>
+<span class="fc" id="L106">            return this;</span>
         }
 
 
@@ -113,7 +112,7 @@ public final class BakerCliRunOptions {
          */
         public BakerCliRunOptions build() {
 
-<span class="fc" id="L116">            return new BakerCliRunOptions(this);</span>
+<span class="fc" id="L115">            return new BakerCliRunOptions(this);</span>
         }
 
 

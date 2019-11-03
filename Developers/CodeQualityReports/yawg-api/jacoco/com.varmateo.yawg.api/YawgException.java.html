@@ -11,14 +11,14 @@ package com.varmateo.yawg.api;
  * An exception signaling an abnormal occurence during a baking
  * related activity.
  */
-public final class YawgException
+public abstract class YawgException
     extends RuntimeException {
 
 
     /**
      * @param msg The exception message,
      */
-    public YawgException(final String msg) {
+    protected YawgException(final String msg) {
 
 <span class="nc" id="L23">        super(msg);</span>
 <span class="nc" id="L24">    }</span>
@@ -29,7 +29,7 @@ public final class YawgException
      *
      * @param cause The underlying cause of the abnormal occurence.
      */
-    public YawgException(
+    protected YawgException(
             final String msg,
             final Throwable cause) {
 
