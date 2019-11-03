@@ -6,10 +6,9 @@
 
 package com.varmateo.yawg.cli;
 
+import java.io.InputStream;
 import java.io.IOException;
 import java.util.logging.LogManager;
-
-import com.varmateo.yawg.util.FileUtils;
 
 
 /**
@@ -58,9 +57,9 @@ public final class Main {
     private static void setupLogging()
             throws IOException {
 
-        FileUtils.doWithConsumer(
-                () -> Main.class.getResourceAsStream("/logging.properties"),
-                input -> LogManager.getLogManager().readConfiguration(input));
+        try ( final InputStream input = Main.class.getResourceAsStream("/logging.properties") ) {
+            LogManager.getLogManager().readConfiguration(input);
+        }
     }
 
 

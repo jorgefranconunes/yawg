@@ -162,34 +162,6 @@ public final class FileUtils {
 
 
     /**
-     *
-     */
-    public static <R> R doWithFunction(
-            final SupplierWithIOException<InputStream> supplier,
-            final FunctionWithIOException<InputStream, R> transformer)
-    throws IOException {
-
-        try ( InputStream input = supplier.get() ) {
-            return transformer.apply(input);
-        }
-    }
-
-
-    /**
-     *
-     */
-    public static void doWithConsumer(
-            final SupplierWithIOException<InputStream> supplier,
-            final ConsumerWithIOException<InputStream> consumer)
-    throws IOException {
-
-        try ( InputStream input = supplier.get() ) {
-            consumer.accept(input);
-        }
-    }
-
-
-    /**
      * Similar to a <code>java.util.function.Consumer</code> but
      * throws <code>IOException</code>. Intended for simplifying the
      * use of lambdas when calling the <code>newWriter(...)</code>
