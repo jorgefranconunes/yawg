@@ -6,9 +6,7 @@
 
 package com.varmateo.yawg.commonmark;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -185,7 +183,7 @@ public final class CommonMarkPageBaker
 
         final String body = renderBody(sourcePath);
         final String contentTemplate = ""
-                + "<!DOCTYPE html>\n"
+                + "<!DOCTYPE html>%n"
                 + "<html><body>%s</body></html>";
         final String content = String.format(contentTemplate, body);
 

@@ -113,7 +113,6 @@ import com.varmateo.yawg.spi.TemplateService;
 
         if ( !Files.exists(targetDir) ) {
             doIoAction(
-                    "create directory",
                     () -> Files.createDirectory(targetDir),
                     DirBakerException.directoryCreationFailure(targetDir));
         }
@@ -130,7 +129,6 @@ import com.varmateo.yawg.spi.TemplateService;
         final DirEntryScanner scanner = new DirEntryScanner(dirBakeOptions);
 
         return doIoAction(
-                "list directory",
                 () -> scanner.getDirEntries(dir),
                 DirBakerException.directoryListFailure(dir));
     }
@@ -196,7 +194,6 @@ import com.varmateo.yawg.spi.TemplateService;
      * IOException to the unchecked YawgException.
      */
     private <T> T doIoAction(
-            final String description,
             final IoSupplier<T> supplier,
             final Function<IOException, DirBakerException> exceptionBuilder)
             throws YawgException {

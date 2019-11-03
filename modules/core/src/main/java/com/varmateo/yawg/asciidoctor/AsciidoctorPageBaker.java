@@ -8,7 +8,6 @@ package com.varmateo.yawg.asciidoctor;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.regex.Pattern;

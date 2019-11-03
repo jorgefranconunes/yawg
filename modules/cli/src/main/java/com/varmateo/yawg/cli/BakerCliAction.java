@@ -14,7 +14,7 @@ import io.vavr.control.Try;
 
 
 /**
- * ADR represeting one of the possible actions to be performed by the
+ * ADT representing one of the possible actions to be performed by the
  * CLI app.
  */
 /* default */ abstract class BakerCliAction {
@@ -177,11 +177,21 @@ import io.vavr.control.Try;
             extends BakerCliAction {
 
 
-        public final BakerCliBakeOptions options;
+        private final BakerCliBakeOptions _options;
 
 
         private Bake(final BakerCliBakeOptions options) {
-            this.options = options;
+
+            _options = options;
+        }
+
+
+        /**
+         *
+         */
+        public BakerCliBakeOptions options() {
+
+            return _options;
         }
 
 

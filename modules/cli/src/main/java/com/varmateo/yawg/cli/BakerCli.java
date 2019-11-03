@@ -12,11 +12,7 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
-import java.util.Optional;
 
-import io.vavr.Tuple;
-import io.vavr.Tuple2;
-import io.vavr.control.Option;
 import io.vavr.control.Try;
 
 import com.varmateo.yawg.api.BakeOptions;
@@ -112,7 +108,7 @@ public final class BakerCli {
         return action.match(
                 () -> Try.run(infoPrinter::printHelp),
                 () -> Try.run(infoPrinter::printVersion),
-                bake -> doBake(bake.options));
+                bake -> doBake(bake.options()));
     }
 
 

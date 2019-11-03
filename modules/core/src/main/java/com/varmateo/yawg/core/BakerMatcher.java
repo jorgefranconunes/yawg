@@ -67,8 +67,8 @@ import com.varmateo.yawg.util.GlobMatcher;
     public Option<String> bakerTypeFor(final Path path) {
 
         return _bakerTypes
-                .filter(entry -> entry.matcher.test(path))
-                .map(entry -> entry.mapType)
+                .filter(entry -> entry.matcher().test(path))
+                .map(Entry::mapType)
                 .headOption();
     }
 
@@ -82,8 +82,8 @@ import com.varmateo.yawg.util.GlobMatcher;
     public String toString() {
 
         return _bakerTypes
-                .sorted((o1, o2) -> o1.mapType.compareTo(o2.mapType))
-                .map(e -> e.mapType + ":" + e.matcher.toString())
+                .sorted((o1, o2) -> o1.mapType().compareTo(o2.mapType()))
+                .map(e -> e.mapType() + ":" + e.matcher().toString())
                 .mkString(";");
     }
 
@@ -94,8 +94,8 @@ import com.varmateo.yawg.util.GlobMatcher;
     private static final class Entry {
 
 
-        public final String mapType;
-        public final GlobMatcher matcher;
+        public final String _mapType;
+        public final GlobMatcher _matcher;
 
 
         /**
@@ -105,8 +105,26 @@ import com.varmateo.yawg.util.GlobMatcher;
                 final String mapType,
                 final GlobMatcher matcher) {
 
-            this.mapType = mapType;
-            this.matcher = matcher;
+            _mapType = mapType;
+            _matcher = matcher;
+        }
+
+
+        /**
+         *
+         */
+        public String mapType() {
+
+            return _mapType;
+        }
+
+
+        /**
+         *
+         */
+        public GlobMatcher matcher() {
+
+            return _matcher;
         }
 
 
@@ -137,7 +155,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         private Builder(final BakerMatcher data) {
 
             _bakerTypes = HashMap.ofEntries(
-                    data._bakerTypes.map(e -> Tuple.of(e.mapType, e.matcher)));
+                    data._bakerTypes.map(e -> Tuple.of(e.mapType(), e.matcher())));
         }
 
 
@@ -186,7 +204,7 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public Builder addBakerTypes(final BakerMatcher that) {
 
-            that._bakerTypes.forEach(e -> addBakerType(e.mapType, e.matcher));
+            that._bakerTypes.forEach(e -> addBakerType(e.mapType(), e.matcher()));
 
             return this;
         }

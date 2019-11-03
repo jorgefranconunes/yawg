@@ -16,7 +16,7 @@ import org.junit.runners.model.Statement;
  */
 public final class LogStartAndEndRule implements TestRule {
 
-    private static final String MSG_START = "\n>>>>>> START - %s <<<<<<";
+    private static final String MSG_START = "%n>>>>>> START - %s <<<<<<";
     private static final String MSG_END = ">>>>>> END - %s (%.3f ms) <<<<<<";
 
     /**
@@ -25,11 +25,12 @@ public final class LogStartAndEndRule implements TestRule {
     @Override
     public Statement apply(
             final Statement base,
-            final Description description)
-    {
+            final Description description) {
+
         return new Statement() {
             @Override
-            public void evaluate() throws Throwable {
+            public void evaluate()
+                    throws Throwable {
                 runTest(base, description);
             }
         };
@@ -38,8 +39,9 @@ public final class LogStartAndEndRule implements TestRule {
 
     private void runTest(
             final Statement base,
-            final Description description) throws Throwable
-    {
+            final Description description)
+            throws Throwable {
+
         long startTime = System.nanoTime();
         String testName = description.getMethodName();
         Throwable error = null;

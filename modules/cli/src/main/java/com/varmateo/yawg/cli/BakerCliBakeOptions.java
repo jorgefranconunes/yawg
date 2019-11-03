@@ -39,7 +39,7 @@ import org.inferred.freebuilder.FreeBuilder;
     /**
      *
      */
-    static final class Builder extends BakerCliBakeOptions_Builder {
+    final class Builder extends BakerCliBakeOptions_Builder {
 
         private Builder() {
             // Nothing to do.

@@ -29,7 +29,7 @@ public final class FileBakerException
 
         final String msg = String.format("Unknown baker type \"%s\"", bakerType);
 
-        return new FileBakerException(bakerType);
+        return new FileBakerException(msg);
     }
 
 }

@@ -10,11 +10,9 @@ import java.io.PrintWriter;
 import java.text.MessageFormat;
 
 import io.vavr.collection.Set;
-
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 
-import com.varmateo.yawg.cli.CliException;
 import com.varmateo.yawg.cli.CliParameter;
 
 
