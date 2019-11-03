@@ -23,7 +23,6 @@ import com.varmateo.yawg.freemarker.FreemarkerDataModel;
 import com.varmateo.yawg.spi.Template;
 import com.varmateo.yawg.spi.TemplateContext;
 import com.varmateo.yawg.spi.TemplateService;
-import com.varmateo.yawg.util.Exceptions;
 
 
 /**
@@ -60,12 +59,7 @@ public final class FreemarkerTemplateService
         try {
             fmConfig = buildConfiguration(templatesDir);
         } catch ( IOException e ) {
-            throw Exceptions.raise(
-                    e,
-                    "Failed to initialize {0} - {1} - {2}",
-                    FreemarkerTemplateService.class.getSimpleName(),
-                    e.getClass().getSimpleName(),
-                    e.getMessage());
+            throw FreemarkerTemplateServiceException.initializationFailure(templatesDir, e);
         }
 
         return new FreemarkerTemplateService(fmConfig);
@@ -118,12 +112,7 @@ public final class FreemarkerTemplateService
         try {
             fmTemplate = _fmConfig.getTemplate(name);
         } catch ( IOException e ) {
-            Exceptions.raise(
-                    e,
-                    "Failed to fetch template \"{0}\" - {1} - {2}",
-                    name,
-                    e.getClass().getSimpleName(),
-                    e.getMessage());
+            throw FreemarkerTemplateServiceException.templateFetchFailure(name, e);
         }
 
         return fmTemplate;
@@ -163,12 +152,8 @@ public final class FreemarkerTemplateService
             try {
                 _fmTemplate.process(fmDataModel, writer);
             } catch ( TemplateException | IOException e ) {
-                Exceptions.raise(
-                        e,
-                        "Failed to process template \"{0}\" - {1} - {2}",
-                        _fmTemplate.getName(),
-                        e.getClass().getSimpleName(),
-                        e.getMessage());
+                throw FreemarkerTemplateServiceException.templateProcessingFailure(
+                        _fmTemplate.getName(), e);
             }
         }
 

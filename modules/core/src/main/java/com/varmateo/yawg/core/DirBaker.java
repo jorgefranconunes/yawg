@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2018 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -9,6 +9,7 @@ package com.varmateo.yawg.core;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.function.Function;
 
 import io.vavr.collection.Seq;
 
@@ -18,7 +19,6 @@ import com.varmateo.yawg.logging.LogFactory;
 import com.varmateo.yawg.spi.DirBakeListener;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.TemplateService;
-import com.varmateo.yawg.util.Exceptions;
 
 
 /**
@@ -114,7 +114,8 @@ import com.varmateo.yawg.util.Exceptions;
         if ( !Files.exists(targetDir) ) {
             doIoAction(
                     "create directory",
-                    () -> Files.createDirectory(targetDir));
+                    () -> Files.createDirectory(targetDir),
+                    DirBakerException.directoryCreationFailure(targetDir));
         }
     }
 
@@ -130,7 +131,8 @@ import com.varmateo.yawg.util.Exceptions;
 
         return doIoAction(
                 "list directory",
-                () -> scanner.getDirEntries(dir));
+                () -> scanner.getDirEntries(dir),
+                DirBakerException.directoryListFailure(dir));
     }
 
 
@@ -195,7 +197,8 @@ import com.varmateo.yawg.util.Exceptions;
      */
     private <T> T doIoAction(
             final String description,
-            final IoSupplier<T> supplier)
+            final IoSupplier<T> supplier,
+            final Function<IOException, DirBakerException> exceptionBuilder)
             throws YawgException {
 
         final T result;
@@ -203,12 +206,7 @@ import com.varmateo.yawg.util.Exceptions;
         try {
             result = supplier.get();
         } catch ( IOException e ) {
-            throw Exceptions.raise(
-                    e,
-                    "Failed to {0} - {1} - {2}",
-                    description,
-                    e.getClass().getSimpleName(),
-                    e.getMessage());
+            throw exceptionBuilder.apply(e);
         }
 
         return result;

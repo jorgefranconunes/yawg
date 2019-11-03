@@ -12,7 +12,6 @@ import java.nio.file.Path;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.PageContext;
-import com.varmateo.yawg.util.Exceptions;
 import com.varmateo.yawg.util.FileUtils;
 
 
@@ -84,12 +83,7 @@ import com.varmateo.yawg.util.FileUtils;
         try {
             doBake(sourcePath, targetDir);
         } catch ( IOException e ) {
-            throw Exceptions.raise(
-                    e,
-                    "Failed copying {0} - {1} - {2}",
-                    sourcePath,
-                    e.getClass().getSimpleName(),
-                    e.getMessage());
+            throw CopyPageBakerException.copyFailure(sourcePath, targetDir, e);
         }
     }
 

@@ -12,7 +12,6 @@ import java.io.Writer;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.spi.Template;
 import com.varmateo.yawg.spi.TemplateContext;
-import com.varmateo.yawg.util.Exceptions;
 
 
 /**
@@ -34,11 +33,31 @@ public final class MockTemplate
         try {
             output.write(model.body());
         } catch ( IOException e ) {
-            Exceptions.raise(
-                    e,
-                    "Failed to write page - {0} - {1}",
-                    e.getClass().getName(),
-                    e.getMessage());
+            throw MockTemplateException.failure(e);
+        }
+    }
+
+
+    private static final class MockTemplateException
+            extends YawgException {
+
+
+        private MockTemplateException(
+                final String msg,
+                final Throwable cause) {
+
+            super(msg, cause);
+        }
+
+
+        public static MockTemplateException failure(final IOException cause) {
+
+            final String msg = String.format(
+                    "Failed to write page - %s - %s",
+                    cause.getClass().getName(),
+                    cause.getMessage());
+
+            return new MockTemplateException(msg, cause);
         }
     }
 

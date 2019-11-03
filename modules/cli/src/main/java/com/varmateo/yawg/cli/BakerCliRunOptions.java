@@ -13,8 +13,7 @@ import io.vavr.collection.Seq;
 
 
 /**
- * Set of parameters requires to create a <code>BakerCli</code>
- * instance.
+ * Set of parameters required to create a {@code BakerCli} instance.
  */
 public final class BakerCliRunOptions {
 

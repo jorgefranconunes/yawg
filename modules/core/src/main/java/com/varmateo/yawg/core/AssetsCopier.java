@@ -19,13 +19,12 @@ import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogFactory;
 import com.varmateo.yawg.logging.Logs;
-import com.varmateo.yawg.util.Exceptions;
 
 
 /**
  * Responsible for copying assets to the target directory.
  */
-/* package private */ final class AssetsCopier {
+/* default */ final class AssetsCopier {
 
 
     private final BiConsumer<Path, Path> _copyAction;
@@ -77,11 +76,7 @@ import com.varmateo.yawg.util.Exceptions;
         try {
             copyDirectoryTree(sourceDir, targetDir);
         } catch ( IOException e ) {
-            Exceptions.raise(
-                    e,
-                    "Failed to copy assets - {0} - {1}",
-                    e.getClass().getSimpleName(),
-                    e.getMessage());
+            throw AssetsCopierException.copyFailure(sourceDir, targetDir, e);
         }
     }
 

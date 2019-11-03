@@ -19,7 +19,6 @@ import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogFactory;
 import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.PageContext;
-import com.varmateo.yawg.util.Exceptions;
 
 
 /**
@@ -99,7 +98,7 @@ import com.varmateo.yawg.util.Exceptions;
         final Option<PageBaker> baker = _allBakersByType.get(bakerType);
 
         if ( !baker.isDefined() ) {
-            throw Exceptions.raise("Unknown baker type \"{0}\"", bakerType);
+            throw FileBakerException.unknownBakerType(bakerType);
         }
 
         return baker.get();

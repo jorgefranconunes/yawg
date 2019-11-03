@@ -25,7 +25,6 @@ import com.varmateo.yawg.core.DirBakeOptions;
 import com.varmateo.yawg.core.TemplateNameMatcher;
 import com.varmateo.yawg.spi.PageVars;
 import com.varmateo.yawg.spi.PageVarsBuilder;
-import com.varmateo.yawg.util.Exceptions;
 import com.varmateo.yawg.util.GlobMatcher;
 import com.varmateo.yawg.util.SimpleMap;
 import com.varmateo.yawg.util.YamlParser;
@@ -86,12 +85,7 @@ import com.varmateo.yawg.util.YamlParser;
         try {
             result = doLoadFromFile(confFile);
         } catch ( IOException e ) {
-            throw Exceptions.raise(
-                    e,
-                    "Failed to read config file \"{0}\" - {1} - {2}",
-                    confFile,
-                    e.getClass().getSimpleName(),
-                    e.getMessage());
+            throw DirBakeOptionsDaoException.loadConfigFailure(confFile, e);
         }
 
         return result;
@@ -186,12 +180,7 @@ import com.varmateo.yawg.util.YamlParser;
         try {
             return builder.addGlobPattern(glob);
         } catch ( PatternSyntaxException e ) {
-            throw Exceptions.raise(
-                    e,
-                    "Invalid glob \"{0}\" on item {1} of {2}",
-                    glob,
-                    index,
-                    key);
+            throw DirBakeOptionsDaoException.invalidGlob(glob, index, key);
         }
     }
 
@@ -295,12 +284,7 @@ import com.varmateo.yawg.util.YamlParser;
         try {
             return Paths.get(pathStr);
         } catch ( InvalidPathException e ) {
-            throw Exceptions.raise(
-                    e,
-                    "Invalid path \"{0}\" on item {1} of {2}",
-                    pathStr,
-                    index,
-                    key);
+            throw DirBakeOptionsDaoException.invalidPath(pathStr, index, key);
         }
     }
 

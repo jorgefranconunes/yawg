@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -14,7 +14,6 @@ import java.util.Optional;
 import java.util.Set;
 
 import com.varmateo.yawg.api.YawgException;
-import com.varmateo.yawg.util.Exceptions;
 import com.varmateo.yawg.util.SimpleList;
 
 
@@ -117,11 +116,7 @@ public final class SimpleMap {
         Object value = _map.get(key);
 
         if ( (value!=null) && !klass.isInstance(value) ) {
-            Exceptions.raise(
-                    "Invalid {2} value in {1} field \"{0}\"",
-                    key,
-                    klass.getSimpleName(),
-                    value.getClass().getSimpleName());
+            throw SimpleMapException.invalidValue(key, klass, value.getClass());
         }
 
         @SuppressWarnings("unchecked")

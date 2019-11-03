@@ -16,8 +16,6 @@ import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.spi.Template;
 import com.varmateo.yawg.spi.TemplateService;
 
-import com.varmateo.yawg.util.Exceptions;
-
 
 /**
  * 
@@ -46,8 +44,7 @@ import com.varmateo.yawg.util.Exceptions;
      * {@inheritDoc}
      */
     @Override
-    public Optional<Template> getTemplate(final String name)
-            throws YawgException {
+    public Optional<Template> getTemplate(final String name) {
 
         return _templateFetcher.apply(name);
     }
@@ -69,7 +66,7 @@ import com.varmateo.yawg.util.Exceptions;
                 .headOption();
 
         if ( !result.isDefined() ) {
-            throw Exceptions.raise("Unsupported template format \"{0}\"", name);
+            throw CollectiveTemplateServiceException.unsupportedTemplateFormat(name);
         }
 
         return result.toJavaOptional();

@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -13,7 +13,6 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 import com.varmateo.yawg.api.YawgException;
-import com.varmateo.yawg.util.Exceptions;
 import com.varmateo.yawg.util.SimpleMap;
 
 
@@ -98,11 +97,7 @@ public final class SimpleList<T>
         Object value = _list.get(index);
 
         if ( (value==null) || !klass.isInstance(value) ) {
-            Exceptions.raise(
-                    "Invalid {2} value in {1} position {0}",
-                    index,
-                    klass.getSimpleName(),
-                    (value==null) ? "NULL" : value.getClass().getSimpleName());
+            throw SimpleListException.invalidValue(index, klass, value);
         }
 
         @SuppressWarnings("unchecked")

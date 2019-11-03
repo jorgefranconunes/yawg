@@ -26,7 +26,6 @@ import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.Template;
 import com.varmateo.yawg.spi.TemplateContext;
-import com.varmateo.yawg.util.Exceptions;
 import com.varmateo.yawg.util.FileUtils;
 
 
@@ -126,13 +125,7 @@ public final class CommonMarkPageBaker
         try {
             doBake(sourcePath, context, targetDir);
         } catch ( IOException e ) {
-            Exceptions.raise(
-                    e,
-                    "Failed {0} on {1} - {2} - {3}",
-                    NAME,
-                    sourcePath,
-                    e.getClass().getSimpleName(),
-                    e.getMessage());
+            throw CommonMarkPageBakerException.bakeFailure(sourcePath, targetDir, e);
         }
     }
 
