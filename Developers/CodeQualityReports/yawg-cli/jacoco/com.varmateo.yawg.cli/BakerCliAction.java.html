@@ -14,7 +14,7 @@ import io.vavr.control.Try;
 
 
 /**
- * ADR represeting one of the possible actions to be performed by the
+ * ADT representing one of the possible actions to be performed by the
  * CLI app.
  */
 <span class="nc" id="L20">/* default */ abstract class BakerCliAction {</span>
@@ -177,12 +177,22 @@ import io.vavr.control.Try;
             extends BakerCliAction {
 
 
-        public final BakerCliBakeOptions options;
+        private final BakerCliBakeOptions _options;
 
 
 <span class="nc" id="L183">        private Bake(final BakerCliBakeOptions options) {</span>
-<span class="nc" id="L184">            this.options = options;</span>
-<span class="nc" id="L185">        }</span>
+
+<span class="nc" id="L185">            _options = options;</span>
+<span class="nc" id="L186">        }</span>
+
+
+        /**
+         *
+         */
+        public BakerCliBakeOptions options() {
+
+<span class="nc" id="L194">            return _options;</span>
+        }
 
 
         /**
@@ -194,7 +204,7 @@ import io.vavr.control.Try;
                 final Supplier&lt;T&gt; b,
                 final Function&lt;Bake, T&gt; c) {
 
-<span class="nc" id="L197">            return c.apply(this);</span>
+<span class="nc" id="L207">            return c.apply(this);</span>
         }
 
 
@@ -207,8 +217,8 @@ import io.vavr.control.Try;
                 final Runnable b,
                 final Consumer&lt;Bake&gt; c) {
 
-<span class="nc" id="L210">            c.accept(this);</span>
-<span class="nc" id="L211">        }</span>
+<span class="nc" id="L220">            c.accept(this);</span>
+<span class="nc" id="L221">        }</span>
     }
 
 }

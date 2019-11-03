@@ -67,8 +67,8 @@ import com.varmateo.yawg.util.GlobMatcher;
     public Option&lt;String&gt; bakerTypeFor(final Path path) {
 
 <span class="nc" id="L69">        return _bakerTypes</span>
-<span class="nc" id="L70">                .filter(entry -&gt; entry.matcher.test(path))</span>
-<span class="nc" id="L71">                .map(entry -&gt; entry.mapType)</span>
+<span class="nc" id="L70">                .filter(entry -&gt; entry.matcher().test(path))</span>
+<span class="nc" id="L71">                .map(Entry::mapType)</span>
 <span class="nc" id="L72">                .headOption();</span>
     }
 
@@ -82,8 +82,8 @@ import com.varmateo.yawg.util.GlobMatcher;
     public String toString() {
 
 <span class="fc" id="L84">        return _bakerTypes</span>
-<span class="fc" id="L85">                .sorted((o1, o2) -&gt; o1.mapType.compareTo(o2.mapType))</span>
-<span class="fc" id="L86">                .map(e -&gt; e.mapType + &quot;:&quot; + e.matcher.toString())</span>
+<span class="fc" id="L85">                .sorted((o1, o2) -&gt; o1.mapType().compareTo(o2.mapType()))</span>
+<span class="fc" id="L86">                .map(e -&gt; e.mapType() + &quot;:&quot; + e.matcher().toString())</span>
 <span class="fc" id="L87">                .mkString(&quot;;&quot;);</span>
     }
 
@@ -94,8 +94,8 @@ import com.varmateo.yawg.util.GlobMatcher;
     private static final class Entry {
 
 
-        public final String mapType;
-        public final GlobMatcher matcher;
+        public final String _mapType;
+        public final GlobMatcher _matcher;
 
 
         /**
@@ -105,9 +105,27 @@ import com.varmateo.yawg.util.GlobMatcher;
                 final String mapType,
 <span class="fc" id="L106">                final GlobMatcher matcher) {</span>
 
-<span class="fc" id="L108">            this.mapType = mapType;</span>
-<span class="fc" id="L109">            this.matcher = matcher;</span>
+<span class="fc" id="L108">            _mapType = mapType;</span>
+<span class="fc" id="L109">            _matcher = matcher;</span>
 <span class="fc" id="L110">        }</span>
+
+
+        /**
+         *
+         */
+        public String mapType() {
+
+<span class="fc" id="L118">            return _mapType;</span>
+        }
+
+
+        /**
+         *
+         */
+        public GlobMatcher matcher() {
+
+<span class="fc" id="L127">            return _matcher;</span>
+        }
 
 
     }
@@ -125,20 +143,20 @@ import com.varmateo.yawg.util.GlobMatcher;
         /**
          *
          */
-<span class="fc" id="L128">        private Builder() {</span>
+<span class="fc" id="L146">        private Builder() {</span>
 
-<span class="fc" id="L130">            _bakerTypes = HashMap.empty();</span>
-<span class="fc" id="L131">        }</span>
+<span class="fc" id="L148">            _bakerTypes = HashMap.empty();</span>
+<span class="fc" id="L149">        }</span>
 
 
         /**
          *
          */
-<span class="fc" id="L137">        private Builder(final BakerMatcher data) {</span>
+<span class="fc" id="L155">        private Builder(final BakerMatcher data) {</span>
 
-<span class="fc" id="L139">            _bakerTypes = HashMap.ofEntries(</span>
-<span class="fc" id="L140">                    data._bakerTypes.map(e -&gt; Tuple.of(e.mapType, e.matcher)));</span>
-<span class="fc" id="L141">        }</span>
+<span class="fc" id="L157">            _bakerTypes = HashMap.ofEntries(</span>
+<span class="fc" id="L158">                    data._bakerTypes.map(e -&gt; Tuple.of(e.mapType(), e.matcher())));</span>
+<span class="fc" id="L159">        }</span>
 
 
         /**
@@ -148,11 +166,11 @@ import com.varmateo.yawg.util.GlobMatcher;
                 final String bakerType,
                 final GlobMatcher matcher) {
 
-<span class="fc" id="L151">            _bakerTypes = _bakerTypes.merge(</span>
-<span class="fc" id="L152">                    HashMap.of(bakerType, matcher),</span>
+<span class="fc" id="L169">            _bakerTypes = _bakerTypes.merge(</span>
+<span class="fc" id="L170">                    HashMap.of(bakerType, matcher),</span>
                     Builder::extendGlobMatcher);
 
-<span class="fc" id="L155">            return this;</span>
+<span class="fc" id="L173">            return this;</span>
         }
 
 
@@ -160,9 +178,9 @@ import com.varmateo.yawg.util.GlobMatcher;
                 final GlobMatcher oldMatcher,
                 final GlobMatcher newMatcher) {
 
-<span class="nc" id="L163">            return GlobMatcher.builder(oldMatcher)</span>
-<span class="nc" id="L164">                    .addGlobMatcher(newMatcher)</span>
-<span class="nc" id="L165">                    .build();</span>
+<span class="nc" id="L181">            return GlobMatcher.builder(oldMatcher)</span>
+<span class="nc" id="L182">                    .addGlobMatcher(newMatcher)</span>
+<span class="nc" id="L183">                    .build();</span>
         }
 
 
@@ -173,11 +191,11 @@ import com.varmateo.yawg.util.GlobMatcher;
                 final String bakerType,
                 final String... fileNames) {
 
-<span class="fc" id="L176">            GlobMatcher matcher = new GlobMatcher(fileNames);</span>
+<span class="fc" id="L194">            GlobMatcher matcher = new GlobMatcher(fileNames);</span>
 
-<span class="fc" id="L178">            addBakerType(bakerType, matcher);</span>
+<span class="fc" id="L196">            addBakerType(bakerType, matcher);</span>
 
-<span class="fc" id="L180">            return this;</span>
+<span class="fc" id="L198">            return this;</span>
         }
 
 
@@ -186,9 +204,9 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public Builder addBakerTypes(final BakerMatcher that) {
 
-<span class="fc" id="L189">            that._bakerTypes.forEach(e -&gt; addBakerType(e.mapType, e.matcher));</span>
+<span class="fc" id="L207">            that._bakerTypes.forEach(e -&gt; addBakerType(e.mapType(), e.matcher()));</span>
 
-<span class="fc" id="L191">            return this;</span>
+<span class="fc" id="L209">            return this;</span>
         }
 
 
@@ -197,7 +215,7 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public BakerMatcher build() {
 
-<span class="fc" id="L200">            return new BakerMatcher(this);</span>
+<span class="fc" id="L218">            return new BakerMatcher(this);</span>
         }
 
 

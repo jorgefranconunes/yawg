@@ -50,8 +50,8 @@ public final class PageVarsBuilder {
      *
      * @return A newly created &lt;code&gt;Builder&lt;/code&gt; instance.
      */
-    public static PageVarsBuilder create(final Map&lt;String,Object&gt; data)
-    {
+    public static PageVarsBuilder create(final Map&lt;String,Object&gt; data) {
+
 <span class="fc" id="L55">        return new PageVarsBuilder(data);</span>
     }
 
@@ -64,8 +64,8 @@ public final class PageVarsBuilder {
      *
      * @return A newly created &lt;code&gt;Builder&lt;/code&gt; instance.
      */
-    public static PageVarsBuilder create(final PageVars pageVars)
-    {
+    public static PageVarsBuilder create(final PageVars pageVars) {
+
 <span class="fc" id="L69">        return new PageVarsBuilder(pageVars.asMap());</span>
     }
 

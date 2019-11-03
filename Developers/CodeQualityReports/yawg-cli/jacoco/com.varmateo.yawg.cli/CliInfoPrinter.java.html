@@ -10,11 +10,9 @@ import java.io.PrintWriter;
 import java.text.MessageFormat;
 
 import io.vavr.collection.Set;
-
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 
-import com.varmateo.yawg.cli.CliException;
 import com.varmateo.yawg.cli.CliParameter;
 
 
@@ -35,23 +33,23 @@ import com.varmateo.yawg.cli.CliParameter;
         + &quot;\n&quot;
         + &quot;{0}: {1}\n&quot;;
 
-<span class="nc" id="L38">    private String _argv0 = null;</span>
-<span class="nc" id="L39">    private String _versionMessage = null;</span>
-<span class="nc" id="L40">    private String _usageMessageHeader = null;</span>
-<span class="nc" id="L41">    private String _usageMessageFooter = null;</span>
+<span class="nc" id="L36">    private String _argv0 = null;</span>
+<span class="nc" id="L37">    private String _versionMessage = null;</span>
+<span class="nc" id="L38">    private String _usageMessageHeader = null;</span>
+<span class="nc" id="L39">    private String _usageMessageFooter = null;</span>
 
 
     /**
      * Only used internally.
      *
      */
-<span class="nc" id="L48">    private CliInfoPrinter(final Builder builder) {</span>
+<span class="nc" id="L46">    private CliInfoPrinter(final Builder builder) {</span>
 
-<span class="nc" id="L50">        _argv0 = builder._argv0;</span>
-<span class="nc" id="L51">        _versionMessage = builder._versionMessage;</span>
-<span class="nc" id="L52">        _usageMessageHeader = builder._usageMessageHeader;</span>
-<span class="nc" id="L53">        _usageMessageFooter = builder._usageMessageFooter;</span>
-<span class="nc" id="L54">    }</span>
+<span class="nc" id="L48">        _argv0 = builder._argv0;</span>
+<span class="nc" id="L49">        _versionMessage = builder._versionMessage;</span>
+<span class="nc" id="L50">        _usageMessageHeader = builder._usageMessageHeader;</span>
+<span class="nc" id="L51">        _usageMessageFooter = builder._usageMessageFooter;</span>
+<span class="nc" id="L52">    }</span>
 
 
     /**
@@ -61,7 +59,7 @@ import com.varmateo.yawg.cli.CliParameter;
      */
     public static Builder builder() {
 
-<span class="nc" id="L64">        return new Builder();</span>
+<span class="nc" id="L62">        return new Builder();</span>
     }
 
 
@@ -72,23 +70,23 @@ import com.varmateo.yawg.cli.CliParameter;
             final PrintWriter output,
             final Set&lt;CliParameter&gt; options) {
 
-<span class="nc" id="L75">        final String header = MessageFormat.format(_usageMessageHeader, _argv0);</span>
-<span class="nc" id="L76">        final String footer = _usageMessageFooter;</span>
+<span class="nc" id="L73">        final String header = MessageFormat.format(_usageMessageHeader, _argv0);</span>
+<span class="nc" id="L74">        final String footer = _usageMessageFooter;</span>
 
-<span class="nc" id="L78">        output.println(header);</span>
+<span class="nc" id="L76">        output.println(header);</span>
 
-<span class="nc" id="L80">        final Options       apacheOptions = buildApacheOptions(options);</span>
-<span class="nc" id="L81">        final HelpFormatter formatter = new HelpFormatter();</span>
+<span class="nc" id="L78">        final Options       apacheOptions = buildApacheOptions(options);</span>
+<span class="nc" id="L79">        final HelpFormatter formatter = new HelpFormatter();</span>
 
-<span class="nc" id="L83">        formatter.printOptions(</span>
+<span class="nc" id="L81">        formatter.printOptions(</span>
                 output,
                 HelpFormatter.DEFAULT_WIDTH,
                 apacheOptions,
                 HelpFormatter.DEFAULT_LEFT_PAD,
                 HelpFormatter.DEFAULT_DESC_PAD);
 
-<span class="nc" id="L90">        output.println(footer);</span>
-<span class="nc" id="L91">    }</span>
+<span class="nc" id="L88">        output.println(footer);</span>
+<span class="nc" id="L89">    }</span>
 
 
     /**
@@ -97,11 +95,11 @@ import com.varmateo.yawg.cli.CliParameter;
     private static Options
         buildApacheOptions(final Set&lt;CliParameter&gt; options) {
 
-<span class="nc" id="L100">        return options</span>
-<span class="nc" id="L101">                .map(CliParameter::apacheOption)</span>
-<span class="nc" id="L102">                .foldLeft(</span>
+<span class="nc" id="L98">        return options</span>
+<span class="nc" id="L99">                .map(CliParameter::apacheOption)</span>
+<span class="nc" id="L100">                .foldLeft(</span>
                         new Options(),
-<span class="nc" id="L104">                        (xs, x) -&gt; xs.addOption(x));</span>
+<span class="nc" id="L102">                        (xs, x) -&gt; xs.addOption(x));</span>
     }
 
 
@@ -110,8 +108,8 @@ import com.varmateo.yawg.cli.CliParameter;
      */
     public void printVersion(final PrintWriter output) {
 
-<span class="nc" id="L113">        output.println(_versionMessage);</span>
-<span class="nc" id="L114">    }</span>
+<span class="nc" id="L111">        output.println(_versionMessage);</span>
+<span class="nc" id="L112">    }</span>
 
 
     /**
@@ -121,11 +119,11 @@ import com.varmateo.yawg.cli.CliParameter;
             final PrintWriter  output,
             final Throwable error) {
 
-<span class="nc" id="L124">        final String errorMsg = error.getMessage();</span>
-<span class="nc" id="L125">        final String msg      = MessageFormat.format(ERROR_FMT, _argv0, errorMsg);</span>
+<span class="nc" id="L122">        final String errorMsg = error.getMessage();</span>
+<span class="nc" id="L123">        final String msg      = MessageFormat.format(ERROR_FMT, _argv0, errorMsg);</span>
 
-<span class="nc" id="L127">        output.println(msg);</span>
-<span class="nc" id="L128">    }</span>
+<span class="nc" id="L125">        output.println(msg);</span>
+<span class="nc" id="L126">    }</span>
 
 
     /**
@@ -134,18 +132,18 @@ import com.varmateo.yawg.cli.CliParameter;
     public static final class Builder {
 
 
-<span class="nc" id="L137">        private String _argv0 = DEFAULT_ARGV0;</span>
-<span class="nc" id="L138">        private String _versionMessage = DEFAULT_VERSION;</span>
-<span class="nc" id="L139">        private String _usageMessageHeader = DEFAULT_USAGE_HEADER;</span>
-<span class="nc" id="L140">        private String _usageMessageFooter = DEFAULT_USAGE_FOOTER;</span>
+<span class="nc" id="L135">        private String _argv0 = DEFAULT_ARGV0;</span>
+<span class="nc" id="L136">        private String _versionMessage = DEFAULT_VERSION;</span>
+<span class="nc" id="L137">        private String _usageMessageHeader = DEFAULT_USAGE_HEADER;</span>
+<span class="nc" id="L138">        private String _usageMessageFooter = DEFAULT_USAGE_FOOTER;</span>
 
 
         /**
          *
          */
-<span class="nc" id="L146">        private Builder() {</span>
+<span class="nc" id="L144">        private Builder() {</span>
             // Nothing to do.
-<span class="nc" id="L148">        }</span>
+<span class="nc" id="L146">        }</span>
 
 
         /**
@@ -153,9 +151,9 @@ import com.varmateo.yawg.cli.CliParameter;
          */
         public Builder argv0(final String argv0) {
 
-<span class="nc" id="L156">            _argv0 = argv0;</span>
+<span class="nc" id="L154">            _argv0 = argv0;</span>
 
-<span class="nc" id="L158">            return this;</span>
+<span class="nc" id="L156">            return this;</span>
         }
 
 
@@ -164,9 +162,9 @@ import com.varmateo.yawg.cli.CliParameter;
          */
         public Builder versionMessage(final String versionMessage) {
 
-<span class="nc" id="L167">            _versionMessage = versionMessage;</span>
+<span class="nc" id="L165">            _versionMessage = versionMessage;</span>
 
-<span class="nc" id="L169">            return this;</span>
+<span class="nc" id="L167">            return this;</span>
         }
 
 
@@ -175,9 +173,9 @@ import com.varmateo.yawg.cli.CliParameter;
          */
         public Builder usageMessageHeader(final String usageMessageHeader) {
 
-<span class="nc" id="L178">            _usageMessageHeader = usageMessageHeader;</span>
+<span class="nc" id="L176">            _usageMessageHeader = usageMessageHeader;</span>
 
-<span class="nc" id="L180">            return this;</span>
+<span class="nc" id="L178">            return this;</span>
         }
 
 
@@ -186,9 +184,9 @@ import com.varmateo.yawg.cli.CliParameter;
          */
         public Builder usageMessageFooter(final String usageMessageFooter) {
 
-<span class="nc" id="L189">            _usageMessageFooter = usageMessageFooter;</span>
+<span class="nc" id="L187">            _usageMessageFooter = usageMessageFooter;</span>
 
-<span class="nc" id="L191">            return this;</span>
+<span class="nc" id="L189">            return this;</span>
         }
 
 
@@ -197,7 +195,7 @@ import com.varmateo.yawg.cli.CliParameter;
          */
         public CliInfoPrinter build() {
 
-<span class="nc" id="L200">            return new CliInfoPrinter(this);</span>
+<span class="nc" id="L198">            return new CliInfoPrinter(this);</span>
         }
 
     }
