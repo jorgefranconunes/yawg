@@ -18,11 +18,9 @@ public interface SiteBaker {
      *
      * @param conf Information on the ingredients for the baking.
      *
-     * @exception YawgException Thrown if the baking could not be
-     * completed for whatever reason.
+     * @return A result signaling success of failure.
      */
-    void bake(BakeOptions conf)
-            throws YawgException;
+    SiteBakeResult bake(BakeOptions conf);
 
 
 }

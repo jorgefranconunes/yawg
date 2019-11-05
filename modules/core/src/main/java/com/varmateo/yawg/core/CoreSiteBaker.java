@@ -10,15 +10,18 @@ import java.nio.file.Path;
 import java.util.Map;
 
 import io.vavr.control.Option;
+import io.vavr.control.Try;
 
 import com.varmateo.yawg.api.BakeOptions;
 import com.varmateo.yawg.api.SiteBaker;
+import com.varmateo.yawg.api.SiteBakeResult;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogFactory;
 import com.varmateo.yawg.logging.Logs;
 import com.varmateo.yawg.spi.PageVars;
 import com.varmateo.yawg.spi.PageVarsBuilder;
+import com.varmateo.yawg.util.SiteBakeResults;
 
 
 /**
@@ -63,12 +66,14 @@ import com.varmateo.yawg.spi.PageVarsBuilder;
      *
      */
     @Override
-    public void bake(final BakeOptions options) {
+    public SiteBakeResult bake(final BakeOptions options) {
 
-        Logs.logDuration(
-                _log,
-                "baking",
-                () -> doBake(options, _dirBaker));
+        return SiteBakeResults.fromTry(
+                Try.run(
+                        () -> Logs.logDuration(
+                                _log,
+                                "baking",
+                                () -> doBake(options, _dirBaker))));
     }
 
 

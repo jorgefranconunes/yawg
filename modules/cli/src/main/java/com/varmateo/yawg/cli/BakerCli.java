@@ -17,10 +17,12 @@ import io.vavr.control.Try;
 
 import com.varmateo.yawg.api.BakeOptions;
 import com.varmateo.yawg.api.SiteBaker;
+import com.varmateo.yawg.api.SiteBakeResult;
 import com.varmateo.yawg.api.YawgInfo;
 import com.varmateo.yawg.core.DefaultSiteBaker;
 import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogFactory;
+import com.varmateo.yawg.util.SiteBakeResults;
 
 
 /**
@@ -127,7 +129,9 @@ public final class BakerCli {
                 .putAllExternalPageVars(options.externalPageVars().toJavaMap())
                 .build();
 
-        return Try.run(() -> siteBaker.bake(bakeOptions))
+        final SiteBakeResult result = siteBaker.bake(bakeOptions);
+
+        return SiteBakeResults.toTry(result)
                 .recoverWith(cause -> Try.failure(CliException.bakeFailure(cause)));
     }
 
