@@ -17,10 +17,12 @@ import io.vavr.control.Try;
 
 import com.varmateo.yawg.api.BakeOptions;
 import com.varmateo.yawg.api.SiteBaker;
+import com.varmateo.yawg.api.SiteBakeResult;
 import com.varmateo.yawg.api.YawgInfo;
 import com.varmateo.yawg.core.DefaultSiteBaker;
 import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogFactory;
+import com.varmateo.yawg.util.SiteBakeResults;
 
 
 /**
@@ -33,12 +35,12 @@ public final class BakerCli {
     private static final int EXIT_STATUS_FAILURE = 1;
 
 
-<span class="nc" id="L36">    private final Log _log = LogFactory.createFor(BakerCli.class);</span>
+<span class="nc" id="L38">    private final Log _log = LogFactory.createFor(BakerCli.class);</span>
 
 
-<span class="nc" id="L39">    private BakerCli() {</span>
+<span class="nc" id="L41">    private BakerCli() {</span>
         // Nothing to do.
-<span class="nc" id="L41">    }</span>
+<span class="nc" id="L43">    }</span>
 
 
     /**
@@ -46,7 +48,7 @@ public final class BakerCli {
      */
     public static BakerCli create() {
 
-<span class="nc" id="L49">        return new BakerCli();</span>
+<span class="nc" id="L51">        return new BakerCli();</span>
     }
 
 
@@ -58,16 +60,16 @@ public final class BakerCli {
      */
     public int run(final BakerCliRunOptions options) {
 
-<span class="nc" id="L61">        final InfoPrinter infoPrinter = buildInfoPrinter(options.argv0, options.output);</span>
-<span class="nc" id="L62">        final Try&lt;Void&gt; bakeResult = tryRun(infoPrinter, options.args)</span>
-<span class="nc" id="L63">                .onFailure(cause -&gt; infoPrinter.printError(cause));</span>
+<span class="nc" id="L63">        final InfoPrinter infoPrinter = buildInfoPrinter(options.argv0, options.output);</span>
+<span class="nc" id="L64">        final Try&lt;Void&gt; bakeResult = tryRun(infoPrinter, options.args)</span>
+<span class="nc" id="L65">                .onFailure(cause -&gt; infoPrinter.printError(cause));</span>
 
-<span class="nc" id="L65">        final int exitStatus = bakeResult</span>
-<span class="nc" id="L66">                .map(x -&gt; EXIT_STATUS_OK)</span>
-<span class="nc" id="L67">                .recover(x -&gt; EXIT_STATUS_FAILURE)</span>
-<span class="nc" id="L68">                .get();</span>
+<span class="nc" id="L67">        final int exitStatus = bakeResult</span>
+<span class="nc" id="L68">                .map(x -&gt; EXIT_STATUS_OK)</span>
+<span class="nc" id="L69">                .recover(x -&gt; EXIT_STATUS_FAILURE)</span>
+<span class="nc" id="L70">                .get();</span>
 
-<span class="nc" id="L70">        return exitStatus;</span>
+<span class="nc" id="L72">        return exitStatus;</span>
     }
 
 
@@ -78,14 +80,14 @@ public final class BakerCli {
             final String argv0,
             final OutputStream output) {
 
-<span class="nc" id="L81">        final boolean autoFlush = true;</span>
-<span class="nc" id="L82">        final Writer stdoutWriter = new OutputStreamWriter(output, StandardCharsets.UTF_8);</span>
-<span class="nc" id="L83">        final PrintWriter stdout = new PrintWriter(stdoutWriter, autoFlush);</span>
+<span class="nc" id="L83">        final boolean autoFlush = true;</span>
+<span class="nc" id="L84">        final Writer stdoutWriter = new OutputStreamWriter(output, StandardCharsets.UTF_8);</span>
+<span class="nc" id="L85">        final PrintWriter stdout = new PrintWriter(stdoutWriter, autoFlush);</span>
 
-<span class="nc" id="L85">        return InfoPrinter.builder()</span>
-<span class="nc" id="L86">                .argv0(argv0)</span>
-<span class="nc" id="L87">                .output(stdout)</span>
-<span class="nc" id="L88">                .build();</span>
+<span class="nc" id="L87">        return InfoPrinter.builder()</span>
+<span class="nc" id="L88">                .argv0(argv0)</span>
+<span class="nc" id="L89">                .output(stdout)</span>
+<span class="nc" id="L90">                .build();</span>
     }
 
 
@@ -96,8 +98,8 @@ public final class BakerCli {
             final InfoPrinter infoPrinter,
             final String[] args) {
 
-<span class="nc" id="L99">        return BakerCliAction.parse(args)</span>
-<span class="nc" id="L100">                .flatMap(action -&gt; performAction(infoPrinter, action));</span>
+<span class="nc" id="L101">        return BakerCliAction.parse(args)</span>
+<span class="nc" id="L102">                .flatMap(action -&gt; performAction(infoPrinter, action));</span>
     }
 
 
@@ -105,46 +107,48 @@ public final class BakerCli {
             final InfoPrinter infoPrinter,
             final BakerCliAction action) {
 
-<span class="nc" id="L108">        return action.match(</span>
-<span class="nc" id="L109">                () -&gt; Try.run(infoPrinter::printHelp),</span>
-<span class="nc" id="L110">                () -&gt; Try.run(infoPrinter::printVersion),</span>
-<span class="nc" id="L111">                bake -&gt; doBake(bake.options()));</span>
+<span class="nc" id="L110">        return action.match(</span>
+<span class="nc" id="L111">                () -&gt; Try.run(infoPrinter::printHelp),</span>
+<span class="nc" id="L112">                () -&gt; Try.run(infoPrinter::printVersion),</span>
+<span class="nc" id="L113">                bake -&gt; doBake(bake.options()));</span>
     }
 
 
     private Try&lt;Void&gt; doBake(final BakerCliBakeOptions options) {
 
-<span class="nc" id="L117">        logOptions(options);</span>
+<span class="nc" id="L119">        logOptions(options);</span>
 
-<span class="nc" id="L119">        final SiteBaker siteBaker = options.templatesDir()</span>
-<span class="nc" id="L120">                .map(path -&gt; DefaultSiteBaker.create(path))</span>
-<span class="nc" id="L121">                .getOrElse(() -&gt; DefaultSiteBaker.create());</span>
+<span class="nc" id="L121">        final SiteBaker siteBaker = options.templatesDir()</span>
+<span class="nc" id="L122">                .map(path -&gt; DefaultSiteBaker.create(path))</span>
+<span class="nc" id="L123">                .getOrElse(() -&gt; DefaultSiteBaker.create());</span>
 
-<span class="nc" id="L123">        final BakeOptions bakeOptions = BakeOptions.builder()</span>
-<span class="nc" id="L124">                .sourceDir(options.sourceDir())</span>
-<span class="nc" id="L125">                .targetDir(options.targetDir())</span>
-<span class="nc" id="L126">                .assetsDir(options.assetsDir().toJavaOptional())</span>
-<span class="nc" id="L127">                .putAllExternalPageVars(options.externalPageVars().toJavaMap())</span>
-<span class="nc" id="L128">                .build();</span>
+<span class="nc" id="L125">        final BakeOptions bakeOptions = BakeOptions.builder()</span>
+<span class="nc" id="L126">                .sourceDir(options.sourceDir())</span>
+<span class="nc" id="L127">                .targetDir(options.targetDir())</span>
+<span class="nc" id="L128">                .assetsDir(options.assetsDir().toJavaOptional())</span>
+<span class="nc" id="L129">                .putAllExternalPageVars(options.externalPageVars().toJavaMap())</span>
+<span class="nc" id="L130">                .build();</span>
 
-<span class="nc" id="L130">        return Try.run(() -&gt; siteBaker.bake(bakeOptions))</span>
-<span class="nc" id="L131">                .recoverWith(cause -&gt; Try.failure(CliException.bakeFailure(cause)));</span>
+<span class="nc" id="L132">        final SiteBakeResult result = siteBaker.bake(bakeOptions);</span>
+
+<span class="nc" id="L134">        return SiteBakeResults.toTry(result)</span>
+<span class="nc" id="L135">                .recoverWith(cause -&gt; Try.failure(CliException.bakeFailure(cause)));</span>
     }
 
 
     private void logOptions(final BakerCliBakeOptions options) {
 
-<span class="nc" id="L137">        final Path sourceDir = options.sourceDir();</span>
-<span class="nc" id="L138">        final Path targetDir = options.targetDir();</span>
-<span class="nc" id="L139">        final String templatesDir = options.templatesDir().map(Path::toString).getOrElse(&quot;NONE&quot;);</span>
-<span class="nc" id="L140">        final String assetsDir = options.assetsDir().map(Path::toString).getOrElse(&quot;NONE&quot;);</span>
+<span class="nc" id="L141">        final Path sourceDir = options.sourceDir();</span>
+<span class="nc" id="L142">        final Path targetDir = options.targetDir();</span>
+<span class="nc" id="L143">        final String templatesDir = options.templatesDir().map(Path::toString).getOrElse(&quot;NONE&quot;);</span>
+<span class="nc" id="L144">        final String assetsDir = options.assetsDir().map(Path::toString).getOrElse(&quot;NONE&quot;);</span>
 
-<span class="nc" id="L142">        _log.info(&quot;{0} {1}&quot;, YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);</span>
-<span class="nc" id="L143">        _log.info(&quot;    Source    : {0}&quot;, sourceDir);</span>
-<span class="nc" id="L144">        _log.info(&quot;    Target    : {0}&quot;, targetDir);</span>
-<span class="nc" id="L145">        _log.info(&quot;    Templates : {0}&quot;, templatesDir);</span>
-<span class="nc" id="L146">        _log.info(&quot;    Assets    : {0}&quot;, assetsDir);</span>
-<span class="nc" id="L147">    }</span>
+<span class="nc" id="L146">        _log.info(&quot;{0} {1}&quot;, YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);</span>
+<span class="nc" id="L147">        _log.info(&quot;    Source    : {0}&quot;, sourceDir);</span>
+<span class="nc" id="L148">        _log.info(&quot;    Target    : {0}&quot;, targetDir);</span>
+<span class="nc" id="L149">        _log.info(&quot;    Templates : {0}&quot;, templatesDir);</span>
+<span class="nc" id="L150">        _log.info(&quot;    Assets    : {0}&quot;, assetsDir);</span>
+<span class="nc" id="L151">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

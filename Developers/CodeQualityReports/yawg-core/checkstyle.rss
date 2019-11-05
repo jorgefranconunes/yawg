@@ -25,7 +25,7 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2015 - 2019</copyright>
     <item>
-      <title>File: 61,
+      <title>File: 62,
              Errors: 6,
              Warnings: 0,
              Infos: 0
@@ -439,6 +439,20 @@ under the License.
                           <tr>
                 <td>
                   <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.logging.LogFactory.java">com/varmateo/yawg/logging/LogFactory.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.util.SiteBakeResults.java">com/varmateo/yawg/util/SiteBakeResults.java</a>
                 </td>
                 <td>
                   0
