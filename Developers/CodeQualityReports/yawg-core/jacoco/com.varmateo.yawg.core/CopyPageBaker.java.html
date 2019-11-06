@@ -9,10 +9,14 @@ package com.varmateo.yawg.core;
 import java.io.IOException;
 import java.nio.file.Path;
 
+import io.vavr.control.Try;
+
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.spi.PageBaker;
+import com.varmateo.yawg.spi.PageBakeResult;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.util.FileUtils;
+import com.varmateo.yawg.util.PageBakeResults;
 
 
 /**
@@ -29,10 +33,10 @@ import com.varmateo.yawg.util.FileUtils;
     /**
      * 
      */
-<span class="nc" id="L32">    CopyPageBaker() {</span>
+<span class="nc" id="L36">    CopyPageBaker() {</span>
 
         // Nothing to do.
-<span class="nc" id="L35">    }</span>
+<span class="nc" id="L39">    }</span>
 
 
     /**
@@ -41,7 +45,7 @@ import com.varmateo.yawg.util.FileUtils;
     @Override
     public String shortName() {
 
-<span class="nc" id="L44">        return NAME;</span>
+<span class="nc" id="L48">        return NAME;</span>
     }
 
 
@@ -53,7 +57,7 @@ import com.varmateo.yawg.util.FileUtils;
      */
     public boolean isBakeable(final Path path) {
 
-<span class="nc" id="L56">        return true;</span>
+<span class="nc" id="L60">        return true;</span>
     }
 
 
@@ -70,22 +74,24 @@ import com.varmateo.yawg.util.FileUtils;
      * @param targetDir The directory where the source file will be
      * copied to.
      *
-     * @exception YawgException Thrown if the copying failed for
-     * whatever reason.
+     * @return A result signaling success of failure.
      */
     @Override
-    public void bake(
+    public PageBakeResult bake(
             final Path sourcePath,
             final PageContext context,
-            final Path targetDir)
-            throws YawgException {
+            final Path targetDir) {
 
-        try {
-<span class="nc" id="L84">            doBake(sourcePath, targetDir);</span>
-<span class="nc" id="L85">        } catch ( IOException e ) {</span>
-<span class="nc" id="L86">            throw CopyPageBakerException.copyFailure(sourcePath, targetDir, e);</span>
-<span class="nc" id="L87">        }</span>
-<span class="nc" id="L88">    }</span>
+<span class="nc" id="L85">        return Try.run(() -&gt; doBake(sourcePath, targetDir))</span>
+<span class="nc" id="L86">                .map(x -&gt; PageBakeResults.success())</span>
+<span class="nc" id="L87">                .recoverWith(</span>
+                        IOException.class,
+<span class="nc" id="L89">                        cause -&gt; Try.failure(CopyPageBakerException.copyFailure(sourcePath, targetDir, cause)))</span>
+<span class="nc" id="L90">                .recover(</span>
+                        YawgException.class,
+                        PageBakeResults::failure)
+<span class="nc" id="L93">                .get();</span>
+    }
 
 
     /**
@@ -96,11 +102,11 @@ import com.varmateo.yawg.util.FileUtils;
             final Path targetDir)
             throws IOException {
 
-<span class="nc" id="L99">        Path sourceBasename = sourcePath.getFileName();</span>
-<span class="nc" id="L100">        Path targetPath = targetDir.resolve(sourceBasename);</span>
+<span class="nc" id="L105">        Path sourceBasename = sourcePath.getFileName();</span>
+<span class="nc" id="L106">        Path targetPath = targetDir.resolve(sourceBasename);</span>
 
-<span class="nc" id="L102">        FileUtils.copy(sourcePath, targetPath);</span>
-<span class="nc" id="L103">    }</span>
+<span class="nc" id="L108">        FileUtils.copy(sourcePath, targetPath);</span>
+<span class="nc" id="L109">    }</span>
 
 
 }
