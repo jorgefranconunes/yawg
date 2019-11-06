@@ -13,16 +13,19 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 import io.vavr.Lazy;
+import io.vavr.control.Try;
 import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.OptionsBuilder;
 import org.asciidoctor.internal.AsciidoctorCoreException;
 
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.spi.PageBaker;
+import com.varmateo.yawg.spi.PageBakeResult;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.Template;
 import com.varmateo.yawg.spi.TemplateContext;
 import com.varmateo.yawg.util.FileUtils;
+import com.varmateo.yawg.util.PageBakeResults;
 
 
 /**
@@ -101,21 +104,27 @@ public final class AsciidoctorPageBaker
      * @param targetDir The directory where the source file will be
      * copied to.
      *
-     * @exception YawgException Thrown if the copying failed for
-     * whatever reason.
+     * @return A result signaling success of failure.
      */
     @Override
-    public void bake(
+    public PageBakeResult bake(
             final Path sourcePath,
             final PageContext context,
             final Path targetDir)
             throws YawgException {
 
-        try {
-            doBake(sourcePath, context, targetDir);
-        } catch ( AsciidoctorCoreException | IOException e ) {
-            throw AsciidoctorPageBakerException.bakeFailure(sourcePath, targetDir, e);
-        }
+        return Try.run(() -> doBake(sourcePath, context, targetDir))
+                .map(x -> PageBakeResults.success())
+                .recoverWith(
+                        AsciidoctorCoreException.class,
+                        cause -> Try.failure(AsciidoctorPageBakerException.bakeFailure(sourcePath, targetDir, cause)))
+                .recoverWith(
+                        IOException.class,
+                        cause -> Try.failure(AsciidoctorPageBakerException.bakeFailure(sourcePath, targetDir, cause)))
+                .recover(
+                        YawgException.class,
+                        PageBakeResults::failure)
+                .get();
     }
 
 

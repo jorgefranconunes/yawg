@@ -24,6 +24,7 @@ import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.DirBakeListener;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.TemplateService;
+import com.varmateo.yawg.util.PageBakeResults;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.any;
@@ -75,13 +76,16 @@ public final class DirBakerTest {
                         invocation -> ((PageContext)invocation.getArguments()[0]).pageVars());
 
         _bakedFiles = List.empty();
+
         _bakerMock = mock(PageBaker.class);
-        when(_bakerMock.shortName()).thenReturn("mock");
-        when(_bakerMock.isBakeable(any())).thenReturn(true);
+        when(_bakerMock.shortName())
+                .thenReturn("mock");
+        when(_bakerMock.isBakeable(any()))
+                .thenReturn(true);
         doAnswer(
                 invocation -> {
                     updateBakedFiles((Path)invocation.getArguments()[0]);
-                    return null;
+                    return PageBakeResults.success();
                 })
                 .when(_bakerMock).bake(any(), any(), any());
     }

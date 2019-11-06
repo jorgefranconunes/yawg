@@ -18,6 +18,7 @@ import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogFactory;
 import com.varmateo.yawg.spi.PageBaker;
+import com.varmateo.yawg.spi.PageBakeResult;
 import com.varmateo.yawg.spi.PageContext;
 
 
@@ -64,7 +65,10 @@ import com.varmateo.yawg.spi.PageContext;
         final PageBaker baker = findBaker(sourcePath, dirBakeOptions);
         final long startTime = System.currentTimeMillis();
 
-        baker.bake(sourcePath, context, targetDir);
+        final PageBakeResult result = baker.bake(sourcePath, context, targetDir);
+        if ( !result.isSuccess() ) {
+            throw result.failureCause();
+        }
 
         final long delay = System.currentTimeMillis() - startTime;
         final Path sourceBasename = sourcePath.getFileName();

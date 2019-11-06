@@ -11,12 +11,16 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
+import io.vavr.control.Try;
+
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.spi.PageBaker;
+import com.varmateo.yawg.spi.PageBakeResult;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.Template;
 import com.varmateo.yawg.spi.TemplateContext;
 import com.varmateo.yawg.util.FileUtils;
+import com.varmateo.yawg.util.PageBakeResults;
 
 
 /**
@@ -93,21 +97,23 @@ public final class HtmlPageBaker
      * @param targetDir The directory where the baked file will be
      * copied to.
      *
-     * @exception YawgException Thrown if the baking failed for
-     * whatever reason.
+     * @return A result signaling success of failure.
      */
     @Override
-    public void bake(
+    public PageBakeResult bake(
             final Path sourcePath,
             final PageContext context,
-            final Path targetDir)
-            throws YawgException {
+            final Path targetDir) {
 
-        try {
-            doBake(sourcePath, context, targetDir);
-        } catch ( IOException e ) {
-            throw HtmlPageBakerException.bakeFailure(sourcePath, targetDir, e);
-        }
+        return Try.run(() -> doBake(sourcePath, context, targetDir))
+                .map(x -> PageBakeResults.success())
+                .recoverWith(
+                        IOException.class,
+                        cause -> Try.failure(HtmlPageBakerException.bakeFailure(sourcePath, targetDir, cause)))
+                .recover(
+                        YawgException.class,
+                        PageBakeResults::failure)
+                .get();
     }
 
 

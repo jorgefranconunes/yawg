@@ -8,9 +8,6 @@ package com.varmateo.yawg.spi;
 
 import java.nio.file.Path;
 
-import com.varmateo.yawg.api.YawgException;
-import com.varmateo.yawg.spi.PageContext;
-
 
 /**
  * A baker of files.
@@ -44,8 +41,8 @@ public interface PageBaker {
      * Bakes the given file creating the result in the specified
      * target directory.
      *
-     * <p>The target directory must already exist. Otherwise an
-     * exception will be thrown.</p>
+     * <p>The target directory must already exist. Otherwise a
+     * failedresult will be returned.</p>
      *
      * @param sourcePath The file to be baked.
      *
@@ -54,12 +51,10 @@ public interface PageBaker {
      * @param targetDir The directory where the result of the bake
      * will be created.
      *
-     * @exception YawgException Thrown if the baking could not be
-     * completed for whatever reason.
+     * @return A result signaling success of failure.
      */
-    void bake(
+    PageBakeResult bake(
             Path sourcePath,
             PageContext context,
-            Path targetDir)
-            throws YawgException;
+            Path targetDir);
 }
