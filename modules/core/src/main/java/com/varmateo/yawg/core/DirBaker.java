@@ -96,7 +96,9 @@ import com.varmateo.yawg.spi.TemplateService;
 
         final DirBakeOptions specificDirBakeOptions = _dirBakeOptionsDao.loadFromDir(sourceDir);
         final DirBakerContext context = parentContext.buildForChildDir(
-                targetDir, specificDirBakeOptions, _listener::onDirBake);
+                targetDir,
+                specificDirBakeOptions,
+                x -> _listener.onDirBake(x).pageVars());
         final DirBakeOptions dirBakeOptions = context.dirBakeOptions();
         final Seq<Path> dirEntries = getDirEntries(sourceDir, dirBakeOptions);
 

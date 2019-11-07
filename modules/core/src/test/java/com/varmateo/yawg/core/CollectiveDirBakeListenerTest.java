@@ -8,10 +8,12 @@ package com.varmateo.yawg.core;
 
 import com.varmateo.yawg.core.CollectiveDirBakeListener;
 import com.varmateo.yawg.spi.DirBakeListener;
+import com.varmateo.yawg.spi.OnDirBakeResult;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.PageContextBuilder;
 import com.varmateo.yawg.spi.PageVars;
 import com.varmateo.yawg.spi.PageVarsBuilder;
+import com.varmateo.yawg.util.OnDirBakeResults;
 import io.vavr.collection.List;
 import org.junit.Test;
 
@@ -38,7 +40,7 @@ public final class CollectiveDirBakeListenerTest
 
         assertThat(listener01.getEventCount()).isEqualTo(0);
 
-        final PageVars vars = listener.onDirBake(context);
+        final PageVars vars = listener.onDirBake(context).pageVars();
 
         assertThat(listener01.getEventCount()).isEqualTo(1);
         assertThat(vars.get("var01")).hasValue("hello");
@@ -59,7 +61,7 @@ public final class CollectiveDirBakeListenerTest
 
         assertThat(listener01.getEventCount()).isEqualTo(0);
 
-        final PageVars vars = listener.onDirBake(context);
+        final PageVars vars = listener.onDirBake(context).pageVars();
 
         assertThat(listener01.getEventCount()).isEqualTo(1);
         assertThat(vars.get("var01")).hasValue("hello");
@@ -81,7 +83,7 @@ public final class CollectiveDirBakeListenerTest
         assertThat(listener01.getEventCount()).isEqualTo(0);
         assertThat(listener02.getEventCount()).isEqualTo(0);
 
-        final PageVars vars = listener.onDirBake(context);
+        final PageVars vars = listener.onDirBake(context).pageVars();
 
         assertThat(listener01.getEventCount()).isEqualTo(1);
         assertThat(listener02.getEventCount()).isEqualTo(1);
@@ -106,7 +108,7 @@ public final class CollectiveDirBakeListenerTest
         assertThat(listener01.getEventCount()).isEqualTo(0);
         assertThat(listener02.getEventCount()).isEqualTo(0);
 
-        final PageVars vars = listener.onDirBake(context);
+        final PageVars vars = listener.onDirBake(context).pageVars();
 
         assertThat(listener01.getEventCount()).isEqualTo(1);
         assertThat(listener02.getEventCount()).isEqualTo(1);
@@ -130,7 +132,7 @@ public final class CollectiveDirBakeListenerTest
         assertThat(listener01.getEventCount()).isEqualTo(0);
         assertThat(listener02.getEventCount()).isEqualTo(0);
 
-        final PageVars vars = listener.onDirBake(context);
+        final PageVars vars = listener.onDirBake(context).pageVars();
 
         assertThat(listener01.getEventCount()).isEqualTo(1);
         assertThat(listener02.getEventCount()).isEqualTo(1);
@@ -184,7 +186,7 @@ public final class CollectiveDirBakeListenerTest
          *
          */
         @Override
-        public PageVars onDirBake(final PageContext context) {
+        public OnDirBakeResult onDirBake(final PageContext context) {
 
             final PageVars newVars = PageVarsBuilder.create(context.pageVars())
                     .addVar(_varName, _varValue)
@@ -192,7 +194,7 @@ public final class CollectiveDirBakeListenerTest
 
             ++_eventCount;
 
-            return newVars;
+            return OnDirBakeResults.success(newVars);
         }
 
 

@@ -6,11 +6,15 @@
 
 package com.varmateo.yawg.core;
 
+import io.vavr.collection.Seq;
+import io.vavr.control.Try;
+
 import com.varmateo.yawg.spi.DirBakeListener;
+import com.varmateo.yawg.spi.OnDirBakeResult;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.PageContextBuilder;
 import com.varmateo.yawg.spi.PageVars;
-import io.vavr.collection.Seq;
+import com.varmateo.yawg.util.OnDirBakeResults;
 
 
 /**
@@ -36,21 +40,32 @@ import io.vavr.collection.Seq;
      *
      */
     @Override
-    public PageVars onDirBake(final PageContext context) {
+    public OnDirBakeResult onDirBake(final PageContext context) {
 
-        return _listeners
+        final Try<PageVars> tryResult = _listeners
                 .foldLeft(
-                        context,
-                        (xs, listener) -> augmentContext(xs, listener))
-                .pageVars();
+                        Try.success(context),
+                        (acc, listener) -> augmentContext(acc, listener))
+                .map(PageContext::pageVars);
+
+        return OnDirBakeResults.fromTry(tryResult);
     }
 
 
-    private static PageContext augmentContext(
-            final PageContext context,
+    private static Try<PageContext> augmentContext(
+            final Try<PageContext> tryContext,
             final DirBakeListener listener) {
 
-        final PageVars newVars = listener.onDirBake(context);
+        return tryContext
+                .flatMap(
+                        context -> OnDirBakeResults.toTry(listener.onDirBake(context))
+                        .map(newVars -> buildPageContext(context, newVars)));
+    }
+
+
+    private static PageContext buildPageContext(
+            final PageContext context,
+            final PageVars newVars) {
 
         return PageContextBuilder.create(context)
                 .pageVars(newVars)

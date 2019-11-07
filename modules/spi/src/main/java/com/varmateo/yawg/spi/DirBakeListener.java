@@ -1,14 +1,10 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.spi;
-
-import com.varmateo.yawg.api.YawgException;
-import com.varmateo.yawg.spi.PageContext;
-import com.varmateo.yawg.spi.PageVars;
 
 
 /**
@@ -37,8 +33,6 @@ public interface DirBakeListener {
      * @throws YawgException If there were any problems performing its
      * activities.
      */
-    PageVars onDirBake(PageContext context)
-            throws YawgException;
-
+    OnDirBakeResult onDirBake(PageContext context);
 
 }

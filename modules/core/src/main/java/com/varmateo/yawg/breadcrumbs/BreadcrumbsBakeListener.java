@@ -10,9 +10,11 @@ import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.breadcrumbs.BreadcrumbItem;
 import com.varmateo.yawg.breadcrumbs.Breadcrumbs;
 import com.varmateo.yawg.spi.DirBakeListener;
+import com.varmateo.yawg.spi.OnDirBakeResult;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.PageVars;
 import com.varmateo.yawg.spi.PageVarsBuilder;
+import com.varmateo.yawg.util.OnDirBakeResults;
 import com.varmateo.yawg.util.SimpleMap;
 import java.util.Optional;
 
@@ -49,15 +51,16 @@ public final class BreadcrumbsBakeListener
      *
      */
     @Override
-    public PageVars onDirBake(final PageContext context)
+    public OnDirBakeResult onDirBake(final PageContext context)
             throws YawgException {
 
         final SimpleMap vars = new SimpleMap(context.pageVars().asMap());
         final Breadcrumbs oldBreadcrumbs = getBreadcrumbs(vars);
         final BreadcrumbItem newBreadcrumbItem = buildBreadcrumbItem(vars, context.dirUrl());
         final Breadcrumbs newBreadcrumbs = extendBreadcrumbs(oldBreadcrumbs, newBreadcrumbItem);
+        final PageVars updatedBreadcrumbs = updateBreadcrumbs(newBreadcrumbs);
 
-        return updateBreadcrumbs(newBreadcrumbs);
+        return OnDirBakeResults.success(updatedBreadcrumbs);
     }
 
 

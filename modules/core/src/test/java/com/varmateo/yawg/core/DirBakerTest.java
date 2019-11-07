@@ -24,6 +24,7 @@ import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.DirBakeListener;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.TemplateService;
+import com.varmateo.yawg.util.OnDirBakeResults;
 import com.varmateo.yawg.util.PageBakeResults;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -73,7 +74,9 @@ public final class DirBakerTest {
         _dirBakeListenerMock = mock(DirBakeListener.class);
         when(_dirBakeListenerMock.onDirBake(any(PageContext.class)))
                 .thenAnswer(
-                        invocation -> ((PageContext)invocation.getArguments()[0]).pageVars());
+                        invocation ->
+                        OnDirBakeResults.success(
+                                ((PageContext)invocation.getArguments()[0]).pageVars()));
 
         _bakedFiles = List.empty();
 
