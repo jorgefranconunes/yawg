@@ -6,11 +6,15 @@
 
 package com.varmateo.yawg.core;
 
+import io.vavr.collection.Seq;
+import io.vavr.control.Try;
+
 import com.varmateo.yawg.spi.DirBakeListener;
+import com.varmateo.yawg.spi.OnDirBakeResult;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.PageContextBuilder;
 import com.varmateo.yawg.spi.PageVars;
-import io.vavr.collection.Seq;
+import com.varmateo.yawg.util.OnDirBakeResults;
 
 
 /**
@@ -26,35 +30,46 @@ import io.vavr.collection.Seq;
     /**
      *
      */
-<span class="fc" id="L29">    CollectiveDirBakeListener(final Seq&lt;DirBakeListener&gt; listeners) {</span>
+<span class="fc" id="L33">    CollectiveDirBakeListener(final Seq&lt;DirBakeListener&gt; listeners) {</span>
 
-<span class="fc" id="L31">        _listeners = listeners;</span>
-<span class="fc" id="L32">    }</span>
+<span class="fc" id="L35">        _listeners = listeners;</span>
+<span class="fc" id="L36">    }</span>
 
 
     /**
      *
      */
     @Override
-    public PageVars onDirBake(final PageContext context) {
+    public OnDirBakeResult onDirBake(final PageContext context) {
 
-<span class="fc" id="L41">        return _listeners</span>
-<span class="fc" id="L42">                .foldLeft(</span>
-                        context,
-<span class="fc" id="L44">                        (xs, listener) -&gt; augmentContext(xs, listener))</span>
-<span class="fc" id="L45">                .pageVars();</span>
+<span class="fc" id="L45">        final Try&lt;PageVars&gt; tryResult = _listeners</span>
+<span class="fc" id="L46">                .foldLeft(</span>
+<span class="fc" id="L47">                        Try.success(context),</span>
+<span class="fc" id="L48">                        (acc, listener) -&gt; augmentContext(acc, listener))</span>
+<span class="fc" id="L49">                .map(PageContext::pageVars);</span>
+
+<span class="fc" id="L51">        return OnDirBakeResults.fromTry(tryResult);</span>
     }
 
 
-    private static PageContext augmentContext(
-            final PageContext context,
+    private static Try&lt;PageContext&gt; augmentContext(
+            final Try&lt;PageContext&gt; tryContext,
             final DirBakeListener listener) {
 
-<span class="fc" id="L53">        final PageVars newVars = listener.onDirBake(context);</span>
+<span class="fc" id="L59">        return tryContext</span>
+<span class="fc" id="L60">                .flatMap(</span>
+<span class="fc" id="L61">                        context -&gt; OnDirBakeResults.toTry(listener.onDirBake(context))</span>
+<span class="fc" id="L62">                        .map(newVars -&gt; buildPageContext(context, newVars)));</span>
+    }
 
-<span class="fc" id="L55">        return PageContextBuilder.create(context)</span>
-<span class="fc" id="L56">                .pageVars(newVars)</span>
-<span class="fc" id="L57">                .build();</span>
+
+    private static PageContext buildPageContext(
+            final PageContext context,
+            final PageVars newVars) {
+
+<span class="fc" id="L70">        return PageContextBuilder.create(context)</span>
+<span class="fc" id="L71">                .pageVars(newVars)</span>
+<span class="fc" id="L72">                .build();</span>
     }
 
 
