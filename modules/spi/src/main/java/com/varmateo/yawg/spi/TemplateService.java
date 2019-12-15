@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -39,6 +39,6 @@ public interface TemplateService {
      * possible to create the page template. For instance, if the
      * template with the given name does not exist.
      */
-    Optional<Template> getTemplate(String name)
+    Optional<Template> prepareTemplate(String name)
             throws YawgException;
 }

@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -19,7 +19,7 @@ import com.varmateo.yawg.util.GlobMatcher;
 /**
  *
  */
-/* package private */ final class TemplateNameMatcher {
+/* default */ final class TemplateNameMatcher {
 
 
     private final Map<String,GlobMatcher> _matchersByName;
@@ -55,7 +55,7 @@ import com.varmateo.yawg.util.GlobMatcher;
     /**
      *
      */
-    public Option<String> getTemplateNameFor(final Path path) {
+    public Option<String> templateNameFor(final Path path) {
 
         return _matchersByName
                 .filter(entry -> entry._2().test(path))

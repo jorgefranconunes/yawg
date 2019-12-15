@@ -6,6 +6,7 @@
 
 package com.varmateo.yawg.freemarker;
 
+import com.varmateo.yawg.api.Result;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.spi.Template;
 import com.varmateo.yawg.spi.TemplateContext;
@@ -58,7 +59,7 @@ public final class FreemarkerTemplateServiceTest
                 FreemarkerTemplateService.class,
                 TEMPLATE_DIR_OK);
         final TemplateService service = FreemarkerTemplateService.create(templatesDir);
-        final Optional<Template> template = service.getTemplate(TEMPLATE_NAME_OK);
+        final Optional<Template> template = service.prepareTemplate(TEMPLATE_NAME_OK);
 
         assertThat(template).isPresent();
     }
@@ -75,7 +76,7 @@ public final class FreemarkerTemplateServiceTest
                 TEMPLATE_DIR_OK);
         final TemplateService service = FreemarkerTemplateService.create(templatesDir);
 
-        assertThatThrownBy(() -> service.getTemplate("NoSuchTemplate.ftlh"))
+        assertThatThrownBy(() -> service.prepareTemplate("NoSuchTemplate.ftlh"))
                 .isInstanceOf(YawgException.class);
     }
 
@@ -90,7 +91,7 @@ public final class FreemarkerTemplateServiceTest
                 FreemarkerTemplateService.class,
                 TEMPLATE_DIR_OK);
         final TemplateService service = FreemarkerTemplateService.create(templatesDir);
-        final Template template = service.getTemplate("template02.ftlh").get();
+        final Template template = service.prepareTemplate("template02.ftlh").get();
 
         final String title = "Simple title";
         final String body = "Hello, world!";
@@ -116,17 +117,19 @@ public final class FreemarkerTemplateServiceTest
      *
      */
     @Test
-    public void processTemplateNotOk() {
+    public void givenInvalidTemplate_whenProcess_thenResultIsFailure() {
 
+        // GIVEN
         final Path templatesDir = TestUtils.getPath(
                 FreemarkerTemplateService.class,
                 TEMPLATE_DIR_OK);
         final TemplateService service = FreemarkerTemplateService.create(templatesDir);
-        final Template template = service.getTemplate("template03.ftlh").get();
+        final Template template = service.prepareTemplate("template03.ftlh").get();
 
+        // WHEN
         final String title = "Simple title";
         final String body = "Hello, world!";
-        final TemplateContext model = TemplateContextBuilder.create()
+        final TemplateContext context = TemplateContextBuilder.create()
                 .body(body)
                 .pageUrl("MyPage.html")
                 .rootRelativeUrl(".")
@@ -134,9 +137,13 @@ public final class FreemarkerTemplateServiceTest
                 .bakeId("TestBakeId")
                 .build();
         final StringWriter buffer = new StringWriter();
+        final Result<Void> result = template.process(context, buffer);
 
-        assertThatThrownBy(() -> template.process(model, buffer))
-                .hasCauseInstanceOf(TemplateException.class);
+        // THEN
+        assertThat(result.isSuccess())
+                .isFalse();
+        assertThat(result.failureCause())
+                .isInstanceOf(FreemarkerTemplateServiceException.class);
     }
 
 

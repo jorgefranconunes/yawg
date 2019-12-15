@@ -35,7 +35,7 @@ import com.varmateo.yawg.spi.TemplateService;
         if ( services.isEmpty() ) {
             _templateFetcher = name -> Optional.empty();
         } else {
-            _templateFetcher = name -> getTemplateFromServices(services, name);
+            _templateFetcher = name -> prepareTemplateFromServices(services, name);
         }
     }
 
@@ -44,7 +44,7 @@ import com.varmateo.yawg.spi.TemplateService;
      * {@inheritDoc}
      */
     @Override
-    public Optional<Template> getTemplate(final String name) {
+    public Optional<Template> prepareTemplate(final String name) {
 
         return _templateFetcher.apply(name);
     }
@@ -53,13 +53,13 @@ import com.varmateo.yawg.spi.TemplateService;
     /**
      *
      */
-    private static Optional<Template> getTemplateFromServices(
+    private static Optional<Template> prepareTemplateFromServices(
             final Seq<TemplateService> services,
             final String name)
             throws YawgException {
 
         final Option<Template> result = services
-                .map(service -> service.getTemplate(name))
+                .map(service -> service.prepareTemplate(name))
                 .map(Option::ofOptional)
                 .filter(Option::isDefined)
                 .map(Option::get)

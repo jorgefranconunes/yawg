@@ -15,7 +15,7 @@ import com.varmateo.yawg.api.YawgException;
 /**
  *
  */
-public final class FreemarkerTemplateServiceException
+/* default */ final class FreemarkerTemplateServiceException
         extends YawgException {
 
 
@@ -47,7 +47,7 @@ public final class FreemarkerTemplateServiceException
     /**
      *
      */
-    public static FreemarkerTemplateServiceException templateFetchFailure(
+    public static FreemarkerTemplateServiceException fetchFailure(
             final String templateName,
             final IOException cause) {
 
@@ -64,9 +64,9 @@ public final class FreemarkerTemplateServiceException
     /**
      *
      */
-    public static FreemarkerTemplateServiceException templateProcessingFailure(
+    public static FreemarkerTemplateServiceException processingFailure(
             final String templateName,
-            final Exception cause) {
+            final Throwable cause) {
 
         final String msg = String.format(
                 "Failed to process template \"%s\" - %s - %s",

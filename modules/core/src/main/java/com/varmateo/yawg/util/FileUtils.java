@@ -6,8 +6,6 @@
 
 package com.varmateo.yawg.util;
 
-import io.vavr.control.Option;
-
 import java.io.InputStream;
 import java.io.IOException;
 import java.io.Reader;
@@ -17,7 +15,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.regex.Pattern;
+
+import io.vavr.control.Option;
+import io.vavr.control.Try;
 
 
 /**
@@ -136,7 +138,7 @@ public final class FileUtils {
      * @throws IOException If there were problems opening the file for
      * writing, or writing into the file.
      */
-    public static void newWriter(
+    public static void writeTo(
             final Path target,
             final ConsumerWithIOException<Writer> consumer)
             throws IOException {
@@ -150,7 +152,22 @@ public final class FileUtils {
     /**
      *
      */
-    public static <T> T newReader(
+    public static <T> Try<T> safeWriteTo(
+            final Path target,
+            final Function<Writer, T> action) {
+
+        try ( final Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {
+            return Try.of(() -> action.apply(writer));
+        } catch ( IOException cause ) {
+            return Try.failure(cause);
+        }
+    }
+
+
+    /**
+     *
+     */
+    public static <T> T readFrom(
             final Path source,
             final FunctionWithIOException<Reader, T> transformer)
             throws IOException {

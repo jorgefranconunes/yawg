@@ -177,7 +177,7 @@ public final class HtmlPageBaker
         final TemplateContext templateContext = HtmlTemplateContext.create(
                 sourcePath, targetPath, context);
 
-        FileUtils.newWriter(
+        FileUtils.writeTo(
                 targetPath,
                 writer -> template.process(templateContext, writer));
     }

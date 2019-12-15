@@ -68,7 +68,7 @@ public final class DirBakerTest {
     public void setUp() {
 
         _templateServiceMock = mock(TemplateService.class);
-        when(_templateServiceMock.getTemplate(anyString()))
+        when(_templateServiceMock.prepareTemplate(anyString()))
                 .thenReturn(Optional.empty());
 
         _dirBakeListenerMock = mock(DirBakeListener.class);

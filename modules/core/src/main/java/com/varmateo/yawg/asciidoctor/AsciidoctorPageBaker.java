@@ -7,17 +7,17 @@
 package com.varmateo.yawg.asciidoctor;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.regex.Pattern;
 
 import io.vavr.Lazy;
 import io.vavr.control.Try;
 import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.OptionsBuilder;
-import org.asciidoctor.internal.AsciidoctorCoreException;
 
+import com.varmateo.yawg.api.Result;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.PageBakeResult;
@@ -26,6 +26,7 @@ import com.varmateo.yawg.spi.Template;
 import com.varmateo.yawg.spi.TemplateContext;
 import com.varmateo.yawg.util.FileUtils;
 import com.varmateo.yawg.util.PageBakeResults;
+import com.varmateo.yawg.util.Results;
 
 
 /**
@@ -110,45 +111,34 @@ public final class AsciidoctorPageBaker
     public PageBakeResult bake(
             final Path sourcePath,
             final PageContext context,
-            final Path targetDir)
-            throws YawgException {
+            final Path targetDir) {
 
-        return Try.run(() -> doBake(sourcePath, context, targetDir))
-                .map(x -> PageBakeResults.success())
-                .recoverWith(
-                        AsciidoctorCoreException.class,
-                        cause -> Try.failure(AsciidoctorPageBakerException.bakeFailure(sourcePath, targetDir, cause)))
-                .recoverWith(
-                        IOException.class,
-                        cause -> Try.failure(AsciidoctorPageBakerException.bakeFailure(sourcePath, targetDir, cause)))
-                .recover(
-                        YawgException.class,
-                        PageBakeResults::failure)
-                .get();
+        final Try<Void> result = doBake(sourcePath, context, targetDir);
+
+        return PageBakeResults.fromTry(result);
     }
 
 
     /**
      *
      */
-    private void doBake(
+    private Try<Void> doBake(
             final Path sourcePath,
             final PageContext context,
-            final Path targetDir)
-            throws AsciidoctorCoreException, IOException {
+            final Path targetDir) {
 
         final Path targetPath = getTargetPath(sourcePath, targetDir);
         final Optional<Template> template = context.templateFor(sourcePath);
 
         if ( template.isPresent() ) {
-            doBakeWithTemplate(
+            return doBakeWithTemplate(
                     sourcePath,
                     context,
                     targetDir,
                     targetPath,
                     template.get());
         } else {
-            doBakeWithoutTemplate(
+            return doBakeWithoutTemplate(
                     sourcePath,
                     context,
                     targetDir,
@@ -174,12 +164,11 @@ public final class AsciidoctorPageBaker
     /**
      *
      */
-    private void doBakeWithoutTemplate(
+    private Try<Void> doBakeWithoutTemplate(
             final Path sourcePath,
             final PageContext context,
             final Path targetDir,
-            final Path targetPath)
-            throws AsciidoctorCoreException {
+            final Path targetPath){
 
         final OptionsBuilder options = AdocUtils.buildOptionsForBakeWithoutTemplate(
                 sourcePath,
@@ -188,33 +177,48 @@ public final class AsciidoctorPageBaker
                 context.pageVars());
         final File sourceFile = sourcePath.toFile();
 
-        _asciidoctor.get().convertFile(sourceFile, options);
+        return Try.run(() -> _asciidoctor.get().convertFile(sourceFile, options))
+                .recoverWith(AsciidoctorPageBakerException.asciidocFailureTry(sourcePath));
     }
 
 
-    /**
-     *
-     */
-    private void doBakeWithTemplate(
+    private Try<Void> doBakeWithTemplate(
             final Path sourcePath,
             final PageContext context,
             final Path targetDir,
             final Path targetPath,
-            final Template template)
-            throws AsciidoctorCoreException, IOException {
+            final Template template) {
 
-        final TemplateContext templateContext = AsciidoctorTemplateContext.create(
+        final Try<TemplateContext> templateContext = AsciidoctorTemplateContext.create(
                 _asciidoctor.get(), sourcePath, targetDir, targetPath, context);
 
-        FileUtils.newWriter(
-                targetPath,
-                writer -> template.process(templateContext, writer));
+        return templateContext.flatMap(processTemplate(sourcePath, targetPath, template));
     }
 
 
-    /**
-     *
-     */
+    private Function<TemplateContext, Try<Void>> processTemplate(
+            final Path sourcePath,
+            final Path targetPath,
+            final Template template) {
+
+        return (TemplateContext templateContext) -> {
+            final Try<Result<Void>> result = FileUtils.safeWriteTo(
+                    targetPath,
+                    writer -> template.process(templateContext, writer));
+
+            return result.recoverWith(templateProcessingFailure(sourcePath))
+                    .flatMap(Results::toTry);
+        };
+    }
+
+
+    private <T> Function<Throwable, Try<T>> templateProcessingFailure(final Path sourcePath) {
+
+        return (Throwable cause) -> Try.failure(
+                AsciidoctorPageBakerException.templateFailure(sourcePath, cause));
+    }
+
+
     private Asciidoctor newAsciidoctor() {
 
         final Asciidoctor asciidoctor = Asciidoctor.Factory.create();

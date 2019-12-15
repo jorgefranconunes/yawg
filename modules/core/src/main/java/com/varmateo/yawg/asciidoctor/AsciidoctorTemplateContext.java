@@ -6,19 +6,22 @@
 
 package com.varmateo.yawg.asciidoctor;
 
-import com.varmateo.yawg.spi.PageContext;
-import com.varmateo.yawg.spi.TemplateContext;
-import com.varmateo.yawg.spi.TemplateContextBuilder;
-import com.varmateo.yawg.util.FileUtils;
-import io.vavr.collection.List;
-import io.vavr.control.Option;
 import java.io.IOException;
 import java.nio.file.Path;
+
+import io.vavr.collection.List;
+import io.vavr.control.Option;
+import io.vavr.control.Try;
 import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.OptionsBuilder;
 import org.asciidoctor.ast.Author;
 import org.asciidoctor.ast.DocumentHeader;
 import org.asciidoctor.internal.AsciidoctorCoreException;
+
+import com.varmateo.yawg.spi.PageContext;
+import com.varmateo.yawg.spi.TemplateContext;
+import com.varmateo.yawg.spi.TemplateContextBuilder;
+import com.varmateo.yawg.util.FileUtils;
 
 
 /**
@@ -35,7 +38,19 @@ import org.asciidoctor.internal.AsciidoctorCoreException;
     /**
      *
      */
-    public static TemplateContext create(
+    public static Try<TemplateContext> create(
+            final Asciidoctor asciidoctor,
+            final Path sourcePath,
+            final Path targetDir,
+            final Path targetPath,
+            final PageContext context) {
+
+        return Try.of(() -> doCreate(asciidoctor, sourcePath, targetDir, targetPath, context))
+                .recoverWith(AsciidoctorPageBakerException.asciidocFailureTry(sourcePath));
+    }
+
+
+    private static TemplateContext doCreate(
             final Asciidoctor asciidoctor,
             final Path sourcePath,
             final Path targetDir,
@@ -70,9 +85,6 @@ import org.asciidoctor.internal.AsciidoctorCoreException;
     }
 
 
-    /**
-     *
-     */
     private static void buildAuthors(
             final TemplateContextBuilder templateContextBuilder,
             final DocumentHeader header) {

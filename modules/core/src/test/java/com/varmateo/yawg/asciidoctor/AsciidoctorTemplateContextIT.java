@@ -166,7 +166,8 @@ public final class AsciidoctorTemplateContextIT {
                 sourcePath,
                 sourcePath.getParent(),
                 sourcePath,
-                context);
+                context)
+                .get();
     }
 
 

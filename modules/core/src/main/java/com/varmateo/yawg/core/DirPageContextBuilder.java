@@ -89,7 +89,7 @@ import java.util.function.Function;
         final TemplateNameMatcher templateNameMatcher = dirBakeOptions.templatesHere;
         final TemplateService templateService = _templateService;
 
-        return path -> getTemplate(
+        return path -> prepareTemplate(
                 path,
                 templateNameMatcher,
                 templateName,
@@ -101,41 +101,39 @@ import java.util.function.Function;
     /**
      *
      */
-    private static Option<Template> getTemplate(
+    private static Option<Template> prepareTemplate(
             final Path path,
             final TemplateNameMatcher templateNameMatcher,
             final Option<String> templateName,
             final TemplateService templateService) {
 
-        return getTemplateForPath(path, templateNameMatcher, templateService)
-                .orElse(() -> getDefaultTemplate(templateName, templateService));
+        return prepareTemplateForPath(path, templateNameMatcher, templateService)
+                .orElse(() -> prepareDefaultTemplate(templateName, templateService));
     }
 
 
     /**
      *
      */
-    private static Option<Template> getTemplateForPath(
+    private static Option<Template> prepareTemplateForPath(
             final Path path,
             final TemplateNameMatcher templateNameMatcher,
             final TemplateService templateService) {
 
-        return templateNameMatcher
-                .getTemplateNameFor(path)
-                .flatMap(name ->
-                         Option.ofOptional(templateService.getTemplate(name)));
+        return templateNameMatcher.templateNameFor(path)
+                .flatMap(name -> Option.ofOptional(templateService.prepareTemplate(name)));
     }
 
 
     /**
      *
      */
-    private static Option<Template> getDefaultTemplate(
+    private static Option<Template> prepareDefaultTemplate(
             final Option<String> templateName,
             final TemplateService templateService) {
 
         return templateName.flatMap(
-                name -> Option.ofOptional(templateService.getTemplate(name)));
+                name -> Option.ofOptional(templateService.prepareTemplate(name)));
     }
 
 

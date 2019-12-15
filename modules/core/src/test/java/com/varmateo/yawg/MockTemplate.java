@@ -9,9 +9,13 @@ package com.varmateo.yawg;
 import java.io.IOException;
 import java.io.Writer;
 
+import io.vavr.control.Try;
+
+import com.varmateo.yawg.api.Result;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.spi.Template;
 import com.varmateo.yawg.spi.TemplateContext;
+import com.varmateo.yawg.util.Results;
 
 
 /**
@@ -25,16 +29,16 @@ public final class MockTemplate
      *
      */
     @Override
-    public void process(
+    public Result<Void> process(
             TemplateContext model,
-            Writer output)
-            throws YawgException {
+            Writer output) {
 
-        try {
-            output.write(model.body());
-        } catch ( IOException e ) {
-            throw MockTemplateException.failure(e);
-        }
+        final Try<Void> result = Try.run(() -> output.write(model.body()))
+                .recoverWith(
+                        IOException.class,
+                        cause -> Try.failure(MockTemplateException.failure(cause)));
+
+        return Results.fromTry(result);
     }
 
 

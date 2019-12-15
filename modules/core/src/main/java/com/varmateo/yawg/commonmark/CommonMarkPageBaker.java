@@ -192,7 +192,7 @@ public final class CommonMarkPageBaker
                 + "<html><body>%s</body></html>";
         final String content = String.format(contentTemplate, body);
 
-        FileUtils.newWriter(
+        FileUtils.writeTo(
                 targetPath,
                 writer -> writer.write(content));
     }
@@ -201,7 +201,7 @@ public final class CommonMarkPageBaker
     private String renderBody(final Path sourcePath)
             throws IOException {
 
-        final Node document = FileUtils.newReader(
+        final Node document = FileUtils.readFrom(
                 sourcePath,
                 reader -> _markdownParser.get().parseReader(reader));
 
@@ -223,7 +223,7 @@ public final class CommonMarkPageBaker
         final TemplateContext dataModel = _templateContextBuilder.get().build(
                 sourcePath, targetDir, targetPath, context);
 
-        FileUtils.newWriter(
+        FileUtils.writeTo(
                 targetPath,
                 writer -> template.process(dataModel, writer));
     }

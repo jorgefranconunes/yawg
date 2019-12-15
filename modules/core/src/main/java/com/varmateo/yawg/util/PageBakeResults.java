@@ -8,6 +8,7 @@ package com.varmateo.yawg.util;
 
 import io.vavr.control.Try;
 
+import com.varmateo.yawg.api.Result;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.spi.PageBakeResult;
 

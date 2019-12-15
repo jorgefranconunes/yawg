@@ -8,7 +8,7 @@ package com.varmateo.yawg.spi;
 
 import java.io.Writer;
 
-import com.varmateo.yawg.api.YawgException;
+import com.varmateo.yawg.api.Result;
 
 
 /**
@@ -20,16 +20,17 @@ public interface Template {
     /**
      * Generates the final document from this template.
      *
-     * @param dataModel Data that can be used by the template.
+     * @param context Input data for the document content generation
+     * process.
      *
-     * @param output The target where the final document is to be
-     * written to.
+     * @param output Sink where the document content is to be written
+     * to.
      *
-     * @throws YawgException Thrown if there were any problems
-     * processing the template or writing into the given writer.
+     * @return A result signaling success, or failure. A failure could
+     * be caused during the processing of the template, or writing
+     * into the given {@code Writer}.
      */
-    void process(
-            TemplateContext dataModel,
-            Writer output)
-            throws YawgException;
+    Result<Void> process(
+            TemplateContext context,
+            Writer output);
 }

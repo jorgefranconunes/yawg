@@ -13,16 +13,19 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 import io.vavr.control.Option;
+import io.vavr.control.Try;
 
 import freemarker.template.Configuration;
 import freemarker.template.TemplateExceptionHandler;
 import freemarker.template.TemplateException;
 
+import com.varmateo.yawg.api.Result;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.freemarker.FreemarkerDataModel;
 import com.varmateo.yawg.spi.Template;
 import com.varmateo.yawg.spi.TemplateContext;
 import com.varmateo.yawg.spi.TemplateService;
+import com.varmateo.yawg.util.Results;
 
 
 /**
@@ -76,8 +79,7 @@ public final class FreemarkerTemplateService
 
         fmConfig.setDirectoryForTemplateLoading(templatesDir.toFile());
         fmConfig.setDefaultEncoding("UTF-8");
-        fmConfig.setTemplateExceptionHandler(
-                TemplateExceptionHandler.RETHROW_HANDLER);
+        fmConfig.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
         fmConfig.setLogTemplateExceptions(false);
 
         return fmConfig;
@@ -88,12 +90,12 @@ public final class FreemarkerTemplateService
      * {@inheritDoc}
      */
     @Override
-    public Optional<Template> getTemplate(final String name)
+    public Optional<Template> prepareTemplate(final String name)
             throws YawgException {
 
         return Option.of(name)
                 .filter(x -> RE_FTLH.matcher(x).matches())
-                .map(this::getFreemarkerTemplate)
+                .map(this::prepareFreemarkerTemplate)
                 .map(FreemarkerTemplate::new)
                 .map(FreemarkerTemplate::asTemplate) // HACK
                 .toJavaOptional();
@@ -103,7 +105,7 @@ public final class FreemarkerTemplateService
     /**
      *
      */
-    private freemarker.template.Template getFreemarkerTemplate(
+    private freemarker.template.Template prepareFreemarkerTemplate(
             final String name)
             throws YawgException {
 
@@ -112,7 +114,7 @@ public final class FreemarkerTemplateService
         try {
             fmTemplate = _fmConfig.getTemplate(name);
         } catch ( IOException e ) {
-            throw FreemarkerTemplateServiceException.templateFetchFailure(name, e);
+            throw FreemarkerTemplateServiceException.fetchFailure(name, e);
         }
 
         return fmTemplate;
@@ -142,19 +144,15 @@ public final class FreemarkerTemplateService
          *
          */
         @Override
-        public void process(
+        public Result<Void> process(
                 final TemplateContext context,
-                final Writer writer)
-                throws YawgException {
+                final Writer writer) {
 
             final FreemarkerDataModel fmDataModel = new FreemarkerDataModel(context);
+            final Try<Void> result = Try.run(() -> _fmTemplate.process(fmDataModel, writer))
+                    .recoverWith(this::processingFailure);
 
-            try {
-                _fmTemplate.process(fmDataModel, writer);
-            } catch ( TemplateException | IOException e ) {
-                throw FreemarkerTemplateServiceException.templateProcessingFailure(
-                        _fmTemplate.getName(), e);
-            }
+            return Results.fromTry(result);
         }
 
 
@@ -164,6 +162,15 @@ public final class FreemarkerTemplateService
         public Template asTemplate() {
 
             return this;
+        }
+
+
+        private <T> Try<T> processingFailure(final Throwable rootCause) {
+
+            final YawgException cause = FreemarkerTemplateServiceException.processingFailure(
+                    _fmTemplate.getName(), rootCause);
+
+            return Try.failure(cause);
         }
 
 

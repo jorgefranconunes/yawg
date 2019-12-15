@@ -56,7 +56,7 @@ import com.varmateo.yawg.util.FileUtils;
             final PageContext context)
             throws IOException {
 
-        final Node document = FileUtils.newReader(sourcePath, _markdownParser::parseReader);
+        final Node document = FileUtils.readFrom(sourcePath, _markdownParser::parseReader);
         final String body = _htmlRenderer.render(document);
         final String title = documentTitle(sourcePath, document);
         final String pageUrl = context.dirUrl() + "/" + targetPath.getFileName();
