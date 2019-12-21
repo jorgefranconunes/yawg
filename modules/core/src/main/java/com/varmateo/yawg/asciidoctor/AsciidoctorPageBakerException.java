@@ -96,4 +96,24 @@ public final class AsciidoctorPageBakerException
 
         return new AsciidoctorPageBakerException(msg, cause);
     }
+
+
+    /**
+     *
+     */
+    public static <T> Try<T> templateFailureTry(
+            final Path sourcePath,
+            final Throwable cause) {
+
+        return Try.failure(templateFailure(sourcePath, cause));
+    }
+
+
+    /**
+     *
+     */
+    public static <T> Function<Throwable, Try<T>> templateFailureTry(final Path sourcePath) {
+
+        return (Throwable cause) -> templateFailureTry(sourcePath, cause);
+    }
 }

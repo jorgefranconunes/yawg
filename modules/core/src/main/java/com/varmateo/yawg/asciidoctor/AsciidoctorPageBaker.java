@@ -206,16 +206,10 @@ public final class AsciidoctorPageBaker
                     targetPath,
                     writer -> template.process(templateContext, writer));
 
-            return result.recoverWith(templateProcessingFailure(sourcePath))
+            return result
+                    .recoverWith(AsciidoctorPageBakerException.templateFailureTry(sourcePath))
                     .flatMap(Results::toTry);
         };
-    }
-
-
-    private <T> Function<Throwable, Try<T>> templateProcessingFailure(final Path sourcePath) {
-
-        return (Throwable cause) -> Try.failure(
-                AsciidoctorPageBakerException.templateFailure(sourcePath, cause));
     }
 
 

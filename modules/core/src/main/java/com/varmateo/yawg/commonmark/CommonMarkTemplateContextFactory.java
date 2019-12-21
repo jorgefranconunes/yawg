@@ -25,7 +25,7 @@ import com.varmateo.yawg.util.FileUtils;
 /**
  *
  */
-/* default */ final class CommonMarkTemplateContextBuilder {
+/* default */ final class CommonMarkTemplateContextFactory {
 
 
     private static final String KEY_TITLE = "title";
@@ -37,7 +37,7 @@ import com.varmateo.yawg.util.FileUtils;
     /**
      *
      */
-    CommonMarkTemplateContextBuilder(
+    CommonMarkTemplateContextFactory(
             final Parser markdownParser,
             final HtmlRenderer htmlRenderer) {
 

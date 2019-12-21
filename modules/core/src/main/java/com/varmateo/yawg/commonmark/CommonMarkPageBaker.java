@@ -50,8 +50,8 @@ public final class CommonMarkPageBaker
     private final Lazy<HtmlRenderer> _htmlRenderer =
             Lazy.of(this::createHtmlRenderer);
 
-    private final Lazy<CommonMarkTemplateContextBuilder> _templateContextBuilder =
-            Lazy.of(this::createTemplateContextBuilder);
+    private final Lazy<CommonMarkTemplateContextFactory> _templateContextFactory =
+            Lazy.of(this::createTemplateContextFactory);
 
 
     private CommonMarkPageBaker() {
@@ -84,7 +84,7 @@ public final class CommonMarkPageBaker
      * <p>The following extensions will be allowed:</p>
      *
      * <ul>
-     *   <li>.adoc</li>
+     *   <li>.md</li>
      * </ul>
      *
      * @return True if the given file name has one of the allowed
@@ -220,7 +220,7 @@ public final class CommonMarkPageBaker
             final Template template)
             throws IOException {
 
-        final TemplateContext dataModel = _templateContextBuilder.get().build(
+        final TemplateContext dataModel = _templateContextFactory.get().build(
                 sourcePath, targetDir, targetPath, context);
 
         FileUtils.writeTo(
@@ -246,9 +246,9 @@ public final class CommonMarkPageBaker
     }
 
 
-    private CommonMarkTemplateContextBuilder createTemplateContextBuilder() {
+    private CommonMarkTemplateContextFactory createTemplateContextFactory() {
 
-        return new CommonMarkTemplateContextBuilder(_markdownParser.get(), _htmlRenderer.get());
+        return new CommonMarkTemplateContextFactory(_markdownParser.get(), _htmlRenderer.get());
     }
 
 
