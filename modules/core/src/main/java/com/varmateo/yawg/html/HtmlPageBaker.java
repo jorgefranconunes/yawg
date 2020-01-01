@@ -1,19 +1,19 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.html;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.regex.Pattern;
 
 import io.vavr.control.Try;
 
-import com.varmateo.yawg.api.YawgException;
+import com.varmateo.yawg.api.Result;
 import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.PageBakeResult;
 import com.varmateo.yawg.spi.PageContext;
@@ -21,6 +21,7 @@ import com.varmateo.yawg.spi.Template;
 import com.varmateo.yawg.spi.TemplateContext;
 import com.varmateo.yawg.util.FileUtils;
 import com.varmateo.yawg.util.PageBakeResults;
+import com.varmateo.yawg.util.Results;
 
 
 /**
@@ -105,34 +106,27 @@ public final class HtmlPageBaker
             final PageContext context,
             final Path targetDir) {
 
-        return Try.run(() -> doBake(sourcePath, context, targetDir))
-                .map(x -> PageBakeResults.success())
-                .recoverWith(
-                        IOException.class,
-                        cause -> Try.failure(HtmlPageBakerException.bakeFailure(sourcePath, targetDir, cause)))
-                .recover(
-                        YawgException.class,
-                        PageBakeResults::failure)
-                .get();
+        final Try<Void> result = doBake(sourcePath, context, targetDir);
+
+        return PageBakeResults.fromTry(result);
     }
 
 
     /**
      *
      */
-    private void doBake(
+    private Try<Void> doBake(
             final Path sourcePath,
             final PageContext context,
-            final Path targetDir)
-            throws IOException {
+            final Path targetDir) {
 
         final Path targetPath = getTargetPath(sourcePath, targetDir);
         final Optional<Template> template = context.templateFor(sourcePath);
 
         if ( template.isPresent() ) {
-            doBakeWithTemplate(sourcePath, context, targetPath, template.get());
+            return doBakeWithTemplate(sourcePath, context, targetPath, template.get());
         } else {
-            doBakeWithoutTemplate(sourcePath, targetPath);
+            return doBakeWithoutTemplate(sourcePath, targetPath);
         }
     }
 
@@ -155,31 +149,45 @@ public final class HtmlPageBaker
      * Baking without a template just copies the source HTML file to
      * the target location.
      */
-    private void doBakeWithoutTemplate(
+    private Try<Void> doBakeWithoutTemplate(
             final Path sourcePath,
-            final Path targetPath)
-            throws IOException {
+            final Path targetPath) {
 
-        FileUtils.copy(sourcePath, targetPath);
+        return Try.run(() -> FileUtils.copy(sourcePath, targetPath))
+                .recoverWith(HtmlPageBakerException.copyFailureTry(sourcePath));
     }
 
 
     /**
      *
      */
-    private void doBakeWithTemplate(
+    private Try<Void> doBakeWithTemplate(
             final Path sourcePath,
             final PageContext context,
             final Path targetPath,
-            final Template template)
-            throws IOException {
+            final Template template) {
 
-        final TemplateContext templateContext = HtmlTemplateContext.create(
+        final Try<TemplateContext> templateContext = HtmlTemplateContext.create(
                 sourcePath, targetPath, context);
 
-        FileUtils.writeTo(
-                targetPath,
-                writer -> template.process(templateContext, writer));
+        return templateContext.flatMap(processTemplate(sourcePath, targetPath, template));
+    }
+
+
+    private Function<TemplateContext, Try<Void>> processTemplate(
+            final Path sourcePath,
+            final Path targetPath,
+            final Template template) {
+
+        return (TemplateContext templateContext) -> {
+            final Try<Result<Void>> result = FileUtils.safeWriteWith(
+                    targetPath,
+                    writer -> template.process(templateContext, writer));
+
+            return result
+                    .recoverWith(HtmlPageBakerException.templateFailureTry(sourcePath))
+                    .flatMap(Results::toTry);
+        };
     }
 
 

@@ -1,15 +1,16 @@
 /**************************************************************************
  *
- * Copyright (c) 2019 Yawg project contributors.
+ * Copyright (c) 2019-2020 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.commonmark;
 
-import java.io.IOException;
 import java.nio.file.Path;
+import java.util.function.Function;
 
 import io.vavr.control.Option;
+import io.vavr.control.Try;
 
 import org.commonmark.ext.front.matter.YamlFrontMatterVisitor;
 import org.commonmark.node.Node;
@@ -49,16 +50,41 @@ import com.varmateo.yawg.util.FileUtils;
     /**
      *
      */
-    public TemplateContext build(
+    public Try<TemplateContext> build(
             final Path sourcePath,
             final Path targetDir,
             final Path targetPath,
-            final PageContext context)
-            throws IOException {
+            final PageContext context) {
 
-        final Node document = FileUtils.readFrom(sourcePath, _markdownParser::parseReader);
-        final String body = _htmlRenderer.render(document);
+        return parse(sourcePath)
+                .map(buildTemplateContext(sourcePath, targetPath, context));
+    }
+
+
+    private Try<Node> parse(final Path sourcePath) {
+
+        return FileUtils.safeReadFrom(sourcePath, _markdownParser::parseReader)
+                .recoverWith(CommonMarkPageBakerException.parseFailureTry(sourcePath));
+    }
+
+
+    private Function<Node, TemplateContext> buildTemplateContext(
+            final Path sourcePath,
+            final Path targetPath,
+            final PageContext context) {
+
+        return (Node document) -> buildTemplateContext(sourcePath, targetPath, context, document);
+    }
+
+
+    private TemplateContext buildTemplateContext(
+            final Path sourcePath,
+            final Path targetPath,
+            final PageContext context,
+            final Node document) {
+
         final String title = documentTitle(sourcePath, document);
+        final String body = _htmlRenderer.render(document);
         final String pageUrl = context.dirUrl() + "/" + targetPath.getFileName();
 
         return TemplateContextBuilder.create()

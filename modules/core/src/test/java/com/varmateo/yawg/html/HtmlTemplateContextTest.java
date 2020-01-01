@@ -1,12 +1,11 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.html;
 
-import java.io.IOException;
 import java.nio.file.Path;
 
 import org.junit.Test;
@@ -23,16 +22,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  *
  */
-public final class HtmlTemplateContextTest
- {
+public final class HtmlTemplateContextTest {
 
 
     /**
      *
      */
     @Test
-    public void withTitle()
-            throws IOException {
+    public void withTitle() {
 
         final TemplateContext model = buildModel("DocumentWithTitle.html");
 
@@ -47,8 +44,7 @@ public final class HtmlTemplateContextTest
      *
      */
     @Test
-    public void withoutTitle()
-            throws IOException {
+    public void withoutTitle() {
 
         final TemplateContext model = buildModel("DocumentWithoutTitle.html");
 
@@ -62,8 +58,7 @@ public final class HtmlTemplateContextTest
     /**
      *
      */
-    private TemplateContext buildModel(final String relPath)
-            throws IOException {
+    private TemplateContext buildModel(final String relPath) {
 
         final String dirUrl = ".";
         final String rootRelativeUrl = ".";
@@ -74,7 +69,7 @@ public final class HtmlTemplateContextTest
                 .build();
         final Path sourcePath = TestUtils.getPath(HtmlTemplateContext.class, relPath);
 
-        return HtmlTemplateContext.create(sourcePath, sourcePath, context);
+        return HtmlTemplateContext.create(sourcePath, sourcePath, context).get();
     }
 
 

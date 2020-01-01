@@ -1,14 +1,14 @@
 /**************************************************************************
  *
- * Copyright (c) 2019 Yawg project contributors.
+ * Copyright (c) 2019-2020 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.commonmark;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.regex.Pattern;
 
 import io.vavr.Lazy;
@@ -20,7 +20,7 @@ import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
 
-import com.varmateo.yawg.api.YawgException;
+import com.varmateo.yawg.api.Result;
 import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.PageBakeResult;
 import com.varmateo.yawg.spi.PageContext;
@@ -28,6 +28,7 @@ import com.varmateo.yawg.spi.Template;
 import com.varmateo.yawg.spi.TemplateContext;
 import com.varmateo.yawg.util.FileUtils;
 import com.varmateo.yawg.util.PageBakeResults;
+import com.varmateo.yawg.util.Results;
 
 
 /**
@@ -121,39 +122,32 @@ public final class CommonMarkPageBaker
             final PageContext context,
             final Path targetDir) {
 
-        return Try.run(() -> doBake(sourcePath, context, targetDir))
-                .map(x -> PageBakeResults.success())
-                .recoverWith(
-                        IOException.class,
-                        cause -> Try.failure(CommonMarkPageBakerException.bakeFailure(sourcePath, targetDir, cause)))
-                .recover(
-                        YawgException.class,
-                        PageBakeResults::failure)
-                .get();
+        final Try<Void> result = doBake(sourcePath, context, targetDir);
+
+        return PageBakeResults.fromTry(result);
     }
 
 
     /**
      *
      */
-    private void doBake(
+    private Try<Void> doBake(
             final Path sourcePath,
             final PageContext context,
-            final Path targetDir)
-            throws IOException {
+            final Path targetDir) {
 
         final Path targetPath = getTargetPath(sourcePath, targetDir);
         final Optional<Template> template = context.templateFor(sourcePath);
 
         if ( template.isPresent() ) {
-            doBakeWithTemplate(
+            return doBakeWithTemplate(
                     sourcePath,
                     context,
                     targetDir,
                     targetPath,
                     template.get());
         } else {
-            doBakeWithoutTemplate(
+            return doBakeWithoutTemplate(
                     sourcePath,
                     context,
                     targetDir,
@@ -179,53 +173,79 @@ public final class CommonMarkPageBaker
     /**
      *
      */
-    private void doBakeWithoutTemplate(
+    private Try<Void> doBakeWithoutTemplate(
             final Path sourcePath,
             final PageContext context,
             final Path targetDir,
-            final Path targetPath)
-            throws IOException {
+            final Path targetPath) {
 
-        final String body = renderBody(sourcePath);
+        return renderBody(sourcePath)
+                .flatMap(body -> renderContentAndSave(sourcePath, targetPath, body));
+    }
+
+
+    private Try<String> renderBody(final Path sourcePath) {
+
+        final Try<Node> document = FileUtils.safeReadFrom(
+                sourcePath,
+                reader -> _markdownParser.get().parseReader(reader));
+        final Try<String> body = document
+                .map(doc -> _htmlRenderer.get().render(doc));
+
+        return body
+                .recoverWith(CommonMarkPageBakerException.commonMarkFailureTry(sourcePath));
+    }
+
+
+    private Try<Void> renderContentAndSave(
+            final Path sourcePath,
+            final Path targetPath,
+            final String body) {
+
         final String contentTemplate = ""
                 + "<!DOCTYPE html>%n"
                 + "<html><body>%s</body></html>";
         final String content = String.format(contentTemplate, body);
-
-        FileUtils.writeTo(
+        final Try<Void> result = FileUtils.safeWriteTo(
                 targetPath,
                 writer -> writer.write(content));
-    }
 
-
-    private String renderBody(final Path sourcePath)
-            throws IOException {
-
-        final Node document = FileUtils.readFrom(
-                sourcePath,
-                reader -> _markdownParser.get().parseReader(reader));
-
-        return _htmlRenderer.get().render(document);
+        return result
+                .recoverWith(CommonMarkPageBakerException.commonMarkFailureTry(sourcePath));
     }
 
 
     /**
      *
      */
-    private void doBakeWithTemplate(
+    private Try<Void> doBakeWithTemplate(
             final Path sourcePath,
             final PageContext context,
             final Path targetDir,
             final Path targetPath,
-            final Template template)
-            throws IOException {
+            final Template template) {
 
-        final TemplateContext dataModel = _templateContextFactory.get().build(
+        final Try<TemplateContext> templateContext = _templateContextFactory.get().build(
                 sourcePath, targetDir, targetPath, context);
 
-        FileUtils.writeTo(
-                targetPath,
-                writer -> template.process(dataModel, writer));
+        return templateContext.flatMap(processTemplate(sourcePath, targetPath, template));
+    }
+
+
+    private Function<TemplateContext, Try<Void>> processTemplate(
+            final Path sourcePath,
+            final Path targetPath,
+            final Template template) {
+
+        return (TemplateContext templateContext) -> {
+            final Try<Result<Void>> result = FileUtils.safeWriteWith(
+                    targetPath,
+                    writer -> template.process(templateContext, writer));
+
+            return result
+                    .recoverWith(CommonMarkPageBakerException.templateFailureTry(sourcePath))
+                    .flatMap(Results::toTry);
+        };
     }
 
 

@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -15,7 +15,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.Optional;
-import java.util.function.Function;
 import java.util.regex.Pattern;
 
 import io.vavr.control.Option;
@@ -152,13 +151,28 @@ public final class FileUtils {
     /**
      *
      */
-    public static <T> Try<T> safeWriteTo(
+    public static <T> Try<Void> safeWriteTo(
             final Path target,
-            final Function<Writer, T> action) {
+            final ConsumerWithIOException<Writer> action) {
+
+        try ( final Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {
+            return Try.run(() -> action.accept(writer));
+        } catch ( final IOException cause ) {
+            return Try.failure(cause);
+        }
+    }
+
+
+    /**
+     *
+     */
+    public static <T> Try<T> safeWriteWith(
+            final Path target,
+            final FunctionWithIOException<Writer, T> action) {
 
         try ( final Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {
             return Try.of(() -> action.apply(writer));
-        } catch ( IOException cause ) {
+        } catch ( final IOException cause ) {
             return Try.failure(cause);
         }
     }
@@ -174,6 +188,21 @@ public final class FileUtils {
 
         try ( Reader reader = Files.newBufferedReader(source, StandardCharsets.UTF_8) ) {
             return transformer.apply(reader);
+        }
+    }
+
+
+    /**
+     *
+     */
+    public static <T> Try<T> safeReadFrom(
+            final Path source,
+            final FunctionWithIOException<Reader, T> transformer) {
+
+        try ( Reader reader = Files.newBufferedReader(source, StandardCharsets.UTF_8) ) {
+            return Try.of(() -> transformer.apply(reader));
+        } catch ( final IOException cause ) {
+            return Try.failure(cause);
         }
     }
 

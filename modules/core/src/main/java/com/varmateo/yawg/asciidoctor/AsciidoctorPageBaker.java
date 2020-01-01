@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -202,7 +202,7 @@ public final class AsciidoctorPageBaker
             final Template template) {
 
         return (TemplateContext templateContext) -> {
-            final Try<Result<Void>> result = FileUtils.safeWriteTo(
+            final Try<Result<Void>> result = FileUtils.safeWriteWith(
                     targetPath,
                     writer -> template.process(templateContext, writer));
 

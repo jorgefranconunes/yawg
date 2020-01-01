@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -26,25 +26,6 @@ public final class AsciidoctorPageBakerException
             final Throwable cause) {
 
         super(msg, cause);
-    }
-
-
-    /**
-     *
-     */
-    public static AsciidoctorPageBakerException bakeFailure(
-            final Path sourcePath,
-            final Path targetDir,
-            final Exception cause) {
-
-        final String msg = String.format(
-                "Failed to bake asciidoc file \"%s\" into directory \"%s\"- %s - %s",
-                sourcePath,
-                targetDir,
-                cause.getClass().getName(),
-                cause.getMessage());
-
-        return new AsciidoctorPageBakerException(msg, cause);
     }
 
 
