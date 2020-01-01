@@ -6,8 +6,10 @@
 
 package com.varmateo.yawg.html;
 
-import java.io.IOException;
 import java.nio.file.Path;
+import java.util.function.Function;
+
+import io.vavr.control.Try;
 
 import com.varmateo.yawg.api.YawgException;
 
@@ -23,26 +25,114 @@ public final class HtmlPageBakerException
             final String msg,
             final Throwable cause) {
 
-<span class="nc" id="L26">        super(msg, cause);</span>
-<span class="nc" id="L27">    }</span>
+<span class="nc" id="L28">        super(msg, cause);</span>
+<span class="nc" id="L29">    }</span>
 
 
     /**
      *
      */
-    public static HtmlPageBakerException bakeFailure(
+    public static HtmlPageBakerException copyFailure(
             final Path sourcePath,
-            final Path targetDir,
-            final IOException cause) {
+            final Throwable cause) {
 
-<span class="nc" id="L38">        final String msg = String.format(</span>
-                &quot;Failed to bake HTML file \&quot;%s\&quot; into directory \&quot;%s\&quot;- %s - %s&quot;,
+<span class="nc" id="L39">        final String msg = String.format(</span>
+                &quot;Failed to copy HTML file \&quot;%s\&quot; - %s - %s&quot;,
                 sourcePath,
-                targetDir,
 <span class="nc" id="L42">                cause.getClass().getName(),</span>
 <span class="nc" id="L43">                cause.getMessage());</span>
 
 <span class="nc" id="L45">        return new HtmlPageBakerException(msg, cause);</span>
+    }
+
+
+    /**
+     *
+     */
+    public static &lt;T&gt; Try&lt;T&gt; copyFailureTry(
+            final Path sourcePath,
+            final Throwable cause) {
+
+<span class="nc" id="L56">        return Try.failure(copyFailure(sourcePath, cause));</span>
+    }
+
+
+    /**
+     *
+     */
+    public static &lt;T&gt; Function&lt;Throwable, Try&lt;T&gt;&gt; copyFailureTry(final Path sourcePath) {
+
+<span class="nc" id="L65">        return (Throwable cause) -&gt; copyFailureTry(sourcePath, cause);</span>
+    }
+
+
+    /**
+     *
+     */
+    public static HtmlPageBakerException templateFailure(
+            final Path sourcePath,
+            final Throwable cause) {
+
+<span class="nc" id="L76">        final String msg = String.format(</span>
+                &quot;Failed to process template for \&quot;%s\&quot; - %s - %s&quot;,
+<span class="nc" id="L78">                sourcePath, cause.getClass().getName(), cause.getMessage());</span>
+
+<span class="nc" id="L80">        return new HtmlPageBakerException(msg, cause);</span>
+    }
+
+
+    /**
+     *
+     */
+    public static &lt;T&gt; Try&lt;T&gt; templateFailureTry(
+            final Path sourcePath,
+            final Throwable cause) {
+
+<span class="nc" id="L91">        return Try.failure(templateFailure(sourcePath, cause));</span>
+    }
+
+
+    /**
+     *
+     */
+    public static &lt;T&gt; Function&lt;Throwable, Try&lt;T&gt;&gt; templateFailureTry(final Path sourcePath) {
+
+<span class="nc" id="L100">        return (Throwable cause) -&gt; templateFailureTry(sourcePath, cause);</span>
+    }
+
+
+    /**
+     *
+     */
+    public static HtmlPageBakerException parseFailure(
+            final Path sourcePath,
+            final Throwable cause) {
+
+<span class="nc" id="L111">        final String msg = String.format(</span>
+                &quot;Failed to parse markdown file \&quot;%s\&quot; - %s - %s&quot;,
+<span class="nc" id="L113">                sourcePath, cause.getClass().getName(), cause.getMessage());</span>
+
+<span class="nc" id="L115">        return new HtmlPageBakerException(msg, cause);</span>
+    }
+
+
+    /**
+     *
+     */
+    public static &lt;T&gt; Try&lt;T&gt; parseFailureTry(
+            final Path sourcePath,
+            final Throwable cause) {
+
+<span class="nc" id="L126">        return Try.failure(parseFailure(sourcePath, cause));</span>
+    }
+
+
+    /**
+     *
+     */
+    public static &lt;T&gt; Function&lt;Throwable, Try&lt;T&gt;&gt; parseFailureTry(final Path sourcePath) {
+
+<span class="pc" id="L135">        return (Throwable cause) -&gt; parseFailureTry(sourcePath, cause);</span>
     }
 
 }

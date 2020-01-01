@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TemplateNameMatcher.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">TemplateNameMatcher.java</span></div><h1>TemplateNameMatcher.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2019 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -19,7 +19,7 @@ import com.varmateo.yawg.util.GlobMatcher;
 /**
  *
  */
-/* package private */ final class TemplateNameMatcher {
+/* default */ final class TemplateNameMatcher {
 
 
     private final Map&lt;String,GlobMatcher&gt; _matchersByName;
@@ -55,7 +55,7 @@ import com.varmateo.yawg.util.GlobMatcher;
     /**
      *
      */
-    public Option&lt;String&gt; getTemplateNameFor(final Path path) {
+    public Option&lt;String&gt; templateNameFor(final Path path) {
 
 <span class="nc" id="L60">        return _matchersByName</span>
 <span class="nc" id="L61">                .filter(entry -&gt; entry._2().test(path))</span>

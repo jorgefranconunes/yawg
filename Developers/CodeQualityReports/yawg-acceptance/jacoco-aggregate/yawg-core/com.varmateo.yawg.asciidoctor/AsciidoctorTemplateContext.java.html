@@ -6,19 +6,22 @@
 
 package com.varmateo.yawg.asciidoctor;
 
-import com.varmateo.yawg.spi.PageContext;
-import com.varmateo.yawg.spi.TemplateContext;
-import com.varmateo.yawg.spi.TemplateContextBuilder;
-import com.varmateo.yawg.util.FileUtils;
-import io.vavr.collection.List;
-import io.vavr.control.Option;
 import java.io.IOException;
 import java.nio.file.Path;
+
+import io.vavr.collection.List;
+import io.vavr.control.Option;
+import io.vavr.control.Try;
 import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.OptionsBuilder;
 import org.asciidoctor.ast.Author;
 import org.asciidoctor.ast.DocumentHeader;
 import org.asciidoctor.internal.AsciidoctorCoreException;
+
+import com.varmateo.yawg.spi.PageContext;
+import com.varmateo.yawg.spi.TemplateContext;
+import com.varmateo.yawg.spi.TemplateContextBuilder;
+import com.varmateo.yawg.util.FileUtils;
 
 
 /**
@@ -27,15 +30,27 @@ import org.asciidoctor.internal.AsciidoctorCoreException;
 /* package private */ final class AsciidoctorTemplateContext {
 
 
-<span class="nc" id="L30">    private AsciidoctorTemplateContext() {</span>
+<span class="nc" id="L33">    private AsciidoctorTemplateContext() {</span>
         // Nothing to do.
-<span class="nc" id="L32">    }</span>
+<span class="nc" id="L35">    }</span>
 
 
     /**
      *
      */
-    public static TemplateContext create(
+    public static Try&lt;TemplateContext&gt; create(
+            final Asciidoctor asciidoctor,
+            final Path sourcePath,
+            final Path targetDir,
+            final Path targetPath,
+            final PageContext context) {
+
+<span class="fc" id="L48">        return Try.of(() -&gt; doCreate(asciidoctor, sourcePath, targetDir, targetPath, context))</span>
+<span class="fc" id="L49">                .recoverWith(AsciidoctorPageBakerException.asciidocFailureTry(sourcePath));</span>
+    }
+
+
+    private static TemplateContext doCreate(
             final Asciidoctor asciidoctor,
             final Path sourcePath,
             final Path targetDir,
@@ -43,59 +58,56 @@ import org.asciidoctor.internal.AsciidoctorCoreException;
             final PageContext context)
             throws AsciidoctorCoreException, IOException {
 
-<span class="fc" id="L46">        final String sourceContent = FileUtils.readAsString(sourcePath);</span>
-<span class="fc" id="L47">        final OptionsBuilder options = AdocUtils.buildOptionsForBakeWithTemplate(</span>
+<span class="fc" id="L61">        final String sourceContent = FileUtils.readAsString(sourcePath);</span>
+<span class="fc" id="L62">        final OptionsBuilder options = AdocUtils.buildOptionsForBakeWithTemplate(</span>
                 sourcePath,
                 targetDir,
-<span class="fc" id="L50">                context.pageVars());</span>
-<span class="fc" id="L51">        final String body = asciidoctor.render(sourceContent, options);</span>
-<span class="fc" id="L52">        final String pageUrl = context.dirUrl() + &quot;/&quot; + targetPath.getFileName();</span>
-<span class="fc" id="L53">        final DocumentHeader header = asciidoctor.readDocumentHeader(sourceContent);</span>
-<span class="fc" id="L54">        final String title = Option.of(header)</span>
-<span class="fc" id="L55">                .flatMap(h -&gt; Option.of(h.getDocumentTitle()))</span>
-<span class="fc" id="L56">                .flatMap(t -&gt; Option.of(t.getMain()))</span>
-<span class="fc" id="L57">                .getOrElse(() -&gt; FileUtils.basename(sourcePath));</span>
+<span class="fc" id="L65">                context.pageVars());</span>
+<span class="fc" id="L66">        final String body = asciidoctor.render(sourceContent, options);</span>
+<span class="fc" id="L67">        final String pageUrl = context.dirUrl() + &quot;/&quot; + targetPath.getFileName();</span>
+<span class="fc" id="L68">        final DocumentHeader header = asciidoctor.readDocumentHeader(sourceContent);</span>
+<span class="fc" id="L69">        final String title = Option.of(header)</span>
+<span class="fc" id="L70">                .flatMap(h -&gt; Option.of(h.getDocumentTitle()))</span>
+<span class="fc" id="L71">                .flatMap(t -&gt; Option.of(t.getMain()))</span>
+<span class="fc" id="L72">                .getOrElse(() -&gt; FileUtils.basename(sourcePath));</span>
 
         final TemplateContextBuilder templateContextBuilder =
-<span class="fc" id="L60">                TemplateContextBuilder.create()</span>
-<span class="fc" id="L61">                .title(title)</span>
-<span class="fc" id="L62">                .body(body)</span>
-<span class="fc" id="L63">                .pageUrl(pageUrl)</span>
-<span class="fc" id="L64">                .rootRelativeUrl(context.rootRelativeUrl())</span>
-<span class="fc" id="L65">                .pageVars(context.pageVars())</span>
-<span class="fc" id="L66">                .bakeId(context.bakeId());</span>
-<span class="fc" id="L67">        buildAuthors(templateContextBuilder, header);</span>
+<span class="fc" id="L75">                TemplateContextBuilder.create()</span>
+<span class="fc" id="L76">                .title(title)</span>
+<span class="fc" id="L77">                .body(body)</span>
+<span class="fc" id="L78">                .pageUrl(pageUrl)</span>
+<span class="fc" id="L79">                .rootRelativeUrl(context.rootRelativeUrl())</span>
+<span class="fc" id="L80">                .pageVars(context.pageVars())</span>
+<span class="fc" id="L81">                .bakeId(context.bakeId());</span>
+<span class="fc" id="L82">        buildAuthors(templateContextBuilder, header);</span>
 
-<span class="fc" id="L69">        return templateContextBuilder.build();</span>
+<span class="fc" id="L84">        return templateContextBuilder.build();</span>
     }
 
 
-    /**
-     *
-     */
     private static void buildAuthors(
             final TemplateContextBuilder templateContextBuilder,
             final DocumentHeader header) {
 
-<span class="fc" id="L80">        final java.util.List&lt;Author&gt; authors = header.getAuthors();</span>
+<span class="fc" id="L92">        final java.util.List&lt;Author&gt; authors = header.getAuthors();</span>
 
         // This convoluted logic is needed because
         // DocumentHeader.getAuthor(), DocumentHeader.getAuthors() do
         // not behave consistently with each other.
 
-<span class="fc bfc" id="L86" title="All 2 branches covered.">        if ( !authors.isEmpty() ) {</span>
-<span class="fc" id="L87">            List.ofAll(authors).forEach(</span>
-<span class="fc" id="L88">                    a -&gt; templateContextBuilder.addAuthor(a.getFullName(), a.getEmail()));</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">        if ( !authors.isEmpty() ) {</span>
+<span class="fc" id="L99">            List.ofAll(authors).forEach(</span>
+<span class="fc" id="L100">                    a -&gt; templateContextBuilder.addAuthor(a.getFullName(), a.getEmail()));</span>
         } else {
-<span class="fc" id="L90">            final Author singleAuthor = header.getAuthor();</span>
+<span class="fc" id="L102">            final Author singleAuthor = header.getAuthor();</span>
 
-<span class="pc bpc" id="L92" title="1 of 4 branches missed.">            if ( (singleAuthor!=null) &amp;&amp; (singleAuthor.getFullName()!=null) )  {</span>
-<span class="fc" id="L93">                templateContextBuilder.addAuthor(</span>
-<span class="fc" id="L94">                        singleAuthor.getFullName(),</span>
-<span class="fc" id="L95">                        singleAuthor.getEmail());</span>
+<span class="pc bpc" id="L104" title="1 of 4 branches missed.">            if ( (singleAuthor!=null) &amp;&amp; (singleAuthor.getFullName()!=null) )  {</span>
+<span class="fc" id="L105">                templateContextBuilder.addAuthor(</span>
+<span class="fc" id="L106">                        singleAuthor.getFullName(),</span>
+<span class="fc" id="L107">                        singleAuthor.getEmail());</span>
             }
         }
-<span class="fc" id="L98">    }</span>
+<span class="fc" id="L110">    }</span>
 
 
 }

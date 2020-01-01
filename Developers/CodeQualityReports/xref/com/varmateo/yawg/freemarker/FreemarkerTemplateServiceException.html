@@ -23,7 +23,7 @@
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="FreemarkerTemplateServiceException" href="../../../../com/varmateo/yawg/freemarker/FreemarkerTemplateServiceException.html#FreemarkerTemplateServiceException">FreemarkerTemplateServiceException</a>
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_comment">/* default */</em> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="FreemarkerTemplateServiceException" href="../../../../com/varmateo/yawg/freemarker/FreemarkerTemplateServiceException.html#FreemarkerTemplateServiceException">FreemarkerTemplateServiceException</a>
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>          <strong class="jxr_keyword">extends</strong> <a name="YawgException" href="../../../../com/varmateo/yawg/api/YawgException.html#YawgException">YawgException</a> {
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>  
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>  
@@ -55,7 +55,7 @@
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a name="FreemarkerTemplateServiceException" href="../../../../com/varmateo/yawg/freemarker/FreemarkerTemplateServiceException.html#FreemarkerTemplateServiceException">FreemarkerTemplateServiceException</a> templateFetchFailure(
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a name="FreemarkerTemplateServiceException" href="../../../../com/varmateo/yawg/freemarker/FreemarkerTemplateServiceException.html#FreemarkerTemplateServiceException">FreemarkerTemplateServiceException</a> fetchFailure(
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>              <strong class="jxr_keyword">final</strong> String templateName,
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>              <strong class="jxr_keyword">final</strong> IOException cause) {
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  
@@ -72,9 +72,9 @@
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a name="FreemarkerTemplateServiceException" href="../../../../com/varmateo/yawg/freemarker/FreemarkerTemplateServiceException.html#FreemarkerTemplateServiceException">FreemarkerTemplateServiceException</a> templateProcessingFailure(
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a name="FreemarkerTemplateServiceException" href="../../../../com/varmateo/yawg/freemarker/FreemarkerTemplateServiceException.html#FreemarkerTemplateServiceException">FreemarkerTemplateServiceException</a> processingFailure(
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>              <strong class="jxr_keyword">final</strong> String templateName,
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>              <strong class="jxr_keyword">final</strong> Exception cause) {
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>              <strong class="jxr_keyword">final</strong> Throwable cause) {
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>  
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>          <strong class="jxr_keyword">final</strong> String msg = String.format(
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>                  <span class="jxr_string">"Failed to process template \&quot;%s\&quot; - %s - %s"</span>,
@@ -88,6 +88,6 @@
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2015&#x2013;2019. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2015&#x2013;2020. All rights reserved.</div>
 </body>
 </html>

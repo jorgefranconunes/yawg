@@ -35,7 +35,7 @@ import com.varmateo.yawg.spi.TemplateService;
 <span class="nc bnc" id="L35" title="All 2 branches missed.">        if ( services.isEmpty() ) {</span>
 <span class="nc" id="L36">            _templateFetcher = name -&gt; Optional.empty();</span>
         } else {
-<span class="nc" id="L38">            _templateFetcher = name -&gt; getTemplateFromServices(services, name);</span>
+<span class="nc" id="L38">            _templateFetcher = name -&gt; prepareTemplateFromServices(services, name);</span>
         }
 <span class="nc" id="L40">    }</span>
 
@@ -44,7 +44,7 @@ import com.varmateo.yawg.spi.TemplateService;
      * {@inheritDoc}
      */
     @Override
-    public Optional&lt;Template&gt; getTemplate(final String name) {
+    public Optional&lt;Template&gt; prepareTemplate(final String name) {
 
 <span class="nc" id="L49">        return _templateFetcher.apply(name);</span>
     }
@@ -53,13 +53,13 @@ import com.varmateo.yawg.spi.TemplateService;
     /**
      *
      */
-    private static Optional&lt;Template&gt; getTemplateFromServices(
+    private static Optional&lt;Template&gt; prepareTemplateFromServices(
             final Seq&lt;TemplateService&gt; services,
             final String name)
             throws YawgException {
 
 <span class="nc" id="L61">        final Option&lt;Template&gt; result = services</span>
-<span class="nc" id="L62">                .map(service -&gt; service.getTemplate(name))</span>
+<span class="nc" id="L62">                .map(service -&gt; service.prepareTemplate(name))</span>
 <span class="nc" id="L63">                .map(Option::ofOptional)</span>
 <span class="nc" id="L64">                .filter(Option::isDefined)</span>
 <span class="nc" id="L65">                .map(Option::get)</span>

@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AsciidoctorPageBaker.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.asciidoctor</a> &gt; <span class="el_source">AsciidoctorPageBaker.java</span></div><h1>AsciidoctorPageBaker.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.asciidoctor;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.regex.Pattern;
 
 import io.vavr.Lazy;
 import io.vavr.control.Try;
 import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.OptionsBuilder;
-import org.asciidoctor.internal.AsciidoctorCoreException;
 
+import com.varmateo.yawg.api.Result;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.PageBakeResult;
@@ -26,6 +26,7 @@ import com.varmateo.yawg.spi.Template;
 import com.varmateo.yawg.spi.TemplateContext;
 import com.varmateo.yawg.util.FileUtils;
 import com.varmateo.yawg.util.PageBakeResults;
+import com.varmateo.yawg.util.Results;
 
 
 /**
@@ -38,16 +39,16 @@ public final class AsciidoctorPageBaker
 
     private static final String NAME = &quot;asciidoc&quot;;
 
-<span class="fc" id="L41">    private static final Pattern RE_ADOC = Pattern.compile(&quot;.*\\.adoc$&quot;);</span>
+<span class="fc" id="L42">    private static final Pattern RE_ADOC = Pattern.compile(&quot;.*\\.adoc$&quot;);</span>
 
     private static final String TARGET_EXTENSION = &quot;.html&quot;;
 
-<span class="fc" id="L45">    private final Lazy&lt;Asciidoctor&gt; _asciidoctor = Lazy.of(this::newAsciidoctor);</span>
+<span class="fc" id="L46">    private final Lazy&lt;Asciidoctor&gt; _asciidoctor = Lazy.of(this::newAsciidoctor);</span>
 
 
-<span class="fc" id="L48">    private AsciidoctorPageBaker() {</span>
+<span class="fc" id="L49">    private AsciidoctorPageBaker() {</span>
         // Nothing to do.
-<span class="fc" id="L50">    }</span>
+<span class="fc" id="L51">    }</span>
 
 
     /**
@@ -55,7 +56,7 @@ public final class AsciidoctorPageBaker
      */
     public static PageBaker create() {
 
-<span class="fc" id="L58">        return new AsciidoctorPageBaker();</span>
+<span class="fc" id="L59">        return new AsciidoctorPageBaker();</span>
     }
 
 
@@ -65,7 +66,7 @@ public final class AsciidoctorPageBaker
     @Override
     public String shortName() {
 
-<span class="nc" id="L68">        return NAME;</span>
+<span class="nc" id="L69">        return NAME;</span>
     }
 
 
@@ -84,7 +85,7 @@ public final class AsciidoctorPageBaker
     @Override
     public boolean isBakeable(final Path path) {
 
-<span class="fc" id="L87">        return FileUtils.isNameMatch(path, RE_ADOC);</span>
+<span class="fc" id="L88">        return FileUtils.isNameMatch(path, RE_ADOC);</span>
     }
 
 
@@ -110,51 +111,40 @@ public final class AsciidoctorPageBaker
     public PageBakeResult bake(
             final Path sourcePath,
             final PageContext context,
-            final Path targetDir)
-            throws YawgException {
+            final Path targetDir) {
 
-<span class="nc" id="L116">        return Try.run(() -&gt; doBake(sourcePath, context, targetDir))</span>
-<span class="nc" id="L117">                .map(x -&gt; PageBakeResults.success())</span>
-<span class="nc" id="L118">                .recoverWith(</span>
-                        AsciidoctorCoreException.class,
-<span class="nc" id="L120">                        cause -&gt; Try.failure(AsciidoctorPageBakerException.bakeFailure(sourcePath, targetDir, cause)))</span>
-<span class="nc" id="L121">                .recoverWith(</span>
-                        IOException.class,
-<span class="nc" id="L123">                        cause -&gt; Try.failure(AsciidoctorPageBakerException.bakeFailure(sourcePath, targetDir, cause)))</span>
-<span class="nc" id="L124">                .recover(</span>
-                        YawgException.class,
-                        PageBakeResults::failure)
-<span class="nc" id="L127">                .get();</span>
+<span class="nc" id="L116">        final Try&lt;Void&gt; result = doBake(sourcePath, context, targetDir);</span>
+
+<span class="nc" id="L118">        return PageBakeResults.fromTry(result);</span>
     }
 
 
     /**
      *
      */
-    private void doBake(
+    private Try&lt;Void&gt; doBake(
             final Path sourcePath,
             final PageContext context,
-            final Path targetDir)
-            throws AsciidoctorCoreException, IOException {
+            final Path targetDir) {
 
-<span class="nc" id="L140">        final Path targetPath = getTargetPath(sourcePath, targetDir);</span>
-<span class="nc" id="L141">        final Optional&lt;Template&gt; template = context.templateFor(sourcePath);</span>
+<span class="nc" id="L130">        final Path targetPath = getTargetPath(sourcePath, targetDir);</span>
+<span class="nc" id="L131">        final Optional&lt;Template&gt; template = context.templateFor(sourcePath);</span>
 
-<span class="nc bnc" id="L143" title="All 2 branches missed.">        if ( template.isPresent() ) {</span>
-<span class="nc" id="L144">            doBakeWithTemplate(</span>
+<span class="nc bnc" id="L133" title="All 2 branches missed.">        if ( template.isPresent() ) {</span>
+<span class="nc" id="L134">            return doBakeWithTemplate(</span>
                     sourcePath,
                     context,
                     targetDir,
                     targetPath,
-<span class="nc" id="L149">                    template.get());</span>
+<span class="nc" id="L139">                    template.get());</span>
         } else {
-<span class="nc" id="L151">            doBakeWithoutTemplate(</span>
+<span class="nc" id="L141">            return doBakeWithoutTemplate(</span>
                     sourcePath,
                     context,
                     targetDir,
                     targetPath);
         }
-<span class="nc" id="L157">    }</span>
+    }
 
 
     /**
@@ -164,66 +154,74 @@ public final class AsciidoctorPageBaker
             final Path sourcePath,
             final Path targetDir) {
 
-<span class="nc" id="L167">        final String sourceBasename = FileUtils.basename(sourcePath);</span>
-<span class="nc" id="L168">        final String targetName = sourceBasename + TARGET_EXTENSION;</span>
+<span class="nc" id="L157">        final String sourceBasename = FileUtils.basename(sourcePath);</span>
+<span class="nc" id="L158">        final String targetName = sourceBasename + TARGET_EXTENSION;</span>
 
-<span class="nc" id="L170">        return targetDir.resolve(targetName);</span>
+<span class="nc" id="L160">        return targetDir.resolve(targetName);</span>
     }
 
 
     /**
      *
      */
-    private void doBakeWithoutTemplate(
+    private Try&lt;Void&gt; doBakeWithoutTemplate(
             final Path sourcePath,
             final PageContext context,
             final Path targetDir,
-            final Path targetPath)
-            throws AsciidoctorCoreException {
+            final Path targetPath){
 
-<span class="nc" id="L184">        final OptionsBuilder options = AdocUtils.buildOptionsForBakeWithoutTemplate(</span>
+<span class="nc" id="L173">        final OptionsBuilder options = AdocUtils.buildOptionsForBakeWithoutTemplate(</span>
                 sourcePath,
                 targetDir,
                 targetPath,
-<span class="nc" id="L188">                context.pageVars());</span>
-<span class="nc" id="L189">        final File sourceFile = sourcePath.toFile();</span>
+<span class="nc" id="L177">                context.pageVars());</span>
+<span class="nc" id="L178">        final File sourceFile = sourcePath.toFile();</span>
 
-<span class="nc" id="L191">        _asciidoctor.get().convertFile(sourceFile, options);</span>
-<span class="nc" id="L192">    }</span>
+<span class="nc" id="L180">        return Try.run(() -&gt; _asciidoctor.get().convertFile(sourceFile, options))</span>
+<span class="nc" id="L181">                .recoverWith(AsciidoctorPageBakerException.asciidocFailureTry(sourcePath));</span>
+    }
 
 
-    /**
-     *
-     */
-    private void doBakeWithTemplate(
+    private Try&lt;Void&gt; doBakeWithTemplate(
             final Path sourcePath,
             final PageContext context,
             final Path targetDir,
             final Path targetPath,
-            final Template template)
-            throws AsciidoctorCoreException, IOException {
+            final Template template) {
 
-<span class="nc" id="L206">        final TemplateContext templateContext = AsciidoctorTemplateContext.create(</span>
-<span class="nc" id="L207">                _asciidoctor.get(), sourcePath, targetDir, targetPath, context);</span>
+<span class="nc" id="L192">        final Try&lt;TemplateContext&gt; templateContext = AsciidoctorTemplateContext.create(</span>
+<span class="nc" id="L193">                _asciidoctor.get(), sourcePath, targetDir, targetPath, context);</span>
 
-<span class="nc" id="L209">        FileUtils.newWriter(</span>
-                targetPath,
-<span class="nc" id="L211">                writer -&gt; template.process(templateContext, writer));</span>
-<span class="nc" id="L212">    }</span>
+<span class="nc" id="L195">        return templateContext.flatMap(processTemplate(sourcePath, targetPath, template));</span>
+    }
 
 
-    /**
-     *
-     */
+    private Function&lt;TemplateContext, Try&lt;Void&gt;&gt; processTemplate(
+            final Path sourcePath,
+            final Path targetPath,
+            final Template template) {
+
+<span class="nc" id="L204">        return (TemplateContext templateContext) -&gt; {</span>
+<span class="nc" id="L205">            final Try&lt;Result&lt;Void&gt;&gt; result = FileUtils.safeWriteWith(</span>
+                    targetPath,
+<span class="nc" id="L207">                    writer -&gt; template.process(templateContext, writer));</span>
+
+<span class="nc" id="L209">            return result</span>
+<span class="nc" id="L210">                    .recoverWith(AsciidoctorPageBakerException.templateFailureTry(sourcePath))</span>
+<span class="nc" id="L211">                    .flatMap(Results::toTry);</span>
+        };
+    }
+
+
     private Asciidoctor newAsciidoctor() {
 
-<span class="nc" id="L220">        final Asciidoctor asciidoctor = Asciidoctor.Factory.create();</span>
+<span class="nc" id="L218">        final Asciidoctor asciidoctor = Asciidoctor.Factory.create();</span>
 
         // The following is required for supporting PlantUML diagrams
         // (cf. http://asciidoctor.org/docs/asciidoctor-diagram/).
-<span class="nc" id="L224">        asciidoctor.requireLibrary(&quot;asciidoctor-diagram/plantuml&quot;);</span>
+<span class="nc" id="L222">        asciidoctor.requireLibrary(&quot;asciidoctor-diagram/plantuml&quot;);</span>
 
-<span class="nc" id="L226">        return asciidoctor;</span>
+<span class="nc" id="L224">        return asciidoctor;</span>
     }
 
 

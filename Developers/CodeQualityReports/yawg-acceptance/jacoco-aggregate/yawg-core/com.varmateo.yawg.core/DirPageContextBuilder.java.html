@@ -89,7 +89,7 @@ import java.util.function.Function;
 <span class="fc" id="L89">        final TemplateNameMatcher templateNameMatcher = dirBakeOptions.templatesHere;</span>
 <span class="fc" id="L90">        final TemplateService templateService = _templateService;</span>
 
-<span class="fc" id="L92">        return path -&gt; getTemplate(</span>
+<span class="fc" id="L92">        return path -&gt; prepareTemplate(</span>
                 path,
                 templateNameMatcher,
                 templateName,
@@ -101,41 +101,39 @@ import java.util.function.Function;
     /**
      *
      */
-    private static Option&lt;Template&gt; getTemplate(
+    private static Option&lt;Template&gt; prepareTemplate(
             final Path path,
             final TemplateNameMatcher templateNameMatcher,
             final Option&lt;String&gt; templateName,
             final TemplateService templateService) {
 
-<span class="fc" id="L110">        return getTemplateForPath(path, templateNameMatcher, templateService)</span>
-<span class="fc" id="L111">                .orElse(() -&gt; getDefaultTemplate(templateName, templateService));</span>
+<span class="fc" id="L110">        return prepareTemplateForPath(path, templateNameMatcher, templateService)</span>
+<span class="fc" id="L111">                .orElse(() -&gt; prepareDefaultTemplate(templateName, templateService));</span>
     }
 
 
     /**
      *
      */
-    private static Option&lt;Template&gt; getTemplateForPath(
+    private static Option&lt;Template&gt; prepareTemplateForPath(
             final Path path,
             final TemplateNameMatcher templateNameMatcher,
             final TemplateService templateService) {
 
-<span class="fc" id="L123">        return templateNameMatcher</span>
-<span class="fc" id="L124">                .getTemplateNameFor(path)</span>
-<span class="fc" id="L125">                .flatMap(name -&gt;</span>
-<span class="nc" id="L126">                         Option.ofOptional(templateService.getTemplate(name)));</span>
+<span class="fc" id="L123">        return templateNameMatcher.templateNameFor(path)</span>
+<span class="pc" id="L124">                .flatMap(name -&gt; Option.ofOptional(templateService.prepareTemplate(name)));</span>
     }
 
 
     /**
      *
      */
-    private static Option&lt;Template&gt; getDefaultTemplate(
+    private static Option&lt;Template&gt; prepareDefaultTemplate(
             final Option&lt;String&gt; templateName,
             final TemplateService templateService) {
 
-<span class="fc" id="L137">        return templateName.flatMap(</span>
-<span class="fc" id="L138">                name -&gt; Option.ofOptional(templateService.getTemplate(name)));</span>
+<span class="fc" id="L135">        return templateName.flatMap(</span>
+<span class="fc" id="L136">                name -&gt; Option.ofOptional(templateService.prepareTemplate(name)));</span>
     }
 
 
@@ -147,10 +145,10 @@ import java.util.function.Function;
             final Path dir,
             final Path baseDir) {
 
-<span class="fc" id="L150">        final Path relDir = baseDir.relativize(dir);</span>
-<span class="fc" id="L151">        final String relativeUrl = relDir.toString().replace(File.separatorChar, '/');</span>
+<span class="fc" id="L148">        final Path relDir = baseDir.relativize(dir);</span>
+<span class="fc" id="L149">        final String relativeUrl = relDir.toString().replace(File.separatorChar, '/');</span>
 
-<span class="fc bfc" id="L153" title="All 2 branches covered.">        return relativeUrl.length() == 0</span>
+<span class="fc bfc" id="L151" title="All 2 branches covered.">        return relativeUrl.length() == 0</span>
                 ? &quot;.&quot;
                 : relativeUrl;
     }

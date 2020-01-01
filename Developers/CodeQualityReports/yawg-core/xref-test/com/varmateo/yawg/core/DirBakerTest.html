@@ -76,7 +76,7 @@
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setUp() {
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>  
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>          _templateServiceMock = mock(TemplateService.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>          when(_templateServiceMock.getTemplate(anyString()))
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>          when(_templateServiceMock.prepareTemplate(anyString()))
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>                  .thenReturn(Optional.empty());
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>  
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>          _dirBakeListenerMock = mock(DirBakeListener.<strong class="jxr_keyword">class</strong>);
@@ -189,6 +189,6 @@
 <a class="jxr_linenumber" name="L181" href="#L181">181</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2015&#x2013;2019. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2015&#x2013;2020. All rights reserved.</div>
 </body>
 </html>

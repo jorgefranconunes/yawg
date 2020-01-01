@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FileUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.util</a> &gt; <span class="el_source">FileUtils.java</span></div><h1>FileUtils.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.util;
-
-import io.vavr.control.Option;
 
 import java.io.InputStream;
 import java.io.IOException;
@@ -19,6 +17,9 @@ import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
+import io.vavr.control.Option;
+import io.vavr.control.Try;
+
 
 /**
  * Utility functions for managing files and directories.
@@ -29,9 +30,9 @@ public final class FileUtils {
     /**
      * No instances of this class are to be created.
      */
-<span class="nc" id="L32">    private FileUtils() {</span>
+<span class="nc" id="L33">    private FileUtils() {</span>
         // Nothing to do.
-<span class="nc" id="L34">    }</span>
+<span class="nc" id="L35">    }</span>
 
 
     /**
@@ -46,14 +47,14 @@ public final class FileUtils {
      */
     public static String basename(final Path path) {
 
-<span class="fc" id="L49">        final String basenameWithExtension =</span>
-<span class="fc" id="L50">                Option.of(path.getFileName())</span>
-<span class="fc" id="L51">                .map(Object::toString)</span>
-<span class="fc" id="L52">                .getOrElse(&quot;&quot;);</span>
-<span class="fc" id="L53">        final int extensionIndex = basenameWithExtension.lastIndexOf('.');</span>
+<span class="fc" id="L50">        final String basenameWithExtension =</span>
+<span class="fc" id="L51">                Option.of(path.getFileName())</span>
+<span class="fc" id="L52">                .map(Object::toString)</span>
+<span class="fc" id="L53">                .getOrElse(&quot;&quot;);</span>
+<span class="fc" id="L54">        final int extensionIndex = basenameWithExtension.lastIndexOf('.');</span>
 
-<span class="fc bfc" id="L55" title="All 2 branches covered.">        return (extensionIndex&gt;-1)</span>
-<span class="fc" id="L56">                ? basenameWithExtension.substring(0, extensionIndex)</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">        return (extensionIndex&gt;-1)</span>
+<span class="fc" id="L57">                ? basenameWithExtension.substring(0, extensionIndex)</span>
                 : basenameWithExtension;
     }
 
@@ -65,10 +66,10 @@ public final class FileUtils {
             final Path path,
             final Pattern pattern) {
 
-<span class="fc" id="L68">        return  Optional.ofNullable(path.getFileName())</span>
-<span class="fc" id="L69">                .map(Path::toString)</span>
-<span class="fc" id="L70">                .map(basename -&gt; pattern.matcher(basename).matches())</span>
-<span class="fc" id="L71">                .orElse(false);</span>
+<span class="fc" id="L69">        return  Optional.ofNullable(path.getFileName())</span>
+<span class="fc" id="L70">                .map(Path::toString)</span>
+<span class="fc" id="L71">                .map(basename -&gt; pattern.matcher(basename).matches())</span>
+<span class="fc" id="L72">                .orElse(false);</span>
     }
 
 
@@ -90,12 +91,12 @@ public final class FileUtils {
             final Path target)
             throws IOException {
 
-<span class="nc" id="L93">        Files.copy(</span>
+<span class="nc" id="L94">        Files.copy(</span>
                 source,
                 target,
                 StandardCopyOption.REPLACE_EXISTING,
                 StandardCopyOption.COPY_ATTRIBUTES);
-<span class="nc" id="L98">    }</span>
+<span class="nc" id="L99">    }</span>
 
 
     /**
@@ -113,9 +114,9 @@ public final class FileUtils {
     public static String readAsString(final Path sourcePath)
             throws IOException {
 
-<span class="fc" id="L116">        final byte[] contentBytes = Files.readAllBytes(sourcePath);</span>
+<span class="fc" id="L117">        final byte[] contentBytes = Files.readAllBytes(sourcePath);</span>
 
-<span class="fc" id="L118">        return new String(contentBytes, StandardCharsets.UTF_8);</span>
+<span class="fc" id="L119">        return new String(contentBytes, StandardCharsets.UTF_8);</span>
     }
 
 
@@ -136,28 +137,73 @@ public final class FileUtils {
      * @throws IOException If there were problems opening the file for
      * writing, or writing into the file.
      */
-    public static void newWriter(
+    public static void writeTo(
             final Path target,
             final ConsumerWithIOException&lt;Writer&gt; consumer)
             throws IOException {
 
-<span class="nc" id="L144">        try ( Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {</span>
-<span class="nc" id="L145">            consumer.accept(writer);</span>
-<span class="nc bnc" id="L146" title="All 8 branches missed.">        }</span>
-<span class="nc" id="L147">    }</span>
+<span class="nc" id="L145">        try ( Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {</span>
+<span class="nc" id="L146">            consumer.accept(writer);</span>
+<span class="nc bnc" id="L147" title="All 8 branches missed.">        }</span>
+<span class="nc" id="L148">    }</span>
 
 
     /**
      *
      */
-    public static &lt;T&gt; T newReader(
+    public static &lt;T&gt; Try&lt;Void&gt; safeWriteTo(
+            final Path target,
+            final ConsumerWithIOException&lt;Writer&gt; action) {
+
+<span class="nc" id="L158">        try ( final Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {</span>
+<span class="nc" id="L159">            return Try.run(() -&gt; action.accept(writer));</span>
+<span class="nc bnc" id="L160" title="All 8 branches missed.">        } catch ( final IOException cause ) {</span>
+<span class="nc" id="L161">            return Try.failure(cause);</span>
+        }
+    }
+
+
+    /**
+     *
+     */
+    public static &lt;T&gt; Try&lt;T&gt; safeWriteWith(
+            final Path target,
+            final FunctionWithIOException&lt;Writer, T&gt; action) {
+
+<span class="nc" id="L173">        try ( final Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {</span>
+<span class="nc" id="L174">            return Try.of(() -&gt; action.apply(writer));</span>
+<span class="nc bnc" id="L175" title="All 8 branches missed.">        } catch ( final IOException cause ) {</span>
+<span class="nc" id="L176">            return Try.failure(cause);</span>
+        }
+    }
+
+
+    /**
+     *
+     */
+    public static &lt;T&gt; T readFrom(
             final Path source,
             final FunctionWithIOException&lt;Reader, T&gt; transformer)
             throws IOException {
 
-<span class="nc" id="L158">        try ( Reader reader = Files.newBufferedReader(source, StandardCharsets.UTF_8) ) {</span>
-<span class="nc" id="L159">            return transformer.apply(reader);</span>
-<span class="nc bnc" id="L160" title="All 8 branches missed.">        }</span>
+<span class="nc" id="L189">        try ( Reader reader = Files.newBufferedReader(source, StandardCharsets.UTF_8) ) {</span>
+<span class="nc" id="L190">            return transformer.apply(reader);</span>
+<span class="nc bnc" id="L191" title="All 8 branches missed.">        }</span>
+    }
+
+
+    /**
+     *
+     */
+    public static &lt;T&gt; Try&lt;T&gt; safeReadFrom(
+            final Path source,
+            final FunctionWithIOException&lt;Reader, T&gt; transformer) {
+
+<span class="nc" id="L202">        try ( Reader reader = Files.newBufferedReader(source, StandardCharsets.UTF_8) ) {</span>
+<span class="nc" id="L203">            return Try.of(() -&gt; transformer.apply(reader));</span>
+<span class="nc bnc" id="L204" title="All 8 branches missed.">        } catch ( final IOException cause ) {</span>
+<span class="nc" id="L205">            return Try.failure(cause);</span>
+        }
     }
 
 

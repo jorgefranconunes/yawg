@@ -8,6 +8,7 @@ package com.varmateo.yawg.util;
 
 import io.vavr.control.Try;
 
+import com.varmateo.yawg.api.Result;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.spi.PageBakeResult;
 
@@ -18,9 +19,9 @@ import com.varmateo.yawg.spi.PageBakeResult;
 public final class PageBakeResults {
 
 
-<span class="nc" id="L21">    private PageBakeResults() {</span>
+<span class="nc" id="L22">    private PageBakeResults() {</span>
         // Nothing to do.
-<span class="nc" id="L23">    }</span>
+<span class="nc" id="L24">    }</span>
 
 
     /**
@@ -28,16 +29,16 @@ public final class PageBakeResults {
      */
     public static PageBakeResult success() {
 
-<span class="fc" id="L31">        return new PageBakeResult() {</span>
+<span class="fc" id="L32">        return new PageBakeResult() {</span>
 
             @Override
             public boolean isSuccess() {
-<span class="fc" id="L35">                return true;</span>
+<span class="fc" id="L36">                return true;</span>
             }
 
             @Override
             public YawgException failureCause() {
-<span class="nc" id="L40">                throw new UnsupportedOperationException();</span>
+<span class="nc" id="L41">                throw new UnsupportedOperationException();</span>
             }
         };
     }
@@ -48,16 +49,16 @@ public final class PageBakeResults {
      */
     public static PageBakeResult failure(final YawgException cause) {
 
-<span class="nc" id="L51">        return new PageBakeResult() {</span>
+<span class="nc" id="L52">        return new PageBakeResult() {</span>
 
             @Override
             public boolean isSuccess() {
-<span class="nc" id="L55">                return false;</span>
+<span class="nc" id="L56">                return false;</span>
             }
 
             @Override
             public YawgException failureCause() {
-<span class="nc" id="L60">                return cause;</span>
+<span class="nc" id="L61">                return cause;</span>
             }
         };
     }
@@ -68,10 +69,10 @@ public final class PageBakeResults {
      */
     public static PageBakeResult fromTry(final Try&lt;Void&gt; tryResult) {
 
-<span class="nc" id="L71">        return tryResult</span>
-<span class="nc" id="L72">                .map(x -&gt; PageBakeResults.success())</span>
-<span class="nc" id="L73">                .recover(YawgException.class, PageBakeResults::failure)</span>
-<span class="nc" id="L74">                .get();</span>
+<span class="nc" id="L72">        return tryResult</span>
+<span class="nc" id="L73">                .map(x -&gt; PageBakeResults.success())</span>
+<span class="nc" id="L74">                .recover(YawgException.class, PageBakeResults::failure)</span>
+<span class="nc" id="L75">                .get();</span>
     }
 
 
@@ -80,10 +81,10 @@ public final class PageBakeResults {
      */
     public static Try&lt;Void&gt; toTry(final PageBakeResult result) {
 
-<span class="nc bnc" id="L83" title="All 2 branches missed.">        if ( result.isSuccess() ) {</span>
-<span class="nc" id="L84">            return Trys.success();</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">        if ( result.isSuccess() ) {</span>
+<span class="nc" id="L85">            return Trys.success();</span>
         } else {
-<span class="nc" id="L86">            return Try.failure(result.failureCause());</span>
+<span class="nc" id="L87">            return Try.failure(result.failureCause());</span>
         }
     }
 }

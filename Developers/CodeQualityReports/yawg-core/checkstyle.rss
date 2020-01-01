@@ -23,10 +23,10 @@ under the License.
     <link>http://yawg.varmateo.com/yawg-core/</link>
     <description>Yawg core - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2015 - 2019</copyright>
+    <copyright>&#169;2015 - 2020</copyright>
     <item>
-      <title>File: 64,
-             Errors: 11,
+      <title>File: 65,
+             Errors: 12,
              Warnings: 0,
              Infos: 0
       </title>
@@ -103,6 +103,20 @@ under the License.
                           <tr>
                 <td>
                   <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.util.SimpleMapException.java">com/varmateo/yawg/util/SimpleMapException.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.util.Results.java">com/varmateo/yawg/util/Results.java</a>
                 </td>
                 <td>
                   0
@@ -265,7 +279,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  4
+                  6
                 </td>
               </tr>
                           <tr>
@@ -447,7 +461,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  2
+                  1
                 </td>
               </tr>
                           <tr>
@@ -467,6 +481,20 @@ under the License.
                           <tr>
                 <td>
                   <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.util.SiteBakeResults.java">com/varmateo/yawg/util/SiteBakeResults.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.commonmark.CommonMarkTemplateContextFactory.java">com/varmateo/yawg/commonmark/CommonMarkTemplateContextFactory.java</a>
                 </td>
                 <td>
                   0
@@ -545,7 +573,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
               </tr>
                           <tr>
@@ -559,7 +587,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
               </tr>
                           <tr>
@@ -727,7 +755,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
               </tr>
                           <tr>
@@ -881,21 +909,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.commonmark.CommonMarkTemplateContextBuilder.java">com/varmateo/yawg/commonmark/CommonMarkTemplateContextBuilder.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
+                  1
                 </td>
               </tr>
                           <tr>
