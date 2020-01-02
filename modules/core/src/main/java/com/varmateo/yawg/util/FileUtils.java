@@ -6,7 +6,6 @@
 
 package com.varmateo.yawg.util;
 
-import java.io.InputStream;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
@@ -100,6 +99,17 @@ public final class FileUtils {
 
 
     /**
+     *
+     */
+    public static Try<Void> safeCopy(
+            final Path source,
+            final Path target) {
+
+        return Try.run(() -> copy(source, target));
+    }
+
+
+    /**
      * Reads the contents of a file into a string.
      *
      * <p>The file is expected to be UTF-8 encoded.</p>
@@ -155,7 +165,7 @@ public final class FileUtils {
             final Path target,
             final ConsumerWithIOException<Writer> action) {
 
-        try ( final Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {
+        try ( Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {
             return Try.run(() -> action.accept(writer));
         } catch ( final IOException cause ) {
             return Try.failure(cause);
@@ -170,7 +180,7 @@ public final class FileUtils {
             final Path target,
             final FunctionWithIOException<Writer, T> action) {
 
-        try ( final Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {
+        try ( Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {
             return Try.of(() -> action.apply(writer));
         } catch ( final IOException cause ) {
             return Try.failure(cause);

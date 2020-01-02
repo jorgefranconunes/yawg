@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -17,7 +17,6 @@ import io.vavr.control.Try;
 
 import freemarker.template.Configuration;
 import freemarker.template.TemplateExceptionHandler;
-import freemarker.template.TemplateException;
 
 import com.varmateo.yawg.api.Result;
 import com.varmateo.yawg.api.YawgException;
@@ -60,7 +59,7 @@ public final class FreemarkerTemplateService
         final Configuration fmConfig;
 
         try {
-            fmConfig = buildConfiguration(templatesDir);
+            fmConfig = buildFreemarkerConfig(templatesDir);
         } catch ( IOException e ) {
             throw FreemarkerTemplateServiceException.initializationFailure(templatesDir, e);
         }
@@ -72,7 +71,7 @@ public final class FreemarkerTemplateService
     /**
      *
      */
-    private static Configuration buildConfiguration(final Path templatesDir)
+    private static Configuration buildFreemarkerConfig(final Path templatesDir)
             throws IOException{
 
         final Configuration fmConfig = new Configuration(Configuration.VERSION_2_3_24);

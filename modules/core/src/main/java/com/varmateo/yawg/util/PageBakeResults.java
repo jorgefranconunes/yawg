@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2019 Yawg project contributors.
+ * Copyright (c) 2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -8,7 +8,6 @@ package com.varmateo.yawg.util;
 
 import io.vavr.control.Try;
 
-import com.varmateo.yawg.api.Result;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.spi.PageBakeResult;
 
