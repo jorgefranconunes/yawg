@@ -153,7 +153,7 @@ public final class HtmlPageBaker
             final Path sourcePath,
             final Path targetPath) {
 
-        return Try.run(() -> FileUtils.copy(sourcePath, targetPath))
+        return FileUtils.safeCopy(sourcePath, targetPath)
                 .recoverWith(HtmlPageBakerException.copyFailureTry(sourcePath));
     }
 

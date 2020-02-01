@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -16,6 +16,8 @@ import com.varmateo.yawg.spi.TemplateContext.Author;
  * Java bean for passing data to the Freemarker template engine.
  */
 public final class FreemarkerDataModel {
+    // WARNING: This class really needs to have "public" access. This
+    // is required by the Freemarker engine.
 
 
     private static final String KEY_YAWG_DATA = "yawg";
@@ -56,12 +58,14 @@ public final class FreemarkerDataModel {
 
 
     /**
-     * This is a class that provides the right getters in order to
-     * have the appropriate template variables visible inside the
-     * Freemarker templates.
+     * Provides the right getters in order to have the appropriate
+     * template variables visible inside the Freemarker templates.
      *
      * <p>The purpose of this Java bean is to provide the template
      * variables named with prefix "yawg.".</p>
+     *
+     * <p>To comply with Freemarketr engine expectations the names of
+     * getter methods have a "get" prefix.</p>
      */
     public static final class YawgFreemarkerDataModel {
 

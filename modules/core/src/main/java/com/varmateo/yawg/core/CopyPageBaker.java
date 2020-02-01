@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -11,7 +11,6 @@ import java.nio.file.Path;
 
 import io.vavr.control.Try;
 
-import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.PageBakeResult;
 import com.varmateo.yawg.spi.PageContext;
@@ -30,12 +29,18 @@ import com.varmateo.yawg.util.PageBakeResults;
     private static final String NAME = "copy";
 
 
-    /**
-     * 
-     */
-    CopyPageBaker() {
+    private CopyPageBaker() {
 
         // Nothing to do.
+    }
+
+
+    /**
+     *
+     */
+    public static PageBaker create() {
+
+        return new CopyPageBaker();
     }
 
 
@@ -82,30 +87,24 @@ import com.varmateo.yawg.util.PageBakeResults;
             final PageContext context,
             final Path targetDir) {
 
-        return Try.run(() -> doBake(sourcePath, targetDir))
-                .map(x -> PageBakeResults.success())
-                .recoverWith(
-                        IOException.class,
-                        cause -> Try.failure(CopyPageBakerException.copyFailure(sourcePath, targetDir, cause)))
-                .recover(
-                        YawgException.class,
-                        PageBakeResults::failure)
-                .get();
+        final Try<Void> result = doBake(sourcePath, targetDir);
+
+        return PageBakeResults.fromTry(result);
     }
 
 
     /**
      *
      */
-    private void doBake(
+    private Try<Void> doBake(
             final Path sourcePath,
-            final Path targetDir)
-            throws IOException {
+            final Path targetDir) {
 
-        Path sourceBasename = sourcePath.getFileName();
-        Path targetPath = targetDir.resolve(sourceBasename);
+        final Path sourceBasename = sourcePath.getFileName();
+        final Path targetPath = targetDir.resolve(sourceBasename);
 
-        FileUtils.copy(sourcePath, targetPath);
+        return FileUtils.safeCopy(sourcePath, targetPath)
+                .recoverWith(CopyPageBakerException.copyFailureTry(sourcePath, targetDir));
     }
 
 

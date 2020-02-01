@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2019 Yawg project contributors.
+ * Copyright (c) 2019-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -43,7 +43,6 @@ import com.varmateo.yawg.spi.TemplateService;
 
 
     private DefaultExtensionsModule(final Option<Path> templatesDir) {
-
 
         _templatesDir = templatesDir;
     }

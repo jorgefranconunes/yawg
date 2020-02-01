@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -99,7 +99,7 @@ import com.varmateo.yawg.spi.TemplateService;
     private FileBaker newFileBaker() {
 
         final Seq<PageBaker> bakers = _pageBakers.get();
-        final PageBaker defaultBaker = new CopyPageBaker();
+        final PageBaker defaultBaker = CopyPageBaker.create();
 
         return new FileBaker(bakers, defaultBaker);
     }

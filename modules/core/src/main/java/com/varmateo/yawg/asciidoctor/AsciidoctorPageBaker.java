@@ -18,7 +18,6 @@ import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.OptionsBuilder;
 
 import com.varmateo.yawg.api.Result;
-import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.PageBakeResult;
 import com.varmateo.yawg.spi.PageContext;

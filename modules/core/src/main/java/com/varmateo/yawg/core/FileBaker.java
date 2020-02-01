@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -25,7 +25,7 @@ import com.varmateo.yawg.spi.PageContext;
 /**
  * 
  */
-/* package private */ final class FileBaker {
+/* default */ final class FileBaker {
 
 
     private final Log _log;
