@@ -67,7 +67,7 @@ public interface TemplateContext {
     /**
      * Document author data.
      */
-    static final class Author {
+    final class Author {
 
 
         private final String _name;

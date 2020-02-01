@@ -6,7 +6,6 @@
 
 package com.varmateo.yawg.util;
 
-import java.io.InputStream;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
@@ -30,9 +29,9 @@ public final class FileUtils {
     /**
      * No instances of this class are to be created.
      */
-<span class="nc" id="L33">    private FileUtils() {</span>
+<span class="nc" id="L32">    private FileUtils() {</span>
         // Nothing to do.
-<span class="nc" id="L35">    }</span>
+<span class="nc" id="L34">    }</span>
 
 
     /**
@@ -47,14 +46,14 @@ public final class FileUtils {
      */
     public static String basename(final Path path) {
 
-<span class="fc" id="L50">        final String basenameWithExtension =</span>
-<span class="fc" id="L51">                Option.of(path.getFileName())</span>
-<span class="fc" id="L52">                .map(Object::toString)</span>
-<span class="fc" id="L53">                .getOrElse(&quot;&quot;);</span>
-<span class="fc" id="L54">        final int extensionIndex = basenameWithExtension.lastIndexOf('.');</span>
+<span class="fc" id="L49">        final String basenameWithExtension =</span>
+<span class="fc" id="L50">                Option.of(path.getFileName())</span>
+<span class="fc" id="L51">                .map(Object::toString)</span>
+<span class="fc" id="L52">                .getOrElse(&quot;&quot;);</span>
+<span class="fc" id="L53">        final int extensionIndex = basenameWithExtension.lastIndexOf('.');</span>
 
-<span class="fc bfc" id="L56" title="All 2 branches covered.">        return (extensionIndex&gt;-1)</span>
-<span class="fc" id="L57">                ? basenameWithExtension.substring(0, extensionIndex)</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        return (extensionIndex&gt;-1)</span>
+<span class="fc" id="L56">                ? basenameWithExtension.substring(0, extensionIndex)</span>
                 : basenameWithExtension;
     }
 
@@ -66,10 +65,10 @@ public final class FileUtils {
             final Path path,
             final Pattern pattern) {
 
-<span class="fc" id="L69">        return  Optional.ofNullable(path.getFileName())</span>
-<span class="fc" id="L70">                .map(Path::toString)</span>
-<span class="fc" id="L71">                .map(basename -&gt; pattern.matcher(basename).matches())</span>
-<span class="fc" id="L72">                .orElse(false);</span>
+<span class="fc" id="L68">        return  Optional.ofNullable(path.getFileName())</span>
+<span class="fc" id="L69">                .map(Path::toString)</span>
+<span class="fc" id="L70">                .map(basename -&gt; pattern.matcher(basename).matches())</span>
+<span class="fc" id="L71">                .orElse(false);</span>
     }
 
 
@@ -91,12 +90,23 @@ public final class FileUtils {
             final Path target)
             throws IOException {
 
-<span class="fc" id="L94">        Files.copy(</span>
+<span class="fc" id="L93">        Files.copy(</span>
                 source,
                 target,
                 StandardCopyOption.REPLACE_EXISTING,
                 StandardCopyOption.COPY_ATTRIBUTES);
-<span class="fc" id="L99">    }</span>
+<span class="fc" id="L98">    }</span>
+
+
+    /**
+     *
+     */
+    public static Try&lt;Void&gt; safeCopy(
+            final Path source,
+            final Path target) {
+
+<span class="fc" id="L108">        return Try.run(() -&gt; copy(source, target));</span>
+    }
 
 
     /**
@@ -114,9 +124,9 @@ public final class FileUtils {
     public static String readAsString(final Path sourcePath)
             throws IOException {
 
-<span class="fc" id="L117">        final byte[] contentBytes = Files.readAllBytes(sourcePath);</span>
+<span class="fc" id="L127">        final byte[] contentBytes = Files.readAllBytes(sourcePath);</span>
 
-<span class="fc" id="L119">        return new String(contentBytes, StandardCharsets.UTF_8);</span>
+<span class="fc" id="L129">        return new String(contentBytes, StandardCharsets.UTF_8);</span>
     }
 
 
@@ -142,10 +152,10 @@ public final class FileUtils {
             final ConsumerWithIOException&lt;Writer&gt; consumer)
             throws IOException {
 
-<span class="nc" id="L145">        try ( Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {</span>
-<span class="nc" id="L146">            consumer.accept(writer);</span>
-<span class="nc bnc" id="L147" title="All 8 branches missed.">        }</span>
-<span class="nc" id="L148">    }</span>
+<span class="nc" id="L155">        try ( Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {</span>
+<span class="nc" id="L156">            consumer.accept(writer);</span>
+<span class="nc bnc" id="L157" title="All 8 branches missed.">        }</span>
+<span class="nc" id="L158">    }</span>
 
 
     /**
@@ -155,10 +165,10 @@ public final class FileUtils {
             final Path target,
             final ConsumerWithIOException&lt;Writer&gt; action) {
 
-<span class="pc" id="L158">        try ( final Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {</span>
-<span class="fc" id="L159">            return Try.run(() -&gt; action.accept(writer));</span>
-<span class="pc bpc" id="L160" title="6 of 8 branches missed.">        } catch ( final IOException cause ) {</span>
-<span class="nc" id="L161">            return Try.failure(cause);</span>
+<span class="pc" id="L168">        try ( Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {</span>
+<span class="fc" id="L169">            return Try.run(() -&gt; action.accept(writer));</span>
+<span class="pc bpc" id="L170" title="6 of 8 branches missed.">        } catch ( final IOException cause ) {</span>
+<span class="nc" id="L171">            return Try.failure(cause);</span>
         }
     }
 
@@ -170,10 +180,10 @@ public final class FileUtils {
             final Path target,
             final FunctionWithIOException&lt;Writer, T&gt; action) {
 
-<span class="pc" id="L173">        try ( final Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {</span>
-<span class="fc" id="L174">            return Try.of(() -&gt; action.apply(writer));</span>
-<span class="pc bpc" id="L175" title="6 of 8 branches missed.">        } catch ( final IOException cause ) {</span>
-<span class="nc" id="L176">            return Try.failure(cause);</span>
+<span class="pc" id="L183">        try ( Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {</span>
+<span class="fc" id="L184">            return Try.of(() -&gt; action.apply(writer));</span>
+<span class="pc bpc" id="L185" title="6 of 8 branches missed.">        } catch ( final IOException cause ) {</span>
+<span class="nc" id="L186">            return Try.failure(cause);</span>
         }
     }
 
@@ -186,9 +196,9 @@ public final class FileUtils {
             final FunctionWithIOException&lt;Reader, T&gt; transformer)
             throws IOException {
 
-<span class="nc" id="L189">        try ( Reader reader = Files.newBufferedReader(source, StandardCharsets.UTF_8) ) {</span>
-<span class="nc" id="L190">            return transformer.apply(reader);</span>
-<span class="nc bnc" id="L191" title="All 8 branches missed.">        }</span>
+<span class="nc" id="L199">        try ( Reader reader = Files.newBufferedReader(source, StandardCharsets.UTF_8) ) {</span>
+<span class="nc" id="L200">            return transformer.apply(reader);</span>
+<span class="nc bnc" id="L201" title="All 8 branches missed.">        }</span>
     }
 
 
@@ -199,10 +209,10 @@ public final class FileUtils {
             final Path source,
             final FunctionWithIOException&lt;Reader, T&gt; transformer) {
 
-<span class="pc" id="L202">        try ( Reader reader = Files.newBufferedReader(source, StandardCharsets.UTF_8) ) {</span>
-<span class="fc" id="L203">            return Try.of(() -&gt; transformer.apply(reader));</span>
-<span class="pc bpc" id="L204" title="6 of 8 branches missed.">        } catch ( final IOException cause ) {</span>
-<span class="nc" id="L205">            return Try.failure(cause);</span>
+<span class="pc" id="L212">        try ( Reader reader = Files.newBufferedReader(source, StandardCharsets.UTF_8) ) {</span>
+<span class="fc" id="L213">            return Try.of(() -&gt; transformer.apply(reader));</span>
+<span class="pc bpc" id="L214" title="6 of 8 branches missed.">        } catch ( final IOException cause ) {</span>
+<span class="nc" id="L215">            return Try.failure(cause);</span>
         }
     }
 

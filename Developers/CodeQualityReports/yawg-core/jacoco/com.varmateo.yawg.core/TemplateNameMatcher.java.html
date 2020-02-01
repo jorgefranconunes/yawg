@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TemplateNameMatcher.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">TemplateNameMatcher.java</span></div><h1>TemplateNameMatcher.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -26,21 +26,21 @@ import com.varmateo.yawg.util.GlobMatcher;
 
 
     /**
-     * Initializes an empty template name matcher.
+     *
      */
-<span class="fc" id="L31">    TemplateNameMatcher() {</span>
+<span class="fc" id="L31">    private TemplateNameMatcher(final Builder builder) {</span>
 
-<span class="fc" id="L33">        _matchersByName = HashMap.empty();</span>
+<span class="fc" id="L33">        _matchersByName = builder._matchersByName;</span>
 <span class="fc" id="L34">    }</span>
 
 
     /**
-     *
+     * Initializes an empty template name matcher.
      */
-<span class="nc" id="L40">    private TemplateNameMatcher(final Builder builder) {</span>
+    public static TemplateNameMatcher empty() {
 
-<span class="nc" id="L42">        _matchersByName = builder._matchersByName;</span>
-<span class="nc" id="L43">    }</span>
+<span class="fc" id="L42">        return builder().build();</span>
+    }
 
 
     /**
@@ -48,7 +48,7 @@ import com.varmateo.yawg.util.GlobMatcher;
      */
     public static Builder builder() {
 
-<span class="nc" id="L51">        return new Builder();</span>
+<span class="fc" id="L51">        return new Builder();</span>
     }
 
 
@@ -76,10 +76,10 @@ import com.varmateo.yawg.util.GlobMatcher;
         /**
          *
          */
-<span class="nc" id="L79">        private Builder() {</span>
+<span class="fc" id="L79">        private Builder() {</span>
 
-<span class="nc" id="L81">            _matchersByName = HashMap.empty();</span>
-<span class="nc" id="L82">        }</span>
+<span class="fc" id="L81">            _matchersByName = HashMap.empty();</span>
+<span class="fc" id="L82">        }</span>
 
 
         /**
@@ -100,7 +100,7 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public TemplateNameMatcher build() {
 
-<span class="nc" id="L103">            return new TemplateNameMatcher(this);</span>
+<span class="fc" id="L103">            return new TemplateNameMatcher(this);</span>
         }
 
 

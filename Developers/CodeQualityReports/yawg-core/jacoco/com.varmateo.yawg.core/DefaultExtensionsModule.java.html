@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultExtensionsModule.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">DefaultExtensionsModule.java</span></div><h1>DefaultExtensionsModule.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2019 Yawg project contributors.
+ * Copyright (c) 2019-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -44,9 +44,8 @@ import com.varmateo.yawg.spi.TemplateService;
 
 <span class="nc" id="L45">    private DefaultExtensionsModule(final Option&lt;Path&gt; templatesDir) {</span>
 
-
-<span class="nc" id="L48">        _templatesDir = templatesDir;</span>
-<span class="nc" id="L49">    }</span>
+<span class="nc" id="L47">        _templatesDir = templatesDir;</span>
+<span class="nc" id="L48">    }</span>
 
 
     /**
@@ -54,7 +53,7 @@ import com.varmateo.yawg.spi.TemplateService;
      */
     public static DefaultExtensionsModule create(final Option&lt;Path&gt; templatesDir) {
 
-<span class="nc" id="L57">        return new DefaultExtensionsModule(templatesDir);</span>
+<span class="nc" id="L56">        return new DefaultExtensionsModule(templatesDir);</span>
     }
 
 
@@ -63,7 +62,7 @@ import com.varmateo.yawg.spi.TemplateService;
      */
     public Seq&lt;PageBaker&gt; pageBakers() {
 
-<span class="nc" id="L66">        return _pageBakers.get();</span>
+<span class="nc" id="L65">        return _pageBakers.get();</span>
     }
 
 
@@ -72,7 +71,7 @@ import com.varmateo.yawg.spi.TemplateService;
      */
     public Seq&lt;TemplateService&gt; templateServices() {
 
-<span class="nc" id="L75">        return _templateServices.get();</span>
+<span class="nc" id="L74">        return _templateServices.get();</span>
     }
 
 
@@ -81,36 +80,36 @@ import com.varmateo.yawg.spi.TemplateService;
      */
     public Seq&lt;DirBakeListener&gt; dirBakeListeners() {
 
-<span class="nc" id="L84">        return _dirBakeListeners.get();</span>
+<span class="nc" id="L83">        return _dirBakeListeners.get();</span>
     }
 
 
     private Seq&lt;PageBaker&gt; createPageBakers() {
 
-<span class="nc" id="L90">        return List.of(</span>
-<span class="nc" id="L91">                AsciidoctorPageBaker.create(),</span>
-<span class="nc" id="L92">                HtmlPageBaker.create(),</span>
-<span class="nc" id="L93">                CommonMarkPageBaker.create());</span>
+<span class="nc" id="L89">        return List.of(</span>
+<span class="nc" id="L90">                AsciidoctorPageBaker.create(),</span>
+<span class="nc" id="L91">                HtmlPageBaker.create(),</span>
+<span class="nc" id="L92">                CommonMarkPageBaker.create());</span>
     }
 
 
     private Seq&lt;TemplateService&gt; createTemplateServices() {
 
-<span class="nc" id="L99">        final List&lt;Function&lt;Path, TemplateService&gt;&gt; templateServiceFactories = List.of(</span>
+<span class="nc" id="L98">        final List&lt;Function&lt;Path, TemplateService&gt;&gt; templateServiceFactories = List.of(</span>
                 FreemarkerTemplateService::create);
-<span class="nc" id="L101">        final Function&lt;Path, List&lt;TemplateService&gt;&gt; createTemplateServices =</span>
-<span class="nc" id="L102">                path -&gt; templateServiceFactories.map(factory -&gt; factory.apply(path));</span>
+<span class="nc" id="L100">        final Function&lt;Path, List&lt;TemplateService&gt;&gt; createTemplateServices =</span>
+<span class="nc" id="L101">                path -&gt; templateServiceFactories.map(factory -&gt; factory.apply(path));</span>
 
-<span class="nc" id="L104">        return _templatesDir</span>
-<span class="nc" id="L105">                .map(createTemplateServices)</span>
-<span class="nc" id="L106">                .getOrElse(List::empty);</span>
+<span class="nc" id="L103">        return _templatesDir</span>
+<span class="nc" id="L104">                .map(createTemplateServices)</span>
+<span class="nc" id="L105">                .getOrElse(List::empty);</span>
     }
 
 
     private Seq&lt;DirBakeListener&gt; createDirBakeListeners() {
 
-<span class="nc" id="L112">        return List.of(</span>
-<span class="nc" id="L113">                BreadcrumbsBakeListener.create());</span>
+<span class="nc" id="L111">        return List.of(</span>
+<span class="nc" id="L112">                BreadcrumbsBakeListener.create());</span>
     }
 
 }

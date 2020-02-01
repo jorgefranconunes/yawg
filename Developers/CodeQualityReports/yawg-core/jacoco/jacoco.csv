@@ -1,8 +1,8 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 Yawg core,com.varmateo.yawg.html,HtmlPageBakerException,116,3,0,0,17,1,12,1,12,1
 Yawg core,com.varmateo.yawg.html,HtmlTemplateContext,3,88,0,0,2,20,1,7,1,7
-Yawg core,com.varmateo.yawg.html,HtmlPageBaker,116,0,2,0,26,0,15,0,14,0
-Yawg core,com.varmateo.yawg.util,FileUtils,290,52,40,2,23,13,30,5,10,4
+Yawg core,com.varmateo.yawg.html,HtmlPageBaker,111,0,2,0,26,0,14,0,13,0
+Yawg core,com.varmateo.yawg.util,FileUtils,299,52,40,2,24,13,32,5,12,4
 Yawg core,com.varmateo.yawg.util,SimpleMapException,0,28,0,0,0,6,0,2,0,2
 Yawg core,com.varmateo.yawg.util,SiteBakeResults,32,0,2,0,11,0,7,0,6,0
 Yawg core,com.varmateo.yawg.util,Results,14,9,2,0,5,4,3,1,2,1
@@ -21,7 +21,7 @@ Yawg core,com.varmateo.yawg.util,SimpleMap,0,79,0,4,0,20,0,11,0,9
 Yawg core,com.varmateo.yawg.util,PageBakeResults,28,4,2,0,10,1,6,1,5,1
 Yawg core,com.varmateo.yawg.util,Trys,93,0,10,0,18,0,14,0,9,0
 Yawg core,com.varmateo.yawg.util,OnDirBakeResults,12,21,1,1,4,7,3,3,2,3
-Yawg core,com.varmateo.yawg.util,GlobMatcher,9,78,0,0,4,23,1,10,1,10
+Yawg core,com.varmateo.yawg.util,GlobMatcher,0,72,0,2,0,19,0,9,0,8
 Yawg core,com.varmateo.yawg.freemarker,FreemarkerDataModel.YawgFreemarkerDataModel,26,16,0,0,7,6,7,2,7,2
 Yawg core,com.varmateo.yawg.freemarker,FreemarkerTemplateServiceException,0,83,0,0,0,14,0,4,0,4
 Yawg core,com.varmateo.yawg.freemarker,FreemarkerDataModel,0,27,0,2,0,6,0,3,0,2
@@ -46,15 +46,15 @@ Yawg core,com.varmateo.yawg.core,DirBakeOptionsDao,91,270,9,9,15,72,9,18,3,15
 Yawg core,com.varmateo.yawg.core,DirBakeOptionsDaoException,22,57,0,0,2,10,1,4,1,4
 Yawg core,com.varmateo.yawg.core,AssetsCopier.new SimpleFileVisitor() {...},51,0,2,0,9,0,4,0,3,0
 Yawg core,com.varmateo.yawg.core,BakerMatcher.Entry,0,15,0,0,0,6,0,3,0,3
-Yawg core,com.varmateo.yawg.core,BakerMatcher.Builder,6,66,0,0,3,16,1,8,1,8
-Yawg core,com.varmateo.yawg.core,CoreSiteBakerModule,84,0,0,0,22,0,6,0,6,0
+Yawg core,com.varmateo.yawg.core,BakerMatcher.Builder,6,64,0,0,3,16,1,8,1,8
+Yawg core,com.varmateo.yawg.core,CoreSiteBakerModule,82,0,0,0,22,0,6,0,6,0
 Yawg core,com.varmateo.yawg.core,DirBaker,49,182,3,5,11,43,5,14,2,13
-Yawg core,com.varmateo.yawg.core,TemplateNameMatcher,27,6,0,0,8,3,4,1,4,1
+Yawg core,com.varmateo.yawg.core,TemplateNameMatcher,15,15,0,0,4,5,2,3,2,3
 Yawg core,com.varmateo.yawg.core,FileBaker,35,96,3,1,5,24,7,5,5,5
-Yawg core,com.varmateo.yawg.core,TemplateNameMatcher.Builder,21,0,0,0,6,0,3,0,3,0
-Yawg core,com.varmateo.yawg.core,CopyPageBaker,49,0,0,0,14,0,8,0,8,0
+Yawg core,com.varmateo.yawg.core,TemplateNameMatcher.Builder,9,12,0,0,2,4,1,2,1,2
+Yawg core,com.varmateo.yawg.core,CopyPageBaker,34,0,0,0,11,0,6,0,6,0
 Yawg core,com.varmateo.yawg.core,DefaultSiteBakerModule,57,0,0,0,14,0,8,0,8,0
-Yawg core,com.varmateo.yawg.core,CopyPageBakerException,35,0,0,0,5,0,2,0,2,0
+Yawg core,com.varmateo.yawg.core,CopyPageBakerException,50,0,0,0,7,0,5,0,5,0
 Yawg core,com.varmateo.yawg.core,DirBakerContext,0,102,0,0,0,27,0,6,0,6
 Yawg core,com.varmateo.yawg.core,CollectiveDirBakeListener,0,46,0,0,0,16,0,7,0,7
 Yawg core,com.varmateo.yawg.core,FileBakerException,18,0,0,0,4,0,2,0,2,0
@@ -64,7 +64,7 @@ Yawg core,com.varmateo.yawg.core,DirEntryChecker,0,96,0,8,0,19,0,14,0,10
 Yawg core,com.varmateo.yawg.core,CollectiveTemplateService,51,0,4,0,15,0,8,0,6,0
 Yawg core,com.varmateo.yawg.core,AssetsCopierException,35,0,0,0,5,0,2,0,2,0
 Yawg core,com.varmateo.yawg.core,DefaultExtensionsModule,84,0,0,0,25,0,10,0,10,0
-Yawg core,com.varmateo.yawg.core,DirBakeOptions.Builder,0,219,0,0,0,61,0,23,0,23
+Yawg core,com.varmateo.yawg.core,DirBakeOptions.Builder,0,209,0,0,0,61,0,23,0,23
 Yawg core,com.varmateo.yawg.core,DirPageContextBuilder,43,83,1,1,7,28,8,4,7,4
 Yawg core,com.varmateo.yawg.core,DirBakeOptions,5,114,0,0,0,25,1,5,1,5
 Yawg core,com.varmateo.yawg.breadcrumbs,BreadcrumbsBakeListener,123,0,2,0,28,0,13,0,12,0
