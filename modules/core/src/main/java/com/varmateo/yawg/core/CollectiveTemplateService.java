@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -24,7 +24,7 @@ import com.varmateo.yawg.spi.TemplateService;
         implements TemplateService {
 
 
-    private final Function<String,Optional<Template>> _templateFetcher;
+    private final Function<String, Optional<Template>> _templateFetcher;
 
 
     /**

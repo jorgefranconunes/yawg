@@ -33,35 +33,6 @@ public final class GlobMatcher
     private final Seq<PathMatcher> _matchers;
 
 
-    /**
-     * @param globPatterns The glob patterns for this matcher.
-     *
-     * @throws PatternSyntaxException If any of the given glob
-     * patterns is invalid.
-     */
-    public GlobMatcher(final Seq<String> globPatterns)
-            throws PatternSyntaxException {
-
-        _globPatterns = globPatterns;
-        _matchers = globPatterns
-                .map(p -> "glob:" + p)
-                .map(DEFAULT_FILESYSTEM::getPathMatcher);
-    }
-
-
-    /**
-     *
-     */
-    public GlobMatcher(final String... globPatterns)
-            throws PatternSyntaxException {
-
-        this(Array.of(globPatterns));
-    }
-
-
-    /**
-     *
-     */
     private GlobMatcher(final Builder builder) {
 
         _globPatterns = builder._globPatterns;
@@ -72,12 +43,15 @@ public final class GlobMatcher
     /**
      *
      */
-    private GlobMatcher(
-            final Seq<String> globPatterns,
-            final Seq<PathMatcher> matchers) {
+    public static GlobMatcher create(final String... globPatterns) {
 
-        _globPatterns = globPatterns;
-        _matchers = matchers;
+        final Builder builder = builder();
+
+        for ( final String globPattern : globPatterns ) {
+            builder.addGlobPattern(globPattern);
+        }
+
+        return builder.build();
     }
 
 

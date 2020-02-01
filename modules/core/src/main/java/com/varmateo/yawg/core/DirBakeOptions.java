@@ -1,26 +1,28 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.core;
 
+import java.nio.file.Path;
+
+import io.vavr.collection.List;
+import io.vavr.collection.Seq;
+import io.vavr.control.Option;
+
 import com.varmateo.yawg.core.TemplateNameMatcher;
 import com.varmateo.yawg.spi.PageVars;
 import com.varmateo.yawg.spi.PageVarsBuilder;
 import com.varmateo.yawg.util.GlobMatcher;
-import java.nio.file.Path;
-import io.vavr.collection.List;
-import io.vavr.collection.Seq;
-import io.vavr.control.Option;
 
 
 /**
  * Set of configuration parameters used for baking the files in a
  * directory.
  */
-/* package private */ final class DirBakeOptions {
+/* default */ final class DirBakeOptions {
 
 
     /**
@@ -157,7 +159,7 @@ import io.vavr.control.Option;
         private Option<GlobMatcher> _filesToExcludeHere = Option.none();
         private Option<GlobMatcher> _filesToIncludeHere = Option.none();
         private PageVars _pageVarsHere = PageVars.empty();
-        private TemplateNameMatcher _templatesHere = new TemplateNameMatcher();
+        private TemplateNameMatcher _templatesHere = TemplateNameMatcher.empty();
 
         // These adopt the values from externally provided
         // initialization data.
@@ -222,7 +224,7 @@ import io.vavr.control.Option;
          */
         public Builder filesToExclude(final String... fileNames) {
 
-            final GlobMatcher patterns = new GlobMatcher(fileNames);
+            final GlobMatcher patterns = GlobMatcher.create(fileNames);
 
             filesToExclude(patterns);
 
@@ -261,7 +263,7 @@ import io.vavr.control.Option;
          */
         public Builder filesToExcludeHere(final String... fileNames) {
 
-            final GlobMatcher patterns = new GlobMatcher(fileNames);
+            final GlobMatcher patterns = GlobMatcher.create(fileNames);
 
             return filesToExcludeHere(patterns);
         }
@@ -284,7 +286,7 @@ import io.vavr.control.Option;
          */
         public Builder filesToIncludeHere(final String... fileNames) {
 
-            final GlobMatcher patterns = new GlobMatcher(fileNames);
+            final GlobMatcher patterns = GlobMatcher.create(fileNames);
 
             return filesToIncludeHere(patterns);
         }

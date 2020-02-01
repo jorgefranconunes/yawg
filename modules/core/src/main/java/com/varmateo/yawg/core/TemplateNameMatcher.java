@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -26,20 +26,20 @@ import com.varmateo.yawg.util.GlobMatcher;
 
 
     /**
-     * Initializes an empty template name matcher.
-     */
-    TemplateNameMatcher() {
-
-        _matchersByName = HashMap.empty();
-    }
-
-
-    /**
      *
      */
     private TemplateNameMatcher(final Builder builder) {
 
         _matchersByName = builder._matchersByName;
+    }
+
+
+    /**
+     * Initializes an empty template name matcher.
+     */
+    public static TemplateNameMatcher empty() {
+
+        return builder().build();
     }
 
 

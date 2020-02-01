@@ -191,7 +191,7 @@ import com.varmateo.yawg.util.GlobMatcher;
                 final String bakerType,
                 final String... fileNames) {
 
-            GlobMatcher matcher = new GlobMatcher(fileNames);
+            final GlobMatcher matcher = GlobMatcher.create(fileNames);
 
             addBakerType(bakerType, matcher);
 
