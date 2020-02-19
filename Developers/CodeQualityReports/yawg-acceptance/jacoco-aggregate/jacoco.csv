@@ -1,14 +1,9 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,Result,0,15,0,0,0,4,0,3,0,3
-Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,BakeOptions.Builder,0,3,0,0,0,2,0,1,0,1
-Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,BakeOptions,0,5,0,0,0,1,0,1,0,1
+Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,BakeOptionsBuilder.BakeOptionsImpl,0,35,0,0,0,10,0,5,0,5
+Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,BakeOptionsBuilder,21,58,0,0,7,17,2,7,2,7
 Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,YawgException,0,9,0,0,0,4,0,2,0,2
-Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,BakeOptions_Builder,260,138,29,8,59,32,31,14,16,10
 Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,YawgInfo,67,41,7,3,6,12,6,1,1,1
-Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,BakeOptions_Builder.Property,8,38,0,0,1,6,2,3,2,3
-Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,BakeOptions_Builder.Partial,189,0,22,0,33,0,20,0,9,0
-Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,BakeOptions_Builder.Rebuildable,0,3,0,0,0,1,0,1,0,1
-Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,BakeOptions_Builder.Value,125,34,12,0,27,10,10,5,4,5
 Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,Result.Success,4,12,0,0,1,5,1,3,1,3
 Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,Result.Failure,4,12,0,0,1,5,1,3,1,3
 Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,BakerCli,0,232,0,0,0,48,0,18,0,18
