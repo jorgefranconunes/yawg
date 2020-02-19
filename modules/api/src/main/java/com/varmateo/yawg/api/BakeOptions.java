@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2019 Yawg project contributors.
+ * Copyright (c) 2019-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -10,14 +10,11 @@ import java.nio.file.Path;
 import java.util.Map;
 import java.util.Optional;
 
-import org.inferred.freebuilder.FreeBuilder;
-
 
 /**
  * Set of configuration parameters for baking a site with a
  * <code>SiteBaker</code> instance.
  */
-@FreeBuilder
 public interface BakeOptions {
 
 
@@ -53,27 +50,5 @@ public interface BakeOptions {
      * the map are the variable names.
      */
     Map<String, Object> externalPageVars();
-
-
-    /**
-     *
-     */
-    static Builder builder() {
-
-        return new Builder();
-    }
-
-
-    /**
-     *
-     */
-    final class Builder extends BakeOptions_Builder {
-
-        private Builder() {
-            // Nothing to do.
-        }
-
-    }
-
 
 }

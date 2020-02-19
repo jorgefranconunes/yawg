@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2015-2019 Yawg project contributors.
+ * Copyright (c) 2015-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -16,6 +16,7 @@ import java.nio.file.Path;
 import io.vavr.control.Try;
 
 import com.varmateo.yawg.api.BakeOptions;
+import com.varmateo.yawg.api.BakeOptionsBuilder;
 import com.varmateo.yawg.api.SiteBaker;
 import com.varmateo.yawg.api.SiteBakeResult;
 import com.varmateo.yawg.api.YawgInfo;
@@ -122,7 +123,7 @@ public final class BakerCli {
                 .map(path -> DefaultSiteBaker.create(path))
                 .getOrElse(() -> DefaultSiteBaker.create());
 
-        final BakeOptions bakeOptions = BakeOptions.builder()
+        final BakeOptions bakeOptions = BakeOptionsBuilder.create()
                 .sourceDir(options.sourceDir())
                 .targetDir(options.targetDir())
                 .assetsDir(options.assetsDir().toJavaOptional())
