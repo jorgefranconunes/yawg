@@ -44,3 +44,8 @@ pageVarsHere:
     title: "Home"
     url: "index.html"
 
+#
+# Include static assets (CSS, images).
+#
+extraDirsHere:
+  - "../assets"
