@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2019 Yawg project contributors.
+ * Copyright (c) 2019-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -10,7 +10,10 @@ import java.util.NoSuchElementException;
 
 
 /**
+ * Represents the success or failure of an operation. A success has an
+ * associated value. A failure has an associated cause.
  *
+ * @param <T> The type of the value in a success result.
  */
 public abstract class Result<T> {
 
@@ -20,7 +23,9 @@ public abstract class Result<T> {
 
 
     /**
+     * Creates a successful result.
      *
+     * @param value The value to be associated with the returned success result.
      */
     public static <T> Result<T> success(final T value) {
         return new Success<>(value);
@@ -28,7 +33,10 @@ public abstract class Result<T> {
 
 
     /**
+     * Created a failed result.
      *
+     * @param cause The failure cause to be associated with the
+     * resturned failure result.
      */
     public static <T> Result<T> failure(final YawgException cause) {
         return new Failure<>(cause);
@@ -36,25 +44,35 @@ public abstract class Result<T> {
 
 
     /**
+     * Checks if this result is a success.
      *
+     * @return True if this result is a success, false otheriwse.
      */
     public abstract boolean isSuccess();
 
 
     /**
+     * Fetches the value associated with a success result.
      *
+     * <p>This method can only be called for success results. Calling
+     * it for a failure result will result in a {@code
+     * NoSuchElementException} being thrown.</p>
      */
     public abstract T get();
 
 
     /**
+     * Fetches the cause associated with a failure result.
      *
+     * <p>This method can only be called for failure results. Calling
+     * it for success result will result in a {@code
+     * NoSuchElementException} being thrown.</p>
      */
     public abstract YawgException failureCause();
 
 
     /**
-     *
+     * A success result.
      */
     public static final class Success<T>
             extends Result<T> {
@@ -67,6 +85,9 @@ public abstract class Result<T> {
         }
 
 
+        /**
+         * Always true.
+         */
         @Override
         public boolean isSuccess() {
             return true;
@@ -79,6 +100,9 @@ public abstract class Result<T> {
         }
 
 
+        /**
+         * Always throws {@code NoSuchElementException}.
+         */
         @Override
         public YawgException failureCause() {
             throw new NoSuchElementException();
@@ -87,7 +111,7 @@ public abstract class Result<T> {
 
 
     /**
-     *
+     * A failure result.
      */
     public static final class Failure<T>
             extends Result<T> {
@@ -100,12 +124,18 @@ public abstract class Result<T> {
         }
 
 
+        /**
+         * Always false.
+         */
         @Override
         public boolean isSuccess() {
             return false;
         }
 
 
+        /**
+         * Always throws {@code NoSuchElementException}.
+         */
         @Override
         public T get() {
             throw new NoSuchElementException();
