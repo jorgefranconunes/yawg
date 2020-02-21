@@ -19,16 +19,6 @@ public interface BakeOptions {
 
 
     /**
-     * Path of directory containing the assets files. These files will
-     * be copied without any changes to the target directory.
-     *
-     * <p>An empty <code>Optional</code> means no assets will be
-     * copied.</p>
-     */
-    Optional<Path> assetsDir();
-
-
-    /**
      * Path of directory containing the documents to be baked.
      */
     Path sourceDir();

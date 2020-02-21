@@ -126,7 +126,6 @@ public final class BakerCli {
         final BakeOptions bakeOptions = BakeOptionsBuilder.create()
                 .sourceDir(options.sourceDir())
                 .targetDir(options.targetDir())
-                .assetsDir(options.assetsDir().toJavaOptional())
                 .putAllExternalPageVars(options.externalPageVars().toJavaMap())
                 .build();
 
@@ -142,13 +141,11 @@ public final class BakerCli {
         final Path sourceDir = options.sourceDir();
         final Path targetDir = options.targetDir();
         final String templatesDir = options.templatesDir().map(Path::toString).getOrElse("NONE");
-        final String assetsDir = options.assetsDir().map(Path::toString).getOrElse("NONE");
 
         _log.info("{0} {1}", YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);
         _log.info("    Source    : {0}", sourceDir);
         _log.info("    Target    : {0}", targetDir);
         _log.info("    Templates : {0}", templatesDir);
-        _log.info("    Assets    : {0}", assetsDir);
     }
 
 }

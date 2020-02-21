@@ -20,19 +20,16 @@ import java.util.Optional;
 public final class BakeOptionsBuilder {
 
 
-    private Optional<Path> _assetsDir;
     private Path _sourceDir;
     private Path _targetDir;
     private Map<String, Object> _externalPageVars;
 
 
     private BakeOptionsBuilder(
-            final Optional<Path> assetsDir,
             final Path sourceDir,
             final Path targetDir,
             final Map<String, Object> externalPageVars) {
 
-        _assetsDir = assetsDir;
         _sourceDir = sourceDir;
         _targetDir = targetDir;
         _externalPageVars = externalPageVars;
@@ -45,7 +42,6 @@ public final class BakeOptionsBuilder {
      */
     public static BakeOptionsBuilder create() {
         return new BakeOptionsBuilder(
-                Optional.empty(),
                 null,
                 null,
                 new HashMap<>());
@@ -58,28 +54,9 @@ public final class BakeOptionsBuilder {
      */
     public static BakeOptionsBuilder create(final BakeOptions initialData) {
         return new BakeOptionsBuilder(
-                initialData.assetsDir(),
                 initialData.sourceDir(),
                 initialData.targetDir(),
                 new HashMap<>(initialData.externalPageVars()));
-    }
-
-
-    /**
-     * Sets the value to be returned by {@link BakeOptions#assetsDir()}.
-     */
-    public BakeOptionsBuilder assetsDir(final Path assetsDir) {
-        _assetsDir = Optional.of(assetsDir);
-        return this;
-    }
-
-
-    /**
-     * Sets the value to be returned by {@link BakeOptions#assetsDir()}.
-     */
-    public BakeOptionsBuilder assetsDir(final Optional<Path> assetsDir) {
-        _assetsDir = assetsDir;
-        return this;
     }
 
 
@@ -118,7 +95,6 @@ public final class BakeOptionsBuilder {
      */
     public BakeOptions build() {
         return new BakeOptionsImpl(
-                _assetsDir,
                 _sourceDir,
                 _targetDir,
                 _externalPageVars);
@@ -131,28 +107,19 @@ public final class BakeOptionsBuilder {
     private static final class BakeOptionsImpl
             implements BakeOptions {
 
-        private final Optional<Path> _assetsDir;
         private final Path _sourceDir;
         private final Path _targetDir;
         private final Map<String, Object> _externalPageVars;
 
 
         BakeOptionsImpl(
-                final Optional<Path> assetsDir,
                 final Path sourceDir,
                 final Path targetDir,
                 final Map<String, Object> externalPageVars) {
 
-            _assetsDir = assetsDir;
             _sourceDir = Objects.requireNonNull(sourceDir);
             _targetDir = Objects.requireNonNull(targetDir);
             _externalPageVars = Collections.unmodifiableMap(new HashMap<>(externalPageVars));
-        }
-
-
-        @Override
-        public Optional<Path> assetsDir() {
-            return _assetsDir;
         }
 
 

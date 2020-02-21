@@ -85,36 +85,6 @@ import com.varmateo.yawg.util.Results;
             final DirBaker dirBaker)
             throws YawgException {
 
-        copyAssets(options);
-        bakeSourceTree(options, dirBaker);
-    }
-
-
-    private void copyAssets(final BakeOptions options) {
-
-        Option.ofOptional(options.assetsDir())
-                .peek(assetsDir -> _assetsCopier.copy(assetsDir, options.targetDir()))
-                .onEmpty(() -> _log.debug("No assets directory to copy"));
-    }
-
-
-    private void bakeSourceTree(
-            final BakeOptions options,
-            final DirBaker dirBaker)
-            throws YawgException {
-
-        Logs.logDuration(
-                _log,
-                "baking source tree",
-                () -> doBakeSourceTree(options, dirBaker));
-    }
-
-
-    private void doBakeSourceTree(
-            final BakeOptions options,
-            final DirBaker dirBaker)
-            throws YawgException {
-
         final Path sourceDir = options.sourceDir();
         final Path targetDir = options.targetDir();
         final PageVars externalPageVars = mapToPageVars(options.externalPageVars());
