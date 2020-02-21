@@ -126,30 +126,27 @@ public final class BakerCli {
 <span class="fc" id="L126">        final BakeOptions bakeOptions = BakeOptionsBuilder.create()</span>
 <span class="fc" id="L127">                .sourceDir(options.sourceDir())</span>
 <span class="fc" id="L128">                .targetDir(options.targetDir())</span>
-<span class="fc" id="L129">                .assetsDir(options.assetsDir().toJavaOptional())</span>
-<span class="fc" id="L130">                .putAllExternalPageVars(options.externalPageVars().toJavaMap())</span>
-<span class="fc" id="L131">                .build();</span>
+<span class="fc" id="L129">                .putAllExternalPageVars(options.externalPageVars().toJavaMap())</span>
+<span class="fc" id="L130">                .build();</span>
 
-<span class="fc" id="L133">        final Result&lt;Void&gt; result = siteBaker.bake(bakeOptions);</span>
+<span class="fc" id="L132">        final Result&lt;Void&gt; result = siteBaker.bake(bakeOptions);</span>
 
-<span class="fc" id="L135">        return Results.toTry(result)</span>
-<span class="fc" id="L136">                .recoverWith(cause -&gt; Try.failure(CliException.bakeFailure(cause)));</span>
+<span class="fc" id="L134">        return Results.toTry(result)</span>
+<span class="fc" id="L135">                .recoverWith(cause -&gt; Try.failure(CliException.bakeFailure(cause)));</span>
     }
 
 
     private void logOptions(final BakerCliBakeOptions options) {
 
-<span class="fc" id="L142">        final Path sourceDir = options.sourceDir();</span>
-<span class="fc" id="L143">        final Path targetDir = options.targetDir();</span>
-<span class="fc" id="L144">        final String templatesDir = options.templatesDir().map(Path::toString).getOrElse(&quot;NONE&quot;);</span>
-<span class="fc" id="L145">        final String assetsDir = options.assetsDir().map(Path::toString).getOrElse(&quot;NONE&quot;);</span>
+<span class="fc" id="L141">        final Path sourceDir = options.sourceDir();</span>
+<span class="fc" id="L142">        final Path targetDir = options.targetDir();</span>
+<span class="fc" id="L143">        final String templatesDir = options.templatesDir().map(Path::toString).getOrElse(&quot;NONE&quot;);</span>
 
-<span class="fc" id="L147">        _log.info(&quot;{0} {1}&quot;, YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);</span>
-<span class="fc" id="L148">        _log.info(&quot;    Source    : {0}&quot;, sourceDir);</span>
-<span class="fc" id="L149">        _log.info(&quot;    Target    : {0}&quot;, targetDir);</span>
-<span class="fc" id="L150">        _log.info(&quot;    Templates : {0}&quot;, templatesDir);</span>
-<span class="fc" id="L151">        _log.info(&quot;    Assets    : {0}&quot;, assetsDir);</span>
-<span class="fc" id="L152">    }</span>
+<span class="fc" id="L145">        _log.info(&quot;{0} {1}&quot;, YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);</span>
+<span class="fc" id="L146">        _log.info(&quot;    Source    : {0}&quot;, sourceDir);</span>
+<span class="fc" id="L147">        _log.info(&quot;    Target    : {0}&quot;, targetDir);</span>
+<span class="fc" id="L148">        _log.info(&quot;    Templates : {0}&quot;, templatesDir);</span>
+<span class="fc" id="L149">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

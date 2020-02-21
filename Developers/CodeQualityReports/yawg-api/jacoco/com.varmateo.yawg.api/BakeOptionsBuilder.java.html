@@ -20,23 +20,20 @@ import java.util.Optional;
 public final class BakeOptionsBuilder {
 
 
-    private Optional&lt;Path&gt; _assetsDir;
     private Path _sourceDir;
     private Path _targetDir;
     private Map&lt;String, Object&gt; _externalPageVars;
 
 
     private BakeOptionsBuilder(
-            final Optional&lt;Path&gt; assetsDir,
             final Path sourceDir,
             final Path targetDir,
-<span class="nc" id="L33">            final Map&lt;String, Object&gt; externalPageVars) {</span>
+<span class="nc" id="L31">            final Map&lt;String, Object&gt; externalPageVars) {</span>
 
-<span class="nc" id="L35">        _assetsDir = assetsDir;</span>
-<span class="nc" id="L36">        _sourceDir = sourceDir;</span>
-<span class="nc" id="L37">        _targetDir = targetDir;</span>
-<span class="nc" id="L38">        _externalPageVars = externalPageVars;</span>
-<span class="nc" id="L39">    }</span>
+<span class="nc" id="L33">        _sourceDir = sourceDir;</span>
+<span class="nc" id="L34">        _targetDir = targetDir;</span>
+<span class="nc" id="L35">        _externalPageVars = externalPageVars;</span>
+<span class="nc" id="L36">    }</span>
 
 
     /**
@@ -44,8 +41,7 @@ public final class BakeOptionsBuilder {
      * values.
      */
     public static BakeOptionsBuilder create() {
-<span class="nc" id="L47">        return new BakeOptionsBuilder(</span>
-<span class="nc" id="L48">                Optional.empty(),</span>
+<span class="nc" id="L44">        return new BakeOptionsBuilder(</span>
                 null,
                 null,
                 new HashMap&lt;&gt;());
@@ -57,29 +53,10 @@ public final class BakeOptionsBuilder {
      * given data.
      */
     public static BakeOptionsBuilder create(final BakeOptions initialData) {
-<span class="nc" id="L60">        return new BakeOptionsBuilder(</span>
-<span class="nc" id="L61">                initialData.assetsDir(),</span>
-<span class="nc" id="L62">                initialData.sourceDir(),</span>
-<span class="nc" id="L63">                initialData.targetDir(),</span>
-<span class="nc" id="L64">                new HashMap&lt;&gt;(initialData.externalPageVars()));</span>
-    }
-
-
-    /**
-     * Sets the value to be returned by {@link BakeOptions#assetsDir()}.
-     */
-    public BakeOptionsBuilder assetsDir(final Path assetsDir) {
-<span class="nc" id="L72">        _assetsDir = Optional.of(assetsDir);</span>
-<span class="nc" id="L73">        return this;</span>
-    }
-
-
-    /**
-     * Sets the value to be returned by {@link BakeOptions#assetsDir()}.
-     */
-    public BakeOptionsBuilder assetsDir(final Optional&lt;Path&gt; assetsDir) {
-<span class="nc" id="L81">        _assetsDir = assetsDir;</span>
-<span class="nc" id="L82">        return this;</span>
+<span class="nc" id="L56">        return new BakeOptionsBuilder(</span>
+<span class="nc" id="L57">                initialData.sourceDir(),</span>
+<span class="nc" id="L58">                initialData.targetDir(),</span>
+<span class="nc" id="L59">                new HashMap&lt;&gt;(initialData.externalPageVars()));</span>
     }
 
 
@@ -87,8 +64,8 @@ public final class BakeOptionsBuilder {
      * Sets the value to be returned by {@link BakeOptions#sourceDir()}.
      */
     public BakeOptionsBuilder sourceDir(final Path sourceDir) {
-<span class="nc" id="L90">        _sourceDir = sourceDir;</span>
-<span class="nc" id="L91">        return this;</span>
+<span class="nc" id="L67">        _sourceDir = sourceDir;</span>
+<span class="nc" id="L68">        return this;</span>
     }
 
 
@@ -96,8 +73,8 @@ public final class BakeOptionsBuilder {
      * Sets the value to be returned by {@link BakeOptions#targetDir()}.
      */
     public BakeOptionsBuilder targetDir(final Path targetDir) {
-<span class="nc" id="L99">        _targetDir = targetDir;</span>
-<span class="nc" id="L100">        return this;</span>
+<span class="nc" id="L76">        _targetDir = targetDir;</span>
+<span class="nc" id="L77">        return this;</span>
     }
 
 
@@ -107,8 +84,8 @@ public final class BakeOptionsBuilder {
      */
     public BakeOptionsBuilder putAllExternalPageVars(
             final Map&lt;String, ? extends Object&gt; externalPageVars) {
-<span class="nc" id="L110">        _externalPageVars.putAll(externalPageVars);</span>
-<span class="nc" id="L111">        return this;</span>
+<span class="nc" id="L87">        _externalPageVars.putAll(externalPageVars);</span>
+<span class="nc" id="L88">        return this;</span>
     }
 
 
@@ -117,8 +94,7 @@ public final class BakeOptionsBuilder {
      * contents of this {@code BakeOptionsBuilder}.
      */
     public BakeOptions build() {
-<span class="nc" id="L120">        return new BakeOptionsImpl(</span>
-                _assetsDir,
+<span class="nc" id="L97">        return new BakeOptionsImpl(</span>
                 _sourceDir,
                 _targetDir,
                 _externalPageVars);
@@ -131,46 +107,37 @@ public final class BakeOptionsBuilder {
     private static final class BakeOptionsImpl
             implements BakeOptions {
 
-        private final Optional&lt;Path&gt; _assetsDir;
         private final Path _sourceDir;
         private final Path _targetDir;
         private final Map&lt;String, Object&gt; _externalPageVars;
 
 
         BakeOptionsImpl(
-                final Optional&lt;Path&gt; assetsDir,
                 final Path sourceDir,
                 final Path targetDir,
-<span class="nc" id="L144">                final Map&lt;String, Object&gt; externalPageVars) {</span>
+<span class="nc" id="L118">                final Map&lt;String, Object&gt; externalPageVars) {</span>
 
-<span class="nc" id="L146">            _assetsDir = assetsDir;</span>
-<span class="nc" id="L147">            _sourceDir = Objects.requireNonNull(sourceDir);</span>
-<span class="nc" id="L148">            _targetDir = Objects.requireNonNull(targetDir);</span>
-<span class="nc" id="L149">            _externalPageVars = Collections.unmodifiableMap(new HashMap&lt;&gt;(externalPageVars));</span>
-<span class="nc" id="L150">        }</span>
-
-
-        @Override
-        public Optional&lt;Path&gt; assetsDir() {
-<span class="nc" id="L155">            return _assetsDir;</span>
-        }
+<span class="nc" id="L120">            _sourceDir = Objects.requireNonNull(sourceDir);</span>
+<span class="nc" id="L121">            _targetDir = Objects.requireNonNull(targetDir);</span>
+<span class="nc" id="L122">            _externalPageVars = Collections.unmodifiableMap(new HashMap&lt;&gt;(externalPageVars));</span>
+<span class="nc" id="L123">        }</span>
 
 
         @Override
         public Path sourceDir() {
-<span class="nc" id="L161">            return _sourceDir;</span>
+<span class="nc" id="L128">            return _sourceDir;</span>
         }
 
 
         @Override
         public Path targetDir() {
-<span class="nc" id="L167">            return _targetDir;</span>
+<span class="nc" id="L134">            return _targetDir;</span>
         }
 
 
         @Override
         public Map&lt;String, Object&gt; externalPageVars() {
-<span class="nc" id="L173">            return _externalPageVars;</span>
+<span class="nc" id="L140">            return _externalPageVars;</span>
         }
     }
 }

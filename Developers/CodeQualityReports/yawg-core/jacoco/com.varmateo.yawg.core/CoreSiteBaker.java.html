@@ -85,46 +85,16 @@ import com.varmateo.yawg.util.Results;
             final DirBaker dirBaker)
             throws YawgException {
 
-<span class="nc" id="L88">        copyAssets(options);</span>
-<span class="nc" id="L89">        bakeSourceTree(options, dirBaker);</span>
-<span class="nc" id="L90">    }</span>
+<span class="nc" id="L88">        final Path sourceDir = options.sourceDir();</span>
+<span class="nc" id="L89">        final Path targetDir = options.targetDir();</span>
+<span class="nc" id="L90">        final PageVars externalPageVars = mapToPageVars(options.externalPageVars());</span>
+<span class="nc" id="L91">        final DirBakeOptions dirBakeOptions = DirBakeOptions.builder()</span>
+<span class="nc" id="L92">                .templateName(DEFAULT_TEMPLATE_NAME)</span>
+<span class="nc" id="L93">                .pageVars(externalPageVars)</span>
+<span class="nc" id="L94">                .build();</span>
 
-
-    private void copyAssets(final BakeOptions options) {
-
-<span class="nc" id="L95">        Option.ofOptional(options.assetsDir())</span>
-<span class="nc" id="L96">                .peek(assetsDir -&gt; _assetsCopier.copy(assetsDir, options.targetDir()))</span>
-<span class="nc" id="L97">                .onEmpty(() -&gt; _log.debug(&quot;No assets directory to copy&quot;));</span>
-<span class="nc" id="L98">    }</span>
-
-
-    private void bakeSourceTree(
-            final BakeOptions options,
-            final DirBaker dirBaker)
-            throws YawgException {
-
-<span class="nc" id="L106">        Logs.logDuration(</span>
-                _log,
-                &quot;baking source tree&quot;,
-<span class="nc" id="L109">                () -&gt; doBakeSourceTree(options, dirBaker));</span>
-<span class="nc" id="L110">    }</span>
-
-
-    private void doBakeSourceTree(
-            final BakeOptions options,
-            final DirBaker dirBaker)
-            throws YawgException {
-
-<span class="nc" id="L118">        final Path sourceDir = options.sourceDir();</span>
-<span class="nc" id="L119">        final Path targetDir = options.targetDir();</span>
-<span class="nc" id="L120">        final PageVars externalPageVars = mapToPageVars(options.externalPageVars());</span>
-<span class="nc" id="L121">        final DirBakeOptions dirBakeOptions = DirBakeOptions.builder()</span>
-<span class="nc" id="L122">                .templateName(DEFAULT_TEMPLATE_NAME)</span>
-<span class="nc" id="L123">                .pageVars(externalPageVars)</span>
-<span class="nc" id="L124">                .build();</span>
-
-<span class="nc" id="L126">        dirBaker.bakeDirectory(sourceDir, targetDir, dirBakeOptions);</span>
-<span class="nc" id="L127">    }</span>
+<span class="nc" id="L96">        dirBaker.bakeDirectory(sourceDir, targetDir, dirBakeOptions);</span>
+<span class="nc" id="L97">    }</span>
 
 
     /**
@@ -133,11 +103,11 @@ import com.varmateo.yawg.util.Results;
     private static PageVars mapToPageVars(
             final Map&lt;String,Object&gt; pageVarsMap) {
 
-<span class="nc" id="L136">        final PageVarsBuilder builder = PageVarsBuilder.create();</span>
-<span class="nc" id="L137">        pageVarsMap.entrySet().stream()</span>
-<span class="nc" id="L138">                .forEach(x -&gt; builder.addVar(x.getKey(), x.getValue()));</span>
+<span class="nc" id="L106">        final PageVarsBuilder builder = PageVarsBuilder.create();</span>
+<span class="nc" id="L107">        pageVarsMap.entrySet().stream()</span>
+<span class="nc" id="L108">                .forEach(x -&gt; builder.addVar(x.getKey(), x.getValue()));</span>
 
-<span class="nc" id="L140">        return builder.build();</span>
+<span class="nc" id="L110">        return builder.build();</span>
     }
 
 

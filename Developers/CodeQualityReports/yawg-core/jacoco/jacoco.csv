@@ -55,7 +55,7 @@ Yawg core,com.varmateo.yawg.core,CopyPageBakerException,50,0,0,0,7,0,5,0,5,0
 Yawg core,com.varmateo.yawg.core,DirBakerContext,0,102,0,0,0,27,0,6,0,6
 Yawg core,com.varmateo.yawg.core,CollectiveDirBakeListener,0,46,0,0,0,16,0,7,0,7
 Yawg core,com.varmateo.yawg.core,FileBakerException,18,0,0,0,4,0,2,0,2,0
-Yawg core,com.varmateo.yawg.core,CoreSiteBaker,131,0,0,0,34,0,14,0,14,0
+Yawg core,com.varmateo.yawg.core,CoreSiteBaker,85,0,0,0,24,0,8,0,8,0
 Yawg core,com.varmateo.yawg.core,BakerMatcher,14,59,0,0,4,10,2,7,2,7
 Yawg core,com.varmateo.yawg.core,DirEntryChecker,0,96,0,8,0,19,0,14,0,10
 Yawg core,com.varmateo.yawg.core,CollectiveTemplateService,51,0,4,0,15,0,8,0,6,0

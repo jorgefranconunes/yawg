@@ -1,12 +1,12 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,Result,0,15,0,0,0,4,0,3,0,3
-Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,BakeOptionsBuilder.BakeOptionsImpl,0,35,0,0,0,10,0,5,0,5
-Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,BakeOptionsBuilder,21,58,0,0,7,17,2,7,2,7
+Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,BakeOptionsBuilder.BakeOptionsImpl,0,29,0,0,0,8,0,4,0,4
+Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,BakeOptionsBuilder,13,47,0,0,4,13,1,6,1,6
 Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,YawgException,0,9,0,0,0,4,0,2,0,2
 Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,YawgInfo,67,41,7,3,6,12,6,1,1,1
 Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,Result.Success,0,16,0,0,0,6,0,4,0,4
 Yawg acceptance tests/yawg-api,com.varmateo.yawg.api,Result.Failure,0,16,0,0,0,6,0,4,0,4
-Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,BakerCli,0,232,0,0,0,48,0,18,0,18
+Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,BakerCli,0,210,0,0,0,45,0,18,0,18
 Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,CliParameterSet,45,233,4,16,11,67,4,22,0,16
 Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,CliParameter,0,159,0,16,0,43,0,19,0,11
 Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,BakerCliBakeOptionsParser,13,73,1,1,6,22,3,6,2,6
@@ -19,7 +19,7 @@ Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,BakerCliParameters,3,104,0,
 Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,InfoPrinter,0,80,0,0,0,19,0,6,0,6
 Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,BakerCliAction.PrintHelp,3,6,0,0,2,3,1,2,1,2
 Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,BakerCliBakeOptions_Builder.Property,8,60,0,0,1,8,2,3,2,3
-Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,BakerCliBakeOptions_Builder.Value,136,39,12,0,18,12,10,6,4,6
+Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,BakerCliBakeOptions_Builder.Value,139,36,12,0,19,11,11,5,5,5
 Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,InfoPrinter.Builder,0,25,0,0,0,9,0,4,0,4
 Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,CliInfoPrinter.Builder,0,41,0,0,0,15,0,6,0,6
 Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,Main,84,0,8,0,18,0,8,0,4,0
@@ -58,7 +58,7 @@ Yawg acceptance tests/yawg-core,com.varmateo.yawg.freemarker,FreemarkerTemplateS
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.freemarker,FreemarkerTemplateService.FreemarkerTemplate,0,40,0,0,0,11,0,5,0,5
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.logging,LogFactory,19,14,0,0,7,4,3,2,3,2
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.logging,Logs,54,108,1,3,9,22,7,7,6,6
-Yawg acceptance tests/yawg-core,com.varmateo.yawg.logging,LoggerLog,51,43,5,1,14,15,9,6,6,6
+Yawg acceptance tests/yawg-core,com.varmateo.yawg.logging,LoggerLog,57,37,5,1,16,13,10,5,7,5
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.commonmark,CommonMarkTemplateContextFactory,1,124,1,1,0,27,1,11,0,11
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.commonmark,CommonMarkPageBakerException,110,9,0,0,15,3,10,3,10,3
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.commonmark,CommonMarkPageBaker,0,221,0,2,0,52,0,23,0,22
@@ -87,7 +87,7 @@ Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,CopyPageBakerException,46
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DirBakerContext,0,102,0,0,0,27,0,6,0,6
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,CollectiveDirBakeListener,0,46,0,0,0,16,0,7,0,7
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,FileBakerException,18,0,0,0,4,0,2,0,2,0
-Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,CoreSiteBaker,7,124,0,0,0,34,1,13,1,13
+Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,CoreSiteBaker,0,85,0,0,0,24,0,8,0,8
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,BakerMatcher,14,59,0,0,4,10,2,7,2,7
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DirEntryChecker,0,96,0,8,0,19,0,14,0,10
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,CollectiveTemplateService,3,48,1,3,1,14,1,7,0,6
