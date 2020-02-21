@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -20,7 +20,7 @@ public interface SiteBaker {
      *
      * @return A result signaling success of failure.
      */
-    SiteBakeResult bake(BakeOptions conf);
+    Result<Void> bake(BakeOptions conf);
 
 
 }

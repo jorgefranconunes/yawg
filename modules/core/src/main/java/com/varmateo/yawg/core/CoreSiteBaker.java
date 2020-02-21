@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2019 Yawg project contributors.
+ * Copyright (c) 2019-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -13,15 +13,15 @@ import io.vavr.control.Option;
 import io.vavr.control.Try;
 
 import com.varmateo.yawg.api.BakeOptions;
+import com.varmateo.yawg.api.Result;
 import com.varmateo.yawg.api.SiteBaker;
-import com.varmateo.yawg.api.SiteBakeResult;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogFactory;
 import com.varmateo.yawg.logging.Logs;
 import com.varmateo.yawg.spi.PageVars;
 import com.varmateo.yawg.spi.PageVarsBuilder;
-import com.varmateo.yawg.util.SiteBakeResults;
+import com.varmateo.yawg.util.Results;
 
 
 /**
@@ -66,9 +66,9 @@ import com.varmateo.yawg.util.SiteBakeResults;
      *
      */
     @Override
-    public SiteBakeResult bake(final BakeOptions options) {
+    public Result<Void> bake(final BakeOptions options) {
 
-        return SiteBakeResults.fromTry(
+        return Results.fromTry(
                 Try.run(
                         () -> Logs.logDuration(
                                 _log,
