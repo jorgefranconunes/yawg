@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2019 Yawg project contributors.
+ * Copyright (c) 2019-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -46,6 +46,5 @@ import org.inferred.freebuilder.FreeBuilder;
         }
 
     }
-
 
 }

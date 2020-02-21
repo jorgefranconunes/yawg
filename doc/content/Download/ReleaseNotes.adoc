@@ -16,22 +16,39 @@ Yawg project.
 Released on 2019/05/05
 
 #238 Preparation for baking source files in parallel
+
 #342 Discontinue use of CodeScene
+
 #348 Add javadoc badge to the project GitHub entry page
+
 #349 Add Maven Central badge to the project GitHub entry page.
+
 #350 Move SiteBakerConf to be an interface
+
 #351 Move PageContext to be an interface
+
 #352 Move PageVars to be an interface
+
 #353 Move TemplateDataModel to be an interface
+
 #357 Incorrect project description in pom.xml for yawg-spi
+
 #359 Clean TemplateDataModel public API
+
 #367 Include license badge on project entry page
+
 #369 Typo on logging format used by CLI tool
+
 #370 Clean up logging of task durations
+
 #376 Make logging visible in unit and integration tests
+
 #377 JUnit rule for logging start and end of tests
+
 #379 Exclude modules/.mvn from Codacy analysis
+
 #382 Upload module yawg-cli to Maven Central
+
 #387 Address alert about com.puppycrawl.tools:checkstyle version
 
 
