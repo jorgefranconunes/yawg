@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Result.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg API</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.api</a> &gt; <span class="el_source">Result.java</span></div><h1>Result.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2019 Yawg project contributors.
+ * Copyright (c) 2019-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -10,51 +10,69 @@ import java.util.NoSuchElementException;
 
 
 /**
+ * Represents the success or failure of an operation. A success has an
+ * associated value. A failure has an associated cause.
  *
+ * @param &lt;T&gt; The type of the value in a success result.
  */
 public abstract class Result&lt;T&gt; {
 
-<span class="nc" id="L17">    private Result() {</span>
+<span class="fc" id="L20">    private Result() {</span>
         // Nothing to do.
-<span class="nc" id="L19">    }</span>
+<span class="fc" id="L22">    }</span>
 
 
     /**
+     * Creates a successful result.
      *
+     * @param value The value to be associated with the returned success result.
      */
     public static &lt;T&gt; Result&lt;T&gt; success(final T value) {
-<span class="nc" id="L26">        return new Success&lt;&gt;(value);</span>
+<span class="fc" id="L31">        return new Success&lt;&gt;(value);</span>
     }
 
 
     /**
+     * Created a failed result.
      *
+     * @param cause The failure cause to be associated with the
+     * resturned failure result.
      */
     public static &lt;T&gt; Result&lt;T&gt; failure(final YawgException cause) {
-<span class="nc" id="L34">        return new Failure&lt;&gt;(cause);</span>
+<span class="fc" id="L42">        return new Failure&lt;&gt;(cause);</span>
     }
 
 
     /**
+     * Checks if this result is a success.
      *
+     * @return True if this result is a success, false otheriwse.
      */
     public abstract boolean isSuccess();
 
 
     /**
+     * Fetches the value associated with a success result.
      *
+     * &lt;p&gt;This method can only be called for success results. Calling
+     * it for a failure result will result in a {@code
+     * NoSuchElementException} being thrown.&lt;/p&gt;
      */
     public abstract T get();
 
 
     /**
+     * Fetches the cause associated with a failure result.
      *
+     * &lt;p&gt;This method can only be called for failure results. Calling
+     * it for success result will result in a {@code
+     * NoSuchElementException} being thrown.&lt;/p&gt;
      */
     public abstract YawgException failureCause();
 
 
     /**
-     *
+     * A success result.
      */
     public static final class Success&lt;T&gt;
             extends Result&lt;T&gt; {
@@ -62,32 +80,38 @@ public abstract class Result&lt;T&gt; {
         private final T _value;
 
 
-<span class="nc" id="L65">        private Success(final T value) {</span>
-<span class="nc" id="L66">            _value = value;</span>
-<span class="nc" id="L67">        }</span>
+<span class="fc" id="L83">        private Success(final T value) {</span>
+<span class="fc" id="L84">            _value = value;</span>
+<span class="fc" id="L85">        }</span>
 
 
+        /**
+         * Always true.
+         */
         @Override
         public boolean isSuccess() {
-<span class="nc" id="L72">            return true;</span>
+<span class="fc" id="L93">            return true;</span>
         }
 
 
         @Override
         public T get() {
-<span class="nc" id="L78">            return _value;</span>
+<span class="fc" id="L99">            return _value;</span>
         }
 
 
+        /**
+         * Always throws {@code NoSuchElementException}.
+         */
         @Override
         public YawgException failureCause() {
-<span class="nc" id="L84">            throw new NoSuchElementException();</span>
+<span class="fc" id="L108">            throw new NoSuchElementException();</span>
         }
     }
 
 
     /**
-     *
+     * A failure result.
      */
     public static final class Failure&lt;T&gt;
             extends Result&lt;T&gt; {
@@ -95,26 +119,32 @@ public abstract class Result&lt;T&gt; {
         private final YawgException _cause;
 
 
-<span class="nc" id="L98">        private Failure(final YawgException cause) {</span>
-<span class="nc" id="L99">            _cause = cause;</span>
-<span class="nc" id="L100">        }</span>
+<span class="fc" id="L122">        private Failure(final YawgException cause) {</span>
+<span class="fc" id="L123">            _cause = cause;</span>
+<span class="fc" id="L124">        }</span>
 
 
+        /**
+         * Always false.
+         */
         @Override
         public boolean isSuccess() {
-<span class="nc" id="L105">            return false;</span>
+<span class="fc" id="L132">            return false;</span>
         }
 
 
+        /**
+         * Always throws {@code NoSuchElementException}.
+         */
         @Override
         public T get() {
-<span class="nc" id="L111">            throw new NoSuchElementException();</span>
+<span class="fc" id="L141">            throw new NoSuchElementException();</span>
         }
 
 
         @Override
         public YawgException failureCause() {
-<span class="nc" id="L117">            return _cause;</span>
+<span class="fc" id="L147">            return _cause;</span>
         }
     }
 }

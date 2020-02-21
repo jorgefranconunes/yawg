@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>CoreSiteBaker.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">CoreSiteBaker.java</span></div><h1>CoreSiteBaker.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2019 Yawg project contributors.
+ * Copyright (c) 2019-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -13,15 +13,15 @@ import io.vavr.control.Option;
 import io.vavr.control.Try;
 
 import com.varmateo.yawg.api.BakeOptions;
+import com.varmateo.yawg.api.Result;
 import com.varmateo.yawg.api.SiteBaker;
-import com.varmateo.yawg.api.SiteBakeResult;
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogFactory;
 import com.varmateo.yawg.logging.Logs;
 import com.varmateo.yawg.spi.PageVars;
 import com.varmateo.yawg.spi.PageVarsBuilder;
-import com.varmateo.yawg.util.SiteBakeResults;
+import com.varmateo.yawg.util.Results;
 
 
 /**
@@ -66,9 +66,9 @@ import com.varmateo.yawg.util.SiteBakeResults;
      *
      */
     @Override
-    public SiteBakeResult bake(final BakeOptions options) {
+    public Result&lt;Void&gt; bake(final BakeOptions options) {
 
-<span class="fc" id="L71">        return SiteBakeResults.fromTry(</span>
+<span class="fc" id="L71">        return Results.fromTry(</span>
 <span class="fc" id="L72">                Try.run(</span>
 <span class="fc" id="L73">                        () -&gt; Logs.logDuration(</span>
                                 _log,

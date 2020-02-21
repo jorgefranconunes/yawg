@@ -39,10 +39,10 @@ public final class Results {
      */
     public static &lt;T&gt; Try&lt;T&gt; toTry(final Result&lt;T&gt; result) {
 
-<span class="pc bpc" id="L42" title="1 of 2 branches missed.">        if (result.isSuccess()) {</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        if (result.isSuccess()) {</span>
 <span class="fc" id="L43">            return Try.success(result.get());</span>
         } else {
-<span class="nc" id="L45">            return Try.failure(result.failureCause());</span>
+<span class="fc" id="L45">            return Try.failure(result.failureCause());</span>
         }
     }
 }

@@ -4,15 +4,12 @@ Yawg core,com.varmateo.yawg.html,HtmlTemplateContext,3,88,0,0,2,20,1,7,1,7
 Yawg core,com.varmateo.yawg.html,HtmlPageBaker,111,0,2,0,26,0,14,0,13,0
 Yawg core,com.varmateo.yawg.util,FileUtils,299,52,40,2,24,13,32,5,12,4
 Yawg core,com.varmateo.yawg.util,SimpleMapException,0,28,0,0,0,6,0,2,0,2
-Yawg core,com.varmateo.yawg.util,SiteBakeResults,32,0,2,0,11,0,7,0,6,0
 Yawg core,com.varmateo.yawg.util,Results,14,9,2,0,5,4,3,1,2,1
 Yawg core,com.varmateo.yawg.util,YamlParser,0,29,1,3,0,9,1,3,0,2
 Yawg core,com.varmateo.yawg.util,OnDirBakeResults.new OnDirBakeResult() {...},15,0,0,0,4,0,4,0,4,0
 Yawg core,com.varmateo.yawg.util,OnDirBakeResults.new OnDirBakeResult() {...},4,11,0,0,1,3,1,3,1,3
-Yawg core,com.varmateo.yawg.util,SiteBakeResults.new SiteBakeResult() {...},11,0,0,0,3,0,3,0,3,0
 Yawg core,com.varmateo.yawg.util,GlobMatcher.Builder,0,71,0,0,0,16,0,5,0,5
 Yawg core,com.varmateo.yawg.util,SimpleList,23,48,1,3,5,12,3,6,2,5
-Yawg core,com.varmateo.yawg.util,SiteBakeResults.new SiteBakeResult() {...},9,0,0,0,3,0,3,0,3,0
 Yawg core,com.varmateo.yawg.util,PageBakeResults.new PageBakeResult() {...},4,5,0,0,1,2,1,2,1,2
 Yawg core,com.varmateo.yawg.util,SimpleList.SimpleIterator,4,39,1,3,1,9,1,4,0,3
 Yawg core,com.varmateo.yawg.util,SimpleListException,2,34,1,1,0,8,1,2,0,2
