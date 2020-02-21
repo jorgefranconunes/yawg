@@ -64,10 +64,9 @@ import com.varmateo.yawg.spi.TemplateService;
 
     private SiteBaker newSiteBaker() {
 
-<span class="nc" id="L67">        final AssetsCopier assetsCopier = AssetsCopier.create();</span>
-<span class="nc" id="L68">        final DirBaker dirBaker = newDirBaker();</span>
+<span class="nc" id="L67">        final DirBaker dirBaker = newDirBaker();</span>
 
-<span class="nc" id="L70">        return CoreSiteBaker.create(assetsCopier, dirBaker);</span>
+<span class="nc" id="L69">        return CoreSiteBaker.create(dirBaker);</span>
     }
 
 
@@ -76,16 +75,16 @@ import com.varmateo.yawg.spi.TemplateService;
      */
     private DirBaker newDirBaker() {
 
-<span class="nc" id="L79">        final FileBaker fileBaker =</span>
-<span class="nc" id="L80">                newFileBaker();</span>
-<span class="nc" id="L81">        final TemplateService collectiveTemplateService =</span>
-<span class="nc" id="L82">                new CollectiveTemplateService(_templateServices.get());</span>
-<span class="nc" id="L83">        final DirBakeOptionsDao dirBakerOptionsDao =</span>
+<span class="nc" id="L78">        final FileBaker fileBaker =</span>
+<span class="nc" id="L79">                newFileBaker();</span>
+<span class="nc" id="L80">        final TemplateService collectiveTemplateService =</span>
+<span class="nc" id="L81">                new CollectiveTemplateService(_templateServices.get());</span>
+<span class="nc" id="L82">        final DirBakeOptionsDao dirBakerOptionsDao =</span>
                 new DirBakeOptionsDao();
-<span class="nc" id="L85">        final DirBakeListener dirBakeListener =</span>
-<span class="nc" id="L86">                new CollectiveDirBakeListener(_dirBakeListeners.get());</span>
+<span class="nc" id="L84">        final DirBakeListener dirBakeListener =</span>
+<span class="nc" id="L85">                new CollectiveDirBakeListener(_dirBakeListeners.get());</span>
 
-<span class="nc" id="L88">        return new DirBaker(</span>
+<span class="nc" id="L87">        return new DirBaker(</span>
                 fileBaker,
                 collectiveTemplateService,
                 dirBakerOptionsDao,
@@ -98,10 +97,10 @@ import com.varmateo.yawg.spi.TemplateService;
      */
     private FileBaker newFileBaker() {
 
-<span class="nc" id="L101">        final Seq&lt;PageBaker&gt; bakers = _pageBakers.get();</span>
-<span class="nc" id="L102">        final PageBaker defaultBaker = CopyPageBaker.create();</span>
+<span class="nc" id="L100">        final Seq&lt;PageBaker&gt; bakers = _pageBakers.get();</span>
+<span class="nc" id="L101">        final PageBaker defaultBaker = CopyPageBaker.create();</span>
 
-<span class="nc" id="L104">        return new FileBaker(bakers, defaultBaker);</span>
+<span class="nc" id="L103">        return new FileBaker(bakers, defaultBaker);</span>
     }
 
 

@@ -89,7 +89,7 @@ public final class Logs {
             final BiFunction&lt;T, U, String&gt; description,
             final BiConsumer&lt;T, U&gt; function) {
 
-<span class="pc" id="L92">        return (t, u) -&gt; logDuration(</span>
+<span class="nc" id="L92">        return (t, u) -&gt; logDuration(</span>
                 log,
 <span class="nc" id="L94">                description.apply(t, u),</span>
                 () -&gt; {

@@ -37,14 +37,12 @@ Yawg core,com.varmateo.yawg.asciidoctor,AsciidoctorTemplateContext,3,130,1,5,2,3
 Yawg core,com.varmateo.yawg.core,DefaultSiteBaker,20,0,0,0,8,0,3,0,3,0
 Yawg core,com.varmateo.yawg.core,DirBakerException,68,3,0,0,11,1,6,1,6,1
 Yawg core,com.varmateo.yawg.core,CollectiveTemplateServiceException,18,0,0,0,4,0,2,0,2,0
-Yawg core,com.varmateo.yawg.core,AssetsCopier,45,0,0,0,15,0,6,0,6,0
 Yawg core,com.varmateo.yawg.core,DirEntryScanner,30,36,6,2,0,9,4,3,0,3
 Yawg core,com.varmateo.yawg.core,DirBakeOptionsDao,91,270,9,9,15,72,9,18,3,15
 Yawg core,com.varmateo.yawg.core,DirBakeOptionsDaoException,22,57,0,0,2,10,1,4,1,4
-Yawg core,com.varmateo.yawg.core,AssetsCopier.new SimpleFileVisitor() {...},51,0,2,0,9,0,4,0,3,0
 Yawg core,com.varmateo.yawg.core,BakerMatcher.Entry,0,15,0,0,0,6,0,3,0,3
 Yawg core,com.varmateo.yawg.core,BakerMatcher.Builder,6,64,0,0,3,16,1,8,1,8
-Yawg core,com.varmateo.yawg.core,CoreSiteBakerModule,82,0,0,0,22,0,6,0,6,0
+Yawg core,com.varmateo.yawg.core,CoreSiteBakerModule,79,0,0,0,21,0,6,0,6,0
 Yawg core,com.varmateo.yawg.core,DirBaker,49,182,3,5,11,43,5,14,2,13
 Yawg core,com.varmateo.yawg.core,TemplateNameMatcher,15,15,0,0,4,5,2,3,2,3
 Yawg core,com.varmateo.yawg.core,FileBaker,35,96,3,1,5,24,7,5,5,5
@@ -55,11 +53,10 @@ Yawg core,com.varmateo.yawg.core,CopyPageBakerException,50,0,0,0,7,0,5,0,5,0
 Yawg core,com.varmateo.yawg.core,DirBakerContext,0,102,0,0,0,27,0,6,0,6
 Yawg core,com.varmateo.yawg.core,CollectiveDirBakeListener,0,46,0,0,0,16,0,7,0,7
 Yawg core,com.varmateo.yawg.core,FileBakerException,18,0,0,0,4,0,2,0,2,0
-Yawg core,com.varmateo.yawg.core,CoreSiteBaker,85,0,0,0,24,0,8,0,8,0
+Yawg core,com.varmateo.yawg.core,CoreSiteBaker,81,0,0,0,23,0,8,0,8,0
 Yawg core,com.varmateo.yawg.core,BakerMatcher,14,59,0,0,4,10,2,7,2,7
 Yawg core,com.varmateo.yawg.core,DirEntryChecker,0,96,0,8,0,19,0,14,0,10
 Yawg core,com.varmateo.yawg.core,CollectiveTemplateService,51,0,4,0,15,0,8,0,6,0
-Yawg core,com.varmateo.yawg.core,AssetsCopierException,35,0,0,0,5,0,2,0,2,0
 Yawg core,com.varmateo.yawg.core,DefaultExtensionsModule,84,0,0,0,25,0,10,0,10,0
 Yawg core,com.varmateo.yawg.core,DirBakeOptions.Builder,0,209,0,0,0,61,0,23,0,23
 Yawg core,com.varmateo.yawg.core,DirPageContextBuilder,43,83,1,1,7,28,8,4,7,4

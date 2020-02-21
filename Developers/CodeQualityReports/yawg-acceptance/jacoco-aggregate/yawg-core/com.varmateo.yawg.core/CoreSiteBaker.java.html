@@ -34,31 +34,26 @@ import com.varmateo.yawg.util.Results;
     private static final String DEFAULT_TEMPLATE_NAME = &quot;default.ftlh&quot;;
 
     private final Log _log;
-    private final AssetsCopier _assetsCopier;
     private final DirBaker _dirBaker;
 
 
     private CoreSiteBaker(
             final Log log,
-            final AssetsCopier assetsCopier,
-<span class="fc" id="L44">            final DirBaker dirBaker) {</span>
+<span class="fc" id="L42">            final DirBaker dirBaker) {</span>
 
-<span class="fc" id="L46">        _log = log;</span>
-<span class="fc" id="L47">        _assetsCopier = assetsCopier;</span>
-<span class="fc" id="L48">        _dirBaker = dirBaker;</span>
-<span class="fc" id="L49">    }</span>
+<span class="fc" id="L44">        _log = log;</span>
+<span class="fc" id="L45">        _dirBaker = dirBaker;</span>
+<span class="fc" id="L46">    }</span>
 
 
     /**
      *
      */
-    public static SiteBaker create(
-            final AssetsCopier assetsCopier,
-            final DirBaker dirBaker) {
+    public static SiteBaker create(final DirBaker dirBaker) {
 
-<span class="fc" id="L59">        final Log log = LogFactory.createFor(CoreSiteBaker.class);</span>
+<span class="fc" id="L54">        final Log log = LogFactory.createFor(CoreSiteBaker.class);</span>
 
-<span class="fc" id="L61">        return new CoreSiteBaker(log, assetsCopier, dirBaker);</span>
+<span class="fc" id="L56">        return new CoreSiteBaker(log, dirBaker);</span>
     }
 
 
@@ -68,12 +63,12 @@ import com.varmateo.yawg.util.Results;
     @Override
     public Result&lt;Void&gt; bake(final BakeOptions options) {
 
-<span class="fc" id="L71">        return Results.fromTry(</span>
-<span class="fc" id="L72">                Try.run(</span>
-<span class="fc" id="L73">                        () -&gt; Logs.logDuration(</span>
+<span class="fc" id="L66">        return Results.fromTry(</span>
+<span class="fc" id="L67">                Try.run(</span>
+<span class="fc" id="L68">                        () -&gt; Logs.logDuration(</span>
                                 _log,
                                 &quot;baking&quot;,
-<span class="fc" id="L76">                                () -&gt; doBake(options, _dirBaker))));</span>
+<span class="fc" id="L71">                                () -&gt; doBake(options, _dirBaker))));</span>
     }
 
 
@@ -85,16 +80,16 @@ import com.varmateo.yawg.util.Results;
             final DirBaker dirBaker)
             throws YawgException {
 
-<span class="fc" id="L88">        final Path sourceDir = options.sourceDir();</span>
-<span class="fc" id="L89">        final Path targetDir = options.targetDir();</span>
-<span class="fc" id="L90">        final PageVars externalPageVars = mapToPageVars(options.externalPageVars());</span>
-<span class="fc" id="L91">        final DirBakeOptions dirBakeOptions = DirBakeOptions.builder()</span>
-<span class="fc" id="L92">                .templateName(DEFAULT_TEMPLATE_NAME)</span>
-<span class="fc" id="L93">                .pageVars(externalPageVars)</span>
-<span class="fc" id="L94">                .build();</span>
+<span class="fc" id="L83">        final Path sourceDir = options.sourceDir();</span>
+<span class="fc" id="L84">        final Path targetDir = options.targetDir();</span>
+<span class="fc" id="L85">        final PageVars externalPageVars = mapToPageVars(options.externalPageVars());</span>
+<span class="fc" id="L86">        final DirBakeOptions dirBakeOptions = DirBakeOptions.builder()</span>
+<span class="fc" id="L87">                .templateName(DEFAULT_TEMPLATE_NAME)</span>
+<span class="fc" id="L88">                .pageVars(externalPageVars)</span>
+<span class="fc" id="L89">                .build();</span>
 
-<span class="fc" id="L96">        dirBaker.bakeDirectory(sourceDir, targetDir, dirBakeOptions);</span>
-<span class="fc" id="L97">    }</span>
+<span class="fc" id="L91">        dirBaker.bakeDirectory(sourceDir, targetDir, dirBakeOptions);</span>
+<span class="fc" id="L92">    }</span>
 
 
     /**
@@ -103,11 +98,11 @@ import com.varmateo.yawg.util.Results;
     private static PageVars mapToPageVars(
             final Map&lt;String,Object&gt; pageVarsMap) {
 
-<span class="fc" id="L106">        final PageVarsBuilder builder = PageVarsBuilder.create();</span>
-<span class="fc" id="L107">        pageVarsMap.entrySet().stream()</span>
-<span class="fc" id="L108">                .forEach(x -&gt; builder.addVar(x.getKey(), x.getValue()));</span>
+<span class="fc" id="L101">        final PageVarsBuilder builder = PageVarsBuilder.create();</span>
+<span class="fc" id="L102">        pageVarsMap.entrySet().stream()</span>
+<span class="fc" id="L103">                .forEach(x -&gt; builder.addVar(x.getKey(), x.getValue()));</span>
 
-<span class="fc" id="L110">        return builder.build();</span>
+<span class="fc" id="L105">        return builder.build();</span>
     }
 
 

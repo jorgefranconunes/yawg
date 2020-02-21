@@ -50,10 +50,9 @@ import javax.annotation.Generated;
 
   private Path sourceDir;
   private Path targetDir;
-  private Option&lt;Path&gt; assetsDir;
   private Option&lt;Path&gt; templatesDir;
   private Map&lt;String, String&gt; externalPageVars;
-<span class="nc" id="L56">  private final EnumSet&lt;Property&gt; _unsetProperties = EnumSet.allOf(Property.class);</span>
+<span class="nc" id="L55">  private final EnumSet&lt;Property&gt; _unsetProperties = EnumSet.allOf(Property.class);</span>
 
   /**
    * Sets the value to be returned by {@link BakerCliBakeOptions#sourceDir()}.
@@ -62,9 +61,9 @@ import javax.annotation.Generated;
    * @throws NullPointerException if {@code sourceDir} is null
    */
   public BakerCliBakeOptions.Builder sourceDir(Path sourceDir) {
-<span class="nc" id="L65">    this.sourceDir = Objects.requireNonNull(sourceDir);</span>
-<span class="nc" id="L66">    _unsetProperties.remove(Property.SOURCE_DIR);</span>
-<span class="nc" id="L67">    return (BakerCliBakeOptions.Builder) this;</span>
+<span class="nc" id="L64">    this.sourceDir = Objects.requireNonNull(sourceDir);</span>
+<span class="nc" id="L65">    _unsetProperties.remove(Property.SOURCE_DIR);</span>
+<span class="nc" id="L66">    return (BakerCliBakeOptions.Builder) this;</span>
   }
 
   /**
@@ -76,8 +75,8 @@ import javax.annotation.Generated;
    * @throws IllegalStateException if the field has not been set
    */
   public BakerCliBakeOptions.Builder mapSourceDir(UnaryOperator&lt;Path&gt; mapper) {
-<span class="nc" id="L79">    Objects.requireNonNull(mapper);</span>
-<span class="nc" id="L80">    return sourceDir(mapper.apply(sourceDir()));</span>
+<span class="nc" id="L78">    Objects.requireNonNull(mapper);</span>
+<span class="nc" id="L79">    return sourceDir(mapper.apply(sourceDir()));</span>
   }
 
   /**
@@ -86,10 +85,10 @@ import javax.annotation.Generated;
    * @throws IllegalStateException if the field has not been set
    */
   public Path sourceDir() {
-<span class="nc bnc" id="L89" title="All 2 branches missed.">    if (_unsetProperties.contains(Property.SOURCE_DIR)) {</span>
-<span class="nc" id="L90">      throw new IllegalStateException(&quot;sourceDir not set&quot;);</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">    if (_unsetProperties.contains(Property.SOURCE_DIR)) {</span>
+<span class="nc" id="L89">      throw new IllegalStateException(&quot;sourceDir not set&quot;);</span>
     }
-<span class="nc" id="L92">    return sourceDir;</span>
+<span class="nc" id="L91">    return sourceDir;</span>
   }
 
   /**
@@ -99,9 +98,9 @@ import javax.annotation.Generated;
    * @throws NullPointerException if {@code targetDir} is null
    */
   public BakerCliBakeOptions.Builder targetDir(Path targetDir) {
-<span class="nc" id="L102">    this.targetDir = Objects.requireNonNull(targetDir);</span>
-<span class="nc" id="L103">    _unsetProperties.remove(Property.TARGET_DIR);</span>
-<span class="nc" id="L104">    return (BakerCliBakeOptions.Builder) this;</span>
+<span class="nc" id="L101">    this.targetDir = Objects.requireNonNull(targetDir);</span>
+<span class="nc" id="L102">    _unsetProperties.remove(Property.TARGET_DIR);</span>
+<span class="nc" id="L103">    return (BakerCliBakeOptions.Builder) this;</span>
   }
 
   /**
@@ -113,8 +112,8 @@ import javax.annotation.Generated;
    * @throws IllegalStateException if the field has not been set
    */
   public BakerCliBakeOptions.Builder mapTargetDir(UnaryOperator&lt;Path&gt; mapper) {
-<span class="nc" id="L116">    Objects.requireNonNull(mapper);</span>
-<span class="nc" id="L117">    return targetDir(mapper.apply(targetDir()));</span>
+<span class="nc" id="L115">    Objects.requireNonNull(mapper);</span>
+<span class="nc" id="L116">    return targetDir(mapper.apply(targetDir()));</span>
   }
 
   /**
@@ -123,37 +122,10 @@ import javax.annotation.Generated;
    * @throws IllegalStateException if the field has not been set
    */
   public Path targetDir() {
-<span class="nc bnc" id="L126" title="All 2 branches missed.">    if (_unsetProperties.contains(Property.TARGET_DIR)) {</span>
-<span class="nc" id="L127">      throw new IllegalStateException(&quot;targetDir not set&quot;);</span>
+<span class="nc bnc" id="L125" title="All 2 branches missed.">    if (_unsetProperties.contains(Property.TARGET_DIR)) {</span>
+<span class="nc" id="L126">      throw new IllegalStateException(&quot;targetDir not set&quot;);</span>
     }
-<span class="nc" id="L129">    return targetDir;</span>
-  }
-
-  /**
-   * Sets the value to be returned by {@link BakerCliBakeOptions#assetsDir()}.
-   *
-   * @return this {@code Builder} object
-   * @throws NullPointerException if {@code assetsDir} is null
-   */
-  public BakerCliBakeOptions.Builder assetsDir(Option&lt;Path&gt; assetsDir) {
-<span class="nc" id="L139">    this.assetsDir = Objects.requireNonNull(assetsDir);</span>
-<span class="nc" id="L140">    return (BakerCliBakeOptions.Builder) this;</span>
-  }
-
-  /**
-   * Replaces the value to be returned by {@link BakerCliBakeOptions#assetsDir()} by applying {@code
-   * mapper} to it and using the result.
-   *
-   * @return this {@code Builder} object
-   * @throws NullPointerException if {@code mapper} is null or returns null
-   */
-  public BakerCliBakeOptions.Builder mapAssetsDir(UnaryOperator&lt;Option&lt;Path&gt;&gt; mapper) {
-<span class="nc" id="L151">    return assetsDir(mapper.apply(assetsDir()));</span>
-  }
-
-  /** Returns the value that will be returned by {@link BakerCliBakeOptions#assetsDir()}. */
-  public Option&lt;Path&gt; assetsDir() {
-<span class="nc" id="L156">    return assetsDir;</span>
+<span class="nc" id="L128">    return targetDir;</span>
   }
 
   /**
@@ -163,9 +135,9 @@ import javax.annotation.Generated;
    * @throws NullPointerException if {@code templatesDir} is null
    */
   public BakerCliBakeOptions.Builder templatesDir(Option&lt;Path&gt; templatesDir) {
-<span class="nc" id="L166">    this.templatesDir = Objects.requireNonNull(templatesDir);</span>
-<span class="nc" id="L167">    _unsetProperties.remove(Property.TEMPLATES_DIR);</span>
-<span class="nc" id="L168">    return (BakerCliBakeOptions.Builder) this;</span>
+<span class="nc" id="L138">    this.templatesDir = Objects.requireNonNull(templatesDir);</span>
+<span class="nc" id="L139">    _unsetProperties.remove(Property.TEMPLATES_DIR);</span>
+<span class="nc" id="L140">    return (BakerCliBakeOptions.Builder) this;</span>
   }
 
   /**
@@ -177,8 +149,8 @@ import javax.annotation.Generated;
    * @throws IllegalStateException if the field has not been set
    */
   public BakerCliBakeOptions.Builder mapTemplatesDir(UnaryOperator&lt;Option&lt;Path&gt;&gt; mapper) {
-<span class="nc" id="L180">    Objects.requireNonNull(mapper);</span>
-<span class="nc" id="L181">    return templatesDir(mapper.apply(templatesDir()));</span>
+<span class="nc" id="L152">    Objects.requireNonNull(mapper);</span>
+<span class="nc" id="L153">    return templatesDir(mapper.apply(templatesDir()));</span>
   }
 
   /**
@@ -187,10 +159,10 @@ import javax.annotation.Generated;
    * @throws IllegalStateException if the field has not been set
    */
   public Option&lt;Path&gt; templatesDir() {
-<span class="nc bnc" id="L190" title="All 2 branches missed.">    if (_unsetProperties.contains(Property.TEMPLATES_DIR)) {</span>
-<span class="nc" id="L191">      throw new IllegalStateException(&quot;templatesDir not set&quot;);</span>
+<span class="nc bnc" id="L162" title="All 2 branches missed.">    if (_unsetProperties.contains(Property.TEMPLATES_DIR)) {</span>
+<span class="nc" id="L163">      throw new IllegalStateException(&quot;templatesDir not set&quot;);</span>
     }
-<span class="nc" id="L193">    return templatesDir;</span>
+<span class="nc" id="L165">    return templatesDir;</span>
   }
 
   /**
@@ -200,9 +172,9 @@ import javax.annotation.Generated;
    * @throws NullPointerException if {@code externalPageVars} is null
    */
   public BakerCliBakeOptions.Builder externalPageVars(Map&lt;String, String&gt; externalPageVars) {
-<span class="nc" id="L203">    this.externalPageVars = Objects.requireNonNull(externalPageVars);</span>
-<span class="nc" id="L204">    _unsetProperties.remove(Property.EXTERNAL_PAGE_VARS);</span>
-<span class="nc" id="L205">    return (BakerCliBakeOptions.Builder) this;</span>
+<span class="nc" id="L175">    this.externalPageVars = Objects.requireNonNull(externalPageVars);</span>
+<span class="nc" id="L176">    _unsetProperties.remove(Property.EXTERNAL_PAGE_VARS);</span>
+<span class="nc" id="L177">    return (BakerCliBakeOptions.Builder) this;</span>
   }
 
   /**
@@ -215,8 +187,8 @@ import javax.annotation.Generated;
    */
   public BakerCliBakeOptions.Builder mapExternalPageVars(
       UnaryOperator&lt;Map&lt;String, String&gt;&gt; mapper) {
-<span class="nc" id="L218">    Objects.requireNonNull(mapper);</span>
-<span class="nc" id="L219">    return externalPageVars(mapper.apply(externalPageVars()));</span>
+<span class="nc" id="L190">    Objects.requireNonNull(mapper);</span>
+<span class="nc" id="L191">    return externalPageVars(mapper.apply(externalPageVars()));</span>
   }
 
   /**
@@ -225,74 +197,68 @@ import javax.annotation.Generated;
    * @throws IllegalStateException if the field has not been set
    */
   public Map&lt;String, String&gt; externalPageVars() {
-<span class="nc bnc" id="L228" title="All 2 branches missed.">    if (_unsetProperties.contains(Property.EXTERNAL_PAGE_VARS)) {</span>
-<span class="nc" id="L229">      throw new IllegalStateException(&quot;externalPageVars not set&quot;);</span>
+<span class="nc bnc" id="L200" title="All 2 branches missed.">    if (_unsetProperties.contains(Property.EXTERNAL_PAGE_VARS)) {</span>
+<span class="nc" id="L201">      throw new IllegalStateException(&quot;externalPageVars not set&quot;);</span>
     }
-<span class="nc" id="L231">    return externalPageVars;</span>
+<span class="nc" id="L203">    return externalPageVars;</span>
   }
 
   /**
-   * Copies values from {@code value}, skipping defaults.
+   * Copies values from {@code value}.
    *
    * @return this {@code Builder} object
    */
   public BakerCliBakeOptions.Builder mergeFrom(BakerCliBakeOptions value) {
-<span class="nc" id="L240">    BakerCliBakeOptions_Builder defaults = BakerCliBakeOptions.builder();</span>
-<span class="nc bnc" id="L241" title="All 2 branches missed.">    if (defaults._unsetProperties.contains(Property.SOURCE_DIR)</span>
-<span class="nc bnc" id="L242" title="All 2 branches missed.">        || !Objects.equals(value.sourceDir(), defaults.sourceDir())) {</span>
-<span class="nc" id="L243">      sourceDir(value.sourceDir());</span>
+<span class="nc" id="L212">    BakerCliBakeOptions_Builder defaults = BakerCliBakeOptions.builder();</span>
+<span class="nc bnc" id="L213" title="All 2 branches missed.">    if (defaults._unsetProperties.contains(Property.SOURCE_DIR)</span>
+<span class="nc bnc" id="L214" title="All 2 branches missed.">        || !Objects.equals(value.sourceDir(), defaults.sourceDir())) {</span>
+<span class="nc" id="L215">      sourceDir(value.sourceDir());</span>
     }
-<span class="nc bnc" id="L245" title="All 2 branches missed.">    if (defaults._unsetProperties.contains(Property.TARGET_DIR)</span>
-<span class="nc bnc" id="L246" title="All 2 branches missed.">        || !Objects.equals(value.targetDir(), defaults.targetDir())) {</span>
-<span class="nc" id="L247">      targetDir(value.targetDir());</span>
+<span class="nc bnc" id="L217" title="All 2 branches missed.">    if (defaults._unsetProperties.contains(Property.TARGET_DIR)</span>
+<span class="nc bnc" id="L218" title="All 2 branches missed.">        || !Objects.equals(value.targetDir(), defaults.targetDir())) {</span>
+<span class="nc" id="L219">      targetDir(value.targetDir());</span>
     }
-<span class="nc bnc" id="L249" title="All 2 branches missed.">    if (!Objects.equals(value.assetsDir(), defaults.assetsDir())) {</span>
-<span class="nc" id="L250">      assetsDir(value.assetsDir());</span>
+<span class="nc bnc" id="L221" title="All 2 branches missed.">    if (defaults._unsetProperties.contains(Property.TEMPLATES_DIR)</span>
+<span class="nc bnc" id="L222" title="All 2 branches missed.">        || !Objects.equals(value.templatesDir(), defaults.templatesDir())) {</span>
+<span class="nc" id="L223">      templatesDir(value.templatesDir());</span>
     }
-<span class="nc bnc" id="L252" title="All 2 branches missed.">    if (defaults._unsetProperties.contains(Property.TEMPLATES_DIR)</span>
-<span class="nc bnc" id="L253" title="All 2 branches missed.">        || !Objects.equals(value.templatesDir(), defaults.templatesDir())) {</span>
-<span class="nc" id="L254">      templatesDir(value.templatesDir());</span>
+<span class="nc bnc" id="L225" title="All 2 branches missed.">    if (defaults._unsetProperties.contains(Property.EXTERNAL_PAGE_VARS)</span>
+<span class="nc bnc" id="L226" title="All 2 branches missed.">        || !Objects.equals(value.externalPageVars(), defaults.externalPageVars())) {</span>
+<span class="nc" id="L227">      externalPageVars(value.externalPageVars());</span>
     }
-<span class="nc bnc" id="L256" title="All 2 branches missed.">    if (defaults._unsetProperties.contains(Property.EXTERNAL_PAGE_VARS)</span>
-<span class="nc bnc" id="L257" title="All 2 branches missed.">        || !Objects.equals(value.externalPageVars(), defaults.externalPageVars())) {</span>
-<span class="nc" id="L258">      externalPageVars(value.externalPageVars());</span>
-    }
-<span class="nc" id="L260">    return (BakerCliBakeOptions.Builder) this;</span>
+<span class="nc" id="L229">    return (BakerCliBakeOptions.Builder) this;</span>
   }
 
   /**
-   * Copies values from {@code template}, skipping defaults and unset properties.
+   * Copies values from {@code template}, skipping unset properties.
    *
    * @return this {@code Builder} object
    */
   public BakerCliBakeOptions.Builder mergeFrom(BakerCliBakeOptions.Builder template) {
     // Upcast to access private fields; otherwise, oddly, we get an access violation.
-<span class="nc" id="L270">    BakerCliBakeOptions_Builder base = template;</span>
-<span class="nc" id="L271">    BakerCliBakeOptions_Builder defaults = BakerCliBakeOptions.builder();</span>
-<span class="nc bnc" id="L272" title="All 2 branches missed.">    if (!base._unsetProperties.contains(Property.SOURCE_DIR)</span>
-<span class="nc bnc" id="L273" title="All 2 branches missed.">        &amp;&amp; (defaults._unsetProperties.contains(Property.SOURCE_DIR)</span>
-<span class="nc bnc" id="L274" title="All 2 branches missed.">            || !Objects.equals(template.sourceDir(), defaults.sourceDir()))) {</span>
-<span class="nc" id="L275">      sourceDir(template.sourceDir());</span>
+<span class="nc" id="L239">    BakerCliBakeOptions_Builder base = template;</span>
+<span class="nc" id="L240">    BakerCliBakeOptions_Builder defaults = BakerCliBakeOptions.builder();</span>
+<span class="nc bnc" id="L241" title="All 2 branches missed.">    if (!base._unsetProperties.contains(Property.SOURCE_DIR)</span>
+<span class="nc bnc" id="L242" title="All 2 branches missed.">        &amp;&amp; (defaults._unsetProperties.contains(Property.SOURCE_DIR)</span>
+<span class="nc bnc" id="L243" title="All 2 branches missed.">            || !Objects.equals(template.sourceDir(), defaults.sourceDir()))) {</span>
+<span class="nc" id="L244">      sourceDir(template.sourceDir());</span>
     }
-<span class="nc bnc" id="L277" title="All 2 branches missed.">    if (!base._unsetProperties.contains(Property.TARGET_DIR)</span>
-<span class="nc bnc" id="L278" title="All 2 branches missed.">        &amp;&amp; (defaults._unsetProperties.contains(Property.TARGET_DIR)</span>
-<span class="nc bnc" id="L279" title="All 2 branches missed.">            || !Objects.equals(template.targetDir(), defaults.targetDir()))) {</span>
-<span class="nc" id="L280">      targetDir(template.targetDir());</span>
+<span class="nc bnc" id="L246" title="All 2 branches missed.">    if (!base._unsetProperties.contains(Property.TARGET_DIR)</span>
+<span class="nc bnc" id="L247" title="All 2 branches missed.">        &amp;&amp; (defaults._unsetProperties.contains(Property.TARGET_DIR)</span>
+<span class="nc bnc" id="L248" title="All 2 branches missed.">            || !Objects.equals(template.targetDir(), defaults.targetDir()))) {</span>
+<span class="nc" id="L249">      targetDir(template.targetDir());</span>
     }
-<span class="nc bnc" id="L282" title="All 2 branches missed.">    if (!Objects.equals(template.assetsDir(), defaults.assetsDir())) {</span>
-<span class="nc" id="L283">      assetsDir(template.assetsDir());</span>
+<span class="nc bnc" id="L251" title="All 2 branches missed.">    if (!base._unsetProperties.contains(Property.TEMPLATES_DIR)</span>
+<span class="nc bnc" id="L252" title="All 2 branches missed.">        &amp;&amp; (defaults._unsetProperties.contains(Property.TEMPLATES_DIR)</span>
+<span class="nc bnc" id="L253" title="All 2 branches missed.">            || !Objects.equals(template.templatesDir(), defaults.templatesDir()))) {</span>
+<span class="nc" id="L254">      templatesDir(template.templatesDir());</span>
     }
-<span class="nc bnc" id="L285" title="All 2 branches missed.">    if (!base._unsetProperties.contains(Property.TEMPLATES_DIR)</span>
-<span class="nc bnc" id="L286" title="All 2 branches missed.">        &amp;&amp; (defaults._unsetProperties.contains(Property.TEMPLATES_DIR)</span>
-<span class="nc bnc" id="L287" title="All 2 branches missed.">            || !Objects.equals(template.templatesDir(), defaults.templatesDir()))) {</span>
-<span class="nc" id="L288">      templatesDir(template.templatesDir());</span>
+<span class="nc bnc" id="L256" title="All 2 branches missed.">    if (!base._unsetProperties.contains(Property.EXTERNAL_PAGE_VARS)</span>
+<span class="nc bnc" id="L257" title="All 2 branches missed.">        &amp;&amp; (defaults._unsetProperties.contains(Property.EXTERNAL_PAGE_VARS)</span>
+<span class="nc bnc" id="L258" title="All 2 branches missed.">            || !Objects.equals(template.externalPageVars(), defaults.externalPageVars()))) {</span>
+<span class="nc" id="L259">      externalPageVars(template.externalPageVars());</span>
     }
-<span class="nc bnc" id="L290" title="All 2 branches missed.">    if (!base._unsetProperties.contains(Property.EXTERNAL_PAGE_VARS)</span>
-<span class="nc bnc" id="L291" title="All 2 branches missed.">        &amp;&amp; (defaults._unsetProperties.contains(Property.EXTERNAL_PAGE_VARS)</span>
-<span class="nc bnc" id="L292" title="All 2 branches missed.">            || !Objects.equals(template.externalPageVars(), defaults.externalPageVars()))) {</span>
-<span class="nc" id="L293">      externalPageVars(template.externalPageVars());</span>
-    }
-<span class="nc" id="L295">    return (BakerCliBakeOptions.Builder) this;</span>
+<span class="nc" id="L261">    return (BakerCliBakeOptions.Builder) this;</span>
   }
 
   /**
@@ -301,15 +267,14 @@ import javax.annotation.Generated;
    * @return this {@code Builder} object
    */
   public BakerCliBakeOptions.Builder clear() {
-<span class="nc" id="L304">    BakerCliBakeOptions_Builder defaults = BakerCliBakeOptions.builder();</span>
-<span class="nc" id="L305">    sourceDir = defaults.sourceDir;</span>
-<span class="nc" id="L306">    targetDir = defaults.targetDir;</span>
-<span class="nc" id="L307">    assetsDir = defaults.assetsDir;</span>
-<span class="nc" id="L308">    templatesDir = defaults.templatesDir;</span>
-<span class="nc" id="L309">    externalPageVars = defaults.externalPageVars;</span>
-<span class="nc" id="L310">    _unsetProperties.clear();</span>
-<span class="nc" id="L311">    _unsetProperties.addAll(defaults._unsetProperties);</span>
-<span class="nc" id="L312">    return (BakerCliBakeOptions.Builder) this;</span>
+<span class="nc" id="L270">    BakerCliBakeOptions_Builder defaults = BakerCliBakeOptions.builder();</span>
+<span class="nc" id="L271">    sourceDir = defaults.sourceDir;</span>
+<span class="nc" id="L272">    targetDir = defaults.targetDir;</span>
+<span class="nc" id="L273">    templatesDir = defaults.templatesDir;</span>
+<span class="nc" id="L274">    externalPageVars = defaults.externalPageVars;</span>
+<span class="nc" id="L275">    _unsetProperties.clear();</span>
+<span class="nc" id="L276">    _unsetProperties.addAll(defaults._unsetProperties);</span>
+<span class="nc" id="L277">    return (BakerCliBakeOptions.Builder) this;</span>
   }
 
   /**
@@ -319,10 +284,10 @@ import javax.annotation.Generated;
    * @throws IllegalStateException if any field has not been set
    */
   public BakerCliBakeOptions build() {
-<span class="nc bnc" id="L322" title="All 2 branches missed.">    if (!_unsetProperties.isEmpty()) {</span>
-<span class="nc" id="L323">      throw new IllegalStateException(&quot;Not set: &quot; + _unsetProperties);</span>
+<span class="nc bnc" id="L287" title="All 2 branches missed.">    if (!_unsetProperties.isEmpty()) {</span>
+<span class="nc" id="L288">      throw new IllegalStateException(&quot;Not set: &quot; + _unsetProperties);</span>
     }
-<span class="nc" id="L325">    return new Value(this);</span>
+<span class="nc" id="L290">    return new Value(this);</span>
   }
 
   /**
@@ -340,91 +305,80 @@ import javax.annotation.Generated;
    * future. If you require partially complete values in production code, consider using a Builder.
    */
   public BakerCliBakeOptions buildPartial() {
-<span class="nc" id="L343">    return new Partial(this);</span>
+<span class="nc" id="L308">    return new Partial(this);</span>
   }
 
-<span class="nc" id="L346">  private abstract static class Rebuildable implements BakerCliBakeOptions {</span>
+<span class="nc" id="L311">  private abstract static class Rebuildable implements BakerCliBakeOptions {</span>
     public abstract Builder toBuilder();
   }
 
   private static final class Value extends Rebuildable {
     private final Path sourceDir;
     private final Path targetDir;
-    private final Option&lt;Path&gt; assetsDir;
     private final Option&lt;Path&gt; templatesDir;
     private final Map&lt;String, String&gt; externalPageVars;
 
-<span class="nc" id="L357">    private Value(BakerCliBakeOptions_Builder builder) {</span>
-<span class="nc" id="L358">      this.sourceDir = builder.sourceDir;</span>
-<span class="nc" id="L359">      this.targetDir = builder.targetDir;</span>
-<span class="nc" id="L360">      this.assetsDir = builder.assetsDir;</span>
-<span class="nc" id="L361">      this.templatesDir = builder.templatesDir;</span>
-<span class="nc" id="L362">      this.externalPageVars = builder.externalPageVars;</span>
-<span class="nc" id="L363">    }</span>
+<span class="nc" id="L321">    private Value(BakerCliBakeOptions_Builder builder) {</span>
+<span class="nc" id="L322">      this.sourceDir = builder.sourceDir;</span>
+<span class="nc" id="L323">      this.targetDir = builder.targetDir;</span>
+<span class="nc" id="L324">      this.templatesDir = builder.templatesDir;</span>
+<span class="nc" id="L325">      this.externalPageVars = builder.externalPageVars;</span>
+<span class="nc" id="L326">    }</span>
 
     @Override
     public Path sourceDir() {
-<span class="nc" id="L367">      return sourceDir;</span>
+<span class="nc" id="L330">      return sourceDir;</span>
     }
 
     @Override
     public Path targetDir() {
-<span class="nc" id="L372">      return targetDir;</span>
-    }
-
-    @Override
-    public Option&lt;Path&gt; assetsDir() {
-<span class="nc" id="L377">      return assetsDir;</span>
+<span class="nc" id="L335">      return targetDir;</span>
     }
 
     @Override
     public Option&lt;Path&gt; templatesDir() {
-<span class="nc" id="L382">      return templatesDir;</span>
+<span class="nc" id="L340">      return templatesDir;</span>
     }
 
     @Override
     public Map&lt;String, String&gt; externalPageVars() {
-<span class="nc" id="L387">      return externalPageVars;</span>
+<span class="nc" id="L345">      return externalPageVars;</span>
     }
 
     @Override
     public Builder toBuilder() {
-<span class="nc" id="L392">      BakerCliBakeOptions_Builder builder = BakerCliBakeOptions.builder();</span>
-<span class="nc" id="L393">      builder.sourceDir = sourceDir;</span>
-<span class="nc" id="L394">      builder.targetDir = targetDir;</span>
-<span class="nc" id="L395">      builder.assetsDir = assetsDir;</span>
-<span class="nc" id="L396">      builder.templatesDir = templatesDir;</span>
-<span class="nc" id="L397">      builder.externalPageVars = externalPageVars;</span>
-<span class="nc" id="L398">      builder._unsetProperties.clear();</span>
-<span class="nc" id="L399">      return (Builder) builder;</span>
+<span class="nc" id="L350">      BakerCliBakeOptions_Builder builder = BakerCliBakeOptions.builder();</span>
+<span class="nc" id="L351">      builder.sourceDir = sourceDir;</span>
+<span class="nc" id="L352">      builder.targetDir = targetDir;</span>
+<span class="nc" id="L353">      builder.templatesDir = templatesDir;</span>
+<span class="nc" id="L354">      builder.externalPageVars = externalPageVars;</span>
+<span class="nc" id="L355">      builder._unsetProperties.clear();</span>
+<span class="nc" id="L356">      return (Builder) builder;</span>
     }
 
     @Override
     public boolean equals(Object obj) {
-<span class="nc bnc" id="L404" title="All 2 branches missed.">      if (!(obj instanceof Value)) {</span>
-<span class="nc" id="L405">        return false;</span>
+<span class="nc bnc" id="L361" title="All 2 branches missed.">      if (!(obj instanceof Value)) {</span>
+<span class="nc" id="L362">        return false;</span>
       }
-<span class="nc" id="L407">      Value other = (Value) obj;</span>
-<span class="nc bnc" id="L408" title="All 2 branches missed.">      return Objects.equals(sourceDir, other.sourceDir)</span>
-<span class="nc bnc" id="L409" title="All 2 branches missed.">          &amp;&amp; Objects.equals(targetDir, other.targetDir)</span>
-<span class="nc bnc" id="L410" title="All 2 branches missed.">          &amp;&amp; Objects.equals(assetsDir, other.assetsDir)</span>
-<span class="nc bnc" id="L411" title="All 2 branches missed.">          &amp;&amp; Objects.equals(templatesDir, other.templatesDir)</span>
-<span class="nc bnc" id="L412" title="All 2 branches missed.">          &amp;&amp; Objects.equals(externalPageVars, other.externalPageVars);</span>
+<span class="nc" id="L364">      Value other = (Value) obj;</span>
+<span class="nc bnc" id="L365" title="All 2 branches missed.">      return Objects.equals(sourceDir, other.sourceDir)</span>
+<span class="nc bnc" id="L366" title="All 2 branches missed.">          &amp;&amp; Objects.equals(targetDir, other.targetDir)</span>
+<span class="nc bnc" id="L367" title="All 2 branches missed.">          &amp;&amp; Objects.equals(templatesDir, other.templatesDir)</span>
+<span class="nc bnc" id="L368" title="All 2 branches missed.">          &amp;&amp; Objects.equals(externalPageVars, other.externalPageVars);</span>
     }
 
     @Override
     public int hashCode() {
-<span class="nc" id="L417">      return Objects.hash(sourceDir, targetDir, assetsDir, templatesDir, externalPageVars);</span>
+<span class="nc" id="L373">      return Objects.hash(sourceDir, targetDir, templatesDir, externalPageVars);</span>
     }
 
     @Override
     public String toString() {
-<span class="nc" id="L422">      return &quot;BakerCliBakeOptions{sourceDir=&quot;</span>
+<span class="nc" id="L378">      return &quot;BakerCliBakeOptions{sourceDir=&quot;</span>
           + sourceDir
           + &quot;, targetDir=&quot;
           + targetDir
-          + &quot;, assetsDir=&quot;
-          + assetsDir
           + &quot;, templatesDir=&quot;
           + templatesDir
           + &quot;, externalPageVars=&quot;
@@ -436,99 +390,93 @@ import javax.annotation.Generated;
   private static final class Partial extends Rebuildable {
     private final Path sourceDir;
     private final Path targetDir;
-    private final Option&lt;Path&gt; assetsDir;
     private final Option&lt;Path&gt; templatesDir;
     private final Map&lt;String, String&gt; externalPageVars;
     private final EnumSet&lt;Property&gt; _unsetProperties;
 
-<span class="nc" id="L444">    Partial(BakerCliBakeOptions_Builder builder) {</span>
-<span class="nc" id="L445">      this.sourceDir = builder.sourceDir;</span>
-<span class="nc" id="L446">      this.targetDir = builder.targetDir;</span>
-<span class="nc" id="L447">      this.assetsDir = builder.assetsDir;</span>
-<span class="nc" id="L448">      this.templatesDir = builder.templatesDir;</span>
-<span class="nc" id="L449">      this.externalPageVars = builder.externalPageVars;</span>
-<span class="nc" id="L450">      this._unsetProperties = builder._unsetProperties.clone();</span>
-<span class="nc" id="L451">    }</span>
+<span class="nc" id="L397">    Partial(BakerCliBakeOptions_Builder builder) {</span>
+<span class="nc" id="L398">      this.sourceDir = builder.sourceDir;</span>
+<span class="nc" id="L399">      this.targetDir = builder.targetDir;</span>
+<span class="nc" id="L400">      this.templatesDir = builder.templatesDir;</span>
+<span class="nc" id="L401">      this.externalPageVars = builder.externalPageVars;</span>
+<span class="nc" id="L402">      this._unsetProperties = builder._unsetProperties.clone();</span>
+<span class="nc" id="L403">    }</span>
 
     @Override
     public Path sourceDir() {
-<span class="nc bnc" id="L455" title="All 2 branches missed.">      if (_unsetProperties.contains(Property.SOURCE_DIR)) {</span>
-<span class="nc" id="L456">        throw new UnsupportedOperationException(&quot;sourceDir not set&quot;);</span>
+<span class="nc bnc" id="L407" title="All 2 branches missed.">      if (_unsetProperties.contains(Property.SOURCE_DIR)) {</span>
+<span class="nc" id="L408">        throw new UnsupportedOperationException(&quot;sourceDir not set&quot;);</span>
       }
-<span class="nc" id="L458">      return sourceDir;</span>
+<span class="nc" id="L410">      return sourceDir;</span>
     }
 
     @Override
     public Path targetDir() {
-<span class="nc bnc" id="L463" title="All 2 branches missed.">      if (_unsetProperties.contains(Property.TARGET_DIR)) {</span>
-<span class="nc" id="L464">        throw new UnsupportedOperationException(&quot;targetDir not set&quot;);</span>
+<span class="nc bnc" id="L415" title="All 2 branches missed.">      if (_unsetProperties.contains(Property.TARGET_DIR)) {</span>
+<span class="nc" id="L416">        throw new UnsupportedOperationException(&quot;targetDir not set&quot;);</span>
       }
-<span class="nc" id="L466">      return targetDir;</span>
-    }
-
-    @Override
-    public Option&lt;Path&gt; assetsDir() {
-<span class="nc" id="L471">      return assetsDir;</span>
+<span class="nc" id="L418">      return targetDir;</span>
     }
 
     @Override
     public Option&lt;Path&gt; templatesDir() {
-<span class="nc bnc" id="L476" title="All 2 branches missed.">      if (_unsetProperties.contains(Property.TEMPLATES_DIR)) {</span>
-<span class="nc" id="L477">        throw new UnsupportedOperationException(&quot;templatesDir not set&quot;);</span>
+<span class="nc bnc" id="L423" title="All 2 branches missed.">      if (_unsetProperties.contains(Property.TEMPLATES_DIR)) {</span>
+<span class="nc" id="L424">        throw new UnsupportedOperationException(&quot;templatesDir not set&quot;);</span>
       }
-<span class="nc" id="L479">      return templatesDir;</span>
+<span class="nc" id="L426">      return templatesDir;</span>
     }
 
     @Override
     public Map&lt;String, String&gt; externalPageVars() {
-<span class="nc bnc" id="L484" title="All 2 branches missed.">      if (_unsetProperties.contains(Property.EXTERNAL_PAGE_VARS)) {</span>
-<span class="nc" id="L485">        throw new UnsupportedOperationException(&quot;externalPageVars not set&quot;);</span>
+<span class="nc bnc" id="L431" title="All 2 branches missed.">      if (_unsetProperties.contains(Property.EXTERNAL_PAGE_VARS)) {</span>
+<span class="nc" id="L432">        throw new UnsupportedOperationException(&quot;externalPageVars not set&quot;);</span>
       }
-<span class="nc" id="L487">      return externalPageVars;</span>
+<span class="nc" id="L434">      return externalPageVars;</span>
     }
 
     @Override
     public Builder toBuilder() {
-<span class="nc" id="L492">      throw new UnsupportedOperationException();</span>
+<span class="nc" id="L439">      throw new UnsupportedOperationException();</span>
     }
 
     @Override
     public boolean equals(Object obj) {
-<span class="nc bnc" id="L497" title="All 2 branches missed.">      if (!(obj instanceof Partial)) {</span>
-<span class="nc" id="L498">        return false;</span>
+<span class="nc bnc" id="L444" title="All 2 branches missed.">      if (!(obj instanceof Partial)) {</span>
+<span class="nc" id="L445">        return false;</span>
       }
-<span class="nc" id="L500">      Partial other = (Partial) obj;</span>
-<span class="nc bnc" id="L501" title="All 2 branches missed.">      return Objects.equals(sourceDir, other.sourceDir)</span>
-<span class="nc bnc" id="L502" title="All 2 branches missed.">          &amp;&amp; Objects.equals(targetDir, other.targetDir)</span>
-<span class="nc bnc" id="L503" title="All 2 branches missed.">          &amp;&amp; Objects.equals(assetsDir, other.assetsDir)</span>
-<span class="nc bnc" id="L504" title="All 2 branches missed.">          &amp;&amp; Objects.equals(templatesDir, other.templatesDir)</span>
-<span class="nc bnc" id="L505" title="All 2 branches missed.">          &amp;&amp; Objects.equals(externalPageVars, other.externalPageVars)</span>
-<span class="nc bnc" id="L506" title="All 2 branches missed.">          &amp;&amp; Objects.equals(_unsetProperties, other._unsetProperties);</span>
+<span class="nc" id="L447">      Partial other = (Partial) obj;</span>
+<span class="nc bnc" id="L448" title="All 2 branches missed.">      return Objects.equals(sourceDir, other.sourceDir)</span>
+<span class="nc bnc" id="L449" title="All 2 branches missed.">          &amp;&amp; Objects.equals(targetDir, other.targetDir)</span>
+<span class="nc bnc" id="L450" title="All 2 branches missed.">          &amp;&amp; Objects.equals(templatesDir, other.templatesDir)</span>
+<span class="nc bnc" id="L451" title="All 2 branches missed.">          &amp;&amp; Objects.equals(externalPageVars, other.externalPageVars)</span>
+<span class="nc bnc" id="L452" title="All 2 branches missed.">          &amp;&amp; Objects.equals(_unsetProperties, other._unsetProperties);</span>
     }
 
     @Override
     public int hashCode() {
-<span class="nc" id="L511">      return Objects.hash(</span>
-          sourceDir, targetDir, assetsDir, templatesDir, externalPageVars, _unsetProperties);
+<span class="nc" id="L457">      return Objects.hash(sourceDir, targetDir, templatesDir, externalPageVars, _unsetProperties);</span>
     }
 
     @Override
     public String toString() {
-<span class="nc" id="L517">      StringBuilder result = new StringBuilder(&quot;partial BakerCliBakeOptions{&quot;);</span>
-<span class="nc bnc" id="L518" title="All 2 branches missed.">      if (!_unsetProperties.contains(Property.SOURCE_DIR)) {</span>
-<span class="nc" id="L519">        result.append(&quot;sourceDir=&quot;).append(sourceDir).append(&quot;, &quot;);</span>
+<span class="nc" id="L462">      StringBuilder result = new StringBuilder(&quot;partial BakerCliBakeOptions{&quot;);</span>
+<span class="nc" id="L463">      String separator = &quot;&quot;;</span>
+<span class="nc bnc" id="L464" title="All 2 branches missed.">      if (!_unsetProperties.contains(Property.SOURCE_DIR)) {</span>
+<span class="nc" id="L465">        result.append(&quot;sourceDir=&quot;).append(sourceDir);</span>
+<span class="nc" id="L466">        separator = &quot;, &quot;;</span>
       }
-<span class="nc bnc" id="L521" title="All 2 branches missed.">      if (!_unsetProperties.contains(Property.TARGET_DIR)) {</span>
-<span class="nc" id="L522">        result.append(&quot;targetDir=&quot;).append(targetDir).append(&quot;, &quot;);</span>
+<span class="nc bnc" id="L468" title="All 2 branches missed.">      if (!_unsetProperties.contains(Property.TARGET_DIR)) {</span>
+<span class="nc" id="L469">        result.append(separator).append(&quot;targetDir=&quot;).append(targetDir);</span>
+<span class="nc" id="L470">        separator = &quot;, &quot;;</span>
       }
-<span class="nc" id="L524">      result.append(&quot;assetsDir=&quot;).append(assetsDir);</span>
-<span class="nc bnc" id="L525" title="All 2 branches missed.">      if (!_unsetProperties.contains(Property.TEMPLATES_DIR)) {</span>
-<span class="nc" id="L526">        result.append(&quot;, templatesDir=&quot;).append(templatesDir);</span>
+<span class="nc bnc" id="L472" title="All 2 branches missed.">      if (!_unsetProperties.contains(Property.TEMPLATES_DIR)) {</span>
+<span class="nc" id="L473">        result.append(separator).append(&quot;templatesDir=&quot;).append(templatesDir);</span>
+<span class="nc" id="L474">        separator = &quot;, &quot;;</span>
       }
-<span class="nc bnc" id="L528" title="All 2 branches missed.">      if (!_unsetProperties.contains(Property.EXTERNAL_PAGE_VARS)) {</span>
-<span class="nc" id="L529">        result.append(&quot;, externalPageVars=&quot;).append(externalPageVars);</span>
+<span class="nc bnc" id="L476" title="All 2 branches missed.">      if (!_unsetProperties.contains(Property.EXTERNAL_PAGE_VARS)) {</span>
+<span class="nc" id="L477">        result.append(separator).append(&quot;externalPageVars=&quot;).append(externalPageVars);</span>
       }
-<span class="nc" id="L531">      return result.append(&quot;}&quot;).toString();</span>
+<span class="nc" id="L479">      return result.append(&quot;}&quot;).toString();</span>
     }
   }
 }
