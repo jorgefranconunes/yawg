@@ -22,7 +22,6 @@ import org.inferred.freebuilder.FreeBuilder;
 
     Path sourceDir();
     Path targetDir();
-    Option<Path> assetsDir();
     Option<Path> templatesDir();
     Map<String, String> externalPageVars();
 
@@ -42,7 +41,7 @@ import org.inferred.freebuilder.FreeBuilder;
     final class Builder extends BakerCliBakeOptions_Builder {
 
         private Builder() {
-            assetsDir(Option.none());
+            // Nothing to do.
         }
 
     }

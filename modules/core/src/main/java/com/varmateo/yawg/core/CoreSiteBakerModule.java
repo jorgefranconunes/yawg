@@ -64,10 +64,9 @@ import com.varmateo.yawg.spi.TemplateService;
 
     private SiteBaker newSiteBaker() {
 
-        final AssetsCopier assetsCopier = AssetsCopier.create();
         final DirBaker dirBaker = newDirBaker();
 
-        return CoreSiteBaker.create(assetsCopier, dirBaker);
+        return CoreSiteBaker.create(dirBaker);
     }
 
 

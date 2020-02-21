@@ -34,17 +34,14 @@ import com.varmateo.yawg.util.Results;
     private static final String DEFAULT_TEMPLATE_NAME = "default.ftlh";
 
     private final Log _log;
-    private final AssetsCopier _assetsCopier;
     private final DirBaker _dirBaker;
 
 
     private CoreSiteBaker(
             final Log log,
-            final AssetsCopier assetsCopier,
             final DirBaker dirBaker) {
 
         _log = log;
-        _assetsCopier = assetsCopier;
         _dirBaker = dirBaker;
     }
 
@@ -52,13 +49,11 @@ import com.varmateo.yawg.util.Results;
     /**
      *
      */
-    public static SiteBaker create(
-            final AssetsCopier assetsCopier,
-            final DirBaker dirBaker) {
+    public static SiteBaker create(final DirBaker dirBaker) {
 
         final Log log = LogFactory.createFor(CoreSiteBaker.class);
 
-        return new CoreSiteBaker(log, assetsCopier, dirBaker);
+        return new CoreSiteBaker(log, dirBaker);
     }
 
 
