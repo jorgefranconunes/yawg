@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2017 Yawg project contributors.
+ * Copyright (c) 2017-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -102,18 +102,6 @@ public final class BakerCliScenario {
 
             Path templatesPath = _testsuiteDir.resolve("templates");
             _bakerRunnerBuilder.addTemplatesPath(templatesPath);
-
-            return this;
-        }
-
-
-        /**
-         *
-         */
-        public Builder addAssetsPath() {
-
-            Path assetsPath = _testsuiteDir.resolve("assets");
-            _bakerRunnerBuilder.addAssetsPath(assetsPath);
 
             return this;
         }

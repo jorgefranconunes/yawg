@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2015-2019 Yawg project contributors.
+ * Copyright (c) 2015-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -16,12 +16,6 @@ import io.vavr.control.Try;
  */
 final class BakerCliParameters {
 
-
-    public static final CliParameter ASSETS_DIR = CliParameter.builder()
-            .longName("assets")
-            .argName("PATH")
-            .description("path of assets directory")
-            .build();
 
     public static final CliParameter HELP = CliParameter.builder()
             .longName("help")
@@ -69,7 +63,6 @@ final class BakerCliParameters {
      *
      */
     private static final Set<CliParameter> ALL_OPTIONS = HashSet.of(
-            ASSETS_DIR,
             HELP,
             PAGE_VAR,
             SOURCE_DIR,

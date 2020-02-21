@@ -42,7 +42,7 @@ import org.inferred.freebuilder.FreeBuilder;
     final class Builder extends BakerCliBakeOptions_Builder {
 
         private Builder() {
-            // Nothing to do.
+            assetsDir(Option.none());
         }
 
     }

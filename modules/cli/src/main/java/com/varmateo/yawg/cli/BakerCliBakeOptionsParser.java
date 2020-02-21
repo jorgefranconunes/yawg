@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2019 Yawg project contributors.
+ * Copyright (c) 2019-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -51,14 +51,12 @@ import io.vavr.control.Try;
 
         final Path sourceDir = cliParams.getPath(BakerCliParameters.SOURCE_DIR);
         final Path targetDir = cliParams.getPath(BakerCliParameters.TARGET_DIR);
-        final Path assetsDir = cliParams.getPath(BakerCliParameters.ASSETS_DIR, null);
         final Path templatesDir = cliParams.getPath(BakerCliParameters.TEMPLATES_DIR, null);
         final Map<String, String> externalPageVars = buildExternalPageVars(cliParams);
 
         return BakerCliBakeOptions.builder()
                 .sourceDir(sourceDir)
                 .targetDir(targetDir)
-                .assetsDir(Option.of(assetsDir))
                 .templatesDir(Option.of(templatesDir))
                 .externalPageVars(externalPageVars)
                 .build();

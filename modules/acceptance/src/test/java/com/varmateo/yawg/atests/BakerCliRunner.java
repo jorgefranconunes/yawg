@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -152,17 +152,6 @@ public final class BakerCliRunner {
         public Builder addTemplatesPath(final Path path) {
 
             addArgs("--templates", path.toString());
-
-            return this;
-        }
-
-
-        /**
-         *
-         */
-        public Builder addAssetsPath(final Path path) {
-
-            addArgs("--assets", path.toString());
 
             return this;
         }
