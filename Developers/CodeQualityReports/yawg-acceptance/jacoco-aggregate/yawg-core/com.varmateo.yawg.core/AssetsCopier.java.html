@@ -37,7 +37,7 @@ import com.varmateo.yawg.logging.Logs;
 
 <span class="fc" id="L38">        _copyAction = Logs.decorateWithLogDuration(</span>
                 log,
-<span class="fc" id="L40">                (source, target) -&gt; &quot;copy assets&quot;,</span>
+<span class="nc" id="L40">                (source, target) -&gt; &quot;copy assets&quot;,</span>
                 AssetsCopier::doCopy);
 <span class="fc" id="L42">    }</span>
 
@@ -61,8 +61,8 @@ import com.varmateo.yawg.logging.Logs;
             final Path targetDir)
             throws YawgException {
 
-<span class="fc" id="L64">        _copyAction.accept(assetsDir, targetDir);</span>
-<span class="fc" id="L65">    }</span>
+<span class="nc" id="L64">        _copyAction.accept(assetsDir, targetDir);</span>
+<span class="nc" id="L65">    }</span>
 
 
     /**
@@ -74,11 +74,11 @@ import com.varmateo.yawg.logging.Logs;
             throws YawgException {
 
         try {
-<span class="fc" id="L77">            copyDirectoryTree(sourceDir, targetDir);</span>
-<span class="fc" id="L78">        } catch ( IOException e ) {</span>
-<span class="fc" id="L79">            throw AssetsCopierException.copyFailure(sourceDir, targetDir, e);</span>
-<span class="fc" id="L80">        }</span>
-<span class="fc" id="L81">    }</span>
+<span class="nc" id="L77">            copyDirectoryTree(sourceDir, targetDir);</span>
+<span class="nc" id="L78">        } catch ( IOException e ) {</span>
+<span class="nc" id="L79">            throw AssetsCopierException.copyFailure(sourceDir, targetDir, e);</span>
+<span class="nc" id="L80">        }</span>
+<span class="nc" id="L81">    }</span>
 
 
     /**
@@ -89,35 +89,35 @@ import com.varmateo.yawg.logging.Logs;
             final Path targetDir)
             throws IOException {
 
-<span class="fc" id="L92">        Files.walkFileTree(</span>
+<span class="nc" id="L92">        Files.walkFileTree(</span>
                 sourceDir,
-<span class="fc" id="L94">                new SimpleFileVisitor&lt;Path&gt;() {</span>
+<span class="nc" id="L94">                new SimpleFileVisitor&lt;Path&gt;() {</span>
                     @Override
                     public FileVisitResult preVisitDirectory(
                             final Path dir,
                             final BasicFileAttributes attrs)
                             throws IOException {
-<span class="fc" id="L100">                        Path childTargetDir =</span>
-<span class="fc" id="L101">                                targetDir.resolve(sourceDir.relativize(dir));</span>
-<span class="fc bfc" id="L102" title="All 2 branches covered.">                        if ( !Files.exists(childTargetDir) ) {</span>
-<span class="fc" id="L103">                            Files.createDirectory(childTargetDir);</span>
+<span class="nc" id="L100">                        Path childTargetDir =</span>
+<span class="nc" id="L101">                                targetDir.resolve(sourceDir.relativize(dir));</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">                        if ( !Files.exists(childTargetDir) ) {</span>
+<span class="nc" id="L103">                            Files.createDirectory(childTargetDir);</span>
                         }
-<span class="fc" id="L105">                        return FileVisitResult.CONTINUE;</span>
+<span class="nc" id="L105">                        return FileVisitResult.CONTINUE;</span>
                     }
                     @Override
                     public FileVisitResult visitFile(
                             final Path file,
                             final BasicFileAttributes attrs)
                             throws IOException {
-<span class="fc" id="L112">                        Files.copy(</span>
+<span class="nc" id="L112">                        Files.copy(</span>
                                 file,
-<span class="fc" id="L114">                                targetDir.resolve(sourceDir.relativize(file)),</span>
+<span class="nc" id="L114">                                targetDir.resolve(sourceDir.relativize(file)),</span>
                                 StandardCopyOption.REPLACE_EXISTING,
                                 StandardCopyOption.COPY_ATTRIBUTES);
-<span class="fc" id="L117">                        return FileVisitResult.CONTINUE;</span>
+<span class="nc" id="L117">                        return FileVisitResult.CONTINUE;</span>
                     }
                 });
-<span class="fc" id="L120">    }</span>
+<span class="nc" id="L120">    }</span>
 
 
 }

@@ -89,12 +89,12 @@ public final class Logs {
             final BiFunction&lt;T, U, String&gt; description,
             final BiConsumer&lt;T, U&gt; function) {
 
-<span class="fc" id="L92">        return (t, u) -&gt; logDuration(</span>
+<span class="pc" id="L92">        return (t, u) -&gt; logDuration(</span>
                 log,
-<span class="fc" id="L94">                description.apply(t, u),</span>
+<span class="nc" id="L94">                description.apply(t, u),</span>
                 () -&gt; {
-<span class="fc" id="L96">                    function.accept(t, u);</span>
-<span class="fc" id="L97">                    return null;</span>
+<span class="nc" id="L96">                    function.accept(t, u);</span>
+<span class="nc" id="L97">                    return null;</span>
                 });
     }
 

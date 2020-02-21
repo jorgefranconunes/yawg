@@ -22,8 +22,8 @@ import com.varmateo.yawg.api.YawgException;
             final String msg,
             final Throwable cause) {
 
-<span class="fc" id="L25">        super(msg, cause);</span>
-<span class="fc" id="L26">    }</span>
+<span class="nc" id="L25">        super(msg, cause);</span>
+<span class="nc" id="L26">    }</span>
 
 
     /**
@@ -34,11 +34,11 @@ import com.varmateo.yawg.api.YawgException;
             final Path targetDir,
             final Throwable cause) {
 
-<span class="fc" id="L37">        final String msg = String.format(</span>
+<span class="nc" id="L37">        final String msg = String.format(</span>
                 &quot;Failed to copy assets from \&quot;%s\&quot; to \&quot;%s\&quot; - %s - %s&quot;,
-<span class="fc" id="L39">                sourceDir, targetDir, cause.getClass().getName(), cause.getMessage());</span>
+<span class="nc" id="L39">                sourceDir, targetDir, cause.getClass().getName(), cause.getMessage());</span>
 
-<span class="fc" id="L41">        return new AssetsCopierException(msg, cause);</span>
+<span class="nc" id="L41">        return new AssetsCopierException(msg, cause);</span>
     }
 
 }

@@ -93,7 +93,7 @@ import com.varmateo.yawg.util.Results;
     private void copyAssets(final BakeOptions options) {
 
 <span class="fc" id="L95">        Option.ofOptional(options.assetsDir())</span>
-<span class="fc" id="L96">                .peek(assetsDir -&gt; _assetsCopier.copy(assetsDir, options.targetDir()))</span>
+<span class="pc" id="L96">                .peek(assetsDir -&gt; _assetsCopier.copy(assetsDir, options.targetDir()))</span>
 <span class="fc" id="L97">                .onEmpty(() -&gt; _log.debug(&quot;No assets directory to copy&quot;));</span>
 <span class="fc" id="L98">    }</span>
 
