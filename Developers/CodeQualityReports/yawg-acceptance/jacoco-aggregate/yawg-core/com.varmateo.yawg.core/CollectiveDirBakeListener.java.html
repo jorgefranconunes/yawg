@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>CollectiveDirBakeListener.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">CollectiveDirBakeListener.java</span></div><h1>CollectiveDirBakeListener.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -27,13 +27,18 @@ import com.varmateo.yawg.util.OnDirBakeResults;
     private final Seq&lt;DirBakeListener&gt; _listeners;
 
 
+<span class="fc" id="L30">    private CollectiveDirBakeListener(final Seq&lt;DirBakeListener&gt; listeners) {</span>
+
+<span class="fc" id="L32">        _listeners = listeners;</span>
+<span class="fc" id="L33">    }</span>
+
+
     /**
      *
      */
-<span class="fc" id="L33">    CollectiveDirBakeListener(final Seq&lt;DirBakeListener&gt; listeners) {</span>
-
-<span class="fc" id="L35">        _listeners = listeners;</span>
-<span class="fc" id="L36">    }</span>
+    public static DirBakeListener create(final Seq&lt;DirBakeListener&gt; listeners) {
+<span class="fc" id="L40">        return new CollectiveDirBakeListener(listeners);</span>
+    }
 
 
     /**
@@ -42,13 +47,13 @@ import com.varmateo.yawg.util.OnDirBakeResults;
     @Override
     public OnDirBakeResult onDirBake(final PageContext context) {
 
-<span class="fc" id="L45">        final Try&lt;PageVars&gt; tryResult = _listeners</span>
-<span class="fc" id="L46">                .foldLeft(</span>
-<span class="fc" id="L47">                        Try.success(context),</span>
-<span class="fc" id="L48">                        (acc, listener) -&gt; augmentContext(acc, listener))</span>
-<span class="fc" id="L49">                .map(PageContext::pageVars);</span>
+<span class="fc" id="L50">        final Try&lt;PageVars&gt; tryResult = _listeners</span>
+<span class="fc" id="L51">                .foldLeft(</span>
+<span class="fc" id="L52">                        Try.success(context),</span>
+<span class="fc" id="L53">                        (acc, listener) -&gt; augmentContext(acc, listener))</span>
+<span class="fc" id="L54">                .map(PageContext::pageVars);</span>
 
-<span class="fc" id="L51">        return OnDirBakeResults.fromTry(tryResult);</span>
+<span class="fc" id="L56">        return OnDirBakeResults.fromTry(tryResult);</span>
     }
 
 
@@ -56,10 +61,10 @@ import com.varmateo.yawg.util.OnDirBakeResults;
             final Try&lt;PageContext&gt; tryContext,
             final DirBakeListener listener) {
 
-<span class="fc" id="L59">        return tryContext</span>
-<span class="fc" id="L60">                .flatMap(</span>
-<span class="fc" id="L61">                        context -&gt; OnDirBakeResults.toTry(listener.onDirBake(context))</span>
-<span class="fc" id="L62">                        .map(newVars -&gt; buildPageContext(context, newVars)));</span>
+<span class="fc" id="L64">        return tryContext</span>
+<span class="fc" id="L65">                .flatMap(</span>
+<span class="fc" id="L66">                        context -&gt; OnDirBakeResults.toTry(listener.onDirBake(context))</span>
+<span class="fc" id="L67">                        .map(newVars -&gt; buildPageContext(context, newVars)));</span>
     }
 
 
@@ -67,9 +72,9 @@ import com.varmateo.yawg.util.OnDirBakeResults;
             final PageContext context,
             final PageVars newVars) {
 
-<span class="fc" id="L70">        return PageContextBuilder.create(context)</span>
-<span class="fc" id="L71">                .pageVars(newVars)</span>
-<span class="fc" id="L72">                .build();</span>
+<span class="fc" id="L75">        return PageContextBuilder.create(context)</span>
+<span class="fc" id="L76">                .pageVars(newVars)</span>
+<span class="fc" id="L77">                .build();</span>
     }
 
 

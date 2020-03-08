@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CollectiveTemplateServiceException.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">CollectiveTemplateServiceException.java</span></div><h1>CollectiveTemplateServiceException.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -12,14 +12,13 @@ import com.varmateo.yawg.api.YawgException;
 /**
  *
  */
-public final class CollectiveTemplateServiceException
+/* default */ final class CollectiveTemplateServiceException
         extends YawgException {
 
 
     private CollectiveTemplateServiceException(final String msg) {
-
-<span class="nc" id="L21">        super(msg);</span>
-<span class="nc" id="L22">    }</span>
+<span class="nc" id="L20">        super(msg);</span>
+<span class="nc" id="L21">    }</span>
 
 
     /**
@@ -27,9 +26,9 @@ public final class CollectiveTemplateServiceException
      */
     public static CollectiveTemplateServiceException unsupportedTemplateFormat(final String name) {
 
-<span class="nc" id="L30">        final String msg = String.format(&quot;Unsupported template format \&quot;%s\&quot;&quot;, name);</span>
+<span class="nc" id="L29">        final String msg = String.format(&quot;Unsupported template format \&quot;%s\&quot;&quot;, name);</span>
 
-<span class="nc" id="L32">        return new CollectiveTemplateServiceException(msg);</span>
+<span class="nc" id="L31">        return new CollectiveTemplateServiceException(msg);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

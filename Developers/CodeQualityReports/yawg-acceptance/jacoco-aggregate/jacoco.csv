@@ -74,7 +74,7 @@ Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DirBakeOptionsDao,71,290,
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DirBakeOptionsDaoException,22,57,0,0,2,10,1,4,1,4
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,BakerMatcher.Entry,0,15,0,0,0,6,0,3,0,3
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,BakerMatcher.Builder,6,64,0,0,3,16,1,8,1,8
-Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,CoreSiteBakerModule,0,79,0,0,0,21,0,6,0,6
+Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,CoreSiteBakerModule,0,75,0,0,0,21,0,6,0,6
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DirBaker,0,231,0,8,0,54,0,19,0,15
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,TemplateNameMatcher,6,24,0,0,0,9,1,4,1,4
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,FileBaker,26,105,3,1,5,24,5,7,3,7
@@ -83,12 +83,12 @@ Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,CopyPageBaker,2,32,0,0,1,
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DefaultSiteBakerModule,0,57,0,0,0,14,0,8,0,8
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,CopyPageBakerException,46,4,0,0,6,1,4,1,4,1
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DirBakerContext,0,102,0,0,0,27,0,6,0,6
-Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,CollectiveDirBakeListener,0,46,0,0,0,16,0,7,0,7
+Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,CollectiveDirBakeListener,0,51,0,0,0,17,0,8,0,8
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,FileBakerException,18,0,0,0,4,0,2,0,2,0
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,CoreSiteBaker,0,81,0,0,0,23,0,8,0,8
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,BakerMatcher,14,59,0,0,4,10,2,7,2,7
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DirEntryChecker,0,96,0,8,0,19,0,14,0,10
-Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,CollectiveTemplateService,3,48,1,3,1,14,1,7,0,6
+Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,CollectiveTemplateService,3,53,1,3,1,15,1,8,0,7
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DefaultExtensionsModule,0,84,0,0,0,25,0,10,0,10
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DirBakeOptions.Builder,0,209,0,0,0,61,0,23,0,23
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DirPageContextBuilder,5,121,0,2,0,35,1,11,1,10
