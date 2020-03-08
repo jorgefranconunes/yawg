@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2019 Yawg project contributors.
+ * Copyright (c) 2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -12,7 +12,7 @@ import com.varmateo.yawg.api.YawgException;
 /**
  *
  */
-public final class FileBakerException
+/* default */ final class FileBakerException
         extends YawgException {
 
 

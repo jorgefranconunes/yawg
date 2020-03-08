@@ -27,16 +27,21 @@ import com.varmateo.yawg.spi.TemplateService;
     private final Function<String, Optional<Template>> _templateFetcher;
 
 
-    /**
-     *
-     */
-    CollectiveTemplateService(final Seq<TemplateService> services) {
+    private CollectiveTemplateService(final Seq<TemplateService> services) {
 
         if ( services.isEmpty() ) {
             _templateFetcher = name -> Optional.empty();
         } else {
             _templateFetcher = name -> prepareTemplateFromServices(services, name);
         }
+    }
+
+
+    /**
+     *
+     */
+    public static TemplateService create(final Seq<TemplateService> services) {
+        return new CollectiveTemplateService(services);
     }
 
 

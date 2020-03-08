@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -12,12 +12,11 @@ import com.varmateo.yawg.api.YawgException;
 /**
  *
  */
-public final class CollectiveTemplateServiceException
+/* default */ final class CollectiveTemplateServiceException
         extends YawgException {
 
 
     private CollectiveTemplateServiceException(final String msg) {
-
         super(msg);
     }
 

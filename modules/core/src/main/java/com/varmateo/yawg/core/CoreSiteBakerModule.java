@@ -78,11 +78,11 @@ import com.varmateo.yawg.spi.TemplateService;
         final FileBaker fileBaker =
                 newFileBaker();
         final TemplateService collectiveTemplateService =
-                new CollectiveTemplateService(_templateServices.get());
+                CollectiveTemplateService.create(_templateServices.get());
         final DirBakeOptionsDao dirBakerOptionsDao =
                 new DirBakeOptionsDao();
         final DirBakeListener dirBakeListener =
-                new CollectiveDirBakeListener(_dirBakeListeners.get());
+                CollectiveDirBakeListener.create(_dirBakeListeners.get());
 
         return new DirBaker(
                 fileBaker,

@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -27,12 +27,17 @@ import com.varmateo.yawg.util.OnDirBakeResults;
     private final Seq<DirBakeListener> _listeners;
 
 
+    private CollectiveDirBakeListener(final Seq<DirBakeListener> listeners) {
+
+        _listeners = listeners;
+    }
+
+
     /**
      *
      */
-    CollectiveDirBakeListener(final Seq<DirBakeListener> listeners) {
-
-        _listeners = listeners;
+    public static DirBakeListener create(final Seq<DirBakeListener> listeners) {
+        return new CollectiveDirBakeListener(listeners);
     }
 
 

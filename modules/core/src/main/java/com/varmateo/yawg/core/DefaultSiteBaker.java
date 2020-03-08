@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2019 Yawg project contributors.
+ * Copyright (c) 2019-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -14,7 +14,8 @@ import com.varmateo.yawg.api.SiteBaker;
 
 
 /**
- * Entry point for obtaining a {@code SiteBaker} instance.
+ * Entry point for obtaining a {@code SiteBaker} instance with default
+ * functionalities.
  */
 public final class DefaultSiteBaker {
 

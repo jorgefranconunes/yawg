@@ -12,8 +12,8 @@ import java.util.Optional;
 
 
 /**
- * Set of configuration parameters for baking a site with a
- * <code>SiteBaker</code> instance.
+ * Set of configuration parameters for baking a site using a {@code
+ * SiteBaker} instance.
  */
 public interface BakeOptions {
 

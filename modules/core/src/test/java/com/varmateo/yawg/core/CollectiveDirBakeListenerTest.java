@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -34,7 +34,7 @@ public final class CollectiveDirBakeListenerTest
     public void oneListenerAddVar() {
 
         final MyListener listener01 = new MyListener("var01", "hello");
-        final CollectiveDirBakeListener listener = new CollectiveDirBakeListener(
+        final DirBakeListener listener = CollectiveDirBakeListener.create(
                 List.of(listener01));
         final PageContext context = buildContext("var02", "world");
 
@@ -55,7 +55,7 @@ public final class CollectiveDirBakeListenerTest
     public void oneListenerOverrideVar() {
 
         final MyListener listener01 = new MyListener("var01", "hello");
-        final CollectiveDirBakeListener listener = new CollectiveDirBakeListener(
+        final DirBakeListener listener = CollectiveDirBakeListener.create(
                 List.of(listener01));
         final PageContext context = buildContext("var01", "world");
 
@@ -76,7 +76,7 @@ public final class CollectiveDirBakeListenerTest
 
         final MyListener listener01 = new MyListener("var01", "hello");
         final MyListener listener02 = new MyListener("var02", "world");
-        final CollectiveDirBakeListener listener = new CollectiveDirBakeListener(
+        final DirBakeListener listener = CollectiveDirBakeListener.create(
                 List.of(listener01, listener02));
         final PageContext context = buildContext("var03", "VALUE03");
 
@@ -101,7 +101,7 @@ public final class CollectiveDirBakeListenerTest
 
         final MyListener listener01 = new MyListener("var01", "hello");
         final MyListener listener02 = new MyListener("var01", "world");
-        final CollectiveDirBakeListener listener = new CollectiveDirBakeListener(
+        final DirBakeListener listener = CollectiveDirBakeListener.create(
                 List.of(listener01, listener02));
         final PageContext context = buildContext("var03", "VALUE03");
 
@@ -125,7 +125,7 @@ public final class CollectiveDirBakeListenerTest
 
         final MyListener listener01 = new MyListener("var01", "hello");
         final MyListener listener02 = new MyListener("var03", "world");
-        final CollectiveDirBakeListener listener = new CollectiveDirBakeListener(
+        final DirBakeListener listener = CollectiveDirBakeListener.create(
                 List.of(listener01, listener02));
         final PageContext context = buildContext("var03", "VALUE03");
 

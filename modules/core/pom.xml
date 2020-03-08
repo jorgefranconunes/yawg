@@ -207,6 +207,19 @@ Maven POM for the "core" sub-project of the Yawg project.
   </profiles>
 
 
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <excludePackageNames>com.varmateo.yawg.asciidoctor,com.varmateo.yawg.breadcrumbs,com.varmateo.yawg.commonmark,com.varmateo.yawg.freemarker,com.varmateo.yawg.html,com.varmateo.yawg.logging,com.varmateo.yawg.util</excludePackageNames>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
+
+
   <!-- More project information. -->
 
   <name>Yawg core</name>
