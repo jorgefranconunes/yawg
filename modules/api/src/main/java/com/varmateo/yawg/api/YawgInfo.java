@@ -1,14 +1,10 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.api;
-
-import java.io.InputStream;
-import java.io.IOException;
-import java.util.Properties;
 
 
 /**
@@ -18,46 +14,14 @@ import java.util.Properties;
 public final class YawgInfo {
 
 
-    private static final String RESOURCE =
-        YawgInfo.class.getSimpleName() + ".properties";
-
-    private static final String PROP_VERSION = "version";
-
-
     /** Version of the Yawg software. */
-    public static final String VERSION;
+    public static final String VERSION = YawgInfo.class.getPackage().getImplementationVersion();
 
     /** The Yawg product name as it should be displayed to end users. */
     public static final String PRODUCT_NAME = "Yawg";
 
     /** Copyright string to be displayed to end users. */
-    public static final String COPYRIGHT_HEADER =
-        "Copyright (c) 2019 Yawg project contributors.";
-
-
-    /**
-     * Initialization of some static constants.
-     */
-    static {
-        String resourcePath = RESOURCE;
-        Properties props = new Properties();
-
-        try ( InputStream input =
-              YawgInfo.class.getResourceAsStream(resourcePath) ) {
-
-            if ( input != null ) {
-                props.load(input);
-            } else {
-                String msg = "Missing resource \"" + resourcePath + "\"";
-                throw new IllegalStateException(msg);
-            }
-        } catch ( IOException e ) {
-            String msg = "Failed to read resource \"" + resourcePath + "\"";
-            throw new IllegalStateException(msg, e);
-        }
-
-        VERSION = props.getProperty(PROP_VERSION);
-    }
+    public static final String COPYRIGHT_HEADER = "Copyright (c) 2020 Yawg project contributors.";
 
 
     /**

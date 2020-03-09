@@ -122,6 +122,21 @@ Copyright (c) 2015-2020 Yawg project contributors.
           </configuration>
         </plugin>
 
+        <!-- -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>${maven-jar-plugin.version}</version>
+          <configuration>
+            <archive>
+              <manifestEntries>
+                <Implementation-Title>${project.artifactId}</Implementation-Title>
+                <Implementation-Version>${project.version}</Implementation-Version>
+              </manifestEntries>
+            </archive>
+          </configuration>
+        </plugin>
+
         <!-- Javadoc configuration. -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
