@@ -39,8 +39,8 @@ Ensure the desired version number is defined at
 
 If you do make changes on `conf/yawg-defaults.conf` you will need to:
 
-* Run `devtools/bin/bun/build-sync-version` to update the version
-  number in all relevant locations.
+* Run `devtools/bin/build-sync-version` to update the version number
+  in all relevant locations.
 
 * Commit and push your changes to the Github repo.
 

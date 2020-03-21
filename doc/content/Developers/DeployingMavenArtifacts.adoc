@@ -51,6 +51,13 @@ Email address: -- jorgefranconunes@gmail.com
 Comment: --
 
 
+List local keys:
+
+----
+gpg --list-keys
+----
+
+
 === Distribute GPG public key
 
 ----
@@ -81,6 +88,8 @@ Opened ticket https://issues.sonatype.org/browse/OSSRH-31607
 
 
 
+
+== Add OSSRH repository to Maven build config
 
 Add to the `distributionManagement` element an entry for the Open
 Source Software Repository Hosting (OSSRH) repository.
