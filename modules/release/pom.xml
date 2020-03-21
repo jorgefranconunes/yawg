@@ -15,7 +15,7 @@ Maven POM for the "release" sub-project of the Yawg project.
   <parent>
     <groupId>com.varmateo.yawg</groupId>
     <artifactId>yawg-main</artifactId>
-    <version>1.0.0-RC1-SNAPSHOT</version>
+    <version>1.0.0-RC2-SNAPSHOT</version>
     <relativePath>../</relativePath>
   </parent>
 

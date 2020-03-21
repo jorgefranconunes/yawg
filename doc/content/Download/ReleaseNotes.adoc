@@ -11,6 +11,46 @@ Yawg project.
 
 
 
+== 1.0.0.RC2
+
+Released on 2020/03/21
+
+#360 Template variable yawg.bakeId is different in every page
+
+#396 Inject services explicitly instead of using ServiceLoader
+
+#407 Markdown document title taken from YAML front matter
+
+#408 Clarify entry point class
+
+#418 Make YawgException abstract
+
+#423 Remove exception from SiteBaker
+
+#424 Remove exception from PageBaker
+
+#425 Remove exception from DirBakeListener
+
+#427 Remove exception from Template
+
+#430 Replace BakeOptions.Builder with BakeOptionsBuilder
+
+#438 Update site build config to not use the yawg tool --assets CLI option
+
+#439 Remove --assets option from Yawg CLI tool
+
+#440 Remove assets concept from public APIs
+
+#441 Remove assets concept from internal APIs
+
+#447 Move DefaultSiteBaker to dedicated artifact
+
+#448 Simplify YawgInfo
+
+
+
+
+
 == 1.0.0-RC1
 
 Released on 2019/05/05
