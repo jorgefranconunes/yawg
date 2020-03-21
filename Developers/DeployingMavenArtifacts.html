@@ -32,7 +32,7 @@
 
     <link
        rel="stylesheet"
-       href="../yawg-site.css?v=2b865180-0448-46ae-a869-a8a998b7fca8" />
+       href="../yawg-site.css?v=f573db22-2532-4928-a5af-5296fd7d06fa" />
 
     <script
        type="text/javascript"
@@ -147,6 +147,14 @@ to uploading artifacts to the Central Repository</a></p>
 <div class="paragraph">
 <p>Comment:&#8201;&#8212;&#8201;</p>
 </div>
+<div class="paragraph">
+<p>List local keys:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>gpg --list-keys</pre>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_distribute_gpg_public_key">Distribute GPG public key</h3>
@@ -185,6 +193,11 @@ to uploading artifacts to the Central Repository</a></p>
 <div class="paragraph">
 <p>Opened ticket <a href="https://issues.sonatype.org/browse/OSSRH-31607" class="bare">https://issues.sonatype.org/browse/OSSRH-31607</a></p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_add_ossrh_repository_to_maven_build_config">Add OSSRH repository to Maven build config</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Add to the <code>distributionManagement</code> element an entry for the Open
 Source Software Repository Hosting (OSSRH) repository.</p>
@@ -279,7 +292,7 @@ Source Software Repository Hosting (OSSRH) repository.</p>
     |
     <a href="../PrivacyPolicy.html">Privacy</a>
     |
-    Last update 2020-02-21 12:48 UTC
+    Last update 2020-03-21 11:32 UTC
   </p>
 </footer>
 
