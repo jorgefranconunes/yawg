@@ -58,6 +58,13 @@ gpg --list-keys
 ----
 
 
+Search key in key server:
+
+----
+gpg --keyserver hkp://keys.gnupg.net --search-key 'jorgefranconunes@gmail.com'
+----
+
+
 === Distribute GPG public key
 
 ----
