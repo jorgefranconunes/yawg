@@ -39,8 +39,8 @@
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="Log" href="../../../../com/varmateo/yawg/logging/Log.html#Log">Log</a> _log;
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="FileBaker" href="../../../../com/varmateo/yawg/core/FileBaker.html#FileBaker">FileBaker</a> _fileBaker;
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="DirBakeOptionsDao" href="../../../../com/varmateo/yawg/core/DirBakeOptionsDao.html#DirBakeOptionsDao">DirBakeOptionsDao</a> _dirBakeOptionsDao;
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> DirBakeListener _listener;
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> TemplateService _templateService;
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="DirBakeListener" href="../../../../com/varmateo/yawg/spi/DirBakeListener.html#DirBakeListener">DirBakeListener</a> _listener;
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="TemplateService" href="../../../../com/varmateo/yawg/spi/TemplateService.html#TemplateService">TemplateService</a> _templateService;
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  
@@ -60,9 +60,9 @@
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>      <a name="DirBaker" href="../../../../com/varmateo/yawg/core/DirBaker.html#DirBaker">DirBaker</a>(
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>              <strong class="jxr_keyword">final</strong> <a name="FileBaker" href="../../../../com/varmateo/yawg/core/FileBaker.html#FileBaker">FileBaker</a> fileBaker,
-<a class="jxr_linenumber" name="L55" href="#L55">55</a>              <strong class="jxr_keyword">final</strong> TemplateService templateService,
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>              <strong class="jxr_keyword">final</strong> <a name="TemplateService" href="../../../../com/varmateo/yawg/spi/TemplateService.html#TemplateService">TemplateService</a> templateService,
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>              <strong class="jxr_keyword">final</strong> <a name="DirBakeOptionsDao" href="../../../../com/varmateo/yawg/core/DirBakeOptionsDao.html#DirBakeOptionsDao">DirBakeOptionsDao</a> dirBakeOptionsDao,
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>              <strong class="jxr_keyword">final</strong> DirBakeListener dirBakeListener) {
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>              <strong class="jxr_keyword">final</strong> <a name="DirBakeListener" href="../../../../com/varmateo/yawg/spi/DirBakeListener.html#DirBakeListener">DirBakeListener</a> dirBakeListener) {
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>  
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>          _log = LogFactory.createFor(DirBaker.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>          _fileBaker = fileBaker;
@@ -151,7 +151,7 @@
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>             <strong class="jxr_keyword">final</strong> Seq&lt;Path&gt; dirEntries,
 <a class="jxr_linenumber" name="L144" href="#L144">144</a>             <strong class="jxr_keyword">final</strong> Path targetDir,
 <a class="jxr_linenumber" name="L145" href="#L145">145</a>             <strong class="jxr_keyword">final</strong> <a name="DirBakeOptions" href="../../../../com/varmateo/yawg/core/DirBakeOptions.html#DirBakeOptions">DirBakeOptions</a> dirBakeOptions,
-<a class="jxr_linenumber" name="L146" href="#L146">146</a>             <strong class="jxr_keyword">final</strong> PageContext context)
+<a class="jxr_linenumber" name="L146" href="#L146">146</a>             <strong class="jxr_keyword">final</strong> <a name="PageContext" href="../../../../com/varmateo/yawg/spi/PageContext.html#PageContext">PageContext</a> context)
 <a class="jxr_linenumber" name="L147" href="#L147">147</a>             <strong class="jxr_keyword">throws</strong> YawgException {
 <a class="jxr_linenumber" name="L148" href="#L148">148</a> 
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>         <strong class="jxr_keyword">final</strong> Seq&lt;Path&gt; filePathList = dirEntries.filter(Files::isRegularFile);

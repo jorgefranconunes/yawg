@@ -40,7 +40,7 @@
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment"> * href="<a href="http://freemarker.org/" target="alexandria_uri">http://freemarker.org/</a>"&gt;Freemarker&lt;/a&gt; template engine.</em>
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="FreemarkerTemplateService" href="../../../../com/varmateo/yawg/freemarker/FreemarkerTemplateService.html#FreemarkerTemplateService">FreemarkerTemplateService</a>
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>          <strong class="jxr_keyword">implements</strong> TemplateService {
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>          <strong class="jxr_keyword">implements</strong> <a name="TemplateService" href="../../../../com/varmateo/yawg/spi/TemplateService.html#TemplateService">TemplateService</a> {
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> Pattern RE_FTLH = Pattern.compile(<span class="jxr_string">".*&#92;&#92;.ftlh$"</span>);
@@ -61,7 +61,7 @@
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> TemplateService create(<strong class="jxr_keyword">final</strong> Path templatesDir)
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a name="TemplateService" href="../../../../com/varmateo/yawg/spi/TemplateService.html#TemplateService">TemplateService</a> create(<strong class="jxr_keyword">final</strong> Path templatesDir)
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>              <strong class="jxr_keyword">throws</strong> YawgException {
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>  
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>          <strong class="jxr_keyword">final</strong> Configuration fmConfig;
@@ -132,7 +132,7 @@
 <a class="jxr_linenumber" name="L124" href="#L124">124</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L125" href="#L125">125</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L126" href="#L126">126</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> FreemarkerTemplate
-<a class="jxr_linenumber" name="L127" href="#L127">127</a>             <strong class="jxr_keyword">implements</strong> Template {
+<a class="jxr_linenumber" name="L127" href="#L127">127</a>             <strong class="jxr_keyword">implements</strong> <a name="Template" href="../../../../com/varmateo/yawg/spi/Template.html#Template">Template</a> {
 <a class="jxr_linenumber" name="L128" href="#L128">128</a> 
 <a class="jxr_linenumber" name="L129" href="#L129">129</a> 
 <a class="jxr_linenumber" name="L130" href="#L130">130</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> freemarker.template.Template _fmTemplate;
@@ -152,7 +152,7 @@
 <a class="jxr_linenumber" name="L144" href="#L144">144</a> <em class="jxr_javadoccomment">         */</em>
 <a class="jxr_linenumber" name="L145" href="#L145">145</a>         @Override
 <a class="jxr_linenumber" name="L146" href="#L146">146</a>         <strong class="jxr_keyword">public</strong> Result&lt;Void&gt; process(
-<a class="jxr_linenumber" name="L147" href="#L147">147</a>                 <strong class="jxr_keyword">final</strong> TemplateContext context,
+<a class="jxr_linenumber" name="L147" href="#L147">147</a>                 <strong class="jxr_keyword">final</strong> <a name="TemplateContext" href="../../../../com/varmateo/yawg/spi/TemplateContext.html#TemplateContext">TemplateContext</a> context,
 <a class="jxr_linenumber" name="L148" href="#L148">148</a>                 <strong class="jxr_keyword">final</strong> Writer writer) {
 <a class="jxr_linenumber" name="L149" href="#L149">149</a> 
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>             <strong class="jxr_keyword">final</strong> <a name="FreemarkerDataModel" href="../../../../com/varmateo/yawg/freemarke<a name="FreemarkerDataModel" href="../../../../com/varmateo/yawg/freemarker/FreemarkerDataModel.html#FreemarkerDataModel">FreemarkerDataModel</a>el.html#FreemarkerDataModel">FreemarkerDataModel</a> fmDataModel = <strong class="jxr_keyword">new</strong> <a name="FreemarkerDataModel" href="../../../../com/varmateo/yawg/freemarker/FreemarkerDataModel.html#FreemarkerDataModel">FreemarkerDataModel</a>(context);
@@ -166,7 +166,7 @@
 <a class="jxr_linenumber" name="L158" href="#L158">158</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L159" href="#L159">159</a> <em class="jxr_javadoccomment">         * HACK.</em>
 <a class="jxr_linenumber" name="L160" href="#L160">160</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L161" href="#L161">161</a>         <strong class="jxr_keyword">public</strong> Template asTemplate() {
+<a class="jxr_linenumber" name="L161" href="#L161">161</a>         <strong class="jxr_keyword">public</strong> <a name="Template" href="../../../../com/varmateo/yawg/spi/Template.html#Template">Template</a> asTemplate() {
 <a class="jxr_linenumber" name="L162" href="#L162">162</a> 
 <a class="jxr_linenumber" name="L163" href="#L163">163</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>;
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>         }

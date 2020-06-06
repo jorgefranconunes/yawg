@@ -35,8 +35,8 @@
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> Path _targetRootDir;
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="DirPageContextBuilder" href="../../../../com/varmateo/yawg/core/DirPageContextBuilder.html#DirPageContextBuilder">DirPageContextBuilder</a> _dirPageContextBuilder;
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="DirBakeOptions" href="../../../../com/varmateo/yawg/core/DirBakeOptions.html#DirBakeOptions">DirBakeOptions</a> _dirBakeOptions;
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> PageContext _pageContext;
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> PageVars _extensionVars;
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="PageContext" href="../../../../com/varmateo/yawg/spi/PageContext.html#PageContext">PageContext</a> _pageContext;
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="PageVars" href="../../../../com/varmateo/yawg/spi/PageVars.html#PageVars">PageVars</a> _extensionVars;
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>      <strong class="jxr_keyword">private</strong> <a name="DirBakerContext" href="../../../../com/varmateo/yawg/core/DirBakerContext.html#DirBakerContext">DirBakerContext</a>(
@@ -44,8 +44,8 @@
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>              <strong class="jxr_keyword">final</strong> Path targetRootDir,
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>              <strong class="jxr_keyword">final</strong> <a name="DirPageContextBuilder" href="../../../../com/varmateo/yawg/core/DirPageContextBuilder.html#DirPageContextBuilder">DirPageContextBuilder</a> dirPageContextBuilder,
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>              <strong class="jxr_keyword">final</strong> <a name="DirBakeOptions" href="../../../../com/varmateo/yawg/core/DirBakeOptions.html#DirBakeOptions">DirBakeOptions</a> dirBakeOptions,
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>              <strong class="jxr_keyword">final</strong> PageContext pageContext,
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>              <strong class="jxr_keyword">final</strong> PageVars extensionVars) {
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>              <strong class="jxr_keyword">final</strong> <a name="PageContext" href="../../../../com/varmateo/yawg/spi/PageContext.html#PageContext">PageContext</a> pageContext,
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>              <strong class="jxr_keyword">final</strong> <a name="PageVars" href="../../../../com/varmateo/yawg/spi/PageVars.html#PageVars">PageVars</a> extensionVars) {
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>          _sourceRootDir = sourceRootDir;
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>          _targetRootDir = targetRootDir;
@@ -62,14 +62,14 @@
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a name="DirBakerContext" href="../../../../com/varmateo/yawg/core/DirBakerContext.html#DirBakerContext">DirBakerContext</a> create(
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>              <strong class="jxr_keyword">final</strong> Path sourceRootDir,
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>              <strong class="jxr_keyword">final</strong> Path targetRootDir,
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>              <strong class="jxr_keyword">final</strong> TemplateService templateService,
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>              <strong class="jxr_keyword">final</strong> <a name="TemplateService" href="../../../../com/varmateo/yawg/spi/TemplateService.html#TemplateService">TemplateService</a> templateService,
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>              <strong class="jxr_keyword">final</strong> <a name="DirBakeOptions" href="../../../../com/varmateo/yawg/core/DirBakeOptions.html#DirBakeOptions">DirBakeOptions</a> dirBakeOptions) {
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>  
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>          <strong class="jxr_keyword">final</strong> String bakeId = UUID.randomUUID().toString();
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>          <strong class="jxr_keyword">final</strong> <a name="DirPageContextBuilder" href="../../../../com/varmateo/yawg/core/DirPageContext<a name="DirPageContextBuilder" href="../../../../com/varmateo/yawg/core/DirPageContextBuilder.html#DirPageContextBuilder">DirPageContextBuilder</a>ontextBuilder">DirPageContextBuilder</a> dirPageContextBuilder = <strong class="jxr_keyword">new</strong> <a name="DirPageContextBuilder" href="../../../../com/varmateo/yawg/core/DirPageContextBuilder.html#DirPageContextBuilder">DirPageContextBuilder</a>(
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>                  targetRootDir, templateService, bakeId);
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>          <strong class="jxr_keyword">final</strong> PageVars extensionVars = PageVars.empty();
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>          <strong class="jxr_keyword">final</strong> PageContext pageContext = dirPageContextBuilder.buildPageContext(
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>          <strong class="jxr_keyword">final</strong> <a name="PageVars" href="../../../../com/varmateo/yawg/spi/PageVars.html#PageVars">PageVars</a> extensionVars = PageVars.empty();
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>          <strong class="jxr_keyword">final</strong> <a name="PageContext" href="../../../../com/varmateo/yawg/spi/PageContext.html#PageContext">PageContext</a> pageContext = dirPageContextBuilder.buildPageContext(
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>                  targetRootDir, dirBakeOptions, extensionVars);
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a name="DirBakerContext" href="../../../../com/varmateo/yawg/core/DirBakerContext.html#DirBakerContext">DirBakerContext</a>(
@@ -101,7 +101,7 @@
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>      <strong class="jxr_keyword">public</strong> PageContext pageContext() {
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>      <strong class="jxr_keyword">public</strong> <a name="PageContext" href="../../../../com/varmateo/yawg/spi/PageContext.html#PageContext">PageContext</a> pageContext() {
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>          <strong class="jxr_keyword">return</strong> _pageContext;
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>      }
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>  
@@ -116,13 +116,13 @@
 <a class="jxr_linenumber" name="L108" href="#L108">108</a> 
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>         <strong class="jxr_keyword">final</strong> <a name="DirBakeOptions" href="../../../../com/varmateo/yawg/core/DirBakeOptions.html#DirBakeOptions">DirBakeOptions</a> childDirBakeOptions =
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>                 childSpecificDirBakeOptions.mergeOnTopOf(_dirBakeOptions);
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>         <strong class="jxr_keyword">final</strong> PageContext childPageContext = _dirPageContextBuilder.buildPageContext(
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>         <strong class="jxr_keyword">final</strong> <a name="PageContext" href="../../../../com/varmateo/yawg/spi/PageContext.html#PageContext">PageContext</a> childPageContext = _dirPageContextBuilder.buildPageContext(
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>                 childTargetDir, childDirBakeOptions, _extensionVars);
-<a class="jxr_linenumber" name="L113" href="#L113">113</a>         <strong class="jxr_keyword">final</strong> PageVars childNewExtensionVars = contextEnricher.apply(childPageContext);
-<a class="jxr_linenumber" name="L114" href="#L114">114</a>         <strong class="jxr_keyword">final</strong> PageVars childExtensionVars = PageVarsBuilder.create(_extensionVars)
+<a class="jxr_linenumber" name="L113" href="#L113">113</a>         <strong class="jxr_keyword">final</strong> <a name="PageVars" href="../../../../com/varmateo/yawg/spi/PageVars.html#PageVars">PageVars</a> childNewExtensionVars = contextEnricher.apply(childPageContext);
+<a class="jxr_linenumber" name="L114" href="#L114">114</a>         <strong class="jxr_keyword">final</strong> <a name="PageVars" href="../../../../com/varmateo/yawg/spi/PageVars.html#PageVars">PageVars</a> childExtensionVars = PageVarsBuilder.create(_extensionVars)
 <a class="jxr_linenumber" name="L115" href="#L115">115</a>                 .addPageVars(childNewExtensionVars)
 <a class="jxr_linenumber" name="L116" href="#L116">116</a>                 .build();
-<a class="jxr_linenumber" name="L117" href="#L117">117</a>         <strong class="jxr_keyword">final</strong> PageContext extendedChildPageContext = PageContextBuilder.create(childPageContext)
+<a class="jxr_linenumber" name="L117" href="#L117">117</a>         <strong class="jxr_keyword">final</strong> <a name="PageContext" href="../../../../com/varmateo/yawg/spi/PageContext.html#PageContext">PageContext</a> extendedChildPageContext = PageContextBuilder.create(childPageContext)
 <a class="jxr_linenumber" name="L118" href="#L118">118</a>                 .addPageVars(childExtensionVars)
 <a class="jxr_linenumber" name="L119" href="#L119">119</a>                 .build();
 <a class="jxr_linenumber" name="L120" href="#L120">120</a> 

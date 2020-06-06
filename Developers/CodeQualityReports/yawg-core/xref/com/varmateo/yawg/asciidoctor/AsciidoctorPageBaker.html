@@ -41,7 +41,7 @@
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment"> * into HTML files.</em>
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="AsciidoctorPageBaker" href="../../../../com/varmateo/yawg/asciidoctor/AsciidoctorPageBaker.html#AsciidoctorPageBaker">AsciidoctorPageBaker</a>
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>          <strong class="jxr_keyword">implements</strong> PageBaker {
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>          <strong class="jxr_keyword">implements</strong> <a name="PageBaker" href="../../../../com/varmateo/yawg/spi/PageBaker.html#PageBaker">PageBaker</a> {
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String NAME = <span class="jxr_string">"asciidoc"</span>;
@@ -61,7 +61,7 @@
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> PageBaker create() {
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a name="PageBaker" href="../../../../com/varmateo/yawg/spi/PageBaker.html#PageBaker">PageBaker</a> create() {
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>  
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a name="AsciidoctorPageBaker" href="../../../../com/varmateo/yawg/asciidoctor/AsciidoctorPageBaker.html#AsciidoctorPageBaker">AsciidoctorPageBaker</a>();
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>      }
@@ -115,9 +115,9 @@
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> <em class="jxr_javadoccomment">     * @return A result signaling success of failure.</em>
 <a class="jxr_linenumber" name="L108" href="#L108">108</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>     @Override
-<a class="jxr_linenumber" name="L110" href="#L110">110</a>     <strong class="jxr_keyword">public</strong> PageBakeResult bake(
+<a class="jxr_linenumber" name="L110" href="#L110">110</a>     <strong class="jxr_keyword">public</strong> <a name="PageBakeResult" href="../../../../com/varmateo/yawg/spi/PageBakeResult.html#PageBakeResult">PageBakeResult</a> bake(
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>             <strong class="jxr_keyword">final</strong> Path sourcePath,
-<a class="jxr_linenumber" name="L112" href="#L112">112</a>             <strong class="jxr_keyword">final</strong> PageContext context,
+<a class="jxr_linenumber" name="L112" href="#L112">112</a>             <strong class="jxr_keyword">final</strong> <a name="PageContext" href="../../../../com/varmateo/yawg/spi/PageContext.html#PageContext">PageContext</a> context,
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>             <strong class="jxr_keyword">final</strong> Path targetDir) {
 <a class="jxr_linenumber" name="L114" href="#L114">114</a> 
 <a class="jxr_linenumber" name="L115" href="#L115">115</a>         <strong class="jxr_keyword">final</strong> Try&lt;Void&gt; result = doBake(sourcePath, context, targetDir);
@@ -131,7 +131,7 @@
 <a class="jxr_linenumber" name="L123" href="#L123">123</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>     <strong class="jxr_keyword">private</strong> Try&lt;Void&gt; doBake(
 <a class="jxr_linenumber" name="L125" href="#L125">125</a>             <strong class="jxr_keyword">final</strong> Path sourcePath,
-<a class="jxr_linenumber" name="L126" href="#L126">126</a>             <strong class="jxr_keyword">final</strong> PageContext context,
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>             <strong class="jxr_keyword">final</strong> <a name="PageContext" href="../../../../com/varmateo/yawg/spi/PageContext.html#PageContext">PageContext</a> context,
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>             <strong class="jxr_keyword">final</strong> Path targetDir) {
 <a class="jxr_linenumber" name="L128" href="#L128">128</a> 
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>         <strong class="jxr_keyword">final</strong> Path targetPath = getTargetPath(sourcePath, targetDir);
@@ -173,7 +173,7 @@
 <a class="jxr_linenumber" name="L165" href="#L165">165</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L166" href="#L166">166</a>     <strong class="jxr_keyword">private</strong> Try&lt;Void&gt; doBakeWithoutTemplate(
 <a class="jxr_linenumber" name="L167" href="#L167">167</a>             <strong class="jxr_keyword">final</strong> Path sourcePath,
-<a class="jxr_linenumber" name="L168" href="#L168">168</a>             <strong class="jxr_keyword">final</strong> PageContext context,
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>             <strong class="jxr_keyword">final</strong> <a name="PageContext" href="../../../../com/varmateo/yawg/spi/PageContext.html#PageContext">PageContext</a> context,
 <a class="jxr_linenumber" name="L169" href="#L169">169</a>             <strong class="jxr_keyword">final</strong> Path targetDir,
 <a class="jxr_linenumber" name="L170" href="#L170">170</a>             <strong class="jxr_keyword">final</strong> Path targetPath){
 <a class="jxr_linenumber" name="L171" href="#L171">171</a> 
@@ -191,10 +191,10 @@
 <a class="jxr_linenumber" name="L183" href="#L183">183</a> 
 <a class="jxr_linenumber" name="L184" href="#L184">184</a>     <strong class="jxr_keyword">private</strong> Try&lt;Void&gt; doBakeWithTemplate(
 <a class="jxr_linenumber" name="L185" href="#L185">185</a>             <strong class="jxr_keyword">final</strong> Path sourcePath,
-<a class="jxr_linenumber" name="L186" href="#L186">186</a>             <strong class="jxr_keyword">final</strong> PageContext context,
+<a class="jxr_linenumber" name="L186" href="#L186">186</a>             <strong class="jxr_keyword">final</strong> <a name="PageContext" href="../../../../com/varmateo/yawg/spi/PageContext.html#PageContext">PageContext</a> context,
 <a class="jxr_linenumber" name="L187" href="#L187">187</a>             <strong class="jxr_keyword">final</strong> Path targetDir,
 <a class="jxr_linenumber" name="L188" href="#L188">188</a>             <strong class="jxr_keyword">final</strong> Path targetPath,
-<a class="jxr_linenumber" name="L189" href="#L189">189</a>             <strong class="jxr_keyword">final</strong> Template template) {
+<a class="jxr_linenumber" name="L189" href="#L189">189</a>             <strong class="jxr_keyword">final</strong> <a name="Template" href="../../../../com/varmateo/yawg/spi/Template.html#Template">Template</a> template) {
 <a class="jxr_linenumber" name="L190" href="#L190">190</a> 
 <a class="jxr_linenumber" name="L191" href="#L191">191</a>         <strong class="jxr_keyword">final</strong> Try&lt;TemplateContext&gt; templateContext = AsciidoctorTemplateContext.create(
 <a class="jxr_linenumber" name="L192" href="#L192">192</a>                 _asciidoctor.get(), sourcePath, targetDir, targetPath, context);
@@ -206,9 +206,9 @@
 <a class="jxr_linenumber" name="L198" href="#L198">198</a>     <strong class="jxr_keyword">private</strong> Function&lt;TemplateContext, Try&lt;Void&gt;&gt; processTemplate(
 <a class="jxr_linenumber" name="L199" href="#L199">199</a>             <strong class="jxr_keyword">final</strong> Path sourcePath,
 <a class="jxr_linenumber" name="L200" href="#L200">200</a>             <strong class="jxr_keyword">final</strong> Path targetPath,
-<a class="jxr_linenumber" name="L201" href="#L201">201</a>             <strong class="jxr_keyword">final</strong> Template template) {
+<a class="jxr_linenumber" name="L201" href="#L201">201</a>             <strong class="jxr_keyword">final</strong> <a name="Template" href="../../../../com/varmateo/yawg/spi/Template.html#Template">Template</a> template) {
 <a class="jxr_linenumber" name="L202" href="#L202">202</a> 
-<a class="jxr_linenumber" name="L203" href="#L203">203</a>         <strong class="jxr_keyword">return</strong> (TemplateContext templateContext) -&gt; {
+<a class="jxr_linenumber" name="L203" href="#L203">203</a>         <strong class="jxr_keyword">return</strong> (<a name="TemplateContext" href="../../../../com/varmateo/yawg/spi/TemplateContext.html#TemplateContext">TemplateContext</a> templateContext) -&gt; {
 <a class="jxr_linenumber" name="L204" href="#L204">204</a>             <strong class="jxr_keyword">final</strong> Try&lt;Result&lt;Void&gt;&gt; result = FileUtils.safeWriteWith(
 <a class="jxr_linenumber" name="L205" href="#L205">205</a>                     targetPath,
 <a class="jxr_linenumber" name="L206" href="#L206">206</a>                     writer -&gt; template.process(templateContext, writer));

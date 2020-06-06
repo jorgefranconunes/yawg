@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PageContextBuilder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.spi</a> &gt; <span class="el_source">PageContextBuilder.java</span></div><h1>PageContextBuilder.java</h1><pre class="source lang-java linenums">/**************************************************************************
+ *
+ * Copyright (c) 2017 Yawg project contributors.
+ *
+ **************************************************************************/
+
+package com.varmateo.yawg.spi;
+
+import com.varmateo.yawg.spi.PageContextBuilder;
+import com.varmateo.yawg.spi.PageVars;
+import com.varmateo.yawg.spi.PageVarsBuilder;
+import com.varmateo.yawg.spi.Template;
+import java.nio.file.Path;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Function;
+
+
+/**
+ * A builder of &lt;code&gt;PageContext&lt;/code&gt; instances.
+ */
+public final class PageContextBuilder {
+
+
+    private String _dirUrl;
+    private Function&lt;Path,Optional&lt;Template&gt;&gt; _templateFetcher;
+    private String _rootRelativeUrl;
+    private PageVarsBuilder _pageVarsBuilder;
+    private String _bakeId;
+
+
+    /**
+     *
+     */
+<span class="fc" id="L35">    private PageContextBuilder() {</span>
+
+<span class="fc" id="L37">        _dirUrl = null;</span>
+<span class="fc" id="L38">        _templateFetcher = (path -&gt; Optional.empty());</span>
+<span class="fc" id="L39">        _rootRelativeUrl = null;</span>
+<span class="fc" id="L40">        _pageVarsBuilder = PageVarsBuilder.create();</span>
+<span class="fc" id="L41">        _bakeId = null;</span>
+<span class="fc" id="L42">    }</span>
+
+
+    /**
+     *
+     */
+<span class="fc" id="L48">    private PageContextBuilder(final PageContext data) {</span>
+
+<span class="fc" id="L50">        _dirUrl = data.dirUrl();</span>
+<span class="fc" id="L51">        _templateFetcher = data::templateFor;</span>
+<span class="fc" id="L52">        _rootRelativeUrl = data.rootRelativeUrl();</span>
+<span class="fc" id="L53">        _pageVarsBuilder = PageVarsBuilder.create(data.pageVars());</span>
+<span class="fc" id="L54">        _bakeId = data.bakeId();</span>
+<span class="fc" id="L55">    }</span>
+
+
+    /**
+     * Creates a new empty &lt;code&gt;PageContextBuilder&lt;/code&gt; instance.
+     *
+     * @return A new empty builder object.
+     */
+    public static PageContextBuilder create() {
+
+<span class="fc" id="L65">        return new PageContextBuilder();</span>
+    }
+
+
+    /**
+     * Creates a new &lt;code&gt;PageContextBuilder&lt;/code&gt; instance
+     * initialized with the data from the given
+     * &lt;code&gt;PageContext&lt;/code&gt;.
+     *
+     * @param initialData Provides the data used for initializing the
+     * returned builder.
+     *
+     * @return A new builder object initialized with the given data.
+     */
+    public static PageContextBuilder create(final PageContext initialData) {
+
+<span class="fc" id="L81">        return new PageContextBuilder(initialData);</span>
+    }
+
+
+    /**
+     * @return A reference to this builder.
+     */
+    public PageContextBuilder dirUrl(final String dirUrl) {
+
+<span class="fc" id="L90">        _dirUrl = dirUrl;</span>
+<span class="fc" id="L91">        return this;</span>
+    }
+
+
+    /**
+     * @param templateFetcher Function that can be used to retrieve
+     * the template to be applied to a given path.
+     *
+     * @return A reference to this builder.
+     */
+    public PageContextBuilder templateFetcher(
+            final Function&lt;Path,Optional&lt;Template&gt;&gt; templateFetcher) {
+
+<span class="fc" id="L104">        _templateFetcher = templateFetcher;</span>
+<span class="fc" id="L105">        return this;</span>
+    }
+
+
+    /**
+     * @return A reference to this builder.
+     */
+    public PageContextBuilder rootRelativeUrl(final String rootRelativeUrl) {
+
+<span class="fc" id="L114">        _rootRelativeUrl = rootRelativeUrl;</span>
+<span class="fc" id="L115">        return this;</span>
+    }
+
+
+    /**
+     * @return A reference to this builder.
+     */
+    public PageContextBuilder pageVars(final PageVars pageVars) {
+
+<span class="fc" id="L124">        _pageVarsBuilder = PageVarsBuilder.create(pageVars);</span>
+<span class="fc" id="L125">        return this;</span>
+    }
+
+
+    /**
+     * Merges the given set of page variables into the set of page
+     * variables currently hold by this builder. Page variables
+     * currently in this builder with the same name will be superseded
+     * by the new provided page variables.
+     *
+     * @param pageVars The set of page variables to add to the set of
+     * page variables hold by this builder.
+     *
+     * @return A reference to this builder.
+     */
+    public PageContextBuilder addPageVars(final PageVars pageVars) {
+
+<span class="fc" id="L142">        _pageVarsBuilder.addPageVars(pageVars);</span>
+<span class="fc" id="L143">        return this;</span>
+    }
+
+
+    /**
+     * Adds one page variable to this builder. An existing page
+     * variable in this builder with the same name will be superseded
+     * by the given page variable.
+     *
+     * @param varName The name of the page variable to be added.
+     *
+     * @param varValue The value of the page variable to be added.
+     *
+     * @return A reference to this builder.
+     */
+    public PageContextBuilder addVar(
+            final String varName,
+            final Object varValue) {
+
+<span class="fc" id="L162">        _pageVarsBuilder.addVar(varName, varValue);</span>
+<span class="fc" id="L163">        return this;</span>
+    }
+
+
+    /**
+     *
+     */
+    public PageContextBuilder bakeId(final String bakeId) {
+
+<span class="fc" id="L172">        _bakeId = bakeId;</span>
+<span class="fc" id="L173">        return this;</span>
+    }
+
+
+    /**
+     * Creates a new &lt;code&gt;PageContext&lt;/code&gt; instance initialized
+     * with the current values in this builder.
+     *
+     * @return A newly created &lt;code&gt;PageContext&lt;/code&gt; instance.
+     */
+    public PageContext build() {
+
+<span class="fc" id="L185">        return new PageContextImpl(this);</span>
+    }
+
+
+    /**
+     *
+     */
+    private final class PageContextImpl
+            implements PageContext {
+
+
+        private final String _dirUrl;
+        private final Function&lt;Path,Optional&lt;Template&gt;&gt; _templateFetcher;
+        private final PageVars _pageVars;
+        private final String _rootRelativeUrl;
+        private final String _bakeId;
+
+
+        /**
+         *
+         */
+<span class="fc" id="L206">        private PageContextImpl(final PageContextBuilder builder) {</span>
+
+<span class="fc" id="L208">            _dirUrl = Objects.requireNonNull(builder._dirUrl);</span>
+<span class="fc" id="L209">            _templateFetcher = builder._templateFetcher;</span>
+<span class="fc" id="L210">            _rootRelativeUrl = Objects.requireNonNull(builder._rootRelativeUrl);</span>
+<span class="fc" id="L211">            _pageVars = builder._pageVarsBuilder.build();</span>
+<span class="fc" id="L212">            _bakeId = Objects.requireNonNull(builder._bakeId);</span>
+<span class="fc" id="L213">        }</span>
+
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public String dirUrl() {
+<span class="fc" id="L221">            return _dirUrl;</span>
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public Optional&lt;Template&gt; templateFor(final Path path) {
+<span class="fc" id="L230">            return _templateFetcher.apply(path);</span>
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public PageVars pageVars() {
+<span class="fc" id="L239">            return _pageVars;</span>
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public String rootRelativeUrl() {
+<span class="fc" id="L248">            return _rootRelativeUrl;</span>
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public String bakeId() {
+<span class="fc" id="L257">            return _bakeId;</span>
+        }
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
