@@ -1,8 +1,13 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 Yawg API,com.varmateo.yawg.api,Result,0,15,0,0,0,4,0,3,0,3
-Yawg API,com.varmateo.yawg.api,BakeOptionsBuilder.BakeOptionsImpl,29,0,0,0,8,0,4,0,4,0
-Yawg API,com.varmateo.yawg.api,BakeOptionsBuilder,60,0,0,0,17,0,7,0,7,0
+Yawg API,com.varmateo.yawg.api,BakeOptions.Builder,3,0,0,0,2,0,1,0,1,0
+Yawg API,com.varmateo.yawg.api,BakeOptions,8,0,0,0,2,0,2,0,2,0
 Yawg API,com.varmateo.yawg.api,YawgException,5,4,0,0,2,2,1,1,1,1
+Yawg API,com.varmateo.yawg.api,BakeOptions_Builder,335,0,33,0,75,0,37,0,20,0
 Yawg API,com.varmateo.yawg.api,YawgInfo,8,0,0,0,3,0,2,0,2,0
+Yawg API,com.varmateo.yawg.api,BakeOptions_Builder.Property,46,0,0,0,7,0,5,0,5,0
+Yawg API,com.varmateo.yawg.api,BakeOptions_Builder.Partial,158,0,18,0,28,0,17,0,8,0
+Yawg API,com.varmateo.yawg.api,BakeOptions_Builder.Rebuildable,3,0,0,0,1,0,1,0,1,0
+Yawg API,com.varmateo.yawg.api,BakeOptions_Builder.Value,120,0,8,0,22,0,12,0,8,0
 Yawg API,com.varmateo.yawg.api,Result.Success,0,16,0,0,0,6,0,4,0,4
 Yawg API,com.varmateo.yawg.api,Result.Failure,0,16,0,0,0,6,0,4,0,4
