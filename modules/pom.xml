@@ -76,7 +76,6 @@ Copyright (c) 2015-2020 Yawg project contributors.
     <module>cli</module>
     <module>core</module>
     <module>release</module>
-    <module>spi</module>
     <module>testutils</module>
   </modules>
 

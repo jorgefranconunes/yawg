@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-Copyright (c) 2016-2019 Yawg project contributors.
+Copyright (c) 2016-2020 Yawg project contributors.
 
 Maven POM for the "core" sub-project of the Yawg project.
 
@@ -111,12 +111,6 @@ Maven POM for the "core" sub-project of the Yawg project.
       <version>${project.version}</version>
     </dependency>
 
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>yawg-spi</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
   </dependencies>
 
 
@@ -173,7 +167,6 @@ Maven POM for the "core" sub-project of the Yawg project.
             <version>${maven-javadoc-plugin.version}</version>
             <configuration>
               <subpackages>com.varmateo.yawg.core</subpackages>
-              <excludePackageNames>com.varmateo.yawg.core.impl</excludePackageNames>
             </configuration>
             <executions>
               <execution>
@@ -213,7 +206,7 @@ Maven POM for the "core" sub-project of the Yawg project.
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <configuration>
-          <excludePackageNames>com.varmateo.yawg.asciidoctor,com.varmateo.yawg.breadcrumbs,com.varmateo.yawg.commonmark,com.varmateo.yawg.freemarker,com.varmateo.yawg.html,com.varmateo.yawg.logging,com.varmateo.yawg.util</excludePackageNames>
+          <subpackages>com.varmateo.yawg.core</subpackages>
         </configuration>
       </plugin>
     </plugins>
