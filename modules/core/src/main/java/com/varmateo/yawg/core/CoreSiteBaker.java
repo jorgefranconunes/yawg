@@ -9,7 +9,6 @@ package com.varmateo.yawg.core;
 import java.nio.file.Path;
 import java.util.Map;
 
-import io.vavr.control.Option;
 import io.vavr.control.Try;
 
 import com.varmateo.yawg.api.BakeOptions;

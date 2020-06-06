@@ -16,7 +16,6 @@ import java.nio.file.Path;
 import io.vavr.control.Try;
 
 import com.varmateo.yawg.api.BakeOptions;
-import com.varmateo.yawg.api.BakeOptionsBuilder;
 import com.varmateo.yawg.api.Result;
 import com.varmateo.yawg.api.SiteBaker;
 import com.varmateo.yawg.api.YawgInfo;
@@ -123,7 +122,7 @@ public final class BakerCli {
                 .map(path -> DefaultSiteBaker.create(path))
                 .getOrElse(() -> DefaultSiteBaker.create());
 
-        final BakeOptions bakeOptions = BakeOptionsBuilder.create()
+        final BakeOptions bakeOptions = BakeOptions.builder()
                 .sourceDir(options.sourceDir())
                 .targetDir(options.targetDir())
                 .putAllExternalPageVars(options.externalPageVars().toJavaMap())

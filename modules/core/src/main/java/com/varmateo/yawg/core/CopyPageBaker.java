@@ -6,7 +6,6 @@
 
 package com.varmateo.yawg.core;
 
-import java.io.IOException;
 import java.nio.file.Path;
 
 import io.vavr.control.Try;

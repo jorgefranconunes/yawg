@@ -10,11 +10,14 @@ import java.nio.file.Path;
 import java.util.Map;
 import java.util.Optional;
 
+import org.inferred.freebuilder.FreeBuilder;
+
 
 /**
  * Set of configuration parameters for baking a site using a {@code
  * SiteBaker} instance.
  */
+@FreeBuilder
 public interface BakeOptions {
 
 
@@ -40,5 +43,36 @@ public interface BakeOptions {
      * the map are the variable names.
      */
     Map<String, Object> externalPageVars();
+
+
+    /**
+     * Creates a new empty builder.
+     */
+    static Builder builder() {
+
+        return new Builder();
+    }
+
+
+    /**
+     * Creates a new builder initialized with the attributes from the
+     * given {@code BakeOptions}.
+     */
+    static Builder builder(final BakeOptions data) {
+
+        return Builder.from(data);
+    }
+
+
+    /**
+     * A builder of {@code BakeOptions} instances.
+     */
+    final class Builder extends BakeOptions_Builder {
+
+        private Builder() {
+            // Nothing to do.
+        }
+
+    }
 
 }
