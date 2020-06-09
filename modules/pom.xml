@@ -54,7 +54,7 @@ Copyright (c) 2015-2020 Yawg project contributors.
     <maven-failsafe-plugin.version>2.19.1</maven-failsafe-plugin.version>
     <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
     <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
-    <maven-javadoc-plugin.version>3.1.0</maven-javadoc-plugin.version>
+    <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
     <maven-jxr-plugin.version>3.0.0</maven-jxr-plugin.version>
     <maven-pmd-plugin.version>3.7</maven-pmd-plugin.version>
     <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>

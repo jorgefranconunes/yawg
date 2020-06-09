@@ -166,7 +166,11 @@ Maven POM for the "core" sub-project of the Yawg project.
             <artifactId>maven-javadoc-plugin</artifactId>
             <version>${maven-javadoc-plugin.version}</version>
             <configuration>
-              <subpackages>com.varmateo.yawg.core</subpackages>
+              <includeDependencySources>true</includeDependencySources>
+              <dependencySourceIncludes>
+                <dependencySourceInclude>${project.groupId}:yawg-api</dependencySourceInclude>
+              </dependencySourceIncludes>
+              <subpackages>com.varmateo.yawg.api:com.varmateo.yawg.core</subpackages>
             </configuration>
             <executions>
               <execution>
