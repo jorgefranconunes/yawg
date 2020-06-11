@@ -32,7 +32,7 @@
 
     <link
        rel="stylesheet"
-       href="../yawg-site.css?v=512201d5-85c6-44e3-b0e7-56a975687d15" />
+       href="../yawg-site.css?v=794309fd-4f74-40c7-907b-4495bc61a1e3" />
 
     <script
        type="text/javascript"
@@ -80,8 +80,27 @@
     </ol>
 
         <h1>Deploying to Maven Central Repository</h1>
-        <div class="sect1">
-<h2 id="_introduction">Introduction</h2>
+        <div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_introduction">1. Introduction</a></li>
+<li><a href="#_prepare_gpg_key">2. Prepare GPG key</a>
+<ul class="sectlevel2">
+<li><a href="#_install_gnupg">2.1. Install GnuPG</a></li>
+<li><a href="#_generate_a_key_pair">2.2. Generate a key pair</a></li>
+<li><a href="#_distribute_gpg_public_key">2.3. Distribute GPG public key</a></li>
+</ul>
+</li>
+<li><a href="#_create_jira_account">3. Create JIRA account</a></li>
+<li><a href="#_register_yawg_project_on_ossrh">4. Register Yawg project on OSSRH</a></li>
+<li><a href="#_add_ossrh_repository_to_maven_build_config">5. Add OSSRH repository to Maven build config</a></li>
+<li><a href="#_add_credentials_to_maven_settings">6. Add credentials to Maven settings</a></li>
+<li><a href="#_deploy_to_the_staging_respository">7. Deploy to the staging respository</a></li>
+<li><a href="#_release_from_staging_repo_to_maven_central">8. Release from staging repo to Maven Central</a></li>
+</ul>
+</div>
+<div class="sect1">
+<h2 id="_introduction">1. Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This document contains notes on deploying the Yawg Maven artifacts to
@@ -104,10 +123,10 @@ to uploading artifacts to the Central Repository</a></p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_prepare_gpg_key">Prepare GPG key</h2>
+<h2 id="_prepare_gpg_key">2. Prepare GPG key</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_install_gnupg">Install GnuPG</h3>
+<h3 id="_install_gnupg">2.1. Install GnuPG</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -123,7 +142,7 @@ to uploading artifacts to the Central Repository</a></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_generate_a_key_pair">Generate a key pair</h3>
+<h3 id="_generate_a_key_pair">2.2. Generate a key pair</h3>
 <div class="listingblock">
 <div class="content">
 <pre>gpg --gen-key</pre>
@@ -165,7 +184,7 @@ to uploading artifacts to the Central Repository</a></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_distribute_gpg_public_key">Distribute GPG public key</h3>
+<h3 id="_distribute_gpg_public_key">2.3. Distribute GPG public key</h3>
 <div class="listingblock">
 <div class="content">
 <pre>gpg --keyserver hkp://keys.gnupg.net --send-key 701FCC65</pre>
@@ -175,7 +194,7 @@ to uploading artifacts to the Central Repository</a></p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_create_jira_account">Create JIRA account</h2>
+<h2 id="_create_jira_account">3. Create JIRA account</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><a href="https://issues.sonatype.org/" class="bare">https://issues.sonatype.org/</a></p>
@@ -193,7 +212,7 @@ to uploading artifacts to the Central Repository</a></p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_register_yawg_project_on_ossrh">Register Yawg project on OSSRH</h2>
+<h2 id="_register_yawg_project_on_ossrh">4. Register Yawg project on OSSRH</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><a href="https://issues.sonatype.org/secure/CreateIssue.jspa?issuetype=21&amp;pid=10134" class="bare">https://issues.sonatype.org/secure/CreateIssue.jspa?issuetype=21&amp;pid=10134</a></p>
@@ -204,7 +223,7 @@ to uploading artifacts to the Central Repository</a></p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_add_ossrh_repository_to_maven_build_config">Add OSSRH repository to Maven build config</h2>
+<h2 id="_add_ossrh_repository_to_maven_build_config">5. Add OSSRH repository to Maven build config</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Add to the <code>distributionManagement</code> element an entry for the Open
@@ -223,7 +242,7 @@ Source Software Repository Hosting (OSSRH) repository.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_add_credentials_to_maven_settings">Add credentials to Maven settings</h2>
+<h2 id="_add_credentials_to_maven_settings">6. Add credentials to Maven settings</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Add the OSSRH Jira credentials, and the GnuPG key credentials to your
@@ -265,7 +284,7 @@ Source Software Repository Hosting (OSSRH) repository.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_deploy_to_the_staging_respository">Deploy to the staging respository</h2>
+<h2 id="_deploy_to_the_staging_respository">7. Deploy to the staging respository</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -275,7 +294,7 @@ Source Software Repository Hosting (OSSRH) repository.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_release_from_staging_repo_to_maven_central">Release from staging repo to Maven Central</h2>
+<h2 id="_release_from_staging_repo_to_maven_central">8. Release from staging repo to Maven Central</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Login into <a href="https://oss.sonatype.org/" class="bare">https://oss.sonatype.org/</a></p>
@@ -300,7 +319,7 @@ Source Software Repository Hosting (OSSRH) repository.</p>
     |
     <a href="../PrivacyPolicy.html">Privacy</a>
     |
-    Last update 2020-06-09 19:58 UTC
+    Last update 2020-06-11 20:33 UTC
   </p>
 </footer>
 

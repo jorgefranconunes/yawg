@@ -32,7 +32,7 @@
 
     <link
        rel="stylesheet"
-       href="../yawg-site.css?v=512201d5-85c6-44e3-b0e7-56a975687d15" />
+       href="../yawg-site.css?v=794309fd-4f74-40c7-907b-4495bc61a1e3" />
 
     <script
        type="text/javascript"
@@ -80,11 +80,24 @@
     </ol>
 
         <h1>Auto-publishing the Yawg site</h1>
-        <div id="preamble">
+        <div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_introduction">1. Introduction</a></li>
+<li><a href="#_steps_in_the_auto_publishing_procedure_run_within_travis_ci">2. Steps in the auto-publishing procedure run within Travis CI</a></li>
+<li><a href="#_implementation_steps">3. Implementation steps</a></li>
+<li><a href="#_travis_ci_configuration">4. Travis CI configuration:</a></li>
+<li><a href="#_preparing_the_ssh_key_for_deploying_on_github">5. Preparing the SSH key for deploying on GitHub</a></li>
+<li><a href="#_define_new_ssh_key_in_github_account">6. Define new SSH key in GitHub account</a></li>
+</ul>
+</div>
+<div class="sect1">
+<h2 id="_introduction">1. Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This document describes the setup and tools for auto-publishing the
-Yawg site.</p>
+<p>This document describes the setup and tools for auto-publishing of the
+Yawg site. We this we achieve "continous publishing" for the Yawg
+site.</p>
 </div>
 <div class="paragraph">
 <p>The Yawg site is hosted through the <a href="https://pages.github.com/">GitHub
@@ -99,7 +112,7 @@ branch of the project. And then pushed to GitHub.</p>
 CI.</p>
 </div>
 <div class="paragraph">
-<p>We will create a tool to perform the actions for publishing the Yawg
+<p>We created a tool to perform the actions for publishing the Yawg
 site. This tool will be invoked in the build job run by Travis CI.</p>
 </div>
 <div class="paragraph">
@@ -121,7 +134,7 @@ branches.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_steps_in_the_auto_publishing_procedure_run_within_travis_ci">Steps in the auto-publishing procedure run within Travis CI</h2>
+<h2 id="_steps_in_the_auto_publishing_procedure_run_within_travis_ci">2. Steps in the auto-publishing procedure run within Travis CI</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -156,7 +169,7 @@ site. The exact version to be used is a configuration parameter.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_implementation_steps">Implementation steps</h2>
+<h2 id="_implementation_steps">3. Implementation steps</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -188,7 +201,7 @@ perform most of the work.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_travis_ci_configuration">Travis CI configuration:</h2>
+<h2 id="_travis_ci_configuration">4. Travis CI configuration:</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -213,7 +226,7 @@ deploy:
 </div>
 </div>
 <div class="sect1">
-<h2 id="_preparing_the_ssh_key_for_deploying_on_github">Preparing the SSH key for deploying on GitHub</h2>
+<h2 id="_preparing_the_ssh_key_for_deploying_on_github">5. Preparing the SSH key for deploying on GitHub</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes how to prepare the SSH key and other files for
@@ -227,8 +240,8 @@ deploying the Yawg site to GitHub from within a Travis CI job.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>apt-get install ruby-dev
-gem install travis</pre>
+<pre class="CodeRay highlight"><code data-lang="sh">apt-get install ruby-dev
+gem install travis</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -236,8 +249,8 @@ gem install travis</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>yum install ruby-devel rubygems
-gem install travis</pre>
+<pre class="CodeRay highlight"><code data-lang="sh">yum install ruby-devel rubygems
+gem install travis</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -245,17 +258,33 @@ gem install travis</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>ssh-keygen \
+<pre class="CodeRay highlight"><code data-lang="sh">ssh-keygen \
     -t rsa \
     -N '' \
     -C 'yawg-site-upload@travisci' \
-    -f ~/.ssh/id_rsa-travisci
-
-travis login --org
+    -f ~/.ssh/id_rsa-travisci</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above command will generate two files:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>~/.ssh/id_rsa-travisci</code></p>
+</li>
+<li>
+<p><code>~/.ssh/id_rsa-travisci.pub</code></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sh">travis login --org
 travis encrypt-file \
     ~/.ssh/id_rsa-travisci \
     ./devtools/conf/id_rsa-travisci.enc \
-    --repo jorgefranconunes/yawg</pre>
+    --repo jorgefranconunes/yawg</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -266,7 +295,7 @@ be used for decripting the file. That command must be added to the
 </div>
 </div>
 <div class="sect1">
-<h2 id="_define_new_ssh_key_in_github_account">Define new SSH key in GitHub account</h2>
+<h2 id="_define_new_ssh_key_in_github_account">6. Define new SSH key in GitHub account</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -312,7 +341,7 @@ file you created in a previous step.</p>
     |
     <a href="../PrivacyPolicy.html">Privacy</a>
     |
-    Last update 2020-06-09 19:58 UTC
+    Last update 2020-06-11 20:33 UTC
   </p>
 </footer>
 
