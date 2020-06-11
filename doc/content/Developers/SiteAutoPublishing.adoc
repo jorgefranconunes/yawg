@@ -1,11 +1,16 @@
 = Auto-publishing the Yawg site
+:toc:
+:sectnums:
 
 
 
 
 
-This document describes the setup and tools for auto-publishing the
-Yawg site.
+== Introduction
+
+This document describes the setup and tools for auto-publishing of the
+Yawg site. We this we achieve "continous publishing" for the Yawg
+site.
 
 The Yawg site is hosted through the https://pages.github.com/[GitHub
 Pages] service provided by GitHub.
@@ -16,7 +21,7 @@ branch of the project. And then pushed to GitHub.
 The continuous integration build jobs are under the control of Travis
 CI.
 
-We will create a tool to perform the actions for publishing the Yawg
+We created a tool to perform the actions for publishing the Yawg
 site. This tool will be invoked in the build job run by Travis CI.
 
 The Yawg version to be used for baking the Yawg site will be a
@@ -121,6 +126,7 @@ Install Travis CI command line client:
 
 Debian family distributions:
 
+[source,sh]
 ----
 apt-get install ruby-dev
 gem install travis
@@ -128,6 +134,7 @@ gem install travis
 
 CentOS family distributions:
 
+[source,sh]
 ----
 yum install ruby-devel rubygems
 gem install travis
@@ -136,13 +143,23 @@ gem install travis
 
 Generate the SSH key for uploading the site to GitHub:
 
+[source,sh]
 ----
 ssh-keygen \
     -t rsa \
     -N '' \
     -C 'yawg-site-upload@travisci' \
     -f ~/.ssh/id_rsa-travisci
+----
 
+The above command will generate two files:
+
+* `~/.ssh/id_rsa-travisci`
+* `~/.ssh/id_rsa-travisci.pub`
+
+
+[source,sh]
+----
 travis login --org
 travis encrypt-file \
     ~/.ssh/id_rsa-travisci \

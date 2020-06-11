@@ -1,4 +1,6 @@
 = Deploying to Maven Central Repository
+:toc:
+:sectnums:
 
 
 
