@@ -34,9 +34,7 @@ Copyright (c) 2015-2020 Yawg project contributors.
     <assertj-core.version>3.11.1</assertj-core.version>
     <commonmark.version>0.12.1</commonmark.version>
     <commons-cli.version>1.2</commons-cli.version>
-    <findbugs-maven-plugin.version>3.0.4</findbugs-maven-plugin.version>
     <freebuilder.version>2.3.0</freebuilder.version>
-    <jacoco-maven-plugin.version>0.7.7.201606060606</jacoco-maven-plugin.version>
     <freemarker.version>2.3.28</freemarker.version>
     <jsoup.version>1.8.3</jsoup.version>
     <junit.version>4.12</junit.version>
@@ -45,6 +43,8 @@ Copyright (c) 2015-2020 Yawg project contributors.
     <yamlbeans.version>1.09</yamlbeans.version>
 
     <!-- Versions of Maven plugins. -->
+    <findbugs-maven-plugin.version>3.0.4</findbugs-maven-plugin.version>
+    <jacoco-maven-plugin.version>0.7.7.201606060606</jacoco-maven-plugin.version>
     <maven-assembly-plugin.version>3.1.1</maven-assembly-plugin.version>
     <maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>
     <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>

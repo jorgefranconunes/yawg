@@ -157,14 +157,14 @@ function updateVersionInPomFiles () {
     myLog "Updating POM files..."
 
     local pomBase=${_yawgHome}/modules
-    local pomFileList="
-        ${pomBase}/pom.xml
-        ${pomBase}/*/pom.xml
-"
+    local pomFileList="pom.xml $(cd ${pomBase} ; ls -1 */pom.xml)"
 
     for pomFile in ${pomFileList} ; do
-        myLog "    $(getRelativePath ${pomFile} ${pomBase})"
-        updateVersionInOnePomFile ${newVersion} ${pomFile}
+        myLog "    ${pomFile}"
+
+        local pomFilePath=${pomBase}/${pomFile}
+
+        updateVersionInOnePomFile ${newVersion} ${pomFilePath}
     done
 }
 
@@ -209,18 +209,6 @@ function myLog () {
     else
         : # Show no logging.
     fi
-}
-
-
-####
-#
-###
-function getRelativePath () {
-
-    local path=$1
-    local basePath=$2
-
-    python -c "import os.path; print os.path.relpath('${path}', '${basePath}')"
 }
 
 
