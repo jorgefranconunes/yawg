@@ -12,7 +12,7 @@ package com.varmateo.yawg.api;
  * related activity.
  */
 public abstract class YawgException
-    extends RuntimeException {
+        extends RuntimeException {
 
 
     /**

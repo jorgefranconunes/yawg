@@ -1,7 +1,7 @@
 #!/bin/bash
 ###########################################################################
 #
-# Copyright (c) 2017 Yawg project contributors.
+# Copyright (c) 2017-2020 Yawg project contributors.
 #
 #
 # The Travis CI job.
@@ -16,9 +16,6 @@ source ${_yawgHome}/lib/bash/yawg-utils.sh
 source ${_yawgHome}/conf/yawg-defaults.conf
 
 
-
-
-
 TOOL_NAME="Travis CI job"
 PRODUCT_HEADER="${YAWG_PRODUCT_NAME} ${YAWG_VERSION} - ${TOOL_NAME}"
 
@@ -27,14 +24,9 @@ _mainlineBranch=master
 _jobType=
 
 
-
-
-#######################################################################
-#
-# The main script.
-#
-#######################################################################
-
+###
+## The main script.
+###
 function main () {
 
     processCliArgs "$@"
@@ -43,15 +35,9 @@ function main () {
 }
 
 
-
-
-
-###########################################################################
-#
+###
 # Processes the command line options.
-#
-###########################################################################
-
+###
 function processCliArgs () {
 
     for option in "$@" ; do
@@ -74,15 +60,9 @@ function processCliArgs () {
 }
 
 
-
-
-
-###########################################################################
+###
 #
-#
-#
-###########################################################################
-
+###
 function displayHelpAndExit () {
 
     displayHelp
@@ -90,15 +70,9 @@ function displayHelpAndExit () {
 }
 
 
-
-
-
-###########################################################################
-#
+###
 # Displays an help messages describing the configuration options.
-#
-###########################################################################
-
+###
 function displayHelp () {
 
     cat <<EOF
@@ -123,14 +97,10 @@ EOF
 }
 
 
-
-
-#######################################################################
-#
+###
 # The main script.
 #
-#######################################################################
-
+###
 function runJob () {
 
     prepare
@@ -149,17 +119,11 @@ function runJob () {
 }
 
 
-
-
-
-#######################################################################
-#
+###
 # Documentation about environment variables available under the Travis
 # CI environment is available at
 # https://docs.travis-ci.com/user/environment-variables/
-#
-#######################################################################
-
+###
 function prepare () {
 
     local eventType=${TRAVIS_EVENT_TYPE}
@@ -173,15 +137,9 @@ function prepare () {
 }
 
 
-
-
-
-#######################################################################
+###
 #
-# 
-#
-#######################################################################
-
+###
 function showConfig () {
 
     yawgLog "${PRODUCT_HEADER}"
@@ -192,14 +150,7 @@ function showConfig () {
 }
 
 
-
-
-
-#######################################################################
-#
+###
 # Entry point.
-#
-#######################################################################
-
+###
 main "$@"
-
