@@ -189,7 +189,7 @@ public final class PageContextBuilder {
     /**
      *
      */
-    private final class PageContextImpl
+    private static final class PageContextImpl
             implements PageContext {
 
 

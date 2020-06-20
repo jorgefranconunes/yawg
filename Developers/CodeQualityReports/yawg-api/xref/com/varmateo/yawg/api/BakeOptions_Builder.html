@@ -402,53 +402,66 @@
 <a class="jxr_linenumber" name="L394" href="#L394">394</a>       <strong class="jxr_keyword">return</strong> externalPageVars;
 <a class="jxr_linenumber" name="L395" href="#L395">395</a>     }
 <a class="jxr_linenumber" name="L396" href="#L396">396</a> 
-<a class="jxr_linenumber" name="L397" href="#L397">397</a>     @Override
-<a class="jxr_linenumber" name="L398" href="#L398">398</a>     <strong class="jxr_keyword">public</strong> Builder toBuilder() {
-<a class="jxr_linenumber" name="L399" href="#L399">399</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> UnsupportedOperationException();
-<a class="jxr_linenumber" name="L400" href="#L400">400</a>     }
-<a class="jxr_linenumber" name="L401" href="#L401">401</a> 
-<a class="jxr_linenumber" name="L402" href="#L402">402</a>     @Override
-<a class="jxr_linenumber" name="L403" href="#L403">403</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> equals(Object obj) {
-<a class="jxr_linenumber" name="L404" href="#L404">404</a>       <strong class="jxr_keyword">if</strong> (!(obj instanceof Partial)) {
-<a class="jxr_linenumber" name="L405" href="#L405">405</a>         <strong class="jxr_keyword">return</strong> false;
-<a class="jxr_linenumber" name="L406" href="#L406">406</a>       }
-<a class="jxr_linenumber" name="L407" href="#L407">407</a>       Partial other = (Partial) obj;
-<a class="jxr_linenumber" name="L408" href="#L408">408</a>       <strong class="jxr_keyword">return</strong> Objects.equals(sourceDir, other.sourceDir)
-<a class="jxr_linenumber" name="L409" href="#L409">409</a>           &amp;&amp; Objects.equals(targetDir, other.targetDir)
-<a class="jxr_linenumber" name="L410" href="#L410">410</a>           &amp;&amp; Objects.equals(externalPageVars, other.externalPageVars)
-<a class="jxr_linenumber" name="L411" href="#L411">411</a>           &amp;&amp; Objects.equals(_unsetProperties, other._unsetProperties);
-<a class="jxr_linenumber" name="L412" href="#L412">412</a>     }
-<a class="jxr_linenumber" name="L413" href="#L413">413</a> 
-<a class="jxr_linenumber" name="L414" href="#L414">414</a>     @Override
-<a class="jxr_linenumber" name="L415" href="#L415">415</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> hashCode() {
-<a class="jxr_linenumber" name="L416" href="#L416">416</a>       <strong class="jxr_keyword">return</strong> Objects.hash(sourceDir, targetDir, externalPageVars, _unsetProperties);
-<a class="jxr_linenumber" name="L417" href="#L417">417</a>     }
-<a class="jxr_linenumber" name="L418" href="#L418">418</a> 
-<a class="jxr_linenumber" name="L419" href="#L419">419</a>     @Override
-<a class="jxr_linenumber" name="L420" href="#L420">420</a>     <strong class="jxr_keyword">public</strong> String toString() {
-<a class="jxr_linenumber" name="L421" href="#L421">421</a>       StringBuilder result = <strong class="jxr_keyword">new</strong> StringBuilder(<span class="jxr_string">"partial BakeOptions{"</span>);
-<a class="jxr_linenumber" name="L422" href="#L422">422</a>       <strong class="jxr_keyword">if</strong> (!_unsetProperties.contains(Property.SOURCE_DIR)) {
-<a class="jxr_linenumber" name="L423" href="#L423">423</a>         result.append(<span class="jxr_string">"sourceDir="</span>).append(sourceDir).append(<span class="jxr_string">", "</span>);
-<a class="jxr_linenumber" name="L424" href="#L424">424</a>       }
-<a class="jxr_linenumber" name="L425" href="#L425">425</a>       <strong class="jxr_keyword">if</strong> (!_unsetProperties.contains(Property.TARGET_DIR)) {
-<a class="jxr_linenumber" name="L426" href="#L426">426</a>         result.append(<span class="jxr_string">"targetDir="</span>).append(targetDir).append(<span class="jxr_string">", "</span>);
-<a class="jxr_linenumber" name="L427" href="#L427">427</a>       }
-<a class="jxr_linenumber" name="L428" href="#L428">428</a>       <strong class="jxr_keyword">return</strong> result.append(<span class="jxr_string">"externalPageVars="</span>).append(externalPageVars).append(<span class="jxr_string">"}"</span>).toString();
-<a class="jxr_linenumber" name="L429" href="#L429">429</a>     }
-<a class="jxr_linenumber" name="L430" href="#L430">430</a>   }
+<a class="jxr_linenumber" name="L397" href="#L397">397</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> PartialBuilder <strong class="jxr_keyword">extends</strong> Builder {
+<a class="jxr_linenumber" name="L398" href="#L398">398</a>       @Override
+<a class="jxr_linenumber" name="L399" href="#L399">399</a>       <strong class="jxr_keyword">public</strong> <a name="BakeOptions" href="../../../../com/varmateo/yawg/api/BakeOptions.html#BakeOptions">BakeOptions</a> build() {
+<a class="jxr_linenumber" name="L400" href="#L400">400</a>         <strong class="jxr_keyword">return</strong> buildPartial();
+<a class="jxr_linenumber" name="L401" href="#L401">401</a>       }
+<a class="jxr_linenumber" name="L402" href="#L402">402</a>     }
+<a class="jxr_linenumber" name="L403" href="#L403">403</a> 
+<a class="jxr_linenumber" name="L404" href="#L404">404</a>     @Override
+<a class="jxr_linenumber" name="L405" href="#L405">405</a>     <strong class="jxr_keyword">public</strong> Builder toBuilder() {
+<a class="jxr_linenumber" name="L406" href="#L406">406</a>       <a name="BakeOptions_Builder" href="../../../../com/varmateo/yawg/api/BakeOptions_Builder.html#BakeOptions_Builder">BakeOptions_Builder</a> builder = <strong class="jxr_keyword">new</strong> PartialBuilder();
+<a class="jxr_linenumber" name="L407" href="#L407">407</a>       builder.sourceDir = sourceDir;
+<a class="jxr_linenumber" name="L408" href="#L408">408</a>       builder.targetDir = targetDir;
+<a class="jxr_linenumber" name="L409" href="#L409">409</a>       builder.externalPageVars.putAll(externalPageVars);
+<a class="jxr_linenumber" name="L410" href="#L410">410</a>       builder._unsetProperties.clear();
+<a class="jxr_linenumber" name="L411" href="#L411">411</a>       builder._unsetProperties.addAll(_unsetProperties);
+<a class="jxr_linenumber" name="L412" href="#L412">412</a>       <strong class="jxr_keyword">return</strong> (Builder) builder;
+<a class="jxr_linenumber" name="L413" href="#L413">413</a>     }
+<a class="jxr_linenumber" name="L414" href="#L414">414</a> 
+<a class="jxr_linenumber" name="L415" href="#L415">415</a>     @Override
+<a class="jxr_linenumber" name="L416" href="#L416">416</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> equals(Object obj) {
+<a class="jxr_linenumber" name="L417" href="#L417">417</a>       <strong class="jxr_keyword">if</strong> (!(obj instanceof Partial)) {
+<a class="jxr_linenumber" name="L418" href="#L418">418</a>         <strong class="jxr_keyword">return</strong> false;
+<a class="jxr_linenumber" name="L419" href="#L419">419</a>       }
+<a class="jxr_linenumber" name="L420" href="#L420">420</a>       Partial other = (Partial) obj;
+<a class="jxr_linenumber" name="L421" href="#L421">421</a>       <strong class="jxr_keyword">return</strong> Objects.equals(sourceDir, other.sourceDir)
+<a class="jxr_linenumber" name="L422" href="#L422">422</a>           &amp;&amp; Objects.equals(targetDir, other.targetDir)
+<a class="jxr_linenumber" name="L423" href="#L423">423</a>           &amp;&amp; Objects.equals(externalPageVars, other.externalPageVars)
+<a class="jxr_linenumber" name="L424" href="#L424">424</a>           &amp;&amp; Objects.equals(_unsetProperties, other._unsetProperties);
+<a class="jxr_linenumber" name="L425" href="#L425">425</a>     }
+<a class="jxr_linenumber" name="L426" href="#L426">426</a> 
+<a class="jxr_linenumber" name="L427" href="#L427">427</a>     @Override
+<a class="jxr_linenumber" name="L428" href="#L428">428</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> hashCode() {
+<a class="jxr_linenumber" name="L429" href="#L429">429</a>       <strong class="jxr_keyword">return</strong> Objects.hash(sourceDir, targetDir, externalPageVars, _unsetProperties);
+<a class="jxr_linenumber" name="L430" href="#L430">430</a>     }
 <a class="jxr_linenumber" name="L431" href="#L431">431</a> 
-<a class="jxr_linenumber" name="L432" href="#L432">432</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> &lt;K, V&gt; Map&lt;K, V&gt; immutableMap(Map&lt;K, V&gt; entries) {
-<a class="jxr_linenumber" name="L433" href="#L433">433</a>     <strong class="jxr_keyword">switch</strong> (entries.size()) {
-<a class="jxr_linenumber" name="L434" href="#L434">434</a>       <strong class="jxr_keyword">case</strong> 0:
-<a class="jxr_linenumber" name="L435" href="#L435">435</a>         <strong class="jxr_keyword">return</strong> Collections.emptyMap();
-<a class="jxr_linenumber" name="L436" href="#L436">436</a>       <strong class="jxr_keyword">case</strong> 1:
-<a class="jxr_linenumber" name="L437" href="#L437">437</a>         Map.Entry&lt;K, V&gt; entry = entries.entrySet().iterator().next();
-<a class="jxr_linenumber" name="L438" href="#L438">438</a>         <strong class="jxr_keyword">return</strong> Collections.singletonMap(entry.getKey(), entry.getValue());
-<a class="jxr_linenumber" name="L439" href="#L439">439</a>       <strong class="jxr_keyword">default</strong>:
-<a class="jxr_linenumber" name="L440" href="#L440">440</a>         <strong class="jxr_keyword">return</strong> Collections.unmodifiableMap(<strong class="jxr_keyword">new</strong> LinkedHashMap&lt;&gt;(entries));
-<a class="jxr_linenumber" name="L441" href="#L441">441</a>     }
-<a class="jxr_linenumber" name="L442" href="#L442">442</a>   }
-<a class="jxr_linenumber" name="L443" href="#L443">443</a> }
+<a class="jxr_linenumber" name="L432" href="#L432">432</a>     @Override
+<a class="jxr_linenumber" name="L433" href="#L433">433</a>     <strong class="jxr_keyword">public</strong> String toString() {
+<a class="jxr_linenumber" name="L434" href="#L434">434</a>       StringBuilder result = <strong class="jxr_keyword">new</strong> StringBuilder(<span class="jxr_string">"partial BakeOptions{"</span>);
+<a class="jxr_linenumber" name="L435" href="#L435">435</a>       <strong class="jxr_keyword">if</strong> (!_unsetProperties.contains(Property.SOURCE_DIR)) {
+<a class="jxr_linenumber" name="L436" href="#L436">436</a>         result.append(<span class="jxr_string">"sourceDir="</span>).append(sourceDir).append(<span class="jxr_string">", "</span>);
+<a class="jxr_linenumber" name="L437" href="#L437">437</a>       }
+<a class="jxr_linenumber" name="L438" href="#L438">438</a>       <strong class="jxr_keyword">if</strong> (!_unsetProperties.contains(Property.TARGET_DIR)) {
+<a class="jxr_linenumber" name="L439" href="#L439">439</a>         result.append(<span class="jxr_string">"targetDir="</span>).append(targetDir).append(<span class="jxr_string">", "</span>);
+<a class="jxr_linenumber" name="L440" href="#L440">440</a>       }
+<a class="jxr_linenumber" name="L441" href="#L441">441</a>       <strong class="jxr_keyword">return</strong> result.append(<span class="jxr_string">"externalPageVars="</span>).append(externalPageVars).append(<span class="jxr_string">"}"</span>).toString();
+<a class="jxr_linenumber" name="L442" href="#L442">442</a>     }
+<a class="jxr_linenumber" name="L443" href="#L443">443</a>   }
+<a class="jxr_linenumber" name="L444" href="#L444">444</a> 
+<a class="jxr_linenumber" name="L445" href="#L445">445</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> &lt;K, V&gt; Map&lt;K, V&gt; immutableMap(Map&lt;K, V&gt; entries) {
+<a class="jxr_linenumber" name="L446" href="#L446">446</a>     <strong class="jxr_keyword">switch</strong> (entries.size()) {
+<a class="jxr_linenumber" name="L447" href="#L447">447</a>       <strong class="jxr_keyword">case</strong> 0:
+<a class="jxr_linenumber" name="L448" href="#L448">448</a>         <strong class="jxr_keyword">return</strong> Collections.emptyMap();
+<a class="jxr_linenumber" name="L449" href="#L449">449</a>       <strong class="jxr_keyword">case</strong> 1:
+<a class="jxr_linenumber" name="L450" href="#L450">450</a>         Map.Entry&lt;K, V&gt; entry = entries.entrySet().iterator().next();
+<a class="jxr_linenumber" name="L451" href="#L451">451</a>         <strong class="jxr_keyword">return</strong> Collections.singletonMap(entry.getKey(), entry.getValue());
+<a class="jxr_linenumber" name="L452" href="#L452">452</a>       <strong class="jxr_keyword">default</strong>:
+<a class="jxr_linenumber" name="L453" href="#L453">453</a>         <strong class="jxr_keyword">return</strong> Collections.unmodifiableMap(<strong class="jxr_keyword">new</strong> LinkedHashMap&lt;&gt;(entries));
+<a class="jxr_linenumber" name="L454" href="#L454">454</a>     }
+<a class="jxr_linenumber" name="L455" href="#L455">455</a>   }
+<a class="jxr_linenumber" name="L456" href="#L456">456</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2015&#x2013;2020. All rights reserved.</div>

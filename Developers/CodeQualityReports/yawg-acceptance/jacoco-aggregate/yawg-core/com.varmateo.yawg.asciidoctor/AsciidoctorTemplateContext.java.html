@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>AsciidoctorTemplateContext.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.asciidoctor</a> &gt; <span class="el_source">AsciidoctorTemplateContext.java</span></div><h1>AsciidoctorTemplateContext.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -16,7 +16,6 @@ import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.OptionsBuilder;
 import org.asciidoctor.ast.Author;
 import org.asciidoctor.ast.DocumentHeader;
-import org.asciidoctor.internal.AsciidoctorCoreException;
 
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.TemplateContext;
@@ -30,9 +29,9 @@ import com.varmateo.yawg.util.FileUtils;
 /* package private */ final class AsciidoctorTemplateContext {
 
 
-<span class="nc" id="L33">    private AsciidoctorTemplateContext() {</span>
+<span class="nc" id="L32">    private AsciidoctorTemplateContext() {</span>
         // Nothing to do.
-<span class="nc" id="L35">    }</span>
+<span class="nc" id="L34">    }</span>
 
 
     /**
@@ -45,8 +44,8 @@ import com.varmateo.yawg.util.FileUtils;
             final Path targetPath,
             final PageContext context) {
 
-<span class="fc" id="L48">        return Try.of(() -&gt; doCreate(asciidoctor, sourcePath, targetDir, targetPath, context))</span>
-<span class="fc" id="L49">                .recoverWith(AsciidoctorPageBakerException.asciidocFailureTry(sourcePath));</span>
+<span class="fc" id="L47">        return Try.of(() -&gt; doCreate(asciidoctor, sourcePath, targetDir, targetPath, context))</span>
+<span class="fc" id="L48">                .recoverWith(AsciidoctorPageBakerException.asciidocFailureTry(sourcePath));</span>
     }
 
 
@@ -56,32 +55,32 @@ import com.varmateo.yawg.util.FileUtils;
             final Path targetDir,
             final Path targetPath,
             final PageContext context)
-            throws AsciidoctorCoreException, IOException {
+            throws IOException {
 
-<span class="fc" id="L61">        final String sourceContent = FileUtils.readAsString(sourcePath);</span>
-<span class="fc" id="L62">        final OptionsBuilder options = AdocUtils.buildOptionsForBakeWithTemplate(</span>
+<span class="fc" id="L60">        final String sourceContent = FileUtils.readAsString(sourcePath);</span>
+<span class="fc" id="L61">        final OptionsBuilder options = AdocUtils.buildOptionsForBakeWithTemplate(</span>
                 sourcePath,
                 targetDir,
-<span class="fc" id="L65">                context.pageVars());</span>
-<span class="fc" id="L66">        final String body = asciidoctor.render(sourceContent, options);</span>
-<span class="fc" id="L67">        final String pageUrl = context.dirUrl() + &quot;/&quot; + targetPath.getFileName();</span>
-<span class="fc" id="L68">        final DocumentHeader header = asciidoctor.readDocumentHeader(sourceContent);</span>
-<span class="fc" id="L69">        final String title = Option.of(header)</span>
-<span class="fc" id="L70">                .flatMap(h -&gt; Option.of(h.getDocumentTitle()))</span>
-<span class="fc" id="L71">                .flatMap(t -&gt; Option.of(t.getMain()))</span>
-<span class="fc" id="L72">                .getOrElse(() -&gt; FileUtils.basename(sourcePath));</span>
+<span class="fc" id="L64">                context.pageVars());</span>
+<span class="fc" id="L65">        final String body = asciidoctor.render(sourceContent, options);</span>
+<span class="fc" id="L66">        final String pageUrl = context.dirUrl() + &quot;/&quot; + targetPath.getFileName();</span>
+<span class="fc" id="L67">        final DocumentHeader header = asciidoctor.readDocumentHeader(sourceContent);</span>
+<span class="fc" id="L68">        final String title = Option.of(header)</span>
+<span class="fc" id="L69">                .flatMap(h -&gt; Option.of(h.getDocumentTitle()))</span>
+<span class="fc" id="L70">                .flatMap(t -&gt; Option.of(t.getMain()))</span>
+<span class="fc" id="L71">                .getOrElse(() -&gt; FileUtils.basename(sourcePath));</span>
 
         final TemplateContextBuilder templateContextBuilder =
-<span class="fc" id="L75">                TemplateContextBuilder.create()</span>
-<span class="fc" id="L76">                .title(title)</span>
-<span class="fc" id="L77">                .body(body)</span>
-<span class="fc" id="L78">                .pageUrl(pageUrl)</span>
-<span class="fc" id="L79">                .rootRelativeUrl(context.rootRelativeUrl())</span>
-<span class="fc" id="L80">                .pageVars(context.pageVars())</span>
-<span class="fc" id="L81">                .bakeId(context.bakeId());</span>
-<span class="fc" id="L82">        buildAuthors(templateContextBuilder, header);</span>
+<span class="fc" id="L74">                TemplateContextBuilder.create()</span>
+<span class="fc" id="L75">                .title(title)</span>
+<span class="fc" id="L76">                .body(body)</span>
+<span class="fc" id="L77">                .pageUrl(pageUrl)</span>
+<span class="fc" id="L78">                .rootRelativeUrl(context.rootRelativeUrl())</span>
+<span class="fc" id="L79">                .pageVars(context.pageVars())</span>
+<span class="fc" id="L80">                .bakeId(context.bakeId());</span>
+<span class="fc" id="L81">        buildAuthors(templateContextBuilder, header);</span>
 
-<span class="fc" id="L84">        return templateContextBuilder.build();</span>
+<span class="fc" id="L83">        return templateContextBuilder.build();</span>
     }
 
 
@@ -89,25 +88,25 @@ import com.varmateo.yawg.util.FileUtils;
             final TemplateContextBuilder templateContextBuilder,
             final DocumentHeader header) {
 
-<span class="fc" id="L92">        final java.util.List&lt;Author&gt; authors = header.getAuthors();</span>
+<span class="fc" id="L91">        final java.util.List&lt;Author&gt; authors = header.getAuthors();</span>
 
         // This convoluted logic is needed because
         // DocumentHeader.getAuthor(), DocumentHeader.getAuthors() do
         // not behave consistently with each other.
 
-<span class="fc bfc" id="L98" title="All 2 branches covered.">        if ( !authors.isEmpty() ) {</span>
-<span class="fc" id="L99">            List.ofAll(authors).forEach(</span>
-<span class="fc" id="L100">                    a -&gt; templateContextBuilder.addAuthor(a.getFullName(), a.getEmail()));</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">        if ( !authors.isEmpty() ) {</span>
+<span class="fc" id="L98">            List.ofAll(authors).forEach(</span>
+<span class="fc" id="L99">                    a -&gt; templateContextBuilder.addAuthor(a.getFullName(), a.getEmail()));</span>
         } else {
-<span class="fc" id="L102">            final Author singleAuthor = header.getAuthor();</span>
+<span class="fc" id="L101">            final Author singleAuthor = header.getAuthor();</span>
 
-<span class="pc bpc" id="L104" title="1 of 4 branches missed.">            if ( (singleAuthor!=null) &amp;&amp; (singleAuthor.getFullName()!=null) )  {</span>
-<span class="fc" id="L105">                templateContextBuilder.addAuthor(</span>
-<span class="fc" id="L106">                        singleAuthor.getFullName(),</span>
-<span class="fc" id="L107">                        singleAuthor.getEmail());</span>
+<span class="pc bpc" id="L103" title="1 of 4 branches missed.">            if ( (singleAuthor != null) &amp;&amp; (singleAuthor.getFullName() != null) )  {</span>
+<span class="fc" id="L104">                templateContextBuilder.addAuthor(</span>
+<span class="fc" id="L105">                        singleAuthor.getFullName(),</span>
+<span class="fc" id="L106">                        singleAuthor.getEmail());</span>
             }
         }
-<span class="fc" id="L110">    }</span>
+<span class="fc" id="L109">    }</span>
 
 
 }

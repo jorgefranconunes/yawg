@@ -21,11 +21,11 @@ Yawg core,com.varmateo.yawg.util,OnDirBakeResults,12,21,1,1,4,7,3,3,2,3
 Yawg core,com.varmateo.yawg.util,GlobMatcher,0,72,0,2,0,19,0,9,0,8
 Yawg core,com.varmateo.yawg.spi,TemplateContextBuilder,0,80,0,0,0,26,0,10,0,10
 Yawg core,com.varmateo.yawg.spi,PageVars.new PageVars() {...},0,7,0,0,0,3,0,3,0,3
-Yawg core,com.varmateo.yawg.spi,PageContextBuilder,0,104,0,0,0,31,0,13,0,13
+Yawg core,com.varmateo.yawg.spi,PageContextBuilder,0,103,0,0,0,31,0,13,0,13
 Yawg core,com.varmateo.yawg.spi,PageVarsBuilder,0,47,0,0,0,11,0,7,0,7
 Yawg core,com.varmateo.yawg.spi,TemplateContext.Author,0,21,0,0,0,7,0,4,0,4
 Yawg core,com.varmateo.yawg.spi,PageVars,0,4,0,0,0,1,0,1,0,1
-Yawg core,com.varmateo.yawg.spi,PageContextBuilder.PageContextImpl,0,51,0,0,0,12,0,6,0,6
+Yawg core,com.varmateo.yawg.spi,PageContextBuilder.PageContextImpl,0,48,0,0,0,12,0,6,0,6
 Yawg core,com.varmateo.yawg.spi,PageVarsBuilder.PageVarsImpl,6,18,0,0,3,6,1,3,1,3
 Yawg core,com.varmateo.yawg.spi,TemplateContextBuilder.TemplateContextImpl,9,59,0,0,3,13,3,5,3,5
 Yawg core,com.varmateo.yawg.freemarker,FreemarkerDataModel.YawgFreemarkerDataModel,26,16,0,0,7,6,7,2,7,2
@@ -41,7 +41,7 @@ Yawg core,com.varmateo.yawg.commonmark,CommonMarkPageBakerException,119,0,0,0,18
 Yawg core,com.varmateo.yawg.commonmark,CommonMarkPageBaker,221,0,2,0,52,0,23,0,22,0
 Yawg core,com.varmateo.yawg.asciidoctor,AsciidoctorPageBakerException,78,3,0,0,11,1,8,1,8,1
 Yawg core,com.varmateo.yawg.asciidoctor,AdocUtils,18,63,0,0,8,19,2,3,2,3
-Yawg core,com.varmateo.yawg.asciidoctor,AsciidoctorPageBaker,137,20,2,0,29,6,12,4,11,4
+Yawg core,com.varmateo.yawg.asciidoctor,AsciidoctorPageBaker,140,20,2,0,30,6,12,4,11,4
 Yawg core,com.varmateo.yawg.asciidoctor,AsciidoctorTemplateContext,3,130,1,5,2,31,2,10,1,8
 Yawg core,com.varmateo.yawg.core,DefaultSiteBaker,20,0,0,0,8,0,3,0,3,0
 Yawg core,com.varmateo.yawg.core,DirBakerException,68,3,0,0,11,1,6,1,6,1
@@ -72,5 +72,5 @@ Yawg core,com.varmateo.yawg.core,DirPageContextBuilder,43,83,1,1,7,28,8,4,7,4
 Yawg core,com.varmateo.yawg.core,DirBakeOptions,5,114,0,0,0,25,1,5,1,5
 Yawg core,com.varmateo.yawg.breadcrumbs,BreadcrumbsBakeListener,123,0,2,0,28,0,13,0,12,0
 Yawg core,com.varmateo.yawg.breadcrumbs,BreadcrumbItem,15,0,0,0,6,0,3,0,3,0
-Yawg core,com.varmateo.yawg.breadcrumbs,Breadcrumbs,25,0,0,0,7,0,5,0,5,0
+Yawg core,com.varmateo.yawg.breadcrumbs,Breadcrumbs,24,0,0,0,7,0,5,0,5,0
 Yawg core,com.varmateo.yawg.breadcrumbs,Breadcrumbs.Builder,30,0,0,0,9,0,4,0,4,0

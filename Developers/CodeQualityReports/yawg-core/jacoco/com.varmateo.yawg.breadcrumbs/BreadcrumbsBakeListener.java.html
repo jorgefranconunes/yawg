@@ -6,6 +6,8 @@
 
 package com.varmateo.yawg.breadcrumbs;
 
+import java.util.Optional;
+
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.breadcrumbs.BreadcrumbItem;
 import com.varmateo.yawg.breadcrumbs.Breadcrumbs;
@@ -16,7 +18,6 @@ import com.varmateo.yawg.spi.PageVars;
 import com.varmateo.yawg.spi.PageVarsBuilder;
 import com.varmateo.yawg.util.OnDirBakeResults;
 import com.varmateo.yawg.util.SimpleMap;
-import java.util.Optional;
 
 
 /**
@@ -33,9 +34,9 @@ public final class BreadcrumbsBakeListener
     private static final String ATTR_URL = &quot;url&quot;;
 
 
-<span class="nc" id="L36">    private BreadcrumbsBakeListener() {</span>
+<span class="nc" id="L37">    private BreadcrumbsBakeListener() {</span>
         // Nothing to do.
-<span class="nc" id="L38">    }</span>
+<span class="nc" id="L39">    }</span>
 
 
     /**
@@ -43,7 +44,7 @@ public final class BreadcrumbsBakeListener
      */
     public static DirBakeListener create() {
 
-<span class="nc" id="L46">        return new BreadcrumbsBakeListener();</span>
+<span class="nc" id="L47">        return new BreadcrumbsBakeListener();</span>
     }
 
 
@@ -54,13 +55,13 @@ public final class BreadcrumbsBakeListener
     public OnDirBakeResult onDirBake(final PageContext context)
             throws YawgException {
 
-<span class="nc" id="L57">        final SimpleMap vars = new SimpleMap(context.pageVars().asMap());</span>
-<span class="nc" id="L58">        final Breadcrumbs oldBreadcrumbs = getBreadcrumbs(vars);</span>
-<span class="nc" id="L59">        final BreadcrumbItem newBreadcrumbItem = buildBreadcrumbItem(vars, context.dirUrl());</span>
-<span class="nc" id="L60">        final Breadcrumbs newBreadcrumbs = extendBreadcrumbs(oldBreadcrumbs, newBreadcrumbItem);</span>
-<span class="nc" id="L61">        final PageVars updatedBreadcrumbs = updateBreadcrumbs(newBreadcrumbs);</span>
+<span class="nc" id="L58">        final SimpleMap vars = new SimpleMap(context.pageVars().asMap());</span>
+<span class="nc" id="L59">        final Breadcrumbs oldBreadcrumbs = getBreadcrumbs(vars);</span>
+<span class="nc" id="L60">        final BreadcrumbItem newBreadcrumbItem = buildBreadcrumbItem(vars, context.dirUrl());</span>
+<span class="nc" id="L61">        final Breadcrumbs newBreadcrumbs = extendBreadcrumbs(oldBreadcrumbs, newBreadcrumbItem);</span>
+<span class="nc" id="L62">        final PageVars updatedBreadcrumbs = updateBreadcrumbs(newBreadcrumbs);</span>
 
-<span class="nc" id="L63">        return OnDirBakeResults.success(updatedBreadcrumbs);</span>
+<span class="nc" id="L64">        return OnDirBakeResults.success(updatedBreadcrumbs);</span>
     }
 
 
@@ -69,8 +70,8 @@ public final class BreadcrumbsBakeListener
      */
     private Breadcrumbs getBreadcrumbs(final SimpleMap vars) {
 
-<span class="nc" id="L72">        return vars.get(VAR_BREADCRUMB_LIST, Breadcrumbs.class)</span>
-<span class="nc" id="L73">                .orElseGet(Breadcrumbs::empty);</span>
+<span class="nc" id="L73">        return vars.get(VAR_BREADCRUMB_LIST, Breadcrumbs.class)</span>
+<span class="nc" id="L74">                .orElseGet(Breadcrumbs::empty);</span>
     }
 
 
@@ -81,16 +82,16 @@ public final class BreadcrumbsBakeListener
             final SimpleMap vars,
             final String dirUrl) {
 
-<span class="nc" id="L84">        final Optional&lt;SimpleMap&gt; itemData = vars.getMap(VAR_BREADCRUMB);</span>
-<span class="nc" id="L85">        final String title = itemData</span>
-<span class="nc" id="L86">                .flatMap(m -&gt; m.getString(ATTR_TITLE))</span>
-<span class="nc" id="L87">                .orElseGet(() -&gt; basenameOf(dirUrl));</span>
-<span class="nc" id="L88">        final String url = itemData</span>
-<span class="nc" id="L89">                .flatMap(m -&gt; m.getString(ATTR_URL))</span>
-<span class="nc" id="L90">                .map(s -&gt; dirUrl + &quot;/&quot; + s)</span>
-<span class="nc" id="L91">                .orElse(dirUrl);</span>
+<span class="nc" id="L85">        final Optional&lt;SimpleMap&gt; itemData = vars.getMap(VAR_BREADCRUMB);</span>
+<span class="nc" id="L86">        final String title = itemData</span>
+<span class="nc" id="L87">                .flatMap(m -&gt; m.getString(ATTR_TITLE))</span>
+<span class="nc" id="L88">                .orElseGet(() -&gt; basenameOf(dirUrl));</span>
+<span class="nc" id="L89">        final String url = itemData</span>
+<span class="nc" id="L90">                .flatMap(m -&gt; m.getString(ATTR_URL))</span>
+<span class="nc" id="L91">                .map(s -&gt; dirUrl + &quot;/&quot; + s)</span>
+<span class="nc" id="L92">                .orElse(dirUrl);</span>
 
-<span class="nc" id="L93">        return new BreadcrumbItem(title, url);</span>
+<span class="nc" id="L94">        return new BreadcrumbItem(title, url);</span>
     }
 
 
@@ -99,9 +100,9 @@ public final class BreadcrumbsBakeListener
      */
     private String basenameOf(final String url) {
 
-<span class="nc" id="L102">        final int index = url.lastIndexOf('/');</span>
+<span class="nc" id="L103">        final int index = url.lastIndexOf('/');</span>
 
-<span class="nc bnc" id="L104" title="All 2 branches missed.">        return (index != -1) ? url.substring(index+1) : url;</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">        return (index != -1) ? url.substring(index + 1) : url;</span>
     }
 
 
@@ -112,9 +113,9 @@ public final class BreadcrumbsBakeListener
             final Breadcrumbs oldBreadcrumbs,
             final BreadcrumbItem newBreadcrumbItem) {
 
-<span class="nc" id="L115">        return Breadcrumbs.builder(oldBreadcrumbs)</span>
-<span class="nc" id="L116">                .addBreadcrumbItem(newBreadcrumbItem)</span>
-<span class="nc" id="L117">                .build();</span>
+<span class="nc" id="L116">        return Breadcrumbs.builder(oldBreadcrumbs)</span>
+<span class="nc" id="L117">                .addBreadcrumbItem(newBreadcrumbItem)</span>
+<span class="nc" id="L118">                .build();</span>
     }
 
 
@@ -123,9 +124,9 @@ public final class BreadcrumbsBakeListener
      */
     private PageVars updateBreadcrumbs(final Breadcrumbs newBreadcrumbs) {
 
-<span class="nc" id="L126">        return PageVarsBuilder.create()</span>
-<span class="nc" id="L127">                .addVar(VAR_BREADCRUMB_LIST, newBreadcrumbs)</span>
-<span class="nc" id="L128">                .build();</span>
+<span class="nc" id="L127">        return PageVarsBuilder.create()</span>
+<span class="nc" id="L128">                .addVar(VAR_BREADCRUMB_LIST, newBreadcrumbs)</span>
+<span class="nc" id="L129">                .build();</span>
     }
 
 

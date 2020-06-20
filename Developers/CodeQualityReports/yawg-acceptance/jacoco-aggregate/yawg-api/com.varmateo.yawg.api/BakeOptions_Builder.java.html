@@ -394,50 +394,63 @@ import javax.annotation.Generated;
 <span class="nc" id="L394">      return externalPageVars;</span>
     }
 
+<span class="nc" id="L397">    private static class PartialBuilder extends Builder {</span>
+      @Override
+      public BakeOptions build() {
+<span class="nc" id="L400">        return buildPartial();</span>
+      }
+    }
+
     @Override
     public Builder toBuilder() {
-<span class="nc" id="L399">      throw new UnsupportedOperationException();</span>
+<span class="nc" id="L406">      BakeOptions_Builder builder = new PartialBuilder();</span>
+<span class="nc" id="L407">      builder.sourceDir = sourceDir;</span>
+<span class="nc" id="L408">      builder.targetDir = targetDir;</span>
+<span class="nc" id="L409">      builder.externalPageVars.putAll(externalPageVars);</span>
+<span class="nc" id="L410">      builder._unsetProperties.clear();</span>
+<span class="nc" id="L411">      builder._unsetProperties.addAll(_unsetProperties);</span>
+<span class="nc" id="L412">      return (Builder) builder;</span>
     }
 
     @Override
     public boolean equals(Object obj) {
-<span class="nc bnc" id="L404" title="All 2 branches missed.">      if (!(obj instanceof Partial)) {</span>
-<span class="nc" id="L405">        return false;</span>
+<span class="nc bnc" id="L417" title="All 2 branches missed.">      if (!(obj instanceof Partial)) {</span>
+<span class="nc" id="L418">        return false;</span>
       }
-<span class="nc" id="L407">      Partial other = (Partial) obj;</span>
-<span class="nc bnc" id="L408" title="All 2 branches missed.">      return Objects.equals(sourceDir, other.sourceDir)</span>
-<span class="nc bnc" id="L409" title="All 2 branches missed.">          &amp;&amp; Objects.equals(targetDir, other.targetDir)</span>
-<span class="nc bnc" id="L410" title="All 2 branches missed.">          &amp;&amp; Objects.equals(externalPageVars, other.externalPageVars)</span>
-<span class="nc bnc" id="L411" title="All 2 branches missed.">          &amp;&amp; Objects.equals(_unsetProperties, other._unsetProperties);</span>
+<span class="nc" id="L420">      Partial other = (Partial) obj;</span>
+<span class="nc bnc" id="L421" title="All 2 branches missed.">      return Objects.equals(sourceDir, other.sourceDir)</span>
+<span class="nc bnc" id="L422" title="All 2 branches missed.">          &amp;&amp; Objects.equals(targetDir, other.targetDir)</span>
+<span class="nc bnc" id="L423" title="All 2 branches missed.">          &amp;&amp; Objects.equals(externalPageVars, other.externalPageVars)</span>
+<span class="nc bnc" id="L424" title="All 2 branches missed.">          &amp;&amp; Objects.equals(_unsetProperties, other._unsetProperties);</span>
     }
 
     @Override
     public int hashCode() {
-<span class="nc" id="L416">      return Objects.hash(sourceDir, targetDir, externalPageVars, _unsetProperties);</span>
+<span class="nc" id="L429">      return Objects.hash(sourceDir, targetDir, externalPageVars, _unsetProperties);</span>
     }
 
     @Override
     public String toString() {
-<span class="nc" id="L421">      StringBuilder result = new StringBuilder(&quot;partial BakeOptions{&quot;);</span>
-<span class="nc bnc" id="L422" title="All 2 branches missed.">      if (!_unsetProperties.contains(Property.SOURCE_DIR)) {</span>
-<span class="nc" id="L423">        result.append(&quot;sourceDir=&quot;).append(sourceDir).append(&quot;, &quot;);</span>
+<span class="nc" id="L434">      StringBuilder result = new StringBuilder(&quot;partial BakeOptions{&quot;);</span>
+<span class="nc bnc" id="L435" title="All 2 branches missed.">      if (!_unsetProperties.contains(Property.SOURCE_DIR)) {</span>
+<span class="nc" id="L436">        result.append(&quot;sourceDir=&quot;).append(sourceDir).append(&quot;, &quot;);</span>
       }
-<span class="nc bnc" id="L425" title="All 2 branches missed.">      if (!_unsetProperties.contains(Property.TARGET_DIR)) {</span>
-<span class="nc" id="L426">        result.append(&quot;targetDir=&quot;).append(targetDir).append(&quot;, &quot;);</span>
+<span class="nc bnc" id="L438" title="All 2 branches missed.">      if (!_unsetProperties.contains(Property.TARGET_DIR)) {</span>
+<span class="nc" id="L439">        result.append(&quot;targetDir=&quot;).append(targetDir).append(&quot;, &quot;);</span>
       }
-<span class="nc" id="L428">      return result.append(&quot;externalPageVars=&quot;).append(externalPageVars).append(&quot;}&quot;).toString();</span>
+<span class="nc" id="L441">      return result.append(&quot;externalPageVars=&quot;).append(externalPageVars).append(&quot;}&quot;).toString();</span>
     }
   }
 
   private static &lt;K, V&gt; Map&lt;K, V&gt; immutableMap(Map&lt;K, V&gt; entries) {
-<span class="fc bfc" id="L433" title="All 3 branches covered.">    switch (entries.size()) {</span>
+<span class="fc bfc" id="L446" title="All 3 branches covered.">    switch (entries.size()) {</span>
       case 0:
-<span class="fc" id="L435">        return Collections.emptyMap();</span>
+<span class="fc" id="L448">        return Collections.emptyMap();</span>
       case 1:
-<span class="fc" id="L437">        Map.Entry&lt;K, V&gt; entry = entries.entrySet().iterator().next();</span>
-<span class="fc" id="L438">        return Collections.singletonMap(entry.getKey(), entry.getValue());</span>
+<span class="fc" id="L450">        Map.Entry&lt;K, V&gt; entry = entries.entrySet().iterator().next();</span>
+<span class="fc" id="L451">        return Collections.singletonMap(entry.getKey(), entry.getValue());</span>
       default:
-<span class="fc" id="L440">        return Collections.unmodifiableMap(new LinkedHashMap&lt;&gt;(entries));</span>
+<span class="fc" id="L453">        return Collections.unmodifiableMap(new LinkedHashMap&lt;&gt;(entries));</span>
     }
   }
 }
