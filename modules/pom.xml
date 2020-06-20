@@ -511,7 +511,7 @@ Copyright (c) 2015-2020 Yawg project contributors.
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>${maven-checkstyle-plugin.version}</version>
         <configuration>
-          <configLocation>${yawg.projectRootDir}/src/main/config/checkstyle/checkstyle_google_checks.xml</configLocation>
+          <configLocation>${yawg.projectRootDir}/src/main/config/checkstyle.xml</configLocation>
           <excludes>**/*_Builder.java</excludes>
         </configuration>
         <reportSets>
@@ -550,7 +550,7 @@ Copyright (c) 2015-2020 Yawg project contributors.
           <targetJdk>1.8</targetJdk>
           <verbose>true</verbose>
           <rulesets>
-            <ruleset>${yawg.projectRootDir}/src/main/config/pmd/ruleset.xml</ruleset>
+            <ruleset>${yawg.projectRootDir}/src/main/config/ruleset.xml</ruleset>
           </rulesets>
         </configuration>
       </plugin>
