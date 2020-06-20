@@ -80,7 +80,7 @@ public abstract class Result<T> {
         private final T _value;
 
 
-        private Success(final T value) {
+        /* default */ Success(final T value) {
             _value = value;
         }
 
@@ -119,7 +119,7 @@ public abstract class Result<T> {
         private final YawgException _cause;
 
 
-        private Failure(final YawgException cause) {
+        /* default */ Failure(final YawgException cause) {
             _cause = cause;
         }
 

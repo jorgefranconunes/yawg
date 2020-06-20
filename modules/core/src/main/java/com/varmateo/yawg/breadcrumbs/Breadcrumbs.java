@@ -1,14 +1,12 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.breadcrumbs;
 
 import io.vavr.collection.List;
-
-import com.varmateo.yawg.breadcrumbs.BreadcrumbItem;
 
 
 /**
@@ -86,7 +84,7 @@ public final class Breadcrumbs {
         /**
          *
          */
-        private Builder() {
+        /* default */ Builder() {
 
             _items = List.of();
         }

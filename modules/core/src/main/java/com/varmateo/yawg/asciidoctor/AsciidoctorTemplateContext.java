@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -16,7 +16,6 @@ import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.OptionsBuilder;
 import org.asciidoctor.ast.Author;
 import org.asciidoctor.ast.DocumentHeader;
-import org.asciidoctor.internal.AsciidoctorCoreException;
 
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.TemplateContext;
@@ -56,7 +55,7 @@ import com.varmateo.yawg.util.FileUtils;
             final Path targetDir,
             final Path targetPath,
             final PageContext context)
-            throws AsciidoctorCoreException, IOException {
+            throws IOException {
 
         final String sourceContent = FileUtils.readAsString(sourcePath);
         final OptionsBuilder options = AdocUtils.buildOptionsForBakeWithTemplate(
@@ -101,7 +100,7 @@ import com.varmateo.yawg.util.FileUtils;
         } else {
             final Author singleAuthor = header.getAuthor();
 
-            if ( (singleAuthor!=null) && (singleAuthor.getFullName()!=null) )  {
+            if ( (singleAuthor != null) && (singleAuthor.getFullName() != null) )  {
                 templateContextBuilder.addAuthor(
                         singleAuthor.getFullName(),
                         singleAuthor.getEmail());

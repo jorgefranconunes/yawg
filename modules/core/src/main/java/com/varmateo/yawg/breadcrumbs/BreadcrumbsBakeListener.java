@@ -6,6 +6,8 @@
 
 package com.varmateo.yawg.breadcrumbs;
 
+import java.util.Optional;
+
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.breadcrumbs.BreadcrumbItem;
 import com.varmateo.yawg.breadcrumbs.Breadcrumbs;
@@ -16,7 +18,6 @@ import com.varmateo.yawg.spi.PageVars;
 import com.varmateo.yawg.spi.PageVarsBuilder;
 import com.varmateo.yawg.util.OnDirBakeResults;
 import com.varmateo.yawg.util.SimpleMap;
-import java.util.Optional;
 
 
 /**
@@ -101,7 +102,7 @@ public final class BreadcrumbsBakeListener
 
         final int index = url.lastIndexOf('/');
 
-        return (index != -1) ? url.substring(index+1) : url;
+        return (index != -1) ? url.substring(index + 1) : url;
     }
 
 

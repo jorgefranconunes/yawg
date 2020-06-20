@@ -18,8 +18,8 @@ import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.OptionsBuilder;
 
 import com.varmateo.yawg.api.Result;
-import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.PageBakeResult;
+import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.Template;
 import com.varmateo.yawg.spi.TemplateContext;
@@ -128,21 +128,24 @@ public final class AsciidoctorPageBaker
 
         final Path targetPath = getTargetPath(sourcePath, targetDir);
         final Optional<Template> template = context.templateFor(sourcePath);
+        final Try<Void> result;
 
         if ( template.isPresent() ) {
-            return doBakeWithTemplate(
+            result = doBakeWithTemplate(
                     sourcePath,
                     context,
                     targetDir,
                     targetPath,
                     template.get());
         } else {
-            return doBakeWithoutTemplate(
+            result = doBakeWithoutTemplate(
                     sourcePath,
                     context,
                     targetDir,
                     targetPath);
         }
+
+        return result;
     }
 
 
@@ -167,7 +170,7 @@ public final class AsciidoctorPageBaker
             final Path sourcePath,
             final PageContext context,
             final Path targetDir,
-            final Path targetPath){
+            final Path targetPath) {
 
         final OptionsBuilder options = AdocUtils.buildOptionsForBakeWithoutTemplate(
                 sourcePath,

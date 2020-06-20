@@ -8,7 +8,6 @@ package com.varmateo.yawg.api;
 
 import java.nio.file.Path;
 import java.util.Map;
-import java.util.Optional;
 
 import org.inferred.freebuilder.FreeBuilder;
 
@@ -67,9 +66,9 @@ public interface BakeOptions {
     /**
      * A builder of {@code BakeOptions} instances.
      */
-    final class Builder extends BakeOptions_Builder {
+    class Builder extends BakeOptions_Builder {
 
-        private Builder() {
+        /* default */ Builder() {
             // Nothing to do.
         }
 

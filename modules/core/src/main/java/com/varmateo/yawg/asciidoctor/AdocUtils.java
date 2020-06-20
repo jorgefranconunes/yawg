@@ -10,7 +10,6 @@ import java.io.File;
 import java.nio.file.Path;
 
 import io.vavr.control.Option;
-
 import org.asciidoctor.AttributesBuilder;
 import org.asciidoctor.OptionsBuilder;
 import org.asciidoctor.SafeMode;

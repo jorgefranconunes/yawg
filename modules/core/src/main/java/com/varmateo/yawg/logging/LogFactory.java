@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2015-2017 Yawg project contributors.
+ * Copyright (c) 2015-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -59,8 +59,8 @@ public final class LogFactory {
      */
     public static Log createFor(final Object obj) {
 
-        String className  = obj.getClass().getName();
-        Logger javaLogger = Logger.getLogger(className);
+        final String className  = obj.getClass().getName();
+        final Logger javaLogger = Logger.getLogger(className);
 
         return create(javaLogger);
     }
@@ -79,8 +79,8 @@ public final class LogFactory {
      */
     public static Log createFor(final Class<?> klass) {
 
-        String className  = klass.getName();
-        Logger javaLogger = Logger.getLogger(className);
+        final String className  = klass.getName();
+        final Logger javaLogger = Logger.getLogger(className);
 
         return create(javaLogger);
     }
@@ -99,7 +99,7 @@ public final class LogFactory {
      */
     public static Log createFor(final String name) {
 
-        Logger javaLogger = Logger.getLogger(name);
+        final Logger javaLogger = Logger.getLogger(name);
 
         return create(javaLogger);
     }
