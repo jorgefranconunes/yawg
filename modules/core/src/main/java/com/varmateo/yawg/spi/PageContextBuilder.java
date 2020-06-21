@@ -1,19 +1,20 @@
 /**************************************************************************
  *
- * Copyright (c) 2017 Yawg project contributors.
+ * Copyright (c) 2017-2020 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.spi;
 
-import com.varmateo.yawg.spi.PageContextBuilder;
-import com.varmateo.yawg.spi.PageVars;
-import com.varmateo.yawg.spi.PageVarsBuilder;
-import com.varmateo.yawg.spi.Template;
 import java.nio.file.Path;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
+
+import com.varmateo.yawg.spi.PageContextBuilder;
+import com.varmateo.yawg.spi.PageVars;
+import com.varmateo.yawg.spi.PageVarsBuilder;
+import com.varmateo.yawg.spi.Template;
 
 
 /**
@@ -23,7 +24,7 @@ public final class PageContextBuilder {
 
 
     private String _dirUrl;
-    private Function<Path,Optional<Template>> _templateFetcher;
+    private Function<Path, Optional<Template>> _templateFetcher;
     private String _rootRelativeUrl;
     private PageVarsBuilder _pageVarsBuilder;
     private String _bakeId;
@@ -99,7 +100,7 @@ public final class PageContextBuilder {
      * @return A reference to this builder.
      */
     public PageContextBuilder templateFetcher(
-            final Function<Path,Optional<Template>> templateFetcher) {
+            final Function<Path, Optional<Template>> templateFetcher) {
 
         _templateFetcher = templateFetcher;
         return this;
@@ -194,7 +195,7 @@ public final class PageContextBuilder {
 
 
         private final String _dirUrl;
-        private final Function<Path,Optional<Template>> _templateFetcher;
+        private final Function<Path, Optional<Template>> _templateFetcher;
         private final PageVars _pageVars;
         private final String _rootRelativeUrl;
         private final String _bakeId;

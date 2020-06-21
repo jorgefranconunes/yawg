@@ -100,8 +100,7 @@ import com.varmateo.yawg.util.YamlParser;
 
         final DirBakeOptions result;
 
-        try ( Reader reader =
-                Files.newBufferedReader(confFile, StandardCharsets.UTF_8) ) {
+        try ( Reader reader = Files.newBufferedReader(confFile, StandardCharsets.UTF_8) ) {
             result = read(reader);
         }
 
@@ -162,7 +161,7 @@ import com.varmateo.yawg.util.YamlParser;
                 .zipWithIndex()
                 .foldLeft(
                         GlobMatcher.builder(),
-                        (xs,x) -> addToGlobBuilder(xs, x._1, x._2, key))
+                        (xs, x) -> addToGlobBuilder(xs, x._1, x._2, key))
                 .build();
 
         return confMap.getList(key, String.class)

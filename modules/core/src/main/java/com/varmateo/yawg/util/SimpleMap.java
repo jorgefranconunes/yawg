@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -24,7 +24,7 @@ import com.varmateo.yawg.util.SimpleList;
 public final class SimpleMap {
 
 
-    private final Map<String,Object> _map;
+    private final Map<String, Object> _map;
 
 
     /**
@@ -36,7 +36,7 @@ public final class SimpleMap {
      *
      * @param map The map to be wrapped by this simple map.
      */
-    public SimpleMap(final Map<String,Object> map) {
+    public SimpleMap(final Map<String, Object> map) {
 
         _map = Objects.requireNonNull(map);
     }
@@ -48,7 +48,7 @@ public final class SimpleMap {
      *
      * @return A unmodifiable view of the contents of this simple map.
      */
-    public Map<String,Object> asMap() {
+    public Map<String, Object> asMap() {
 
         return Collections.unmodifiableMap(_map);
     }
@@ -61,7 +61,7 @@ public final class SimpleMap {
             final String key,
             final Class<T> klass) {
 
-        T value = getWithType(key, klass);
+        final T value = getWithType(key, klass);
 
         return Optional.ofNullable(value);
     }
@@ -82,8 +82,7 @@ public final class SimpleMap {
     public Optional<SimpleMap> getMap(final String key) {
 
         @SuppressWarnings("unchecked")
-        Map<String,Object> value =
-                (Map<String,Object>)getWithType(key, Map.class);
+        final Map<String, Object> value =(Map<String, Object>) getWithType(key, Map.class);
 
         return Optional.ofNullable(value)
                 .map(SimpleMap::new);
@@ -113,14 +112,14 @@ public final class SimpleMap {
             final Class<T> klass)
             throws YawgException {
 
-        Object value = _map.get(key);
+        final Object value = _map.get(key);
 
-        if ( (value!=null) && !klass.isInstance(value) ) {
+        if ( (value != null) && !klass.isInstance(value) ) {
             throw SimpleMapException.invalidValue(key, klass, value.getClass());
         }
 
         @SuppressWarnings("unchecked")
-        T result = (T)value;
+        final T result = (T) value;
 
         return result;
     }

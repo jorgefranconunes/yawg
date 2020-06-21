@@ -67,10 +67,9 @@ public final class FreemarkerDataModel {
      * <p>To comply with Freemarketr engine expectations the names of
      * getter methods have a "get" prefix.</p>
      */
-     public static final class YawgFreemarkerDataModel {
-         // WARNING: This class really needs to have "public"
-         // access. This is required by the Freemarker engine.
-
+    public static final class YawgFreemarkerDataModel {
+        // WARNING: This class really needs to have "public"
+        // access. This is required by the Freemarker engine.
 
         private final TemplateContext _templateContext;
         private final String _productName;

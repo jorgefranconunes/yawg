@@ -11,7 +11,6 @@ import java.util.function.Function;
 
 import io.vavr.control.Option;
 import io.vavr.control.Try;
-
 import org.commonmark.ext.front.matter.YamlFrontMatterVisitor;
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;

@@ -52,7 +52,7 @@ public final class FileUtils {
                 .getOrElse("");
         final int extensionIndex = basenameWithExtension.lastIndexOf('.');
 
-        return (extensionIndex>-1)
+        return (extensionIndex > -1)
                 ? basenameWithExtension.substring(0, extensionIndex)
                 : basenameWithExtension;
     }
@@ -149,7 +149,7 @@ public final class FileUtils {
      */
     public static void writeTo(
             final Path target,
-            final ConsumerWithIOException<Writer> consumer)
+            final ConsumerWithIoException<Writer> consumer)
             throws IOException {
 
         try ( Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {
@@ -163,7 +163,7 @@ public final class FileUtils {
      */
     public static <T> Try<Void> safeWriteTo(
             final Path target,
-            final ConsumerWithIOException<Writer> action) {
+            final ConsumerWithIoException<Writer> action) {
 
         try ( Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {
             return Try.run(() -> action.accept(writer));
@@ -178,7 +178,7 @@ public final class FileUtils {
      */
     public static <T> Try<T> safeWriteWith(
             final Path target,
-            final FunctionWithIOException<Writer, T> action) {
+            final FunctionWithIoException<Writer, T> action) {
 
         try ( Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {
             return Try.of(() -> action.apply(writer));
@@ -193,7 +193,7 @@ public final class FileUtils {
      */
     public static <T> T readFrom(
             final Path source,
-            final FunctionWithIOException<Reader, T> transformer)
+            final FunctionWithIoException<Reader, T> transformer)
             throws IOException {
 
         try ( Reader reader = Files.newBufferedReader(source, StandardCharsets.UTF_8) ) {
@@ -207,7 +207,7 @@ public final class FileUtils {
      */
     public static <T> Try<T> safeReadFrom(
             final Path source,
-            final FunctionWithIOException<Reader, T> transformer) {
+            final FunctionWithIoException<Reader, T> transformer) {
 
         try ( Reader reader = Files.newBufferedReader(source, StandardCharsets.UTF_8) ) {
             return Try.of(() -> transformer.apply(reader));
@@ -226,7 +226,7 @@ public final class FileUtils {
      * @param <T> The input type for the consumer.
      */
     @FunctionalInterface
-    public interface ConsumerWithIOException<T> {
+    public interface ConsumerWithIoException<T> {
 
         /**
          * Performs the operation on the given argument.
@@ -244,7 +244,7 @@ public final class FileUtils {
      *
      */
     @FunctionalInterface
-    public interface SupplierWithIOException<T> {
+    public interface SupplierWithIoException<T> {
 
         /**
          *
@@ -258,7 +258,7 @@ public final class FileUtils {
      *
      */
     @FunctionalInterface
-    public interface FunctionWithIOException<T, R> {
+    public interface FunctionWithIoException<T, R> {
 
         /**
          *

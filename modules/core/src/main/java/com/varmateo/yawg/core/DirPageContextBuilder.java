@@ -6,6 +6,13 @@
 
 package com.varmateo.yawg.core;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.function.Function;
+
+import io.vavr.control.Option;
+
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.core.DirBakeOptions;
 import com.varmateo.yawg.core.TemplateNameMatcher;
@@ -15,11 +22,6 @@ import com.varmateo.yawg.spi.PageVars;
 import com.varmateo.yawg.spi.PageVarsBuilder;
 import com.varmateo.yawg.spi.Template;
 import com.varmateo.yawg.spi.TemplateService;
-import io.vavr.control.Option;
-import java.io.File;
-import java.nio.file.Path;
-import java.util.Optional;
-import java.util.function.Function;
 
 
 /**
@@ -57,7 +59,7 @@ import java.util.function.Function;
             final PageVars extensionVars)
             throws YawgException {
 
-        final Function<Path,Optional<Template>> templateFetcher =
+        final Function<Path, Optional<Template>> templateFetcher =
                 buildTemplateFetcher(dirBakeOptions);
         final String dirUrl = buildRelativeUrl(targetDir, _targetRootDir);
         final String rootRelativeUrl = buildRelativeUrl(_targetRootDir, targetDir);
@@ -81,7 +83,7 @@ import java.util.function.Function;
      * @throws YawgException When the template service throws this
      * exception.
      */
-    private Function<Path,Optional<Template>> buildTemplateFetcher(
+    private Function<Path, Optional<Template>> buildTemplateFetcher(
             final DirBakeOptions dirBakeOptions)
             throws YawgException {
 

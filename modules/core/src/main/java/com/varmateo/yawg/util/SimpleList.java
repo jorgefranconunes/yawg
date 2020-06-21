@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -65,8 +65,7 @@ public final class SimpleList<T>
     public SimpleMap getMap(final int index) {
 
         @SuppressWarnings("unchecked")
-        Map<String,Object> value =
-                (Map<String,Object>)getWithType(index, Map.class);
+        final Map<String, Object> value = (Map<String, Object>) getWithType(index, Map.class);
 
         return new SimpleMap(value);
     }
@@ -80,7 +79,7 @@ public final class SimpleList<T>
             final Class<T> itemsClass) {
 
         @SuppressWarnings("unchecked")
-        List<Object> value = (List<Object>)getWithType(index, List.class);
+        final List<Object> value = (List<Object>) getWithType(index, List.class);
 
         return new SimpleList<T>(value, itemsClass);
     }
@@ -96,12 +95,12 @@ public final class SimpleList<T>
 
         Object value = _list.get(index);
 
-        if ( (value==null) || !klass.isInstance(value) ) {
+        if ( (value == null) || !klass.isInstance(value) ) {
             throw SimpleListException.invalidValue(index, klass, value);
         }
 
         @SuppressWarnings("unchecked")
-        T result = (T)value;
+        final T result = (T) value;
 
         return result;
     }

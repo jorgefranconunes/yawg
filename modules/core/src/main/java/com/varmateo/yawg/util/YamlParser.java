@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -36,13 +36,13 @@ public final class YamlParser {
     public SimpleMap parse(final Reader reader)
             throws IOException {
 
-        final Map<String,Object> resultMap;
-        YamlReader yamlReader = new YamlReader(reader);
-        Object yamlObj = yamlReader.read();
+        final Map<String, Object> resultMap;
+        final YamlReader yamlReader = new YamlReader(reader);
+        final Object yamlObj = yamlReader.read();
 
-        if ( (yamlObj!=null) && (yamlObj instanceof Map) ) {
+        if ( (yamlObj != null) && (yamlObj instanceof Map) ) {
             @SuppressWarnings("unchecked")
-            Map<String,Object> map = (Map<String,Object>)yamlObj;
+            final Map<String, Object> map = (Map<String, Object>) yamlObj;
             resultMap = map;
         } else {
             // The contents of the YAML file are invalid.

@@ -1,18 +1,19 @@
 /**************************************************************************
  *
- * Copyright (c) 2017-2019 Yawg project contributors.
+ * Copyright (c) 2017-2020 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.spi;
 
-import com.varmateo.yawg.spi.PageVars;
-import com.varmateo.yawg.spi.TemplateContext;
-import com.varmateo.yawg.spi.TemplateContext.Author;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+
+import com.varmateo.yawg.spi.PageVars;
+import com.varmateo.yawg.spi.TemplateContext;
+import com.varmateo.yawg.spi.TemplateContext.Author;
 
 
 /**
@@ -144,7 +145,7 @@ public final class TemplateContextBuilder {
      *
      */
     private static final class TemplateContextImpl
-        implements TemplateContext {
+            implements TemplateContext {
 
 
         private final List<Author> _authors;
@@ -159,7 +160,7 @@ public final class TemplateContextBuilder {
         /**
          *
          */
-        TemplateContextImpl(final TemplateContextBuilder builder) {
+        /* default */ TemplateContextImpl(final TemplateContextBuilder builder) {
 
             _authors = Collections.unmodifiableList(new ArrayList<>(builder._authors));
             _body = Objects.requireNonNull(builder._body);

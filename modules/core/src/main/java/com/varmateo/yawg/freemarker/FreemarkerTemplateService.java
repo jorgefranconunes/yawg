@@ -12,11 +12,10 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
-import io.vavr.control.Option;
-import io.vavr.control.Try;
-
 import freemarker.template.Configuration;
 import freemarker.template.TemplateExceptionHandler;
+import io.vavr.control.Option;
+import io.vavr.control.Try;
 
 import com.varmateo.yawg.api.Result;
 import com.varmateo.yawg.api.YawgException;
@@ -72,7 +71,7 @@ public final class FreemarkerTemplateService
      *
      */
     private static Configuration buildFreemarkerConfig(final Path templatesDir)
-            throws IOException{
+            throws IOException {
 
         final Configuration fmConfig = new Configuration(Configuration.VERSION_2_3_24);
 

@@ -1,14 +1,14 @@
 /**************************************************************************
  *
- * Copyright (c) 2015-2017 Yawg project contributors.
+ * Copyright (c) 2015-2020 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.logging;
 
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.logging.LogRecord;
+import java.util.logging.Logger;
 
 import com.varmateo.yawg.logging.Log;
 
@@ -19,7 +19,7 @@ import com.varmateo.yawg.logging.Log;
  * com.varmateo.yawg.logging.
  */
 final class LoggerLog
-    implements Log {
+        implements Log {
 
 
     private Logger _logger = null;
@@ -52,7 +52,7 @@ final class LoggerLog
      */
     public Level getLevel() {
 
-        return (_logger==null) ? Level.OFF : _logger.getLevel();
+        return (_logger == null) ? Level.OFF : _logger.getLevel();
     }
 
 

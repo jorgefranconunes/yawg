@@ -137,7 +137,7 @@ import com.varmateo.yawg.util.GlobMatcher;
     public static final class Builder {
 
 
-        private Map<String,GlobMatcher> _bakerTypes;
+        private Map<String, GlobMatcher> _bakerTypes;
 
 
         /**

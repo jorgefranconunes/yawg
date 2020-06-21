@@ -1,16 +1,17 @@
 /**************************************************************************
  *
- * Copyright (c) 2017 Yawg project contributors.
+ * Copyright (c) 2017-2020 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.spi;
 
-import com.varmateo.yawg.spi.PageVars;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+
+import com.varmateo.yawg.spi.PageVars;
 
 
 /**
@@ -19,13 +20,13 @@ import java.util.Optional;
 public final class PageVarsBuilder {
 
 
-    private final Map<String,Object> _map;
+    private final Map<String, Object> _map;
 
 
     /**
      *
      */
-    private PageVarsBuilder(final Map<String,Object> map) {
+    private PageVarsBuilder(final Map<String, Object> map) {
 
         _map = new HashMap<>(map);
     }
@@ -50,7 +51,7 @@ public final class PageVarsBuilder {
      *
      * @return A newly created <code>Builder</code> instance.
      */
-    public static PageVarsBuilder create(final Map<String,Object> data) {
+    public static PageVarsBuilder create(final Map<String, Object> data) {
 
         return new PageVarsBuilder(data);
     }
@@ -112,7 +113,7 @@ public final class PageVarsBuilder {
             implements PageVars {
 
 
-        private final Map<String,Object> _map;
+        private final Map<String, Object> _map;
 
 
         /**
@@ -127,7 +128,7 @@ public final class PageVarsBuilder {
         /**
          *
          */
-        private PageVarsImpl(final Map<String,Object> data) {
+        private PageVarsImpl(final Map<String, Object> data) {
 
             _map = Collections.unmodifiableMap(data);
         }
@@ -148,7 +149,7 @@ public final class PageVarsBuilder {
          * {@inheritDoc}
          */
         @Override
-        public Map<String,Object> asMap() {
+        public Map<String, Object> asMap() {
 
             return _map;
         }

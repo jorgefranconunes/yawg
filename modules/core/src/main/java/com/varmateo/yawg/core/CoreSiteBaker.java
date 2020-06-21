@@ -94,8 +94,7 @@ import com.varmateo.yawg.util.Results;
     /**
      *
      */
-    private static PageVars mapToPageVars(
-            final Map<String,Object> pageVarsMap) {
+    private static PageVars mapToPageVars(final Map<String, Object> pageVarsMap) {
 
         final PageVarsBuilder builder = PageVarsBuilder.create();
         pageVarsMap.entrySet().stream()
