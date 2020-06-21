@@ -94,14 +94,13 @@ import com.varmateo.yawg.util.Results;
     /**
      *
      */
-    private static PageVars mapToPageVars(
-            final Map&lt;String,Object&gt; pageVarsMap) {
+    private static PageVars mapToPageVars(final Map&lt;String, Object&gt; pageVarsMap) {
 
-<span class="nc" id="L100">        final PageVarsBuilder builder = PageVarsBuilder.create();</span>
-<span class="nc" id="L101">        pageVarsMap.entrySet().stream()</span>
-<span class="nc" id="L102">                .forEach(x -&gt; builder.addVar(x.getKey(), x.getValue()));</span>
+<span class="nc" id="L99">        final PageVarsBuilder builder = PageVarsBuilder.create();</span>
+<span class="nc" id="L100">        pageVarsMap.entrySet().stream()</span>
+<span class="nc" id="L101">                .forEach(x -&gt; builder.addVar(x.getKey(), x.getValue()));</span>
 
-<span class="nc" id="L104">        return builder.build();</span>
+<span class="nc" id="L103">        return builder.build();</span>
     }
 
 

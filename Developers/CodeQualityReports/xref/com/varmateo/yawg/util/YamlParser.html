@@ -8,7 +8,7 @@
 <div id="overview"><a href="../../../../../apidocs/com/varmateo/yawg/util/YamlParser.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_javadoccomment">/**************************************************************************</em>
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment"> * Copyright (c) 2016-2017 Yawg project contributors.</em>
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment"> * Copyright (c) 2016-2020 Yawg project contributors.</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> **************************************************************************/</em>
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   
@@ -44,13 +44,13 @@
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>      <strong class="jxr_keyword">public</strong> <a name="SimpleMap" href="../../../../com/varmateo/yawg/util/SimpleMap.html#SimpleMap">SimpleMap</a> parse(<strong class="jxr_keyword">final</strong> Reader reader)
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>              <strong class="jxr_keyword">throws</strong> IOException {
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>          <strong class="jxr_keyword">final</strong> Map&lt;String,Object&gt; resultMap;
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>          YamlReader yamlReader = <strong class="jxr_keyword">new</strong> YamlReader(reader);
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>          Object yamlObj = yamlReader.read();
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>          <strong class="jxr_keyword">final</strong> Map&lt;String, Object&gt; resultMap;
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>          <strong class="jxr_keyword">final</strong> YamlReader yamlReader = <strong class="jxr_keyword">new</strong> YamlReader(reader);
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>          <strong class="jxr_keyword">final</strong> Object yamlObj = yamlReader.read();
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>          <strong class="jxr_keyword">if</strong> ( (yamlObj!=<strong class="jxr_keyword">null</strong>) &amp;&amp; (yamlObj instanceof Map) ) {
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>          <strong class="jxr_keyword">if</strong> ( (yamlObj != <strong class="jxr_keyword">null</strong>) &amp;&amp; (yamlObj instanceof Map) ) {
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>              @SuppressWarnings(<span class="jxr_string">"unchecked"</span>)
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>              Map&lt;String,Object&gt; map = (Map&lt;String,Object&gt;)yamlObj;
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>              <strong class="jxr_keyword">final</strong> Map&lt;String, Object&gt; map = (Map&lt;String, Object&gt;) yamlObj;
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>              resultMap = map;
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>          } <strong class="jxr_keyword">else</strong> {
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>              <em class="jxr_comment">// The contents of the YAML file are invalid.</em>

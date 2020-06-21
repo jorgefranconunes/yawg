@@ -11,7 +11,6 @@ import java.util.function.Function;
 
 import io.vavr.control.Option;
 import io.vavr.control.Try;
-
 import org.commonmark.ext.front.matter.YamlFrontMatterVisitor;
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
@@ -40,11 +39,11 @@ import com.varmateo.yawg.util.FileUtils;
      */
     CommonMarkTemplateContextFactory(
             final Parser markdownParser,
-<span class="nc" id="L43">            final HtmlRenderer htmlRenderer) {</span>
+<span class="nc" id="L42">            final HtmlRenderer htmlRenderer) {</span>
 
-<span class="nc" id="L45">        _markdownParser = markdownParser;</span>
-<span class="nc" id="L46">        _htmlRenderer = htmlRenderer;</span>
-<span class="nc" id="L47">    }</span>
+<span class="nc" id="L44">        _markdownParser = markdownParser;</span>
+<span class="nc" id="L45">        _htmlRenderer = htmlRenderer;</span>
+<span class="nc" id="L46">    }</span>
 
 
     /**
@@ -56,15 +55,15 @@ import com.varmateo.yawg.util.FileUtils;
             final Path targetPath,
             final PageContext context) {
 
-<span class="nc" id="L59">        return parse(sourcePath)</span>
-<span class="nc" id="L60">                .map(buildTemplateContext(sourcePath, targetPath, context));</span>
+<span class="nc" id="L58">        return parse(sourcePath)</span>
+<span class="nc" id="L59">                .map(buildTemplateContext(sourcePath, targetPath, context));</span>
     }
 
 
     private Try&lt;Node&gt; parse(final Path sourcePath) {
 
-<span class="nc" id="L66">        return FileUtils.safeReadFrom(sourcePath, _markdownParser::parseReader)</span>
-<span class="nc" id="L67">                .recoverWith(CommonMarkPageBakerException.parseFailureTry(sourcePath));</span>
+<span class="nc" id="L65">        return FileUtils.safeReadFrom(sourcePath, _markdownParser::parseReader)</span>
+<span class="nc" id="L66">                .recoverWith(CommonMarkPageBakerException.parseFailureTry(sourcePath));</span>
     }
 
 
@@ -73,7 +72,7 @@ import com.varmateo.yawg.util.FileUtils;
             final Path targetPath,
             final PageContext context) {
 
-<span class="nc" id="L76">        return (Node document) -&gt; buildTemplateContext(sourcePath, targetPath, context, document);</span>
+<span class="nc" id="L75">        return (Node document) -&gt; buildTemplateContext(sourcePath, targetPath, context, document);</span>
     }
 
 
@@ -83,18 +82,18 @@ import com.varmateo.yawg.util.FileUtils;
             final PageContext context,
             final Node document) {
 
-<span class="nc" id="L86">        final String title = documentTitle(sourcePath, document);</span>
-<span class="nc" id="L87">        final String body = _htmlRenderer.render(document);</span>
-<span class="nc" id="L88">        final String pageUrl = context.dirUrl() + &quot;/&quot; + targetPath.getFileName();</span>
+<span class="nc" id="L85">        final String title = documentTitle(sourcePath, document);</span>
+<span class="nc" id="L86">        final String body = _htmlRenderer.render(document);</span>
+<span class="nc" id="L87">        final String pageUrl = context.dirUrl() + &quot;/&quot; + targetPath.getFileName();</span>
 
-<span class="nc" id="L90">        return TemplateContextBuilder.create()</span>
-<span class="nc" id="L91">                .title(title)</span>
-<span class="nc" id="L92">                .body(body)</span>
-<span class="nc" id="L93">                .pageUrl(pageUrl)</span>
-<span class="nc" id="L94">                .rootRelativeUrl(context.rootRelativeUrl())</span>
-<span class="nc" id="L95">                .pageVars(context.pageVars())</span>
-<span class="nc" id="L96">                .bakeId(context.bakeId())</span>
-<span class="nc" id="L97">                .build();</span>
+<span class="nc" id="L89">        return TemplateContextBuilder.create()</span>
+<span class="nc" id="L90">                .title(title)</span>
+<span class="nc" id="L91">                .body(body)</span>
+<span class="nc" id="L92">                .pageUrl(pageUrl)</span>
+<span class="nc" id="L93">                .rootRelativeUrl(context.rootRelativeUrl())</span>
+<span class="nc" id="L94">                .pageVars(context.pageVars())</span>
+<span class="nc" id="L95">                .bakeId(context.bakeId())</span>
+<span class="nc" id="L96">                .build();</span>
     }
 
 
@@ -102,19 +101,19 @@ import com.varmateo.yawg.util.FileUtils;
             final Path sourcePath,
             final Node document) {
 
-<span class="nc" id="L105">        return frontMatterTitle(document)</span>
-<span class="nc" id="L106">                .getOrElse(() -&gt; FileUtils.basename(sourcePath));</span>
+<span class="nc" id="L104">        return frontMatterTitle(document)</span>
+<span class="nc" id="L105">                .getOrElse(() -&gt; FileUtils.basename(sourcePath));</span>
     }
 
 
     private Option&lt;String&gt; frontMatterTitle(final Node document) {
 
-<span class="nc" id="L112">        final YamlFrontMatterVisitor frontMatterVisitor = new YamlFrontMatterVisitor();</span>
-<span class="nc" id="L113">        document.accept(frontMatterVisitor);</span>
+<span class="nc" id="L111">        final YamlFrontMatterVisitor frontMatterVisitor = new YamlFrontMatterVisitor();</span>
+<span class="nc" id="L112">        document.accept(frontMatterVisitor);</span>
 
-<span class="nc" id="L115">        return Option.of(frontMatterVisitor.getData().get(KEY_TITLE))</span>
-<span class="nc bnc" id="L116" title="All 2 branches missed.">                .filter(xs -&gt; xs.size() &gt; 0)</span>
-<span class="nc" id="L117">                .map(xs -&gt; xs.get(0));</span>
+<span class="nc" id="L114">        return Option.of(frontMatterVisitor.getData().get(KEY_TITLE))</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">                .filter(xs -&gt; xs.size() &gt; 0)</span>
+<span class="nc" id="L116">                .map(xs -&gt; xs.get(0));</span>
     }
 
 

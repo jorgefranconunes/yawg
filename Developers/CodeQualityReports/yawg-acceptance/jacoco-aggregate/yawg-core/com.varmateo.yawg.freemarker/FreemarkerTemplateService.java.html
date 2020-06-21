@@ -12,11 +12,10 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
-import io.vavr.control.Option;
-import io.vavr.control.Try;
-
 import freemarker.template.Configuration;
 import freemarker.template.TemplateExceptionHandler;
+import io.vavr.control.Option;
+import io.vavr.control.Try;
 
 import com.varmateo.yawg.api.Result;
 import com.varmateo.yawg.api.YawgException;
@@ -35,7 +34,7 @@ public final class FreemarkerTemplateService
         implements TemplateService {
 
 
-<span class="fc" id="L38">    private static final Pattern RE_FTLH = Pattern.compile(&quot;.*\\.ftlh$&quot;);</span>
+<span class="fc" id="L37">    private static final Pattern RE_FTLH = Pattern.compile(&quot;.*\\.ftlh$&quot;);</span>
 
     private final Configuration _fmConfig;
 
@@ -44,10 +43,10 @@ public final class FreemarkerTemplateService
      * @param templatesDir The directory containing the Freemarker
      * template files.
      */
-<span class="fc" id="L47">    private FreemarkerTemplateService(final Configuration fmConfig) {</span>
+<span class="fc" id="L46">    private FreemarkerTemplateService(final Configuration fmConfig) {</span>
 
-<span class="fc" id="L49">        _fmConfig = fmConfig;</span>
-<span class="fc" id="L50">    }</span>
+<span class="fc" id="L48">        _fmConfig = fmConfig;</span>
+<span class="fc" id="L49">    }</span>
 
 
     /**
@@ -59,12 +58,12 @@ public final class FreemarkerTemplateService
         final Configuration fmConfig;
 
         try {
-<span class="fc" id="L62">            fmConfig = buildFreemarkerConfig(templatesDir);</span>
-<span class="fc" id="L63">        } catch ( IOException e ) {</span>
-<span class="fc" id="L64">            throw FreemarkerTemplateServiceException.initializationFailure(templatesDir, e);</span>
-<span class="fc" id="L65">        }</span>
+<span class="fc" id="L61">            fmConfig = buildFreemarkerConfig(templatesDir);</span>
+<span class="fc" id="L62">        } catch ( IOException e ) {</span>
+<span class="fc" id="L63">            throw FreemarkerTemplateServiceException.initializationFailure(templatesDir, e);</span>
+<span class="fc" id="L64">        }</span>
 
-<span class="fc" id="L67">        return new FreemarkerTemplateService(fmConfig);</span>
+<span class="fc" id="L66">        return new FreemarkerTemplateService(fmConfig);</span>
     }
 
 
@@ -72,16 +71,16 @@ public final class FreemarkerTemplateService
      *
      */
     private static Configuration buildFreemarkerConfig(final Path templatesDir)
-            throws IOException{
+            throws IOException {
 
-<span class="fc" id="L77">        final Configuration fmConfig = new Configuration(Configuration.VERSION_2_3_24);</span>
+<span class="fc" id="L76">        final Configuration fmConfig = new Configuration(Configuration.VERSION_2_3_24);</span>
 
-<span class="fc" id="L79">        fmConfig.setDirectoryForTemplateLoading(templatesDir.toFile());</span>
-<span class="fc" id="L80">        fmConfig.setDefaultEncoding(&quot;UTF-8&quot;);</span>
-<span class="fc" id="L81">        fmConfig.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);</span>
-<span class="fc" id="L82">        fmConfig.setLogTemplateExceptions(false);</span>
+<span class="fc" id="L78">        fmConfig.setDirectoryForTemplateLoading(templatesDir.toFile());</span>
+<span class="fc" id="L79">        fmConfig.setDefaultEncoding(&quot;UTF-8&quot;);</span>
+<span class="fc" id="L80">        fmConfig.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);</span>
+<span class="fc" id="L81">        fmConfig.setLogTemplateExceptions(false);</span>
 
-<span class="fc" id="L84">        return fmConfig;</span>
+<span class="fc" id="L83">        return fmConfig;</span>
     }
 
 
@@ -92,12 +91,12 @@ public final class FreemarkerTemplateService
     public Optional&lt;Template&gt; prepareTemplate(final String name)
             throws YawgException {
 
-<span class="fc" id="L95">        return Option.of(name)</span>
-<span class="fc" id="L96">                .filter(x -&gt; RE_FTLH.matcher(x).matches())</span>
-<span class="fc" id="L97">                .map(this::prepareFreemarkerTemplate)</span>
-<span class="fc" id="L98">                .map(FreemarkerTemplate::new)</span>
-<span class="fc" id="L99">                .map(FreemarkerTemplate::asTemplate) // HACK</span>
-<span class="fc" id="L100">                .toJavaOptional();</span>
+<span class="fc" id="L94">        return Option.of(name)</span>
+<span class="fc" id="L95">                .filter(x -&gt; RE_FTLH.matcher(x).matches())</span>
+<span class="fc" id="L96">                .map(this::prepareFreemarkerTemplate)</span>
+<span class="fc" id="L97">                .map(FreemarkerTemplate::new)</span>
+<span class="fc" id="L98">                .map(FreemarkerTemplate::asTemplate) // HACK</span>
+<span class="fc" id="L99">                .toJavaOptional();</span>
     }
 
 
@@ -108,15 +107,15 @@ public final class FreemarkerTemplateService
             final String name)
             throws YawgException {
 
-<span class="fc" id="L111">        freemarker.template.Template fmTemplate = null;</span>
+<span class="fc" id="L110">        freemarker.template.Template fmTemplate = null;</span>
 
         try {
-<span class="fc" id="L114">            fmTemplate = _fmConfig.getTemplate(name);</span>
-<span class="fc" id="L115">        } catch ( IOException e ) {</span>
-<span class="fc" id="L116">            throw FreemarkerTemplateServiceException.fetchFailure(name, e);</span>
-<span class="fc" id="L117">        }</span>
+<span class="fc" id="L113">            fmTemplate = _fmConfig.getTemplate(name);</span>
+<span class="fc" id="L114">        } catch ( IOException e ) {</span>
+<span class="fc" id="L115">            throw FreemarkerTemplateServiceException.fetchFailure(name, e);</span>
+<span class="fc" id="L116">        }</span>
 
-<span class="fc" id="L119">        return fmTemplate;</span>
+<span class="fc" id="L118">        return fmTemplate;</span>
     }
 
 
@@ -133,10 +132,10 @@ public final class FreemarkerTemplateService
         /**
          *
          */
-<span class="fc" id="L136">        FreemarkerTemplate(final freemarker.template.Template fmTemplate) {</span>
+<span class="fc" id="L135">        FreemarkerTemplate(final freemarker.template.Template fmTemplate) {</span>
 
-<span class="fc" id="L138">            _fmTemplate = fmTemplate;</span>
-<span class="fc" id="L139">        }</span>
+<span class="fc" id="L137">            _fmTemplate = fmTemplate;</span>
+<span class="fc" id="L138">        }</span>
 
 
         /**
@@ -147,11 +146,11 @@ public final class FreemarkerTemplateService
                 final TemplateContext context,
                 final Writer writer) {
 
-<span class="fc" id="L150">            final FreemarkerDataModel fmDataModel = new FreemarkerDataModel(context);</span>
-<span class="fc" id="L151">            final Try&lt;Void&gt; result = Try.run(() -&gt; _fmTemplate.process(fmDataModel, writer))</span>
-<span class="fc" id="L152">                    .recoverWith(this::processingFailure);</span>
+<span class="fc" id="L149">            final FreemarkerDataModel fmDataModel = new FreemarkerDataModel(context);</span>
+<span class="fc" id="L150">            final Try&lt;Void&gt; result = Try.run(() -&gt; _fmTemplate.process(fmDataModel, writer))</span>
+<span class="fc" id="L151">                    .recoverWith(this::processingFailure);</span>
 
-<span class="fc" id="L154">            return Results.fromTry(result);</span>
+<span class="fc" id="L153">            return Results.fromTry(result);</span>
         }
 
 
@@ -160,16 +159,16 @@ public final class FreemarkerTemplateService
          */
         public Template asTemplate() {
 
-<span class="fc" id="L163">            return this;</span>
+<span class="fc" id="L162">            return this;</span>
         }
 
 
         private &lt;T&gt; Try&lt;T&gt; processingFailure(final Throwable rootCause) {
 
-<span class="fc" id="L169">            final YawgException cause = FreemarkerTemplateServiceException.processingFailure(</span>
-<span class="fc" id="L170">                    _fmTemplate.getName(), rootCause);</span>
+<span class="fc" id="L168">            final YawgException cause = FreemarkerTemplateServiceException.processingFailure(</span>
+<span class="fc" id="L169">                    _fmTemplate.getName(), rootCause);</span>
 
-<span class="fc" id="L172">            return Try.failure(cause);</span>
+<span class="fc" id="L171">            return Try.failure(cause);</span>
         }
 
 

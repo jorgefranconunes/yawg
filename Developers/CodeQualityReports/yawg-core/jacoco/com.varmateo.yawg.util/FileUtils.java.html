@@ -52,7 +52,7 @@ public final class FileUtils {
 <span class="fc" id="L52">                .getOrElse(&quot;&quot;);</span>
 <span class="fc" id="L53">        final int extensionIndex = basenameWithExtension.lastIndexOf('.');</span>
 
-<span class="fc bfc" id="L55" title="All 2 branches covered.">        return (extensionIndex&gt;-1)</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        return (extensionIndex &gt; -1)</span>
 <span class="fc" id="L56">                ? basenameWithExtension.substring(0, extensionIndex)</span>
                 : basenameWithExtension;
     }
@@ -149,7 +149,7 @@ public final class FileUtils {
      */
     public static void writeTo(
             final Path target,
-            final ConsumerWithIOException&lt;Writer&gt; consumer)
+            final ConsumerWithIoException&lt;Writer&gt; consumer)
             throws IOException {
 
 <span class="nc" id="L155">        try ( Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {</span>
@@ -163,7 +163,7 @@ public final class FileUtils {
      */
     public static &lt;T&gt; Try&lt;Void&gt; safeWriteTo(
             final Path target,
-            final ConsumerWithIOException&lt;Writer&gt; action) {
+            final ConsumerWithIoException&lt;Writer&gt; action) {
 
 <span class="nc" id="L168">        try ( Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {</span>
 <span class="nc" id="L169">            return Try.run(() -&gt; action.accept(writer));</span>
@@ -178,7 +178,7 @@ public final class FileUtils {
      */
     public static &lt;T&gt; Try&lt;T&gt; safeWriteWith(
             final Path target,
-            final FunctionWithIOException&lt;Writer, T&gt; action) {
+            final FunctionWithIoException&lt;Writer, T&gt; action) {
 
 <span class="nc" id="L183">        try ( Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {</span>
 <span class="nc" id="L184">            return Try.of(() -&gt; action.apply(writer));</span>
@@ -193,7 +193,7 @@ public final class FileUtils {
      */
     public static &lt;T&gt; T readFrom(
             final Path source,
-            final FunctionWithIOException&lt;Reader, T&gt; transformer)
+            final FunctionWithIoException&lt;Reader, T&gt; transformer)
             throws IOException {
 
 <span class="nc" id="L199">        try ( Reader reader = Files.newBufferedReader(source, StandardCharsets.UTF_8) ) {</span>
@@ -207,7 +207,7 @@ public final class FileUtils {
      */
     public static &lt;T&gt; Try&lt;T&gt; safeReadFrom(
             final Path source,
-            final FunctionWithIOException&lt;Reader, T&gt; transformer) {
+            final FunctionWithIoException&lt;Reader, T&gt; transformer) {
 
 <span class="nc" id="L212">        try ( Reader reader = Files.newBufferedReader(source, StandardCharsets.UTF_8) ) {</span>
 <span class="nc" id="L213">            return Try.of(() -&gt; transformer.apply(reader));</span>
@@ -226,7 +226,7 @@ public final class FileUtils {
      * @param &lt;T&gt; The input type for the consumer.
      */
     @FunctionalInterface
-    public interface ConsumerWithIOException&lt;T&gt; {
+    public interface ConsumerWithIoException&lt;T&gt; {
 
         /**
          * Performs the operation on the given argument.
@@ -244,7 +244,7 @@ public final class FileUtils {
      *
      */
     @FunctionalInterface
-    public interface SupplierWithIOException&lt;T&gt; {
+    public interface SupplierWithIoException&lt;T&gt; {
 
         /**
          *
@@ -258,7 +258,7 @@ public final class FileUtils {
      *
      */
     @FunctionalInterface
-    public interface FunctionWithIOException&lt;T, R&gt; {
+    public interface FunctionWithIoException&lt;T, R&gt; {
 
         /**
          *

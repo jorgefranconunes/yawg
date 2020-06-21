@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SimpleList.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.util</a> &gt; <span class="el_source">SimpleList.java</span></div><h1>SimpleList.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -65,10 +65,9 @@ public final class SimpleList&lt;T&gt;
     public SimpleMap getMap(final int index) {
 
         @SuppressWarnings(&quot;unchecked&quot;)
-<span class="nc" id="L68">        Map&lt;String,Object&gt; value =</span>
-<span class="nc" id="L69">                (Map&lt;String,Object&gt;)getWithType(index, Map.class);</span>
+<span class="nc" id="L68">        final Map&lt;String, Object&gt; value = (Map&lt;String, Object&gt;) getWithType(index, Map.class);</span>
 
-<span class="nc" id="L71">        return new SimpleMap(value);</span>
+<span class="nc" id="L70">        return new SimpleMap(value);</span>
     }
 
 
@@ -80,9 +79,9 @@ public final class SimpleList&lt;T&gt;
             final Class&lt;T&gt; itemsClass) {
 
         @SuppressWarnings(&quot;unchecked&quot;)
-<span class="nc" id="L83">        List&lt;Object&gt; value = (List&lt;Object&gt;)getWithType(index, List.class);</span>
+<span class="nc" id="L82">        final List&lt;Object&gt; value = (List&lt;Object&gt;) getWithType(index, List.class);</span>
 
-<span class="nc" id="L85">        return new SimpleList&lt;T&gt;(value, itemsClass);</span>
+<span class="nc" id="L84">        return new SimpleList&lt;T&gt;(value, itemsClass);</span>
     }
 
 
@@ -94,16 +93,16 @@ public final class SimpleList&lt;T&gt;
             final Class&lt;T&gt; klass)
             throws YawgException {
 
-<span class="fc" id="L97">        Object value = _list.get(index);</span>
+<span class="fc" id="L96">        Object value = _list.get(index);</span>
 
-<span class="pc bpc" id="L99" title="1 of 4 branches missed.">        if ( (value==null) || !klass.isInstance(value) ) {</span>
-<span class="fc" id="L100">            throw SimpleListException.invalidValue(index, klass, value);</span>
+<span class="pc bpc" id="L98" title="1 of 4 branches missed.">        if ( (value == null) || !klass.isInstance(value) ) {</span>
+<span class="fc" id="L99">            throw SimpleListException.invalidValue(index, klass, value);</span>
         }
 
         @SuppressWarnings(&quot;unchecked&quot;)
-<span class="fc" id="L104">        T result = (T)value;</span>
+<span class="fc" id="L103">        final T result = (T) value;</span>
 
-<span class="fc" id="L106">        return result;</span>
+<span class="fc" id="L105">        return result;</span>
     }
 
 
@@ -112,7 +111,7 @@ public final class SimpleList&lt;T&gt;
      */
     public int size() {
 
-<span class="fc" id="L115">        return _list.size();</span>
+<span class="fc" id="L114">        return _list.size();</span>
     }
 
 
@@ -130,11 +129,11 @@ public final class SimpleList&lt;T&gt;
         /**
          *
          */
-<span class="fc" id="L133">        SimpleIterator(final SimpleList&lt;T&gt; simpleList) {</span>
+<span class="fc" id="L132">        SimpleIterator(final SimpleList&lt;T&gt; simpleList) {</span>
 
-<span class="fc" id="L135">            _simpleList = simpleList;</span>
-<span class="fc" id="L136">            _index = 0;</span>
-<span class="fc" id="L137">        }</span>
+<span class="fc" id="L134">            _simpleList = simpleList;</span>
+<span class="fc" id="L135">            _index = 0;</span>
+<span class="fc" id="L136">        }</span>
 
 
         /**
@@ -143,7 +142,7 @@ public final class SimpleList&lt;T&gt;
         @Override
         public boolean hasNext() {
 
-<span class="fc bfc" id="L146" title="All 2 branches covered.">            return _index &lt; _simpleList.size();</span>
+<span class="fc bfc" id="L145" title="All 2 branches covered.">            return _index &lt; _simpleList.size();</span>
         }
 
 
@@ -153,13 +152,13 @@ public final class SimpleList&lt;T&gt;
         @Override
         public T next() {
 
-<span class="pc bpc" id="L156" title="1 of 2 branches missed.">            if ( _index &gt;= _simpleList.size() ) {</span>
-<span class="nc" id="L157">                throw new NoSuchElementException();</span>
+<span class="pc bpc" id="L155" title="1 of 2 branches missed.">            if ( _index &gt;= _simpleList.size() ) {</span>
+<span class="nc" id="L156">                throw new NoSuchElementException();</span>
             }
-<span class="fc" id="L159">            T result = _simpleList.get(_index);</span>
-<span class="fc" id="L160">            ++_index;</span>
+<span class="fc" id="L158">            T result = _simpleList.get(_index);</span>
+<span class="fc" id="L159">            ++_index;</span>
 
-<span class="fc" id="L162">            return result;</span>
+<span class="fc" id="L161">            return result;</span>
         }
 
 

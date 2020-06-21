@@ -12,8 +12,8 @@ import io.vavr.Lazy;
 import io.vavr.collection.Seq;
 
 import com.varmateo.yawg.api.SiteBaker;
-import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.DirBakeListener;
+import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.TemplateService;
 
 

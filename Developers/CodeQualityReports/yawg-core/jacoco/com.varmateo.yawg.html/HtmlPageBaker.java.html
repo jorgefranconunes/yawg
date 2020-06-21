@@ -14,8 +14,8 @@ import java.util.regex.Pattern;
 import io.vavr.control.Try;
 
 import com.varmateo.yawg.api.Result;
-import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.PageBakeResult;
+import com.varmateo.yawg.spi.PageBaker;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.Template;
 import com.varmateo.yawg.spi.TemplateContext;

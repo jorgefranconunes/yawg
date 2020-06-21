@@ -67,10 +67,9 @@ public final class FreemarkerDataModel {
      * &lt;p&gt;To comply with Freemarketr engine expectations the names of
      * getter methods have a &quot;get&quot; prefix.&lt;/p&gt;
      */
-     public static final class YawgFreemarkerDataModel {
-         // WARNING: This class really needs to have &quot;public&quot;
-         // access. This is required by the Freemarker engine.
-
+    public static final class YawgFreemarkerDataModel {
+        // WARNING: This class really needs to have &quot;public&quot;
+        // access. This is required by the Freemarker engine.
 
         private final TemplateContext _templateContext;
         private final String _productName;
@@ -80,12 +79,12 @@ public final class FreemarkerDataModel {
         /**
          *
          */
-<span class="fc" id="L83">        /* default */ YawgFreemarkerDataModel(final TemplateContext templateContext) {</span>
+<span class="fc" id="L82">        /* default */ YawgFreemarkerDataModel(final TemplateContext templateContext) {</span>
 
-<span class="fc" id="L85">            _templateContext = templateContext;</span>
-<span class="fc" id="L86">            _productName = YawgInfo.PRODUCT_NAME;</span>
-<span class="fc" id="L87">            _version = YawgInfo.VERSION;</span>
-<span class="fc" id="L88">        }</span>
+<span class="fc" id="L84">            _templateContext = templateContext;</span>
+<span class="fc" id="L85">            _productName = YawgInfo.PRODUCT_NAME;</span>
+<span class="fc" id="L86">            _version = YawgInfo.VERSION;</span>
+<span class="fc" id="L87">        }</span>
 
         /**
          * Randomly generated unique bake identifier. Each bake will have
@@ -93,7 +92,7 @@ public final class FreemarkerDataModel {
          */
         public String getBakeId() {
 
-<span class="fc" id="L96">            return _templateContext.bakeId();</span>
+<span class="fc" id="L95">            return _templateContext.bakeId();</span>
         }
 
 
@@ -102,7 +101,7 @@ public final class FreemarkerDataModel {
          */
         public String getProductName() {
 
-<span class="nc" id="L105">            return _productName;</span>
+<span class="nc" id="L104">            return _productName;</span>
         }
 
 
@@ -111,37 +110,37 @@ public final class FreemarkerDataModel {
          */
         public String getVersion() {
 
-<span class="nc" id="L114">            return _version;</span>
+<span class="nc" id="L113">            return _version;</span>
         }
 
 
         public Iterable&lt;Author&gt; getAuthors() {
 
-<span class="nc" id="L120">            return _templateContext.authors();</span>
+<span class="nc" id="L119">            return _templateContext.authors();</span>
         }
 
 
         public String getBody() {
 
-<span class="fc" id="L126">            return _templateContext.body();</span>
+<span class="fc" id="L125">            return _templateContext.body();</span>
         }
 
 
         public String getPageUrl() {
 
-<span class="nc" id="L132">            return _templateContext.pageUrl();</span>
+<span class="nc" id="L131">            return _templateContext.pageUrl();</span>
         }
 
 
         public String getRootRelativeUrl() {
 
-<span class="nc" id="L138">            return _templateContext.rootRelativeUrl();</span>
+<span class="nc" id="L137">            return _templateContext.rootRelativeUrl();</span>
         }
 
 
         public String getTitle() {
 
-<span class="fc" id="L144">            return _templateContext.title();</span>
+<span class="fc" id="L143">            return _templateContext.title();</span>
         }
 
     }

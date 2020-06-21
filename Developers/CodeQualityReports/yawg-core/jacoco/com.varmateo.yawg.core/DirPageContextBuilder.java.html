@@ -6,6 +6,13 @@
 
 package com.varmateo.yawg.core;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.function.Function;
+
+import io.vavr.control.Option;
+
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.core.DirBakeOptions;
 import com.varmateo.yawg.core.TemplateNameMatcher;
@@ -15,11 +22,6 @@ import com.varmateo.yawg.spi.PageVars;
 import com.varmateo.yawg.spi.PageVarsBuilder;
 import com.varmateo.yawg.spi.Template;
 import com.varmateo.yawg.spi.TemplateService;
-import io.vavr.control.Option;
-import java.io.File;
-import java.nio.file.Path;
-import java.util.Optional;
-import java.util.function.Function;
 
 
 /**
@@ -40,12 +42,12 @@ import java.util.function.Function;
     DirPageContextBuilder(
             final Path targetRootDir,
             final TemplateService templateService,
-<span class="fc" id="L43">            final String bakeId) {</span>
+<span class="fc" id="L45">            final String bakeId) {</span>
 
-<span class="fc" id="L45">        _targetRootDir = targetRootDir;</span>
-<span class="fc" id="L46">        _templateService = templateService;</span>
-<span class="fc" id="L47">        _bakeId = bakeId;</span>
-<span class="fc" id="L48">    }</span>
+<span class="fc" id="L47">        _targetRootDir = targetRootDir;</span>
+<span class="fc" id="L48">        _templateService = templateService;</span>
+<span class="fc" id="L49">        _bakeId = bakeId;</span>
+<span class="fc" id="L50">    }</span>
 
 
     /**
@@ -57,23 +59,23 @@ import java.util.function.Function;
             final PageVars extensionVars)
             throws YawgException {
 
-<span class="fc" id="L60">        final Function&lt;Path,Optional&lt;Template&gt;&gt; templateFetcher =</span>
-<span class="fc" id="L61">                buildTemplateFetcher(dirBakeOptions);</span>
-<span class="fc" id="L62">        final String dirUrl = buildRelativeUrl(targetDir, _targetRootDir);</span>
-<span class="fc" id="L63">        final String rootRelativeUrl = buildRelativeUrl(_targetRootDir, targetDir);</span>
-<span class="fc" id="L64">        final PageVars allPageVars = PageVarsBuilder.create()</span>
-<span class="fc" id="L65">                .addPageVars(dirBakeOptions.pageVars)</span>
-<span class="fc" id="L66">                .addPageVars(dirBakeOptions.pageVarsHere)</span>
-<span class="fc" id="L67">                .addPageVars(extensionVars)</span>
-<span class="fc" id="L68">                .build();</span>
+<span class="fc" id="L62">        final Function&lt;Path, Optional&lt;Template&gt;&gt; templateFetcher =</span>
+<span class="fc" id="L63">                buildTemplateFetcher(dirBakeOptions);</span>
+<span class="fc" id="L64">        final String dirUrl = buildRelativeUrl(targetDir, _targetRootDir);</span>
+<span class="fc" id="L65">        final String rootRelativeUrl = buildRelativeUrl(_targetRootDir, targetDir);</span>
+<span class="fc" id="L66">        final PageVars allPageVars = PageVarsBuilder.create()</span>
+<span class="fc" id="L67">                .addPageVars(dirBakeOptions.pageVars)</span>
+<span class="fc" id="L68">                .addPageVars(dirBakeOptions.pageVarsHere)</span>
+<span class="fc" id="L69">                .addPageVars(extensionVars)</span>
+<span class="fc" id="L70">                .build();</span>
 
-<span class="fc" id="L70">        return PageContextBuilder.create()</span>
-<span class="fc" id="L71">                .dirUrl(dirUrl)</span>
-<span class="fc" id="L72">                .rootRelativeUrl(rootRelativeUrl)</span>
-<span class="fc" id="L73">                .templateFetcher(templateFetcher)</span>
-<span class="fc" id="L74">                .pageVars(allPageVars)</span>
-<span class="fc" id="L75">                .bakeId(_bakeId)</span>
-<span class="fc" id="L76">                .build();</span>
+<span class="fc" id="L72">        return PageContextBuilder.create()</span>
+<span class="fc" id="L73">                .dirUrl(dirUrl)</span>
+<span class="fc" id="L74">                .rootRelativeUrl(rootRelativeUrl)</span>
+<span class="fc" id="L75">                .templateFetcher(templateFetcher)</span>
+<span class="fc" id="L76">                .pageVars(allPageVars)</span>
+<span class="fc" id="L77">                .bakeId(_bakeId)</span>
+<span class="fc" id="L78">                .build();</span>
     }
 
 
@@ -81,20 +83,20 @@ import java.util.function.Function;
      * @throws YawgException When the template service throws this
      * exception.
      */
-    private Function&lt;Path,Optional&lt;Template&gt;&gt; buildTemplateFetcher(
+    private Function&lt;Path, Optional&lt;Template&gt;&gt; buildTemplateFetcher(
             final DirBakeOptions dirBakeOptions)
             throws YawgException {
 
-<span class="fc" id="L88">        final Option&lt;String&gt; templateName = dirBakeOptions.templateName;</span>
-<span class="fc" id="L89">        final TemplateNameMatcher templateNameMatcher = dirBakeOptions.templatesHere;</span>
-<span class="fc" id="L90">        final TemplateService templateService = _templateService;</span>
+<span class="fc" id="L90">        final Option&lt;String&gt; templateName = dirBakeOptions.templateName;</span>
+<span class="fc" id="L91">        final TemplateNameMatcher templateNameMatcher = dirBakeOptions.templatesHere;</span>
+<span class="fc" id="L92">        final TemplateService templateService = _templateService;</span>
 
-<span class="pc" id="L92">        return path -&gt; prepareTemplate(</span>
+<span class="pc" id="L94">        return path -&gt; prepareTemplate(</span>
                 path,
                 templateNameMatcher,
                 templateName,
                 templateService)
-<span class="nc" id="L97">                .toJavaOptional();</span>
+<span class="nc" id="L99">                .toJavaOptional();</span>
     }
 
 
@@ -107,8 +109,8 @@ import java.util.function.Function;
             final Option&lt;String&gt; templateName,
             final TemplateService templateService) {
 
-<span class="nc" id="L110">        return prepareTemplateForPath(path, templateNameMatcher, templateService)</span>
-<span class="nc" id="L111">                .orElse(() -&gt; prepareDefaultTemplate(templateName, templateService));</span>
+<span class="nc" id="L112">        return prepareTemplateForPath(path, templateNameMatcher, templateService)</span>
+<span class="nc" id="L113">                .orElse(() -&gt; prepareDefaultTemplate(templateName, templateService));</span>
     }
 
 
@@ -120,8 +122,8 @@ import java.util.function.Function;
             final TemplateNameMatcher templateNameMatcher,
             final TemplateService templateService) {
 
-<span class="nc" id="L123">        return templateNameMatcher.templateNameFor(path)</span>
-<span class="nc" id="L124">                .flatMap(name -&gt; Option.ofOptional(templateService.prepareTemplate(name)));</span>
+<span class="nc" id="L125">        return templateNameMatcher.templateNameFor(path)</span>
+<span class="nc" id="L126">                .flatMap(name -&gt; Option.ofOptional(templateService.prepareTemplate(name)));</span>
     }
 
 
@@ -132,8 +134,8 @@ import java.util.function.Function;
             final Option&lt;String&gt; templateName,
             final TemplateService templateService) {
 
-<span class="nc" id="L135">        return templateName.flatMap(</span>
-<span class="nc" id="L136">                name -&gt; Option.ofOptional(templateService.prepareTemplate(name)));</span>
+<span class="nc" id="L137">        return templateName.flatMap(</span>
+<span class="nc" id="L138">                name -&gt; Option.ofOptional(templateService.prepareTemplate(name)));</span>
     }
 
 
@@ -145,10 +147,10 @@ import java.util.function.Function;
             final Path dir,
             final Path baseDir) {
 
-<span class="fc" id="L148">        final Path relDir = baseDir.relativize(dir);</span>
-<span class="fc" id="L149">        final String relativeUrl = relDir.toString().replace(File.separatorChar, '/');</span>
+<span class="fc" id="L150">        final Path relDir = baseDir.relativize(dir);</span>
+<span class="fc" id="L151">        final String relativeUrl = relDir.toString().replace(File.separatorChar, '/');</span>
 
-<span class="pc bpc" id="L151" title="1 of 2 branches missed.">        return relativeUrl.length() == 0</span>
+<span class="pc bpc" id="L153" title="1 of 2 branches missed.">        return relativeUrl.length() == 0</span>
                 ? &quot;.&quot;
                 : relativeUrl;
     }
