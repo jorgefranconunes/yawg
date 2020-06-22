@@ -13,7 +13,6 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 import com.varmateo.yawg.api.YawgException;
-import com.varmateo.yawg.util.SimpleMap;
 
 
 /**
@@ -44,6 +43,7 @@ public final class SimpleList<T>
     /**
      *
      */
+    @Override
     public Iterator<T> iterator() {
 
         return new SimpleIterator<>(this);
@@ -90,10 +90,9 @@ public final class SimpleList<T>
      */
     public <T> T getWithType(
             final int index,
-            final Class<T> klass)
-            throws YawgException {
+            final Class<T> klass) {
 
-        Object value = _list.get(index);
+        final Object value = _list.get(index);
 
         if ( (value == null) || !klass.isInstance(value) ) {
             throw SimpleListException.invalidValue(index, klass, value);
@@ -129,7 +128,7 @@ public final class SimpleList<T>
         /**
          *
          */
-        SimpleIterator(final SimpleList<T> simpleList) {
+        /* default */ SimpleIterator(final SimpleList<T> simpleList) {
 
             _simpleList = simpleList;
             _index = 0;
@@ -155,7 +154,7 @@ public final class SimpleList<T>
             if ( _index >= _simpleList.size() ) {
                 throw new NoSuchElementException();
             }
-            T result = _simpleList.get(_index);
+            final T result = _simpleList.get(_index);
             ++_index;
 
             return result;

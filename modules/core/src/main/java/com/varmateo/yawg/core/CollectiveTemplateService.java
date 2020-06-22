@@ -60,8 +60,7 @@ import com.varmateo.yawg.spi.TemplateService;
      */
     private static Optional<Template> prepareTemplateFromServices(
             final Seq<TemplateService> services,
-            final String name)
-            throws YawgException {
+            final String name) {
 
         final Option<Template> result = services
                 .map(service -> service.prepareTemplate(name))

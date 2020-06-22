@@ -11,8 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import com.varmateo.yawg.spi.PageVars;
-
 
 /**
  * A builder of <code>PageVars</code> instances.
@@ -119,7 +117,7 @@ public final class PageVarsBuilder {
         /**
          *
          */
-        private PageVarsImpl() {
+        /* default */ PageVarsImpl() {
 
             _map = Collections.emptyMap();
         }
@@ -128,7 +126,7 @@ public final class PageVarsBuilder {
         /**
          *
          */
-        private PageVarsImpl(final Map<String, Object> data) {
+        /* default */ PageVarsImpl(final Map<String, Object> data) {
 
             _map = Collections.unmodifiableMap(data);
         }
@@ -140,7 +138,7 @@ public final class PageVarsBuilder {
         @Override
         public Optional<Object> get(final String key) {
 
-            Object value = _map.get(key);
+            final Object value = _map.get(key);
             return Optional.ofNullable(value);
         }
 

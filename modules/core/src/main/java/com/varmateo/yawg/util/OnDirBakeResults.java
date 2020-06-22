@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2019 Yawg project contributors.
+ * Copyright (c) 2019-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -87,12 +87,16 @@ public final class OnDirBakeResults {
     /**
      *
      */
-    public static Try<PageVars> toTry(final OnDirBakeResult result) {
+    public static Try<PageVars> toTry(final OnDirBakeResult value) {
 
-        if ( result.isSuccess() ) {
-            return Try.success(result.pageVars());
+        final Try<PageVars> result;
+
+        if ( value.isSuccess() ) {
+            result = Try.success(value.pageVars());
         } else {
-            return Try.failure(result.failureCause());
+            result = Try.failure(value.failureCause());
         }
+
+        return result;
     }
 }

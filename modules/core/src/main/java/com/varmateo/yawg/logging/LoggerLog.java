@@ -10,25 +10,23 @@ import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
-import com.varmateo.yawg.logging.Log;
-
 
 /**
  * A <code>Log</code> implementation using Java <code>Logger</code>
  * instances. Intended for private use of package
  * com.varmateo.yawg.logging.
  */
-final class LoggerLog
+/* default */ final class LoggerLog
         implements Log {
 
 
-    private Logger _logger = null;
+    private final Logger _logger;
 
 
     /**
      *
      */
-    LoggerLog(final Logger logger) {
+    /* default */ LoggerLog(final Logger logger) {
 
         _logger = logger;
     }
@@ -187,7 +185,7 @@ final class LoggerLog
             final Object[]  fmtArgs) {
 
         if ( _logger != null ) {
-            LogRecord logRecord = new LogRecord(level, msg);
+            final LogRecord logRecord = new LogRecord(level, msg);
 
             logRecord.setThrown(error);
             logRecord.setParameters(fmtArgs);

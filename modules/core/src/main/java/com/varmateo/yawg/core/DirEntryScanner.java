@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -15,15 +15,12 @@ import java.util.stream.Stream;
 import io.vavr.collection.List;
 import io.vavr.collection.Seq;
 
-import com.varmateo.yawg.core.DirBakeOptions;
-import com.varmateo.yawg.core.DirEntryChecker;
-
 
 /**
  * Used for obtaining the list of entries in a given directory that
  * should be baked.
  */
-/* package private */ final class DirEntryScanner {
+/* default */ final class DirEntryScanner {
 
 
     private final Predicate<Path> _entryFilter;
@@ -32,7 +29,7 @@ import com.varmateo.yawg.core.DirEntryChecker;
     /**
      *
      */
-    DirEntryScanner(final DirBakeOptions options) {
+    /* default */ DirEntryScanner(final DirBakeOptions options) {
 
         _entryFilter = new DirEntryChecker(options).asPathPredicate();
     }
@@ -45,7 +42,7 @@ import com.varmateo.yawg.core.DirEntryChecker;
             throws IOException {
 
         try ( Stream<Path> entries = Files.list(dirPath) ) {
-            Stream<Path> stream =
+            final Stream<Path> stream =
                     entries
                     .filter(_entryFilter)
                     .sorted();

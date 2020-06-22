@@ -122,12 +122,15 @@ public final class HtmlPageBaker
 
         final Path targetPath = getTargetPath(sourcePath, targetDir);
         final Optional<Template> template = context.templateFor(sourcePath);
+        final Try<Void> result;
 
         if ( template.isPresent() ) {
-            return doBakeWithTemplate(sourcePath, context, targetPath, template.get());
+            result = doBakeWithTemplate(sourcePath, context, targetPath, template.get());
         } else {
-            return doBakeWithoutTemplate(sourcePath, targetPath);
+            result = doBakeWithoutTemplate(sourcePath, targetPath);
         }
+
+        return result;
     }
 
 

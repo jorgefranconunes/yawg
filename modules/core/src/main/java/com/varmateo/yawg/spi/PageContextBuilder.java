@@ -11,11 +11,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
-import com.varmateo.yawg.spi.PageContextBuilder;
-import com.varmateo.yawg.spi.PageVars;
-import com.varmateo.yawg.spi.PageVarsBuilder;
-import com.varmateo.yawg.spi.Template;
-
 
 /**
  * A builder of <code>PageContext</code> instances.
@@ -204,7 +199,7 @@ public final class PageContextBuilder {
         /**
          *
          */
-        private PageContextImpl(final PageContextBuilder builder) {
+        /* default */ PageContextImpl(final PageContextBuilder builder) {
 
             _dirUrl = Objects.requireNonNull(builder._dirUrl);
             _templateFetcher = builder._templateFetcher;

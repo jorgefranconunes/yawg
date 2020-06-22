@@ -19,7 +19,6 @@ import io.vavr.control.Try;
 
 import com.varmateo.yawg.api.Result;
 import com.varmateo.yawg.api.YawgException;
-import com.varmateo.yawg.freemarker.FreemarkerDataModel;
 import com.varmateo.yawg.spi.Template;
 import com.varmateo.yawg.spi.TemplateContext;
 import com.varmateo.yawg.spi.TemplateService;
@@ -52,8 +51,7 @@ public final class FreemarkerTemplateService
     /**
      *
      */
-    public static TemplateService create(final Path templatesDir)
-            throws YawgException {
+    public static TemplateService create(final Path templatesDir) {
 
         final Configuration fmConfig;
 
@@ -88,8 +86,7 @@ public final class FreemarkerTemplateService
      * {@inheritDoc}
      */
     @Override
-    public Optional<Template> prepareTemplate(final String name)
-            throws YawgException {
+    public Optional<Template> prepareTemplate(final String name) {
 
         return Option.of(name)
                 .filter(x -> RE_FTLH.matcher(x).matches())
@@ -103,9 +100,7 @@ public final class FreemarkerTemplateService
     /**
      *
      */
-    private freemarker.template.Template prepareFreemarkerTemplate(
-            final String name)
-            throws YawgException {
+    private freemarker.template.Template prepareFreemarkerTemplate(final String name) {
 
         freemarker.template.Template fmTemplate = null;
 
@@ -132,7 +127,7 @@ public final class FreemarkerTemplateService
         /**
          *
          */
-        FreemarkerTemplate(final freemarker.template.Template fmTemplate) {
+        /* default */ FreemarkerTemplate(final freemarker.template.Template fmTemplate) {
 
             _fmTemplate = fmTemplate;
         }

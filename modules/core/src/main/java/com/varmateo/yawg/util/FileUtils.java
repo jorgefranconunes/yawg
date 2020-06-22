@@ -180,6 +180,8 @@ public final class FileUtils {
             final Path target,
             final FunctionWithIoException<Writer, T> action) {
 
+        final Try<T> result;
+
         try ( Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {
             return Try.of(() -> action.apply(writer));
         } catch ( final IOException cause ) {
@@ -208,6 +210,8 @@ public final class FileUtils {
     public static <T> Try<T> safeReadFrom(
             final Path source,
             final FunctionWithIoException<Reader, T> transformer) {
+
+        final Try<T> result;
 
         try ( Reader reader = Files.newBufferedReader(source, StandardCharsets.UTF_8) ) {
             return Try.of(() -> transformer.apply(reader));

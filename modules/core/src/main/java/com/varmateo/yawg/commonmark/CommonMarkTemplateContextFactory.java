@@ -37,7 +37,7 @@ import com.varmateo.yawg.util.FileUtils;
     /**
      *
      */
-    CommonMarkTemplateContextFactory(
+    /* default */ CommonMarkTemplateContextFactory(
             final Parser markdownParser,
             final HtmlRenderer htmlRenderer) {
 

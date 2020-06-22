@@ -40,7 +40,7 @@ import com.varmateo.yawg.spi.PageContext;
     /**
      * @param log The logger that will be used for logging.
      */
-    FileBaker(
+    /* default */ FileBaker(
             final Seq<PageBaker> bakers,
             final PageBaker defaultBaker) {
 
@@ -83,8 +83,7 @@ import com.varmateo.yawg.spi.PageContext;
      */
     private PageBaker findBaker(
             final Path sourcePath,
-            final DirBakeOptions dirBakeOptions)
-            throws YawgException {
+            final DirBakeOptions dirBakeOptions) {
 
         return dirBakeOptions.bakerTypes
                 .flatMap(bakerTypes -> bakerTypes.bakerTypeFor(sourcePath))
@@ -96,8 +95,7 @@ import com.varmateo.yawg.spi.PageContext;
     /**
      *
      */
-    private PageBaker findBakerWithType(final String bakerType)
-            throws YawgException {
+    private PageBaker findBakerWithType(final String bakerType) {
 
         final Option<PageBaker> baker = _allBakersByType.get(bakerType);
 

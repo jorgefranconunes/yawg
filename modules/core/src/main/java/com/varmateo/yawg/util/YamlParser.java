@@ -13,8 +13,6 @@ import java.util.Map;
 
 import com.esotericsoftware.yamlbeans.YamlReader;
 
-import com.varmateo.yawg.util.SimpleMap;
-
 
 /**
  * A simple YAML parser.
@@ -33,7 +31,7 @@ public final class YamlParser {
      * @exception IOException Thrown if there were any problems
      * reading from the reader, or if the YAML contents are invalid.
      */
-    public SimpleMap parse(final Reader reader)
+    public static SimpleMap parse(final Reader reader)
             throws IOException {
 
         final Map<String, Object> resultMap;

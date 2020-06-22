@@ -8,8 +8,6 @@ package com.varmateo.yawg.logging;
 
 import java.util.logging.Logger;
 
-import com.varmateo.yawg.logging.LoggerLog;
-
 
 /**
  * Provides utility methods for creating <code>Log</code> instances.

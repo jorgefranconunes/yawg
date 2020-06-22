@@ -11,8 +11,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import com.varmateo.yawg.spi.PageVars;
-import com.varmateo.yawg.spi.TemplateContext;
 import com.varmateo.yawg.spi.TemplateContext.Author;
 
 
@@ -65,7 +63,7 @@ public final class TemplateContextBuilder {
             final String name,
             final String email) {
 
-        Author author = Author.create(name, email);
+        final Author author = Author.create(name, email);
         _authors.add(author);
         return this;
     }
@@ -227,7 +225,7 @@ public final class TemplateContextBuilder {
 
 
         /**
-         *
+         * {@inheritDoc}
          */
         @Override
         public String bakeId() {

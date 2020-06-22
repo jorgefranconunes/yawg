@@ -78,12 +78,16 @@ public final class PageBakeResults {
     /**
      *
      */
-    public static Try<Void> toTry(final PageBakeResult result) {
+    public static Try<Void> toTry(final PageBakeResult value) {
 
-        if ( result.isSuccess() ) {
-            return Trys.success();
+        final Try<Void> result;
+
+        if ( value.isSuccess() ) {
+            result = Trys.success();
         } else {
-            return Try.failure(result.failureCause());
+            result = Try.failure(value.failureCause());
         }
+
+        return result;
     }
 }

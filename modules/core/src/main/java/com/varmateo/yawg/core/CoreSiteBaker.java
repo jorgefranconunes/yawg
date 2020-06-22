@@ -76,8 +76,7 @@ import com.varmateo.yawg.util.Results;
      */
     private void doBake(
             final BakeOptions options,
-            final DirBaker dirBaker)
-            throws YawgException {
+            final DirBaker dirBaker) {
 
         final Path sourceDir = options.sourceDir();
         final Path targetDir = options.targetDir();

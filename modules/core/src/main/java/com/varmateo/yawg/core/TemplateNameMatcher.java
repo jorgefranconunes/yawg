@@ -22,13 +22,13 @@ import com.varmateo.yawg.util.GlobMatcher;
 /* default */ final class TemplateNameMatcher {
 
 
-    private final Map<String,GlobMatcher> _matchersByName;
+    private final Map<String, GlobMatcher> _matchersByName;
 
 
     /**
      *
      */
-    private TemplateNameMatcher(final Builder builder) {
+    /* default */ TemplateNameMatcher(final Builder builder) {
 
         _matchersByName = builder._matchersByName;
     }
@@ -70,13 +70,13 @@ import com.varmateo.yawg.util.GlobMatcher;
     public static final class Builder {
 
 
-        private Map<String,GlobMatcher> _matchersByName;
+        private Map<String, GlobMatcher> _matchersByName;
 
 
         /**
          *
          */
-        private Builder() {
+        /* default */ Builder() {
 
             _matchersByName = HashMap.empty();
         }

@@ -21,8 +21,6 @@ import io.vavr.collection.Seq;
 import io.vavr.collection.Stream;
 
 import com.varmateo.yawg.api.YawgException;
-import com.varmateo.yawg.core.DirBakeOptions;
-import com.varmateo.yawg.core.TemplateNameMatcher;
 import com.varmateo.yawg.spi.PageVars;
 import com.varmateo.yawg.spi.PageVarsBuilder;
 import com.varmateo.yawg.util.GlobMatcher;
@@ -49,6 +47,11 @@ import com.varmateo.yawg.util.YamlParser;
     private static final String PARAM_EXTRA_DIRS_HERE = "extraDirsHere";
 
 
+    public DirBakeOptionsDao() {
+        // Nothing to do.
+    }
+
+
     /**
      * Builds the baker configuration for the given directory.
      *
@@ -66,7 +69,7 @@ import com.varmateo.yawg.util.YamlParser;
     public DirBakeOptions loadFromDir(final Path sourceDir)
             throws YawgException {
 
-        Path confFile = sourceDir.resolve(CONF_FILE_NAME);
+        final Path confFile = sourceDir.resolve(CONF_FILE_NAME);
 
         return Files.isRegularFile(confFile)
                 ? loadFromFile(confFile)
@@ -77,8 +80,7 @@ import com.varmateo.yawg.util.YamlParser;
     /**
      *
      */
-    public DirBakeOptions loadFromFile(final Path confFile)
-            throws YawgException {
+    public DirBakeOptions loadFromFile(final Path confFile) {
 
         final DirBakeOptions result;
 
@@ -96,7 +98,7 @@ import com.varmateo.yawg.util.YamlParser;
      *
      */
     private DirBakeOptions doLoadFromFile(final Path confFile)
-            throws YawgException, IOException {
+            throws IOException {
 
         final DirBakeOptions result;
 
@@ -112,10 +114,10 @@ import com.varmateo.yawg.util.YamlParser;
      *
      */
     public DirBakeOptions read(final Reader reader)
-            throws IOException, YawgException {
+            throws IOException {
 
-        SimpleMap confMap = new YamlParser().parse(reader);
-        DirBakeOptions.Builder builder = DirBakeOptions.builder();
+        final SimpleMap confMap = YamlParser.parse(reader);
+        final DirBakeOptions.Builder builder = DirBakeOptions.builder();
 
         confMap.getString(PARAM_TEMPLATE)
                 .ifPresent(builder::templateName);
@@ -156,7 +158,7 @@ import com.varmateo.yawg.util.YamlParser;
             final String key)
             throws YawgException {
 
-        Function1<Seq<String>, GlobMatcher> itemsToGlobMatcher = items ->
+        final Function1<Seq<String>, GlobMatcher> itemsToGlobMatcher = items ->
                 items
                 .zipWithIndex()
                 .foldLeft(
@@ -193,11 +195,11 @@ import com.varmateo.yawg.util.YamlParser;
             throws YawgException {
 
         final Optional<BakerMatcher> result;
-        Optional<SimpleMap> bakerTypesMapOpt = map.getMap(key);
+        final Optional<SimpleMap> bakerTypesMapOpt = map.getMap(key);
 
         if ( bakerTypesMapOpt.isPresent() ) {
-            SimpleMap bakerTypesMap = bakerTypesMapOpt.get();
-            BakerMatcher.Builder builder = BakerMatcher.builder();
+            final SimpleMap bakerTypesMap = bakerTypesMapOpt.get();
+            final BakerMatcher.Builder builder = BakerMatcher.builder();
 
             for ( String bakerType : bakerTypesMap.keySet() ) {
                 getPatternList(bakerTypesMap, bakerType)
@@ -236,14 +238,14 @@ import com.varmateo.yawg.util.YamlParser;
             throws YawgException {
 
         final Optional<TemplateNameMatcher> result;
-        Optional<SimpleMap> templatesHereMapOpt = map.getMap(key);
+        final Optional<SimpleMap> templatesHereMapOpt = map.getMap(key);
 
         if ( templatesHereMapOpt.isPresent() ) {
-            SimpleMap templatesHereMap = templatesHereMapOpt.get();
-            TemplateNameMatcher.Builder builder = TemplateNameMatcher.builder();
+            final SimpleMap templatesHereMap = templatesHereMapOpt.get();
+            final TemplateNameMatcher.Builder builder = TemplateNameMatcher.builder();
 
             for ( String templateName : templatesHereMap.keySet() ) {
-                GlobMatcher globMatcher =
+                final GlobMatcher globMatcher =
                         getPatternList(templatesHereMap, templateName).get();
 
                 builder.addTemplateName(templateName, globMatcher);

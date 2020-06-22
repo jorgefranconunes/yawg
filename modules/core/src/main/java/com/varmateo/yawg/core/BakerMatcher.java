@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -94,14 +94,14 @@ import com.varmateo.yawg.util.GlobMatcher;
     private static final class Entry {
 
 
-        public final String _mapType;
-        public final GlobMatcher _matcher;
+        private final String _mapType;
+        private final GlobMatcher _matcher;
 
 
         /**
          *
          */
-        Entry(
+        /* default */ Entry(
                 final String mapType,
                 final GlobMatcher matcher) {
 
@@ -143,7 +143,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         /**
          *
          */
-        private Builder() {
+        /* default */ Builder() {
 
             _bakerTypes = HashMap.empty();
         }
@@ -152,7 +152,7 @@ import com.varmateo.yawg.util.GlobMatcher;
         /**
          *
          */
-        private Builder(final BakerMatcher data) {
+        /* default */ Builder(final BakerMatcher data) {
 
             _bakerTypes = HashMap.ofEntries(
                     data._bakerTypes.map(e -> Tuple.of(e.mapType(), e.matcher())));

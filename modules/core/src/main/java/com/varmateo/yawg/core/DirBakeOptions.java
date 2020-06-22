@@ -12,7 +12,6 @@ import io.vavr.collection.List;
 import io.vavr.collection.Seq;
 import io.vavr.control.Option;
 
-import com.varmateo.yawg.core.TemplateNameMatcher;
 import com.varmateo.yawg.spi.PageVars;
 import com.varmateo.yawg.spi.PageVarsBuilder;
 import com.varmateo.yawg.util.GlobMatcher;
@@ -85,7 +84,7 @@ import com.varmateo.yawg.util.GlobMatcher;
     /**
      *
      */
-    private DirBakeOptions(final Builder builder) {
+    /* default */ DirBakeOptions(final Builder builder) {
 
         this.templateName = builder._templateName;
         this.filesToExclude = builder._filesToExclude;

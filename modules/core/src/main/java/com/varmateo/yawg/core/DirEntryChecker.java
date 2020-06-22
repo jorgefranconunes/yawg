@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -10,13 +10,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.function.Predicate;
 
-import com.varmateo.yawg.core.DirBakeOptions;
-
 
 /**
  * Used for checking if a file should be used in a baking.
  */
-/* package private */ final class DirEntryChecker {
+/* default */ final class DirEntryChecker {
 
 
     private final DirBakeOptions _options;
@@ -26,7 +24,7 @@ import com.varmateo.yawg.core.DirBakeOptions;
     /**
      *
      */
-    DirEntryChecker(final DirBakeOptions options) {
+    /* default */ DirEntryChecker(final DirBakeOptions options) {
 
         _options = options;
         _isIncludeHere = options.filesToIncludeHere.isDefined();
@@ -67,7 +65,7 @@ import com.varmateo.yawg.core.DirBakeOptions;
      */
     private boolean testString(final String name) {
 
-        Path path = Paths.get(name);
+        final Path path = Paths.get(name);
 
         return testPath(path);
     }

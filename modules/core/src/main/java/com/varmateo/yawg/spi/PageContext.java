@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -8,9 +8,6 @@ package com.varmateo.yawg.spi;
 
 import java.nio.file.Path;
 import java.util.Optional;
-
-import com.varmateo.yawg.spi.PageVars;
-import com.varmateo.yawg.spi.Template;
 
 
 /**

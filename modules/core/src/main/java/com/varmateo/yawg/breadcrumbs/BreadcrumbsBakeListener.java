@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -9,8 +9,6 @@ package com.varmateo.yawg.breadcrumbs;
 import java.util.Optional;
 
 import com.varmateo.yawg.api.YawgException;
-import com.varmateo.yawg.breadcrumbs.BreadcrumbItem;
-import com.varmateo.yawg.breadcrumbs.Breadcrumbs;
 import com.varmateo.yawg.spi.DirBakeListener;
 import com.varmateo.yawg.spi.OnDirBakeResult;
 import com.varmateo.yawg.spi.PageContext;
@@ -52,8 +50,7 @@ public final class BreadcrumbsBakeListener
      *
      */
     @Override
-    public OnDirBakeResult onDirBake(final PageContext context)
-            throws YawgException {
+    public OnDirBakeResult onDirBake(final PageContext context) {
 
         final SimpleMap vars = new SimpleMap(context.pageVars().asMap());
         final Breadcrumbs oldBreadcrumbs = getBreadcrumbs(vars);

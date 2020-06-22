@@ -138,21 +138,22 @@ public final class CommonMarkPageBaker
 
         final Path targetPath = getTargetPath(sourcePath, targetDir);
         final Optional<Template> template = context.templateFor(sourcePath);
+        final Try<Void> result;
 
         if ( template.isPresent() ) {
-            return doBakeWithTemplate(
+            result = doBakeWithTemplate(
                     sourcePath,
                     context,
                     targetDir,
                     targetPath,
                     template.get());
         } else {
-            return doBakeWithoutTemplate(
+            result = doBakeWithoutTemplate(
                     sourcePath,
-                    context,
-                    targetDir,
                     targetPath);
         }
+
+        return result;
     }
 
 
@@ -175,8 +176,6 @@ public final class CommonMarkPageBaker
      */
     private Try<Void> doBakeWithoutTemplate(
             final Path sourcePath,
-            final PageContext context,
-            final Path targetDir,
             final Path targetPath) {
 
         return renderBody(sourcePath)

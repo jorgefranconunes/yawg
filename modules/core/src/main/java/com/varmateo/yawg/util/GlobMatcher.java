@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -92,8 +92,8 @@ public final class GlobMatcher
     @Override
     public boolean test(final Path path) {
 
-        Path name = path.getFileName();
-        Predicate<PathMatcher> isMatch = matcher -> matcher.matches(name);
+        final Path name = path.getFileName();
+        final Predicate<PathMatcher> isMatch = matcher -> matcher.matches(name);
 
         return _matchers
                 .filter(isMatch)
@@ -134,7 +134,7 @@ public final class GlobMatcher
         /**
          *
          */
-        private Builder() {
+        /* default */ Builder() {
 
             _globPatterns = Array.of();
             _matchers = Array.of();
@@ -144,7 +144,7 @@ public final class GlobMatcher
         /**
          *
          */
-        private Builder(final GlobMatcher globMatcher) {
+        /* default */ Builder(final GlobMatcher globMatcher) {
 
             _globPatterns = globMatcher._globPatterns;
             _matchers = globMatcher._matchers;
@@ -159,8 +159,7 @@ public final class GlobMatcher
          */
         public Builder addGlobPattern(final String globPattern) {
 
-            PathMatcher matcher =
-                    DEFAULT_FILESYSTEM.getPathMatcher("glob:" + globPattern);
+            final PathMatcher matcher = DEFAULT_FILESYSTEM.getPathMatcher("glob:" + globPattern);
 
             _globPatterns = _globPatterns.append(globPattern);
             _matchers = _matchers.append(matcher);

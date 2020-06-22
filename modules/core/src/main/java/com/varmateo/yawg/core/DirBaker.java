@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -35,7 +35,6 @@ import com.varmateo.yawg.spi.TemplateService;
     private final TemplateService _templateService;
 
 
-
     /**
      * @param log Used for logging.
      *
@@ -50,7 +49,7 @@ import com.varmateo.yawg.spi.TemplateService;
      * @param dirBakeListener Will be notified when the bake of a
      * directory starts.
      */
-    DirBaker(
+    /* default */ DirBaker(
             final FileBaker fileBaker,
             final TemplateService templateService,
             final DirBakeOptionsDao dirBakeOptionsDao,
@@ -70,8 +69,7 @@ import com.varmateo.yawg.spi.TemplateService;
     public void bakeDirectory(
             final Path sourceDir,
             final Path targetDir,
-            final DirBakeOptions parentDirBakeOptions)
-            throws YawgException {
+            final DirBakeOptions parentDirBakeOptions) {
 
         final DirBakerContext context = DirBakerContext.create(
                 sourceDir, targetDir, _templateService, parentDirBakeOptions);
@@ -86,8 +84,7 @@ import com.varmateo.yawg.spi.TemplateService;
     private void doBakeDirectory(
             final Path sourceDir,
             final Path targetDir,
-            final DirBakerContext parentContext)
-            throws YawgException {
+            final DirBakerContext parentContext) {
 
         final Path relSourceDir = parentContext.sourceRootDir().relativize(sourceDir);
         _log.debug("Baking directory {0}", relSourceDir);
@@ -143,8 +140,7 @@ import com.varmateo.yawg.spi.TemplateService;
             final Seq<Path> dirEntries,
             final Path targetDir,
             final DirBakeOptions dirBakeOptions,
-            final PageContext context)
-            throws YawgException {
+            final PageContext context) {
 
         final Seq<Path> filePathList = dirEntries.filter(Files::isRegularFile);
 
@@ -197,8 +193,7 @@ import com.varmateo.yawg.spi.TemplateService;
      */
     private <T> T doIoAction(
             final IoSupplier<T> supplier,
-            final Function<IOException, DirBakerException> exceptionBuilder)
-            throws YawgException {
+            final Function<IOException, DirBakerException> exceptionBuilder) {
 
         final T result;
 

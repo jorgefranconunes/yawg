@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2019 Yawg project contributors.
+ * Copyright (c) 2019-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -37,12 +37,16 @@ public final class Results {
     /**
      *
      */
-    public static <T> Try<T> toTry(final Result<T> result) {
+    public static <T> Try<T> toTry(final Result<T> value) {
 
-        if (result.isSuccess()) {
-            return Try.success(result.get());
+        final Try<T> result;
+
+        if (value.isSuccess()) {
+            result = Try.success(value.get());
         } else {
-            return Try.failure(result.failureCause());
+            result = Try.failure(value.failureCause());
         }
+
+        return result;
     }
 }

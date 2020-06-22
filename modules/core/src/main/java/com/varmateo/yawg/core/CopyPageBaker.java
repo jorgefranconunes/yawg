@@ -59,6 +59,7 @@ import com.varmateo.yawg.util.PageBakeResults;
      *
      * @return Always true.
      */
+    @Override
     public boolean isBakeable(final Path path) {
 
         return true;

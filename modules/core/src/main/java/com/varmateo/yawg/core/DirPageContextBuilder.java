@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -14,8 +14,6 @@ import java.util.function.Function;
 import io.vavr.control.Option;
 
 import com.varmateo.yawg.api.YawgException;
-import com.varmateo.yawg.core.DirBakeOptions;
-import com.varmateo.yawg.core.TemplateNameMatcher;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.PageContextBuilder;
 import com.varmateo.yawg.spi.PageVars;
@@ -39,7 +37,7 @@ import com.varmateo.yawg.spi.TemplateService;
     /**
      *
      */
-    DirPageContextBuilder(
+    /* default */ DirPageContextBuilder(
             final Path targetRootDir,
             final TemplateService templateService,
             final String bakeId) {
@@ -56,8 +54,7 @@ import com.varmateo.yawg.spi.TemplateService;
     public PageContext buildPageContext(
             final Path targetDir,
             final DirBakeOptions dirBakeOptions,
-            final PageVars extensionVars)
-            throws YawgException {
+            final PageVars extensionVars) {
 
         final Function<Path, Optional<Template>> templateFetcher =
                 buildTemplateFetcher(dirBakeOptions);
@@ -84,8 +81,7 @@ import com.varmateo.yawg.spi.TemplateService;
      * exception.
      */
     private Function<Path, Optional<Template>> buildTemplateFetcher(
-            final DirBakeOptions dirBakeOptions)
-            throws YawgException {
+            final DirBakeOptions dirBakeOptions) {
 
         final Option<String> templateName = dirBakeOptions.templateName;
         final TemplateNameMatcher templateNameMatcher = dirBakeOptions.templatesHere;

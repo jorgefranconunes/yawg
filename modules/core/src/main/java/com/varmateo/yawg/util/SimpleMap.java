@@ -14,7 +14,6 @@ import java.util.Optional;
 import java.util.Set;
 
 import com.varmateo.yawg.api.YawgException;
-import com.varmateo.yawg.util.SimpleList;
 
 
 /**
@@ -82,7 +81,7 @@ public final class SimpleMap {
     public Optional<SimpleMap> getMap(final String key) {
 
         @SuppressWarnings("unchecked")
-        final Map<String, Object> value =(Map<String, Object>) getWithType(key, Map.class);
+        final Map<String, Object> value = (Map<String, Object>) getWithType(key, Map.class);
 
         return Optional.ofNullable(value)
                 .map(SimpleMap::new);
@@ -97,7 +96,7 @@ public final class SimpleMap {
             final Class<T> itemsClass) {
 
         @SuppressWarnings("unchecked")
-        List<Object> value = (List<Object>)getWithType(key, List.class);
+        final List<Object> value = (List<Object>) getWithType(key, List.class);
 
         return Optional.ofNullable(value)
                 .map(v -> new SimpleList<T>(v, itemsClass));
@@ -109,8 +108,7 @@ public final class SimpleMap {
      */
     private <T> T getWithType(
             final String key,
-            final Class<T> klass)
-            throws YawgException {
+            final Class<T> klass) {
 
         final Object value = _map.get(key);
 

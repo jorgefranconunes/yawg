@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -9,7 +9,6 @@ package com.varmateo.yawg.spi;
 import java.util.Optional;
 
 import com.varmateo.yawg.api.YawgException;
-import com.varmateo.yawg.spi.Template;
 
 
 /**
@@ -39,6 +38,5 @@ public interface TemplateService {
      * possible to create the page template. For instance, if the
      * template with the given name does not exist.
      */
-    Optional<Template> prepareTemplate(String name)
-            throws YawgException;
+    Optional<Template> prepareTemplate(String name);
 }
