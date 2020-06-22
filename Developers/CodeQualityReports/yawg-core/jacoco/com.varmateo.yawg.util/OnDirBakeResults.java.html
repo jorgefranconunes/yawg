@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OnDirBakeResults.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.util</a> &gt; <span class="el_source">OnDirBakeResults.java</span></div><h1>OnDirBakeResults.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2019 Yawg project contributors.
+ * Copyright (c) 2019-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -87,13 +87,17 @@ public final class OnDirBakeResults {
     /**
      *
      */
-    public static Try&lt;PageVars&gt; toTry(final OnDirBakeResult result) {
+    public static Try&lt;PageVars&gt; toTry(final OnDirBakeResult value) {
 
-<span class="pc bpc" id="L92" title="1 of 2 branches missed.">        if ( result.isSuccess() ) {</span>
-<span class="fc" id="L93">            return Try.success(result.pageVars());</span>
+        final Try&lt;PageVars&gt; result;
+
+<span class="pc bpc" id="L94" title="1 of 2 branches missed.">        if ( value.isSuccess() ) {</span>
+<span class="fc" id="L95">            result = Try.success(value.pageVars());</span>
         } else {
-<span class="nc" id="L95">            return Try.failure(result.failureCause());</span>
+<span class="nc" id="L97">            result = Try.failure(value.failureCause());</span>
         }
+
+<span class="fc" id="L100">        return result;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DirPageContextBuilder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">DirPageContextBuilder.java</span></div><h1>DirPageContextBuilder.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -14,8 +14,6 @@ import java.util.function.Function;
 import io.vavr.control.Option;
 
 import com.varmateo.yawg.api.YawgException;
-import com.varmateo.yawg.core.DirBakeOptions;
-import com.varmateo.yawg.core.TemplateNameMatcher;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.PageContextBuilder;
 import com.varmateo.yawg.spi.PageVars;
@@ -39,15 +37,15 @@ import com.varmateo.yawg.spi.TemplateService;
     /**
      *
      */
-    DirPageContextBuilder(
+    /* default */ DirPageContextBuilder(
             final Path targetRootDir,
             final TemplateService templateService,
-<span class="fc" id="L45">            final String bakeId) {</span>
+<span class="fc" id="L43">            final String bakeId) {</span>
 
-<span class="fc" id="L47">        _targetRootDir = targetRootDir;</span>
-<span class="fc" id="L48">        _templateService = templateService;</span>
-<span class="fc" id="L49">        _bakeId = bakeId;</span>
-<span class="fc" id="L50">    }</span>
+<span class="fc" id="L45">        _targetRootDir = targetRootDir;</span>
+<span class="fc" id="L46">        _templateService = templateService;</span>
+<span class="fc" id="L47">        _bakeId = bakeId;</span>
+<span class="fc" id="L48">    }</span>
 
 
     /**
@@ -56,26 +54,25 @@ import com.varmateo.yawg.spi.TemplateService;
     public PageContext buildPageContext(
             final Path targetDir,
             final DirBakeOptions dirBakeOptions,
-            final PageVars extensionVars)
-            throws YawgException {
+            final PageVars extensionVars) {
 
-<span class="fc" id="L62">        final Function&lt;Path, Optional&lt;Template&gt;&gt; templateFetcher =</span>
-<span class="fc" id="L63">                buildTemplateFetcher(dirBakeOptions);</span>
-<span class="fc" id="L64">        final String dirUrl = buildRelativeUrl(targetDir, _targetRootDir);</span>
-<span class="fc" id="L65">        final String rootRelativeUrl = buildRelativeUrl(_targetRootDir, targetDir);</span>
-<span class="fc" id="L66">        final PageVars allPageVars = PageVarsBuilder.create()</span>
-<span class="fc" id="L67">                .addPageVars(dirBakeOptions.pageVars)</span>
-<span class="fc" id="L68">                .addPageVars(dirBakeOptions.pageVarsHere)</span>
-<span class="fc" id="L69">                .addPageVars(extensionVars)</span>
-<span class="fc" id="L70">                .build();</span>
+<span class="fc" id="L59">        final Function&lt;Path, Optional&lt;Template&gt;&gt; templateFetcher =</span>
+<span class="fc" id="L60">                buildTemplateFetcher(dirBakeOptions);</span>
+<span class="fc" id="L61">        final String dirUrl = buildRelativeUrl(targetDir, _targetRootDir);</span>
+<span class="fc" id="L62">        final String rootRelativeUrl = buildRelativeUrl(_targetRootDir, targetDir);</span>
+<span class="fc" id="L63">        final PageVars allPageVars = PageVarsBuilder.create()</span>
+<span class="fc" id="L64">                .addPageVars(dirBakeOptions.pageVars)</span>
+<span class="fc" id="L65">                .addPageVars(dirBakeOptions.pageVarsHere)</span>
+<span class="fc" id="L66">                .addPageVars(extensionVars)</span>
+<span class="fc" id="L67">                .build();</span>
 
-<span class="fc" id="L72">        return PageContextBuilder.create()</span>
-<span class="fc" id="L73">                .dirUrl(dirUrl)</span>
-<span class="fc" id="L74">                .rootRelativeUrl(rootRelativeUrl)</span>
-<span class="fc" id="L75">                .templateFetcher(templateFetcher)</span>
-<span class="fc" id="L76">                .pageVars(allPageVars)</span>
-<span class="fc" id="L77">                .bakeId(_bakeId)</span>
-<span class="fc" id="L78">                .build();</span>
+<span class="fc" id="L69">        return PageContextBuilder.create()</span>
+<span class="fc" id="L70">                .dirUrl(dirUrl)</span>
+<span class="fc" id="L71">                .rootRelativeUrl(rootRelativeUrl)</span>
+<span class="fc" id="L72">                .templateFetcher(templateFetcher)</span>
+<span class="fc" id="L73">                .pageVars(allPageVars)</span>
+<span class="fc" id="L74">                .bakeId(_bakeId)</span>
+<span class="fc" id="L75">                .build();</span>
     }
 
 
@@ -84,19 +81,18 @@ import com.varmateo.yawg.spi.TemplateService;
      * exception.
      */
     private Function&lt;Path, Optional&lt;Template&gt;&gt; buildTemplateFetcher(
-            final DirBakeOptions dirBakeOptions)
-            throws YawgException {
+            final DirBakeOptions dirBakeOptions) {
 
-<span class="fc" id="L90">        final Option&lt;String&gt; templateName = dirBakeOptions.templateName;</span>
-<span class="fc" id="L91">        final TemplateNameMatcher templateNameMatcher = dirBakeOptions.templatesHere;</span>
-<span class="fc" id="L92">        final TemplateService templateService = _templateService;</span>
+<span class="fc" id="L86">        final Option&lt;String&gt; templateName = dirBakeOptions.templateName;</span>
+<span class="fc" id="L87">        final TemplateNameMatcher templateNameMatcher = dirBakeOptions.templatesHere;</span>
+<span class="fc" id="L88">        final TemplateService templateService = _templateService;</span>
 
-<span class="pc" id="L94">        return path -&gt; prepareTemplate(</span>
+<span class="pc" id="L90">        return path -&gt; prepareTemplate(</span>
                 path,
                 templateNameMatcher,
                 templateName,
                 templateService)
-<span class="nc" id="L99">                .toJavaOptional();</span>
+<span class="nc" id="L95">                .toJavaOptional();</span>
     }
 
 
@@ -109,8 +105,8 @@ import com.varmateo.yawg.spi.TemplateService;
             final Option&lt;String&gt; templateName,
             final TemplateService templateService) {
 
-<span class="nc" id="L112">        return prepareTemplateForPath(path, templateNameMatcher, templateService)</span>
-<span class="nc" id="L113">                .orElse(() -&gt; prepareDefaultTemplate(templateName, templateService));</span>
+<span class="nc" id="L108">        return prepareTemplateForPath(path, templateNameMatcher, templateService)</span>
+<span class="nc" id="L109">                .orElse(() -&gt; prepareDefaultTemplate(templateName, templateService));</span>
     }
 
 
@@ -122,8 +118,8 @@ import com.varmateo.yawg.spi.TemplateService;
             final TemplateNameMatcher templateNameMatcher,
             final TemplateService templateService) {
 
-<span class="nc" id="L125">        return templateNameMatcher.templateNameFor(path)</span>
-<span class="nc" id="L126">                .flatMap(name -&gt; Option.ofOptional(templateService.prepareTemplate(name)));</span>
+<span class="nc" id="L121">        return templateNameMatcher.templateNameFor(path)</span>
+<span class="nc" id="L122">                .flatMap(name -&gt; Option.ofOptional(templateService.prepareTemplate(name)));</span>
     }
 
 
@@ -134,8 +130,8 @@ import com.varmateo.yawg.spi.TemplateService;
             final Option&lt;String&gt; templateName,
             final TemplateService templateService) {
 
-<span class="nc" id="L137">        return templateName.flatMap(</span>
-<span class="nc" id="L138">                name -&gt; Option.ofOptional(templateService.prepareTemplate(name)));</span>
+<span class="nc" id="L133">        return templateName.flatMap(</span>
+<span class="nc" id="L134">                name -&gt; Option.ofOptional(templateService.prepareTemplate(name)));</span>
     }
 
 
@@ -147,10 +143,10 @@ import com.varmateo.yawg.spi.TemplateService;
             final Path dir,
             final Path baseDir) {
 
-<span class="fc" id="L150">        final Path relDir = baseDir.relativize(dir);</span>
-<span class="fc" id="L151">        final String relativeUrl = relDir.toString().replace(File.separatorChar, '/');</span>
+<span class="fc" id="L146">        final Path relDir = baseDir.relativize(dir);</span>
+<span class="fc" id="L147">        final String relativeUrl = relDir.toString().replace(File.separatorChar, '/');</span>
 
-<span class="pc bpc" id="L153" title="1 of 2 branches missed.">        return relativeUrl.length() == 0</span>
+<span class="pc bpc" id="L149" title="1 of 2 branches missed.">        return relativeUrl.length() == 0</span>
                 ? &quot;.&quot;
                 : relativeUrl;
     }

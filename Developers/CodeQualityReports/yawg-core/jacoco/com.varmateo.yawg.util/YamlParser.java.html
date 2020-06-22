@@ -13,13 +13,11 @@ import java.util.Map;
 
 import com.esotericsoftware.yamlbeans.YamlReader;
 
-import com.varmateo.yawg.util.SimpleMap;
-
 
 /**
  * A simple YAML parser.
  */
-<span class="fc" id="L22">public final class YamlParser {</span>
+<span class="nc" id="L20">public final class YamlParser {</span>
 
 
     /**
@@ -33,23 +31,23 @@ import com.varmateo.yawg.util.SimpleMap;
      * @exception IOException Thrown if there were any problems
      * reading from the reader, or if the YAML contents are invalid.
      */
-    public SimpleMap parse(final Reader reader)
+    public static SimpleMap parse(final Reader reader)
             throws IOException {
 
         final Map&lt;String, Object&gt; resultMap;
-<span class="fc" id="L40">        final YamlReader yamlReader = new YamlReader(reader);</span>
-<span class="fc" id="L41">        final Object yamlObj = yamlReader.read();</span>
+<span class="fc" id="L38">        final YamlReader yamlReader = new YamlReader(reader);</span>
+<span class="fc" id="L39">        final Object yamlObj = yamlReader.read();</span>
 
-<span class="pc bpc" id="L43" title="1 of 4 branches missed.">        if ( (yamlObj != null) &amp;&amp; (yamlObj instanceof Map) ) {</span>
+<span class="pc bpc" id="L41" title="1 of 4 branches missed.">        if ( (yamlObj != null) &amp;&amp; (yamlObj instanceof Map) ) {</span>
             @SuppressWarnings(&quot;unchecked&quot;)
-<span class="fc" id="L45">            final Map&lt;String, Object&gt; map = (Map&lt;String, Object&gt;) yamlObj;</span>
-<span class="fc" id="L46">            resultMap = map;</span>
-<span class="fc" id="L47">        } else {</span>
+<span class="fc" id="L43">            final Map&lt;String, Object&gt; map = (Map&lt;String, Object&gt;) yamlObj;</span>
+<span class="fc" id="L44">            resultMap = map;</span>
+<span class="fc" id="L45">        } else {</span>
             // The contents of the YAML file are invalid.
-<span class="fc" id="L49">            resultMap = Collections.emptyMap();</span>
+<span class="fc" id="L47">            resultMap = Collections.emptyMap();</span>
         }
 
-<span class="fc" id="L52">        return new SimpleMap(resultMap);</span>
+<span class="fc" id="L50">        return new SimpleMap(resultMap);</span>
     }
 
 

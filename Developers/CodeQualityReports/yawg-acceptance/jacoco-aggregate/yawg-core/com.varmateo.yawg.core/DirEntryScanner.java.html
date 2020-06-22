@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>DirEntryScanner.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">DirEntryScanner.java</span></div><h1>DirEntryScanner.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -15,15 +15,12 @@ import java.util.stream.Stream;
 import io.vavr.collection.List;
 import io.vavr.collection.Seq;
 
-import com.varmateo.yawg.core.DirBakeOptions;
-import com.varmateo.yawg.core.DirEntryChecker;
-
 
 /**
  * Used for obtaining the list of entries in a given directory that
  * should be baked.
  */
-/* package private */ final class DirEntryScanner {
+/* default */ final class DirEntryScanner {
 
 
     private final Predicate&lt;Path&gt; _entryFilter;
@@ -32,10 +29,10 @@ import com.varmateo.yawg.core.DirEntryChecker;
     /**
      *
      */
-<span class="fc" id="L35">    DirEntryScanner(final DirBakeOptions options) {</span>
+<span class="fc" id="L32">    /* default */ DirEntryScanner(final DirBakeOptions options) {</span>
 
-<span class="fc" id="L37">        _entryFilter = new DirEntryChecker(options).asPathPredicate();</span>
-<span class="fc" id="L38">    }</span>
+<span class="fc" id="L34">        _entryFilter = new DirEntryChecker(options).asPathPredicate();</span>
+<span class="fc" id="L35">    }</span>
 
 
     /**
@@ -44,13 +41,13 @@ import com.varmateo.yawg.core.DirEntryChecker;
     public Seq&lt;Path&gt; getDirEntries(final Path dirPath)
             throws IOException {
 
-<span class="pc" id="L47">        try ( Stream&lt;Path&gt; entries = Files.list(dirPath) ) {</span>
-<span class="fc" id="L48">            Stream&lt;Path&gt; stream =</span>
+<span class="pc" id="L44">        try ( Stream&lt;Path&gt; entries = Files.list(dirPath) ) {</span>
+<span class="fc" id="L45">            final Stream&lt;Path&gt; stream =</span>
                     entries
-<span class="fc" id="L50">                    .filter(_entryFilter)</span>
-<span class="fc" id="L51">                    .sorted();</span>
-<span class="fc" id="L52">            return List.ofAll(() -&gt; stream.iterator());</span>
-<span class="pc bpc" id="L53" title="6 of 8 branches missed.">        }</span>
+<span class="fc" id="L47">                    .filter(_entryFilter)</span>
+<span class="fc" id="L48">                    .sorted();</span>
+<span class="fc" id="L49">            return List.ofAll(() -&gt; stream.iterator());</span>
+<span class="pc bpc" id="L50" title="6 of 8 branches missed.">        }</span>
     }
 
 

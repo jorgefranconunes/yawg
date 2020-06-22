@@ -12,7 +12,6 @@ import io.vavr.collection.List;
 import io.vavr.collection.Seq;
 import io.vavr.control.Option;
 
-import com.varmateo.yawg.core.TemplateNameMatcher;
 import com.varmateo.yawg.spi.PageVars;
 import com.varmateo.yawg.spi.PageVarsBuilder;
 import com.varmateo.yawg.util.GlobMatcher;
@@ -85,18 +84,18 @@ import com.varmateo.yawg.util.GlobMatcher;
     /**
      *
      */
-<span class="fc" id="L88">    private DirBakeOptions(final Builder builder) {</span>
+<span class="fc" id="L87">    /* default */ DirBakeOptions(final Builder builder) {</span>
 
-<span class="fc" id="L90">        this.templateName = builder._templateName;</span>
-<span class="fc" id="L91">        this.filesToExclude = builder._filesToExclude;</span>
-<span class="fc" id="L92">        this.filesToExcludeHere = builder._filesToExcludeHere;</span>
-<span class="fc" id="L93">        this.filesToIncludeHere = builder._filesToIncludeHere;</span>
-<span class="fc" id="L94">        this.bakerTypes = builder._bakerTypes;</span>
-<span class="fc" id="L95">        this.pageVars = builder._pageVarsBuilder.build();</span>
-<span class="fc" id="L96">        this.pageVarsHere = builder._pageVarsHere;</span>
-<span class="fc" id="L97">        this.templatesHere = builder._templatesHere;</span>
-<span class="fc" id="L98">        this.extraDirsHere = builder._extraDirsHere;</span>
-<span class="fc" id="L99">    }</span>
+<span class="fc" id="L89">        this.templateName = builder._templateName;</span>
+<span class="fc" id="L90">        this.filesToExclude = builder._filesToExclude;</span>
+<span class="fc" id="L91">        this.filesToExcludeHere = builder._filesToExcludeHere;</span>
+<span class="fc" id="L92">        this.filesToIncludeHere = builder._filesToIncludeHere;</span>
+<span class="fc" id="L93">        this.bakerTypes = builder._bakerTypes;</span>
+<span class="fc" id="L94">        this.pageVars = builder._pageVarsBuilder.build();</span>
+<span class="fc" id="L95">        this.pageVarsHere = builder._pageVarsHere;</span>
+<span class="fc" id="L96">        this.templatesHere = builder._templatesHere;</span>
+<span class="fc" id="L97">        this.extraDirsHere = builder._extraDirsHere;</span>
+<span class="fc" id="L98">    }</span>
 
 
     /**
@@ -106,7 +105,7 @@ import com.varmateo.yawg.util.GlobMatcher;
      */
     public static Builder builder() {
 
-<span class="fc" id="L109">        return new Builder();</span>
+<span class="fc" id="L108">        return new Builder();</span>
     }
 
 
@@ -115,7 +114,7 @@ import com.varmateo.yawg.util.GlobMatcher;
      */
     public static DirBakeOptions empty() {
 
-<span class="fc" id="L118">        return DirBakeOptions.builder().build();</span>
+<span class="fc" id="L117">        return DirBakeOptions.builder().build();</span>
     }
 
 
@@ -131,21 +130,21 @@ import com.varmateo.yawg.util.GlobMatcher;
      */
     public DirBakeOptions mergeOnTopOf(final DirBakeOptions that) {
 
-<span class="fc" id="L134">        final Builder builder = new Builder(that);</span>
+<span class="fc" id="L133">        final Builder builder = new Builder(that);</span>
 
-<span class="fc" id="L136">        this.templateName.forEach(builder::templateName);</span>
-<span class="fc" id="L137">        this.filesToExclude.forEach(builder::addFilesToExclude);</span>
-<span class="fc" id="L138">        this.filesToExcludeHere.forEach(builder::filesToExcludeHere);</span>
-<span class="fc" id="L139">        this.filesToIncludeHere.forEach(builder::filesToIncludeHere);</span>
-<span class="pc" id="L140">        this.bakerTypes.forEach(builder::addBakerTypes);</span>
-<span class="fc" id="L141">        builder</span>
-<span class="fc" id="L142">                .addPageVars(this.pageVars)</span>
-<span class="fc" id="L143">                .pageVarsHere(this.pageVarsHere)</span>
-<span class="fc" id="L144">                .templatesHere(this.templatesHere)</span>
-<span class="fc" id="L145">                .extraDirsHere(this.extraDirsHere);</span>
+<span class="fc" id="L135">        this.templateName.forEach(builder::templateName);</span>
+<span class="fc" id="L136">        this.filesToExclude.forEach(builder::addFilesToExclude);</span>
+<span class="fc" id="L137">        this.filesToExcludeHere.forEach(builder::filesToExcludeHere);</span>
+<span class="fc" id="L138">        this.filesToIncludeHere.forEach(builder::filesToIncludeHere);</span>
+<span class="pc" id="L139">        this.bakerTypes.forEach(builder::addBakerTypes);</span>
+<span class="fc" id="L140">        builder</span>
+<span class="fc" id="L141">                .addPageVars(this.pageVars)</span>
+<span class="fc" id="L142">                .pageVarsHere(this.pageVarsHere)</span>
+<span class="fc" id="L143">                .templatesHere(this.templatesHere)</span>
+<span class="fc" id="L144">                .extraDirsHere(this.extraDirsHere);</span>
 
 
-<span class="fc" id="L148">        return builder.build();</span>
+<span class="fc" id="L147">        return builder.build();</span>
     }
 
 
@@ -156,10 +155,10 @@ import com.varmateo.yawg.util.GlobMatcher;
 
 
         // These always start empty.
-<span class="fc" id="L159">        private Option&lt;GlobMatcher&gt; _filesToExcludeHere = Option.none();</span>
-<span class="fc" id="L160">        private Option&lt;GlobMatcher&gt; _filesToIncludeHere = Option.none();</span>
-<span class="fc" id="L161">        private PageVars _pageVarsHere = PageVars.empty();</span>
-<span class="fc" id="L162">        private TemplateNameMatcher _templatesHere = TemplateNameMatcher.empty();</span>
+<span class="fc" id="L158">        private Option&lt;GlobMatcher&gt; _filesToExcludeHere = Option.none();</span>
+<span class="fc" id="L159">        private Option&lt;GlobMatcher&gt; _filesToIncludeHere = Option.none();</span>
+<span class="fc" id="L160">        private PageVars _pageVarsHere = PageVars.empty();</span>
+<span class="fc" id="L161">        private TemplateNameMatcher _templatesHere = TemplateNameMatcher.empty();</span>
 
         // These adopt the values from externally provided
         // initialization data.
@@ -173,27 +172,27 @@ import com.varmateo.yawg.util.GlobMatcher;
         /**
          *
          */
-<span class="fc" id="L176">        /* default */ Builder() {</span>
+<span class="fc" id="L175">        /* default */ Builder() {</span>
 
-<span class="fc" id="L178">            _templateName = Option.none();</span>
-<span class="fc" id="L179">            _filesToExclude = Option.none();</span>
-<span class="fc" id="L180">            _bakerTypes = Option.none();</span>
-<span class="fc" id="L181">            _pageVarsBuilder = PageVarsBuilder.create();</span>
-<span class="fc" id="L182">            _extraDirsHere = List.of();</span>
-<span class="fc" id="L183">        }</span>
+<span class="fc" id="L177">            _templateName = Option.none();</span>
+<span class="fc" id="L178">            _filesToExclude = Option.none();</span>
+<span class="fc" id="L179">            _bakerTypes = Option.none();</span>
+<span class="fc" id="L180">            _pageVarsBuilder = PageVarsBuilder.create();</span>
+<span class="fc" id="L181">            _extraDirsHere = List.of();</span>
+<span class="fc" id="L182">        }</span>
 
 
         /**
          * Prepares a Builder for performing a merge.
          */
-<span class="fc" id="L189">        /* default */ Builder(final DirBakeOptions defaults) {</span>
+<span class="fc" id="L188">        /* default */ Builder(final DirBakeOptions defaults) {</span>
 
-<span class="fc" id="L191">            _templateName = defaults.templateName;</span>
-<span class="fc" id="L192">            _filesToExclude = defaults.filesToExclude;</span>
-<span class="fc" id="L193">            _bakerTypes = defaults.bakerTypes;</span>
-<span class="fc" id="L194">            _pageVarsBuilder = PageVarsBuilder.create(defaults.pageVars);</span>
-<span class="fc" id="L195">            _extraDirsHere = defaults.extraDirsHere;</span>
-<span class="fc" id="L196">        }</span>
+<span class="fc" id="L190">            _templateName = defaults.templateName;</span>
+<span class="fc" id="L191">            _filesToExclude = defaults.filesToExclude;</span>
+<span class="fc" id="L192">            _bakerTypes = defaults.bakerTypes;</span>
+<span class="fc" id="L193">            _pageVarsBuilder = PageVarsBuilder.create(defaults.pageVars);</span>
+<span class="fc" id="L194">            _extraDirsHere = defaults.extraDirsHere;</span>
+<span class="fc" id="L195">        }</span>
 
 
         /**
@@ -201,9 +200,9 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public Builder templateName(final String templateName) {
 
-<span class="fc" id="L204">            _templateName = Option.of(templateName);</span>
+<span class="fc" id="L203">            _templateName = Option.of(templateName);</span>
 
-<span class="fc" id="L206">            return this;</span>
+<span class="fc" id="L205">            return this;</span>
         }
 
 
@@ -212,9 +211,9 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public Builder filesToExclude(final GlobMatcher fileNames) {
 
-<span class="fc" id="L215">            _filesToExclude = Option.of(fileNames);</span>
+<span class="fc" id="L214">            _filesToExclude = Option.of(fileNames);</span>
 
-<span class="fc" id="L217">            return this;</span>
+<span class="fc" id="L216">            return this;</span>
         }
 
 
@@ -224,11 +223,11 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public Builder filesToExclude(final String... fileNames) {
 
-<span class="fc" id="L227">            final GlobMatcher patterns = GlobMatcher.create(fileNames);</span>
+<span class="fc" id="L226">            final GlobMatcher patterns = GlobMatcher.create(fileNames);</span>
 
-<span class="fc" id="L229">            filesToExclude(patterns);</span>
+<span class="fc" id="L228">            filesToExclude(patterns);</span>
 
-<span class="fc" id="L231">            return this;</span>
+<span class="fc" id="L230">            return this;</span>
         }
 
 
@@ -237,12 +236,12 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         private Builder addFilesToExclude(final GlobMatcher fileNames) {
 
-<span class="fc" id="L240">            _filesToExclude = _filesToExclude</span>
-<span class="fc" id="L241">                    .map(x -&gt;</span>
-<span class="fc" id="L242">                         GlobMatcher.builder(x).addGlobMatcher(fileNames).build())</span>
-<span class="fc" id="L243">                    .orElse(() -&gt; Option.some(fileNames));</span>
+<span class="fc" id="L239">            _filesToExclude = _filesToExclude</span>
+<span class="fc" id="L240">                    .map(x -&gt;</span>
+<span class="fc" id="L241">                         GlobMatcher.builder(x).addGlobMatcher(fileNames).build())</span>
+<span class="fc" id="L242">                    .orElse(() -&gt; Option.some(fileNames));</span>
 
-<span class="fc" id="L245">            return this;</span>
+<span class="fc" id="L244">            return this;</span>
         }
 
 
@@ -251,9 +250,9 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public Builder filesToExcludeHere(final GlobMatcher fileNames) {
 
-<span class="fc" id="L254">            _filesToExcludeHere = Option.of(fileNames);</span>
+<span class="fc" id="L253">            _filesToExcludeHere = Option.of(fileNames);</span>
 
-<span class="fc" id="L256">            return this;</span>
+<span class="fc" id="L255">            return this;</span>
         }
 
 
@@ -263,9 +262,9 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public Builder filesToExcludeHere(final String... fileNames) {
 
-<span class="fc" id="L266">            final GlobMatcher patterns = GlobMatcher.create(fileNames);</span>
+<span class="fc" id="L265">            final GlobMatcher patterns = GlobMatcher.create(fileNames);</span>
 
-<span class="fc" id="L268">            return filesToExcludeHere(patterns);</span>
+<span class="fc" id="L267">            return filesToExcludeHere(patterns);</span>
         }
 
 
@@ -274,9 +273,9 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public Builder filesToIncludeHere(final GlobMatcher fileNames) {
 
-<span class="fc" id="L277">            _filesToIncludeHere = Option.of(fileNames);</span>
+<span class="fc" id="L276">            _filesToIncludeHere = Option.of(fileNames);</span>
 
-<span class="fc" id="L279">            return this;</span>
+<span class="fc" id="L278">            return this;</span>
         }
 
 
@@ -286,9 +285,9 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public Builder filesToIncludeHere(final String... fileNames) {
 
-<span class="fc" id="L289">            final GlobMatcher patterns = GlobMatcher.create(fileNames);</span>
+<span class="fc" id="L288">            final GlobMatcher patterns = GlobMatcher.create(fileNames);</span>
 
-<span class="fc" id="L291">            return filesToIncludeHere(patterns);</span>
+<span class="fc" id="L290">            return filesToIncludeHere(patterns);</span>
         }
 
 
@@ -297,9 +296,9 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public Builder bakerTypes(final BakerMatcher bakerTypes) {
 
-<span class="fc" id="L300">            _bakerTypes = Option.of(bakerTypes);</span>
+<span class="fc" id="L299">            _bakerTypes = Option.of(bakerTypes);</span>
 
-<span class="fc" id="L302">            return this;</span>
+<span class="fc" id="L301">            return this;</span>
         }
 
 
@@ -310,13 +309,13 @@ import com.varmateo.yawg.util.GlobMatcher;
                 final String bakerType,
                 final String... fileNames) {
 
-<span class="fc" id="L313">            final BakerMatcher bakerTypes = BakerMatcher.builder()</span>
-<span class="fc" id="L314">                    .addBakerType(bakerType, fileNames)</span>
-<span class="fc" id="L315">                    .build();</span>
+<span class="fc" id="L312">            final BakerMatcher bakerTypes = BakerMatcher.builder()</span>
+<span class="fc" id="L313">                    .addBakerType(bakerType, fileNames)</span>
+<span class="fc" id="L314">                    .build();</span>
 
-<span class="fc" id="L317">            addBakerTypes(bakerTypes);</span>
+<span class="fc" id="L316">            addBakerTypes(bakerTypes);</span>
 
-<span class="fc" id="L319">            return this;</span>
+<span class="fc" id="L318">            return this;</span>
         }
 
 
@@ -325,12 +324,12 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         private Builder addBakerTypes(final BakerMatcher bakerTypes) {
 
-<span class="fc" id="L328">            _bakerTypes = _bakerTypes</span>
-<span class="fc" id="L329">                    .map(x -&gt;</span>
-<span class="fc" id="L330">                         BakerMatcher.builder(x).addBakerTypes(bakerTypes).build())</span>
-<span class="fc" id="L331">                    .orElse(() -&gt; Option.of(bakerTypes));</span>
+<span class="fc" id="L327">            _bakerTypes = _bakerTypes</span>
+<span class="fc" id="L328">                    .map(x -&gt;</span>
+<span class="fc" id="L329">                         BakerMatcher.builder(x).addBakerTypes(bakerTypes).build())</span>
+<span class="fc" id="L330">                    .orElse(() -&gt; Option.of(bakerTypes));</span>
 
-<span class="fc" id="L333">            return this;</span>
+<span class="fc" id="L332">            return this;</span>
         }
 
 
@@ -339,9 +338,9 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public  Builder pageVars(final PageVars pageVars) {
 
-<span class="fc" id="L342">            _pageVarsBuilder = PageVarsBuilder.create(pageVars);</span>
+<span class="fc" id="L341">            _pageVarsBuilder = PageVarsBuilder.create(pageVars);</span>
 
-<span class="fc" id="L344">            return this;</span>
+<span class="fc" id="L343">            return this;</span>
         }
 
 
@@ -350,9 +349,9 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         private Builder addPageVars(final PageVars pageVars) {
 
-<span class="fc" id="L353">            _pageVarsBuilder.addPageVars(pageVars);</span>
+<span class="fc" id="L352">            _pageVarsBuilder.addPageVars(pageVars);</span>
 
-<span class="fc" id="L355">            return this;</span>
+<span class="fc" id="L354">            return this;</span>
         }
 
 
@@ -361,9 +360,9 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public Builder pageVarsHere(final PageVars pageVarsHere) {
 
-<span class="fc" id="L364">            _pageVarsHere = pageVarsHere;</span>
+<span class="fc" id="L363">            _pageVarsHere = pageVarsHere;</span>
 
-<span class="fc" id="L366">            return this;</span>
+<span class="fc" id="L365">            return this;</span>
         }
 
 
@@ -372,9 +371,9 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public Builder templatesHere(final TemplateNameMatcher templatesHere) {
 
-<span class="fc" id="L375">            _templatesHere = templatesHere;</span>
+<span class="fc" id="L374">            _templatesHere = templatesHere;</span>
 
-<span class="fc" id="L377">            return this;</span>
+<span class="fc" id="L376">            return this;</span>
         }
 
 
@@ -383,9 +382,9 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public Builder extraDirsHere(final Seq&lt;Path&gt; extraDirsHere) {
 
-<span class="fc" id="L386">            _extraDirsHere = extraDirsHere;</span>
+<span class="fc" id="L385">            _extraDirsHere = extraDirsHere;</span>
 
-<span class="fc" id="L388">            return this;</span>
+<span class="fc" id="L387">            return this;</span>
         }
 
 
@@ -394,7 +393,7 @@ import com.varmateo.yawg.util.GlobMatcher;
          */
         public DirBakeOptions build() {
 
-<span class="fc" id="L397">            return new DirBakeOptions(this);</span>
+<span class="fc" id="L396">            return new DirBakeOptions(this);</span>
         }
 
 

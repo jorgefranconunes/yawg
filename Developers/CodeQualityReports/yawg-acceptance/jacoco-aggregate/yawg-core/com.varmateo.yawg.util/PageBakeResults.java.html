@@ -78,13 +78,17 @@ public final class PageBakeResults {
     /**
      *
      */
-    public static Try&lt;Void&gt; toTry(final PageBakeResult result) {
+    public static Try&lt;Void&gt; toTry(final PageBakeResult value) {
 
-<span class="nc bnc" id="L83" title="All 2 branches missed.">        if ( result.isSuccess() ) {</span>
-<span class="nc" id="L84">            return Trys.success();</span>
+        final Try&lt;Void&gt; result;
+
+<span class="nc bnc" id="L85" title="All 2 branches missed.">        if ( value.isSuccess() ) {</span>
+<span class="nc" id="L86">            result = Trys.success();</span>
         } else {
-<span class="nc" id="L86">            return Try.failure(result.failureCause());</span>
+<span class="nc" id="L88">            result = Try.failure(value.failureCause());</span>
         }
+
+<span class="nc" id="L91">        return result;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

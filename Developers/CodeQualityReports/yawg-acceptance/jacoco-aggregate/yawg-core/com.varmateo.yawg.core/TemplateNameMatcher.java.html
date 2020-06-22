@@ -22,13 +22,13 @@ import com.varmateo.yawg.util.GlobMatcher;
 /* default */ final class TemplateNameMatcher {
 
 
-    private final Map&lt;String,GlobMatcher&gt; _matchersByName;
+    private final Map&lt;String, GlobMatcher&gt; _matchersByName;
 
 
     /**
      *
      */
-<span class="fc" id="L31">    private TemplateNameMatcher(final Builder builder) {</span>
+<span class="fc" id="L31">    /* default */ TemplateNameMatcher(final Builder builder) {</span>
 
 <span class="fc" id="L33">        _matchersByName = builder._matchersByName;</span>
 <span class="fc" id="L34">    }</span>
@@ -70,13 +70,13 @@ import com.varmateo.yawg.util.GlobMatcher;
     public static final class Builder {
 
 
-        private Map&lt;String,GlobMatcher&gt; _matchersByName;
+        private Map&lt;String, GlobMatcher&gt; _matchersByName;
 
 
         /**
          *
          */
-<span class="fc" id="L79">        private Builder() {</span>
+<span class="fc" id="L79">        /* default */ Builder() {</span>
 
 <span class="fc" id="L81">            _matchersByName = HashMap.empty();</span>
 <span class="fc" id="L82">        }</span>

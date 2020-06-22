@@ -60,21 +60,20 @@ import com.varmateo.yawg.spi.TemplateService;
      */
     private static Optional&lt;Template&gt; prepareTemplateFromServices(
             final Seq&lt;TemplateService&gt; services,
-            final String name)
-            throws YawgException {
+            final String name) {
 
-<span class="nc" id="L66">        final Option&lt;Template&gt; result = services</span>
-<span class="nc" id="L67">                .map(service -&gt; service.prepareTemplate(name))</span>
-<span class="nc" id="L68">                .map(Option::ofOptional)</span>
-<span class="nc" id="L69">                .filter(Option::isDefined)</span>
-<span class="nc" id="L70">                .map(Option::get)</span>
-<span class="nc" id="L71">                .headOption();</span>
+<span class="nc" id="L65">        final Option&lt;Template&gt; result = services</span>
+<span class="nc" id="L66">                .map(service -&gt; service.prepareTemplate(name))</span>
+<span class="nc" id="L67">                .map(Option::ofOptional)</span>
+<span class="nc" id="L68">                .filter(Option::isDefined)</span>
+<span class="nc" id="L69">                .map(Option::get)</span>
+<span class="nc" id="L70">                .headOption();</span>
 
-<span class="nc bnc" id="L73" title="All 2 branches missed.">        if ( !result.isDefined() ) {</span>
-<span class="nc" id="L74">            throw CollectiveTemplateServiceException.unsupportedTemplateFormat(name);</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">        if ( !result.isDefined() ) {</span>
+<span class="nc" id="L73">            throw CollectiveTemplateServiceException.unsupportedTemplateFormat(name);</span>
         }
 
-<span class="nc" id="L77">        return result.toJavaOptional();</span>
+<span class="nc" id="L76">        return result.toJavaOptional();</span>
     }
 
 

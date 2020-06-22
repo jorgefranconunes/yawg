@@ -40,7 +40,7 @@ import com.varmateo.yawg.spi.PageContext;
     /**
      * @param log The logger that will be used for logging.
      */
-    FileBaker(
+    /* default */ FileBaker(
             final Seq&lt;PageBaker&gt; bakers,
 <span class="fc" id="L45">            final PageBaker defaultBaker) {</span>
 
@@ -83,29 +83,27 @@ import com.varmateo.yawg.spi.PageContext;
      */
     private PageBaker findBaker(
             final Path sourcePath,
-            final DirBakeOptions dirBakeOptions)
-            throws YawgException {
+            final DirBakeOptions dirBakeOptions) {
 
-<span class="fc" id="L89">        return dirBakeOptions.bakerTypes</span>
-<span class="pc" id="L90">                .flatMap(bakerTypes -&gt; bakerTypes.bakerTypeFor(sourcePath))</span>
-<span class="pc" id="L91">                .map(bakerType -&gt; findBakerWithType(bakerType))</span>
-<span class="fc" id="L92">                .getOrElse(() -&gt; findBakerFromAll(sourcePath));</span>
+<span class="fc" id="L88">        return dirBakeOptions.bakerTypes</span>
+<span class="pc" id="L89">                .flatMap(bakerTypes -&gt; bakerTypes.bakerTypeFor(sourcePath))</span>
+<span class="pc" id="L90">                .map(bakerType -&gt; findBakerWithType(bakerType))</span>
+<span class="fc" id="L91">                .getOrElse(() -&gt; findBakerFromAll(sourcePath));</span>
     }
 
 
     /**
      *
      */
-    private PageBaker findBakerWithType(final String bakerType)
-            throws YawgException {
+    private PageBaker findBakerWithType(final String bakerType) {
 
-<span class="nc" id="L102">        final Option&lt;PageBaker&gt; baker = _allBakersByType.get(bakerType);</span>
+<span class="nc" id="L100">        final Option&lt;PageBaker&gt; baker = _allBakersByType.get(bakerType);</span>
 
-<span class="nc bnc" id="L104" title="All 2 branches missed.">        if ( !baker.isDefined() ) {</span>
-<span class="nc" id="L105">            throw FileBakerException.unknownBakerType(bakerType);</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">        if ( !baker.isDefined() ) {</span>
+<span class="nc" id="L103">            throw FileBakerException.unknownBakerType(bakerType);</span>
         }
 
-<span class="nc" id="L108">        return baker.get();</span>
+<span class="nc" id="L106">        return baker.get();</span>
     }
 
 
@@ -114,10 +112,10 @@ import com.varmateo.yawg.spi.PageContext;
      */
     private PageBaker findBakerFromAll(final Path sourcePath) {
 
-<span class="fc" id="L117">        return _bakers</span>
-<span class="fc" id="L118">                .filter(candidate -&gt; candidate.isBakeable(sourcePath))</span>
-<span class="fc" id="L119">                .headOption()</span>
-<span class="fc" id="L120">                .getOrElse(_defaultBaker);</span>
+<span class="fc" id="L115">        return _bakers</span>
+<span class="fc" id="L116">                .filter(candidate -&gt; candidate.isBakeable(sourcePath))</span>
+<span class="fc" id="L117">                .headOption()</span>
+<span class="fc" id="L118">                .getOrElse(_defaultBaker);</span>
     }
 
 

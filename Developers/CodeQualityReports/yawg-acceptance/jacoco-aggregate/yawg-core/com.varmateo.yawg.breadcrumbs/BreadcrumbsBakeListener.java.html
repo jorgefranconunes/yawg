@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../jacoco-resources/report.gif" type="image/gif"/><title>BreadcrumbsBakeListener.java</title><link rel="stylesheet" href="../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../index.html" class="el_report">Yawg acceptance tests</a> &gt; <a href="../index.html" class="el_bundle">yawg-core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.breadcrumbs</a> &gt; <span class="el_source">BreadcrumbsBakeListener.java</span></div><h1>BreadcrumbsBakeListener.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -9,8 +9,6 @@ package com.varmateo.yawg.breadcrumbs;
 import java.util.Optional;
 
 import com.varmateo.yawg.api.YawgException;
-import com.varmateo.yawg.breadcrumbs.BreadcrumbItem;
-import com.varmateo.yawg.breadcrumbs.Breadcrumbs;
 import com.varmateo.yawg.spi.DirBakeListener;
 import com.varmateo.yawg.spi.OnDirBakeResult;
 import com.varmateo.yawg.spi.PageContext;
@@ -34,9 +32,9 @@ public final class BreadcrumbsBakeListener
     private static final String ATTR_URL = &quot;url&quot;;
 
 
-<span class="fc" id="L37">    private BreadcrumbsBakeListener() {</span>
+<span class="fc" id="L35">    private BreadcrumbsBakeListener() {</span>
         // Nothing to do.
-<span class="fc" id="L39">    }</span>
+<span class="fc" id="L37">    }</span>
 
 
     /**
@@ -44,7 +42,7 @@ public final class BreadcrumbsBakeListener
      */
     public static DirBakeListener create() {
 
-<span class="fc" id="L47">        return new BreadcrumbsBakeListener();</span>
+<span class="fc" id="L45">        return new BreadcrumbsBakeListener();</span>
     }
 
 
@@ -52,16 +50,15 @@ public final class BreadcrumbsBakeListener
      *
      */
     @Override
-    public OnDirBakeResult onDirBake(final PageContext context)
-            throws YawgException {
+    public OnDirBakeResult onDirBake(final PageContext context) {
 
-<span class="fc" id="L58">        final SimpleMap vars = new SimpleMap(context.pageVars().asMap());</span>
-<span class="fc" id="L59">        final Breadcrumbs oldBreadcrumbs = getBreadcrumbs(vars);</span>
-<span class="fc" id="L60">        final BreadcrumbItem newBreadcrumbItem = buildBreadcrumbItem(vars, context.dirUrl());</span>
-<span class="fc" id="L61">        final Breadcrumbs newBreadcrumbs = extendBreadcrumbs(oldBreadcrumbs, newBreadcrumbItem);</span>
-<span class="fc" id="L62">        final PageVars updatedBreadcrumbs = updateBreadcrumbs(newBreadcrumbs);</span>
+<span class="fc" id="L55">        final SimpleMap vars = new SimpleMap(context.pageVars().asMap());</span>
+<span class="fc" id="L56">        final Breadcrumbs oldBreadcrumbs = getBreadcrumbs(vars);</span>
+<span class="fc" id="L57">        final BreadcrumbItem newBreadcrumbItem = buildBreadcrumbItem(vars, context.dirUrl());</span>
+<span class="fc" id="L58">        final Breadcrumbs newBreadcrumbs = extendBreadcrumbs(oldBreadcrumbs, newBreadcrumbItem);</span>
+<span class="fc" id="L59">        final PageVars updatedBreadcrumbs = updateBreadcrumbs(newBreadcrumbs);</span>
 
-<span class="fc" id="L64">        return OnDirBakeResults.success(updatedBreadcrumbs);</span>
+<span class="fc" id="L61">        return OnDirBakeResults.success(updatedBreadcrumbs);</span>
     }
 
 
@@ -70,8 +67,8 @@ public final class BreadcrumbsBakeListener
      */
     private Breadcrumbs getBreadcrumbs(final SimpleMap vars) {
 
-<span class="fc" id="L73">        return vars.get(VAR_BREADCRUMB_LIST, Breadcrumbs.class)</span>
-<span class="fc" id="L74">                .orElseGet(Breadcrumbs::empty);</span>
+<span class="fc" id="L70">        return vars.get(VAR_BREADCRUMB_LIST, Breadcrumbs.class)</span>
+<span class="fc" id="L71">                .orElseGet(Breadcrumbs::empty);</span>
     }
 
 
@@ -82,16 +79,16 @@ public final class BreadcrumbsBakeListener
             final SimpleMap vars,
             final String dirUrl) {
 
-<span class="fc" id="L85">        final Optional&lt;SimpleMap&gt; itemData = vars.getMap(VAR_BREADCRUMB);</span>
-<span class="fc" id="L86">        final String title = itemData</span>
-<span class="pc" id="L87">                .flatMap(m -&gt; m.getString(ATTR_TITLE))</span>
-<span class="fc" id="L88">                .orElseGet(() -&gt; basenameOf(dirUrl));</span>
-<span class="fc" id="L89">        final String url = itemData</span>
-<span class="pc" id="L90">                .flatMap(m -&gt; m.getString(ATTR_URL))</span>
-<span class="pc" id="L91">                .map(s -&gt; dirUrl + &quot;/&quot; + s)</span>
-<span class="fc" id="L92">                .orElse(dirUrl);</span>
+<span class="fc" id="L82">        final Optional&lt;SimpleMap&gt; itemData = vars.getMap(VAR_BREADCRUMB);</span>
+<span class="fc" id="L83">        final String title = itemData</span>
+<span class="pc" id="L84">                .flatMap(m -&gt; m.getString(ATTR_TITLE))</span>
+<span class="fc" id="L85">                .orElseGet(() -&gt; basenameOf(dirUrl));</span>
+<span class="fc" id="L86">        final String url = itemData</span>
+<span class="pc" id="L87">                .flatMap(m -&gt; m.getString(ATTR_URL))</span>
+<span class="pc" id="L88">                .map(s -&gt; dirUrl + &quot;/&quot; + s)</span>
+<span class="fc" id="L89">                .orElse(dirUrl);</span>
 
-<span class="fc" id="L94">        return new BreadcrumbItem(title, url);</span>
+<span class="fc" id="L91">        return new BreadcrumbItem(title, url);</span>
     }
 
 
@@ -100,9 +97,9 @@ public final class BreadcrumbsBakeListener
      */
     private String basenameOf(final String url) {
 
-<span class="fc" id="L103">        final int index = url.lastIndexOf('/');</span>
+<span class="fc" id="L100">        final int index = url.lastIndexOf('/');</span>
 
-<span class="pc bpc" id="L105" title="1 of 2 branches missed.">        return (index != -1) ? url.substring(index + 1) : url;</span>
+<span class="pc bpc" id="L102" title="1 of 2 branches missed.">        return (index != -1) ? url.substring(index + 1) : url;</span>
     }
 
 
@@ -113,9 +110,9 @@ public final class BreadcrumbsBakeListener
             final Breadcrumbs oldBreadcrumbs,
             final BreadcrumbItem newBreadcrumbItem) {
 
-<span class="fc" id="L116">        return Breadcrumbs.builder(oldBreadcrumbs)</span>
-<span class="fc" id="L117">                .addBreadcrumbItem(newBreadcrumbItem)</span>
-<span class="fc" id="L118">                .build();</span>
+<span class="fc" id="L113">        return Breadcrumbs.builder(oldBreadcrumbs)</span>
+<span class="fc" id="L114">                .addBreadcrumbItem(newBreadcrumbItem)</span>
+<span class="fc" id="L115">                .build();</span>
     }
 
 
@@ -124,9 +121,9 @@ public final class BreadcrumbsBakeListener
      */
     private PageVars updateBreadcrumbs(final Breadcrumbs newBreadcrumbs) {
 
-<span class="fc" id="L127">        return PageVarsBuilder.create()</span>
-<span class="fc" id="L128">                .addVar(VAR_BREADCRUMB_LIST, newBreadcrumbs)</span>
-<span class="fc" id="L129">                .build();</span>
+<span class="fc" id="L124">        return PageVarsBuilder.create()</span>
+<span class="fc" id="L125">                .addVar(VAR_BREADCRUMB_LIST, newBreadcrumbs)</span>
+<span class="fc" id="L126">                .build();</span>
     }
 
 

@@ -27,7 +27,7 @@ under the License.
     <item>
       <title>File: 75,
              Errors: 0,
-             Warnings: 19,
+             Warnings: 14,
              Infos: 0
       </title>
             <link>http://yawg.varmateo.com/yawg-core//checkstyle.html</link>
@@ -752,7 +752,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   0
@@ -878,7 +878,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  2
+                  0
                 </td>
                 <td>
                   0
@@ -1046,7 +1046,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  2
+                  0
                 </td>
                 <td>
                   0

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DirBaker.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.core</a> &gt; <span class="el_source">DirBaker.java</span></div><h1>DirBaker.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -35,7 +35,6 @@ import com.varmateo.yawg.spi.TemplateService;
     private final TemplateService _templateService;
 
 
-
     /**
      * @param log Used for logging.
      *
@@ -50,18 +49,18 @@ import com.varmateo.yawg.spi.TemplateService;
      * @param dirBakeListener Will be notified when the bake of a
      * directory starts.
      */
-    DirBaker(
+    /* default */ DirBaker(
             final FileBaker fileBaker,
             final TemplateService templateService,
             final DirBakeOptionsDao dirBakeOptionsDao,
-<span class="fc" id="L57">            final DirBakeListener dirBakeListener) {</span>
+<span class="fc" id="L56">            final DirBakeListener dirBakeListener) {</span>
 
-<span class="fc" id="L59">        _log = LogFactory.createFor(DirBaker.class);</span>
-<span class="fc" id="L60">        _fileBaker = fileBaker;</span>
-<span class="fc" id="L61">        _dirBakeOptionsDao = dirBakeOptionsDao;</span>
-<span class="fc" id="L62">        _listener = dirBakeListener;</span>
-<span class="fc" id="L63">        _templateService = templateService;</span>
-<span class="fc" id="L64">    }</span>
+<span class="fc" id="L58">        _log = LogFactory.createFor(DirBaker.class);</span>
+<span class="fc" id="L59">        _fileBaker = fileBaker;</span>
+<span class="fc" id="L60">        _dirBakeOptionsDao = dirBakeOptionsDao;</span>
+<span class="fc" id="L61">        _listener = dirBakeListener;</span>
+<span class="fc" id="L62">        _templateService = templateService;</span>
+<span class="fc" id="L63">    }</span>
 
 
     /**
@@ -70,14 +69,13 @@ import com.varmateo.yawg.spi.TemplateService;
     public void bakeDirectory(
             final Path sourceDir,
             final Path targetDir,
-            final DirBakeOptions parentDirBakeOptions)
-            throws YawgException {
+            final DirBakeOptions parentDirBakeOptions) {
 
-<span class="fc" id="L76">        final DirBakerContext context = DirBakerContext.create(</span>
+<span class="fc" id="L74">        final DirBakerContext context = DirBakerContext.create(</span>
                 sourceDir, targetDir, _templateService, parentDirBakeOptions);
 
-<span class="fc" id="L79">        doBakeDirectory(sourceDir, targetDir, context);</span>
-<span class="fc" id="L80">    }</span>
+<span class="fc" id="L77">        doBakeDirectory(sourceDir, targetDir, context);</span>
+<span class="fc" id="L78">    }</span>
 
 
     /**
@@ -86,26 +84,25 @@ import com.varmateo.yawg.spi.TemplateService;
     private void doBakeDirectory(
             final Path sourceDir,
             final Path targetDir,
-            final DirBakerContext parentContext)
-            throws YawgException {
+            final DirBakerContext parentContext) {
 
-<span class="fc" id="L92">        final Path relSourceDir = parentContext.sourceRootDir().relativize(sourceDir);</span>
-<span class="fc" id="L93">        _log.debug(&quot;Baking directory {0}&quot;, relSourceDir);</span>
+<span class="fc" id="L89">        final Path relSourceDir = parentContext.sourceRootDir().relativize(sourceDir);</span>
+<span class="fc" id="L90">        _log.debug(&quot;Baking directory {0}&quot;, relSourceDir);</span>
 
-<span class="fc" id="L95">        createDirIfNeeded(targetDir);</span>
+<span class="fc" id="L92">        createDirIfNeeded(targetDir);</span>
 
-<span class="fc" id="L97">        final DirBakeOptions specificDirBakeOptions = _dirBakeOptionsDao.loadFromDir(sourceDir);</span>
-<span class="fc" id="L98">        final DirBakerContext context = parentContext.buildForChildDir(</span>
+<span class="fc" id="L94">        final DirBakeOptions specificDirBakeOptions = _dirBakeOptionsDao.loadFromDir(sourceDir);</span>
+<span class="fc" id="L95">        final DirBakerContext context = parentContext.buildForChildDir(</span>
                 targetDir,
                 specificDirBakeOptions,
-<span class="fc" id="L101">                x -&gt; _listener.onDirBake(x).pageVars());</span>
-<span class="fc" id="L102">        final DirBakeOptions dirBakeOptions = context.dirBakeOptions();</span>
-<span class="fc" id="L103">        final Seq&lt;Path&gt; dirEntries = getDirEntries(sourceDir, dirBakeOptions);</span>
+<span class="fc" id="L98">                x -&gt; _listener.onDirBake(x).pageVars());</span>
+<span class="fc" id="L99">        final DirBakeOptions dirBakeOptions = context.dirBakeOptions();</span>
+<span class="fc" id="L100">        final Seq&lt;Path&gt; dirEntries = getDirEntries(sourceDir, dirBakeOptions);</span>
 
-<span class="fc" id="L105">        bakeChildFiles(dirEntries, targetDir, dirBakeOptions, context.pageContext());</span>
-<span class="fc" id="L106">        bakeChildDirectories(dirEntries, targetDir, context);</span>
-<span class="fc" id="L107">        bakeExtraDirectories(sourceDir, targetDir, context);</span>
-<span class="fc" id="L108">    }</span>
+<span class="fc" id="L102">        bakeChildFiles(dirEntries, targetDir, dirBakeOptions, context.pageContext());</span>
+<span class="fc" id="L103">        bakeChildDirectories(dirEntries, targetDir, context);</span>
+<span class="fc" id="L104">        bakeExtraDirectories(sourceDir, targetDir, context);</span>
+<span class="fc" id="L105">    }</span>
 
 
     /**
@@ -113,12 +110,12 @@ import com.varmateo.yawg.spi.TemplateService;
      */
     private void createDirIfNeeded(final Path targetDir) {
 
-<span class="pc bpc" id="L116" title="1 of 2 branches missed.">        if ( !Files.exists(targetDir) ) {</span>
-<span class="nc" id="L117">            doIoAction(</span>
-<span class="nc" id="L118">                    () -&gt; Files.createDirectory(targetDir),</span>
-<span class="nc" id="L119">                    DirBakerException.directoryCreationFailure(targetDir));</span>
+<span class="pc bpc" id="L113" title="1 of 2 branches missed.">        if ( !Files.exists(targetDir) ) {</span>
+<span class="nc" id="L114">            doIoAction(</span>
+<span class="nc" id="L115">                    () -&gt; Files.createDirectory(targetDir),</span>
+<span class="nc" id="L116">                    DirBakerException.directoryCreationFailure(targetDir));</span>
         }
-<span class="fc" id="L121">    }</span>
+<span class="fc" id="L118">    }</span>
 
 
     /**
@@ -128,11 +125,11 @@ import com.varmateo.yawg.spi.TemplateService;
             final Path dir,
             final DirBakeOptions dirBakeOptions) {
 
-<span class="fc" id="L131">        final DirEntryScanner scanner = new DirEntryScanner(dirBakeOptions);</span>
+<span class="fc" id="L128">        final DirEntryScanner scanner = new DirEntryScanner(dirBakeOptions);</span>
 
-<span class="fc" id="L133">        return doIoAction(</span>
-<span class="fc" id="L134">                () -&gt; scanner.getDirEntries(dir),</span>
-<span class="fc" id="L135">                DirBakerException.directoryListFailure(dir));</span>
+<span class="fc" id="L130">        return doIoAction(</span>
+<span class="fc" id="L131">                () -&gt; scanner.getDirEntries(dir),</span>
+<span class="fc" id="L132">                DirBakerException.directoryListFailure(dir));</span>
     }
 
 
@@ -143,15 +140,14 @@ import com.varmateo.yawg.spi.TemplateService;
             final Seq&lt;Path&gt; dirEntries,
             final Path targetDir,
             final DirBakeOptions dirBakeOptions,
-            final PageContext context)
-            throws YawgException {
+            final PageContext context) {
 
-<span class="fc" id="L149">        final Seq&lt;Path&gt; filePathList = dirEntries.filter(Files::isRegularFile);</span>
+<span class="fc" id="L145">        final Seq&lt;Path&gt; filePathList = dirEntries.filter(Files::isRegularFile);</span>
 
-<span class="fc bfc" id="L151" title="All 2 branches covered.">        for ( final Path path : filePathList ) {</span>
-<span class="fc" id="L152">            _fileBaker.bakeFile(path, context, targetDir, dirBakeOptions);</span>
-<span class="fc" id="L153">        }</span>
-<span class="fc" id="L154">    }</span>
+<span class="fc bfc" id="L147" title="All 2 branches covered.">        for ( final Path path : filePathList ) {</span>
+<span class="fc" id="L148">            _fileBaker.bakeFile(path, context, targetDir, dirBakeOptions);</span>
+<span class="fc" id="L149">        }</span>
+<span class="fc" id="L150">    }</span>
 
 
     /**
@@ -162,15 +158,15 @@ import com.varmateo.yawg.spi.TemplateService;
             final Path targetDir,
             final DirBakerContext context) {
 
-<span class="fc" id="L165">        final Seq&lt;Path&gt; dirPathList = dirEntries.filter(Files::isDirectory);</span>
+<span class="fc" id="L161">        final Seq&lt;Path&gt; dirPathList = dirEntries.filter(Files::isDirectory);</span>
 
-<span class="pc bpc" id="L167" title="1 of 2 branches missed.">        for ( final Path childSourceDir : dirPathList ) {</span>
-<span class="nc" id="L168">            final Path dirBasename = childSourceDir.getFileName();</span>
-<span class="nc" id="L169">            final Path childTargetDir = targetDir.resolve(dirBasename);</span>
+<span class="pc bpc" id="L163" title="1 of 2 branches missed.">        for ( final Path childSourceDir : dirPathList ) {</span>
+<span class="nc" id="L164">            final Path dirBasename = childSourceDir.getFileName();</span>
+<span class="nc" id="L165">            final Path childTargetDir = targetDir.resolve(dirBasename);</span>
 
-<span class="nc" id="L171">            doBakeDirectory(childSourceDir, childTargetDir, context);</span>
-<span class="nc" id="L172">        }</span>
-<span class="fc" id="L173">    }</span>
+<span class="nc" id="L167">            doBakeDirectory(childSourceDir, childTargetDir, context);</span>
+<span class="nc" id="L168">        }</span>
+<span class="fc" id="L169">    }</span>
 
 
     /**
@@ -181,14 +177,14 @@ import com.varmateo.yawg.spi.TemplateService;
             final Path targetDir,
             final DirBakerContext context) {
 
-<span class="fc" id="L184">        final Seq&lt;Path&gt; extraDirPathList = context.dirBakeOptions()</span>
+<span class="fc" id="L180">        final Seq&lt;Path&gt; extraDirPathList = context.dirBakeOptions()</span>
                 .extraDirsHere
-<span class="pc" id="L186">                .map(path -&gt; sourceDir.resolve(path));</span>
+<span class="pc" id="L182">                .map(path -&gt; sourceDir.resolve(path));</span>
 
-<span class="pc bpc" id="L188" title="1 of 2 branches missed.">        for ( final Path extraSourceDir : extraDirPathList ) {</span>
-<span class="nc" id="L189">            doBakeDirectory(extraSourceDir, targetDir, context);</span>
-<span class="nc" id="L190">        }</span>
-<span class="fc" id="L191">    }</span>
+<span class="pc bpc" id="L184" title="1 of 2 branches missed.">        for ( final Path extraSourceDir : extraDirPathList ) {</span>
+<span class="nc" id="L185">            doBakeDirectory(extraSourceDir, targetDir, context);</span>
+<span class="nc" id="L186">        }</span>
+<span class="fc" id="L187">    }</span>
 
 
     /**
@@ -197,18 +193,17 @@ import com.varmateo.yawg.spi.TemplateService;
      */
     private &lt;T&gt; T doIoAction(
             final IoSupplier&lt;T&gt; supplier,
-            final Function&lt;IOException, DirBakerException&gt; exceptionBuilder)
-            throws YawgException {
+            final Function&lt;IOException, DirBakerException&gt; exceptionBuilder) {
 
         final T result;
 
         try {
-<span class="fc" id="L206">            result = supplier.get();</span>
-<span class="nc" id="L207">        } catch ( IOException e ) {</span>
-<span class="nc" id="L208">            throw exceptionBuilder.apply(e);</span>
-<span class="fc" id="L209">        }</span>
+<span class="fc" id="L201">            result = supplier.get();</span>
+<span class="nc" id="L202">        } catch ( IOException e ) {</span>
+<span class="nc" id="L203">            throw exceptionBuilder.apply(e);</span>
+<span class="fc" id="L204">        }</span>
 
-<span class="fc" id="L211">        return result;</span>
+<span class="fc" id="L206">        return result;</span>
     }
 
 

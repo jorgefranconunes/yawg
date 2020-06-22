@@ -11,8 +11,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import com.varmateo.yawg.spi.PageVars;
-import com.varmateo.yawg.spi.TemplateContext;
 import com.varmateo.yawg.spi.TemplateContext.Author;
 
 
@@ -34,16 +32,16 @@ public final class TemplateContextBuilder {
     /**
      *
      */
-<span class="fc" id="L37">    private TemplateContextBuilder() {</span>
+<span class="fc" id="L35">    private TemplateContextBuilder() {</span>
 
-<span class="fc" id="L39">        _authors = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L40">        _body = null;</span>
-<span class="fc" id="L41">        _pageUrl = null;</span>
-<span class="fc" id="L42">        _rootRelativeUrl = null;</span>
-<span class="fc" id="L43">        _pageVars = PageVars.empty();</span>
-<span class="fc" id="L44">        _title = null;</span>
-<span class="fc" id="L45">        _bakeId = null;</span>
-<span class="fc" id="L46">    }</span>
+<span class="fc" id="L37">        _authors = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L38">        _body = null;</span>
+<span class="fc" id="L39">        _pageUrl = null;</span>
+<span class="fc" id="L40">        _rootRelativeUrl = null;</span>
+<span class="fc" id="L41">        _pageVars = PageVars.empty();</span>
+<span class="fc" id="L42">        _title = null;</span>
+<span class="fc" id="L43">        _bakeId = null;</span>
+<span class="fc" id="L44">    }</span>
 
 
     /**
@@ -54,7 +52,7 @@ public final class TemplateContextBuilder {
      */
     public static TemplateContextBuilder create() {
 
-<span class="fc" id="L57">        return new TemplateContextBuilder();</span>
+<span class="fc" id="L55">        return new TemplateContextBuilder();</span>
     }
 
 
@@ -65,9 +63,9 @@ public final class TemplateContextBuilder {
             final String name,
             final String email) {
 
-<span class="fc" id="L68">        Author author = Author.create(name, email);</span>
-<span class="fc" id="L69">        _authors.add(author);</span>
-<span class="fc" id="L70">        return this;</span>
+<span class="fc" id="L66">        final Author author = Author.create(name, email);</span>
+<span class="fc" id="L67">        _authors.add(author);</span>
+<span class="fc" id="L68">        return this;</span>
     }
 
 
@@ -76,8 +74,8 @@ public final class TemplateContextBuilder {
      */
     public TemplateContextBuilder body(final String body) {
 
-<span class="fc" id="L79">        _body = Objects.requireNonNull(body);</span>
-<span class="fc" id="L80">        return this;</span>
+<span class="fc" id="L77">        _body = Objects.requireNonNull(body);</span>
+<span class="fc" id="L78">        return this;</span>
     }
 
 
@@ -86,8 +84,8 @@ public final class TemplateContextBuilder {
      */
     public TemplateContextBuilder pageUrl(final String pageUrl) {
 
-<span class="fc" id="L89">        _pageUrl = pageUrl;</span>
-<span class="fc" id="L90">        return this;</span>
+<span class="fc" id="L87">        _pageUrl = pageUrl;</span>
+<span class="fc" id="L88">        return this;</span>
     }
 
 
@@ -97,8 +95,8 @@ public final class TemplateContextBuilder {
     public TemplateContextBuilder rootRelativeUrl(
             final String rootRelativeUrl) {
 
-<span class="fc" id="L100">        _rootRelativeUrl = rootRelativeUrl;</span>
-<span class="fc" id="L101">        return this;</span>
+<span class="fc" id="L98">        _rootRelativeUrl = rootRelativeUrl;</span>
+<span class="fc" id="L99">        return this;</span>
     }
 
 
@@ -107,8 +105,8 @@ public final class TemplateContextBuilder {
      */
     public TemplateContextBuilder pageVars(final PageVars pageVars) {
 
-<span class="fc" id="L110">        _pageVars = pageVars;</span>
-<span class="fc" id="L111">        return this;</span>
+<span class="fc" id="L108">        _pageVars = pageVars;</span>
+<span class="fc" id="L109">        return this;</span>
     }
 
 
@@ -117,8 +115,8 @@ public final class TemplateContextBuilder {
      */
     public TemplateContextBuilder title(final String title) {
 
-<span class="fc" id="L120">        _title = Objects.requireNonNull(title);</span>
-<span class="fc" id="L121">        return this;</span>
+<span class="fc" id="L118">        _title = Objects.requireNonNull(title);</span>
+<span class="fc" id="L119">        return this;</span>
     }
 
 
@@ -127,8 +125,8 @@ public final class TemplateContextBuilder {
      */
     public TemplateContextBuilder bakeId(final String bakeId) {
 
-<span class="fc" id="L130">        _bakeId = bakeId;</span>
-<span class="fc" id="L131">        return this;</span>
+<span class="fc" id="L128">        _bakeId = bakeId;</span>
+<span class="fc" id="L129">        return this;</span>
     }
 
 
@@ -137,7 +135,7 @@ public final class TemplateContextBuilder {
      */
     public TemplateContext build() {
 
-<span class="fc" id="L140">        return new TemplateContextImpl(this);</span>
+<span class="fc" id="L138">        return new TemplateContextImpl(this);</span>
     }
 
 
@@ -160,16 +158,16 @@ public final class TemplateContextBuilder {
         /**
          *
          */
-<span class="fc" id="L163">        /* default */ TemplateContextImpl(final TemplateContextBuilder builder) {</span>
+<span class="fc" id="L161">        /* default */ TemplateContextImpl(final TemplateContextBuilder builder) {</span>
 
-<span class="fc" id="L165">            _authors = Collections.unmodifiableList(new ArrayList&lt;&gt;(builder._authors));</span>
-<span class="fc" id="L166">            _body = Objects.requireNonNull(builder._body);</span>
-<span class="fc" id="L167">            _pageUrl = Objects.requireNonNull(builder._pageUrl);</span>
-<span class="fc" id="L168">            _pageVars = Objects.requireNonNull(builder._pageVars);</span>
-<span class="fc" id="L169">            _rootRelativeUrl = Objects.requireNonNull(builder._rootRelativeUrl);</span>
-<span class="fc" id="L170">            _title = Objects.requireNonNull(builder._title);</span>
-<span class="fc" id="L171">            _bakeId = Objects.requireNonNull(builder._bakeId);</span>
-<span class="fc" id="L172">        }</span>
+<span class="fc" id="L163">            _authors = Collections.unmodifiableList(new ArrayList&lt;&gt;(builder._authors));</span>
+<span class="fc" id="L164">            _body = Objects.requireNonNull(builder._body);</span>
+<span class="fc" id="L165">            _pageUrl = Objects.requireNonNull(builder._pageUrl);</span>
+<span class="fc" id="L166">            _pageVars = Objects.requireNonNull(builder._pageVars);</span>
+<span class="fc" id="L167">            _rootRelativeUrl = Objects.requireNonNull(builder._rootRelativeUrl);</span>
+<span class="fc" id="L168">            _title = Objects.requireNonNull(builder._title);</span>
+<span class="fc" id="L169">            _bakeId = Objects.requireNonNull(builder._bakeId);</span>
+<span class="fc" id="L170">        }</span>
 
 
         /**
@@ -177,7 +175,7 @@ public final class TemplateContextBuilder {
          */
         @Override
         public Iterable&lt;Author&gt; authors() {
-<span class="fc" id="L180">            return _authors;</span>
+<span class="fc" id="L178">            return _authors;</span>
         }
 
 
@@ -186,7 +184,7 @@ public final class TemplateContextBuilder {
          */
         @Override
         public String body() {
-<span class="fc" id="L189">            return _body;</span>
+<span class="fc" id="L187">            return _body;</span>
         }
 
 
@@ -195,7 +193,7 @@ public final class TemplateContextBuilder {
          */
         @Override
         public String pageUrl() {
-<span class="nc" id="L198">            return _pageUrl;</span>
+<span class="nc" id="L196">            return _pageUrl;</span>
         }
 
 
@@ -204,7 +202,7 @@ public final class TemplateContextBuilder {
          */
         @Override
         public PageVars pageVars() {
-<span class="fc" id="L207">            return _pageVars;</span>
+<span class="fc" id="L205">            return _pageVars;</span>
         }
 
 
@@ -213,7 +211,7 @@ public final class TemplateContextBuilder {
          */
         @Override
         public String rootRelativeUrl() {
-<span class="nc" id="L216">            return _rootRelativeUrl;</span>
+<span class="nc" id="L214">            return _rootRelativeUrl;</span>
         }
 
 
@@ -222,16 +220,16 @@ public final class TemplateContextBuilder {
          */
         @Override
         public String title() {
-<span class="fc" id="L225">            return _title;</span>
+<span class="fc" id="L223">            return _title;</span>
         }
 
 
         /**
-         *
+         * {@inheritDoc}
          */
         @Override
         public String bakeId() {
-<span class="nc" id="L234">            return _bakeId;</span>
+<span class="nc" id="L232">            return _bakeId;</span>
         }
 
     }

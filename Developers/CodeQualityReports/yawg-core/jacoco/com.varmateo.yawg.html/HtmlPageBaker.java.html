@@ -122,12 +122,15 @@ public final class HtmlPageBaker
 
 <span class="nc" id="L123">        final Path targetPath = getTargetPath(sourcePath, targetDir);</span>
 <span class="nc" id="L124">        final Optional&lt;Template&gt; template = context.templateFor(sourcePath);</span>
+        final Try&lt;Void&gt; result;
 
-<span class="nc bnc" id="L126" title="All 2 branches missed.">        if ( template.isPresent() ) {</span>
-<span class="nc" id="L127">            return doBakeWithTemplate(sourcePath, context, targetPath, template.get());</span>
+<span class="nc bnc" id="L127" title="All 2 branches missed.">        if ( template.isPresent() ) {</span>
+<span class="nc" id="L128">            result = doBakeWithTemplate(sourcePath, context, targetPath, template.get());</span>
         } else {
-<span class="nc" id="L129">            return doBakeWithoutTemplate(sourcePath, targetPath);</span>
+<span class="nc" id="L130">            result = doBakeWithoutTemplate(sourcePath, targetPath);</span>
         }
+
+<span class="nc" id="L133">        return result;</span>
     }
 
 
@@ -138,10 +141,10 @@ public final class HtmlPageBaker
             final Path sourcePath,
             final Path targetDir) {
 
-<span class="nc" id="L141">        final String sourceBasename = FileUtils.basename(sourcePath);</span>
-<span class="nc" id="L142">        final String targetName = sourceBasename + TARGET_EXTENSION;</span>
+<span class="nc" id="L144">        final String sourceBasename = FileUtils.basename(sourcePath);</span>
+<span class="nc" id="L145">        final String targetName = sourceBasename + TARGET_EXTENSION;</span>
 
-<span class="nc" id="L144">        return targetDir.resolve(targetName);</span>
+<span class="nc" id="L147">        return targetDir.resolve(targetName);</span>
     }
 
 
@@ -153,8 +156,8 @@ public final class HtmlPageBaker
             final Path sourcePath,
             final Path targetPath) {
 
-<span class="nc" id="L156">        return FileUtils.safeCopy(sourcePath, targetPath)</span>
-<span class="nc" id="L157">                .recoverWith(HtmlPageBakerException.copyFailureTry(sourcePath));</span>
+<span class="nc" id="L159">        return FileUtils.safeCopy(sourcePath, targetPath)</span>
+<span class="nc" id="L160">                .recoverWith(HtmlPageBakerException.copyFailureTry(sourcePath));</span>
     }
 
 
@@ -167,10 +170,10 @@ public final class HtmlPageBaker
             final Path targetPath,
             final Template template) {
 
-<span class="nc" id="L170">        final Try&lt;TemplateContext&gt; templateContext = HtmlTemplateContext.create(</span>
+<span class="nc" id="L173">        final Try&lt;TemplateContext&gt; templateContext = HtmlTemplateContext.create(</span>
                 sourcePath, targetPath, context);
 
-<span class="nc" id="L173">        return templateContext.flatMap(processTemplate(sourcePath, targetPath, template));</span>
+<span class="nc" id="L176">        return templateContext.flatMap(processTemplate(sourcePath, targetPath, template));</span>
     }
 
 
@@ -179,14 +182,14 @@ public final class HtmlPageBaker
             final Path targetPath,
             final Template template) {
 
-<span class="nc" id="L182">        return (TemplateContext templateContext) -&gt; {</span>
-<span class="nc" id="L183">            final Try&lt;Result&lt;Void&gt;&gt; result = FileUtils.safeWriteWith(</span>
+<span class="nc" id="L185">        return (TemplateContext templateContext) -&gt; {</span>
+<span class="nc" id="L186">            final Try&lt;Result&lt;Void&gt;&gt; result = FileUtils.safeWriteWith(</span>
                     targetPath,
-<span class="nc" id="L185">                    writer -&gt; template.process(templateContext, writer));</span>
+<span class="nc" id="L188">                    writer -&gt; template.process(templateContext, writer));</span>
 
-<span class="nc" id="L187">            return result</span>
-<span class="nc" id="L188">                    .recoverWith(HtmlPageBakerException.templateFailureTry(sourcePath))</span>
-<span class="nc" id="L189">                    .flatMap(Results::toTry);</span>
+<span class="nc" id="L190">            return result</span>
+<span class="nc" id="L191">                    .recoverWith(HtmlPageBakerException.templateFailureTry(sourcePath))</span>
+<span class="nc" id="L192">                    .flatMap(Results::toTry);</span>
         };
     }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GlobMatcher.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Yawg core</a> &gt; <a href="index.source.html" class="el_package">com.varmateo.yawg.util</a> &gt; <span class="el_source">GlobMatcher.java</span></div><h1>GlobMatcher.java</h1><pre class="source lang-java linenums">/**************************************************************************
  *
- * Copyright (c) 2016-2017 Yawg project contributors.
+ * Copyright (c) 2016-2020 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -92,8 +92,8 @@ public final class GlobMatcher
     @Override
     public boolean test(final Path path) {
 
-<span class="fc" id="L95">        Path name = path.getFileName();</span>
-<span class="fc" id="L96">        Predicate&lt;PathMatcher&gt; isMatch = matcher -&gt; matcher.matches(name);</span>
+<span class="fc" id="L95">        final Path name = path.getFileName();</span>
+<span class="fc" id="L96">        final Predicate&lt;PathMatcher&gt; isMatch = matcher -&gt; matcher.matches(name);</span>
 
 <span class="fc" id="L98">        return _matchers</span>
 <span class="fc" id="L99">                .filter(isMatch)</span>
@@ -134,7 +134,7 @@ public final class GlobMatcher
         /**
          *
          */
-<span class="fc" id="L137">        private Builder() {</span>
+<span class="fc" id="L137">        /* default */ Builder() {</span>
 
 <span class="fc" id="L139">            _globPatterns = Array.of();</span>
 <span class="fc" id="L140">            _matchers = Array.of();</span>
@@ -144,7 +144,7 @@ public final class GlobMatcher
         /**
          *
          */
-<span class="fc" id="L147">        private Builder(final GlobMatcher globMatcher) {</span>
+<span class="fc" id="L147">        /* default */ Builder(final GlobMatcher globMatcher) {</span>
 
 <span class="fc" id="L149">            _globPatterns = globMatcher._globPatterns;</span>
 <span class="fc" id="L150">            _matchers = globMatcher._matchers;</span>
@@ -159,13 +159,12 @@ public final class GlobMatcher
          */
         public Builder addGlobPattern(final String globPattern) {
 
-            PathMatcher matcher =
-<span class="fc" id="L163">                    DEFAULT_FILESYSTEM.getPathMatcher(&quot;glob:&quot; + globPattern);</span>
+<span class="fc" id="L162">            final PathMatcher matcher = DEFAULT_FILESYSTEM.getPathMatcher(&quot;glob:&quot; + globPattern);</span>
 
-<span class="fc" id="L165">            _globPatterns = _globPatterns.append(globPattern);</span>
-<span class="fc" id="L166">            _matchers = _matchers.append(matcher);</span>
+<span class="fc" id="L164">            _globPatterns = _globPatterns.append(globPattern);</span>
+<span class="fc" id="L165">            _matchers = _matchers.append(matcher);</span>
 
-<span class="fc" id="L168">            return this;</span>
+<span class="fc" id="L167">            return this;</span>
         }
 
 
@@ -174,10 +173,10 @@ public final class GlobMatcher
          */
         public Builder addGlobMatcher(final GlobMatcher globMatcher) {
 
-<span class="fc" id="L177">            _globPatterns = _globPatterns.appendAll(globMatcher._globPatterns);</span>
-<span class="fc" id="L178">            _matchers = _matchers.appendAll(globMatcher._matchers);</span>
+<span class="fc" id="L176">            _globPatterns = _globPatterns.appendAll(globMatcher._globPatterns);</span>
+<span class="fc" id="L177">            _matchers = _matchers.appendAll(globMatcher._matchers);</span>
 
-<span class="fc" id="L180">            return this;</span>
+<span class="fc" id="L179">            return this;</span>
         }
 
 
@@ -186,7 +185,7 @@ public final class GlobMatcher
          */
         public GlobMatcher build() {
 
-<span class="fc" id="L189">            return new GlobMatcher(this);</span>
+<span class="fc" id="L188">            return new GlobMatcher(this);</span>
         }
 
 

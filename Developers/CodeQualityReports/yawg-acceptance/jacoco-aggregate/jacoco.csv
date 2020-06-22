@@ -39,11 +39,11 @@ Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,BakerCliAction.Bake,4,13,0,
 Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,BakerCliBakeOptions_Builder,315,69,51,1,66,16,39,6,13,6
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.html,HtmlPageBakerException,110,9,0,0,15,3,10,3,10,3
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.html,HtmlTemplateContext,3,88,0,0,2,20,1,7,1,7
-Yawg acceptance tests/yawg-core,com.varmateo.yawg.html,HtmlPageBaker,0,111,0,2,0,26,0,14,0,13
+Yawg acceptance tests/yawg-core,com.varmateo.yawg.html,HtmlPageBaker,0,114,0,2,0,27,0,14,0,13
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.util,FileUtils,202,149,34,8,12,25,23,14,3,13
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.util,SimpleMapException,0,28,0,0,0,6,0,2,0,2
-Yawg acceptance tests/yawg-core,com.varmateo.yawg.util,Results,3,20,0,2,2,7,1,3,1,2
-Yawg acceptance tests/yawg-core,com.varmateo.yawg.util,YamlParser,0,29,1,3,0,9,1,3,0,2
+Yawg acceptance tests/yawg-core,com.varmateo.yawg.util,Results,3,23,0,2,2,8,1,3,1,2
+Yawg acceptance tests/yawg-core,com.varmateo.yawg.util,YamlParser,3,26,1,3,1,8,2,2,1,1
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.util,OnDirBakeResults.new OnDirBakeResult() {...},15,0,0,0,4,0,4,0,4,0
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.util,OnDirBakeResults.new OnDirBakeResult() {...},4,11,0,0,1,3,1,3,1,3
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.util,GlobMatcher.Builder,0,71,0,0,0,16,0,5,0,5
@@ -53,14 +53,14 @@ Yawg acceptance tests/yawg-core,com.varmateo.yawg.util,SimpleList.SimpleIterator
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.util,SimpleListException,2,34,1,1,0,8,1,2,0,2
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.util,PageBakeResults.new PageBakeResult() {...},11,0,0,0,3,0,3,0,3,0
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.util,SimpleMap,0,79,0,4,0,19,0,11,0,9
-Yawg acceptance tests/yawg-core,com.varmateo.yawg.util,PageBakeResults,17,15,2,0,6,5,4,3,3,3
+Yawg acceptance tests/yawg-core,com.varmateo.yawg.util,PageBakeResults,20,15,2,0,7,5,4,3,3,3
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.util,Trys,93,0,10,0,18,0,14,0,9,0
-Yawg acceptance tests/yawg-core,com.varmateo.yawg.util,OnDirBakeResults,12,21,1,1,4,7,3,3,2,3
-Yawg acceptance tests/yawg-core,com.varmateo.yawg.util,GlobMatcher,0,72,0,2,0,19,0,9,0,8
+Yawg acceptance tests/yawg-core,com.varmateo.yawg.util,OnDirBakeResults,12,24,1,1,4,8,3,3,2,3
+Yawg acceptance tests/yawg-core,com.varmateo.yawg.util,GlobMatcher,0,70,0,2,0,19,0,9,0,8
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.spi,TemplateContextBuilder,0,80,0,0,0,26,0,10,0,10
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.spi,PageVars.new PageVars() {...},0,7,0,0,0,3,0,3,0,3
-Yawg acceptance tests/yawg-core,com.varmateo.yawg.spi,PageContextBuilder,0,103,0,0,0,31,0,13,0,13
-Yawg acceptance tests/yawg-core,com.varmateo.yawg.spi,PageVarsBuilder,0,47,0,0,0,11,0,7,0,7
+Yawg acceptance tests/yawg-core,com.varmateo.yawg.spi,PageContextBuilder,0,102,0,0,0,31,0,13,0,13
+Yawg acceptance tests/yawg-core,com.varmateo.yawg.spi,PageVarsBuilder,0,46,0,0,0,11,0,7,0,7
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.spi,TemplateContext.Author,0,21,0,0,0,7,0,4,0,4
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.spi,PageVars,0,4,0,0,0,1,0,1,0,1
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.spi,PageContextBuilder.PageContextImpl,0,48,0,0,0,12,0,6,0,6
@@ -73,10 +73,10 @@ Yawg acceptance tests/yawg-core,com.varmateo.yawg.freemarker,FreemarkerTemplateS
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.freemarker,FreemarkerTemplateService.FreemarkerTemplate,0,40,0,0,0,11,0,5,0,5
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.logging,LogFactory,19,14,0,0,7,4,3,2,3,2
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.logging,Logs,59,103,1,3,10,21,8,6,7,5
-Yawg acceptance tests/yawg-core,com.varmateo.yawg.logging,LoggerLog,57,37,5,1,16,13,10,5,7,5
+Yawg acceptance tests/yawg-core,com.varmateo.yawg.logging,LoggerLog,57,34,5,1,16,12,10,5,7,5
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.commonmark,CommonMarkTemplateContextFactory,1,124,1,1,0,27,1,11,0,11
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.commonmark,CommonMarkPageBakerException,110,9,0,0,15,3,10,3,10,3
-Yawg acceptance tests/yawg-core,com.varmateo.yawg.commonmark,CommonMarkPageBaker,0,221,0,2,0,52,0,23,0,22
+Yawg acceptance tests/yawg-core,com.varmateo.yawg.commonmark,CommonMarkPageBaker,0,222,0,2,0,53,0,23,0,22
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.asciidoctor,AsciidoctorPageBakerException,75,6,0,0,10,2,7,2,7,2
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.asciidoctor,AdocUtils,3,78,0,0,2,25,1,4,1,4
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.asciidoctor,AsciidoctorPageBaker,0,160,0,2,0,36,0,16,0,15
@@ -85,15 +85,15 @@ Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DefaultSiteBaker,3,17,0,0
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DirBakerException,30,41,0,0,4,8,2,5,2,5
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,CollectiveTemplateServiceException,18,0,0,0,4,0,2,0,2,0
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DirEntryScanner,30,36,6,2,0,9,4,3,0,3
-Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DirBakeOptionsDao,71,290,9,9,11,75,6,21,0,18
+Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DirBakeOptionsDao,71,287,9,9,11,76,6,21,0,18
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DirBakeOptionsDaoException,22,57,0,0,2,10,1,4,1,4
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,BakerMatcher.Entry,0,15,0,0,0,6,0,3,0,3
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,BakerMatcher.Builder,6,64,0,0,3,16,1,8,1,8
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,CoreSiteBakerModule,0,75,0,0,0,21,0,6,0,6
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DirBaker,0,231,0,8,0,54,0,19,0,15
-Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,TemplateNameMatcher,6,24,0,0,0,9,1,4,1,4
+Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,TemplateNameMatcher,6,23,0,0,0,9,1,4,1,4
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,FileBaker,26,105,3,1,5,24,5,7,3,7
-Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,TemplateNameMatcher.Builder,9,12,0,0,2,4,1,2,1,2
+Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,TemplateNameMatcher.Builder,9,11,0,0,2,4,1,2,1,2
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,CopyPageBaker,2,32,0,0,1,10,1,5,1,5
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DefaultSiteBakerModule,0,57,0,0,0,14,0,8,0,8
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,CopyPageBakerException,46,4,0,0,6,1,4,1,4,1
@@ -101,14 +101,14 @@ Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DirBakerContext,0,102,0,0
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,CollectiveDirBakeListener,0,51,0,0,0,17,0,8,0,8
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,FileBakerException,18,0,0,0,4,0,2,0,2,0
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,CoreSiteBaker,0,81,0,0,0,23,0,8,0,8
-Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,BakerMatcher,14,59,0,0,4,10,2,7,2,7
+Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,BakerMatcher,14,57,0,0,4,10,2,7,2,7
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DirEntryChecker,0,96,0,8,0,19,0,14,0,10
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,CollectiveTemplateService,3,53,1,3,1,15,1,8,0,7
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DefaultExtensionsModule,0,84,0,0,0,25,0,10,0,10
-Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DirBakeOptions.Builder,0,209,0,0,0,61,0,23,0,23
+Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DirBakeOptions.Builder,0,208,0,0,0,61,0,23,0,23
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DirPageContextBuilder,5,121,0,2,0,35,1,11,1,10
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DirBakeOptions,5,114,0,0,0,25,1,5,1,5
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.breadcrumbs,BreadcrumbsBakeListener,25,98,1,1,0,28,4,9,3,9
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.breadcrumbs,BreadcrumbItem,6,9,0,0,2,4,2,1,2,1
-Yawg acceptance tests/yawg-core,com.varmateo.yawg.breadcrumbs,Breadcrumbs,3,21,0,0,1,6,1,4,1,4
-Yawg acceptance tests/yawg-core,com.varmateo.yawg.breadcrumbs,Breadcrumbs.Builder,0,30,0,0,0,9,0,4,0,4
+Yawg acceptance tests/yawg-core,com.varmateo.yawg.breadcrumbs,Breadcrumbs,3,20,0,0,1,6,1,4,1,4
+Yawg acceptance tests/yawg-core,com.varmateo.yawg.breadcrumbs,Breadcrumbs.Builder,0,29,0,0,0,9,0,4,0,4

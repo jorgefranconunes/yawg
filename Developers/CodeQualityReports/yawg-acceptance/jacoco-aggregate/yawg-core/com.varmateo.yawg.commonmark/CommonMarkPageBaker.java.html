@@ -138,21 +138,22 @@ public final class CommonMarkPageBaker
 
 <span class="fc" id="L139">        final Path targetPath = getTargetPath(sourcePath, targetDir);</span>
 <span class="fc" id="L140">        final Optional&lt;Template&gt; template = context.templateFor(sourcePath);</span>
+        final Try&lt;Void&gt; result;
 
-<span class="fc bfc" id="L142" title="All 2 branches covered.">        if ( template.isPresent() ) {</span>
-<span class="fc" id="L143">            return doBakeWithTemplate(</span>
+<span class="fc bfc" id="L143" title="All 2 branches covered.">        if ( template.isPresent() ) {</span>
+<span class="fc" id="L144">            result = doBakeWithTemplate(</span>
                     sourcePath,
                     context,
                     targetDir,
                     targetPath,
-<span class="fc" id="L148">                    template.get());</span>
+<span class="fc" id="L149">                    template.get());</span>
         } else {
-<span class="fc" id="L150">            return doBakeWithoutTemplate(</span>
+<span class="fc" id="L151">            result = doBakeWithoutTemplate(</span>
                     sourcePath,
-                    context,
-                    targetDir,
                     targetPath);
         }
+
+<span class="fc" id="L156">        return result;</span>
     }
 
 
@@ -163,10 +164,10 @@ public final class CommonMarkPageBaker
             final Path sourcePath,
             final Path targetDir) {
 
-<span class="fc" id="L166">        final String sourceBasename = FileUtils.basename(sourcePath);</span>
-<span class="fc" id="L167">        final String targetName = sourceBasename + TARGET_EXTENSION;</span>
+<span class="fc" id="L167">        final String sourceBasename = FileUtils.basename(sourcePath);</span>
+<span class="fc" id="L168">        final String targetName = sourceBasename + TARGET_EXTENSION;</span>
 
-<span class="fc" id="L169">        return targetDir.resolve(targetName);</span>
+<span class="fc" id="L170">        return targetDir.resolve(targetName);</span>
     }
 
 
@@ -175,25 +176,23 @@ public final class CommonMarkPageBaker
      */
     private Try&lt;Void&gt; doBakeWithoutTemplate(
             final Path sourcePath,
-            final PageContext context,
-            final Path targetDir,
             final Path targetPath) {
 
-<span class="fc" id="L182">        return renderBody(sourcePath)</span>
-<span class="fc" id="L183">                .flatMap(body -&gt; renderContentAndSave(sourcePath, targetPath, body));</span>
+<span class="fc" id="L181">        return renderBody(sourcePath)</span>
+<span class="fc" id="L182">                .flatMap(body -&gt; renderContentAndSave(sourcePath, targetPath, body));</span>
     }
 
 
     private Try&lt;String&gt; renderBody(final Path sourcePath) {
 
-<span class="fc" id="L189">        final Try&lt;Node&gt; document = FileUtils.safeReadFrom(</span>
+<span class="fc" id="L188">        final Try&lt;Node&gt; document = FileUtils.safeReadFrom(</span>
                 sourcePath,
-<span class="fc" id="L191">                reader -&gt; _markdownParser.get().parseReader(reader));</span>
-<span class="fc" id="L192">        final Try&lt;String&gt; body = document</span>
-<span class="fc" id="L193">                .map(doc -&gt; _htmlRenderer.get().render(doc));</span>
+<span class="fc" id="L190">                reader -&gt; _markdownParser.get().parseReader(reader));</span>
+<span class="fc" id="L191">        final Try&lt;String&gt; body = document</span>
+<span class="fc" id="L192">                .map(doc -&gt; _htmlRenderer.get().render(doc));</span>
 
-<span class="fc" id="L195">        return body</span>
-<span class="fc" id="L196">                .recoverWith(CommonMarkPageBakerException.commonMarkFailureTry(sourcePath));</span>
+<span class="fc" id="L194">        return body</span>
+<span class="fc" id="L195">                .recoverWith(CommonMarkPageBakerException.commonMarkFailureTry(sourcePath));</span>
     }
 
 
@@ -202,16 +201,16 @@ public final class CommonMarkPageBaker
             final Path targetPath,
             final String body) {
 
-<span class="fc" id="L205">        final String contentTemplate = &quot;&quot;</span>
+<span class="fc" id="L204">        final String contentTemplate = &quot;&quot;</span>
                 + &quot;&lt;!DOCTYPE html&gt;%n&quot;
                 + &quot;&lt;html&gt;&lt;body&gt;%s&lt;/body&gt;&lt;/html&gt;&quot;;
-<span class="fc" id="L208">        final String content = String.format(contentTemplate, body);</span>
-<span class="fc" id="L209">        final Try&lt;Void&gt; result = FileUtils.safeWriteTo(</span>
+<span class="fc" id="L207">        final String content = String.format(contentTemplate, body);</span>
+<span class="fc" id="L208">        final Try&lt;Void&gt; result = FileUtils.safeWriteTo(</span>
                 targetPath,
-<span class="fc" id="L211">                writer -&gt; writer.write(content));</span>
+<span class="fc" id="L210">                writer -&gt; writer.write(content));</span>
 
-<span class="fc" id="L213">        return result</span>
-<span class="fc" id="L214">                .recoverWith(CommonMarkPageBakerException.commonMarkFailureTry(sourcePath));</span>
+<span class="fc" id="L212">        return result</span>
+<span class="fc" id="L213">                .recoverWith(CommonMarkPageBakerException.commonMarkFailureTry(sourcePath));</span>
     }
 
 
@@ -225,10 +224,10 @@ public final class CommonMarkPageBaker
             final Path targetPath,
             final Template template) {
 
-<span class="fc" id="L228">        final Try&lt;TemplateContext&gt; templateContext = _templateContextFactory.get().build(</span>
+<span class="fc" id="L227">        final Try&lt;TemplateContext&gt; templateContext = _templateContextFactory.get().build(</span>
                 sourcePath, targetDir, targetPath, context);
 
-<span class="fc" id="L231">        return templateContext.flatMap(processTemplate(sourcePath, targetPath, template));</span>
+<span class="fc" id="L230">        return templateContext.flatMap(processTemplate(sourcePath, targetPath, template));</span>
     }
 
 
@@ -237,38 +236,38 @@ public final class CommonMarkPageBaker
             final Path targetPath,
             final Template template) {
 
-<span class="fc" id="L240">        return (TemplateContext templateContext) -&gt; {</span>
-<span class="fc" id="L241">            final Try&lt;Result&lt;Void&gt;&gt; result = FileUtils.safeWriteWith(</span>
+<span class="fc" id="L239">        return (TemplateContext templateContext) -&gt; {</span>
+<span class="fc" id="L240">            final Try&lt;Result&lt;Void&gt;&gt; result = FileUtils.safeWriteWith(</span>
                     targetPath,
-<span class="fc" id="L243">                    writer -&gt; template.process(templateContext, writer));</span>
+<span class="fc" id="L242">                    writer -&gt; template.process(templateContext, writer));</span>
 
-<span class="fc" id="L245">            return result</span>
-<span class="fc" id="L246">                    .recoverWith(CommonMarkPageBakerException.templateFailureTry(sourcePath))</span>
-<span class="fc" id="L247">                    .flatMap(Results::toTry);</span>
+<span class="fc" id="L244">            return result</span>
+<span class="fc" id="L245">                    .recoverWith(CommonMarkPageBakerException.templateFailureTry(sourcePath))</span>
+<span class="fc" id="L246">                    .flatMap(Results::toTry);</span>
         };
     }
 
 
     private Parser createMarkdownParser() {
 
-<span class="fc" id="L254">        final Extension frontMatterExtension = YamlFrontMatterExtension.create();</span>
-<span class="fc" id="L255">        final List&lt;Extension&gt; extensions = List.of(frontMatterExtension);</span>
+<span class="fc" id="L253">        final Extension frontMatterExtension = YamlFrontMatterExtension.create();</span>
+<span class="fc" id="L254">        final List&lt;Extension&gt; extensions = List.of(frontMatterExtension);</span>
 
-<span class="fc" id="L257">        return Parser.builder()</span>
-<span class="fc" id="L258">                .extensions(extensions)</span>
-<span class="fc" id="L259">                .build();</span>
+<span class="fc" id="L256">        return Parser.builder()</span>
+<span class="fc" id="L257">                .extensions(extensions)</span>
+<span class="fc" id="L258">                .build();</span>
     }
 
 
     private HtmlRenderer createHtmlRenderer() {
 
-<span class="fc" id="L265">        return HtmlRenderer.builder().build();</span>
+<span class="fc" id="L264">        return HtmlRenderer.builder().build();</span>
     }
 
 
     private CommonMarkTemplateContextFactory createTemplateContextFactory() {
 
-<span class="fc" id="L271">        return new CommonMarkTemplateContextFactory(_markdownParser.get(), _htmlRenderer.get());</span>
+<span class="fc" id="L270">        return new CommonMarkTemplateContextFactory(_markdownParser.get(), _htmlRenderer.get());</span>
     }
 
 

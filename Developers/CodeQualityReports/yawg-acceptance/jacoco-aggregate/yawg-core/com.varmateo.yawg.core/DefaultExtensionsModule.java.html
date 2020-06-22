@@ -15,8 +15,8 @@ import io.vavr.collection.Seq;
 import io.vavr.control.Option;
 
 import com.varmateo.yawg.asciidoctor.AsciidoctorPageBaker;
-import com.varmateo.yawg.commonmark.CommonMarkPageBaker;
 import com.varmateo.yawg.breadcrumbs.BreadcrumbsBakeListener;
+import com.varmateo.yawg.commonmark.CommonMarkPageBaker;
 import com.varmateo.yawg.freemarker.FreemarkerTemplateService;
 import com.varmateo.yawg.html.HtmlPageBaker;
 import com.varmateo.yawg.spi.DirBakeListener;

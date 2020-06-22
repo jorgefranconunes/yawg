@@ -23,7 +23,7 @@ public final class Breadcrumbs {
     /**
      *
      */
-<span class="fc" id="L26">    private Breadcrumbs(final Builder builder) {</span>
+<span class="fc" id="L26">    /* default */ Breadcrumbs(final Builder builder) {</span>
 
 <span class="fc" id="L28">        _items = builder._items.toJavaList();</span>
 <span class="fc" id="L29">    }</span>
@@ -93,7 +93,7 @@ public final class Breadcrumbs {
         /**
          *
          */
-<span class="fc" id="L96">        private Builder(final Breadcrumbs data) {</span>
+<span class="fc" id="L96">        /* default */ Builder(final Breadcrumbs data) {</span>
 
 <span class="fc" id="L98">            _items = List.ofAll(data._items);</span>
 <span class="fc" id="L99">        }</span>

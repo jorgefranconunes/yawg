@@ -11,8 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import com.varmateo.yawg.spi.PageVars;
-
 
 /**
  * A builder of &lt;code&gt;PageVars&lt;/code&gt; instances.
@@ -26,10 +24,10 @@ public final class PageVarsBuilder {
     /**
      *
      */
-<span class="fc" id="L29">    private PageVarsBuilder(final Map&lt;String, Object&gt; map) {</span>
+<span class="fc" id="L27">    private PageVarsBuilder(final Map&lt;String, Object&gt; map) {</span>
 
-<span class="fc" id="L31">        _map = new HashMap&lt;&gt;(map);</span>
-<span class="fc" id="L32">    }</span>
+<span class="fc" id="L29">        _map = new HashMap&lt;&gt;(map);</span>
+<span class="fc" id="L30">    }</span>
 
 
     /**
@@ -39,7 +37,7 @@ public final class PageVarsBuilder {
      */
     public static PageVarsBuilder create() {
 
-<span class="fc" id="L42">        return new PageVarsBuilder(Collections.emptyMap());</span>
+<span class="fc" id="L40">        return new PageVarsBuilder(Collections.emptyMap());</span>
     }
 
 
@@ -53,7 +51,7 @@ public final class PageVarsBuilder {
      */
     public static PageVarsBuilder create(final Map&lt;String, Object&gt; data) {
 
-<span class="fc" id="L56">        return new PageVarsBuilder(data);</span>
+<span class="fc" id="L54">        return new PageVarsBuilder(data);</span>
     }
 
 
@@ -67,7 +65,7 @@ public final class PageVarsBuilder {
      */
     public static PageVarsBuilder create(final PageVars pageVars) {
 
-<span class="fc" id="L70">        return new PageVarsBuilder(pageVars.asMap());</span>
+<span class="fc" id="L68">        return new PageVarsBuilder(pageVars.asMap());</span>
     }
 
 
@@ -78,8 +76,8 @@ public final class PageVarsBuilder {
             final String varName,
             final Object varValue) {
 
-<span class="fc" id="L81">        _map.put(varName, varValue);</span>
-<span class="fc" id="L82">        return this;</span>
+<span class="fc" id="L79">        _map.put(varName, varValue);</span>
+<span class="fc" id="L80">        return this;</span>
     }
 
 
@@ -89,8 +87,8 @@ public final class PageVarsBuilder {
      */
     public PageVarsBuilder addPageVars(final PageVars pageVars) {
 
-<span class="fc" id="L92">        _map.putAll(pageVars.asMap());</span>
-<span class="fc" id="L93">        return this;</span>
+<span class="fc" id="L90">        _map.putAll(pageVars.asMap());</span>
+<span class="fc" id="L91">        return this;</span>
     }
 
 
@@ -102,7 +100,7 @@ public final class PageVarsBuilder {
      */
     public PageVars build() {
 
-<span class="fc" id="L105">        return new PageVarsImpl(_map);</span>
+<span class="fc" id="L103">        return new PageVarsImpl(_map);</span>
     }
 
 
@@ -119,19 +117,19 @@ public final class PageVarsBuilder {
         /**
          *
          */
-<span class="nc" id="L122">        private PageVarsImpl() {</span>
+<span class="nc" id="L120">        /* default */ PageVarsImpl() {</span>
 
-<span class="nc" id="L124">            _map = Collections.emptyMap();</span>
-<span class="nc" id="L125">        }</span>
+<span class="nc" id="L122">            _map = Collections.emptyMap();</span>
+<span class="nc" id="L123">        }</span>
 
 
         /**
          *
          */
-<span class="fc" id="L131">        private PageVarsImpl(final Map&lt;String, Object&gt; data) {</span>
+<span class="fc" id="L129">        /* default */ PageVarsImpl(final Map&lt;String, Object&gt; data) {</span>
 
-<span class="fc" id="L133">            _map = Collections.unmodifiableMap(data);</span>
-<span class="fc" id="L134">        }</span>
+<span class="fc" id="L131">            _map = Collections.unmodifiableMap(data);</span>
+<span class="fc" id="L132">        }</span>
 
 
         /**
@@ -140,8 +138,8 @@ public final class PageVarsBuilder {
         @Override
         public Optional&lt;Object&gt; get(final String key) {
 
-<span class="fc" id="L143">            Object value = _map.get(key);</span>
-<span class="fc" id="L144">            return Optional.ofNullable(value);</span>
+<span class="fc" id="L141">            final Object value = _map.get(key);</span>
+<span class="fc" id="L142">            return Optional.ofNullable(value);</span>
         }
 
 
@@ -151,7 +149,7 @@ public final class PageVarsBuilder {
         @Override
         public Map&lt;String, Object&gt; asMap() {
 
-<span class="fc" id="L154">            return _map;</span>
+<span class="fc" id="L152">            return _map;</span>
         }
 
     }
