@@ -11,7 +11,23 @@ Yawg project.
 
 
 
-== 1.0.0.RC2
+== 1.0.0-RC3
+
+Released on 2020/08/18
+
+#454 Hide package com.varmateo.yawg.spi from javadocs
+
+#458 Aggregate all public javadocs on yang-core module
+
+#463 Remove python dependency from build-sync-version
+
+#465 Fix static analysis reports on Codacy
+
+
+
+
+
+== 1.0.0-RC2
 
 Released on 2020/03/21
 
