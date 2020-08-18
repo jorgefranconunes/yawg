@@ -22,7 +22,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Deploying to Maven Central Repository</title>
+    <title>Deploying to Maven Central</title>
 
     <link
        rel="stylesheet"
@@ -32,7 +32,7 @@
 
     <link
        rel="stylesheet"
-       href="../yawg-site.css?v=0f39a59e-473c-404e-821a-d6fecb7cfa36" />
+       href="../yawg-site.css?v=aeacd8fe-9e9d-4531-aa95-c00d979e1b19" />
 
     <script
        type="text/javascript"
@@ -79,35 +79,41 @@
           <li><a href="../Developers/index.html">Developers</a></li>
     </ol>
 
-        <h1>Deploying to Maven Central Repository</h1>
+        <h1>Deploying to Maven Central</h1>
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#_introduction">1. Introduction</a></li>
-<li><a href="#_prepare_gpg_key">2. Prepare GPG key</a>
+<li><a href="#sec-PrepareGpgKey">2. Prepare GPG key</a>
 <ul class="sectlevel2">
 <li><a href="#_install_gnupg">2.1. Install GnuPG</a></li>
 <li><a href="#_generate_a_key_pair">2.2. Generate a key pair</a></li>
 <li><a href="#_distribute_gpg_public_key">2.3. Distribute GPG public key</a></li>
 </ul>
 </li>
-<li><a href="#_create_jira_account">3. Create JIRA account</a></li>
-<li><a href="#_register_yawg_project_on_ossrh">4. Register Yawg project on OSSRH</a></li>
-<li><a href="#_add_ossrh_repository_to_maven_build_config">5. Add OSSRH repository to Maven build config</a></li>
-<li><a href="#_add_credentials_to_maven_settings">6. Add credentials to Maven settings</a></li>
-<li><a href="#_deploy_to_the_staging_respository">7. Deploy to the staging respository</a></li>
-<li><a href="#_release_from_staging_repo_to_maven_central">8. Release from staging repo to Maven Central</a></li>
+<li><a href="#sec-CreateJiraAccount">3. Create Sonatype JIRA account</a></li>
+<li><a href="#sec-RegisterYawgOnOssrh">4. Register Yawg project on OSSRH</a></li>
+<li><a href="#sec-AddOssrhToMavenConfig">5. Add OSSRH repository to Maven config</a></li>
+<li><a href="#sec-AddCredentialsToMavenSettings">6. Add credentials to Maven settings</a></li>
+<li><a href="#sec-DeployNewRelease">7. Deploy new release to Maven Central</a>
+<ul class="sectlevel2">
+<li><a href="#_deploy_to_the_staging_repository">7.1. Deploy to the staging repository</a></li>
+<li><a href="#_promote_from_staging_repo_to_maven_central">7.2. Promote from staging repo to Maven Central</a></li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="sect1">
 <h2 id="_introduction">1. Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This document contains notes on deploying the Yawg Maven artifacts to
-the Maven Central Repository.</p>
+<p>This document contains some technical notes on deploying a Yawg
+release to the Maven Central repository.  For the exact steps to
+follow when createing a new Yawg release please see
+<a href="CreatingRelease.html">Creating a release of the Yawg software</a>.</p>
 </div>
 <div class="paragraph">
-<p>Information gleaned from the following sources:</p>
+<p>The information contained in this document was gleaned from the following sources:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -120,20 +126,69 @@ to uploading artifacts to the Central Repository</a></p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>Actions that have to be performed only once:</p>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_prepare_gpg_key">2. Prepare GPG key</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_install_gnupg">2.1. Install GnuPG</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>CentOS: gnupg2</p>
+<p><a href="#sec-PrepareGpgKey">Prepare GPG key</a></p>
 </li>
 <li>
-<p>Ubuntu: gnupg</p>
+<p><a href="#sec-CreateJiraAccount">Create Sonatype JIRA account</a></p>
+</li>
+<li>
+<p><a href="#sec-RegisterYawgOnOssrh">Register Yawg project on OSSRH</a></p>
+</li>
+<li>
+<p><a href="#sec-AddOssrhToMavenConfig">Add OSSRH repository to Maven config</a></p>
+</li>
+<li>
+<p><a href="#sec-AddCredentialsToMavenSettings">Add credentials to Maven settings</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Actions that have to be performed for each time a new Yawg release is
+created:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#sec-DeployNewRelease">Deploy new release to Maven Central</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="sec-PrepareGpgKey">2. Prepare GPG key</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A GPG key is required for signing the build artifacts that are
+uploaded to Maven central. That same GPG key will be used by Sonatype
+Nexus for validating the artifacts as part of the steps for deploying
+to Maven Central. That GPG key thus needs to be available from one of
+the more common GPG key servers.</p>
+</div>
+<div class="paragraph">
+<p>This section describes how to create a GPG key, and distribute it to
+one GPG key server.</p>
+</div>
+<div class="sect2">
+<h3 id="_install_gnupg">2.1. Install GnuPG</h3>
+<div class="paragraph">
+<p>The GPG tools are available in a standard package in most Linux
+distributions. You will need to manually install the appropriate
+package for your platform.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>CentOS: <code>gnupg2</code></p>
+</li>
+<li>
+<p>Ubuntu: <code>gnupg</code></p>
 </li>
 <li>
 <p>Cygwin: gnupg</p>
@@ -143,28 +198,29 @@ to uploading artifacts to the Central Repository</a></p>
 </div>
 <div class="sect2">
 <h3 id="_generate_a_key_pair">2.2. Generate a key pair</h3>
+<div class="paragraph">
+<p>To generate the actual GPG key run the following command:</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre>gpg --gen-key</pre>
+<pre class="CodeRay highlight"><code data-lang="sh">gpg --gen-key</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Please select what kind of key you want:&#8201;&#8212;&#8201;(1) RSA and RSA (default)</p>
+<p>The above command will request some information. An example follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Please select what kind of key you want: -- (1) RSA and RSA (default)
+What keysize do you want? (2048) -- 2048
+Key is valid for? (0) -- 0 = key does not expire
+Real name: -- My Name
+Email address: -- myemail@somewhere.com
+Comment: --</pre>
+</div>
 </div>
 <div class="paragraph">
-<p>What keysize do you want? (2048)&#8201;&#8212;&#8201;2048</p>
-</div>
-<div class="paragraph">
-<p>Key is valid for? (0)&#8201;&#8212;&#8201;0 = key does not expire</p>
-</div>
-<div class="paragraph">
-<p>Real name:&#8201;&#8212;&#8201;Jorge Nunes</p>
-</div>
-<div class="paragraph">
-<p>Email address:&#8201;&#8212;&#8201;<a href="mailto:jorgefranconunes@gmail.com">jorgefranconunes@gmail.com</a></p>
-</div>
-<div class="paragraph">
-<p>Comment:&#8201;&#8212;&#8201;</p>
+<p>Some useful commands follow.</p>
 </div>
 <div class="paragraph">
 <p>List local keys:</p>
@@ -179,12 +235,16 @@ to uploading artifacts to the Central Repository</a></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>gpg --keyserver hkp://keys.gnupg.net --search-key 'jorgefranconunes@gmail.com'</pre>
+<pre>gpg --keyserver hkp://keys.gnupg.net --search-key 'myemail@somewhere.com'</pre>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_distribute_gpg_public_key">2.3. Distribute GPG public key</h3>
+<div class="paragraph">
+<p>The new GPG key must be distributed to one of the GPG key servers that
+Sonatype uses when validating GPG keys.</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre>gpg --keyserver hkp://keys.gnupg.net --send-key 701FCC65</pre>
@@ -194,36 +254,67 @@ to uploading artifacts to the Central Repository</a></p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_create_jira_account">3. Create JIRA account</h2>
+<h2 id="sec-CreateJiraAccount">3. Create Sonatype JIRA account</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://issues.sonatype.org/" class="bare">https://issues.sonatype.org/</a></p>
+<p>A Sonatype JIRA account is required for opening a ticket to register
+the Yawg project on OSSRH.</p>
+</div>
+<div class="paragraph">
+<p>To create a Sonatype JIRA account go to <a href="https://issues.sonatype.org/" class="bare">https://issues.sonatype.org/</a>
+and select the link for signing up for a new account.</p>
+</div>
+<div class="paragraph">
+<p>As an example used in commands, and files below:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Username : jorgefranconunes</p>
+<p><strong>Username:</strong> myusername</p>
 </li>
 <li>
-<p>Email    : <a href="mailto:jorgefranconunes@gmail.com">jorgefranconunes@gmail.com</a></p>
+<p><strong>Email:</strong> <a href="mailto:myemail@somewhere.com">myemail@somewhere.com</a></p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>The same username and password will also be used to login into
+Sonatype Nexus later on.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_register_yawg_project_on_ossrh">4. Register Yawg project on OSSRH</h2>
+<h2 id="sec-RegisterYawgOnOssrh">4. Register Yawg project on OSSRH</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://issues.sonatype.org/secure/CreateIssue.jspa?issuetype=21&amp;pid=10134" class="bare">https://issues.sonatype.org/secure/CreateIssue.jspa?issuetype=21&amp;pid=10134</a></p>
+<p>To register the Yawg project on OSSRH a Jira ticket must be opened for
+submitting the request.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Go to <a href="https://issues.sonatype.org/" class="bare">https://issues.sonatype.org/</a></p>
+</li>
+<li>
+<p>Login with the credentials defined in the previous section.</p>
+</li>
+<li>
+<p>Create a new ticket with "Issue Type" as "New Project".</p>
+</li>
+<li>
+<p>Wait for an email from Sonatype with confirmation the project has
+been created.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>Opened ticket <a href="https://issues.sonatype.org/browse/OSSRH-31607" class="bare">https://issues.sonatype.org/browse/OSSRH-31607</a></p>
+<p>In the case of the Ywag project the ticket was
+<a href="https://issues.sonatype.org/browse/OSSRH-31607" class="bare">https://issues.sonatype.org/browse/OSSRH-31607</a></p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_add_ossrh_repository_to_maven_build_config">5. Add OSSRH repository to Maven build config</h2>
+<h2 id="sec-AddOssrhToMavenConfig">5. Add OSSRH repository to Maven config</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Add to the <code>distributionManagement</code> element an entry for the Open
@@ -242,7 +333,7 @@ Source Software Repository Hosting (OSSRH) repository.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_add_credentials_to_maven_settings">6. Add credentials to Maven settings</h2>
+<h2 id="sec-AddCredentialsToMavenSettings">6. Add credentials to Maven settings</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Add the OSSRH Jira credentials, and the GnuPG key credentials to your
@@ -255,7 +346,7 @@ Source Software Repository Hosting (OSSRH) repository.</p>
   <span style="color:#070;font-weight:bold">&lt;servers&gt;</span>
     <span style="color:#070;font-weight:bold">&lt;server&gt;</span>
       <span style="color:#070;font-weight:bold">&lt;id&gt;</span>yawg.ossrh<span style="color:#070;font-weight:bold">&lt;/id&gt;</span>
-      <span style="color:#070;font-weight:bold">&lt;username&gt;</span>jorgefranconunes<span style="color:#070;font-weight:bold">&lt;/username&gt;</span>
+      <span style="color:#070;font-weight:bold">&lt;username&gt;</span>myusername<span style="color:#070;font-weight:bold">&lt;/username&gt;</span>
       <span style="color:#070;font-weight:bold">&lt;password&gt;</span>XXXXXX<span style="color:#070;font-weight:bold">&lt;/password&gt;</span>
     <span style="color:#070;font-weight:bold">&lt;/server&gt;</span>
   <span style="color:#070;font-weight:bold">&lt;/servers&gt;</span>
@@ -284,23 +375,40 @@ Source Software Repository Hosting (OSSRH) repository.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_deploy_to_the_staging_respository">7. Deploy to the staging respository</h2>
+<h2 id="sec-DeployNewRelease">7. Deploy new release to Maven Central</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_deploy_to_the_staging_repository">7.1. Deploy to the staging repository</h3>
 <div class="listingblock">
 <div class="content">
 <pre>./devtools/bin/build-bundle --release</pre>
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_release_from_staging_repo_to_maven_central">8. Release from staging repo to Maven Central</h2>
-<div class="sectionbody">
-<div class="paragraph">
+<div class="sect2">
+<h3 id="_promote_from_staging_repo_to_maven_central">7.2. Promote from staging repo to Maven Central</h3>
+<div class="ulist">
+<ul>
+<li>
 <p>Login into <a href="https://oss.sonatype.org/" class="bare">https://oss.sonatype.org/</a></p>
+</li>
+<li>
+<p>Look for the latest staging repo named <code>comvarmateo</code></p>
+</li>
+<li>
+<p>Click the <code>Close</code> action for the repository. This will prepare the
+staging repository for being copied to Maven Central.</p>
+</li>
+<li>
+<p>Click the <code>Release</code> action for the repository. This will copy the
+staging repository to Maven Central. This process can take some
+minutes to complete. You can confirm the process has completed by
+checking on Maven Central at
+<a href="https://repo1.maven.org/maven2/com/varmateo/yawg/yawg-api/" class="bare">https://repo1.maven.org/maven2/com/varmateo/yawg/yawg-api/</a> that the
+new version is there.</p>
+</li>
+</ul>
 </div>
-<div class="paragraph">
-<p>Look for the latest staging repo named <code>comvarmateoyawg</code></p>
 </div>
 </div>
 </div>
@@ -319,7 +427,7 @@ Source Software Repository Hosting (OSSRH) repository.</p>
     |
     <a href="../PrivacyPolicy.html">Privacy</a>
     |
-    Last update 2020-06-11 20:33 UTC
+    Last update 2020-08-18 08:54 UTC
   </p>
 </footer>
 

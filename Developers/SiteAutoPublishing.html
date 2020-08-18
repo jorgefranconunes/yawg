@@ -32,7 +32,7 @@
 
     <link
        rel="stylesheet"
-       href="../yawg-site.css?v=0f39a59e-473c-404e-821a-d6fecb7cfa36" />
+       href="../yawg-site.css?v=aeacd8fe-9e9d-4531-aa95-c00d979e1b19" />
 
     <script
        type="text/javascript"
@@ -89,6 +89,7 @@
 <li><a href="#_travis_ci_configuration">4. Travis CI configuration:</a></li>
 <li><a href="#_preparing_the_ssh_key_for_deploying_on_github">5. Preparing the SSH key for deploying on GitHub</a></li>
 <li><a href="#_define_new_ssh_key_in_github_account">6. Define new SSH key in GitHub account</a></li>
+<li><a href="#_tools">7. Tools</a></li>
 </ul>
 </div>
 <div class="sect1">
@@ -205,22 +206,22 @@ perform most of the work.</p>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre>cache:
-  directories:
-    - $HOME/.yawgdevtools
+<pre class="CodeRay highlight"><code data-lang="yaml"><span style="color:#606">cache</span>:
+  <span style="color:#606">directories</span>:
+    - <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">$HOME/.yawgdevtools</span></span>
 
-before_deploy:
-  - eval "$(ssh-agent -s)"
-  - openssl aes-256-cbc -K $encrypted_9f5a14dc3874_key -iv $encrypted_9f5a14dc3874_iv -in ./devtools/conf/id_rsa-travisci.enc -out ./devtools/conf/id_rsa-travisci -d
-  - chmod 600 ./devtools/conf/id_rsa-travisci
-  - ssh-add ./devtools/conf/id_rsa-travisci
+<span style="color:#606">before_deploy</span>:
+  - <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">eval &quot;$(ssh-agent -s)&quot;</span></span>
+  - <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">openssl aes-256-cbc -K $encrypted_9f5a14dc3874_key -iv $encrypted_9f5a14dc3874_iv -in ./devtools/conf/id_rsa-travisci.enc -out ./devtools/conf/id_rsa-travisci -d</span></span>
+  - <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">chmod 600 ./devtools/conf/id_rsa-travisci</span></span>
+  - <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">ssh-add ./devtools/conf/id_rsa-travisci</span></span>
 
-deploy:
-  skip_cleanup: true
-  on:
-    branch: master
-  provider: script
-  script: ./devtools/bin/build-site --yawg-install-root=$HOME/.yawgdevtools --upload</pre>
+<span style="color:#606">deploy</span>:
+  <span style="color:#606">skip_cleanup</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">true</span></span>
+  <span style="color:#606">on</span>:
+    <span style="color:#606">branch</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">master</span></span>
+  <span style="color:#606">provider</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">script</span></span>
+  <span style="color:#606">script</span>: <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#D20">./devtools/bin/build-site --yawg-install-root=$HOME/.yawgdevtools --upload</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -317,9 +318,11 @@ file you created in a previous step.</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>Tools:</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_tools">7. Tools</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p><code>devtools/bin/build-site</code>&#8201;&#8212;&#8201;Bakes the site and uploads it to the
 <code>gh-pages</code> branch of the project Github Git repository.</p>
@@ -341,7 +344,7 @@ file you created in a previous step.</p>
     |
     <a href="../PrivacyPolicy.html">Privacy</a>
     |
-    Last update 2020-06-11 20:33 UTC
+    Last update 2020-08-18 08:54 UTC
   </p>
 </footer>
 
