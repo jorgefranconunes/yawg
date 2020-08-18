@@ -93,6 +93,7 @@ branches.
 
 == Travis CI configuration:
 
+[source,yaml]
 ----
 cache:
   directories:
@@ -192,8 +193,7 @@ be used for decripting the file. That command must be added to the
 
 
 
-Tools:
+== Tools
 
 `devtools/bin/build-site` -- Bakes the site and uploads it to the
 `gh-pages` branch of the project Github Git repository.
-

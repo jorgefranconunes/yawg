@@ -1,4 +1,4 @@
-= Deploying to Maven Central Repository
+= Deploying to Maven Central
 :toc:
 :sectnums:
 
@@ -8,50 +8,87 @@
 
 == Introduction
 
-This document contains notes on deploying the Yawg Maven artifacts to
-the Maven Central Repository.
+This document contains some technical notes on deploying a Yawg
+release to the Maven Central repository.  For the exact steps to
+follow when createing a new Yawg release please see
+link:CreatingRelease.html[Creating a release of the Yawg software].
 
-Information gleaned from the following sources:
+The information contained in this document was gleaned from the following sources:
 
 * https://maven.apache.org/guides/mini/guide-central-repository-upload.html[Guide
   to uploading artifacts to the Central Repository]
 
 * http://central.sonatype.org/pages/ossrh-guide.html[OSSRH Guide]
 
+Actions that have to be performed only once:
+
+* <<sec-PrepareGpgKey>>
+
+* <<sec-CreateJiraAccount>>
+
+* <<sec-RegisterYawgOnOssrh>>
+
+* <<sec-AddOssrhToMavenConfig>>
+
+* <<sec-AddCredentialsToMavenSettings>>
+
+Actions that have to be performed for each time a new Yawg release is
+created:
+
+* <<sec-DeployNewRelease>>
 
 
 
 
+
+[[sec-PrepareGpgKey]]
 == Prepare GPG key
+
+A GPG key is required for signing the build artifacts that are
+uploaded to Maven central. That same GPG key will be used by Sonatype
+Nexus for validating the artifacts as part of the steps for deploying
+to Maven Central. That GPG key thus needs to be available from one of
+the more common GPG key servers.
+
+This section describes how to create a GPG key, and distribute it to
+one GPG key server.
 
 
 === Install GnuPG
 
-* CentOS: gnupg2
+The GPG tools are available in a standard package in most Linux
+distributions. You will need to manually install the appropriate
+package for your platform.
 
-* Ubuntu: gnupg
+* CentOS: `gnupg2`
+
+* Ubuntu: `gnupg`
 
 * Cygwin: gnupg
 
 
 === Generate a key pair
 
+To generate the actual GPG key run the following command:
+
+[source,sh]
 ----
 gpg --gen-key
 ----
 
+The above command will request some information. An example follows:
+
+----
 Please select what kind of key you want: -- (1) RSA and RSA (default)
-
 What keysize do you want? (2048) -- 2048
-
 Key is valid for? (0) -- 0 = key does not expire
-
-Real name: -- Jorge Nunes
-
-Email address: -- jorgefranconunes@gmail.com
-
+Real name: -- My Name
+Email address: -- myemail@somewhere.com
 Comment: --
+----
 
+
+Some useful commands follow.
 
 List local keys:
 
@@ -63,11 +100,14 @@ gpg --list-keys
 Search key in key server:
 
 ----
-gpg --keyserver hkp://keys.gnupg.net --search-key 'jorgefranconunes@gmail.com'
+gpg --keyserver hkp://keys.gnupg.net --search-key 'myemail@somewhere.com'
 ----
 
 
 === Distribute GPG public key
+
+The new GPG key must be distributed to one of the GPG key servers that
+Sonatype uses when validating GPG keys.
 
 ----
 gpg --keyserver hkp://keys.gnupg.net --send-key 701FCC65
@@ -77,28 +117,51 @@ gpg --keyserver hkp://keys.gnupg.net --send-key 701FCC65
 
 
 
-== Create JIRA account
+[[sec-CreateJiraAccount]]
+== Create Sonatype JIRA account
 
-https://issues.sonatype.org/
+A Sonatype JIRA account is required for opening a ticket to register
+the Yawg project on OSSRH.
 
-* Username : jorgefranconunes
-* Email    : jorgefranconunes@gmail.com
+To create a Sonatype JIRA account go to https://issues.sonatype.org/
+and select the link for signing up for a new account.
+
+As an example used in commands, and files below:
+
+* *Username:* myusername
+* *Email:* myemail@somewhere.com
+
+The same username and password will also be used to login into
+Sonatype Nexus later on.
 
 
 
 
 
+[[sec-RegisterYawgOnOssrh]]
 == Register Yawg project on OSSRH
 
-https://issues.sonatype.org/secure/CreateIssue.jspa?issuetype=21&pid=10134
+To register the Yawg project on OSSRH a Jira ticket must be opened for
+submitting the request.
 
-Opened ticket https://issues.sonatype.org/browse/OSSRH-31607
+* Go to https://issues.sonatype.org/
+
+* Login with the credentials defined in the previous section.
+
+* Create a new ticket with "Issue Type" as "New Project".
+
+* Wait for an email from Sonatype with confirmation the project has
+  been created.
+
+In the case of the Ywag project the ticket was
+https://issues.sonatype.org/browse/OSSRH-31607
 
 
 
 
 
-== Add OSSRH repository to Maven build config
+[[sec-AddOssrhToMavenConfig]]
+== Add OSSRH repository to Maven config
 
 Add to the `distributionManagement` element an entry for the Open
 Source Software Repository Hosting (OSSRH) repository.
@@ -116,6 +179,7 @@ Source Software Repository Hosting (OSSRH) repository.
 
 
 
+[[sec-AddCredentialsToMavenSettings]]
 == Add credentials to Maven settings
 
 Add the OSSRH Jira credentials, and the GnuPG key credentials to your
@@ -128,7 +192,7 @@ Add the OSSRH Jira credentials, and the GnuPG key credentials to your
   <servers>
     <server>
       <id>yawg.ossrh</id>
-      <username>jorgefranconunes</username>
+      <username>myusername</username>
       <password>XXXXXX</password>
     </server>
   </servers>
@@ -156,7 +220,14 @@ chmod 600 ~/.m2/settings.xml
 
 
 
-== Deploy to the staging respository
+[[sec-DeployNewRelease]]
+== Deploy new release to Maven Central
+
+
+
+
+
+=== Deploy to the staging repository
 
 ----
 ./devtools/bin/build-bundle --release
@@ -166,8 +237,18 @@ chmod 600 ~/.m2/settings.xml
 
 
 
-== Release from staging repo to Maven Central
+=== Promote from staging repo to Maven Central
 
-Login into https://oss.sonatype.org/
+* Login into https://oss.sonatype.org/
 
-Look for the latest staging repo named `comvarmateoyawg`
+* Look for the latest staging repo named `comvarmateo`
+
+* Click the `Close` action for the repository. This will prepare the
+  staging repository for being copied to Maven Central.
+
+* Click the `Release` action for the repository. This will copy the
+  staging repository to Maven Central. This process can take some
+  minutes to complete. You can confirm the process has completed by
+  checking on Maven Central at
+  https://repo1.maven.org/maven2/com/varmateo/yawg/yawg-api/ that the
+  new version is there.

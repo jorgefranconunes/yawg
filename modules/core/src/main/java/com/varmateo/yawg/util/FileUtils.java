@@ -180,8 +180,6 @@ public final class FileUtils {
             final Path target,
             final FunctionWithIoException<Writer, T> action) {
 
-        final Try<T> result;
-
         try ( Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {
             return Try.of(() -> action.apply(writer));
         } catch ( final IOException cause ) {
