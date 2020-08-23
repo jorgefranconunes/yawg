@@ -1,0 +1,70 @@
+= Admonition blocks
+:toc:
+:sectnums:
+
+
+
+
+
+== Introduction
+
+Admonition blocks are blocks of text intended to convey information
+outside the regular flow of the document content. You can see an
+example below.
+
+NOTE: This is an example of an admonition block.
+
+The markup for the above admonition block is the following:
+
+[source,asciidoc]
+----
+NOTE: This is an example of an admonition block.
+----
+
+There are five types of admonition blocks. An example for each one of
+th five types follows.
+
+TIP: This is a single line TIP admonition block.
+
+NOTE: This is a single line NOTE admonition block.
+
+IMPORTANT: This is a single line IMPORTANT admonition block.
+
+CAUTION: This is a single line CAUTION admonition block.
+
+WARNING: This is a single line WARNING admonition block.
+
+More details on how to use admonition blocks in AsciiDoc documents can
+be found in the
+https://asciidoctor.org/docs/asciidoc-writers-guide/#admonitions[Asciidoctor
+documentation].
+
+
+
+
+
+== Styling admonition blocks
+
+An admonition block is represented in the baked HTML document in a
+very specific way. You can see an example below of the HTML that is
+generated for a an admonition of type note.
+
+[source,html]
+----
+<div class="admonitionblock note">
+  <table>
+    <tr>
+      <td class="icon">
+        <i class="fa icon-note" title="Note"></i>
+      </td>
+      <td class="content">
+        This is a single line NOTE admonition block.
+      </td>
+    </tr>
+  </table>
+</div>
+----
+
+You will need to define the appropriate CSS styles to apply to these
+pieces of HTML. As an example you can see the link:../yawg-site.css[CSS styles used in this
+site]. Look for the styles for the `.admonitionblock` class.

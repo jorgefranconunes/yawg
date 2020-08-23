@@ -1,4 +1,13 @@
 = Diagrams
+:author: Jorge Nunes
+:toc:
+:sectnums:
+
+
+
+
+
+== Introduction
 
 Yawg supports the inclusion of http://plantuml.com/[PlantUML] diagrams
 in AsciiDoc documents. Support for PlantUML diagrams is provided

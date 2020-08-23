@@ -7,6 +7,8 @@
 
 
 
+== Introduction
+
 This is the user guide for Yawg. Yawg is a static site
 generator. Given a source directory tree with files, a new directory
 tree will be populated with HTML files generated from the baking of

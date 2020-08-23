@@ -1,4 +1,12 @@
+/**
+ * Copyright (c) 2016-2019 Yawg project contributors.
+ *
+ * Styling for the Yawg site.
+ */
 
+/**
+ * Classes specific to the Yawg site.
+ */
 html, body {
     height: 100%;
 }
@@ -60,14 +68,13 @@ body {
 
 
 /**
- * Asccidoctor classes.
+ * Asciidoctor classes.
  */
 
 .toc {
     border: 0.1em solid #ccc;
     border-radius: 0.4em;
     padding: 1em 2em;
-    margin: 1em 0 2em 0;
     display: inline-block;
 }
 
@@ -123,4 +130,81 @@ table.tableblock > tbody > tr > td {
 
 td > p.tableblock:last-child {
     margin: 0;
+}
+
+.admonitionblock {
+    margin: 0 0 10px 0;
+}
+
+.admonitionblock > table {
+    border-collapse:separate;
+    border:0;
+    background:none;
+    width:100%
+}
+
+.admonitionblock > table td.icon {
+    text-align:center;
+    width:80px
+}
+
+.admonitionblock > table td.icon img {
+    max-width:none
+}
+
+.admonitionblock > table td.icon .title {
+    font-weight:300;
+    text-transform:uppercase
+}
+
+.admonitionblock > table td.content {
+    padding-left:1.125em;
+    padding-right:1.25em;
+    border-left:1px solid #ddd;
+    color:rgba(0,0,0,0.6)
+}
+
+.admonitionblock > table td.content > div:last-child p,
+.admonitionblock > table td.content > div:last-child ol,
+.admonitionblock > table td.content > div:last-child ul,
+.admonitionblock > table td.content > div:last-child dl,
+.admonitionblock > table td.content > div:last-child dl dd:last-child{
+    margin-bottom:0
+}
+
+.admonitionblock .lead > table td.content {
+    font-size:1.5em;
+    line-height:1.6;
+    color:rgba(0,0,0,0.8)
+}
+
+.admonitionblock td.icon [class^="fa icon-"] {
+    font-size:2.5em;
+    text-shadow:1px 1px 2px rgba(0,0,0,0.5);
+    cursor:default
+}
+
+.admonitionblock td.icon .icon-tip:before {
+    content:"\f0eb";  /* Font Awesome .fa-lightbulb */
+    color: #286090;  /* Same as Bootstrap bg-primary color. */
+}
+
+.admonitionblock td.icon .icon-note:before {
+    content:"\f05a";  /* Font Awesome .fa-infocircle */
+    color: #c1e2b3;   /* Same as Bootstrap bg-success color. */
+}
+
+.admonitionblock td.icon .icon-important:before {
+    content:"\f06a";  /* Font Awesome .fa-exclamation-circle */
+    color: #afd9ee;  /* Same as Bootstrap bg-info color. */
+}
+
+.admonitionblock td.icon .icon-caution:before {
+    content:"\f06d";   /* Font Awesome .fa-fire */
+    color: #f7ecb5;  /* Same as Bootstrap bg-warning color. */
+}
+
+.admonitionblock td.icon .icon-warning:before {
+    content:"\f071";  /* Font Awesome .fa-exclamation-triangle */
+    color: #e4b9b9;  /* Same as Bootstrap bg-primary danger. */
 }

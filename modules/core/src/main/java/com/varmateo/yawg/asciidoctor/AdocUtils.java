@@ -113,6 +113,9 @@ final class AdocUtils {
         attributes.attribute("source-highlighter", "coderay");
         attributes.attribute("coderay-css", "style");
 
+        // Turn on callout icons in admonition blocks.
+        attributes.attribute("icons", "font");
+
         // HACK - THIS MAKES THE AsciiDoc BAKER NOT THREAD SAFE.
         System.setProperty("plantuml.include.path", docDir);
 

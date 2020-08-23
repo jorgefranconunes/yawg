@@ -22,6 +22,10 @@
        rel="stylesheet"
        href="${yawg.rootRelativeUrl}/yawg-site.css?v=${yawg.bakeId}" />
 
+    <link
+       rel="stylesheet"
+       href="${yawg.rootRelativeUrl}/fontawesome-free-5.14.0-web/css/all.min.css" />
+
     <script
        type="text/javascript"
        async
