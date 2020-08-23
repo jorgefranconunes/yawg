@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+
+  <head>
+
+<!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=UA-79615115-1">
+</script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-79615115-1');
+</script>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Admonition blocks</title>
+
+    <link
+       rel="stylesheet"
+       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+       integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+       crossorigin="anonymous" />
+
+    <link
+       rel="stylesheet"
+       href="../yawg-site.css?v=6787183e-49df-412c-b5d2-3e5b2e6d0c6f" />
+
+    <link
+       rel="stylesheet"
+       href="../fontawesome-free-5.14.0-web/css/all.min.css" />
+
+    <script
+       type="text/javascript"
+       async
+       src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+  </head>
+
+  <body>
+
+    <div class="yawg-body">
+
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="../index.html"><img src="../YawgLogo-standard.png" style="height:1.5em;"/></a>
+          <a class="navbar-brand" href="../index.html">Yawg</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../Download/index.html">Download</a></li>
+    <li class="active"><a href="../Documentation/index.html">Documentation</a></li>
+    <li><a href="../Developers/index.html">Developers</a></li>
+            <li><a href="https://github.com/jorgefranconunes/yawg">GitHub repository</a></li>
+
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+
+
+      <div class="container yawg-content">
+
+
+  <!#-- The breadcrumb bar is only visible if there is more than
+        one bread crumb on this page.-->
+
+    <ol class="breadcrumb">
+          <li><a href=".././index.html">Home</a></li>
+          <li><a href="../Documentation/index.html">Documentation</a></li>
+    </ol>
+
+        <h1>Admonition blocks</h1>
+        <div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_introduction">1. Introduction</a></li>
+<li><a href="#_styling_admonition_blocks">2. Styling admonition blocks</a></li>
+</ul>
+</div>
+<div class="sect1">
+<h2 id="_introduction">1. Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Admonition blocks are blocks of text intended to convey information
+outside the regular flow of the document content. You can see an
+example below.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+This is an example of an admonition block.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The markup for the above admonition block is the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="asciidoc">NOTE: This is an example of an admonition block.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There are five types of admonition blocks. An example for each one of
+th five types follows.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+This is a single line TIP admonition block.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+This is a single line NOTE admonition block.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+This is a single line IMPORTANT admonition block.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">
+This is a single line CAUTION admonition block.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+This is a single line WARNING admonition block.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>More details on how to use admonition blocks in AsciiDoc documents can
+be found in the
+<a href="https://asciidoctor.org/docs/asciidoc-writers-guide/#admonitions">Asciidoctor
+documentation</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_styling_admonition_blocks">2. Styling admonition blocks</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>An admonition block is represented in the baked HTML document in a
+very specific way. You can see an example below of the HTML that is
+generated for a an admonition of type note.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="html"><span style="color:#070;font-weight:bold">&lt;div</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">admonitionblock note</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+  <span style="color:#070;font-weight:bold">&lt;table&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;tr&gt;</span>
+      <span style="color:#070;font-weight:bold">&lt;td</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">icon</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+        <span style="color:#070;font-weight:bold">&lt;i</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">fa icon-note</span><span style="color:#710">&quot;</span></span> <span style="color:#b48">title</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">Note</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span><span style="color:#070;font-weight:bold">&lt;/i&gt;</span>
+      <span style="color:#070;font-weight:bold">&lt;/td&gt;</span>
+      <span style="color:#070;font-weight:bold">&lt;td</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">content</span><span style="color:#710">&quot;</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+        This is a single line NOTE admonition block.
+      <span style="color:#070;font-weight:bold">&lt;/td&gt;</span>
+    <span style="color:#070;font-weight:bold">&lt;/tr&gt;</span>
+  <span style="color:#070;font-weight:bold">&lt;/table&gt;</span>
+<span style="color:#070;font-weight:bold">&lt;/div&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You will need to define the appropriate CSS styles to apply to these
+pieces of HTML. As an example you can see the <a href="../yawg-site.css">CSS styles used in this
+site</a>. Look for the styles for the <code>.admonitionblock</code> class.</p>
+</div>
+</div>
+</div>
+
+
+<footer class="yawg-footer">
+  <p>&copy;2020 Jorge Nunes</p>
+  <p>
+    Mixed with
+    <a href="http://getbootstrap.com/" target="_blank">Bootstrap 3.3.6</a>
+    |
+    Baked with
+    <a href="http://yawg.varmateo.com/">Yawg 1.0.0-RC3</a>
+    |
+    <a href="../Acknowledgements.html">Acknowledgements</a>
+    |
+    <a href="../PrivacyPolicy.html">Privacy</a>
+    |
+    Last update 2020-08-23 11:01 UTC
+  </p>
+</footer>
+
+      </div>
+
+    </div>
+
+  </body>
+
+</html>

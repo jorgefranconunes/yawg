@@ -40,7 +40,7 @@ Yawg core,com.varmateo.yawg.commonmark,CommonMarkTemplateContextFactory,125,0,2,
 Yawg core,com.varmateo.yawg.commonmark,CommonMarkPageBakerException,119,0,0,0,18,0,13,0,13,0
 Yawg core,com.varmateo.yawg.commonmark,CommonMarkPageBaker,222,0,2,0,53,0,23,0,22,0
 Yawg core,com.varmateo.yawg.asciidoctor,AsciidoctorPageBakerException,78,3,0,0,11,1,8,1,8,1
-Yawg core,com.varmateo.yawg.asciidoctor,AdocUtils,18,63,0,0,8,19,2,3,2,3
+Yawg core,com.varmateo.yawg.asciidoctor,AdocUtils,18,68,0,0,8,20,2,3,2,3
 Yawg core,com.varmateo.yawg.asciidoctor,AsciidoctorPageBaker,140,20,2,0,30,6,12,4,11,4
 Yawg core,com.varmateo.yawg.asciidoctor,AsciidoctorTemplateContext,3,130,1,5,2,31,2,10,1,8
 Yawg core,com.varmateo.yawg.core,DefaultSiteBaker,20,0,0,0,8,0,3,0,3,0

@@ -78,7 +78,7 @@ Yawg acceptance tests/yawg-core,com.varmateo.yawg.commonmark,CommonMarkTemplateC
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.commonmark,CommonMarkPageBakerException,110,9,0,0,15,3,10,3,10,3
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.commonmark,CommonMarkPageBaker,0,222,0,2,0,53,0,23,0,22
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.asciidoctor,AsciidoctorPageBakerException,75,6,0,0,10,2,7,2,7,2
-Yawg acceptance tests/yawg-core,com.varmateo.yawg.asciidoctor,AdocUtils,3,78,0,0,2,25,1,4,1,4
+Yawg acceptance tests/yawg-core,com.varmateo.yawg.asciidoctor,AdocUtils,3,83,0,0,2,26,1,4,1,4
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.asciidoctor,AsciidoctorPageBaker,0,160,0,2,0,36,0,16,0,15
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.asciidoctor,AsciidoctorTemplateContext,3,130,1,5,2,31,2,10,1,8
 Yawg acceptance tests/yawg-core,com.varmateo.yawg.core,DefaultSiteBaker,3,17,0,0,2,6,1,2,1,2
