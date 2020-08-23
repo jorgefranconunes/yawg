@@ -1,6 +1,7 @@
 = Admonition blocks
 :toc:
 :sectnums:
+:icons:font
 
 
 
@@ -22,7 +23,7 @@ NOTE: This is an example of an admonition block.
 ----
 
 There are five types of admonition blocks. An example for each one of
-th five types follows.
+the five types follows.
 
 TIP: This is a single line TIP admonition block.
 
