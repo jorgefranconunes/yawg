@@ -1,7 +1,7 @@
 = Admonition blocks
 :toc:
 :sectnums:
-:icons:font
+:icons: font
 
 
 
