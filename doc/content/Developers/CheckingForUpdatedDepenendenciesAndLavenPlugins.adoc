@@ -1,0 +1,17 @@
+= Checking for newer versions of dependencies and Maven plugins
+
+
+== Checking for newer versions of dependencies
+
+[source,sh]
+----
+./modules/mvnw versions:display-dependency-updates
+----
+
+
+== Checking for newwer versions of Maven plugins
+
+[source,sh]
+----
+./modules/mvnw versions:display-plugin-updates
+----
