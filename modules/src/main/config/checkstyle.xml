@@ -345,24 +345,25 @@ Authors: Max Vetrenko, Ruslan Diachenko, Roman Ivanov.
       <property name="allowLineBreaks" value="true"/>
     </module>
 
-    <!-- <module name="ParenPad"> -->
-    <!--   <property name="id" value="ParenPadWithSpace"/> -->
-    <!--   <property name="option" value="space"/> -->
-    <!--   <property -->
-    <!--       name="tokens" -->
-    <!--       value="LITERAL_CATCH, LITERAL_DO, LITERAL_FOR, LITERAL_IF, -->
-    <!--              LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE"/> -->
-    <!-- </module> -->
+    <module name="ParenPad">
+      <property name="id" value="ParenPadWithSpace"/>
+      <property name="option" value="space"/>
+      <property
+          name="tokens"
+          value="LITERAL_CATCH, LITERAL_DO, LITERAL_FOR, LITERAL_IF,
+                 LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_WHILE,
+                 RESOURCE_SPECIFICATION"/>
+    </module>
 
     <module name="ParenPad">
       <property name="id" value="ParenPadNoSpace"/>
       <property name="option" value="nospace"/>
       <property
           name="tokens"
-          value="ANNOTATION, ANNOTATION_FIELD_DEF, CTOR_CALL, CTOR_DEF, DOT, ENUM_CONSTANT_DEF,
-                 EXPR, LITERAL_NEW,
-                 METHOD_CALL,
-                 METHOD_DEF, QUESTION, RESOURCE_SPECIFICATION, SUPER_CTOR_CALL, LAMBDA"/>
+          value="ANNOTATION, ANNOTATION_FIELD_DEF, CTOR_CALL,
+                 CTOR_DEF, DOT, ENUM_CONSTANT_DEF, EXPR, LITERAL_NEW,
+                 METHOD_CALL, METHOD_DEF, QUESTION,
+                 RESOURCE_SPECIFICATION, SUPER_CTOR_CALL, LAMBDA"/>
     </module>
 
     <module name="OperatorWrap">
