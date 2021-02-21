@@ -44,26 +44,6 @@ public final class DirPathAssert
     /**
      *
      */
-    public DirPathAssert isEmptyDirectory()
-            throws IOException {
-
-        isNotNull();
-
-        long entryCount = Files.list(actual).count();
-
-        if ( entryCount != 0 ) {
-            failWithMessage(
-                    "Expected empty directory \"%s\" but has %d entries",
-                    entryCount);
-        }
-
-        return this;
-    }
-
-
-    /**
-     *
-     */
     public ListAssert<String> entryNames()
             throws IOException {
 

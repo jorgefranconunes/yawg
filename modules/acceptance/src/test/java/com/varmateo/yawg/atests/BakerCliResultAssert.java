@@ -199,7 +199,7 @@ public final class BakerCliResultAssert
             final Path actualFile = targetPath.resolve(fileName);
             Assertions.assertThat(actualFile)
                     .usingCharset(StandardCharsets.UTF_8)
-                    .hasSameContentAs(expectedFile);
+                    .hasSameTextualContentAs(expectedFile);
         }
 
         return this;
@@ -225,7 +225,7 @@ public final class BakerCliResultAssert
                 final Path actualFile = targetPath.resolve(path);
                 Assertions.assertThat(actualFile)
                         .usingCharset(StandardCharsets.UTF_8)
-                        .hasSameContentAs(expectedFile);
+                        .hasSameTextualContentAs(expectedFile);
             });
 
         return this;
