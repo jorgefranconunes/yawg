@@ -44,38 +44,18 @@ public final class DirPathAssert
     /**
      *
      */
-    public DirPathAssert isEmptyDirectory()
+    public ListAssert&lt;String&gt; entryNames()
             throws IOException {
 
 <span class="nc" id="L50">        isNotNull();</span>
 
-<span class="nc" id="L52">        long entryCount = Files.list(actual).count();</span>
+<span class="nc" id="L52">        List&lt;String&gt; entries =</span>
+<span class="nc" id="L53">                Files.list(actual)</span>
+<span class="nc" id="L54">                .map(Path::getFileName)</span>
+<span class="nc" id="L55">                .map(Object::toString)</span>
+<span class="nc" id="L56">                .collect(Collectors.toList());</span>
 
-<span class="nc bnc" id="L54" title="All 2 branches missed.">        if ( entryCount != 0 ) {</span>
-<span class="nc" id="L55">            failWithMessage(</span>
-                    &quot;Expected empty directory \&quot;%s\&quot; but has %d entries&quot;,
-<span class="nc" id="L57">                    entryCount);</span>
-        }
-
-<span class="nc" id="L60">        return this;</span>
-    }
-
-
-    /**
-     *
-     */
-    public ListAssert&lt;String&gt; entryNames()
-            throws IOException {
-
-<span class="nc" id="L70">        isNotNull();</span>
-
-<span class="nc" id="L72">        List&lt;String&gt; entries =</span>
-<span class="nc" id="L73">                Files.list(actual)</span>
-<span class="nc" id="L74">                .map(Path::getFileName)</span>
-<span class="nc" id="L75">                .map(Object::toString)</span>
-<span class="nc" id="L76">                .collect(Collectors.toList());</span>
-
-<span class="nc" id="L78">        return new ListAssert&lt;String&gt;(entries);</span>
+<span class="nc" id="L58">        return new ListAssert&lt;String&gt;(entries);</span>
     }
 
 
@@ -85,18 +65,18 @@ public final class DirPathAssert
     public ListAssert&lt;String&gt; sortedEntryNames()
             throws IOException {
 
-<span class="nc" id="L88">        isNotNull();</span>
+<span class="nc" id="L68">        isNotNull();</span>
 
-<span class="nc" id="L90">        List&lt;String&gt; entries =</span>
-<span class="nc" id="L91">                Files.list(actual)</span>
-<span class="nc" id="L92">                .map(Path::getFileName)</span>
-<span class="nc" id="L93">                .map(Object::toString)</span>
-<span class="nc" id="L94">                .sorted()</span>
-<span class="nc" id="L95">                .collect(Collectors.toList());</span>
+<span class="nc" id="L70">        List&lt;String&gt; entries =</span>
+<span class="nc" id="L71">                Files.list(actual)</span>
+<span class="nc" id="L72">                .map(Path::getFileName)</span>
+<span class="nc" id="L73">                .map(Object::toString)</span>
+<span class="nc" id="L74">                .sorted()</span>
+<span class="nc" id="L75">                .collect(Collectors.toList());</span>
 
-<span class="nc" id="L97">        return new ListAssert&lt;String&gt;(entries);</span>
+<span class="nc" id="L77">        return new ListAssert&lt;String&gt;(entries);</span>
     }
 
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

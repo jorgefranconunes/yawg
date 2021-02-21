@@ -26,9 +26,9 @@ public final class Main {
     /**
      * No instances of this class are to be created.
      */
-<span class="nc" id="L29">    private Main() {</span>
+    private Main() {
         // Nothing to do.
-<span class="nc" id="L31">    }</span>
+    }
 
 
     /**
@@ -59,9 +59,9 @@ public final class Main {
 
 <span class="nc" id="L60">        try ( final InputStream input = Main.class.getResourceAsStream(&quot;/logging.properties&quot;) ) {</span>
 <span class="nc" id="L61">            LogManager.getLogManager().readConfiguration(input);</span>
-<span class="nc bnc" id="L62" title="All 8 branches missed.">        }</span>
+        }
 <span class="nc" id="L63">    }</span>
 
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

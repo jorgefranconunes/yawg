@@ -41,15 +41,15 @@ import io.vavr.collection.Seq;
     public Seq&lt;Path&gt; getDirEntries(final Path dirPath)
             throws IOException {
 
-<span class="pc" id="L44">        try ( Stream&lt;Path&gt; entries = Files.list(dirPath) ) {</span>
+<span class="fc" id="L44">        try ( Stream&lt;Path&gt; entries = Files.list(dirPath) ) {</span>
 <span class="fc" id="L45">            final Stream&lt;Path&gt; stream =</span>
                     entries
 <span class="fc" id="L47">                    .filter(_entryFilter)</span>
 <span class="fc" id="L48">                    .sorted();</span>
 <span class="fc" id="L49">            return List.ofAll(() -&gt; stream.iterator());</span>
-<span class="pc bpc" id="L50" title="6 of 8 branches missed.">        }</span>
+        }
     }
 
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

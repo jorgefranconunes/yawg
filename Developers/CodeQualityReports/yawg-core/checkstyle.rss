@@ -23,11 +23,11 @@ under the License.
     <link>http://yawg.varmateo.com/yawg-core/</link>
     <description>Yawg core - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2015 - 2020</copyright>
+    <copyright>&#169;2015 - 2021</copyright>
     <item>
       <title>File: 75,
              Errors: 0,
-             Warnings: 14,
+             Warnings: 20,
              Infos: 0
       </title>
             <link>http://yawg.varmateo.com/yawg-core//checkstyle.html</link>
@@ -122,7 +122,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  2
                 </td>
                 <td>
                   0
@@ -220,7 +220,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  4
                 </td>
                 <td>
                   0
