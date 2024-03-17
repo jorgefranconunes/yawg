@@ -43,28 +43,28 @@ Copyright (c) 2015-2020 Yawg project contributors.
 
     <!-- Versions of Maven plugins. -->
     <findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>
-    <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
-    <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
+    <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
+    <maven-assembly-plugin.version>3.7.0</maven-assembly-plugin.version>
     <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
-    <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
-    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-    <maven-dependency-plugin.version>3.1.2</maven-dependency-plugin.version>
-    <maven-deploy-plugin.version>3.0.0-M1</maven-deploy-plugin.version>
-    <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
-    <maven-failsafe-plugin.version>3.0.0-M5</maven-failsafe-plugin.version>
-    <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
-    <maven-install-plugin.version>3.0.0-M1</maven-install-plugin.version>
-    <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
-    <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
-    <maven-jxr-plugin.version>3.0.0</maven-jxr-plugin.version>
+    <maven-clean-plugin.version>3.3.2</maven-clean-plugin.version>
+    <maven-compiler-plugin.version>3.12.1</maven-compiler-plugin.version>
+    <maven-dependency-plugin.version>3.6.1</maven-dependency-plugin.version>
+    <maven-deploy-plugin.version>3.1.1</maven-deploy-plugin.version>
+    <maven-enforcer-plugin.version>3.4.1</maven-enforcer-plugin.version>
+    <maven-failsafe-plugin.version>3.2.5</maven-failsafe-plugin.version>
+    <maven-gpg-plugin.version>3.2.0</maven-gpg-plugin.version>
+    <maven-install-plugin.version>3.1.1</maven-install-plugin.version>
+    <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
+    <maven-javadoc-plugin.version>3.6.3</maven-javadoc-plugin.version>
+    <maven-jxr-plugin.version>3.3.2</maven-jxr-plugin.version>
     <maven-pmd-plugin.version>3.14.0</maven-pmd-plugin.version>
     <maven-project-info-reports-plugin.version>3.1.1</maven-project-info-reports-plugin.version>
-    <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
-    <maven-site-plugin.version>3.9.1</maven-site-plugin.version>
-    <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
-    <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
-    <maven-surefire-report-plugin.version>3.0.0-M5</maven-surefire-report-plugin.version>
-    <versions-maven-plugin.version>2.8.1</versions-maven-plugin.version>
+    <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
+    <maven-site-plugin.version>4.0.0-M13</maven-site-plugin.version>
+    <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
+    <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
+    <maven-surefire-report-plugin.version>3.2.5</maven-surefire-report-plugin.version>
+    <versions-maven-plugin.version>2.16.2</versions-maven-plugin.version>
 
   </properties>
 
@@ -232,7 +232,7 @@ Copyright (c) 2015-2020 Yawg project contributors.
             <configuration>
               <rules>
                 <requireMavenVersion>
-                  <version>3.6</version>
+                  <version>3.9</version>
                 </requireMavenVersion>
               </rules>
             </configuration>
@@ -265,27 +265,18 @@ Copyright (c) 2015-2020 Yawg project contributors.
 
           <!-- Some tests expect config parameters in the form of Java
                system properties. -->
-          <systemProperties>
+          <systemPropertyVariables>
 
             <!-- Required by com.varmateo.testutils.TestUtils -->
-            <property>
-              <name>TestUtils.inputTestFilesDir</name>
-              <value>${basedir}/src/test/resources</value>
-            </property>
+            <TestUtils.inputTestFilesDir>${basedir}/src/test/resources</TestUtils.inputTestFilesDir>
 
             <!-- Required by com.varmateo.testutils.TestUtils -->
-            <property>
-              <name>TestUtils.tmpTestFilesDir</name>
-              <value>${project.build.directory}/tmp</value>
-            </property>
+            <TestUtils.tmpTestFilesDir>${project.build.directory}/tmp</TestUtils.tmpTestFilesDir>
 
             <!-- Logging configuration for tests. -->
-            <property>
-              <name>java.util.logging.config.file</name>
-              <value>${yawg.projectRootDir}/testutils/src/main/resources/logging.properties/</value>
-            </property>
+            <java.util.logging.config.file>${yawg.projectRootDir}/testutils/src/main/resources/logging.properties</java.util.logging.config.file>
 
-          </systemProperties>
+          </systemPropertyVariables>
 
         </configuration>
       </plugin>
@@ -306,27 +297,18 @@ Copyright (c) 2015-2020 Yawg project contributors.
 
           <!-- Some tests expect config parameters in the form of Java
                system properties. -->
-          <systemProperties>
+          <systemPropertyVariables>
 
             <!-- Required by com.varmateo.testutils.TestUtils -->
-            <property>
-              <name>TestUtils.inputTestFilesDir</name>
-              <value>${basedir}/src/test/resources</value>
-            </property>
+            <TestUtils.inputTestFilesDir>${basedir}/src/test/resources</TestUtils.inputTestFilesDir>
 
             <!-- Required by com.varmateo.testutils.TestUtils -->
-            <property>
-              <name>TestUtils.tmpTestFilesDir</name>
-              <value>${project.build.directory}/tmp</value>
-            </property>
+            <TestUtils.tmpTestFilesDir>${project.build.directory}/tmp</TestUtils.tmpTestFilesDir>
 
             <!-- Logging configuration for tests. -->
-            <property>
-              <name>java.util.logging.config.file</name>
-              <value>${yawg.projectRootDir}/testutils/src/main/resources/logging.properties/</value>
-            </property>
+            <java.util.logging.config.file>${yawg.projectRootDir}/testutils/src/main/resources/logging.properties/</java.util.logging.config.file>
 
-          </systemProperties>
+          </systemPropertyVariables>
 
         </configuration>
       </plugin>

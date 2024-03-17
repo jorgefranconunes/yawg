@@ -106,33 +106,21 @@ Copyright (c) 2016-2020 Yawg project contributors.
 
           <!-- Some tests expect config parameters in the form of Java
                system properties. -->
-          <systemProperties>
+          <systemPropertyVariables>
 
             <!-- Required by com.varmateo.testutils.TestUtils -->
-            <property>
-              <name>TestUtils.inputTestFilesDir</name>
-              <value>${basedir}/src/test/resources</value>
-            </property>
+            <TestUtils.inputTestFilesDir>${basedir}/src/test/resources</TestUtils.inputTestFilesDir>
 
             <!-- Required by com.varmateo.testutils.TestUtils -->
-            <property>
-              <name>TestUtils.tmpTestFilesDir</name>
-              <value>${project.build.directory}/tmp</value>
-            </property>
+            <TestUtils.tmpTestFilesDir>${project.build.directory}/tmp</TestUtils.tmpTestFilesDir>
 
             <!-- Logging configuration for tests. -->
-            <property>
-              <name>java.util.logging.config.file</name>
-              <value>${yawg.projectRootDir}/testutils/src/main/resources/logging.properties/</value>
-            </property>
+            <java.util.logging.config.file>${yawg.projectRootDir}/testutils/src/main/resources/logging.properties</java.util.logging.config.file>
 
             <!-- Required by com.varmateo.yawg.YawgInfoIT -->
-            <property>
-              <name>YawgInfoIT.version</name>
-              <value>${project.version}</value>
-            </property>
+            <YawgInfoIT.version>${project.version}</YawgInfoIT.version>
 
-          </systemProperties>
+          </systemPropertyVariables>
 
         </configuration>
       </plugin>
