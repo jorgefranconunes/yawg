@@ -9,7 +9,7 @@
 ----
 
 
-== Checking for newwer versions of Maven plugins
+== Checking for newer versions of Maven plugins
 
 [source,sh]
 ----

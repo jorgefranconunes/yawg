@@ -4,10 +4,16 @@
 
 *~
 *.~??
+.\#*
+\#*
 *.aux
 *.bak
+.classpath
+.factorypath
 *.log
 *.out
 *.pid
+.project
+.settings
 target
 work
