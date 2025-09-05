@@ -77,9 +77,9 @@ function displayHelp () {
 ${PRODUCT_HEADER}
 ${YAWG_COPYRIGHT_HEADER}
 
-Runs a full Yawg build under the GitHub Actions CI environment. When
-the job was triggered by a push to master then code quality reports
-are also generated.
+Runs a full Yawg build under the GitHub Actions CI environment. In
+case the job is triggered by a push to master branch then code quality
+reports are also generated.
 
 Available options:
 
