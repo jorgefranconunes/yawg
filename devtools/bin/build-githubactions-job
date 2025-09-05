@@ -117,10 +117,10 @@ function showConfig () {
 function runJob () {
     case "${_jobType}" in
         JOB_FOR_REVIEW )
-            echo exec "${_scriptDir}/build-bundle" --with-tests
+            exec "${_scriptDir}/build-bundle" --with-tests
             ;;
         JOB_MERGE_TO_MAINLINE )
-            echo exec "${_scriptDir}/build-bundle" --with-reports
+            exec "${_scriptDir}/build-bundle" --with-reports
             ;;
         *)
             yawgError "Internal error - unknown job type \"${_jobType}\""
