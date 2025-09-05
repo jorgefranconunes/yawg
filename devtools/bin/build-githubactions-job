@@ -1,0 +1,130 @@
+#!/usr/bin/env bash
+set -u
+###
+# Copyright (c) 2025 Yawg project contributors.
+#
+# Runs GitHub actions CI job.
+###
+
+_scriptName=$0
+_scriptDir=$(dirname "$0")
+_yawgHome=$(cd "${_scriptDir}/../.." ; pwd)
+
+source "${_yawgHome}/lib/bash/yawg-utils.sh"
+source "${_yawgHome}/conf/yawg-defaults.conf"
+
+declare -r TOOL_NAME="GitHub Actions CI job"
+PRODUCT_HEADER="${YAWG_PRODUCT_NAME} ${YAWG_VERSION} - ${TOOL_NAME}"
+
+# Initialized from command line arguments.
+declare _ciEvent=
+declare _vcsBranch=
+
+declare _mainlineBranch=master
+declare _jobType=
+
+function main () {
+    processCliArgs "$@"
+
+    prepare
+    showConfig
+    runJob
+}
+
+function processCliArgs () {
+    if [ $# -eq 0 ] ; then
+        displayHelpAndExit
+        exit 0
+    fi
+
+    for option in "$@" ; do
+        case "${option}" in
+            --ci-event=* )
+                _ciEvent=$(expr "${option}" : '--ci-event=\(.*\)')
+                ;;
+            --vcs-branch=* )
+                _vcsBranch=$(expr "${option}" : '--vcs-branch=\(.*\)')
+                ;;
+            --help )
+                displayHelpAndExit
+                ;;
+            --*=* )
+                option=$(expr "${option}" : '\(--.*\)=.*')
+                yawgError "${option} : unknown option. Use --help for details."
+                ;;
+            * )
+                yawgError "${option} : unknown option. Use --help for details."
+                ;;
+        esac
+    done
+
+    if [ -z "${_ciEvent}" ] ; then
+        yawgError "Missing mandatory --ci-event option. Use --help for details."
+    fi
+    if [ -z "${_vcsBranch}" ] ; then
+        yawgError "Missing mandatory --vcs-branch option. Use --help for details."
+    fi
+}
+
+function displayHelpAndExit () {
+    displayHelp
+    exit 0
+}
+
+function displayHelp () {
+    cat <<EOF
+
+${PRODUCT_HEADER}
+${YAWG_COPYRIGHT_HEADER}
+
+Runs a full Yawg build under the GitHub Actions CI environment. When
+the job was triggered by a push to master then code quality reports
+are also generated.
+
+Available options:
+
+--ci-event=EVENT
+
+--cvs-branch=BRANCH
+
+--help
+    Prints this help text.
+
+EOF
+}
+
+function prepare () {
+    local eventType=${_ciEvent}
+    local targetBranch=${_vcsBranch}
+
+    if [ "${eventType}" == "push" -a "${targetBranch}" == "${_mainlineBranch}" ] ; then
+        _jobType=JOB_MERGE_TO_MAINLINE
+    else
+        _jobType=JOB_FOR_REVIEW
+    fi
+}
+
+function showConfig () {
+    yawgLog "${PRODUCT_HEADER}"
+    yawgLog "    Job type   : ${_jobType}"
+    yawgLog "    CI event   : ${_ciEvent}"
+    yawgLog "    VCS branch : ${_vcsBranch}"
+
+    yawgLog "GitHub Actions CI environment:"
+    env | sort --ignore-case || true
+}
+
+function runJob () {
+    case "${_jobType}" in
+        JOB_FOR_REVIEW )
+            echo exec "${_scriptDir}/build-bundle" --with-tests
+            ;;
+        JOB_MERGE_TO_MAINLINE )
+            echo exec "${_scriptDir}/build-bundle" --with-reports
+            ;;
+        *)
+            yawgError "Internal error - unknown job type \"${_jobType}\""
+    esac
+}
+
+main "$@"

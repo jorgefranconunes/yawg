@@ -1,0 +1,35 @@
+name: Yawg CI
+
+on:
+  push:
+    branches:
+      - "master"
+      - "[0-9]+-*"
+  pull_request:
+    branches:
+      - "master"
+
+jobs:
+  build:
+
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: "Source code checkout"
+        uses: actions/checkout@v4
+
+      - name: "Install Ubuntu packages"
+        run: |
+          sudo apt-get update &&
+          sudo apt-get install -y graphviz xsltproc
+
+      - name: "Set up JDK 8"
+        uses: actions/setup-java@v4
+        with:
+          java-version: "8"
+          distribution: "temurin"
+          cache: maven
+
+      - name: "Build Yawg"
+        run: |
+          ./devtools/bin/build-githubactions-job --vcs-branch=${{ github.ref_name }} --ci-event=${{ github.event_name }}
