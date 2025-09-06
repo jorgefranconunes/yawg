@@ -420,7 +420,8 @@ function performBuild () {
     set -x
 
     JAVA_HOME=${_jdkHome} ${_mavenTool} \
-        -f "${masterPom}" \
+        --batch-mode \
+        --file "${masterPom}" \
         -Pyawg-tarball \
         ${_mavenOptions} \
         ${_mavenGoals}

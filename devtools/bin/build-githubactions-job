@@ -110,8 +110,32 @@ function showConfig () {
     yawgLog "    CI event   : ${_ciEvent}"
     yawgLog "    VCS branch : ${_vcsBranch}"
 
-    yawgLog "GitHub Actions CI environment:"
+    showHostDetails
+
+    yawgLog "CI environment:"
     env | sort --ignore-case || true
+}
+
+function showHostDetails() {
+    local bashVersion=${BASH_VERSION:-unknown}
+    local distribution="UNKNOWN"
+    local kernelDetails="UNKNOWN"
+
+    if type lsb_release > /dev/null 2>&1 ; then
+        distribution=$(lsb_release --short --description)
+    fi
+    if type uname > /dev/null 2>&1 ; then
+        kernelDetails=$(uname -a)
+    fi
+
+    yawgLog
+    yawgLog "Host details:"
+    yawgLog "    User         : $(id)"
+    yawgLog "    Host         : $(hostname)"
+    yawgLog "    Bash version : ${bashVersion}"
+    yawgLog "    Distribution : ${distribution}"
+    yawgLog "    Kernel       : ${kernelDetails}"
+    yawgLog
 }
 
 function runJob () {
