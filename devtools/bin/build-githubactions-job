@@ -128,14 +128,12 @@ function showHostDetails() {
         kernelDetails=$(uname -a)
     fi
 
-    yawgLog
     yawgLog "Host details:"
     yawgLog "    User         : $(id)"
     yawgLog "    Host         : $(hostname)"
     yawgLog "    Bash version : ${bashVersion}"
     yawgLog "    Distribution : ${distribution}"
     yawgLog "    Kernel       : ${kernelDetails}"
-    yawgLog
 }
 
 function runJob () {

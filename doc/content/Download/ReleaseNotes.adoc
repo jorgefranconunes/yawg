@@ -17,7 +17,7 @@ Released on 2020/08/18
 
 #454 Hide package com.varmateo.yawg.spi from javadocs
 
-#458 Aggregate all public javadocs on yang-core module
+#458 Aggregate all public javadocs on yawg-core module
 
 #463 Remove python dependency from build-sync-version
 
