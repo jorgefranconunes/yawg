@@ -31,7 +31,12 @@ jobs:
         run: |
           ./devtools/bin/build-githubactions-job --vcs-branch=${{ github.ref_name }} --ci-event=${{ github.event_name }}
 
-      - name: Upload coverage reports to Codecov
+      - name: "Upload coverage reports to Codecov"
         uses: codecov/codecov-action@v5
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: "Bake Yawg site"
+        if: ${{ github.ref_name == 'master' }}
+        run: |
+          ./devtools/bin/build-site --yawg-install-root=$HOME/.local --yawg-latest
