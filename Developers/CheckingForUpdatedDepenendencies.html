@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+
+  <head>
+
+<!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=UA-79615115-1">
+</script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-79615115-1');
+</script>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Checking for newer versions of dependencies and Maven plugins</title>
+
+    <link
+       rel="stylesheet"
+       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+       integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+       crossorigin="anonymous" />
+
+    <link
+       rel="stylesheet"
+       href="../yawg-site.css?v=d8d4b889-15e5-4fb5-8d2c-2ed9281f3e10" />
+
+    <link
+       rel="stylesheet"
+       href="../fontawesome-free-5.14.0-web/css/all.min.css" />
+
+    <script
+       type="text/javascript"
+       async
+       src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+  </head>
+
+  <body>
+
+    <div class="yawg-body">
+
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="../index.html"><img src="../YawgLogo-standard.png" style="height:1.5em;"/></a>
+          <a class="navbar-brand" href="../index.html">Yawg</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../Download/index.html">Download</a></li>
+    <li><a href="../Documentation/index.html">Documentation</a></li>
+    <li class="active"><a href="../Developers/index.html">Developers</a></li>
+            <li><a href="https://github.com/jorgefranconunes/yawg">GitHub repository</a></li>
+
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+
+
+      <div class="container yawg-content">
+
+
+  <!#-- The breadcrumb bar is only visible if there is more than
+        one bread crumb on this page.-->
+
+    <ol class="breadcrumb">
+          <li><a href=".././index.html">Home</a></li>
+          <li><a href="../Developers/index.html">Developers</a></li>
+    </ol>
+
+        <h1>Checking for newer versions of dependencies and Maven plugins</h1>
+        <div class="sect1">
+<h2 id="_checking_for_newer_versions_of_dependencies">Checking for newer versions of dependencies</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sh">./modules/mvnw versions:display-dependency-updates</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_checking_for_newer_versions_of_maven_plugins">Checking for newer versions of Maven plugins</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sh">./modules/mvnw versions:display-plugin-updates</code></pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<footer class="yawg-footer">
+  <p>&copy;2020 Jorge Nunes</p>
+  <p>
+    Mixed with
+    <a href="http://getbootstrap.com/" target="_blank">Bootstrap 3.3.6</a>
+    |
+    Baked with
+    <a href="http://yawg.varmateo.com/">Yawg 1.0.0-RC3</a>
+    |
+    <a href="../Acknowledgements.html">Acknowledgements</a>
+    |
+    <a href="../PrivacyPolicy.html">Privacy</a>
+    |
+    Last update 2025-09-07 09:28 UTC
+  </p>
+</footer>
+
+      </div>
+
+    </div>
+
+  </body>
+
+</html>
