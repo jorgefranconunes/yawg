@@ -21,17 +21,17 @@ templatesHere:
 exclude:
   - "*~"
   - "*.~"
+  - ".*~$"
   - "*.aux"
   - "*.bak"
+  - ".github"
+  - ".gitignore"
   - "*.log"
   - "*.out"
   - "*.pid"
   - "target"
   - "work"
-  - ".*~$"
   - ".yawg.yml"
-  - ".travis.yml"
-  - ".gitignore"
 
 
 pageVars:
