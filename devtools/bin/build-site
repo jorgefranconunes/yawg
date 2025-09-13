@@ -40,7 +40,7 @@ _commitComment=${DEFAULT_COMMIT_COMMENT}
 _outputDir=${_yawgHome}/target
 _yawgTool=${_yawgHome}/bin/yawg
 _yawgToolType=PROVIDED
-_yawgToolInstallRoot=${_outputDir}/tools
+_yawgToolInstallRoot=${HOME}/.local
 
 
 

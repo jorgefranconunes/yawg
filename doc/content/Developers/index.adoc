@@ -40,7 +40,7 @@ link:CreatingRelease.html[Creating a release of the Yawg software]
 link:DeployingMavenArtifacts.html[Deploying to Maven Central] -- Notes
 on deploying Maven artifacts to the Maven Central repository.
 
-link:SiteAutoPublishing.html[Auto-publishing the Yawg site]
+link:PublishingYawgSite.html[Publishing the Yawg site]
 
 
 

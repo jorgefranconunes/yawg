@@ -1,0 +1,33 @@
+= Publishing the Yawg site
+:toc:
+:sectnums:
+
+
+== Introduction
+
+This document describes the setup and tools for publishing the
+Yawg site.
+
+The Yawg site is hosted through the https://pages.github.com/[GitHub
+Pages] service provided by GitHub.
+
+To publish new content the changes must be commited to the `gh-pages`
+branch of the project. And then pushed to GitHub.
+
+We created a tool to perform the actions for publishing the Yawg
+site. This tool can be executed from the command line.
+
+The Yawg version to be used for baking the Yawg site will be a
+previously released version.
+
+
+== Publishing
+
+[source, sh]
+----
+./devtools/bin/build-bundle --with-reports
+./devtools/bin/build-site --upload
+----
+
+Confirm all is fine be checking content under
+https://yawg.varmateo.com/index.html
