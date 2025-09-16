@@ -32,7 +32,7 @@ public final class BakerCliRunOptions {
     private BakerCliRunOptions(final Builder builder) {
 
         argv0 = builder._argv0;
-        args = builder._args.toJavaArray(String.class);
+        args = builder._args.toJavaArray(String[]::new);
         output = builder._output;
     }
 

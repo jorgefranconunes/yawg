@@ -34,7 +34,7 @@ public final class BakerCliRunner {
 
         _sourcePath = builder._sourcePath;
         _targetPath = builder._targetPath;
-        _args = builder._args.toJavaArray(String.class);
+        _args = builder._args.toJavaArray(String[]::new);
     }
 
 
