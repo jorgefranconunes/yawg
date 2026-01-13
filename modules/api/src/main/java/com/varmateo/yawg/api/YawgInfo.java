@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2020 Yawg project contributors.
+ * Copyright (c) 2016-2026 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -21,7 +21,7 @@ public final class YawgInfo {
     public static final String PRODUCT_NAME = "Yawg";
 
     /** Copyright string to be displayed to end users. */
-    public static final String COPYRIGHT_HEADER = "Copyright (c) 2020 Yawg project contributors.";
+    public static final String COPYRIGHT_HEADER = "Copyright (c) 2026 Yawg project contributors.";
 
 
     /**

@@ -1,289 +1,255 @@
-= Yawg Change History
-
-
-
+= Yawg project change history
 
 
 This document contains the lists of changes for each release of the
 Yawg project.
 
 
+== 1.0.0
 
+Released on 2026-01-13.
+
+* #479 Prepare release 1.0.0
 
 
 == 1.0.0-RC3
 
-Released on 2020/08/18
+Released on 2020-08-18.
 
-#454 Hide package com.varmateo.yawg.spi from javadocs
+* #454 Hide package com.varmateo.yawg.spi from javadocs
 
-#458 Aggregate all public javadocs on yawg-core module
+* #458 Aggregate all public javadocs on yawg-core module
 
-#463 Remove python dependency from build-sync-version
+* #463 Remove python dependency from build-sync-version
 
-#465 Fix static analysis reports on Codacy
-
-
-
+* #465 Fix static analysis reports on Codacy
 
 
 == 1.0.0-RC2
 
-Released on 2020/03/21
+Released on 2020-03-21.
 
-#360 Template variable yawg.bakeId is different in every page
+* #360 Template variable yawg.bakeId is different in every page
 
-#396 Inject services explicitly instead of using ServiceLoader
+* #396 Inject services explicitly instead of using ServiceLoader
 
-#407 Markdown document title taken from YAML front matter
+* #407 Markdown document title taken from YAML front matter
 
-#408 Clarify entry point class
+* #408 Clarify entry point class
 
-#418 Make YawgException abstract
+* #418 Make YawgException abstract
 
-#423 Remove exception from SiteBaker
+* #423 Remove exception from SiteBaker
 
-#424 Remove exception from PageBaker
+* #424 Remove exception from PageBaker
 
-#425 Remove exception from DirBakeListener
+* #425 Remove exception from DirBakeListener
 
-#427 Remove exception from Template
+* #427 Remove exception from Template
 
-#430 Replace BakeOptions.Builder with BakeOptionsBuilder
+* #430 Replace BakeOptions.Builder with BakeOptionsBuilder
 
-#438 Update site build config to not use the yawg tool --assets CLI option
+* #438 Update site build config to not use the yawg tool --assets CLI option
 
-#439 Remove --assets option from Yawg CLI tool
+* #439 Remove --assets option from Yawg CLI tool
 
-#440 Remove assets concept from public APIs
+* #440 Remove assets concept from public APIs
 
-#441 Remove assets concept from internal APIs
+* #441 Remove assets concept from internal APIs
 
-#447 Move DefaultSiteBaker to dedicated artifact
+* #447 Move DefaultSiteBaker to dedicated artifact
 
-#448 Simplify YawgInfo
-
-
-
+* #448 Simplify YawgInfo
 
 
 == 1.0.0-RC1
 
-Released on 2019/05/05
+Released on 2019-05-05.
 
-#238 Preparation for baking source files in parallel
+* #238 Preparation for baking source files in parallel
 
-#342 Discontinue use of CodeScene
+* #342 Discontinue use of CodeScene
 
-#348 Add javadoc badge to the project GitHub entry page
+* #348 Add javadoc badge to the project GitHub entry page
 
-#349 Add Maven Central badge to the project GitHub entry page.
+* #349 Add Maven Central badge to the project GitHub entry page.
 
-#350 Move SiteBakerConf to be an interface
+* #350 Move SiteBakerConf to be an interface
 
-#351 Move PageContext to be an interface
+* #351 Move PageContext to be an interface
 
-#352 Move PageVars to be an interface
+* #352 Move PageVars to be an interface
 
-#353 Move TemplateDataModel to be an interface
+* #353 Move TemplateDataModel to be an interface
 
-#357 Incorrect project description in pom.xml for yawg-spi
+* #357 Incorrect project description in pom.xml for yawg-spi
 
-#359 Clean TemplateDataModel public API
+* #359 Clean TemplateDataModel public API
 
-#367 Include license badge on project entry page
+* #367 Include license badge on project entry page
 
-#369 Typo on logging format used by CLI tool
+* #369 Typo on logging format used by CLI tool
 
-#370 Clean up logging of task durations
+* #370 Clean up logging of task durations
 
-#376 Make logging visible in unit and integration tests
+* #376 Make logging visible in unit and integration tests
 
-#377 JUnit rule for logging start and end of tests
+* #377 JUnit rule for logging start and end of tests
 
-#379 Exclude modules/.mvn from Codacy analysis
+* #379 Exclude modules/.mvn from Codacy analysis
 
-#382 Upload module yawg-cli to Maven Central
+* #382 Upload module yawg-cli to Maven Central
 
-#387 Address alert about com.puppycrawl.tools:checkstyle version
-
-
-
+* #387 Address alert about com.puppycrawl.tools:checkstyle version
 
 
 == 0.9.8
 
-Released on 2017/10/08
+Released on 2017-10-08.
 
-#321 Remove Java package for actor classes
+* #321 Remove Java package for actor classes
 
-#324 Review separation between API and SPI classes
+* #324 Review separation between API and SPI classes
 
-#330 Add acceptance tests for `extraDirsHere` baking parameter
+* #330 Add acceptance tests for `extraDirsHere` baking parameter
 
-#336 Javadocs are missing version information
+* #336 Javadocs are missing version information
 
-#338 Move PageVars class to SPI
+* #338 Move PageVars class to SPI
 
-#339 Move to latest Vavr release
-
-
-
+* #339 Move to latest Vavr release
 
 
 == 0.9.7
 
-Released on 2017/07/18
+Released on 2017-07-18.
 
-#238 Fixed typo on README
+* #238 Fixed typo on README
 
-#238 Added acceptance tests for the `--page-var` CLI option
+* #238 Added acceptance tests for the `--page-var` CLI option
 
-#238 Removed list utility functions no longer used
+* #238 Removed list utility functions no longer used
 
-#300 Page vars are now visible as Asciidoc attributes
+* #300 Page vars are now visible as Asciidoc attributes
 
-#304 Fixed build-create-bundle-bug when `JAVA_HOME` not set
-
-
-
+* #304 Fixed build-create-bundle-bug when `JAVA_HOME` not set
 
 
 == 0.9.6
 
-Released on 2017/06/03
+Released on 2017-06-03.
 
-#279 Completed support for deploying to Maven Central
+* #279 Completed support for deploying to Maven Central
 
-#288 Maven artifacts for deployment are now GPG signed
+* #288 Maven artifacts for deployment are now GPG signed
 
-#283 JARs with Javadocs are now generated when making a release
+* #283 JARs with Javadocs are now generated when making a release
 
-#282 JARs with source code are now generated when making a release
+* #282 JARs with source code are now generated when making a release
 
-#280 Updated Maven project metadata
+* #280 Updated Maven project metadata
 
-#271 Added bake parameter `excludeHere`
+* #271 Added bake parameter `excludeHere`
 
-#271 Added acceptance tests for the `exclude` parameter
-
-
-
+* #271 Added acceptance tests for the `exclude` parameter
 
 
 
 == 0.9.5
 
-Released on 2017/04/13.
+Released on 2017-04-13.
 
-#164 Add author to template data model
+* #164 Add author to template data model
 
-#197 Move long running unit tests to integration tests
+* #197 Move long running unit tests to integration tests
 
-#202 Refactor common utility classes into dedicated module
+* #202 Refactor common utility classes into dedicated module
 
-#204 Update PMD rules to not require explicit extends Object
+* #204 Update PMD rules to not require explicit extends Object
 
-#206 Refactor `BakerCli` for easier testing
+* #206 Refactor `BakerCli` for easier testing
 
-#208 Prepare for acceptance tests
+* #208 Prepare for acceptance tests
 
-#210 Complete acceptance tests for CLI options
+* #210 Complete acceptance tests for CLI options
 
-#214 Refactor builders for easier creation of empty POJOs
+* #214 Refactor builders for easier creation of empty POJOs
 
-#216 Simplify mocks in `DirBaker` unit tests
+* #216 Simplify mocks in `DirBaker` unit tests
 
-#218 Include Jacoco aggregate report with Maven reports site
+* #218 Include Jacoco aggregate report with Maven reports site
 
-#220 Codecov data is not being uploaded
+* #220 Codecov data is not being uploaded
 
-#224 Unclear error message when argument option is missing
+* #224 Unclear error message when argument option is missing
 
-#225 Add acceptance tests for the --source option
+* #225 Add acceptance tests for the --source option
 
-#251 Separate logging initialization into separate component
+* #251 Separate logging initialization into separate component
 
-#253 Separate API and SPI classes into dedicated packages and modules
+* #253 Separate API and SPI classes into dedicated packages and modules
 
-#255 Improve fluent assertions for acceptance tests
+* #255 Improve fluent assertions for acceptance tests
 
-#262 Including PlantUML files assumes current working directory
-
-
-
+* #262 Including PlantUML files assumes current working directory
 
 
 == 0.9.4
 
-Released on 2016/10/04.
+Released on 2016-10-04.
 
-#187 Move Yawg specific data to dedicated namespace in template data
- model
+* #187 Move Yawg specific data to dedicated namespace in template data model
 
-#188 Support providing template data model items from the command line
-
-
-
+* #188 Support providing template data model items from the command line
 
 
 == 0.9.3
 
-Released on 2016/09/10.
+Released on 2016-09-10.
 
-#175 Add support for numbered section titles
+* #175 Add support for numbered section titles
 
-#177 Support specifying template only for some files
+* #177 Support specifying template only for some files
 
-#178 Rename dir bake parameter `includeOnly` to `includeHere`
+* #178 Rename dir bake parameter `includeOnly` to `includeHere`
 
-#179 Support specifying template vars only for the current directory
+* #179 Support specifying template vars only for the current directory
 
-#183 Support baking additional dirs outside root source dir
-
-
-
+* #183 Support baking additional dirs outside root source dir
 
 
 == 0.9.2
 
-Released on 2016/08/09.
+Released on 2016-08-09.
 
-#157 Rename dir bake parameter `ignore` to `exclude`
+* #157 Rename dir bake parameter `ignore` to `exclude`
 
-#158 Refactor `SiteBakerConf` builder
+* #158 Refactor `SiteBakerConf` builder
 
-#159 Refactor `PageVars` builder
+* #159 Refactor `PageVars` builder
 
-#163 PlantUML image files created in the wrong directory
+* #163 PlantUML image files created in the wrong directory
 
-#168 Add support for syntax highlighting in code blocks
-
-
-
+* #168 Add support for syntax highlighting in code blocks
 
 
 == 0.9.1
 
-Released on 2016/07/27.
+Released on 2016-07-27.
 
-#127 Adapted copyright notice on source code
+* #127 Adapted copyright notice on source code
 
-#145 Separated extensions API into dedicated module
+* #145 Separated extensions API into dedicated module
 
-#147 Renamed dir bake parameter `templateVars` to `pageVars`
+* #147 Renamed dir bake parameter `templateVars` to `pageVars`
 
-#149 Refactored the `PageContext` interface to have no public builder
+* #149 Refactored the `PageContext` interface to have no public builder
 
-#151 Refactored the `TemplateDataModel` interface to have no public
-builder
-
-
-
+* #151 Refactored the `TemplateDataModel` interface to have no public builder
 
 
 == 0.9.0
 
-Released on 2016/07/19.
+Released on 2016-07-19.
 
 First feature complete release.
