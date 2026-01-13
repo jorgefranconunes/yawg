@@ -23,7 +23,7 @@ under the License.
     <link>http://yawg.varmateo.com/yawg-api/</link>
     <description>Yawg API - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2015 - 2025</copyright>
+    <copyright>&#169;2015 - 2026</copyright>
     <item>
       <title>File: 6,
              Errors: 0,
@@ -102,7 +102,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.Result.java">com/varmateo/yawg/api/Result.java</a>
+                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.package-info.java">com/varmateo/yawg/api/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -116,7 +116,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.package-info.java">com/varmateo/yawg/api/package-info.java</a>
+                  <a href="http://yawg.varmateo.com/yawg-api//checkstyle.html#com.varmateo.yawg.api.Result.java">com/varmateo/yawg/api/Result.java</a>
                 </td>
                 <td>
                   0

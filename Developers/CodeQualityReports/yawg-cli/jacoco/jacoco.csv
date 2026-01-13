@@ -15,9 +15,9 @@ Yawg CLI,com.varmateo.yawg.cli,BakerCliBakeOptions_Builder.Property,59,0,0,0,9,0
 Yawg CLI,com.varmateo.yawg.cli,InfoPrinter.Builder,25,0,0,0,9,0,4,0,4,0
 Yawg CLI,com.varmateo.yawg.cli,BakerCliBakeOptions_Builder.Value,147,0,10,0,26,0,14,0,9,0
 Yawg CLI,com.varmateo.yawg.cli,CliInfoPrinter.Builder,41,0,0,0,15,0,6,0,6,0
-Yawg CLI,com.varmateo.yawg.cli,CliInfoPrinter,111,0,0,0,29,0,7,0,7,0
 Yawg CLI,com.varmateo.yawg.cli,Main,44,0,0,0,15,0,3,0,3,0
-Yawg CLI,com.varmateo.yawg.cli,BakerCliRunOptions,23,0,0,0,6,0,2,0,2,0
+Yawg CLI,com.varmateo.yawg.cli,CliInfoPrinter,111,0,0,0,29,0,7,0,7,0
+Yawg CLI,com.varmateo.yawg.cli,BakerCliRunOptions,26,0,0,0,6,0,3,0,3,0
 Yawg CLI,com.varmateo.yawg.cli,BakerCliAction.PrintVersion,6,0,0,0,3,0,2,0,2,0
 Yawg CLI,com.varmateo.yawg.cli,BakerCliBakeOptions_Builder.Partial,224,0,28,0,43,0,23,0,9,0
 Yawg CLI,com.varmateo.yawg.cli,BakerCliAction.Bake,17,0,0,0,7,0,4,0,4,0

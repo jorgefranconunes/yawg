@@ -23,7 +23,7 @@ under the License.
     <link>http://yawg.varmateo.com/yawg-core/</link>
     <description>Yawg core - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2015 - 2025</copyright>
+    <copyright>&#169;2015 - 2026</copyright>
     <item>
       <title>File: 75,
              Errors: 0,
@@ -242,7 +242,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.util.SimpleListException.java">com/varmateo/yawg/util/SimpleListException.java</a>
+                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.breadcrumbs.BreadcrumbsBakeListener.java">com/varmateo/yawg/breadcrumbs/BreadcrumbsBakeListener.java</a>
                 </td>
                 <td>
                   0
@@ -256,7 +256,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.breadcrumbs.BreadcrumbsBakeListener.java">com/varmateo/yawg/breadcrumbs/BreadcrumbsBakeListener.java</a>
+                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.util.SimpleListException.java">com/varmateo/yawg/util/SimpleListException.java</a>
                 </td>
                 <td>
                   0
@@ -466,7 +466,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.util.SimpleList.java">com/varmateo/yawg/util/SimpleList.java</a>
+                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.util.Trys.java">com/varmateo/yawg/util/Trys.java</a>
                 </td>
                 <td>
                   0
@@ -480,7 +480,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.util.Trys.java">com/varmateo/yawg/util/Trys.java</a>
+                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.util.SimpleList.java">com/varmateo/yawg/util/SimpleList.java</a>
                 </td>
                 <td>
                   0
@@ -620,7 +620,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.freemarker.FreemarkerTemplateService.java">com/varmateo/yawg/freemarker/FreemarkerTemplateService.java</a>
+                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.breadcrumbs.BreadcrumbItem.java">com/varmateo/yawg/breadcrumbs/BreadcrumbItem.java</a>
                 </td>
                 <td>
                   0
@@ -634,7 +634,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.breadcrumbs.BreadcrumbItem.java">com/varmateo/yawg/breadcrumbs/BreadcrumbItem.java</a>
+                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.freemarker.FreemarkerTemplateService.java">com/varmateo/yawg/freemarker/FreemarkerTemplateService.java</a>
                 </td>
                 <td>
                   0
@@ -746,20 +746,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.core.CollectiveDirBakeListener.java">com/varmateo/yawg/core/CollectiveDirBakeListener.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.core.DefaultExtensionsModule.java">com/varmateo/yawg/core/DefaultExtensionsModule.java</a>
                 </td>
                 <td>
@@ -774,7 +760,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.asciidoctor.AsciidoctorTemplateContext.java">com/varmateo/yawg/asciidoctor/AsciidoctorTemplateContext.java</a>
+                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.core.CollectiveDirBakeListener.java">com/varmateo/yawg/core/CollectiveDirBakeListener.java</a>
                 </td>
                 <td>
                   0
@@ -789,6 +775,20 @@ under the License.
                           <tr>
                 <td>
                   <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.html.HtmlPageBakerException.java">com/varmateo/yawg/html/HtmlPageBakerException.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://yawg.varmateo.com/yawg-core//checkstyle.html#com.varmateo.yawg.asciidoctor.AsciidoctorTemplateContext.java">com/varmateo/yawg/asciidoctor/AsciidoctorTemplateContext.java</a>
                 </td>
                 <td>
                   0

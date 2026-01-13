@@ -23,7 +23,7 @@ under the License.
     <link>http://yawg.varmateo.com/yawg-cli/</link>
     <description>Yawg CLI - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2015 - 2025</copyright>
+    <copyright>&#169;2015 - 2026</copyright>
     <item>
       <title>File: 14,
              Errors: 0,
@@ -172,20 +172,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.CliInfoPrinter.java">com/varmateo/yawg/cli/CliInfoPrinter.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  4
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.BakerCliParameters.java">com/varmateo/yawg/cli/BakerCliParameters.java</a>
                 </td>
                 <td>
@@ -193,6 +179,20 @@ under the License.
                 </td>
                 <td>
                   0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://yawg.varmateo.com/yawg-cli//checkstyle.html#com.varmateo.yawg.cli.CliInfoPrinter.java">com/varmateo/yawg/cli/CliInfoPrinter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
                 </td>
                 <td>
                   0

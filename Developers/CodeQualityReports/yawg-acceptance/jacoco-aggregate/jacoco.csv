@@ -27,9 +27,9 @@ Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,BakerCliBakeOptions_Builder
 Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,InfoPrinter.Builder,0,25,0,0,0,9,0,4,0,4
 Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,BakerCliBakeOptions_Builder.Value,115,32,10,0,16,10,9,5,4,5
 Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,CliInfoPrinter.Builder,0,41,0,0,0,15,0,6,0,6
-Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,CliInfoPrinter,0,111,0,0,0,29,0,7,0,7
 Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,Main,44,0,0,0,15,0,3,0,3,0
-Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,BakerCliRunOptions,0,23,0,0,0,6,0,2,0,2
+Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,CliInfoPrinter,0,111,0,0,0,29,0,7,0,7
+Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,BakerCliRunOptions,0,26,0,0,0,6,0,3,0,3
 Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,BakerCliAction.PrintVersion,3,3,0,0,2,1,1,1,1,1
 Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,BakerCliBakeOptions_Builder.Partial,224,0,28,0,43,0,23,0,9,0
 Yawg acceptance tests/yawg-cli,com.varmateo.yawg.cli,BakerCliAction.Bake,4,13,0,0,2,5,1,3,1,3

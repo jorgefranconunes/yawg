@@ -32,7 +32,7 @@ public final class BakerCliRunOptions {
 <span class="fc" id="L32">    private BakerCliRunOptions(final Builder builder) {</span>
 
 <span class="fc" id="L34">        argv0 = builder._argv0;</span>
-<span class="fc" id="L35">        args = builder._args.toJavaArray(String.class);</span>
+<span class="fc" id="L35">        args = builder._args.toJavaArray(String[]::new);</span>
 <span class="fc" id="L36">        output = builder._output;</span>
 <span class="fc" id="L37">    }</span>
 
