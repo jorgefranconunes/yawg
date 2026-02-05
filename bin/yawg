@@ -1,8 +1,7 @@
 #!/bin/bash
 ###########################################################################
 #
-# Copyright (c) 2016-2019 Yawg project contributors.
-#
+# Copyright (c) 2016-2026 Yawg project contributors.
 #
 # Launcher for the yawg CLI application.
 #
@@ -15,9 +14,7 @@ _yawgHome=$(cd $_scriptDir/..; pwd)
 source ${_yawgHome}/lib/bash/yawg-utils.sh
 source ${_yawgHome}/conf/yawg-defaults.conf
 
-
 _yawgJre=
-
 
 ###
 # The main program.
@@ -34,7 +31,6 @@ function main () {
          -jar "${mainJar}" \
          "$@"
 }
-
 
 ###
 # Attempts to locate a JRE from YAWG_JAVA_HOME, JAVA_HOME, and "java".
@@ -71,7 +67,6 @@ function findJre () {
     _yawgJre=${candidateJre}
 }
 
-
 ###
 #
 ###
@@ -87,9 +82,7 @@ function checkJre () {
     fi
 }
 
-
 ###
-# The main script.
+# Entrypoint.
 ###
 main "$@"
-
