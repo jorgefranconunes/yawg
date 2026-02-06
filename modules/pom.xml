@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-
-Copyright (c) 2015-2020 Yawg project contributors.
-
+Copyright (c) 2015-2026 Yawg project contributors.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
@@ -13,15 +11,12 @@ Copyright (c) 2015-2020 Yawg project contributors.
   <artifactId>yawg-main</artifactId>
   <version>1.0.0-SNAPSHOT</version>
 
-
-
-
   <properties>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-    <yawg.javadoc.bottom>Yawg ${project.version}&lt;br/&gt;Copyright © 2015–2020 Yawg project contributors. All rights reserved.</yawg.javadoc.bottom>
+    <yawg.javadoc.bottom>Yawg ${project.version}&lt;br/&gt;Copyright © 2015–2026 Yawg project contributors. All rights reserved.</yawg.javadoc.bottom>
     <yawg.javadoc.windowtitle>${project.name} ${project.version}</yawg.javadoc.windowtitle>
 
     <!-- By default unit tests are run. -->
@@ -68,9 +63,6 @@ Copyright (c) 2015-2020 Yawg project contributors.
 
   </properties>
 
-
-
-
   <!-- The project Maven modules. -->
   <modules>
     <module>acceptance</module>
@@ -81,16 +73,10 @@ Copyright (c) 2015-2020 Yawg project contributors.
     <module>testutils</module>
   </modules>
 
-
-
-
-
   <!-- -->
-
   <build>
 
     <defaultGoal>package</defaultGoal>
-
 
     <!-- Plugins configuration that applies to all POMs inheriting
          from this one. -->
@@ -192,7 +178,6 @@ Copyright (c) 2015-2020 Yawg project contributors.
 
     </pluginManagement>
 
-
     <plugins>
 
       <!--
@@ -239,7 +224,6 @@ Copyright (c) 2015-2020 Yawg project contributors.
           </execution>
         </executions>
       </plugin>
-
 
       <!-- Perform integration tests. -->
       <plugin>
@@ -313,7 +297,6 @@ Copyright (c) 2015-2020 Yawg project contributors.
         </configuration>
       </plugin>
 
-
       <!-- Deploy to OSSRH. This goal is bound to the deploy lifecycle
            phase. -->
       <plugin>
@@ -322,18 +305,18 @@ Copyright (c) 2015-2020 Yawg project contributors.
         <version>${maven-deploy-plugin.version}</version>
       </plugin>
 
-    </plugins>
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-wrapper-plugin</artifactId>
+	<version>3.3.4</version>
+      </plugin>
 
+    </plugins>
 
   </build>
 
-
-
-
-
   <!-- -->
   <profiles>
-
 
     <!--
         Used for creating the Maven site. The system property
@@ -370,7 +353,6 @@ Copyright (c) 2015-2020 Yawg project contributors.
 
     </profile>
 
-
     <profile>
       <id>yawg-jacoco</id>
 
@@ -402,7 +384,6 @@ Copyright (c) 2015-2020 Yawg project contributors.
       </build>
     </profile>
 
-
     <profile>
       <id>yawg-maven-artifacts</id>
       <build>
@@ -426,12 +407,7 @@ Copyright (c) 2015-2020 Yawg project contributors.
       </build>
     </profile>
 
-
   </profiles>
-
-
-
-
 
   <!-- -->
   <distributionManagement>
@@ -448,10 +424,6 @@ Copyright (c) 2015-2020 Yawg project contributors.
     </repository>
 
   </distributionManagement>
-
-
-
-
 
   <!--
       Report configuration. This refers to the reports that are
@@ -600,8 +572,6 @@ Copyright (c) 2015-2020 Yawg project contributors.
 
 
 
-
-
   <!-- More project information. -->
 
   <name>Yawg Project</name>
@@ -631,7 +601,6 @@ Copyright (c) 2015-2020 Yawg project contributors.
     <connection>scm:git:git://github.com/jorgefranconunes/yawg.git</connection>
     <developerConnection>scm:git:ssh://github.com:jorgefranconunes/yawg.git</developerConnection>
     <url>http://github.com/jorgefranconunes/yawg/tree/master</url>
-</scm>
-
+  </scm>
 
 </project>
