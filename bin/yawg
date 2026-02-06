@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -u
 ###########################################################################
 #
 # Copyright (c) 2016-2026 Yawg project contributors.
@@ -7,47 +8,72 @@
 #
 ###########################################################################
 
-_scriptDir=$(dirname $0)
-_scriptName=$(basename $0)
-_yawgHome=$(cd $_scriptDir/..; pwd)
+declare -r _script=$(realpath "${BASH_SOURCE[0]}")
+declare -r _scriptName=$(basename "${_script}")
+declare -r _scriptDir=$(dirname "${_script}")
+declare -r _yawgHome=$(cd "${_scriptDir}/.." ; pwd)
 
-source ${_yawgHome}/lib/bash/yawg-utils.sh
-source ${_yawgHome}/conf/yawg-defaults.conf
+source "${_yawgHome}/lib/bash/yawg-utils.sh"
+source "${_yawgHome}/conf/yawg-defaults.conf"
 
-_yawgJre=
+# These arguments are appropriate for Java 25. This environment
+# variable can be overriden by explicitly setting its value on the
+# Yawg config file.
+declare -a YAWG_JVM_ARGS_EXTRA=(
+    "--sun-misc-unsafe-memory-access=allow"
+    "--enable-native-access=ALL-UNNAMED"
+    "--add-opens=java.base/java.lang=ALL-UNNAMED"
+    "--add-opens=java.base/java.lang.reflect=ALL-UNNAMED"
+    "--add-opens=java.base/java.net=ALL-UNNAMED"
+    "--add-opens=java.base/java.util=ALL-UNNAMED"
+    "--add-opens=java.base/java.util.regex=ALL-UNNAMED"
+)
+
+declare _yawgJre=""
 
 ###
 # The main program.
 ###
 function main () {
-
+    loadConfig
     findJre
 
     local mainJarBasename=yawg-cli-${YAWG_VERSION}.jar
-    local mainJar=$(yawgNormalizePath ${_yawgHome}/lib/jars/${mainJarBasename})
+    local mainJar=$(yawgNormalizePath "${_yawgHome}/lib/jars/${mainJarBasename}")
 
     exec "${_yawgJre}" \
+	 "${YAWG_JVM_ARGS_EXTRA[@]}" \
          "-Dcom.varmateo.yawg.cli.Main.argv0=${_scriptName}" \
          -jar "${mainJar}" \
          "$@"
 }
 
+function loadConfig () {
+    local confDir="${XDG_CONFIG_HOME:-${HOME}/.config}/yawg"
+    local confFile="${confDir}/yawg.conf"
+
+    if [ -r "${confFile}" ] ; then
+	source "${confFile}"
+    fi
+}
+
 ###
-# Attempts to locate a JRE from YAWG_JAVA_HOME, JAVA_HOME, and "java".
+# Attempts to locate a JRE from YAWG_JAVA_HOME, JAVA_HOME, and "java"
+# on the PATH. It will exit with an informative error message if a
+# suitable JRE cannot be located.
 ###
 function findJre () {
-
     local candidateJre=
 
     if [ -z "${candidateJre}" ] ; then
-        if [ ! -z "${YAWG_JAVA_HOME}" ] ; then
+        if [ ! -z "${YAWG_JAVA_HOME:-""}" ] ; then
             candidateJre=${YAWG_JAVA_HOME}/bin/java
             checkJre YAWG_JAVA_HOME "${candidateJre}"
         fi
     fi
 
     if [ -z "${candidateJre}" ] ; then
-        if [ ! -z "${JAVA_HOME}" ] ; then
+        if [ ! -z "${JAVA_HOME:-""}" ] ; then
             candidateJre=${JAVA_HOME}/bin/java
             checkJre JAVA_HOME "${candidateJre}"
         fi
@@ -61,7 +87,7 @@ function findJre () {
     fi
 
     if [ -z "${candidateJre}" ] ; then
-        yawgError "Unable to find suitable JRE."
+        yawgError "Unable to find suitable JRE on YAWG_JAVA_HOME, JAVA_HOME, PATH."
     fi
 
     _yawgJre=${candidateJre}
@@ -71,7 +97,6 @@ function findJre () {
 #
 ###
 function checkJre () {
-
     local sourceDescription=$1
     local candidateJre=$2
 
