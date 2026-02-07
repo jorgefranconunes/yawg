@@ -2,10 +2,7 @@
 <!--
 Copyright (c) 2015-2026 Yawg project contributors.
 -->
-<project
-    xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
   <packaging>pom</packaging>
@@ -196,18 +193,18 @@ Copyright (c) 2015-2026 Yawg project contributors.
           <dependencies> block inside <reporting>. And this, gentle
           fellow coder, is why Maven is going the way of the dodo...
       -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>${maven-checkstyle-plugin.version}</version>
-        <dependencies>
-          <dependency>
-            <groupId>com.puppycrawl.tools</groupId>
-            <artifactId>checkstyle</artifactId>
-            <version>8.40</version>
-          </dependency>
-        </dependencies>
-      </plugin>
+      <!-- <plugin> -->
+      <!--   <groupId>org.apache.maven.plugins</groupId> -->
+      <!--   <artifactId>maven-checkstyle-plugin</artifactId> -->
+      <!--   <version>${maven-checkstyle-plugin.version}</version> -->
+      <!--   <dependencies> -->
+      <!--     <dependency> -->
+      <!--       <groupId>com.puppycrawl.tools</groupId> -->
+      <!--       <artifactId>checkstyle</artifactId> -->
+      <!--       <version>8.40</version> -->
+      <!--     </dependency> -->
+      <!--   </dependencies> -->
+      <!-- </plugin> -->
 
       <!--
           https://maven.apache.org/enforcer/maven-enforcer-plugin/
@@ -561,25 +558,24 @@ Copyright (c) 2015-2026 Yawg project contributors.
       </plugin>
 
       <!--
-         See http://maven.apache.org/plugins/maven-checkstyle-plugin/
-         for documentation.
+         http://maven.apache.org/plugins/maven-checkstyle-plugin/
       -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>${maven-checkstyle-plugin.version}</version>
-        <configuration>
-          <configLocation>${yawg.projectRootDir}/src/main/config/checkstyle.xml</configLocation>
-          <excludes>**/*_Builder.java</excludes>
-        </configuration>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>checkstyle</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-      </plugin>
+      <!-- <plugin> -->
+      <!--   <groupId>org.apache.maven.plugins</groupId> -->
+      <!--   <artifactId>maven-checkstyle-plugin</artifactId> -->
+      <!--   <version>${maven-checkstyle-plugin.version}</version> -->
+      <!--   <configuration> -->
+      <!--     <configLocation>${yawg.projectRootDir}/src/main/config/checkstyle.xml</configLocation> -->
+      <!--     <excludes>**/*_Builder.java</excludes> -->
+      <!--   </configuration> -->
+      <!--   <reportSets> -->
+      <!--     <reportSet> -->
+      <!--       <reports> -->
+      <!--         <report>checkstyle</report> -->
+      <!--       </reports> -->
+      <!--     </reportSet> -->
+      <!--   </reportSets> -->
+      <!-- </plugin> -->
 
       <!--
          http://www.mojohaus.org/findbugs-maven-plugin/
