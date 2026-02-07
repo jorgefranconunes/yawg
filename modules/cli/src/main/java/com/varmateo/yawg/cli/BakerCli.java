@@ -107,10 +107,11 @@ public final class BakerCli {
             final InfoPrinter infoPrinter,
             final BakerCliAction action) {
 
-        return action.match(
-                () -> Try.run(infoPrinter::printHelp),
-                () -> Try.run(infoPrinter::printVersion),
-                bake -> doBake(bake.options()));
+        return switch(action) {
+            case BakerCliAction.PrintHelp _ -> Try.run(infoPrinter::printHelp);
+            case BakerCliAction.PrintVersion _ -> Try.run(infoPrinter::printVersion);
+            case BakerCliAction.Bake bake -> doBake(bake.options());
+        };
     }
 
 

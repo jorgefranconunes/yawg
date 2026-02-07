@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2019-2020 Yawg project contributors.
+ * Copyright (c) 2019-2026 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -9,29 +9,25 @@ package com.varmateo.yawg.api;
 import java.nio.file.Path;
 import java.util.Map;
 
-import org.inferred.freebuilder.FreeBuilder;
-
+import org.immutables.value.Value.Immutable;
 
 /**
  * Set of configuration parameters for baking a site using a {@code
  * SiteBaker} instance.
  */
-@FreeBuilder
+@Immutable
 public interface BakeOptions {
-
 
     /**
      * Path of directory containing the documents to be baked.
      */
     Path sourceDir();
 
-
     /**
      * Path of directory where the results of the baking will be
      * stored.
      */
     Path targetDir();
-
 
     /**
      * Set of page variables provided externally.
@@ -43,35 +39,24 @@ public interface BakeOptions {
      */
     Map<String, Object> externalPageVars();
 
-
     /**
      * Creates a new empty builder.
      */
     static Builder builder() {
-
         return new Builder();
     }
-
 
     /**
      * Creates a new builder initialized with the attributes from the
      * given {@code BakeOptions}.
      */
     static Builder builder(final BakeOptions data) {
-
-        return Builder.from(data);
+        return builder().from(data);
     }
-
 
     /**
      * A builder of {@code BakeOptions} instances.
      */
-    class Builder extends BakeOptions_Builder {
-
-        /* default */ Builder() {
-            // Nothing to do.
-        }
-
-    }
+    static final class Builder extends ImmutableBakeOptions.Builder {}
 
 }

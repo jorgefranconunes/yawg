@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2019-2020 Yawg project contributors.
+ * Copyright (c) 2019-2026 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -10,40 +10,19 @@ import java.nio.file.Path;
 
 import io.vavr.collection.Map;
 import io.vavr.control.Option;
-import org.inferred.freebuilder.FreeBuilder;
+import org.immutables.value.Value.Immutable;
 
-
-/**
- *
- */
-@FreeBuilder
+@Immutable
 /* default */ interface BakerCliBakeOptions {
-
-
     Path sourceDir();
     Path targetDir();
     Option<Path> templatesDir();
     Map<String, String> externalPageVars();
 
-
-    /**
-     *
-     */
     static Builder builder() {
-
         return new Builder();
     }
 
-
-    /**
-     *
-     */
-    final class Builder extends BakerCliBakeOptions_Builder {
-
-        private Builder() {
-            // Nothing to do.
-        }
-
-    }
+    static final class Builder extends ImmutableBakerCliBakeOptions.Builder {}
 
 }
