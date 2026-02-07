@@ -21,10 +21,10 @@ jobs:
           sudo apt-get update &&
           sudo apt-get install --yes --no-install-recommends graphviz xsltproc
 
-      - name: "Set up JDK 8"
+      - name: "Set up JDK 25"
         uses: actions/setup-java@v4
         with:
-          java-version: "8"
+          java-version: "25"
           distribution: "temurin"
           cache: maven
 
