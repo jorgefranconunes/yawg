@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2020 Yawg project contributors.
+ * Copyright (c) 2016-2026 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -14,7 +14,6 @@ import java.util.regex.Pattern;
 
 import freemarker.template.Configuration;
 import freemarker.template.TemplateExceptionHandler;
-import io.vavr.control.Option;
 import io.vavr.control.Try;
 
 import com.varmateo.yawg.api.Result;
@@ -24,7 +23,6 @@ import com.varmateo.yawg.spi.TemplateContext;
 import com.varmateo.yawg.spi.TemplateService;
 import com.varmateo.yawg.util.Results;
 
-
 /**
  * Creates templates based on the <a
  * href="http://freemarker.org/">Freemarker</a> template engine.
@@ -32,27 +30,19 @@ import com.varmateo.yawg.util.Results;
 public final class FreemarkerTemplateService
         implements TemplateService {
 
-
     private static final Pattern RE_FTLH = Pattern.compile(".*\\.ftlh$");
 
     private final Configuration _fmConfig;
-
 
     /**
      * @param templatesDir The directory containing the Freemarker
      * template files.
      */
     private FreemarkerTemplateService(final Configuration fmConfig) {
-
         _fmConfig = fmConfig;
     }
 
-
-    /**
-     *
-     */
     public static TemplateService create(final Path templatesDir) {
-
         final Configuration fmConfig;
 
         try {
@@ -64,13 +54,8 @@ public final class FreemarkerTemplateService
         return new FreemarkerTemplateService(fmConfig);
     }
 
-
-    /**
-     *
-     */
     private static Configuration buildFreemarkerConfig(final Path templatesDir)
             throws IOException {
-
         final Configuration fmConfig = new Configuration(Configuration.VERSION_2_3_24);
 
         fmConfig.setDirectoryForTemplateLoading(templatesDir.toFile());
@@ -81,27 +66,16 @@ public final class FreemarkerTemplateService
         return fmConfig;
     }
 
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Optional<Template> prepareTemplate(final String name) {
-
-        return Option.of(name)
+        return Optional.ofNullable(name)
                 .filter(x -> RE_FTLH.matcher(x).matches())
                 .map(this::prepareFreemarkerTemplate)
                 .map(FreemarkerTemplate::new)
-                .map(FreemarkerTemplate::asTemplate) // HACK
-                .toJavaOptional();
+                .map(FreemarkerTemplate::asTemplate); // HACK
     }
 
-
-    /**
-     *
-     */
     private freemarker.template.Template prepareFreemarkerTemplate(final String name) {
-
         freemarker.template.Template fmTemplate = null;
 
         try {
@@ -113,34 +87,20 @@ public final class FreemarkerTemplateService
         return fmTemplate;
     }
 
-
-    /**
-     *
-     */
     private static final class FreemarkerTemplate
             implements Template {
 
-
         private final freemarker.template.Template _fmTemplate;
 
-
-        /**
-         *
-         */
-        /* default */ FreemarkerTemplate(final freemarker.template.Template fmTemplate) {
-
+        FreemarkerTemplate(final freemarker.template.Template fmTemplate) {
             _fmTemplate = fmTemplate;
         }
 
-
-        /**
-         *
-         */
         @Override
         public Result<Void> process(
                 final TemplateContext context,
-                final Writer writer) {
-
+                final Writer writer
+        ) {
             final FreemarkerDataModel fmDataModel = new FreemarkerDataModel(context);
             final Try<Void> result = Try.run(() -> _fmTemplate.process(fmDataModel, writer))
                     .recoverWith(this::processingFailure);
@@ -148,25 +108,20 @@ public final class FreemarkerTemplateService
             return Results.fromTry(result);
         }
 
-
         /**
          * HACK.
          */
         public Template asTemplate() {
-
             return this;
         }
 
-
         private <T> Try<T> processingFailure(final Throwable rootCause) {
-
-            final YawgException cause = FreemarkerTemplateServiceException.processingFailure(
-                    _fmTemplate.getName(), rootCause);
-
+            final YawgException cause =
+                    FreemarkerTemplateServiceException.processingFailure(
+                            _fmTemplate.getName(),
+                            rootCause
+                    );
             return Try.failure(cause);
         }
-
-
     }
-
 }

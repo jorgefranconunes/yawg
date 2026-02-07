@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2015-2019 Yawg project contributors.
+ * Copyright (c) 2015-2026 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -9,11 +9,11 @@ package com.varmateo.yawg.cli;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 
 import io.vavr.collection.Array;
 import io.vavr.collection.Seq;
 import io.vavr.collection.Set;
-import io.vavr.control.Option;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -24,39 +24,28 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.UnrecognizedOptionException;
 
-
 /**
  * Represents the set of options supported in the command line.
  */
 /* default */ final class CliParameterSet {
-
 
     private static final String FLAG_TRUE  = "true";
 
     private final Set<CliParameter> _allOptions;
     private final CommandLine _cmdLine;
 
-
-    /**
-     * Only used internally.
-     */
     private CliParameterSet(
             final Set<CliParameter> allOptions,
-            final CommandLine cmdLine) {
-
+            final CommandLine cmdLine
+    ) {
         _allOptions = allOptions;
         _cmdLine = cmdLine;
     }
 
-
-    /**
-     *
-     */
     public static CliParameterSet parse(
             final Set<CliParameter> options,
-            final String[] args)
-            throws CliException {
-
+            final String[] args
+    ) throws CliException {
         Options apacheOptions = buildApacheOptions(options);
         CommandLineParser cliParser = new GnuParser();
         final CommandLine cmdLine;
@@ -79,12 +68,7 @@ import org.apache.commons.cli.UnrecognizedOptionException;
         return new CliParameterSet(options, cmdLine);
     }
 
-
-    /**
-     *
-     */
     private static Options buildApacheOptions(final Set<CliParameter> options) {
-
         return options
                 .map(CliParameter::apacheOption)
                 .foldLeft(
@@ -92,15 +76,10 @@ import org.apache.commons.cli.UnrecognizedOptionException;
                         (xs, x) -> xs.addOption(x));
     }
 
-
-    /**
-     *
-     */
     private static CliException raiseCliException(
             final Options options,
-            final ParseException e)
-            throws CliException {
-
+            final ParseException e
+    ) throws CliException {
         final CliException cause;
 
         if ( e instanceof MissingOptionException ) {
@@ -124,16 +103,10 @@ import org.apache.commons.cli.UnrecognizedOptionException;
         throw cause;
     }
 
-
-    /**
-     *
-     */
-    private static String getApacheOptionName(
-            final org.apache.commons.cli.Option apacheOption) {
-
+    private static String getApacheOptionName(final org.apache.commons.cli.Option apacheOption) {
         final String result;
 
-        String longName = apacheOption.getLongOpt();
+        final String longName = apacheOption.getLongOpt();
         if ( longName != null ) {
             result = "--" + longName;
         } else {
@@ -144,26 +117,14 @@ import org.apache.commons.cli.UnrecognizedOptionException;
         return result;
     }
 
-
-    /**
-     *
-     */
     public Set<CliParameter> supportedOptions() {
-
         return _allOptions;
     }
 
-
-    /**
-     *
-     */
     public boolean hasOption(final CliParameter option) {
-
         final String optionName = option.name();
-
         return _cmdLine.hasOption(optionName);
     }
-
 
     /**
      * Retrieves all the values for an option.
@@ -179,15 +140,13 @@ import org.apache.commons.cli.UnrecognizedOptionException;
      * the option was not given in the command line.
      */
     public Seq<String> getAll(final CliParameter option) {
-
         final String   optionName   = option.name();
         final String[] optionValues = _cmdLine.getOptionValues(optionName);
 
-        return Option.of(optionValues)
+        return Optional.ofNullable(optionValues)
                 .map(Array::of)
-                .getOrElse(Array::of);
+                .orElseGet(Array::of);
     }
-
 
     /**
      * Retrieves the value of a mandatory option.
@@ -205,7 +164,6 @@ import org.apache.commons.cli.UnrecognizedOptionException;
      */
     public String get(final CliParameter option)
             throws CliException {
-
         final String optionValue;
         final String optionName = option.name();
         final String[] optionValues = _cmdLine.getOptionValues(optionName);
@@ -220,7 +178,6 @@ import org.apache.commons.cli.UnrecognizedOptionException;
         return optionValue;
     }
 
-
     /**
      * Retrieves the value of a conditional option.
      *
@@ -232,8 +189,8 @@ import org.apache.commons.cli.UnrecognizedOptionException;
      */
     public String get(
             final CliParameter option,
-            final String defaultValue) {
-
+            final String defaultValue
+    ) {
         final String optionValue;
         final String optionName = option.name();
         final String[] optionValues = _cmdLine.getOptionValues(optionName);
@@ -248,7 +205,6 @@ import org.apache.commons.cli.UnrecognizedOptionException;
         return optionValue;
     }
 
-
     /**
      * Retrieves the value of a mandatory option as a path.
      */
@@ -260,15 +216,10 @@ import org.apache.commons.cli.UnrecognizedOptionException;
         return stringToPath(option, pathStr);
     }
 
-
-    /**
-     *
-     */
     public Path getPath(
             final CliParameter option,
-            final Path defaultValue)
-            throws CliException {
-
+            final Path defaultValue
+    ) throws CliException {
         String pathStr = get(option, null);
 
         return pathStr == null
@@ -276,22 +227,16 @@ import org.apache.commons.cli.UnrecognizedOptionException;
                 : stringToPath(option, pathStr);
     }
 
-
-    /**
-     *
-     */
     private Path stringToPath(
             final CliParameter option,
-            final String pathStr)
-            throws CliException {
-
+            final String pathStr
+    ) throws CliException {
         try {
             return Paths.get(pathStr);
         } catch ( InvalidPathException e ) {
             throw CliException.invalidPath(option.literal(), pathStr);
         }
     }
-
 
     /**
      * Checks the given option represents a "true" valued flag.
@@ -308,6 +253,4 @@ import org.apache.commons.cli.UnrecognizedOptionException;
 
         return result;
     }
-
-
 }

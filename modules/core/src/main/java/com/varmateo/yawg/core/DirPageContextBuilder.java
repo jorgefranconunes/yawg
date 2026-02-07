@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2020 Yawg project contributors.
+ * Copyright (c) 2016-2026 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -11,8 +11,6 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.function.Function;
 
-import io.vavr.control.Option;
-
 import com.varmateo.yawg.api.YawgException;
 import com.varmateo.yawg.spi.PageContext;
 import com.varmateo.yawg.spi.PageContextBuilder;
@@ -21,46 +19,37 @@ import com.varmateo.yawg.spi.PageVarsBuilder;
 import com.varmateo.yawg.spi.Template;
 import com.varmateo.yawg.spi.TemplateService;
 
-
 /**
  * Builds the <code>PageContext</code> to be used in the baking of
  * files in one given directory.
  */
-/* default */ final class DirPageContextBuilder {
-
+/* package private */ final class DirPageContextBuilder {
 
     private final Path _targetRootDir;
     private final TemplateService _templateService;
     private final String _bakeId;
 
-
-    /**
-     *
-     */
-    /* default */ DirPageContextBuilder(
+    public DirPageContextBuilder(
             final Path targetRootDir,
             final TemplateService templateService,
-            final String bakeId) {
-
+            final String bakeId
+    ) {
         _targetRootDir = targetRootDir;
         _templateService = templateService;
         _bakeId = bakeId;
     }
 
-
-    /**
-     *
-     */
     public PageContext buildPageContext(
             final Path targetDir,
             final DirBakeOptions dirBakeOptions,
-            final PageVars extensionVars) {
-
+            final PageVars extensionVars
+    ) {
         final Function<Path, Optional<Template>> templateFetcher =
                 buildTemplateFetcher(dirBakeOptions);
         final String dirUrl = buildRelativeUrl(targetDir, _targetRootDir);
         final String rootRelativeUrl = buildRelativeUrl(_targetRootDir, targetDir);
-        final PageVars allPageVars = PageVarsBuilder.create()
+        final PageVars allPageVars =
+                PageVarsBuilder.create()
                 .addPageVars(dirBakeOptions.pageVars)
                 .addPageVars(dirBakeOptions.pageVarsHere)
                 .addPageVars(extensionVars)
@@ -75,15 +64,14 @@ import com.varmateo.yawg.spi.TemplateService;
                 .build();
     }
 
-
     /**
      * @throws YawgException When the template service throws this
      * exception.
      */
     private Function<Path, Optional<Template>> buildTemplateFetcher(
-            final DirBakeOptions dirBakeOptions) {
-
-        final Option<String> templateName = dirBakeOptions.templateName;
+            final DirBakeOptions dirBakeOptions
+    ) {
+        final Optional<String> templateName = dirBakeOptions.templateName;
         final TemplateNameMatcher templateNameMatcher = dirBakeOptions.templatesHere;
         final TemplateService templateService = _templateService;
 
@@ -91,49 +79,34 @@ import com.varmateo.yawg.spi.TemplateService;
                 path,
                 templateNameMatcher,
                 templateName,
-                templateService)
-                .toJavaOptional();
+                templateService);
     }
 
-
-    /**
-     *
-     */
-    private static Option<Template> prepareTemplate(
+    private static Optional<Template> prepareTemplate(
             final Path path,
             final TemplateNameMatcher templateNameMatcher,
-            final Option<String> templateName,
-            final TemplateService templateService) {
-
+            final Optional<String> templateName,
+            final TemplateService templateService
+    ) {
         return prepareTemplateForPath(path, templateNameMatcher, templateService)
-                .orElse(() -> prepareDefaultTemplate(templateName, templateService));
+                .or(() -> prepareDefaultTemplate(templateName, templateService));
     }
 
-
-    /**
-     *
-     */
-    private static Option<Template> prepareTemplateForPath(
+    private static Optional<Template> prepareTemplateForPath(
             final Path path,
             final TemplateNameMatcher templateNameMatcher,
-            final TemplateService templateService) {
-
+            final TemplateService templateService
+    ) {
         return templateNameMatcher.templateNameFor(path)
-                .flatMap(name -> Option.ofOptional(templateService.prepareTemplate(name)));
+                .flatMap(name -> templateService.prepareTemplate(name));
     }
 
-
-    /**
-     *
-     */
-    private static Option<Template> prepareDefaultTemplate(
-            final Option<String> templateName,
-            final TemplateService templateService) {
-
-        return templateName.flatMap(
-                name -> Option.ofOptional(templateService.prepareTemplate(name)));
+    private static Optional<Template> prepareDefaultTemplate(
+            final Optional<String> templateName,
+            final TemplateService templateService
+    ) {
+        return templateName.flatMap(name -> templateService.prepareTemplate(name));
     }
-
 
     /**
      * Generates the URL for the given <code>dir</code> relative to
@@ -141,8 +114,8 @@ import com.varmateo.yawg.spi.TemplateService;
      */
     private String buildRelativeUrl(
             final Path dir,
-            final Path baseDir) {
-
+            final Path baseDir
+    ) {
         final Path relDir = baseDir.relativize(dir);
         final String relativeUrl = relDir.toString().replace(File.separatorChar, '/');
 
@@ -150,6 +123,4 @@ import com.varmateo.yawg.spi.TemplateService;
                 ? "."
                 : relativeUrl;
     }
-
-
 }

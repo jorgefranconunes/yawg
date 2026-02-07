@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2017-2020 Yawg project contributors.
+ * Copyright (c) 2017-2026 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -8,38 +8,29 @@ package com.varmateo.yawg.asciidoctor;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.util.Optional;
 
-import io.vavr.control.Option;
 import org.asciidoctor.AttributesBuilder;
 import org.asciidoctor.OptionsBuilder;
 import org.asciidoctor.SafeMode;
 
 import com.varmateo.yawg.spi.PageVars;
 
-
 /**
  * Utility functions simplifying Asciidoctor usage.
  */
 final class AdocUtils {
 
-
-    /**
-     * No instances of this class are to be created.
-     */
     private AdocUtils() {
         // Nothing to do.
     }
 
-
-    /**
-     *
-     */
     public static OptionsBuilder buildOptionsForBakeWithoutTemplate(
             final Path sourcePath,
             final Path targetDir,
             final Path targetPath,
-            final PageVars pageVars) {
-
+            final PageVars pageVars
+    ) {
         final File targetFile = targetPath.toFile();
         final AttributesBuilder attributes =
                 buildCommonAttributes(sourcePath, targetDir, pageVars)
@@ -49,34 +40,22 @@ final class AdocUtils {
                 .toFile(targetFile);
     }
 
-
-    /**
-     *
-     */
     public static OptionsBuilder buildOptionsForBakeWithTemplate(
             final Path sourcePath,
             final Path targetDir,
-            final PageVars pageVars) {
-
-        final AttributesBuilder attributes =
-                buildCommonAttributes(sourcePath, targetDir, pageVars);
+            final PageVars pageVars
+    ) {
+        final AttributesBuilder attributes = buildCommonAttributes(sourcePath, targetDir, pageVars);
 
         return buildCommonOptions(attributes)
                 .headerFooter(false);
     }
 
-
-    /**
-     *
-     */
-    private static OptionsBuilder buildCommonOptions(
-            final AttributesBuilder attributes) {
-
+    private static OptionsBuilder buildCommonOptions(final AttributesBuilder attributes) {
         return OptionsBuilder.options()
                 .attributes(attributes)
                 .safe(SafeMode.UNSAFE);
     }
-
 
     /**
      * Prepares a set of attributes that affect how Asciidoctor works.
@@ -84,11 +63,11 @@ final class AdocUtils {
     private static AttributesBuilder buildCommonAttributes(
             final Path sourcePath,
             final Path targetDir,
-            final PageVars pageVars) {
-
-        final String docDir = Option.of(sourcePath.getParent())
+            final PageVars pageVars
+    ) {
+        final String docDir = Optional.of(sourcePath.getParent())
                 .map(Object::toString)
-                .getOrElse(".");
+                .orElse(".");
         final AttributesBuilder attributes = AttributesBuilder.attributes();
 
         // First add all the existing page vars as attributes visible
@@ -121,6 +100,4 @@ final class AdocUtils {
 
         return attributes;
     }
-
-
 }

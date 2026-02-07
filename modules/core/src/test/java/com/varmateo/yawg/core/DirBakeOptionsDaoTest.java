@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2019 Yawg project contributors.
+ * Copyright (c) 2016-2026 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -24,32 +24,19 @@ import static com.varmateo.yawg.core.DirBakeOptionsTestUtils.assertConfEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-
-/**
- *
- */
-public final class DirBakeOptionsDaoTest
- {
-
+public final class DirBakeOptionsDaoTest {
 
     private final DirBakeOptions _emptyConf = DirBakeOptions.empty();
     private DirBakeOptionsDao _dao = null;
 
-
     @Before
     public void setUp() {
-
         _dao = new DirBakeOptionsDao();
     }
 
-
-    /**
-     *
-     */
     @Test
     public void emptyConf()
             throws IOException {
-
         final String confContents = "";
         final DirBakeOptions actualConf = readFromString(confContents);
         final DirBakeOptions expectedConf = _emptyConf;
@@ -57,14 +44,9 @@ public final class DirBakeOptionsDaoTest
         assertConfEquals(expectedConf, actualConf);
     }
 
-
-    /**
-     *
-     */
     @Test
     public void withTemplateParamOk()
             throws IOException {
-
         final String templateName = "demo";
         final String confContents = "template: " + templateName;
         final DirBakeOptions actualConf = readFromString(confContents);
@@ -75,24 +57,14 @@ public final class DirBakeOptionsDaoTest
         assertConfEquals(expectedConf, actualConf);
     }
 
-
-    /**
-     *
-     */
     @Test
     public void withTemplateParamMissing() {
-
-        assertThat(_emptyConf.templateName.toJavaOptional()).isNotPresent();
+        assertThat(_emptyConf.templateName).isNotPresent();
     }
 
-
-    /**
-     *
-     */
     @Test
     public void withTemplateParamFail()
             throws IOException {
-
         final String confContents = ""
                 + "template: \n"
                 + "  - something: wrong";
@@ -101,14 +73,9 @@ public final class DirBakeOptionsDaoTest
                 .isInstanceOf(YawgException.class);
     }
 
-
-    /**
-     *
-     */
     @Test
     public void withExcludeParamOk()
             throws IOException {
-
         final String confContents = ""
                 + "exclude:\n"
                 + "  - one\n"
@@ -121,25 +88,15 @@ public final class DirBakeOptionsDaoTest
         assertConfEquals(expectedConf, actualConf);
     }
 
-
-    /**
-     *
-     */
     @Test
     public void withExcludeParamMissing()
             throws IOException {
-
-        assertThat(_emptyConf.filesToExclude.toJavaOptional()).isNotPresent();
+        assertThat(_emptyConf.filesToExclude).isNotPresent();
     }
 
-
-    /**
-     *
-     */
     @Test
     public void withExcludeParamFail()
             throws IOException {
-
         final String confContents = ""
                 + "exclude: \n"
                 + "  - something: wrong";
@@ -148,30 +105,21 @@ public final class DirBakeOptionsDaoTest
                 .isInstanceOf(YawgException.class);
     }
 
-
-    /**
-     *
-     */
     @Test
     public void withExcludeParamInvalidRegex()
             throws IOException {
 
         final String confContents = ""
                 + "exclude: \n"
-                + "  - \"[\""; 
+                + "  - \"[\"";
 
         assertThatThrownBy(() -> readFromString(confContents))
                 .isInstanceOf(YawgException.class);
     }
 
-
-    /**
-     *
-     */
     @Test
     public void withExcludeHereParamOk()
             throws IOException {
-
         final String confContents = ""
                 + "excludeHere:\n"
                 + "  - one\n"
@@ -184,14 +132,9 @@ public final class DirBakeOptionsDaoTest
         assertConfEquals(expectedConf, actualConf);
     }
 
-
-    /**
-     *
-     */
     @Test
     public void withIncludeHereParamOk()
             throws IOException {
-
         final String confContents = ""
                 + "includeHere:\n"
                 + "  - one\n"
@@ -204,25 +147,15 @@ public final class DirBakeOptionsDaoTest
         assertConfEquals(expectedConf, actualConf);
     }
 
-
-    /**
-     *
-     */
     @Test
     public void withIncludeHereParamMissing() {
-
-        assertThat(_emptyConf.filesToIncludeHere.toJavaOptional())
+        assertThat(_emptyConf.filesToIncludeHere)
                 .isNotPresent();
     }
 
-
-    /**
-     *
-     */
     @Test
     public void withBakerTypesParamOk()
             throws IOException {
-
         final String confContents = ""
                 + "bakerTypes:\n"
                 + "  something :\n"
@@ -240,14 +173,9 @@ public final class DirBakeOptionsDaoTest
         assertConfEquals(expectedConf, actualConf);
     }
 
-
-    /**
-     *
-     */
     @Test
     public void withPageVars()
             throws IOException {
-
         final String confContents = ""
                 + "pageVars:\n"
                 + "  hello : 'world'\n";
@@ -260,14 +188,9 @@ public final class DirBakeOptionsDaoTest
         assertThat(value).hasValue("world");
     }
 
-
-    /**
-     *
-     */
     @Test
     public void withPageVarsHere()
             throws IOException {
-
         final String confContents = ""
                 + "pageVarsHere:\n"
                 + "  hello : 'world'\n";
@@ -280,13 +203,8 @@ public final class DirBakeOptionsDaoTest
         assertThat(value).hasValue("world");
     }
 
-
-    /**
-     *
-     */
     @Test
     public void loadFromFileOk() {
-
         final Path confFile = TestUtils.getInputsDir(DirBakeOptionsDao.class)
                 .resolve("dirWithYawgYml/.yawg.yml");
         final DirBakeOptions actualConf = _dao.loadFromFile(confFile);
@@ -297,26 +215,16 @@ public final class DirBakeOptionsDaoTest
         assertConfEquals(expectedConf, actualConf);
     }
 
-
-    /**
-     *
-     */
     @Test
     public void loadFromFileNoFile() {
-
         final Path noSuchPath = Paths.get("this/file/does/not/exist");
 
         assertThatThrownBy(() -> _dao.loadFromFile(noSuchPath))
                 .isInstanceOf(YawgException.class);
     }
 
-
-    /**
-     *
-     */
     @Test
     public void loadOk() {
-
         final Path sourceDir = TestUtils.getInputsDir(DirBakeOptionsDao.class)
                 .resolve("dirWithYawgYml");
         final DirBakeOptions actualConf = _dao.loadFromDir(sourceDir);
@@ -327,13 +235,8 @@ public final class DirBakeOptionsDaoTest
         assertConfEquals(expectedConf, actualConf);
     }
 
-
-    /**
-     *
-     */
     @Test
     public void loadNoYawgYml() {
-
         final Path sourceDir = TestUtils
                 .getInputsDir(DirBakeOptionsDao.class)
                 .resolve("dirWithNoYawgYml");
@@ -343,15 +246,8 @@ public final class DirBakeOptionsDaoTest
         assertConfEquals(expectedConf, actualConf);
     }
 
-
-    /**
-     *
-     */
     private DirBakeOptions readFromString(final String confContents)
             throws IOException {
-
         return _dao.read(new StringReader(confContents));
     }
-
-
 }

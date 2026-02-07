@@ -1,54 +1,37 @@
 /**************************************************************************
  *
- * Copyright (c) 2019-2020 Yawg project contributors.
+ * Copyright (c) 2019-2026 Yawg project contributors.
  *
  **************************************************************************/
 
 package com.varmateo.yawg.cli;
 
 import java.nio.file.Path;
+import java.util.Optional;
 
 import io.vavr.Tuple;
 import io.vavr.Tuple2;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
-import io.vavr.control.Option;
 import io.vavr.control.Try;
 
-
-/**
- *
- */
 /* default */ final class BakerCliBakeOptionsParser {
-
 
     private BakerCliBakeOptionsParser() {
         // Nothing to do.
     }
 
-
-    /**
-     *
-     */
     public static Try<BakerCliBakeOptions> parse(final String[] args) {
-
         return BakerCliParameters.parse(args)
                 .flatMap(BakerCliBakeOptionsParser::parse);
     }
 
-
-    /**
-     *
-     */
     public static Try<BakerCliBakeOptions> parse(final CliParameterSet cliParams) {
-
         return Try.of(() -> doParseParameters(cliParams));
     }
 
-
     private static BakerCliBakeOptions doParseParameters(final CliParameterSet cliParams)
             throws CliException {
-
         final Path sourceDir = cliParams.getPath(BakerCliParameters.SOURCE_DIR);
         final Path targetDir = cliParams.getPath(BakerCliParameters.TARGET_DIR);
         final Path templatesDir = cliParams.getPath(BakerCliParameters.TEMPLATES_DIR, null);
@@ -57,14 +40,12 @@ import io.vavr.control.Try;
         return BakerCliBakeOptions.builder()
                 .sourceDir(sourceDir)
                 .targetDir(targetDir)
-                .templatesDir(Option.of(templatesDir))
+                .templatesDir(Optional.ofNullable(templatesDir))
                 .externalPageVars(externalPageVars)
                 .build();
     }
 
-
     private static Map<String, String> buildExternalPageVars(final CliParameterSet cliParams) {
-
         return cliParams
                 .getAll(BakerCliParameters.PAGE_VAR)
                 .map(BakerCliBakeOptionsParser::getVarNameAndValueFromOptionValue)
@@ -73,10 +54,9 @@ import io.vavr.control.Try;
                         (map, t) -> map.put(t._1, t._2));
     }
 
-
     private static Tuple2<String,String> getVarNameAndValueFromOptionValue(
-            final String optionValue) {
-
+            final String optionValue
+    ) {
         final String varName;
         final String varValue;
         final int indexOfEqSign = optionValue.indexOf('=');
@@ -91,5 +71,4 @@ import io.vavr.control.Try;
 
         return Tuple.of(varName, varValue);
     }
-
 }

@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2015-2020 Yawg project contributors.
+ * Copyright (c) 2015-2026 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -24,42 +24,31 @@ import com.varmateo.yawg.logging.Log;
 import com.varmateo.yawg.logging.LogFactory;
 import com.varmateo.yawg.util.Results;
 
-
 /**
  * Command line interface for the baker utility.
  */
 public final class BakerCli {
 
-
     private static final int EXIT_STATUS_OK = 0;
     private static final int EXIT_STATUS_FAILURE = 1;
 
-
     private final Log _log = LogFactory.createFor(BakerCli.class);
-
 
     private BakerCli() {
         // Nothing to do.
     }
 
-
-    /**
-     *
-     */
     public static BakerCli create() {
-
         return new BakerCli();
     }
 
-
     /**
-     * The utility entry point.
+     * Entry point.
      *
      * @return The utility exit status. Zero means all went
      * well. Non-zero means something failed.
      */
     public int run(final BakerCliRunOptions options) {
-
         final InfoPrinter infoPrinter = buildInfoPrinter(options.argv0, options.output);
         final Try<Void> bakeResult = tryRun(infoPrinter, options.args)
                 .onFailure(cause -> infoPrinter.printError(cause));
@@ -72,14 +61,13 @@ public final class BakerCli {
         return exitStatus;
     }
 
-
     /**
      *
      */
     private static InfoPrinter buildInfoPrinter(
             final String argv0,
-            final OutputStream output) {
-
+            final OutputStream output
+    ) {
         final boolean autoFlush = true;
         final Writer stdoutWriter = new OutputStreamWriter(output, StandardCharsets.UTF_8);
         final PrintWriter stdout = new PrintWriter(stdoutWriter, autoFlush);
@@ -90,23 +78,17 @@ public final class BakerCli {
                 .build();
     }
 
-
-    /**
-     *
-     */
     private Try<Void> tryRun(
             final InfoPrinter infoPrinter,
-            final String[] args) {
-
+            final String[] args
+    ) {
         return BakerCliAction.parse(args)
                 .flatMap(action -> performAction(infoPrinter, action));
     }
 
-
     private Try<Void> performAction(
             final InfoPrinter infoPrinter,
             final BakerCliAction action) {
-
         return switch(action) {
             case BakerCliAction.PrintHelp _ -> Try.run(infoPrinter::printHelp);
             case BakerCliAction.PrintVersion _ -> Try.run(infoPrinter::printVersion);
@@ -114,14 +96,12 @@ public final class BakerCli {
         };
     }
 
-
     private Try<Void> doBake(final BakerCliBakeOptions options) {
-
         logOptions(options);
 
         final SiteBaker siteBaker = options.templatesDir()
                 .map(path -> DefaultSiteBaker.create(path))
-                .getOrElse(() -> DefaultSiteBaker.create());
+                .orElseGet(DefaultSiteBaker::create);
 
         final BakeOptions bakeOptions = BakeOptions.builder()
                 .sourceDir(options.sourceDir())
@@ -135,12 +115,10 @@ public final class BakerCli {
                 .recoverWith(cause -> Try.failure(CliException.bakeFailure(cause)));
     }
 
-
     private void logOptions(final BakerCliBakeOptions options) {
-
         final Path sourceDir = options.sourceDir();
         final Path targetDir = options.targetDir();
-        final String templatesDir = options.templatesDir().map(Path::toString).getOrElse("NONE");
+        final String templatesDir = options.templatesDir().map(Path::toString).orElse("NONE");
 
         _log.info("{0} {1}", YawgInfo.PRODUCT_NAME, YawgInfo.VERSION);
         _log.info("    Source    : {0}", sourceDir);

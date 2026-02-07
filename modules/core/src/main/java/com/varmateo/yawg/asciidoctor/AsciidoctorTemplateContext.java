@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2020 Yawg project contributors.
+ * Copyright (c) 2016-2026 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -8,9 +8,9 @@ package com.varmateo.yawg.asciidoctor;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Optional;
 
 import io.vavr.collection.List;
-import io.vavr.control.Option;
 import io.vavr.control.Try;
 import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.OptionsBuilder;
@@ -22,41 +22,30 @@ import com.varmateo.yawg.spi.TemplateContext;
 import com.varmateo.yawg.spi.TemplateContextBuilder;
 import com.varmateo.yawg.util.FileUtils;
 
-
-/**
- *
- */
 /* package private */ final class AsciidoctorTemplateContext {
-
 
     private AsciidoctorTemplateContext() {
         // Nothing to do.
     }
 
-
-    /**
-     *
-     */
     public static Try<TemplateContext> create(
             final Asciidoctor asciidoctor,
             final Path sourcePath,
             final Path targetDir,
             final Path targetPath,
-            final PageContext context) {
-
+            final PageContext context
+    ) {
         return Try.of(() -> doCreate(asciidoctor, sourcePath, targetDir, targetPath, context))
                 .recoverWith(AsciidoctorPageBakerException.asciidocFailureTry(sourcePath));
     }
-
 
     private static TemplateContext doCreate(
             final Asciidoctor asciidoctor,
             final Path sourcePath,
             final Path targetDir,
             final Path targetPath,
-            final PageContext context)
-            throws IOException {
-
+            final PageContext context
+    ) throws IOException {
         final String sourceContent = FileUtils.readAsString(sourcePath);
         final OptionsBuilder options = AdocUtils.buildOptionsForBakeWithTemplate(
                 sourcePath,
@@ -65,10 +54,10 @@ import com.varmateo.yawg.util.FileUtils;
         final String body = asciidoctor.render(sourceContent, options);
         final String pageUrl = context.dirUrl() + "/" + targetPath.getFileName();
         final DocumentHeader header = asciidoctor.readDocumentHeader(sourceContent);
-        final String title = Option.of(header)
-                .flatMap(h -> Option.of(h.getDocumentTitle()))
-                .flatMap(t -> Option.of(t.getMain()))
-                .getOrElse(() -> FileUtils.basename(sourcePath));
+        final String title = Optional.of(header)
+                .flatMap(h -> Optional.ofNullable(h.getDocumentTitle()))
+                .flatMap(t -> Optional.ofNullable(t.getMain()))
+                .orElseGet(() -> FileUtils.basename(sourcePath));
 
         final TemplateContextBuilder templateContextBuilder =
                 TemplateContextBuilder.create()
@@ -83,11 +72,10 @@ import com.varmateo.yawg.util.FileUtils;
         return templateContextBuilder.build();
     }
 
-
     private static void buildAuthors(
             final TemplateContextBuilder templateContextBuilder,
-            final DocumentHeader header) {
-
+            final DocumentHeader header
+    ) {
         final java.util.List<Author> authors = header.getAuthors();
 
         // This convoluted logic is needed because
@@ -107,6 +95,4 @@ import com.varmateo.yawg.util.FileUtils;
             }
         }
     }
-
-
 }

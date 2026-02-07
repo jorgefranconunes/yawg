@@ -1,6 +1,6 @@
 /**************************************************************************
  *
- * Copyright (c) 2016-2020 Yawg project contributors.
+ * Copyright (c) 2016-2026 Yawg project contributors.
  *
  **************************************************************************/
 
@@ -16,23 +16,16 @@ import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
-import io.vavr.control.Option;
 import io.vavr.control.Try;
-
 
 /**
  * Utility functions for managing files and directories.
  */
 public final class FileUtils {
 
-
-    /**
-     * No instances of this class are to be created.
-     */
     private FileUtils() {
         // Nothing to do.
     }
-
 
     /**
      * Determines the basename of the given file.
@@ -45,11 +38,10 @@ public final class FileUtils {
      * @return The basename of the given file.
      */
     public static String basename(final Path path) {
-
         final String basenameWithExtension =
-                Option.of(path.getFileName())
+                Optional.ofNullable(path.getFileName())
                 .map(Object::toString)
-                .getOrElse("");
+                .orElse("");
         final int extensionIndex = basenameWithExtension.lastIndexOf('.');
 
         return (extensionIndex > -1)
@@ -57,20 +49,15 @@ public final class FileUtils {
                 : basenameWithExtension;
     }
 
-
-    /**
-     *
-     */
     public static boolean isNameMatch(
             final Path path,
-            final Pattern pattern) {
-
+            final Pattern pattern
+    ) {
         return  Optional.ofNullable(path.getFileName())
                 .map(Path::toString)
                 .map(basename -> pattern.matcher(basename).matches())
                 .orElse(false);
     }
-
 
     /**
      * Copies one file to a given location.
@@ -87,27 +74,22 @@ public final class FileUtils {
      */
     public static void copy(
             final Path source,
-            final Path target)
-            throws IOException {
-
+            final Path target
+    ) throws IOException {
         Files.copy(
                 source,
                 target,
                 StandardCopyOption.REPLACE_EXISTING,
-                StandardCopyOption.COPY_ATTRIBUTES);
+                StandardCopyOption.COPY_ATTRIBUTES
+        );
     }
 
-
-    /**
-     *
-     */
     public static Try<Void> safeCopy(
             final Path source,
-            final Path target) {
-
+            final Path target
+    ) {
         return Try.run(() -> copy(source, target));
     }
-
 
     /**
      * Reads the contents of a file into a string.
@@ -123,12 +105,9 @@ public final class FileUtils {
      */
     public static String readAsString(final Path sourcePath)
             throws IOException {
-
         final byte[] contentBytes = Files.readAllBytes(sourcePath);
-
         return new String(contentBytes, StandardCharsets.UTF_8);
     }
-
 
     /**
      * Creates a new <code>Writer</code> and passes it to the given
@@ -149,22 +128,17 @@ public final class FileUtils {
      */
     public static void writeTo(
             final Path target,
-            final ConsumerWithIoException<Writer> consumer)
-            throws IOException {
-
+            final ConsumerWithIoException<Writer> consumer
+    ) throws IOException {
         try ( Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {
             consumer.accept(writer);
         }
     }
 
-
-    /**
-     *
-     */
     public static <T> Try<Void> safeWriteTo(
             final Path target,
-            final ConsumerWithIoException<Writer> action) {
-
+            final ConsumerWithIoException<Writer> action
+    ) {
         try ( Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {
             return Try.run(() -> action.accept(writer));
         } catch ( final IOException cause ) {
@@ -172,14 +146,10 @@ public final class FileUtils {
         }
     }
 
-
-    /**
-     *
-     */
     public static <T> Try<T> safeWriteWith(
             final Path target,
-            final FunctionWithIoException<Writer, T> action) {
-
+            final FunctionWithIoException<Writer, T> action
+    ) {
         try ( Writer writer = Files.newBufferedWriter(target, StandardCharsets.UTF_8) ) {
             return Try.of(() -> action.apply(writer));
         } catch ( final IOException cause ) {
@@ -187,37 +157,25 @@ public final class FileUtils {
         }
     }
 
-
-    /**
-     *
-     */
     public static <T> T readFrom(
             final Path source,
-            final FunctionWithIoException<Reader, T> transformer)
-            throws IOException {
-
+            final FunctionWithIoException<Reader, T> transformer
+    ) throws IOException {
         try ( Reader reader = Files.newBufferedReader(source, StandardCharsets.UTF_8) ) {
             return transformer.apply(reader);
         }
     }
 
-
-    /**
-     *
-     */
     public static <T> Try<T> safeReadFrom(
             final Path source,
-            final FunctionWithIoException<Reader, T> transformer) {
-
-        final Try<T> result;
-
+            final FunctionWithIoException<Reader, T> transformer
+    ) {
         try ( Reader reader = Files.newBufferedReader(source, StandardCharsets.UTF_8) ) {
             return Try.of(() -> transformer.apply(reader));
         } catch ( final IOException cause ) {
             return Try.failure(cause);
         }
     }
-
 
     /**
      * Similar to a <code>java.util.function.Consumer</code> but
@@ -237,37 +195,18 @@ public final class FileUtils {
          *
          * @throws IOException For whatever reason.
          */
-        void accept(T input)
-                throws IOException;
+        void accept(T input) throws IOException;
     }
 
-
-    /**
-     *
-     */
     @FunctionalInterface
     public interface SupplierWithIoException<T> {
 
-        /**
-         *
-         */
-        T get()
-                throws IOException;
+        T get() throws IOException;
     }
 
-
-    /**
-     *
-     */
     @FunctionalInterface
     public interface FunctionWithIoException<T, R> {
 
-        /**
-         *
-         */
-        R apply(T input)
-                throws IOException;
+        R apply(T input) throws IOException;
     }
-
-
 }

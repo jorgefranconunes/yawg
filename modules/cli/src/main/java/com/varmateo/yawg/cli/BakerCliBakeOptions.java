@@ -7,16 +7,16 @@
 package com.varmateo.yawg.cli;
 
 import java.nio.file.Path;
+import java.util.Optional;
 
 import io.vavr.collection.Map;
-import io.vavr.control.Option;
 import org.immutables.value.Value.Immutable;
 
 @Immutable
-/* default */ interface BakerCliBakeOptions {
+interface BakerCliBakeOptions {
     Path sourceDir();
     Path targetDir();
-    Option<Path> templatesDir();
+    Optional<Path> templatesDir();
     Map<String, String> externalPageVars();
 
     static Builder builder() {
