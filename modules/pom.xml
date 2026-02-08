@@ -193,18 +193,19 @@ Copyright (c) 2015-2026 Yawg project contributors.
           <dependencies> block inside <reporting>. And this, gentle
           fellow coder, is why Maven is going the way of the dodo...
       -->
-      <!-- <plugin> -->
-      <!--   <groupId>org.apache.maven.plugins</groupId> -->
-      <!--   <artifactId>maven-checkstyle-plugin</artifactId> -->
-      <!--   <version>${maven-checkstyle-plugin.version}</version> -->
-      <!--   <dependencies> -->
-      <!--     <dependency> -->
-      <!--       <groupId>com.puppycrawl.tools</groupId> -->
-      <!--       <artifactId>checkstyle</artifactId> -->
-      <!--       <version>8.40</version> -->
-      <!--     </dependency> -->
-      <!--   </dependencies> -->
-      <!-- </plugin> -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>${maven-checkstyle-plugin.version}</version>
+        <dependencies>
+          <dependency>
+            <groupId>com.puppycrawl.tools</groupId>
+            <artifactId>checkstyle</artifactId>
+            <!-- <version>8.40</version> -->
+            <version>13.2.0</version>
+          </dependency>
+        </dependencies>
+      </plugin>
 
       <!--
           https://maven.apache.org/enforcer/maven-enforcer-plugin/
@@ -560,22 +561,22 @@ Copyright (c) 2015-2026 Yawg project contributors.
       <!--
          http://maven.apache.org/plugins/maven-checkstyle-plugin/
       -->
-      <!-- <plugin> -->
-      <!--   <groupId>org.apache.maven.plugins</groupId> -->
-      <!--   <artifactId>maven-checkstyle-plugin</artifactId> -->
-      <!--   <version>${maven-checkstyle-plugin.version}</version> -->
-      <!--   <configuration> -->
-      <!--     <configLocation>${yawg.projectRootDir}/src/main/config/checkstyle.xml</configLocation> -->
-      <!--     <excludes>**/*_Builder.java</excludes> -->
-      <!--   </configuration> -->
-      <!--   <reportSets> -->
-      <!--     <reportSet> -->
-      <!--       <reports> -->
-      <!--         <report>checkstyle</report> -->
-      <!--       </reports> -->
-      <!--     </reportSet> -->
-      <!--   </reportSets> -->
-      <!-- </plugin> -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>${maven-checkstyle-plugin.version}</version>
+        <configuration>
+          <configLocation>${yawg.projectRootDir}/src/main/config/checkstyle-13.2.0-yawg.xml</configLocation>
+          <excludes>**/Immutable*.java</excludes>
+        </configuration>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>checkstyle</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
 
       <!--
          http://www.mojohaus.org/findbugs-maven-plugin/
