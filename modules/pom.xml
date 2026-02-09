@@ -16,6 +16,8 @@ Copyright (c) 2015-2026 Yawg project contributors.
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+    <yawg.projectRootDir>${basedir}</yawg.projectRootDir>
+
     <yawg.javadoc.bottom>Yawg ${project.version}&lt;br/&gt;Copyright © 2015–2026 Yawg project contributors. All rights reserved.</yawg.javadoc.bottom>
     <yawg.javadoc.windowtitle>${project.name} ${project.version}</yawg.javadoc.windowtitle>
 
@@ -35,6 +37,7 @@ Copyright (c) 2015-2026 Yawg project contributors.
     <jsoup.version>1.13.1</jsoup.version>
     <junit.version>4.13.2</junit.version>
     <mockito-core.version>3.7.7</mockito-core.version>
+    <pmd.version>7.21.0</pmd.version>
     <vavr.version>0.10.3</vavr.version>
     <yamlbeans.version>1.15</yamlbeans.version>
 
@@ -54,7 +57,7 @@ Copyright (c) 2015-2026 Yawg project contributors.
     <maven-jar-plugin.version>3.5.0</maven-jar-plugin.version>
     <maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
     <maven-jxr-plugin.version>3.6.0</maven-jxr-plugin.version>
-    <maven-pmd-plugin.version>3.14.0</maven-pmd-plugin.version>
+    <maven-pmd-plugin.version>3.28.0</maven-pmd-plugin.version>
     <maven-project-info-reports-plugin.version>3.9.0</maven-project-info-reports-plugin.version>
     <maven-resources-plugin.version>3.4.0</maven-resources-plugin.version>
     <maven-site-plugin.version>3.21.0</maven-site-plugin.version>
@@ -136,7 +139,6 @@ Copyright (c) 2015-2026 Yawg project contributors.
           </configuration>
         </plugin>
 
-        <!-- Javadoc configuration. -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
@@ -152,6 +154,24 @@ Copyright (c) 2015-2026 Yawg project contributors.
             <windowtitle>${yawg.javadoc.windowtitle}</windowtitle>
           </configuration>
         </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-pmd-plugin</artifactId>
+          <version>${maven-pmd-plugin.version}</version>
+          <dependencies>
+	    <dependency>
+              <groupId>net.sourceforge.pmd</groupId>
+              <artifactId>pmd-core</artifactId>
+              <version>${pmd.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>net.sourceforge.pmd</groupId>
+              <artifactId>pmd-java</artifactId>
+              <version>${pmd.version}</version>
+            </dependency>
+	  </dependencies>
+	</plugin>
 
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -593,18 +613,20 @@ Copyright (c) 2015-2026 Yawg project contributors.
       <!-- </plugin> -->
 
       <!--
-         See http://maven.apache.org/plugins/maven-pmd-plugin/ for
-         documentation.
+          http://maven.apache.org/plugins/maven-pmd-plugin/
+	  https://docs.pmd-code.org/pmd-doc-7.21.0/index.html
       -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
         <version>${maven-pmd-plugin.version}</version>
         <configuration>
-          <targetJdk>1.8</targetJdk>
+          <targetJdk>25</targetJdk>
           <verbose>true</verbose>
           <rulesets>
-            <ruleset>${yawg.projectRootDir}/src/main/config/ruleset.xml</ruleset>
+            <ruleset>${yawg.projectRootDir}/src/main/config/pmd-7.21.0-yawg.xml</ruleset>
+            <!-- <ruleset>/home/jorge.nunes/develop/yawg/modules/src/main/config/pmd-7.21.0-yawg.xml</ruleset> -->
+
           </rulesets>
           <excludeRoots>
             <excludeRoot>target/generated-sources</excludeRoot>

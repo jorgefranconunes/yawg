@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+
+<!--
+PMD rulesets for the Yawg project.
+
+See https://docs.pmd-code.org/pmd-doc-7.21.0/pmd_rules_java.html for a
+description of available rulesets and rules.
+-->
+
+<ruleset name="Yawg PMD ruleset"
+    xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+
+  <description>PMD rule set for Java code in the Yawg
+  project.</description>
+
+  <exclude-pattern>.*/Immutable.*</exclude-pattern>
+
+  <rule ref="category/java/bestpractices.xml" />
+
+  <rule ref="category/java/codestyle.xml" />
+
+  <rule ref="category/java/codestyle.xml/FieldNamingConventions">
+    <properties>
+      <property name="finalFieldPattern" value="_[a-z][a-zA-Z0-9]*"/>
+      <property name="defaultFieldPattern" value="_[a-z][a-zA-Z0-9]*"/>
+    </properties>
+  </rule>
+
+  <rule ref="category/java/design.xml">
+    <exclude name="LoosePackageCoupling" />
+  </rule>
+
+  <rule ref="category/java/documentation.xml" />
+
+  <rule ref="category/java/errorprone.xml" />
+
+  <rule ref="category/java/multithreading.xml" />
+
+  <rule ref="category/java/performance.xml" />
+
+  <rule ref="category/java/security.xml" />
+
+</ruleset>
