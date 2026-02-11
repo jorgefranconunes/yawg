@@ -42,7 +42,6 @@ Copyright (c) 2015-2026 Yawg project contributors.
     <yamlbeans.version>1.15</yamlbeans.version>
 
     <!-- Versions of Maven plugins. -->
-    <findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>
     <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
     <maven-assembly-plugin.version>3.8.0</maven-assembly-plugin.version>
     <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
@@ -64,6 +63,7 @@ Copyright (c) 2015-2026 Yawg project contributors.
     <maven-source-plugin.version>3.4.0</maven-source-plugin.version>
     <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
     <maven-surefire-report-plugin.version>3.5.4</maven-surefire-report-plugin.version>
+    <spotbugs-maven-plugin.version>4.9.8.2</spotbugs-maven-plugin.version>
     <versions-maven-plugin.version>2.21.0</versions-maven-plugin.version>
 
   </properties>
@@ -210,8 +210,7 @@ Copyright (c) 2015-2026 Yawg project contributors.
           This is here because we want to specify the exact CheckStyle
           version to be used. It will not work if we put this plugin
           inside <pluginManagement>. It will not work if we add the
-          <dependencies> block inside <reporting>. And this, gentle
-          fellow coder, is why Maven is going the way of the dodo...
+          <dependencies> block inside <reporting>.
       -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -502,27 +501,45 @@ Copyright (c) 2015-2026 Yawg project contributors.
   <reporting>
 
     <plugins>
+      <!-- The reporting plugins are ordered so they appear
+           alphabetically (sort of) in the reports HTML pages. -->
 
+      <!-- https://maven.apache.org/jxr/maven-jxr-plugin/ -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>${maven-project-info-reports-plugin.version}</version>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <version>${maven-jxr-plugin.version}</version>
+      </plugin>
+
+      <!--
+          http://maven.apache.org/plugins/maven-checkstyle-plugin/
+	  https://checkstyle.sourceforge.io/
+      -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>${maven-checkstyle-plugin.version}</version>
         <configuration>
-          <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
-          <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+          <configLocation>${yawg.projectRootDir}/src/main/config/checkstyle-13.2.0-yawg.xml</configLocation>
+          <excludes>**/Immutable*.java</excludes>
         </configuration>
         <reportSets>
           <reportSet>
-            <id>top-project</id>
             <reports>
-              <report>index</report>
-              <report>team</report>
-              <report>mailing-lists</report>
-              <report>scm</report>
-              <report>issue-management</report>
-              <report>ci-management</report>
-              <report>dependencies</report>
-              <report>summary</report>
+              <report>checkstyle</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${jacoco-maven-plugin.version}</version>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>report</report>
             </reports>
           </reportSet>
         </reportSets>
@@ -553,65 +570,6 @@ Copyright (c) 2015-2026 Yawg project contributors.
         </reportSets>
       </plugin>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jxr-plugin</artifactId>
-        <version>${maven-jxr-plugin.version}</version>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-report-plugin</artifactId>
-        <version>${maven-surefire-report-plugin.version}</version>
-      </plugin>
-
-      <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-        <version>${jacoco-maven-plugin.version}</version>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>report</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-      </plugin>
-
-      <!--
-         http://maven.apache.org/plugins/maven-checkstyle-plugin/
-      -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>${maven-checkstyle-plugin.version}</version>
-        <configuration>
-          <configLocation>${yawg.projectRootDir}/src/main/config/checkstyle-13.2.0-yawg.xml</configLocation>
-          <excludes>**/Immutable*.java</excludes>
-        </configuration>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>checkstyle</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-      </plugin>
-
-      <!--
-         http://www.mojohaus.org/findbugs-maven-plugin/
-      -->
-      <!-- <plugin> -->
-      <!--   <groupId>org.codehaus.mojo</groupId> -->
-      <!--   <artifactId>findbugs-maven-plugin</artifactId> -->
-      <!--   <version>${findbugs-maven-plugin.version}</version> -->
-      <!--   <configuration> -->
-      <!--     <effort>Max</effort> -->
-      <!--     <xmlOutput>true</xmlOutput> -->
-      <!--     <xmlOutputDirectory>target/site</xmlOutputDirectory> -->
-      <!--   </configuration> -->
-      <!-- </plugin> -->
-
       <!--
           http://maven.apache.org/plugins/maven-pmd-plugin/
 	  https://docs.pmd-code.org/pmd-doc-7.21.0/index.html
@@ -625,14 +583,55 @@ Copyright (c) 2015-2026 Yawg project contributors.
           <verbose>true</verbose>
           <rulesets>
             <ruleset>${yawg.projectRootDir}/src/main/config/pmd-7.21.0-yawg.xml</ruleset>
-            <!-- <ruleset>/home/jorge.nunes/develop/yawg/modules/src/main/config/pmd-7.21.0-yawg.xml</ruleset> -->
-
           </rulesets>
           <excludeRoots>
             <excludeRoot>target/generated-sources</excludeRoot>
             <excludeRoot>target/generated-test-sources</excludeRoot>
           </excludeRoots>
         </configuration>
+      </plugin>
+
+      <!-- https://spotbugs.github.io/spotbugs-maven-plugin/ -->
+      <plugin>
+	<groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <version>${spotbugs-maven-plugin.version}</version>
+        <configuration>
+          <xmlOutput>true</xmlOutput>
+          <xmlOutputDirectory>target/site</xmlOutputDirectory>
+	</configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>${maven-project-info-reports-plugin.version}</version>
+        <configuration>
+          <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
+          <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+        </configuration>
+        <reportSets>
+          <reportSet>
+            <id>top-project</id>
+            <reports>
+              <report>index</report>
+              <report>team</report>
+              <report>mailing-lists</report>
+              <report>scm</report>
+              <report>issue-management</report>
+              <report>ci-management</report>
+              <report>dependencies</report>
+              <report>summary</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+
+      <!-- https://maven.apache.org/surefire/maven-surefire-report-plugin/ -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <version>${maven-surefire-report-plugin.version}</version>
       </plugin>
 
     </plugins>
