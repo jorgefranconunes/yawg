@@ -61,9 +61,6 @@ public final class BakerCli {
         return exitStatus;
     }
 
-    /**
-     *
-     */
     private static InfoPrinter buildInfoPrinter(
             final String argv0,
             final OutputStream output
@@ -88,7 +85,8 @@ public final class BakerCli {
 
     private Try<Void> performAction(
             final InfoPrinter infoPrinter,
-            final BakerCliAction action) {
+            final BakerCliAction action
+    ) {
         return switch(action) {
             case BakerCliAction.PrintHelp _ -> Try.run(infoPrinter::printHelp);
             case BakerCliAction.PrintVersion _ -> Try.run(infoPrinter::printVersion);

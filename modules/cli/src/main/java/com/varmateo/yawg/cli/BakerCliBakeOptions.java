@@ -15,8 +15,11 @@ import org.immutables.value.Value.Immutable;
 @Immutable
 interface BakerCliBakeOptions {
     Path sourceDir();
+
     Path targetDir();
+
     Optional<Path> templatesDir();
+
     Map<String, String> externalPageVars();
 
     static Builder builder() {

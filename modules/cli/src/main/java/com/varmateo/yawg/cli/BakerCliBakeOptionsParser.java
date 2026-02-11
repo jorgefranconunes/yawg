@@ -54,19 +54,19 @@ import io.vavr.control.Try;
                         (map, t) -> map.put(t._1, t._2));
     }
 
-    private static Tuple2<String,String> getVarNameAndValueFromOptionValue(
+    private static Tuple2<String, String> getVarNameAndValueFromOptionValue(
             final String optionValue
     ) {
         final String varName;
         final String varValue;
         final int indexOfEqSign = optionValue.indexOf('=');
 
-        if ( indexOfEqSign < 0 ) {
+        if (indexOfEqSign < 0) {
             varName = optionValue;
             varValue = "";
         } else {
             varName = optionValue.substring(0, indexOfEqSign);
-            varValue = optionValue.substring(indexOfEqSign+1);
+            varValue = optionValue.substring(indexOfEqSign + 1);
         }
 
         return Tuple.of(varName, varValue);

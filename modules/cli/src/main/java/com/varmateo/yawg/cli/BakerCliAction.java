@@ -35,7 +35,7 @@ import io.vavr.control.Try;
     }
 
     static Try<BakerCliAction> parse(final String[] args) {
-        if ( args.length == 0 ) {
+        if (args.length == 0) {
             return Try.success(printHelp());
         } else {
             return BakerCliParameters.parse(args)
@@ -44,9 +44,9 @@ import io.vavr.control.Try;
     }
 
     static Try<BakerCliAction> parseParameters(final CliParameterSet cliParams) {
-        if ( cliParams.hasOption(BakerCliParameters.HELP) ) {
+        if (cliParams.hasOption(BakerCliParameters.HELP)) {
             return Try.success(printHelp());
-        } else if ( cliParams.hasOption(BakerCliParameters.VERSION) ) {
+        } else if (cliParams.hasOption(BakerCliParameters.VERSION)) {
             return Try.success(printVersion());
         } else {
             return BakerCliBakeOptionsParser.parse(cliParams)

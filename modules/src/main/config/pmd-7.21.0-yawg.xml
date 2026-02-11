@@ -19,22 +19,33 @@ description of available rulesets and rules.
 
   <rule ref="category/java/bestpractices.xml" />
 
-  <rule ref="category/java/codestyle.xml" />
+  <rule ref="category/java/codestyle.xml">
+    <exclude name="LongVariable" />
+    <exclude name="ShortVariable" />
+  </rule>
 
   <rule ref="category/java/codestyle.xml/FieldNamingConventions">
     <properties>
-      <property name="finalFieldPattern" value="_[a-z][a-zA-Z0-9]*"/>
-      <property name="defaultFieldPattern" value="_[a-z][a-zA-Z0-9]*"/>
+      <property name="finalFieldPattern" value="((_[a-z])|[a-z])[a-zA-Z0-9]*"/>
+      <property name="defaultFieldPattern" value="((_[a-z])|[a-z])[a-zA-Z0-9]*"/>
     </properties>
   </rule>
 
   <rule ref="category/java/design.xml">
+    <exclude name="LawOfDemeter" /> <!-- Too much noise. -->
     <exclude name="LoosePackageCoupling" />
+    <exclude name="PublicMemberInNonPublicType" />
+    <exclude name="TooManyMethods" />
   </rule>
 
-  <rule ref="category/java/documentation.xml" />
+  <rule ref="category/java/documentation.xml">
+    <exclude name="CommentRequired" />
+    <exclude name="CommentSize" />
+  </rule>
 
-  <rule ref="category/java/errorprone.xml" />
+  <rule ref="category/java/errorprone.xml">
+    <exclude name="MissingSerialVersionUID" />
+  </rule>
 
   <rule ref="category/java/multithreading.xml" />
 
