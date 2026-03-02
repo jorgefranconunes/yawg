@@ -37,7 +37,7 @@ Copyright (c) 2015-2026 Yawg project contributors.
     <jsoup.version>1.13.1</jsoup.version>
     <junit.version>4.13.2</junit.version>
     <mockito-core.version>3.7.7</mockito-core.version>
-    <pmd.version>7.21.0</pmd.version>
+    <pmd.version>7.22.0</pmd.version>
     <vavr.version>0.10.3</vavr.version>
     <yamlbeans.version>1.15</yamlbeans.version>
 
